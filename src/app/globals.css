@@ -35,6 +35,10 @@ body{
   background-color: #fff;
   overflow-x: hidden; */
   background-color: #000;
+  margin: 0px;
+  margin-top: 50vh;
+  margin-bottom: 100vh;
+
 }
 
 a, p  {
@@ -50,19 +54,14 @@ a, p  {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
 }
-.page-content{
+/* .page-content{
   width: 100%;
   height: 100vh;
- 
+
   min-height: 100vh;
-  padding: 6em 2em;
-}
-.page-content.hero{
-  /* background: url("./Hero.jpg") no-repeat 50% 50%; */
-  /* background-size: cover; */
-  background: url("./Hero.jpg")  no-repeat 50% 50%;
-  background-size: cover;
-}
+ 
+} */
+
 h1{
   position: absolute;
   top: 50%;
