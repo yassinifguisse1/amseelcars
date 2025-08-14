@@ -1,25 +1,42 @@
 'use client'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ZoomParallax from "@/components/ZoomParallax";
-import Lenis from 'lenis';
+
+import Landing from '@/components/Landing';
+import { AnimatePresence } from 'framer-motion';
+import Preloader from '@/components/Preloader';
+import Cardrive from '@/components/scroll-video/scroll-video';
+
 
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect( () => {
-    const lenis = new Lenis()
-   
-    function raf(time: number) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-},[])
+    setTimeout( () => {
+      setIsLoading(false);
+      document.body.style.cursor = 'default'
+      window.scrollTo(0,0);
+    }, 2000)
+  }, [])
   return (
    
     <div className="page-content hero" >
+        <AnimatePresence mode='wait'>
+        {isLoading && <Preloader />}
+      </AnimatePresence>
+      <Cardrive/>
+
+      {/* <Landing /> */}
+      {/* <FloatingHero /> */}
+      {/* <MasonryGallery /> */}
       <ZoomParallax />
+
+      
+
+      
+     
       
     </div>
   );

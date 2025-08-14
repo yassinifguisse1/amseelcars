@@ -109,7 +109,7 @@ const Menu = () => {
                     {menuLinks.map((link, index) => (
                         <div className="menu-link-item" key={index}>
                             <div className="menu-link-item-holder" onClick={toggleMenu} >
-                            <Link href={link.path} className='menu-link '>{link.label}</Link>
+                            <Link href={link.path} className='menu-link font-heading font-bold'>{link.label}</Link>
 
                             </div>
                         </div>

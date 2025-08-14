@@ -31,7 +31,7 @@
     width: 100vw;
     height: 100vh;
     padding: 2em;
-    background: #c5fb45;
+    background: #FB4545;
     z-index: 2;
     display: flex;
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
@@ -65,7 +65,7 @@
 
 .menu-close-icon p {
     font-size: 100px;
-    -webkit-text-stroke: 5px #c5fb45;
+    -webkit-text-stroke: 5px #FB4545;
     line-height: 70%;
 }
 
