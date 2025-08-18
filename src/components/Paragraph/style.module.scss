@@ -1,0 +1,93 @@
+.paragraph{
+    display: flex;
+    font-family: ui-serif, Georgia, 'Times New Roman', Times, serif;
+    color: white;
+    flex-wrap: wrap;
+    width: 100%;
+    
+    // Mobile first (320px and up)
+    font-size: 24px;
+    line-height: 1.2;
+    padding: 16px;
+    max-width: 100%;
+    
+    // Small mobile (375px and up)
+    @media (min-width: 375px) {
+      font-size: 28px;
+      padding: 20px;
+    }
+    
+    // Large mobile (425px and up)
+    @media (min-width: 425px) {
+      font-size: 32px;
+      line-height: 1.1;
+      padding: 24px;
+    }
+    
+    // Tablet (768px and up)
+    @media (min-width: 768px) {
+      font-size: 40px;
+      line-height: 1.05;
+      padding: 32px;
+      max-width: 90%;
+    }
+    
+    // Large tablet (1024px and up)
+    @media (min-width: 1024px) {
+      font-size: 48px;
+      line-height: 1;
+      padding: 36px;
+      max-width: 85%;
+    }
+    
+    // Desktop (1280px and up)
+    @media (min-width: 1280px) {
+      font-size: 60px;
+      padding: 40px;
+      max-width: 1280px;
+    }
+    
+    // Large desktop (1440px and up)
+    @media (min-width: 1440px) {
+      font-size: 64px;
+      padding: 48px;
+    }
+    
+    .word{
+      position: relative;
+      
+      // Mobile first spacing
+      margin-right: 6px;
+      margin-top: 4px;
+      
+      // Small mobile
+      @media (min-width: 375px) {
+        margin-right: 8px;
+        margin-top: 6px;
+      }
+      
+      // Large mobile
+      @media (min-width: 425px) {
+        margin-right: 8px;
+        margin-top: 8px;
+      }
+      
+      // Tablet and up
+      @media (min-width: 768px) {
+        margin-right: 10px;
+        margin-top: 10px;
+      }
+      
+      // Desktop and up
+      @media (min-width: 1280px) {
+        margin-right: 12px;
+        margin-top: 12px;
+      }
+      
+      .shadow{
+        position: absolute;
+        opacity: 20%;
+      }
+    } 
+  }
+

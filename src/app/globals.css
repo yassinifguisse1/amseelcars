@@ -44,9 +44,9 @@ body{
 
 
 a, p  {
-  color: #000;
+  /* color: #000; */
   text-decoration: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-size: 14px;
   font-weight: 500;
   font-style: normal;
@@ -110,4 +110,95 @@ canvas {
   opacity: 0;
   touch-action: none;
   animation: fade-in 5s ease 0.5s forwards;
+}
+
+/* Dashboard Map Styles */
+.text-shadow-lg {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.dashboard-glow {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.map-overlay {
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.1), rgba(0, 255, 136, 0.05));
+}
+
+/* Pulse animation for GPS dot */
+@keyframes pulse-gps {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.gps-pulse {
+  animation: pulse-gps 2s ease-in-out infinite;
+}
+
+/* Responsive dashboard adjustments */
+@media (max-width: 768px) {
+  .dashboard-element {
+    font-size: 0.8rem;
+  }
+  
+  .dashboard-element .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-element .text-2xl {
+    font-size: 1.25rem;
+  }
+}
+
+/* Sticky dashboard styles */
+.writing-mode-vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for better UX */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 136, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 136, 0.5);
+}
+
+/* Progress indicator animation */
+@keyframes progress-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.progress-indicator {
+  animation: progress-pulse 2s ease-in-out infinite;
 }

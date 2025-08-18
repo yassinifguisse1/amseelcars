@@ -243,11 +243,11 @@ const Cardrive = () => {
         const loadImages = async () => {
             const loadedImages: HTMLImageElement[] = [];
             let loadedCount = 0;
-            const totalImages = 833;
+            const totalImages = 417;
 
             for(let i = 1; i <= totalImages; i++){
                 const img = new Image();
-                img.src = `/frames/${i}.webp`;
+                img.src = `/frames/desktop/${i}.webp`;
                 
                 img.onload = () => {
                     loadedCount++;
@@ -277,7 +277,7 @@ const Cardrive = () => {
         }
     }, [images, imagesLoaded]);
 
-    const currentIndex = useTransform(scrollYProgress, [0, 1], [1, 833]);
+    const currentIndex = useTransform(scrollYProgress, [0, 1], [1, 417]);
     
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);
@@ -328,7 +328,7 @@ const Cardrive = () => {
                         <div className="text-center">
                             <div>Loading frames...</div>
                             <div className="text-sm mt-2">
-                                {Math.round((images.filter(img => img.complete).length / 833) * 100)}%
+                                {Math.round((images.filter(img => img.complete).length / 417) * 100)}%
                             </div>
                         </div>
                     </div>

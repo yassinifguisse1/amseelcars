@@ -1,0 +1,161 @@
+.description{
+    // Mobile first
+    padding: 20px 16px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // min-height: 100vh;
+    
+    // Small mobile (375px and up)
+    @media (min-width: 375px) {
+        padding: 24px 20px;
+        margin-top: 50px;
+    }
+    
+    // Large mobile (425px and up)
+    @media (min-width: 425px) {
+        padding: 32px 24px;
+        margin-top: 60px;
+    }
+    
+    // Tablet (768px and up)
+    @media (min-width: 768px) {
+        padding: 40px 60px;
+        margin-top: 80px;
+    }
+    
+    // Large tablet (1024px and up)
+    @media (min-width: 1024px) {
+        padding: 60px 100px;
+        margin-top: 100px;
+    }
+    
+    // Desktop (1280px and up)
+    @media (min-width: 1280px) {
+        padding: 80px 200px;
+    }
+    
+    .body{
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        
+        // Tablet and up - side by side layout
+        @media (min-width: 768px) {
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+        }
+        
+        @media (min-width: 1024px) {
+            gap: 80px;
+        }
+        
+        // Desktop - center the button with the text
+        @media (min-width: 1280px) {
+            align-items: center;
+            justify-content: center;
+        }
+        
+        // p{
+        //     margin: 0px;
+        //     &:nth-of-type(1){
+        //         font-size: 36px;
+        //         gap: 8px;
+        //         line-height: 1.3;
+        //         span{
+        //             margin-right: 3px;
+        //         }
+        //         .mask{
+        //             position: relative;
+        //             overflow: hidden;
+        //             display: inline-flex;
+        //         }
+        //     }
+        //     &:nth-of-type(2){
+        //         font-size: 18px;
+        //         width: 80%;
+        //         font-weight: 300;
+        //     }
+        // }
+        
+        .button{
+            // Mobile first - centered below text
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            color: #1C1D20;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            
+            // Small mobile
+            @media (min-width: 375px) {
+                width: 140px;
+                height: 140px;
+            }
+            
+            // Large mobile
+            @media (min-width: 425px) {
+                width: 160px;
+                height: 160px;
+            }
+            
+            // Tablet - positioned to the right
+            @media (min-width: 768px) {
+                position: absolute;
+                top: 20%;
+                right: 0;
+                width: 180px;
+                height: 180px;
+            }
+            
+            // Large tablet
+            @media (min-width: 1024px) {
+                top: 10%;
+                right: -20px;
+            }
+            
+            // Desktop - centered with text
+            @media (min-width: 1280px) {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 200px;
+                height: 200px;
+                margin-left: 60px;
+            }
+            
+            p{
+                margin: 0px;
+                font-size: 14px;
+                font-weight: 300;
+                position: relative;
+                z-index: 1;
+                
+                @media (min-width: 425px) {
+                    font-size: 16px;
+                }
+                
+                @media (min-width: 1280px) {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    
+    .moreWork{
+        padding: 20px;
+        border-radius: 40px;
+        border: 1px solid grey;
+    }
+}
