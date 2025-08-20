@@ -38,7 +38,8 @@ body{
   background-color: #000;
   margin: 0px;
   /* margin-top: 50vh; */
-  margin-bottom: 100vh;
+  /* margin-bottom: 100vh; */
+  overflow-x: hidden;
 
 }
 
@@ -47,7 +48,7 @@ a, p  {
   /* color: #000; */
   text-decoration: none;
   /* text-transform: uppercase; */
-  font-size: 14px;
+  /* font-size: 14px; */
   font-weight: 500;
   font-style: normal;
   line-height: 100%;

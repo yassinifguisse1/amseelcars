@@ -9,7 +9,8 @@ import Cardrive from "@/components/scroll-video/scroll-video";
 import Index from "@/components/Description/Index";
 import Brands from "@/components/Brands/Brands";
 import BMWCarScroll from "@/components/CarsMoving/BMWCar";
-import CarDashboardMap from "@/components/CarDashboardMap/CarDashboardMap";
+import Example from "@/components/CarDashboardMap/Example";
+import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +37,8 @@ export default function Home() {
       <Index />
       <Brands />
       <BMWCarScroll />
-      {/* <CarDashboardMap/> */}
+      <Example/>
+      <Footer/>
      
     </div>
   );

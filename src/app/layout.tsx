@@ -3,6 +3,7 @@ import { Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Menu from "@/components/menu/menu";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
+import Footer from "@/components/Footer/Footer";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
