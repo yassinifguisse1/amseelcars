@@ -4,10 +4,10 @@ module.exports = {
     theme: {
       extend: {
         fontFamily: {
-          heading: ["var(--font-playfair)", "serif"],
-          // keep your normal text on Geist:
-          sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-          mono: ["var(--font-geist-mono)", "monospace"],
+          playfair: ["var(--font-playfair)", "Bodoni Moda", "Georgia", "serif"],
+          antic: ["var(--font-antic)", "Didot", "Bodoni Moda", "serif"],
+          // optional body font pairing:
+          sans: ["Inter", "system-ui", "Arial", "sans-serif"],
         },
       },
     },

@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
-import { Playfair_Display } from "next/font/google";
+import { Antic_Didone, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Menu from "@/components/menu/menu";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
-import Footer from "@/components/Footer/Footer";
+import { ViewTransitions } from "next-view-transitions";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+export const playfair = Playfair_Display({
   subsets: ["latin"],
-  // display: "swap",
-  weight: ["400","500","600","700","800","900"],     // pick what you use
-  style: ["normal","italic"],                        // optional
+  weight: ["400","500","600","700","800","900"],
+  style: ["normal","italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+export const anticDidone = Antic_Didone({
+  subsets: ["latin"],
+  weight: "400",             // Antic Didone provides one weight
+  variable: "--font-antic",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -33,9 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <ViewTransitions>
+    <html lang="en" suppressHydrationWarning>
+      
       <body
-        className={` ${playfair.variable} antialiased`}
+        className={` ${playfair.variable} ${anticDidone.variable} antialiased`}
       >
         <LenisScrollProvider />
         <Menu />
@@ -43,5 +44,6 @@ export default function RootLayout({
       
       </body>
     </html>
+    </ViewTransitions>
   );
 }

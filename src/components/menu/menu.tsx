@@ -3,6 +3,8 @@ import Link from 'next/link';
 import React, { useState ,useRef, useEffect} from 'react'
 
 import "./menu.css"
+import { usePathname } from 'next/navigation';
+import { useTransitionRouter } from 'next-view-transitions';
 
 import {gsap } from "gsap"
 import {useGSAP} from "@gsap/react"
@@ -39,6 +41,39 @@ const menuLinks = [
 const Menu = () => {
     const container = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
+
+
+    const router = useTransitionRouter()
+    const pathname = usePathname()
+
+
+    function triggerPageTransition() {
+        document.documentElement.animate([
+            {
+                clipPath: "polygon(25% 75%, 75% 75%, 75% 75%, 25% 75%)",
+            },
+            {
+                clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+            }
+
+        ],{
+            duration: 2000,
+            easing: "cubic-bezier(0.9, 0, 0.1, 1)",
+            pseudoElement: "::view-transition-new(root)",
+        })
+    }
+ 
+    const handleNavigation = (path: string) => (e: React.MouseEvent<HTMLAnchorElement>) =>{
+        if(pathname === path){
+            e.preventDefault()
+            return
+        }
+        router.push(path , {
+            scroll: false,
+            onTransitionReady: triggerPageTransition,
+        })
+    }
+    
       
     // ✅ Type this as a GSAP timeline, not HTMLAllCollection
     const tl = useRef<gsap.core.Timeline | null>(null);
@@ -109,7 +144,7 @@ const Menu = () => {
                     {menuLinks.map((link, index) => (
                         <div className="menu-link-item" key={index}>
                             <div className="menu-link-item-holder" onClick={toggleMenu} >
-                            <Link href={link.path} className='menu-link font-heading font-bold'>{link.label}</Link>
+                            <Link href={link.path} className='menu-link font-heading font-bold' onClick={handleNavigation(link.path)}>{link.label}</Link>
 
                             </div>
                         </div>
@@ -143,3 +178,4 @@ const Menu = () => {
 }
 
 export default Menu
+

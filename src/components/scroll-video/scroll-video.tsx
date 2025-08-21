@@ -243,14 +243,30 @@ const Cardrive = () => {
         const loadImages = async () => {
             const loadedImages: HTMLImageElement[] = [];
             let loadedCount = 0;
-            const totalImages = 417;
+            
+            // Load all frames from 1 to 833
+            const startFrame = 1;
+            const endFrame = 833;
+            const totalImages = endFrame - startFrame + 1; // 833 frames total
 
-            for(let i = 1; i <= totalImages; i++){
+            for(let i = startFrame; i <= endFrame; i++){
                 const img = new Image();
-                img.src = `/frames/desktop/${i}.webp`;
+                // Pad the number to 5 digits (00694, 00695, etc.)
+                const frameNumber = i.toString().padStart(5, '0');
+                img.src = `/frame/frame_${frameNumber}.webp`;
                 
                 img.onload = () => {
                     loadedCount++;
+                    console.log(`Loaded frame ${i} (${loadedCount}/${totalImages})`);
+                    if (loadedCount === totalImages) {
+                        setImagesLoaded(true);
+                        console.log('All frames loaded successfully!');
+                    }
+                };
+                
+                img.onerror = () => {
+                    console.error(`Failed to load frame: /frame/frame_${frameNumber}.webp`);
+                    loadedCount++; // Still count it to avoid hanging
                     if (loadedCount === totalImages) {
                         setImagesLoaded(true);
                     }
@@ -277,7 +293,7 @@ const Cardrive = () => {
         }
     }, [images, imagesLoaded]);
 
-    const currentIndex = useTransform(scrollYProgress, [0, 1], [1, 417]);
+    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 832]); // 0-832 for 833 frames
     
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);
@@ -292,7 +308,7 @@ const Cardrive = () => {
             const ctx = canvas.getContext('2d');
             if (!ctx) return;
 
-            const imageIndex = Math.max(0, Math.min(index - 1, images.length - 1));
+            const imageIndex = Math.max(0, Math.min(Math.round(index), images.length - 1));
             const img = images[imageIndex];
             
             if (img && img.complete) {
@@ -328,7 +344,7 @@ const Cardrive = () => {
                         <div className="text-center">
                             <div>Loading frames...</div>
                             <div className="text-sm mt-2">
-                                {Math.round((images.filter(img => img.complete).length / 417) * 100)}%
+                                {Math.round((images.filter(img => img.complete).length / 833) * 100)}%
                             </div>
                         </div>
                     </div>
