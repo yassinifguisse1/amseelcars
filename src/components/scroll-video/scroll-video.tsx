@@ -245,7 +245,7 @@ const Cardrive = () => {
             let loadedCount = 0;
             
             // Load all frames from 1 to 833
-            const startFrame = 1;
+            const startFrame = 494;
             const endFrame = 833;
             const totalImages = endFrame - startFrame + 1; // 833 frames total
 
