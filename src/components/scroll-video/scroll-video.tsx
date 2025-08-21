@@ -253,6 +253,13 @@ const Cardrive = () => {
                 const img = new Image();
                 // Pad the number to 5 digits (00694, 00695, etc.)
                 const frameNumber = i.toString().padStart(5, '0');
+                
+                // Option to use mobile-specific frames if available
+                // Uncomment these lines if you create mobile-optimized frames:
+                // const isMobile = window.innerWidth < 768;
+                // const frameFolder = isMobile ? '/frame/mobile' : '/frame';
+                // img.src = `${frameFolder}/frame_${frameNumber}.webp`;
+                
                 img.src = `/frame/frame_${frameNumber}.webp`;
                 
                 img.onload = () => {
@@ -280,18 +287,46 @@ const Cardrive = () => {
         loadImages();
     }, []);
 
-    // Set canvas size
+    // Set canvas size responsively
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (canvas && imagesLoaded && images.length > 0) {
-            // Set canvas size based on first image
-            const firstImg = images[0];
-            if (firstImg.complete) {
-                canvas.width = firstImg.naturalWidth;
-                canvas.height = firstImg.naturalHeight;
+        if (!canvas) return;
+
+        const resizeCanvas = () => {
+            const container = canvas.parentElement;
+            if (container) {
+                // Get container dimensions
+                const containerWidth = container.clientWidth;
+                const containerHeight = container.clientHeight;
+                
+                // Set canvas size to fill container
+                canvas.width = containerWidth;
+                canvas.height = containerHeight;
+                
+                // Set CSS size to match
+                canvas.style.width = `${containerWidth}px`;
+                canvas.style.height = `${containerHeight}px`;
+                
+                console.log(`Canvas resized to: ${containerWidth}x${containerHeight}`);
             }
-        }
-    }, [images, imagesLoaded]);
+        };
+
+        // Initial resize
+        resizeCanvas();
+
+        // Listen for window resize
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Also listen for orientation change on mobile
+        window.addEventListener('orientationchange', () => {
+            setTimeout(resizeCanvas, 100); // Small delay for orientation change
+        });
+
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            window.removeEventListener('orientationchange', resizeCanvas);
+        };
+    }, []);
 
     const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 832]); // 0-832 for 833 frames
     
@@ -313,7 +348,37 @@ const Cardrive = () => {
             
             if (img && img.complete) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Smart responsive cropping based on device orientation
+                const canvasAspect = canvas.width / canvas.height;
+                const imageAspect = img.naturalWidth / img.naturalHeight;
+                const isMobile = canvas.width < 768; // Mobile breakpoint
+                const isPortrait = canvas.height > canvas.width;
+                
+                let drawWidth, drawHeight, offsetX, offsetY;
+                
+                if (isMobile && isPortrait) {
+                    // Mobile portrait: Focus on center-bottom (where car usually is)
+                    drawHeight = canvas.height;
+                    drawWidth = canvas.height * imageAspect;
+                    offsetX = (canvas.width - drawWidth) / 2;
+                    offsetY = -drawHeight * 0.1; // Shift up slightly to show more car
+                } else if (canvasAspect > imageAspect) {
+                    // Wider canvas - fit width and crop height
+                    drawWidth = canvas.width;
+                    drawHeight = canvas.width / imageAspect;
+                    offsetX = 0;
+                    offsetY = (canvas.height - drawHeight) / 2;
+                } else {
+                    // Taller canvas - fit height and crop width
+                    drawHeight = canvas.height;
+                    drawWidth = canvas.height * imageAspect;
+                    offsetX = (canvas.width - drawWidth) / 2;
+                    offsetY = 0;
+                }
+                
+                // Draw image with smart cropping
+                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
             }
         },
         [images, imagesLoaded]
@@ -329,14 +394,15 @@ const Cardrive = () => {
             className="relative bg-black"
             style={{ height: "400vh" }}
         >
-            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black">
                 <canvas 
                     ref={canvasRef}
-                    className="w-full h-full object-cover"
+                    className="block"
                     style={{
                         display: 'block',
-                        maxWidth: '100%',
-                        maxHeight: '100%'
+                        width: '100vw',
+                        height: '100vh',
+                        objectFit: 'cover'
                     }}
                 />
                 {!imagesLoaded && (
