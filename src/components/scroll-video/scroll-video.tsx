@@ -24,7 +24,7 @@
 //   useEffect(() => {
 //     const loadImages = async () => {
 //       let loadedCount = 0;
-//       const totalImages = 833;
+//       const totalImages = 770;
 
 //       // Create a promise for each image load
 //       const imagePromises = [];
@@ -142,7 +142,7 @@
 //     }
 //   }, [images, render]);
 
-//   const currentIndex = useTransform(scrollYProgress, [0, 1], [1, 833]);
+//   const currentIndex = useTransform(scrollYProgress, [0, 1], [1, 770]);
 
 //   // Logo parallax transforms
 //   const logoY = useTransform(scrollYProgress, [0, 1], ["100vh", "-20vh"]);
@@ -210,8 +210,8 @@
 //                 ></div>
 //               </div>
 //               <div className="text-sm">
-//                 {loadingProgress}% ({Math.round((loadingProgress / 100) * 833)}
-//                 /833 frames)
+//                 {loadingProgress}% ({Math.round((loadingProgress / 100) * 770)}
+//                 /770 frames)
 //               </div>
 //             </div>
 //           </div>
@@ -244,10 +244,10 @@ const Cardrive = () => {
             const loadedImages: HTMLImageElement[] = [];
             let loadedCount = 0;
             
-            // Load all frames from 1 to 833
-            const startFrame = 494;
-            const endFrame = 833;
-            const totalImages = endFrame - startFrame + 1; // 833 frames total
+            // Load all frames from 1 to 770
+            const startFrame = 400;
+            const endFrame = 770;
+            const totalImages = endFrame - startFrame + 1; // 770 frames total
 
             for(let i = startFrame; i <= endFrame; i++){
                 const img = new Image();
@@ -328,7 +328,7 @@ const Cardrive = () => {
         };
     }, []);
 
-    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 832]); // 0-832 for 833 frames
+    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 769]); // 0-832 for 770 frames
     
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);
@@ -410,7 +410,7 @@ const Cardrive = () => {
                         <div className="text-center">
                             <div>Loading frames...</div>
                             <div className="text-sm mt-2">
-                                {Math.round((images.filter(img => img.complete).length / 833) * 100)}%
+                                {Math.round((images.filter(img => img.complete).length / 770) * 100)}%
                             </div>
                         </div>
                     </div>

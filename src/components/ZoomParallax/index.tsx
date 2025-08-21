@@ -1,9 +1,9 @@
 "use client"
 import styles from './styles.module.scss';
-import Picture1 from '../../../public/images/golf.jpeg';
-import Picture2 from '../../../public/images/2.jpeg';
-import Picture3 from '../../../public/images/3.jpg';
-import Picture4 from '../../../public/images/4.jpg'
+// import Picture1 from '../../../public/images/golf.jpeg'; // Replaced with video
+import Picture2 from '../../../public/images/kia.jpg';
+import Picture3 from '../../../public/images/bmwx3.jpg.avif';
+import Picture4 from '../../../public/images/tRok.jpg'
 import Picture5 from '../../../public/images/5.jpg'
 import Picture6 from '../../../public/images/6.jpg'
 // import Picture7 from '../../../public/images/7.jpeg'
@@ -38,13 +38,13 @@ export default function Index() {
     // const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
 
     const pictures = [
-        { src: Picture1, scale: scale4, cls: styles.t1 },
-        { src: Picture2, scale: scale5, cls: styles.t2 },
-        { src: Picture3, scale: scale6, cls: styles.t3 },
-        { src: Picture4, scale: scale5, cls: styles.t4 },
-        { src: Picture5, scale: scale6, cls: styles.t5 },
-        { src: Picture6, scale: scale8, cls: styles.t6 },
-        // { src: Picture7, scale: scale9, cls: styles.t6 },
+        { src: '/video/centercar.mp4', scale: scale4, cls: styles.t1, isVideo: true },
+        { src: Picture2, scale: scale5, cls: styles.t2, isVideo: false },
+        { src: Picture3, scale: scale6, cls: styles.t3, isVideo: false },
+        { src: Picture4, scale: scale5, cls: styles.t4, isVideo: false },
+        { src: Picture5, scale: scale6, cls: styles.t5, isVideo: false },
+        { src: Picture6, scale: scale8, cls: styles.t6, isVideo: false },
+        // { src: Picture7, scale: scale9, cls: styles.t6, isVideo: false },
     ]
 
     const requestAnimationFrameId = useRef<number | null>(null);
@@ -105,20 +105,33 @@ export default function Index() {
         <div ref={container} onMouseMove={(e) => {manageMouseMove(e)}} className={styles.container} >
             <div className={styles.sticky} ref={plan1}>
                 {
-                    pictures.map( ({src, scale, cls}, index) => {
+                    pictures.map( ({src, scale, cls, isVideo}, index) => {
                         return <motion.div  key={index} style={{scale}} className={`${styles.el} ${cls}`} variants={float} initial="initial" animate="animate">
                             <div className={styles.imageContainer} >
-                                <Image
-                                    src={src}
-                                    fill
-                                    alt="image"
-                                    placeholder='blur'
-                                    className='rounded-2xl'
-                                    
-                                />
+                                {isVideo ? (
+                                    <video
+                                        src={src as string}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className='w-full h-full object-cover rounded-2xl'
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover'
+                                        }}
+                                    />
+                                ) : (
+                                    <Image
+                                        src={src}
+                                        fill
+                                        alt="image"
+                                        placeholder='blur'
+                                        className='rounded-2xl'
+                                    />
+                                )}
                             </div>
-                            
-                          
                         </motion.div>
                     })
                 }

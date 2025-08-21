@@ -34,7 +34,7 @@ export default function BMWCarScroll() {
 
   return (
     <section ref={containerRef} style={{ height: "300vh" }}>
-      <div className="sticky top-0 h-screen flex items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200 overflow-hidden border-2 border-red-500">
+      <div className="sticky top-0 h-screen flex items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200 overflow-hidden">
         
         {/* BMW X3 M Logo - Background parallax layer */}
         <motion.div
@@ -138,25 +138,20 @@ export default function BMWCarScroll() {
         >
           <div className="text-center space-y-4">
             {/* Car description */}
-            <div className="text-gray-700 space-y-1 border-2 p-2 border-red-500">
+            <div className="text-gray-700 space-y-1  p-2 ">
               <h3 className="text-2xl font-bold">BMW X3 M</h3>
               <p className="text-lg">Premium SUV built for performance.</p>
-              <p className="text-sm font-medium">From $89/day • Available now</p>
             </div>
             
             {/* Buttons */}
-            <div className="flex items-center justify-center gap-4 border-2 border-red-500">
+            <div className="flex items-center justify-center ">
               <Rounded backgroundColor={"#334BD3"} >
                 <p>
                 Book Now
 
                 </p>
               </Rounded>
-              <Rounded backgroundColor={"#334BD3"} >
-                <p>
-                Explore
-                </p>
-              </Rounded>
+             
             </div>
           </div>
         </motion.div>
