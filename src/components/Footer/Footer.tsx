@@ -23,15 +23,15 @@ export default function Footer() {
                             <Image 
                             fill={true}
                             alt={"image"}
-                            src={`/images/background.jpg`}
+                            src={`/images/amseel-car-logo.png`}
                             />
                         </div>
-                        <h2>Let&apos;s work</h2>
+                        <h2>Let&apos;s Get</h2>
                     </span>
-                    <h2>together</h2>
+                    <h2>You a Car</h2>
                     <motion.div style={{x}} className={styles.buttonContainer}>
-                        <Rounded  backgroundColor={"#334BD3"} className={styles.button}>
-                            <p>Get in touch</p>
+                        <Rounded  className={styles.button}>
+                            <p>Book Now</p>
                         </Rounded>
                     </motion.div>
                     <motion.svg style={{rotate, scale: 2}} width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -50,18 +50,18 @@ export default function Footer() {
                     <div>
                         <span>
                             <h3>Version</h3>
-                            <p>2022 © Edition</p>
+                            <p>2025 © Edition</p>
                         </span>
-                        <span>
+                        {/* <span>
                             <h3>Version</h3>
                             <p>11:49 PM GMT+2</p>
-                        </span>
+                        </span> */}
                     </div>
                     <div>
                         <span>
                             <h3>socials</h3>
                             <Magnetic>
-                                <p>Awwwards</p>
+                                <p>AmseelCars</p>
                             </Magnetic>
                         </span>
                         <Magnetic>

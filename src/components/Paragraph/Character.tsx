@@ -31,7 +31,7 @@ export default function Paragraph({ paragraph }: ParagraphProps) {
   const words = paragraph.split(" ");
 
   return (
-    <div className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8">
+    <div className="w-full flex justify-center items-center px-4 sm:px-6 lg:px-8s ">
       <p ref={container} className={`${styles.paragraph} font-bold`}>
         {words.map((word, i) => {
           const start = i / words.length;

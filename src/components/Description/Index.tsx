@@ -8,16 +8,16 @@ export default function Index() {
   const router = useRouter();
   const description = useRef<HTMLDivElement>(null);
   const paragraph =
-    "Are Dictacted by the position of the word inside the paragraph. If the word is at the beginning of the paragraph, then it will have an earlier start and end point.";
+    "No hidden fees, no confusing terms. Just clear pricing and reliable vehicles. From compact cars to spacious SUVs, every ride is backed by full coverage and 24/7 support. Renting a car has never been this easy.";
 
   const handleAboutClick = () => {
     router.push("/about");
   };
 
   return (
-    <div ref={description} className={styles.description}>
-      <div className={styles.body}>
-        <div className="flex-1 ">
+    <div ref={description} className={`${styles.description} w-full `} >
+      <div className={`${styles.body}`}>
+        <div className="flex-1 w-full">
           <Paragraph paragraph={paragraph} />
         </div>
 

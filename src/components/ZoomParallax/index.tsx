@@ -2,9 +2,9 @@
 import styles from './styles.module.scss';
 // import Picture1 from '../../../public/images/golf.jpeg'; // Replaced with video
 import Picture2 from '../../../public/images/kia.jpg';
-import Picture3 from '../../../public/images/bmwx3.jpg.avif';
+import Picture3 from '../../../public/images/bmwx3.jpg';
 import Picture4 from '../../../public/images/tRok.jpg'
-import Picture5 from '../../../public/images/5.jpg'
+import Picture5 from '../../../public/images/clio.jpg'
 import Picture6 from '../../../public/images/6.jpg'
 // import Picture7 from '../../../public/images/7.jpeg'
 import Image from 'next/image';

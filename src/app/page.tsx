@@ -11,6 +11,7 @@ import Brands from "@/components/Brands/Brands";
 import BMWCarScroll from "@/components/CarsMoving/BMWCar";
 import Example from "@/components/CarDashboardMap/Example";
 import Footer from "@/components/Footer/Footer";
+import SplitHeadline from "@/components/test/SplitHeadline";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +35,8 @@ export default function Home() {
       {/* <FloatingHero /> */}
       {/* <MasonryGallery /> */}
       <ZoomParallax />
-      <Index />
+      <SplitHeadline />
+      
       <Brands />
       <BMWCarScroll />
       <Example/>
