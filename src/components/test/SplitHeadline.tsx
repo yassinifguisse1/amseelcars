@@ -108,7 +108,7 @@ export default function SplitHeadline() {
             "
           >
             <span className="split-left inline-block">Pick</span>
-            <span className="split-right inline-block">ia car</span>
+            <span className="split-right inline-block">a&nbsp;car</span>
 
           </h1>
         </div>
@@ -122,7 +122,7 @@ export default function SplitHeadline() {
             "
           >
             <span className="split-left inline-block">start</span>
-            <span className="split-right inline-block">start the journey.</span>
+            <span className="split-right inline-block">the&nbsp;journey.</span>
 
           </h1>
         </div>

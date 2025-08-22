@@ -4,6 +4,7 @@ import Rounded from '../../common/RoundedButton';
 import { useRef } from 'react';
 import { useScroll, motion, useTransform, useSpring } from 'framer-motion';
 import Magnetic from '../../common/Magnetic';
+import Link from 'next/link';
 
 export default function Footer() {
     const container = useRef(null);
@@ -12,8 +13,8 @@ export default function Footer() {
         offset: ["start end", "end end"]
     })
     const x = useTransform(scrollYProgress, [0, 1], [0, 100])
-    const y = useTransform(scrollYProgress, [0, 1], [-500, 0])
-    const rotate = useTransform(scrollYProgress, [0, 1], [120, 90])
+    const y = useTransform(scrollYProgress, [0, 1], [-100, 0])
+    const rotate = useTransform(scrollYProgress, [0, 1], [90, 90])
     return (
         <motion.div style={{y}} ref={container} className={styles.footer}>
             <div className={styles.body}>
@@ -40,10 +41,14 @@ export default function Footer() {
                 </div>
                 <div className={styles.nav}>
                         <Rounded>
-                            <p>info@dennissnellenberg.com</p>
+                            <Link href="mailto:contact@amseelcars.com" >
+                            <p>contact@amseelcars.com</p>
+                            </Link>
                         </Rounded>
                         <Rounded>
-                            <p>+31 6 27 84 74 30</p>
+                            <Link href="tel:+212662500181">
+                            <p>+212 662 500 181</p>
+                            </Link>
                         </Rounded>
                 </div>
                 <div className={styles.info}>
@@ -67,11 +72,9 @@ export default function Footer() {
                         <Magnetic>
                             <p>Instagram</p>
                         </Magnetic>
+                       
                         <Magnetic>
-                            <p>Dribbble</p>
-                        </Magnetic>
-                        <Magnetic>
-                            <p>Linkedin</p>
+                            <p>Facebook</p>
                         </Magnetic>
                     </div>
                 </div>

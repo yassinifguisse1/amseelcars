@@ -14,9 +14,9 @@ export default function BMWCarScroll() {
   });
 
   // BMW Car Animations (first part: 0 to 0.3)
-  const bmwCarX = useTransform(scrollYProgress, [0, 0.3], ["0vw", "-100vw"]);
+  const bmwCarX = useTransform(scrollYProgress, [0, 0.3], ["20vw", "-100vw"]);
   const bmwWheelRotate = useTransform(scrollYProgress, [0, 0.3], [0, -7 * 180]);
-  const bmwCarY = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, -2, -2, 0]);
+  const bmwCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
   const bmwShadowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0.3, 0.3, 0]);
   const bmwTextX = useTransform(scrollYProgress, [0, 0.3], ["50vw", "-50vw"]);
   const bmwTextOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0.1, 0.8, 0.8, 0.1]);
@@ -24,34 +24,40 @@ export default function BMWCarScroll() {
   const bmwOpacity = useTransform(scrollYProgress, [0, 0.2, 0.25, 0.35], [1, 1, 1, 0]);
 
   // KIA Car Animations (second part: 0.25 to 0.55)
-  const kiaCarX = useTransform(scrollYProgress, [0.25, 0.55], ["0vw", "-100vw"]);
-  const kiaWheelRotate = useTransform(scrollYProgress, [0.25, 0.55], [0, -7 * 180]);
+  const kiaCarX = useTransform(scrollYProgress, [0, 0.5], ["90vw", "-100vw"]);
+  const kiaWheelRotate = useTransform(scrollYProgress, [0, 0.5], [0, -11 * 180]);
   const kiaCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
   const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
-  const kiaTextX = useTransform(scrollYProgress, [0.25, 0.55], ["50vw", "-50vw"]);
-  const kiaTextOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]);
+  const kiaTextX = useTransform(scrollYProgress, [0, 0.7], ["120vw", "-100vw"]);
+  const kiaTextOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.3, 0.4], [0.1, 0.8, 0.8, 0.1]);
   const kiaTextScale = useTransform(scrollYProgress, [0.25, 0.4, 0.55], [0.9, 1, 1.1]);
-  const kiaOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0]);
+  // const kiaOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0]);
+
+
+
+
 
   // Touareg Car Animations (third part: 0.5 to 0.8)
-  const touaregCarX = useTransform(scrollYProgress, [0.5, 0.8], ["0vw", "-100vw"]);
-  const touaregWheelRotate = useTransform(scrollYProgress, [0.5, 0.8], [0, -7 * 180]);
+  const touaregCarX = useTransform(scrollYProgress, [0, 0.7], ["170vw", "-100vw"]);
+  const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -7 * 180]);
   const touaregCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, -2, -2, 0]);
   const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
-  const touaregTextX = useTransform(scrollYProgress, [0.5, 0.8], ["50vw", "-50vw"]);
-  const touaregTextOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0.1, 0.8, 0.8, 0.1]);
+  const touaregTextX = useTransform(scrollYProgress, [0, 0.7], ["200vw", "-50vw"]); // Same timing as car
+  const touaregTextOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]); // Same timing as car
   const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
-  const touaregOpacity = useTransform(scrollYProgress, [0.45, 0.55, 0.75, 0.85], [0, 1, 1, 0]);
+  // const touaregOpacity = useTransform(scrollYProgress, [0.45, 0.55, 0.75, 0.85], [0, 1, 1, 0]);
+
+
 
   // Golf 8 Car Animations (fourth part: 0.75 to 1.0)
-  const golf8CarX = useTransform(scrollYProgress, [0.75, 1], ["0vw", "-100vw"]);
-  const golf8WheelRotate = useTransform(scrollYProgress, [0.75, 1], [0, -7 * 180]);
+  const golf8CarX = useTransform(scrollYProgress, [0, 0.9], ["250vw", "-100vw"]);
+  const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.9], [0, -7 * 180]);
   const golf8CarY = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, -2, -2, 0]);
   const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
-  const golf8TextX = useTransform(scrollYProgress, [0.75, 1], ["50vw", "-50vw"]);
-  const golf8TextOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0.1, 0.8, 0.8, 0.1]);
-  const golf8TextScale = useTransform(scrollYProgress, [0.75, 0.875, 1], [0.9, 1, 1.1]);
-  const golf8Opacity = useTransform(scrollYProgress, [0.7, 0.8, 0.95, 1], [0, 1, 1, 1]);
+  const golf8TextX = useTransform(scrollYProgress, [0, 1], ["310vw", "-100vw"]);
+  const golf8TextOpacity = useTransform(scrollYProgress, [0.45, 0.6, 0.6, 0.85], [0.1, 0.9, 0.9, 0.1]);
+  const golf8TextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
+  // const golf8Opacity = useTransform(scrollYProgress, [0.7, 0.8, 0.95, 1], [0, 1, 1, 1]);
 
   // Background color transitions
   const backgroundOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]); // BMW to KIA (gray to red)
@@ -61,6 +67,8 @@ export default function BMWCarScroll() {
       return (
     <section ref={containerRef} style={{ height: "600vh" }}>
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden ">
+        
+       
         
         {/* Background layers */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200" />
@@ -84,7 +92,7 @@ export default function BMWCarScroll() {
         >
           {/* BMW X3 M Logo - Background parallax layer */}
           <motion.div
-            className="absolute z-0 pointer-events-none select-none top-1/4 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
+            className="absolute  z-0 pointer-events-none select-none top-1/4 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
             style={{
               x: bmwTextX,
               opacity: bmwTextOpacity,
@@ -189,7 +197,7 @@ export default function BMWCarScroll() {
               </div>
               
               <div className="flex items-center justify-center">
-                <Rounded backgroundColor={"#334BD3"}>
+                <Rounded backgroundColor={"#D32F2F"}>
                   <p>Book Now</p>
                 </Rounded>
               </div>
@@ -200,11 +208,11 @@ export default function BMWCarScroll() {
         {/* KIA Section */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center mt-[90px]"
-          style={{ opacity: kiaOpacity }}
+          // style={{ opacity: kiaOpacity }}
         >
           {/* KIA Logo - Background parallax layer */}
           <motion.div
-          className=" absolute z-0 pointer-events-none select-none top-1/5 left-1/22 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+          className=" absolute  z-0 pointer-events-none select-none top-1/5 left-1/22 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
             style={{
               x: kiaTextX,
               opacity: kiaTextOpacity,
@@ -254,7 +262,7 @@ export default function BMWCarScroll() {
 
             {/* KIA Rear wheel (left) */}
             <motion.div
-              className="absolute bottom-[10.7%] left-[14.5%] w-[184.9px] h-[184.9px]"
+              className="absolute bottom-[10.4%] left-[14.75%] w-[182px] h-[182px]"
               style={{ 
                 rotate: kiaWheelRotate,
                 willChange: 'transform'
@@ -272,7 +280,7 @@ export default function BMWCarScroll() {
 
             {/* KIA Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[10.7%] left-[67.6%] w-[184.9px] h-[184.9px"
+              className="absolute bottom-[10.4%] left-[67.6%] w-[182px] h-[182px]"
               style={{ 
                 rotate: kiaWheelRotate,
                 willChange: 'transform'
@@ -311,7 +319,7 @@ export default function BMWCarScroll() {
             }}
           >
             <div className="text-center space-y-4">
-              <div className="text-red-700 space-y-1 p-2">
+              <div className=" space-y-1 p-2">
                 <h3 className="text-2xl font-bold">KIA Sportage</h3>
                 <p className="text-lg">Dynamic design meets advanced technology.</p>
               </div>
@@ -328,11 +336,13 @@ export default function BMWCarScroll() {
         {/* Touareg Section */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center mt-[110px]"
-          style={{ opacity: touaregOpacity }}
+          // style={{ opacity: touaregOpacity }}
         >
           {/* Touareg Logo - Background parallax layer */}
-          <motion.div
-            className="absolute z-0 pointer-events-none select-none top-1/4 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
+         
+           {/* Touareg Logo - Background parallax layer */}
+           <motion.div
+            className="absolute z-0 pointer-events-none select-none top-1/5 left-1/20 transform -translate-x-1/2 -translate-y-1/2"
             style={{
               x: touaregTextX,
               opacity: touaregTextOpacity,
@@ -340,9 +350,15 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
-            <div className="text-8xl md:text-9xl font-bold text-blue-600/20 tracking-wider">
-              TOUAREG
-            </div>
+            <Image
+              src="/images/touareg-LOGO.png"
+              alt="Touareg Logo"
+              width={800}
+              height={200}
+              className="opacity-100 drop-shadow-2xl"
+              draggable={false}
+              priority
+            />
           </motion.div>
 
           {/* Touareg Car wrapper */}
@@ -368,7 +384,7 @@ export default function BMWCarScroll() {
 
             {/* Touareg Rear wheel (left) */}
             <motion.div
-              className="absolute bottom-[7.7%] left-[10.9%] w-[230.5px] h-[230.5px]"
+              className="absolute bottom-[7.7%] left-[10.9%] w-[232.5px] h-[232.5px]]"
               style={{
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
@@ -386,14 +402,14 @@ export default function BMWCarScroll() {
 
             {/* Touareg Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[10.3%] left-[70.5%] w-[230.5px] h-[230.5px]"
+              className="absolute bottom-[7.5%] left-[70.7%] w-[232.5px] h-[232.5px]"
               style={{ 
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/right-wheel-touareg.png"
+                src="/images/left-wheel-touareg.png"
                 alt="Touareg Right wheel"
                 width={120}
                 height={120}
@@ -425,13 +441,13 @@ export default function BMWCarScroll() {
             }}
           >
             <div className="text-center space-y-4">
-              <div className="text-blue-700 space-y-1 p-2">
+              <div className=" space-y-1 p-2">
                 <h3 className="text-2xl font-bold">VW Touareg</h3>
                 <p className="text-lg">Luxury SUV with unmatched comfort.</p>
               </div>
               
               <div className="flex items-center justify-center">
-                <Rounded backgroundColor={"#1976D2"}>
+                <Rounded backgroundColor={"#D32F2F"}>
                   <p>Book Now</p>
                 </Rounded>
               </div>
@@ -442,11 +458,13 @@ export default function BMWCarScroll() {
         {/* Golf 8 Section */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center mt-[110px]"
-          style={{ opacity: golf8Opacity }}
+          // style={{ opacity: golf8Opacity }}
         >
           {/* Golf 8 Logo - Background parallax layer */}
+       
+
           <motion.div
-            className="absolute z-0 pointer-events-none select-none top-1/4 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-0 pointer-events-none select-none top-1/5 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
             style={{
               x: golf8TextX,
               opacity: golf8TextOpacity,
@@ -454,9 +472,15 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
-            <div className="text-8xl md:text-9xl font-bold text-green-600/20 tracking-wider">
-              GOLF 8
-            </div>
+            <Image
+              src="/images/GOLF-8-LOGO.png"
+              alt="Golf 8 Logo"
+              width={800}
+              height={200}
+              className="opacity-100 drop-shadow-2xl"
+              draggable={false}
+              priority
+            />
           </motion.div>
 
           {/* Golf 8 Car wrapper */}
@@ -482,7 +506,7 @@ export default function BMWCarScroll() {
 
             {/* Golf 8 Rear wheel (left) */}
             <motion.div
-              className="absolute bottom-[12%] left-[19.6%] w-[162.5px] h-[162.5px]"
+              className="absolute bottom-[11.9%] left-[19.3%] w-[169.5px] h-[169.5px]"
               style={{ 
                 rotate: golf8WheelRotate,
                 willChange: 'transform'
@@ -500,7 +524,7 @@ export default function BMWCarScroll() {
 
             {/* Golf 8 Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[12.3%] left-[73.3%] w-[167px] h-[167px]"
+              className="absolute bottom-[11.9%] left-[73.3%] w-[169px] h-[169px]"
               style={{ 
                 rotate: golf8WheelRotate,
                 willChange: 'transform'
@@ -539,13 +563,13 @@ export default function BMWCarScroll() {
             }}
           >
             <div className="text-center space-y-4">
-              <div className="text-green-700 space-y-1 p-2">
+              <div className=" space-y-1 p-2">
                 <h3 className="text-2xl font-bold">VW Golf 8</h3>
                 <p className="text-lg">Compact excellence with modern innovation.</p>
               </div>
               
               <div className="flex items-center justify-center">
-                <Rounded backgroundColor={"#388E3C"}>
+                <Rounded backgroundColor={"#D32F2F"}>
                   <p>Book Now</p>
                 </Rounded>
               </div>
