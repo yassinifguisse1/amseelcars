@@ -221,19 +221,19 @@ export default function BMWCarScroll() {
             }}
           >
            
-            <Image
+            {/* <Image
               src="/images/kia-logo.webp"
               alt="KIA Logo"
               width={600}
               height={100}
               className="opacity-100 pointer-events-none select-none"
               draggable={false}
-            />
+            /> */}
               <Image
-              src="/images/spppp.png"
+              src="/images/Kia-sportage-logo.webp"
               alt="KIA Logo"
-              width={400}
-              height={200}
+              width={900}
+              height={300}
               className="opacity-100 pointer-events-none select-none"
               draggable={false}
             />
