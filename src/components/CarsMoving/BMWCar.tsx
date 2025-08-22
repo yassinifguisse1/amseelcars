@@ -222,7 +222,7 @@ export default function BMWCarScroll() {
           >
            
             <Image
-              src="/images/kia-logo.png"
+              src="/images/kia-logo.webp"
               alt="KIA Logo"
               width={600}
               height={100}
