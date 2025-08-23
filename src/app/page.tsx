@@ -6,7 +6,6 @@ import ZoomParallax from "@/components/ZoomParallax";
 import { AnimatePresence } from "framer-motion";
 import Preloader from "@/components/Preloader";
 import Cardrive from "@/components/scroll-video/scroll-video";
-import Index from "@/components/Description/Index";
 import Brands from "@/components/Brands/Brands";
 import BMWCarScroll from "@/components/CarsMoving/BMWCar";
 import Example from "@/components/CarDashboardMap/Example";
