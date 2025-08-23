@@ -621,7 +621,7 @@ export default function BMWCarScroll() {
               }}
             >
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-red-600">50+</div>
+                <div className="text-3xl md:text-4xl font-bold text-red-600">20+</div>
                 <div className="text-gray-600">Premium Cars</div>
               </div>
               <div className="text-center">
