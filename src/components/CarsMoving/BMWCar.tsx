@@ -51,7 +51,7 @@ export default function BMWCarScroll() {
 
   // Golf 8 Car Animations (fourth part: 0.75 to 1.0)
   const golf8CarX = useTransform(scrollYProgress, [0, 0.9], ["250vw", "-100vw"]);
-  const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.9], [0, -7 * 180]);
+  const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.95], [0, -10 * 180]);
   const golf8CarY = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, -2, -2, 0]);
   const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
   const golf8TextX = useTransform(scrollYProgress, [0, 1], ["310vw", "-100vw"]);
@@ -62,7 +62,7 @@ export default function BMWCarScroll() {
   // Background color transitions
   const backgroundOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]); // BMW to KIA (gray to red)
   const backgroundOpacity2 = useTransform(scrollYProgress, [0.45, 0.6], [0, 1]); // KIA to Touareg (red to blue)
-  const backgroundOpacity3 = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]); // Touareg to Golf 8 (blue to green)
+  const backgroundOpacity3 = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]); // Touareg to Golf 8 (blue to red)
 
       return (
     <section ref={containerRef} style={{ height: "600vh" }}>
@@ -81,7 +81,7 @@ export default function BMWCarScroll() {
           style={{ opacity: backgroundOpacity2 }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-green-50 to-green-100"
+          className="absolute inset-0 bg-gradient-to-b from-red-50 to-red-100"
           style={{ opacity: backgroundOpacity3 }}
         />
 
@@ -581,8 +581,8 @@ export default function BMWCarScroll() {
         <motion.div
           className="absolute inset-0 flex flex-col items-center justify-center z-30"
           style={{
-            opacity: useTransform(scrollYProgress, [0.83, 0.87, 1], [0, 1, 1]),
-            y: useTransform(scrollYProgress, [0.83, 0.87, 1], [50, 0, 0])
+            opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
+            y: useTransform(scrollYProgress, [0.75, 0.8, 1], [50, 0, 0])
           }}
         >
           <div className="text-center space-y-8 px-4 max-w-4xl mx-auto">
@@ -590,21 +590,21 @@ export default function BMWCarScroll() {
             <motion.h2 
               className="text-5xl md:text-7xl font-bold text-gray-800 leading-tight"
               style={{
-                opacity: useTransform(scrollYProgress, [0.84, 0.86, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.84, 0.86, 1], [30, 0, 0])
+                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
+                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
               }}
             >
               Your Perfect Ride
               <br />
-              <span className="text-green-600">Awaits You</span>
+              <span className="text-red-600">Awaits You</span>
             </motion.h2>
 
             {/* Description */}
             <motion.p 
               className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
               style={{
-                opacity: useTransform(scrollYProgress, [0.84, 0.87, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.84, 0.87, 1], [30, 0, 0])
+                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
+                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
               }}
             >
               From luxury SUVs to compact excellence, discover our complete collection 
@@ -616,20 +616,20 @@ export default function BMWCarScroll() {
             <motion.div 
               className="flex flex-wrap justify-center gap-8 md:gap-12 py-6"
               style={{
-                opacity: useTransform(scrollYProgress, [0.85, 0.88, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.85, 0.88, 1], [30, 0, 0])
+                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
+                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
               }}
             >
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-green-600">50+</div>
+                <div className="text-3xl md:text-4xl font-bold text-red-600">50+</div>
                 <div className="text-gray-600">Premium Cars</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-green-600">24/7</div>
+                <div className="text-3xl md:text-4xl font-bold text-red-600">24/7</div>
                 <div className="text-gray-600">Support</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-green-600">100%</div>
+                <div className="text-3xl md:text-4xl font-bold text-red-600">100%</div>
                 <div className="text-gray-600">Satisfaction</div>
               </div>
             </motion.div>
@@ -638,21 +638,21 @@ export default function BMWCarScroll() {
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
               style={{
-                opacity: useTransform(scrollYProgress, [0.86, 0.89, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.86, 0.89, 1], [30, 0, 0])
+                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
+                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
               }}
             >
               <a 
                 href="/cars" 
-                className="group relative px-8 py-4 bg-green-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-700 hover:scale-105 shadow-lg hover:shadow-xl"
+                className="group relative px-8 py-4 bg-red-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <span className="relative z-10">See All Cars</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-emerald-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </a>
               
               <a 
                 href="/contact" 
-                className="px-8 py-4 border-2 border-green-600 text-green-600 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-600 hover:text-white hover:scale-105"
+                className="px-8 py-4 border-2 border-red-600 text-red-600 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-red-600 hover:text-white hover:scale-105"
               >
                 Contact Us
               </a>
@@ -662,7 +662,7 @@ export default function BMWCarScroll() {
             <motion.div 
               className="pt-8"
               style={{
-                opacity: useTransform(scrollYProgress, [0.87, 0.90, 1], [0, 1, 1])
+                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1])
               }}
             >
               <div className="flex flex-col items-center text-gray-500">

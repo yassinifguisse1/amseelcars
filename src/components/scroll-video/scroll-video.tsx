@@ -24,7 +24,7 @@
 //   useEffect(() => {
 //     const loadImages = async () => {
 //       let loadedCount = 0;
-//       const totalImages = 770;
+//       const totalImages = 763;
 
 //       // Create a promise for each image load
 //       const imagePromises = [];
@@ -246,8 +246,8 @@ const Cardrive = () => {
             
             // Load all frames from 1 to 770
             const startFrame = 400;
-            const endFrame = 770;
-            const totalImages = endFrame - startFrame + 1; // 770 frames total
+            const endFrame = 763;
+            const totalImages = endFrame - startFrame + 1; // 763 frames total
 
             for(let i = startFrame; i <= endFrame; i++){
                 const img = new Image();
@@ -328,7 +328,7 @@ const Cardrive = () => {
         };
     }, []);
 
-    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 769]); // 0-832 for 770 frames
+    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 762]); // 0-832 for 763 frames
     
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);
@@ -392,7 +392,7 @@ const Cardrive = () => {
         <section 
             ref={containerRef}
             className="relative bg-black"
-            style={{ height: "400vh" }}
+            style={{ height: "200vh" }}
         >
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black">
                 <canvas 
@@ -410,7 +410,7 @@ const Cardrive = () => {
                         <div className="text-center">
                             <div>Loading frames...</div>
                             <div className="text-sm mt-2">
-                                {Math.round((images.filter(img => img.complete).length / 770) * 100)}%
+                                {Math.round((images.filter(img => img.complete).length / 763) * 100)}%
                             </div>
                         </div>
                     </div>

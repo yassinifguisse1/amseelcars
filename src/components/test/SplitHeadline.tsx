@@ -70,7 +70,7 @@ export default function SplitHeadline() {
             <span  className="split-right inline-block">your&nbsp;next&nbsp;ride.</span>
           </h1>
         </div>
-        <div className="; top-[12vh], w-full  flex flex-col items-start justify-center">
+        <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
           <h1
             className="
               flex justify-center items-start gap-[0.3ch]
