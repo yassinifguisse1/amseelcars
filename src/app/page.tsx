@@ -28,7 +28,7 @@ export default function Home() {
       {/* <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence> */}
-      <Cardrive />
+      {/* <Cardrive /> */}
 
       {/* <Landing /> */}
       {/* <FloatingHero /> */}
