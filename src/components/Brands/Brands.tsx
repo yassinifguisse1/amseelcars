@@ -121,7 +121,7 @@ export default function Brands() {
     <section className="py-20 bg-black relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Title */}
-        <div ref={titleRef} className="text-center mb-16">
+        <div ref={titleRef} className="text-center mb-16 ">
           <h2 ref={headingRef} className="text-6xl md:text-7xl font-bold text-white mb-4">
             Our Brands
           </h2>

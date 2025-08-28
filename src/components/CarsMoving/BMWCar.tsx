@@ -585,7 +585,7 @@ export default function BMWCarScroll() {
             y: useTransform(scrollYProgress, [0.75, 0.8, 1], [50, 0, 0])
           }}
         >
-          <div className="text-center space-y-8 px-4 max-w-4xl mx-auto">
+          <div className="text-center space-y-8 px-4 max-w-4xl mx-auto flex flex-col items-center justify-center">
             {/* Main Heading */}
             <motion.h2 
               className="text-5xl md:text-7xl font-bold text-gray-800 leading-tight"
@@ -598,9 +598,12 @@ export default function BMWCarScroll() {
               <br />
               <span className="text-red-600">Awaits You</span>
             </motion.h2>
+            <Rounded backgroundColor={"#D32F2F"} className="w-[180px] h-[180px] flex items-center justify-center border-2 border-black px-5 py-3  rounded-full text-white">
+              <p className="text-black z-10 text-[25px]">Book Now</p>
+            </Rounded>
 
             {/* Description */}
-            <motion.p 
+            {/* <motion.p 
               className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
               style={{
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
@@ -610,10 +613,10 @@ export default function BMWCarScroll() {
               From luxury SUVs to compact excellence, discover our complete collection 
               of premium vehicles. Each car is meticulously maintained and ready for 
               your next adventure.
-            </motion.p>
+            </motion.p> */}
 
             {/* Stats Row */}
-            <motion.div 
+            {/* <motion.div 
               className="flex flex-wrap justify-center gap-8 md:gap-12 py-6"
               style={{
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
@@ -632,10 +635,10 @@ export default function BMWCarScroll() {
                 <div className="text-3xl md:text-4xl font-bold text-red-600">100%</div>
                 <div className="text-gray-600">Satisfaction</div>
               </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* CTA Buttons */}
-            <motion.div 
+            {/* <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
               style={{
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
@@ -656,7 +659,7 @@ export default function BMWCarScroll() {
               >
                 Contact Us
               </a>
-            </motion.div>
+            </motion.div> */}
 
             {/* Scroll Indicator */}
             <motion.div 

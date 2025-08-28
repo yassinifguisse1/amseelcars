@@ -1,0 +1,152 @@
+/* .img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75em;
+    border: 2px solid #fff;
+} */
+.logo img{
+    /* width: 100%;
+    height: 100%;
+    object-fit: cover; */
+   
+}
+section.hero {
+    position: relative;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero{
+    height: 100vh;
+}
+.hero .img{
+    width: 50%;
+    aspect-ratio: 1;
+}
+section.main {
+    position: relative;
+    width: 100vw;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.main{
+    width: 100vw;
+    height: 150vh;
+    flex-direction: column;
+}
+.row{
+    position: relative;
+    width: 100vw;
+    margin: 1em 0;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+}
+.card{
+    position: relative;
+    width: 40%;
+    height: 360px;
+    border-radius: 0.75em;
+    overflow: hidden;
+    will-change: transform;
+}
+.card img{
+    width: 100%;
+    height: 100%;
+}
+
+.main-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+/* .logo{
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    overflow: hidden; 
+    
+
+    transform: scale(0);
+    
+} */
+.copy{
+    margin: 2em 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.line{
+    position: relative;
+    margin: 0.5em 0;
+    width: max-content;
+    height: 28px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.line p{
+    position: relative;
+    font-size: 24px;
+    transform: translateY(30px);
+   
+}
+.btn button{
+    position: relative;
+    padding: 1em 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius:8em;
+    background: none;
+    outline: none;
+    transform: translateY(30px);
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+.copy h1{
+    font-size: 4vw;
+}
+
+.btn button{
+    position: relative;
+    width: max-content;
+    height: 28px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+section.footer {
+    position: relative;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer {
+    height: 50vh;
+    align-items: flex-start;
+}
+.footer a{
+    font-size: 4vw;
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+    .card{
+        width: 50%;
+        height: 240px;
+    }
+}

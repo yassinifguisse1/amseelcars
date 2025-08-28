@@ -1,0 +1,257 @@
+.horizontalSection {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #000000 100%);
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.sectionHeader {
+  position: absolute;
+  top: 10vh;
+  left: 5vw;
+  z-index: 10;
+  color: white;
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionSubtitle {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.rowContainer {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative; // for edge-fade overlay
+  --edge-fade: 80px; // default fade width
+
+  // Fade out cards near left/right edges
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 1) var(--edge-fade),
+    rgba(0, 0, 0, 1) calc(100% - var(--edge-fade)),
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 1) var(--edge-fade),
+    rgba(0, 0, 0, 1) calc(100% - var(--edge-fade)),
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+// Fallback overlay only if mask-image isn’t supported
+@supports not ((-webkit-mask-image: linear-gradient(black, white)) or (mask-image: linear-gradient(black, white))) {
+  .rowContainer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.6) 0,
+      rgba(0, 0, 0, 0) var(--edge-fade),
+      rgba(0, 0, 0, 0) calc(100% - var(--edge-fade)),
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    z-index: 2;
+  }
+}
+
+.cardsContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  padding: 0; // Remove padding to avoid blanks
+  perspective: 1000px;
+}
+
+.cardsContainerReverse {
+  // Initial position will be set by GSAP, no need for CSS transform
+}
+
+.cardWrapper {
+  flex-shrink: 0;
+  width: 380px;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+  margin-right: 2rem; // Use margin instead of gap for better control
+  
+  &:last-child {
+    margin-right: 0; // Remove margin from last card
+  }
+  
+  &:hover {
+    transform: translateY(-10px) rotateY(5deg);
+  }
+  
+  // 3D hover effects for individual cards
+  &:nth-child(odd) {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  &:nth-child(even) {
+    animation: float 6s ease-in-out infinite reverse;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotateX(2deg);
+  }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 3vw;
+  }
+  .rowContainer { --edge-fade: 48px; }
+  
+  .sectionHeader {
+    left: 3vw;
+  }
+  
+  .cardsContainer {
+    padding: 0;
+  }
+  
+  .cardWrapper {
+    margin-right: 1.5rem;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  
+  .cardWrapper {
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionHeader {
+    top: 8vh;
+    left: 4vw;
+  }
+  .rowContainer { --edge-fade: 32px; }
+  
+  .cardsContainer {
+    padding: 0;
+  }
+  
+  .cardWrapper {
+    width: 320px;
+    margin-right: 1rem;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+    
+    &:hover {
+      transform: translateY(-5px) rotateY(2deg);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 2vw;
+  }
+  .rowContainer { --edge-fade: 24px; }
+  
+  .sectionHeader {
+    top: 6vh;
+    left: 2vw;
+  }
+  
+  .cardsContainer {
+    padding: 0;
+  }
+  
+  .cardWrapper {
+    width: 280px;
+    margin-right: 0.5rem;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+// Add subtle background effects
+.horizontalSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+//   background: 
+//     radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+//     radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+// Loading shimmer effect
+.cardWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+//   background: linear-gradient(
+//     90deg,
+//     transparent,
+//     rgba(255, 255, 255, 0.1),
+//     transparent
+//   );
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+} 

@@ -25,19 +25,21 @@ export default function Home() {
 
   return (
     <div className="page-content hero">
-      <AnimatePresence mode="wait">
+      {/* <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
-      </AnimatePresence>
+      </AnimatePresence> */}
       <Cardrive />
 
       {/* <Landing /> */}
       {/* <FloatingHero /> */}
       {/* <MasonryGallery /> */}
       <ZoomParallax />
+      <BMWCarScroll />
+
       <SplitHeadline />
+
       
       <Brands />
-      <BMWCarScroll />
       <Example/>
       <Footer/>
      

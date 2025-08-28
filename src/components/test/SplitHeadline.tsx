@@ -133,9 +133,10 @@ export default function SplitHeadline() {
       <section
         ref={section2}
         id="section-2"
-        className="min-h-screend flex items-center justify-center px-6d bg-whitev text-black"
+        className="min-h-screend flex items-center justify-center px-6d bg-whiteb text-black"
       >
         {/* Your content */}
+
         <Index />
       </section>
     </div>
