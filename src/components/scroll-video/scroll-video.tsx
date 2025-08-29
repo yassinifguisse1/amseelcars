@@ -235,7 +235,7 @@ const Cardrive = () => {
     
     const {scrollYProgress} = useScroll({
         target: containerRef,
-        offset: ['start end', 'end start']
+        offset: ['start start', 'end end']
     });
 
     // Load images on client side only
@@ -295,19 +295,26 @@ const Cardrive = () => {
         const resizeCanvas = () => {
             const container = canvas.parentElement;
             if (container) {
-                // Get container dimensions
-                const containerWidth = container.clientWidth;
-                const containerHeight = container.clientHeight;
+                // Use window dimensions for mobile compatibility
+                const containerWidth = window.innerWidth;
+                const containerHeight = window.innerHeight;
                 
-                // Set canvas size to fill container
-                canvas.width = containerWidth;
-                canvas.height = containerHeight;
+                // Set canvas resolution
+                const pixelRatio = window.devicePixelRatio || 1;
+                canvas.width = containerWidth * pixelRatio;
+                canvas.height = containerHeight * pixelRatio;
                 
-                // Set CSS size to match
+                // Set CSS size
                 canvas.style.width = `${containerWidth}px`;
                 canvas.style.height = `${containerHeight}px`;
                 
-                console.log(`Canvas resized to: ${containerWidth}x${containerHeight}`);
+                // Scale context for retina displays
+                const ctx = canvas.getContext('2d');
+                if (ctx) {
+                    ctx.scale(pixelRatio, pixelRatio);
+                }
+                
+                console.log(`Canvas resized to: ${containerWidth}x${containerHeight}, ratio: ${pixelRatio}`);
             }
         };
 
@@ -317,14 +324,32 @@ const Cardrive = () => {
         // Listen for window resize
         window.addEventListener('resize', resizeCanvas);
         
-        // Also listen for orientation change on mobile
+        // Listen for orientation change on mobile with longer delay
         window.addEventListener('orientationchange', () => {
-            setTimeout(resizeCanvas, 100); // Small delay for orientation change
+            setTimeout(resizeCanvas, 500); // Longer delay for mobile orientation change
         });
+
+        // Also listen for mobile browser address bar changes
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    resizeCanvas();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        // Only add scroll listener on mobile for address bar handling
+        if (window.innerWidth <= 768) {
+            window.addEventListener('scroll', handleScroll, { passive: true });
+        }
 
         return () => {
             window.removeEventListener('resize', resizeCanvas);
             window.removeEventListener('orientationchange', resizeCanvas);
+            window.removeEventListener('scroll', handleScroll);
         };
     }, []);
 
@@ -349,31 +374,35 @@ const Cardrive = () => {
             if (img && img.complete) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
+                // Get actual display dimensions (not canvas resolution)
+                const displayWidth = parseInt(canvas.style.width) || canvas.width;
+                const displayHeight = parseInt(canvas.style.height) || canvas.height;
+                
                 // Smart responsive cropping based on device orientation
-                const canvasAspect = canvas.width / canvas.height;
+                const canvasAspect = displayWidth / displayHeight;
                 const imageAspect = img.naturalWidth / img.naturalHeight;
-                const isMobile = canvas.width < 768; // Mobile breakpoint
-                const isPortrait = canvas.height > canvas.width;
+                const isMobile = displayWidth < 768; // Mobile breakpoint
+                const isPortrait = displayHeight > displayWidth;
                 
                 let drawWidth, drawHeight, offsetX, offsetY;
                 
                 if (isMobile && isPortrait) {
                     // Mobile portrait: Focus on center-bottom (where car usually is)
-                    drawHeight = canvas.height;
-                    drawWidth = canvas.height * imageAspect;
-                    offsetX = (canvas.width - drawWidth) / 2;
+                    drawHeight = displayHeight;
+                    drawWidth = displayHeight * imageAspect;
+                    offsetX = (displayWidth - drawWidth) / 2;
                     offsetY = -drawHeight * 0.1; // Shift up slightly to show more car
                 } else if (canvasAspect > imageAspect) {
                     // Wider canvas - fit width and crop height
-                    drawWidth = canvas.width;
-                    drawHeight = canvas.width / imageAspect;
+                    drawWidth = displayWidth;
+                    drawHeight = displayWidth / imageAspect;
                     offsetX = 0;
-                    offsetY = (canvas.height - drawHeight) / 2;
+                    offsetY = (displayHeight - drawHeight) / 2;
                 } else {
                     // Taller canvas - fit height and crop width
-                    drawHeight = canvas.height;
-                    drawWidth = canvas.height * imageAspect;
-                    offsetX = (canvas.width - drawWidth) / 2;
+                    drawHeight = displayHeight;
+                    drawWidth = displayHeight * imageAspect;
+                    offsetX = (displayWidth - drawWidth) / 2;
                     offsetY = 0;
                 }
                 
@@ -385,14 +414,23 @@ const Cardrive = () => {
     );
 
     useMotionValueEvent(currentIndex, 'change', (latest) => {
-        render(Math.round(Number(latest)));
+        const frameIndex = Math.round(Number(latest));
+        console.log(`Scroll progress: ${scrollYProgress.get()}, Frame: ${frameIndex}`);
+        render(frameIndex);
     });
+
+    // Initial render when component mounts
+    useEffect(() => {
+        if (imagesLoaded && images.length > 0) {
+            render(0); // Render first frame
+        }
+    }, [imagesLoaded, images, render]);
 
     return (
         <section 
             ref={containerRef}
             className="relative bg-black"
-            style={{ height: "200vh" }}
+            style={{ height: "300vh" }}
         >
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black">
                 <canvas 
@@ -406,7 +444,7 @@ const Cardrive = () => {
                     }}
                 />
                 {!imagesLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black text-white text-xl">
+                    <div className="absolute inset-0 flex items-center justify-center bg-black text-white text-xl z-50">
                         <div className="text-center">
                             <div>Loading frames...</div>
                             <div className="text-sm mt-2">
