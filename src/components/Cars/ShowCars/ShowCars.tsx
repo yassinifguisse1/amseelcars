@@ -104,27 +104,31 @@ const ShowCars = () => {
                 <img src="/images/bgr.webp" alt="car"  />
             </div>
         </section> */}
+        
         <section className="main">
             <div className="main-content ">
-                <div className="logo ">
-                    {/* <img src="/images/Logo.webp" alt="logo"  className=''/> */}
+                {/* <div className="logo ">
+                    <img src="/images/Logo.webp" alt="logo"  className=''/>
                 </div>
                 <div className="copy text-white ">
-                    {/* <div className="line">
-                        <p>Dleve into coding without clutter.</p>
-                    </div>
                     <div className="line">
                         <p>Dleve into coding without clutter.</p>
                     </div>
                     <div className="line">
                         <p>Dleve into coding without clutter.</p>
-                    </div> */}
-                </div>
-                 <div className="btn">
-                    {/* <button >
+                    </div>
+                    <div className="line">
+                        <p>Dleve into coding without clutter.</p>
+                    </div>
+                </div> */}
+                 {/* <div className="btn">
+                    <button  >
+                        <Link href="/cars" className='text-white cursor-pointer'>
                         Get PRO
-                    </button> */}
-                 </div>
+                        </Link>
+                        
+                    </button>
+                 </div> */}
             </div>
             {generateRows()}
         </section>

@@ -93,8 +93,8 @@ export default function SplitHeadline() {
               text-[clamp(36px,11vw,160px)]
             "
           >
-            <span className="split-left inline-block">Book</span>
-            <span className="split-right inline-block">in&nbsp;minutes</span>
+            <span className="split-leftc inline-block">Book</span>
+            <span className="split-rightc inline-block">in&nbsp;minutes</span>
 
           </h1>
         </div>

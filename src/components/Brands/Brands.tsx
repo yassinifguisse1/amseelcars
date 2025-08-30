@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './page.module.css';
+import Image from 'next/image';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -148,10 +149,12 @@ export default function Brands() {
                   <div className="relative mx-4">
                     {/* Brand Logo Container */}
                     <div className="w-32 h-32 md:w-36 md:h-36 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center p-6 transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-105">
-                      <img
+                      <Image
                         src={brand.logo}
                         alt={brand.name}
                         className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0"
+                        width={100}
+                        height={100}
                       />
                     </div>
                     
@@ -186,10 +189,12 @@ export default function Brands() {
                   <div className="relative mx-4">
                     {/* Brand Logo Container */}
                     <div className="w-32 h-32 md:w-36 md:h-36 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center p-6 transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-105">
-                      <img
+                      <Image
+                        width={100}
+                        height={100}
                         src={brand.logo}
                         alt={brand.name}
-                        className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0"
+                        className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0 "
                       />
                     </div>
                     

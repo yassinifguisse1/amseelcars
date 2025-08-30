@@ -7,9 +7,10 @@ import { usePathname } from 'next/navigation';
 import { useTransitionRouter } from 'next-view-transitions';
 
 import {gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react"
 // register once (outside the component)
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const menuLinks = [
     {
@@ -67,6 +68,13 @@ const Menu = () => {
         if(pathname === path){
             e.preventDefault()
             return
+        }
+        // Proactively clean up ScrollTrigger pins/wrappers before route change
+        try {
+          const triggers = ScrollTrigger.getAll?.()
+          triggers?.forEach(t => t.kill())
+        } catch (err) {
+          // noop – ensure navigation proceeds even if cleanup fails
         }
         router.push(path , {
             scroll: false,
@@ -178,4 +186,3 @@ const Menu = () => {
 }
 
 export default Menu
-

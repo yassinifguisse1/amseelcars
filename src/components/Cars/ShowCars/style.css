@@ -100,7 +100,7 @@ section.main {
     transform: translateY(30px);
    
 }
-.btn button{
+/* .btn button{
     position: relative;
     padding: 1em 2em;
     display: flex;
@@ -115,19 +115,19 @@ section.main {
     transform: translateY(30px);
     opacity: 0;
     cursor: pointer;
-}
+} */
 
 
 .copy h1{
     font-size: 4vw;
 }
 
-.btn button{
+/* .btn button{
     position: relative;
     width: max-content;
     height: 28px;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
+} */
 section.footer {
     position: relative;
     width: 100vw;

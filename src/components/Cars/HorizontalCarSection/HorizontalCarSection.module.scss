@@ -8,8 +8,10 @@
 
 .container {
   position: relative;
-  width: 100%;
-  height: 100%;
+//   width: 100%;
+//   height: 100%;
+width: 100vw;
+height: 100vh;
   padding: 0 5vw;
   display: flex;
   flex-direction: column;
@@ -50,7 +52,8 @@
   height: 50%;
   display: flex;
   align-items: center;
-  overflow: hidden;
+
+//   overflow: hidden;
   position: relative; // for edge-fade overlay
   --edge-fade: 80px; // default fade width
 
@@ -94,7 +97,8 @@
   align-items: center;
   height: 100%;
   width: max-content;
-  padding: 0; // Remove padding to avoid blanks
+  padding-top: 5vw;
+  padding-bottom: 5vw; // Remove padding to avoid blanks
   perspective: 1000px;
 }
 
@@ -104,7 +108,7 @@
 
 .cardWrapper {
   flex-shrink: 0;
-  width: 380px;
+  width: 380px; // Default desktop width
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
   margin-right: 2rem; // Use margin instead of gap for better control
@@ -113,8 +117,19 @@
     margin-right: 0; // Remove margin from last card
   }
   
-  &:hover {
-    transform: translateY(-10px) rotateY(5deg);
+  // Only apply hover effects on non-touch devices
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-10px) rotateY(5deg);
+      z-index: 100;
+    }
+  }
+  
+  // Touch device interactions
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      transform: translateY(-5px) scale(0.98);
+    }
   }
   
   // 3D hover effects for individual cards
@@ -137,10 +152,17 @@
 }
 
 // Responsive design
-@media (max-width: 1024px) {
-  .container {
-    padding: 0 3vw;
+@media (max-width: 1200px) {
+  .cardWrapper {
+    width: 360px;
+    margin-right: 1.8rem;
   }
+}
+
+@media (max-width: 1024px) {
+//   .container {
+//     // padding: 0 5vw;
+//   }
   .rowContainer { --edge-fade: 48px; }
   
   .sectionHeader {
@@ -148,52 +170,90 @@
   }
   
   .cardsContainer {
-    padding: 0;
+    padding-top: 5vw;
+  padding-bottom: 5vw; 
   }
   
   .cardWrapper {
+    width: 350px;
     margin-right: 1.5rem;
     
     &:last-child {
       margin-right: 0;
     }
   }
-  
-  .cardWrapper {
-    width: 350px;
-  }
 }
 
 @media (max-width: 768px) {
+  .horizontalSection {
+    height: 100vh; // Slightly taller on tablets for better scrolling
+  
+}
+  
   .sectionHeader {
     top: 8vh;
     left: 4vw;
   }
-  .rowContainer { --edge-fade: 32px; }
+  .rowContainer { 
+    --edge-fade: 32px;
+    height: 45%; // Adjust row height for tablets
+  }
   
   .cardsContainer {
-    padding: 0;
+    padding-top: 5vw;
+    padding-bottom: 5vw; 
   }
   
   .cardWrapper {
     width: 320px;
-    margin-right: 1rem;
+    margin-right: 1.2rem;
     
     &:last-child {
       margin-right: 0;
     }
     
-    &:hover {
-      transform: translateY(-5px) rotateY(2deg);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-5px) rotateY(2deg);
+      }
+    }
+    
+    @media (hover: none) and (pointer: coarse) {
+      &:active {
+        transform: translateY(-3px) scale(0.98);
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .horizontalSection {
+    height: 160vh; // Even taller on small screens
+  }
+  
+  .rowContainer { 
+    --edge-fade: 28px;
+    height: 40%; // Smaller row height to fit both rows
+  }
+  
+  .cardWrapper {
+    width: 300px;
+    margin-right: 1rem;
+    
+    &:last-child {
+      margin-right: 0;
     }
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 2vw;
+//   .container {
+//     // padding: 0vw;
+//   }
+  .rowContainer { 
+    --edge-fade: 24px;
+    height: 38%; // Optimize for mobile
   }
-  .rowContainer { --edge-fade: 24px; }
   
   .sectionHeader {
     top: 6vh;
@@ -206,11 +266,35 @@
   
   .cardWrapper {
     width: 280px;
-    margin-right: 0.5rem;
+    margin-right: 0.8rem;
     
     &:last-child {
       margin-right: 0;
     }
+    
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-3px) rotateY(1deg);
+      }
+    }
+    
+    @media (hover: none) and (pointer: coarse) {
+      &:active {
+        transform: translateY(-2px) scale(0.98);
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .cardWrapper {
+    width: 260px;
+    margin-right: 0.6rem;
+  }
+  
+  .rowContainer { 
+    --edge-fade: 20px;
+    height: 36%;
   }
 }
 

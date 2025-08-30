@@ -4,18 +4,8 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
+import { getAllCars, type Car } from '@/data/cars'
 import styles from './HorizontalCarSection.module.scss'
-
-interface Car {
-  id: number
-  carName: string
-  carImage: string
-  pricePerDay: number
-  seats: number
-  fuelType: string
-  transmission: string
-  rating: number
-}
 
 const HorizontalCarSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -23,133 +13,10 @@ const HorizontalCarSection = () => {
   const cardsRow1Ref = useRef<HTMLDivElement>(null)
   const cardsRow2Ref = useRef<HTMLDivElement>(null)
 
-  // First row cars
-  const carsRow1: Car[] = [
-    {
-      id: 1,
-      carName: "BMW X5",
-      carImage: "/images/1.jpeg",
-      pricePerDay: 89,
-      seats: 5,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 4.8
-    },
-    {
-      id: 2,
-      carName: "Mercedes C-Class",
-      carImage: "/images/2.jpeg",
-      pricePerDay: 75,
-      seats: 5,
-      fuelType: "Hybrid",
-      transmission: "Automatic",
-      rating: 4.9
-    },
-    {
-      id: 3,
-      carName: "Audi A4",
-      carImage: "/images/3.jpg",
-      pricePerDay: 65,
-      seats: 5,
-      fuelType: "Petrol",
-      transmission: "Manual",
-      rating: 4.7
-    },
-    {
-      id: 4,
-      carName: "Tesla Model S",
-      carImage: "/images/4.jpg",
-      pricePerDay: 120,
-      seats: 5,
-      fuelType: "Electric",
-      transmission: "Automatic",
-      rating: 4.9
-    },
-    {
-      id: 5,
-      carName: "Porsche 911",
-      carImage: "/images/5.jpg",
-      pricePerDay: 200,
-      seats: 2,
-      fuelType: "Petrol",
-      transmission: "Manual",
-      rating: 4.8
-    },
-    {
-      id: 6,
-      carName: "Range Rover",
-      carImage: "/images/6.jpg",
-      pricePerDay: 150,
-      seats: 7,
-      fuelType: "Diesel",
-      transmission: "Automatic",
-      rating: 4.6
-    }
-  ]
-
-  // Second row cars
-  const carsRow2: Car[] = [
-    {
-      id: 7,
-      carName: "Ferrari 488",
-      carImage: "/images/7.jpg",
-      pricePerDay: 300,
-      seats: 2,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 5.0
-    },
-    {
-      id: 8,
-      carName: "Lamborghini Huracan",
-      carImage: "/images/8.jpg",
-      pricePerDay: 350,
-      seats: 2,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 5.0
-    },
-    {
-      id: 9,
-      carName: "Bentley Continental",
-      carImage: "/images/9.jpg",
-      pricePerDay: 280,
-      seats: 4,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 4.7
-    },
-    {
-      id: 10,
-      carName: "Rolls Royce Ghost",
-      carImage: "/images/10.jpg",
-      pricePerDay: 450,
-      seats: 5,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 5.0
-    },
-    {
-      id: 11,
-      carName: "McLaren 720S",
-      carImage: "/images/11.jpg",
-      pricePerDay: 400,
-      seats: 2,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 4.9
-    },
-    {
-      id: 12,
-      carName: "Aston Martin DB11",
-      carImage: "/images/12.jpg",
-      pricePerDay: 320,
-      seats: 2,
-      fuelType: "Petrol",
-      transmission: "Automatic",
-      rating: 4.8
-    }
-  ]
+  // Get all cars and split into two rows
+  const allCars = getAllCars()
+  const carsRow1 = allCars.slice(0, 6) // First 6 cars
+  const carsRow2 = allCars.slice(6, 12) // Next 6 cars
 
   const handleBookCar = (carName: string) => {
     alert(`Booking ${carName}! Functionality would be implemented here.`)
@@ -305,6 +172,11 @@ const HorizontalCarSection = () => {
     )
 
     return () => {
+      // Clear all GSAP transforms before cleanup
+      gsap.set([cardsRow1, cardsRow2], { clearProps: "all" })
+      gsap.set([cardsRow1.children, cardsRow2.children], { clearProps: "all" })
+      
+      // Kill animations
       horizontalScrollRow1.kill()
       horizontalScrollRow2.kill()
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
@@ -314,13 +186,6 @@ const HorizontalCarSection = () => {
   return (
     <section ref={sectionRef} className={styles.horizontalSection}>
       <div ref={containerRef} className={styles.container}>
-        {/* <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Our Premium Fleet</h2>
-          <p className={styles.sectionSubtitle}>
-            Discover our collection of luxury vehicles
-          </p>
-        </div> */}
-        
         {/* First row - scrolls right to left */}
         <div className={styles.rowContainer}>
           <div ref={cardsRow1Ref} className={styles.cardsContainer}>
@@ -334,6 +199,7 @@ const HorizontalCarSection = () => {
                   fuelType={car.fuelType}
                   transmission={car.transmission}
                   rating={car.rating}
+                  slug={car.slug}
                   onBook={() => handleBookCar(car.carName)}
                 />
               </div>
@@ -354,6 +220,7 @@ const HorizontalCarSection = () => {
                   fuelType={car.fuelType}
                   transmission={car.transmission}
                   rating={car.rating}
+                  slug={car.slug}
                   onBook={() => handleBookCar(car.carName)}
                 />
               </div>

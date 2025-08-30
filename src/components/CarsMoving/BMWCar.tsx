@@ -87,122 +87,122 @@ export default function BMWCarScroll() {
 
         {/* BMW Section */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ opacity: bmwOpacity }}
-        >
-          {/* BMW X3 M Logo - Background parallax layer */}
-          <motion.div
-            className="absolute  z-0 pointer-events-none select-none top-1/4 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
-            style={{
-              x: bmwTextX,
-              opacity: bmwTextOpacity,
-              scale: bmwTextScale,
-              willChange: 'transform'
-            }}
-          >
-            <Image
-              src="/images/x3-bm.webp"
-              alt="BMW X3 M Logo"
-              width={800}
-              height={200}
-              className="opacity-100 drop-shadow-2xl"
-              draggable={false}
-              priority
-            />
-          </motion.div>
+  style={{ opacity: bmwOpacity }}
+      className="absolute inset-0 flex items-center justify-center px-3 sm:px-6">
+      {/* BMW X3 M Logo — responsive position/size */}
+      <motion.div
+        className="
+          absolute z-0 pointer-events-none select-none
+          top-[18%] sm:top-[22%] lg:top-1/4
+          left-[14%] sm:left-[10%] lg:left-[7%]
+          -translate-x-1/2 -translate-y-1/2
+        "
+        style={{ x: bmwTextX, opacity: bmwTextOpacity, scale: bmwTextScale, willChange: 'transform' }}
+      >
+    <div className="relative w-[min(80vw,700px)] h-auto">
+      <Image
+        src="/images/x3-bm.webp"
+        alt="BMW X3 M Logo"
+        width={1400}
+        height={350}
+        // Let the browser pick the right file:
+        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 35vw"
+        className="w-full h-auto opacity-100 drop-shadow-2xl"
+        draggable={false}
+        // priority={true} // <-- only keep if this is your FIRST hero
+      />
+    </div>
+  </motion.div>
 
-          {/* BMW Car wrapper */}
-          <motion.div
-            className="relative z-10"
-            style={{ 
-              x: bmwCarX, 
-              y: bmwCarY,
-              width: 1220,
-              willChange: 'transform'
-            }}
-          >
-            {/* BMW Car body */}
-            <Image
-              src="/images/bmw-body.png"
-              alt="BMW X3 body"
-              width={720}
-              height={400}
-              className="block w-full h-auto pointer-events-none select-none"
-              draggable={false}
-              priority
-            />
+  {/* BMW Car wrapper — fluid width via clamp() */}
+  <motion.div
+    className="relative z-10"
+    style={{
+      x: bmwCarX,
+      y: bmwCarY,
+      width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+      willChange: 'transform',
+    }}
+  >
+    {/* BMW Car body (keeps aspect, no CLS) */}
+    <Image
+      src="/images/bmw-body.png"
+      alt="BMW X3 body"
+      width={1440}
+      height={800}
+      sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
+      className="block w-full h-auto pointer-events-none select-none"
+      draggable={false}
+    />
 
-            {/* BMW Rear wheel */}
-            <motion.div
-              className="absolute bottom-[16.3%] left-[9.7%] w-[190.5px] h-[190.5px]"
-              style={{ 
-                rotate: bmwWheelRotate,
-                willChange: 'transform'
-              }}
-            >
-              <Image
-                src="/images/wheel-rear.png"
-                alt="BMW Rear wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
-                draggable={false}
-              />
-            </motion.div>
+  
 
-            {/* BMW Front wheel */}
-            <motion.div
-              className="absolute bottom-[16.3%] left-[70.5%] w-[190.5px] h-[190.5px]"
-              style={{ 
-                rotate: bmwWheelRotate,
-                willChange: 'transform'
-              }}
-            >
-              <Image
-                src="/images/wheel-front.png"
-                alt="BMW Front wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
-                draggable={false}
-              />
-            </motion.div>
+    {/* Rear wheel */}
+    <motion.div
+      className="absolute bottom-[16.3%] left-[9.6%] w-[16%] aspect-square"
+      style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
+    >
+      <Image
+        src="/images/wheel-rear.png"
+        alt="BMW Rear wheel"
+        fill
+        sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+        className="object-contain pointer-events-none select-none"
+        draggable={false}
+      />
+    </motion.div>
 
-            {/* BMW Shadow */}
-            <motion.div 
-              className="absolute -bottom-[19%] left-1/2 -translate-x-1/2 w-[60%] h-[20px] bg-black blur-2xl rounded-full"
-              style={{ 
-                opacity: bmwShadowOpacity,
-                willChange: 'opacity'
-              }}
-            />
-          </motion.div>
+    {/* Front wheel */}
+    <motion.div
+      className="absolute bottom-[16.3%] left-[70.4%] w-[16%] aspect-square"
+      style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
+    >
+      <Image
+        src="/images/wheel-front.png"
+        alt="BMW Front wheel"
+        fill
+        sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+        className="object-contain pointer-events-none select-none"
+        draggable={false}
+      />
+    </motion.div>
 
-          {/* BMW Book Now Button */}
-          <motion.div
-            className="absolute bottom-16 z-20"
-            style={{
-              x: bmwCarX,
-              left: '40%',
-              transform: 'translateX(-50%)',
-              opacity: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [1, 1, 1, 0]),
-              y: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0, 0, 50]),
-              willChange: 'transform, opacity'
-            }}
-          >
-            <div className="text-center space-y-4">
-              <div className="text-gray-700 space-y-1 p-2">
-                <h3 className="text-2xl font-bold">BMW X3 M</h3>
-                <p className="text-lg">Premium SUV built for performance.</p>
-              </div>
-              
-              <div className="flex items-center justify-center">
-                <Rounded backgroundColor={"#D32F2F"}>
-                  <p>Book Now</p>
-                </Rounded>
-              </div>
-            </div>
-          </motion.div>
+    {/* Shadow — scale thickness with viewport */}
+    <motion.div
+      className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
+      style={{
+        bottom: 'calc(-1 * clamp(6px, 2.2vw, 20px))',
+        height: 'clamp(6px, 2.2vw, 20px)',
+        opacity: bmwShadowOpacity,
+        willChange: 'opacity',
+      }}
+    />
+  </motion.div>
+
+  {/* BMW Book Now Button (follows car) */}
+  <motion.div
+    className="absolute bottom-6 sm:bottom-10 z-20"
+    style={{
+      x: bmwCarX,
+      left: '40%',
+      transform: 'translateX(-50%)',
+      opacity: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [1, 1, 1, 0]),
+      y: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0, 0, 50]),
+      willChange: 'transform, opacity',
+    }}
+  >
+    <div className="text-center space-y-3 sm:space-y-4">
+      <div className="space-y-1 p-2">
+        <h3 className="text-xl sm:text-2xl font-bold">BMW X3 M</h3>
+        <p className="text-base sm:text-lg">Premium SUV built for performance.</p>
+      </div>
+      <div className="flex items-center justify-center">
+        <Rounded backgroundColor="#D32F2F">
+          <p>Book Now</p>
+        </Rounded>
+      </div>
+    </div>
+  </motion.div>
         </motion.div>
 
         {/* KIA Section */}

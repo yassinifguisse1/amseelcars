@@ -8,6 +8,7 @@ module.exports = {
           antic: ["var(--font-antic)", "Didot", "Bodoni Moda", "serif"],
           // optional body font pairing:
           sans: ["Inter", "system-ui", "Arial", "sans-serif"],
+          poppins: ["Poppins", "sans-serif"],
         },
       },
     },

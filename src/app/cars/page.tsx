@@ -23,7 +23,8 @@ export default function CarsPage() {
   }, [])
 
   return (
-    <>
+    <div>
+
       <div className='revealed'></div>
       
       {/* Hero Section with Image Slider */}
@@ -38,6 +39,7 @@ export default function CarsPage() {
 
 
       {/* </section> */}
-    </>
+      </div>
+
   )
 }
