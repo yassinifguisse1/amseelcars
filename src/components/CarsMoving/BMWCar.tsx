@@ -87,7 +87,7 @@ export default function BMWCarScroll() {
 
         {/* BMW Section */}
         <motion.div
-  style={{ opacity: bmwOpacity }}
+       style={{ opacity: bmwOpacity }}
       className="absolute inset-0 flex items-center justify-center px-3 sm:px-6">
       {/* BMW X3 M Logo — responsive position/size */}
       <motion.div
@@ -181,29 +181,33 @@ export default function BMWCarScroll() {
 
   {/* BMW Book Now Button (follows car) */}
   <motion.div
-    className="absolute bottom-6 sm:bottom-10 z-20"
+    className=" absolute z-20 
+                left-1/2 md:left-[50%] lg:left-[50%] 
+                -translate-x-1/2 
+                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
+                border-2 border-red-500"
     style={{
       x: bmwCarX,
-      left: '40%',
+      left: '50%',
       transform: 'translateX(-50%)',
       opacity: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [1, 1, 1, 0]),
       y: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0, 0, 50]),
       willChange: 'transform, opacity',
     }}
   >
-    <div className="text-center space-y-3 sm:space-y-4">
-      <div className="space-y-1 p-2">
-        <h3 className="text-xl sm:text-2xl font-bold">BMW X3 M</h3>
-        <p className="text-base sm:text-lg">Premium SUV built for performance.</p>
-      </div>
-      <div className="flex items-center justify-center">
-        <Rounded backgroundColor="#D32F2F">
-          <p>Book Now</p>
-        </Rounded>
-      </div>
-    </div>
+     <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+                <div className="p-2">
+                  <h3 className="text-base sm:text-lg md:text-2xl font-bold">BMW X3 M</h3>
+                  <p className="text-xs sm:text-sm md:text-lg">Premium SUV built for performance.</p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <Rounded backgroundColor="#D32F2F">
+                    <p>Book Now</p>
+                  </Rounded>
+                </div>
+              </div>
   </motion.div>
-        </motion.div>
+</motion.div>
 
         {/* KIA Section */}
         <motion.div
@@ -245,53 +249,53 @@ export default function BMWCarScroll() {
             style={{ 
               x: kiaCarX, 
               y: kiaCarY,
-              width: 1220,
-              willChange: 'transform'
+              width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+               willChange: 'transform',
             }}
           >
             {/* KIA Car body */}
             <Image
-              src="/images/kia_car_body.png"
+              src="/images/kia body.webp"
               alt="KIA body"
-              width={720}
-              height={400}
+              width={1440}
+              height={800}
+              sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
-              priority
             />
 
             {/* KIA Rear wheel (left) */}
             <motion.div
-              className="absolute bottom-[10.4%] left-[14.75%] w-[182px] h-[182px]"
+              className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
               style={{ 
                 rotate: kiaWheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/left-wheel-kiann.png"
+                src="/images/left wheel kia.webp"
                 alt="KIA Left wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
             </motion.div>
 
             {/* KIA Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[10.4%] left-[67.6%] w-[182px] h-[182px]"
+              className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
               style={{ 
                 rotate: kiaWheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/right_wheel_kia.png"
+                src="/images/right wheel kia.webp"
                 alt="KIA Right wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
             </motion.div>
@@ -307,11 +311,12 @@ export default function BMWCarScroll() {
           </motion.div>
 
           {/* KIA Book Now Button */}
-          <motion.div
+          {/* <motion.div
             className="absolute bottom-16 z-20"
             style={{
               x: kiaCarX,
               left: '40%',
+              bottom: "clamp(12px, 5vh, 4rem)",
               transform: 'translateX(-50%)',
               opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
               y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
@@ -330,7 +335,34 @@ export default function BMWCarScroll() {
                 </Rounded>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
+            <motion.div
+              className="
+                absolute z-20 
+                left-1/2 md:left-[50%] lg:left-[50%] 
+                -translate-x-1/2 
+                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
+                border-2 border-red-500
+              "
+              style={{
+                x: kiaCarX,
+                opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
+                y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
+                willChange: 'transform, opacity',
+              }}
+            >
+              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+                <div className="p-2">
+                  <h3 className="text-base sm:text-lg md:text-2xl font-bold">KIA Sportage</h3>
+                  <p className="text-xs sm:text-sm md:text-lg">Dynamic design meets advanced technology.</p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <Rounded backgroundColor="#D32F2F">
+                    <p>Book Now</p>
+                  </Rounded>
+                </div>
+              </div>
+            </motion.div>
         </motion.div>
 
         {/* Touareg Section */}
