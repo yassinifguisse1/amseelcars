@@ -347,12 +347,23 @@ html {
   .perspective-distant {
     perspective: 1000px;
   }
-  
+
   .transform-3d {
     transform-style: preserve-3d;
   }
-  
+
   .backface-hidden {
     backface-visibility: hidden;
+  }
+
+  /* Custom scale utilities for responsive design */
+  .scale-110 {
+    transform: scale(1.1);
+  }
+  
+  .sm\:scale-120 {
+    @media (min-width: 640px) {
+      transform: scale(1.2);
+    }
   }
 }

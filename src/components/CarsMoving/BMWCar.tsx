@@ -1,8 +1,34 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Rounded from '../../common/RoundedButton';
+
+// Tiny helper to return a numeric value based on Tailwind-style breakpoints
+function useBreakpointValue(values: {
+  base: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  xxl?: number;
+}) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const update = () => setWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Tailwind breakpoints
+  if (width < 640) return values.base; // sm
+  if (width < 768) return values.sm ?? values.base; // md
+  if (width < 1024) return values.md ?? values.sm ?? values.base; // lg
+  if (width < 1280) return values.lg ?? values.md ?? values.base; // xl
+  if (width < 1536) return values.xl ?? values.lg ?? values.md ?? values.base; // 2xl
+  return values.xxl ?? values.xl ?? values.lg ?? values.md ?? values.base;
+}
 
 export default function BMWCarScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -13,22 +39,33 @@ export default function BMWCarScroll() {
     offset: ["start center", "end center"],
   });
 
+  // Responsive start offsets to keep consistent spacing across devices
+  const bmwStartVW = useBreakpointValue({ base: 12, md: 16, lg: 20 });
+  const kiaStartVW = useBreakpointValue({ base: 125, md: 130, lg: 150, xl: 105 });
+  const bmwTextStartVW = useBreakpointValue({ base: 34, md: 45, lg: 50 });
+  const kiaTextStartVW = useBreakpointValue({ base: 150, md: 135, lg: 120, xl: 110 });
+  const touaregStartVW = useBreakpointValue({ base: 230, md: 230, lg: 260, xl: 185 });
+  const touaregTextStartVW = useBreakpointValue({ base: 230, md: 215, lg: 200, xl: 190 });
+  const golf8StartVW = useBreakpointValue({ base: 340, md: 355, lg: 350, xl: 280 });
+  const golf8TextStartVW = useBreakpointValue({ base: 340, md: 325, lg: 310, xl: 300 });
+
+
   // BMW Car Animations (first part: 0 to 0.3)
-  const bmwCarX = useTransform(scrollYProgress, [0, 0.3], ["20vw", "-100vw"]);
+  const bmwCarX = useTransform(scrollYProgress, [0, 0.3], [`${bmwStartVW}vw`, "-100vw"]);
   const bmwWheelRotate = useTransform(scrollYProgress, [0, 0.3], [0, -7 * 180]);
   const bmwCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
   const bmwShadowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0.3, 0.3, 0]);
-  const bmwTextX = useTransform(scrollYProgress, [0, 0.3], ["50vw", "-50vw"]);
+  const bmwTextX = useTransform(scrollYProgress, [0, 0.3], [`${bmwTextStartVW}vw`, "-50vw"]);
   const bmwTextOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0.1, 0.8, 0.8, 0.1]);
   const bmwTextScale = useTransform(scrollYProgress, [0, 0.15, 0.3], [0.9, 1, 1.1]);
   const bmwOpacity = useTransform(scrollYProgress, [0, 0.2, 0.25, 0.35], [1, 1, 1, 0]);
 
   // KIA Car Animations (second part: 0.25 to 0.55)
-  const kiaCarX = useTransform(scrollYProgress, [0, 0.5], ["90vw", "-100vw"]);
+  const kiaCarX = useTransform(scrollYProgress, [0, 0.5], [`${kiaStartVW}vw`, "-100vw"]);
   const kiaWheelRotate = useTransform(scrollYProgress, [0, 0.5], [0, -11 * 180]);
-  const kiaCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
+  const kiaCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, -2, -2, 0]);
   const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
-  const kiaTextX = useTransform(scrollYProgress, [0, 0.7], ["120vw", "-100vw"]);
+  const kiaTextX = useTransform(scrollYProgress, [0, 0.7], [`${kiaTextStartVW}vw`, "-100vw"]);
   const kiaTextOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.3, 0.4], [0.1, 0.8, 0.8, 0.1]);
   const kiaTextScale = useTransform(scrollYProgress, [0.25, 0.4, 0.55], [0.9, 1, 1.1]);
   // const kiaOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0]);
@@ -38,11 +75,11 @@ export default function BMWCarScroll() {
 
 
   // Touareg Car Animations (third part: 0.5 to 0.8)
-  const touaregCarX = useTransform(scrollYProgress, [0, 0.7], ["170vw", "-100vw"]);
+  const touaregCarX = useTransform(scrollYProgress, [0, 0.7], [`${touaregStartVW}vw`, "-100vw"]);
   const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -7 * 180]);
-  const touaregCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, -2, -2, 0]);
+  const touaregCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [-20, -20, -20, 0]);
   const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
-  const touaregTextX = useTransform(scrollYProgress, [0, 0.7], ["200vw", "-50vw"]); // Same timing as car
+  const touaregTextX = useTransform(scrollYProgress, [0, 0.7], [`${touaregTextStartVW}vw`, "-50vw"]); // Same timing as car
   const touaregTextOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]); // Same timing as car
   const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
   // const touaregOpacity = useTransform(scrollYProgress, [0.45, 0.55, 0.75, 0.85], [0, 1, 1, 0]);
@@ -50,11 +87,11 @@ export default function BMWCarScroll() {
 
 
   // Golf 8 Car Animations (fourth part: 0.75 to 1.0)
-  const golf8CarX = useTransform(scrollYProgress, [0, 0.9], ["250vw", "-100vw"]);
+  const golf8CarX = useTransform(scrollYProgress, [0, 0.9], [`${golf8StartVW}vw`, "-100vw"]);
   const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.95], [0, -10 * 180]);
   const golf8CarY = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, -2, -2, 0]);
   const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
-  const golf8TextX = useTransform(scrollYProgress, [0, 1], ["310vw", "-100vw"]);
+  const golf8TextX = useTransform(scrollYProgress, [0, 1], [`${golf8TextStartVW}vw`, "-100vw"]);
   const golf8TextOpacity = useTransform(scrollYProgress, [0.45, 0.6, 0.6, 0.85], [0.1, 0.9, 0.9, 0.1]);
   const golf8TextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
   // const golf8Opacity = useTransform(scrollYProgress, [0.7, 0.8, 0.95, 1], [0, 1, 1, 1]);
@@ -185,7 +222,7 @@ export default function BMWCarScroll() {
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
                 bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
-                border-2 border-red-500"
+                "
     style={{
       x: bmwCarX,
       left: '50%',
@@ -211,7 +248,7 @@ export default function BMWCarScroll() {
 
         {/* KIA Section */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[90px]"
+          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)]"
           // style={{ opacity: kiaOpacity }}
         >
           {/* KIA Logo - Background parallax layer */}
@@ -399,60 +436,60 @@ export default function BMWCarScroll() {
             style={{ 
               x: touaregCarX, 
               y: touaregCarY,
-              width: 1220,
-              willChange: 'transform'
+              width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+              willChange: 'transform',
             }}
           >
             {/* Touareg Car body */}
             <Image
-              src="/images/touareg-body.png"
+              src="/images/t-roc body.png"
               alt="Touareg body"
-              width={720}
-              height={400}
+              width={1440}
+              height={800}
+              sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
-              priority
             />
 
             {/* Touareg Rear wheel (left) */}
             <motion.div
-              className="absolute bottom-[7.7%] left-[10.9%] w-[232.5px] h-[232.5px]]"
+              className="absolute bottom-[9%] left-[11.9%] w-[16%] aspect-square"
               style={{
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/left-wheel-touareg.png"
+                src="/images/t-roc wheel left.png"
                 alt="Touareg Left wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
             </motion.div>
 
             {/* Touareg Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[7.5%] left-[70.7%] w-[232.5px] h-[232.5px]"
+              className="absolute bottom-[10%] left-[73.5%] w-[16%] aspect-square"
               style={{ 
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/left-wheel-touareg.png"
+                src="/images/t-roc wheel right.png"
                 alt="Touareg Right wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
             </motion.div>
 
             {/* Touareg Shadow */}
             <motion.div 
-              className="absolute -bottom-[19%] left-1/2 -translate-x-1/2 w-[60%] h-[20px] bg-black blur-2xl rounded-full"
+              className="absolute left-1/2 -translate-x-1/2 w-[60%] bg-black blur-2xl rounded-full"
               style={{ 
                 opacity: touaregShadowOpacity,
                 willChange: 'opacity'
@@ -521,60 +558,60 @@ export default function BMWCarScroll() {
             style={{ 
               x: golf8CarX, 
               y: golf8CarY,
-              width: 1220,
-              willChange: 'transform'
+              width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+              willChange: 'transform',
             }}
           >
             {/* Golf 8 Car body */}
             <Image
               src="/images/golf8-body.png"
               alt="Golf 8 body"
-              width={720}
-              height={400}
+              width={1440}
+              height={800}
+              sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
-              priority
             />
 
             {/* Golf 8 Rear wheel (left) */}
             <motion.div
-              className="absolute bottom-[11.9%] left-[19.3%] w-[169.5px] h-[169.5px]"
+              className="absolute bottom-[16.5%] left-[11.77%] w-[15.5%] aspect-square"
               style={{ 
                 rotate: golf8WheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/golf-8-left-wheel.png"
+                src="/images/golf8-wheel-left.png"
                 alt="Golf 8 Left wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
             </motion.div>
 
             {/* Golf 8 Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[11.9%] left-[73.3%] w-[169px] h-[169px]"
+              className="absolute bottom-[16.1%] left-[74.2%] w-[15.5%] aspect-square"
               style={{ 
                 rotate: golf8WheelRotate,
                 willChange: 'transform'
               }}
             >
               <Image
-                src="/images/golf-8-right-wheel.png"
+                src="/images/golf8-wheel-right.png"
                 alt="Golf 8 Right wheel"
-                width={120}
-                height={120}
-                className="w-full h-full pointer-events-none select-none"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
                 draggable={false}
               />
             </motion.div>
 
             {/* Golf 8 Shadow */}
             <motion.div 
-              className="absolute -bottom-[19%] left-1/2 -translate-x-1/2 w-[60%] h-[20px] bg-black blur-2xl rounded-full"
+              className="absolute left-1/2 -translate-x-1/2 w-[60%] bg-black blur-2xl rounded-full"
               style={{ 
                 opacity: golf8ShadowOpacity,
                 willChange: 'opacity'
@@ -594,7 +631,7 @@ export default function BMWCarScroll() {
               willChange: 'transform, opacity'
             }}
           >
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-4 ">
               <div className=" space-y-1 p-2">
                 <h3 className="text-2xl font-bold">VW Golf 8</h3>
                 <p className="text-lg">Compact excellence with modern innovation.</p>

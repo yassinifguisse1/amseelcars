@@ -7,23 +7,25 @@
     background-color: #141516;
     position: relative;
     .body{
-        padding-top: 200px;
+        /* Responsive top spacing */
+        padding-top: clamp(96px, 18vh, 200px);
         width: 100%;
         max-width: 1800px;
         background-color: #141516;
 
         .title{
             border-bottom: 1px solid rgb(134, 134, 134);
-            padding-bottom: 100px;
-            margin-left: 200px;
-            margin-right: 200px;
+            padding-bottom: clamp(40px, 10vh, 100px);
+            /* Fluid horizontal gutters */
+            margin-left: clamp(16px, 6vw, 200px);
+            margin-right: clamp(16px, 6vw, 200px);
             position: relative;
             span{
                 display: flex;
                 align-items: center;
                 .imageContainer{
-                    width: 100px;
-                    height: 100px;
+                    width: clamp(56px, 9vw, 100px);
+                    height: clamp(56px, 9vw, 100px);
                     position: relative;
                     border-radius: 50%;
                     
@@ -46,30 +48,37 @@
                 }
             }
             h2{
-                font-size: 5vw;
+                font-size: clamp(28px, 5vw, 72px);
                 margin: 0px;
                 font-weight: 300;
             }
             .buttonContainer{
                 position: absolute;
-                left: calc(100% - 400px); 
-                top: calc(100% - 75px);
+                /* Anchor to the right/bottom in a fluid way */
+                right: clamp(16px, 6vw, 200px);
+                bottom: calc(-1 * clamp(48px, 8vw, 90px));
             }
             .button{
-                width: 180px;
-                height: 180px;
+                width: clamp(64px, 12vw, 180px);
+                height: clamp(64px, 12vw, 180px);
+                padding: 0 !important; /* override pill padding from RoundedButton */
                 background-color: #141516;
                 color: white;
                 border-radius: 50%;
                 position: absolute;
+                bottom: 50%;
+                right: 50%;
+                transform: translate(-50%, 50%);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 border: 1px solid white;
                 cursor: pointer;
+                box-sizing: border-box;
                 p{
                     margin: 0px;
-                    font-size: 16px;
+                    font-size: clamp(10px, 1.4vw, 16px);
+                    white-space: nowrap;
                     font-weight: 300;
                     z-index: 2;
                     position: relative;
@@ -83,16 +92,17 @@
         }
         .nav{
             display: flex;
-            gap: 20px;
-            margin-top: 100px;
-            margin-left: 200px;
-            margin-right: 200px;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 20px);
+            margin-top: clamp(32px, 8vh, 100px);
+            margin-left: clamp(16px, 6vw, 200px);
+            margin-right: clamp(16px, 6vw, 200px);
         }
         .info{
             display: flex;
             justify-content: space-between;
-            margin-top: 200px;
-            padding: 20px;
+            margin-top: clamp(64px, 12vh, 200px);
+            padding: clamp(12px, 2vw, 20px);
             div{
                 display: flex;
                 gap: 10px;
@@ -136,5 +146,59 @@
             
         }
     }
-    
+    /* Tablet and down adjustments */
+    @media (max-width: 1024px) {
+        .body {
+            .title {
+                .buttonContainer {
+                    right: clamp(16px, 6vw, 80px);
+                    bottom: calc(-1 * clamp(40px, 7vw, 80px));
+                }
+            }
+            .nav {
+                justify-content: center;
+            }
+            .info {
+                flex-direction: column;
+                gap: clamp(16px, 3vw, 28px);
+                align-items: stretch;
+                text-align: center;
+                div {
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    row-gap: 8px;
+                }
+            }
+        }
+    }
+    /* Small phones */
+    @media (max-width: 640px) {
+        .body {
+            .title {
+                span {
+                    flex-wrap: wrap;
+                }
+                .buttonContainer {
+                    right: clamp(12px, 5vw, 40px);
+                    bottom: calc(-1 * clamp(28px, 10vw, 56px));
+                    // width: 100%;
+                    // position: relative;
+                    // border: 1px solid blue;
+                    // display: none;
+                }
+                .button {
+                    width: clamp(56px, 16vw, 88px);
+                    height: clamp(56px, 16vw, 88px);
+                    // position: absolute;
+                    // top: 50%;  
+                    // right: 20%;
+                    // transform: translate(-50%, 50%);
+                    bottom: 0%;
+                    right: 50%;
+                    p { font-size: clamp(10px, 3.2vw, 13px); }
+                }
+                svg { display: none; }
+            }
+        }
+    }
 }

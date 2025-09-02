@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -243,20 +244,28 @@ export default function FullscreenMap() {
       >
         {/* Dashboard Background */}
         <div className="relative w-full h-full">
-          <img
+          <Image
             src="/images/cardashboard.png"
             alt="Car Dashboard"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover pointer-events-none select-none"
           />
           
           {/* Map Screen Area - positioned over the dashboard screen */}
-          <div className="absolute top-[32%] left-[16.5%] w-[65%] h-[48%] rounded-xl overflow-hidden border border-gray-600 shadow-inner">
+          <div
+            className="absolute 
+                       top-[28%] left-[10%] w-[80%] h-[52%]
+                       md:top-[31%] md:left-[15%] md:w-[70%] md:h-[49%]
+                       lg:top-[32%] lg:left-[16.5%] lg:w-[65%] lg:h-[48%]
+                       rounded-xl overflow-hidden border border-gray-600 shadow-inner"
+          >
             <svg
               ref={svgRef}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1687 758"
-              className="w-full h-full cursor-crosshair bg-gray-900"
-              style={{ transform: 'scale(1.2)', transformOrigin: 'center center' }}
+              className="w-full h-full cursor-crosshair bg-gray-900 origin-center scale-[1.05] md:scale-[1.15] lg:scale-[1.2]"
               onClick={handleMapClick}
             >
           {/* Map background - your custom Agadir map */}
