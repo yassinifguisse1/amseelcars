@@ -233,6 +233,8 @@ const Cardrive = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const [images, setImages] = useState<HTMLImageElement[]>([])
     const [imagesLoaded, setImagesLoaded] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    const [totalFrames, setTotalFrames] = useState(364)
     
     const {scrollYProgress} = useScroll({
         target: containerRef,
@@ -245,23 +247,38 @@ const Cardrive = () => {
             const loadedImages: HTMLImageElement[] = [];
             let loadedCount = 0;
             
-            // Load all frames from 1 to 770
-            const startFrame = 400;
-            const endFrame = 763;
-            const totalImages = endFrame - startFrame + 1; // 763 frames total
+            // Check if mobile device
+            const isMobileDevice = window.innerWidth < 768;
+            setIsMobile(isMobileDevice);
+            
+            let startFrame, endFrame, totalImages, frameFolder;
+            
+            if (isMobileDevice) {
+                // Use mobile frames (753-833)
+                startFrame = 400;
+                endFrame = 763;
+                totalImages = endFrame - startFrame + 1; // 81 frames total
+                frameFolder = '/mobile-frames';
+                setTotalFrames(totalImages);
+                console.log('Loading mobile frames:', startFrame, 'to', endFrame);
+            } else {
+                // Use desktop frames (400-763)
+                startFrame = 400;
+                endFrame = 763;
+                totalImages = endFrame - startFrame + 1; // 364 frames total
+                frameFolder = '/frame';
+                setTotalFrames(totalImages);
+                console.log('Loading desktop frames:', startFrame, 'to', endFrame);
+            }
 
             for(let i = startFrame; i <= endFrame; i++){
                 const img = new Image();
-                // Pad the number to 5 digits (00694, 00695, etc.)
-                const frameNumber = i.toString().padStart(5, '0');
+                // Pad the number to 3 digits for mobile frames, 5 for desktop
+                const frameNumber = isMobileDevice ? 
+                    i.toString().padStart(5, '0') : 
+                    i.toString().padStart(5, '0');
                 
-                // Option to use mobile-specific frames if available
-                // Uncomment these lines if you create mobile-optimized frames:
-                // const isMobile = window.innerWidth < 768;
-                // const frameFolder = isMobile ? '/frame/mobile' : '/frame';
-                // img.src = `${frameFolder}/frame_${frameNumber}.webp`;
-                
-                img.src = `/frame/frame_${frameNumber}.webp`;
+                img.src = `${frameFolder}/frame_${frameNumber}.webp`;
                 
                 img.onload = () => {
                     loadedCount++;
@@ -273,7 +290,7 @@ const Cardrive = () => {
                 };
                 
                 img.onerror = () => {
-                    console.error(`Failed to load frame: /frame/frame_${frameNumber}.webp`);
+                    console.error(`Failed to load frame: ${frameFolder}/frame_${frameNumber}.webp`);
                     loadedCount++; // Still count it to avoid hanging
                     if (loadedCount === totalImages) {
                         setImagesLoaded(true);
@@ -286,7 +303,29 @@ const Cardrive = () => {
         };
 
         loadImages();
-    }, []);
+        
+        // Handle orientation/resize changes that might switch between mobile/desktop
+        const handleResize = () => {
+            const newIsMobile = window.innerWidth < 768;
+            if (newIsMobile !== isMobile) {
+                console.log('Device type changed, reloading frames...');
+                setImagesLoaded(false);
+                setImages([]);
+                // Reload images for new device type
+                setTimeout(loadImages, 100);
+            }
+        };
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(handleResize, 500);
+        });
+        
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('orientationchange', handleResize);
+        };
+    }, [isMobile]);
 
     // Set canvas size responsively
     useEffect(() => {
@@ -354,7 +393,7 @@ const Cardrive = () => {
         };
     }, []);
 
-    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, 762]); // 0-832 for 763 frames
+    const currentIndex = useTransform(scrollYProgress, [0, 1], [0, totalFrames - 1]); // Dynamic based on device
     
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);
@@ -382,29 +421,41 @@ const Cardrive = () => {
                 // Smart responsive cropping based on device orientation
                 const canvasAspect = displayWidth / displayHeight;
                 const imageAspect = img.naturalWidth / img.naturalHeight;
-                const isMobile = displayWidth < 768; // Mobile breakpoint
+                const isMobileDevice = displayWidth < 768; // Mobile breakpoint
                 const isPortrait = displayHeight > displayWidth;
                 
                 let drawWidth, drawHeight, offsetX, offsetY;
                 
-                if (isMobile && isPortrait) {
-                    // Mobile portrait: Focus on center-bottom (where car usually is)
-                    drawHeight = displayHeight;
-                    drawWidth = displayHeight * imageAspect;
-                    offsetX = (displayWidth - drawWidth) / 2;
-                    offsetY = -drawHeight * 0.1; // Shift up slightly to show more car
-                } else if (canvasAspect > imageAspect) {
-                    // Wider canvas - fit width and crop height
-                    drawWidth = displayWidth;
-                    drawHeight = displayWidth / imageAspect;
-                    offsetX = 0;
-                    offsetY = (displayHeight - drawHeight) / 2;
+                if (isMobileDevice) {
+                    // Mobile: Use mobile-optimized frames that are already sized for mobile
+                    if (isPortrait) {
+                        // Portrait mobile: fit to screen width
+                        drawWidth = displayWidth;
+                        drawHeight = displayWidth / imageAspect;
+                        offsetX = 0;
+                        offsetY = (displayHeight - drawHeight) / 2;
+                    } else {
+                        // Landscape mobile: fit to screen height
+                        drawHeight = displayHeight;
+                        drawWidth = displayHeight * imageAspect;
+                        offsetX = (displayWidth - drawWidth) / 2;
+                        offsetY = 0;
+                    }
                 } else {
-                    // Taller canvas - fit height and crop width
-                    drawHeight = displayHeight;
-                    drawWidth = displayHeight * imageAspect;
-                    offsetX = (displayWidth - drawWidth) / 2;
-                    offsetY = 0;
+                    // Desktop: Use desktop frames with smart cropping
+                    if (canvasAspect > imageAspect) {
+                        // Wider canvas - fit width and crop height
+                        drawWidth = displayWidth;
+                        drawHeight = displayWidth / imageAspect;
+                        offsetX = 0;
+                        offsetY = (displayHeight - drawHeight) / 2;
+                    } else {
+                        // Taller canvas - fit height and crop width
+                        drawHeight = displayHeight;
+                        drawWidth = displayHeight * imageAspect;
+                        offsetX = (displayWidth - drawWidth) / 2;
+                        offsetY = 0;
+                    }
                 }
                 
                 // Draw image with smart cropping
@@ -431,7 +482,7 @@ const Cardrive = () => {
         <section 
             ref={containerRef}
             className="relative bg-black"
-            style={{ height: "300vh" }}
+            style={{ height: isMobile ? "250vh" : "300vh" }}
         >
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black">
                 <canvas 
@@ -449,7 +500,10 @@ const Cardrive = () => {
                         <div className="text-center">
                             <div>Loading frames...</div>
                             <div className="text-sm mt-2">
-                                {Math.round((images.filter(img => img.complete).length / 763) * 100)}%
+                                {Math.round((images.filter(img => img.complete).length / totalFrames) * 100)}%
+                            </div>
+                            <div className="text-xs mt-1 text-gray-400">
+                                {isMobile ? 'Mobile frames' : 'Desktop frames'} ({totalFrames} total)
                             </div>
                         </div>
                     </div>
