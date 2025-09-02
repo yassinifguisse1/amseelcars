@@ -335,12 +335,17 @@ const Cardrive = () => {
         const resizeCanvas = () => {
             const container = canvas.parentElement;
             if (container) {
-                // Use window dimensions for mobile compatibility
+                // Use visual viewport for mobile compatibility
                 const containerWidth = window.innerWidth;
-                const containerHeight = window.innerHeight;
+                const containerHeight = isMobile ? 
+                    (window.visualViewport?.height || window.innerHeight) : 
+                    window.innerHeight;
                 
-                // Set canvas resolution
-                const pixelRatio = window.devicePixelRatio || 1;
+                // Set canvas resolution with higher pixel ratio for mobile
+                const pixelRatio = isMobile ? 
+                    Math.min(window.devicePixelRatio || 1, 2) : // Limit to 2x on mobile for performance
+                    (window.devicePixelRatio || 1);
+                
                 canvas.width = containerWidth * pixelRatio;
                 canvas.height = containerHeight * pixelRatio;
                 
@@ -352,46 +357,49 @@ const Cardrive = () => {
                 const ctx = canvas.getContext('2d');
                 if (ctx) {
                     ctx.scale(pixelRatio, pixelRatio);
+                    // Ensure smooth rendering on mobile
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
                 }
                 
-                console.log(`Canvas resized to: ${containerWidth}x${containerHeight}, ratio: ${pixelRatio}`);
+                console.log(`Canvas resized to: ${containerWidth}x${containerHeight}, ratio: ${pixelRatio}, mobile: ${isMobile}`);
             }
         };
 
-        // Initial resize
-        resizeCanvas();
+        // Initial resize with delay for mobile
+        if (isMobile) {
+            setTimeout(resizeCanvas, 100);
+        } else {
+            resizeCanvas();
+        }
 
         // Listen for window resize
         window.addEventListener('resize', resizeCanvas);
         
         // Listen for orientation change on mobile with longer delay
         window.addEventListener('orientationchange', () => {
-            setTimeout(resizeCanvas, 500); // Longer delay for mobile orientation change
+            setTimeout(resizeCanvas, 800); // Longer delay for mobile orientation change
         });
 
-        // Also listen for mobile browser address bar changes
-        let ticking = false;
-        const handleScroll = () => {
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    resizeCanvas();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        // Only add scroll listener on mobile for address bar handling
-        if (window.innerWidth <= 768) {
-            window.addEventListener('scroll', handleScroll, { passive: true });
+        // Handle visual viewport changes on mobile (address bar show/hide)
+        if (window.visualViewport && isMobile) {
+            const handleViewportChange = () => {
+                setTimeout(resizeCanvas, 150);
+            };
+            window.visualViewport.addEventListener('resize', handleViewportChange);
+            
+            return () => {
+                window.removeEventListener('resize', resizeCanvas);
+                window.removeEventListener('orientationchange', resizeCanvas);
+                window.visualViewport?.removeEventListener('resize', handleViewportChange);
+            };
         }
 
         return () => {
             window.removeEventListener('resize', resizeCanvas);
             window.removeEventListener('orientationchange', resizeCanvas);
-            window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [isMobile]);
 
     const currentIndex = useTransform(scrollYProgress, [0, 1], [0, totalFrames - 1]); // Dynamic based on device
     
@@ -411,8 +419,10 @@ const Cardrive = () => {
             const imageIndex = Math.max(0, Math.min(Math.round(index), images.length - 1));
             const img = images[imageIndex];
             
-            if (img && img.complete) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
+                // Clear with black background to prevent flickering
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
                 // Get actual display dimensions (not canvas resolution)
                 const displayWidth = parseInt(canvas.style.width) || canvas.width;
@@ -421,21 +431,28 @@ const Cardrive = () => {
                 // Smart responsive cropping based on device orientation
                 const canvasAspect = displayWidth / displayHeight;
                 const imageAspect = img.naturalWidth / img.naturalHeight;
-                const isMobileDevice = displayWidth < 768; // Mobile breakpoint
                 const isPortrait = displayHeight > displayWidth;
                 
                 let drawWidth, drawHeight, offsetX, offsetY;
                 
-                if (isMobileDevice) {
-                    // Mobile: Use mobile-optimized frames that are already sized for mobile
+                if (isMobile) {
+                    // Mobile: Ensure frames fill the screen properly
                     if (isPortrait) {
-                        // Portrait mobile: fit to screen width
+                        // Portrait mobile: fit to screen width, center vertically
                         drawWidth = displayWidth;
                         drawHeight = displayWidth / imageAspect;
                         offsetX = 0;
-                        offsetY = (displayHeight - drawHeight) / 2;
+                        offsetY = Math.max(0, (displayHeight - drawHeight) / 2);
+                        
+                        // If image is shorter than screen, scale to fit height instead
+                        if (drawHeight < displayHeight) {
+                            drawHeight = displayHeight;
+                            drawWidth = displayHeight * imageAspect;
+                            offsetX = (displayWidth - drawWidth) / 2;
+                            offsetY = 0;
+                        }
                     } else {
-                        // Landscape mobile: fit to screen height
+                        // Landscape mobile: fit to screen height, center horizontally
                         drawHeight = displayHeight;
                         drawWidth = displayHeight * imageAspect;
                         offsetX = (displayWidth - drawWidth) / 2;
@@ -458,16 +475,33 @@ const Cardrive = () => {
                     }
                 }
                 
-                // Draw image with smart cropping
-                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                // Draw image with error handling
+                try {
+                    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                } catch (error) {
+                    console.error('Error drawing frame:', error, 'Frame:', imageIndex);
+                }
+            } else {
+                console.warn('Image not ready:', imageIndex, img?.complete, img?.naturalWidth, img?.naturalHeight);
             }
         },
-        [images, imagesLoaded]
+        [images, imagesLoaded, isMobile]
     );
+
+    // Add throttling state for mobile
+    const lastRenderTime = useRef(0);
 
     useMotionValueEvent(currentIndex, 'change', (latest) => {
         const frameIndex = Math.round(Number(latest));
-        console.log(`Scroll progress: ${scrollYProgress.get()}, Frame: ${frameIndex}`);
+        
+        // Throttle rendering on mobile for better performance
+        if (isMobile) {
+            const now = Date.now();
+            if (now - lastRenderTime.current < 16) return; // ~60fps limit
+            lastRenderTime.current = now;
+        }
+        
+        console.log(`Scroll progress: ${scrollYProgress.get()}, Frame: ${frameIndex}, Mobile: ${isMobile}`);
         render(frameIndex);
     });
 
@@ -491,10 +525,14 @@ const Cardrive = () => {
                     style={{
                         display: 'block',
                         width: '100vw',
-                        height: '100vh',
+                        height: isMobile ? '100svh' : '100vh',
                         objectFit: 'cover',
                         pointerEvents: 'none',
-                        zIndex: 1000
+                        zIndex: 1000,
+                        // position: 'absolute',
+                        // top: 0,
+                        // left: 0,
+                        // touchAction: 'none'
                     }}
                 />
                 {!imagesLoaded && (
