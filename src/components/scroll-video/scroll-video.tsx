@@ -482,9 +482,9 @@ const Cardrive = () => {
         <section 
             ref={containerRef}
             className="relative bg-black"
-            style={{ height: isMobile ? "250vh" : "300vh" }}
+            style={{ height: isMobile ? "250svh" : "300svh", touchAction: 'pan-y' }}
         >
-            <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+            <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center  bg-black">
                 <canvas 
                     ref={canvasRef}
                     className="block"
@@ -492,7 +492,9 @@ const Cardrive = () => {
                         display: 'block',
                         width: '100vw',
                         height: '100vh',
-                        objectFit: 'cover'
+                        objectFit: 'cover',
+                        pointerEvents: 'none',
+                        zIndex: 1000
                     }}
                 />
                 {!imagesLoaded && (
