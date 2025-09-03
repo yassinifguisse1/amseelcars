@@ -571,7 +571,7 @@ const Cardrive = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, ease: "easeOut" }}
                         >
-                            <span className="relative z-10 flex items-center gap-2">
+                            <span className="relative z-10 flex items-center gap-2 text-sm md:text-base lg:text-lg ">
                                 Explore All Cars
                                 <motion.span
                                     className="inline-block"
