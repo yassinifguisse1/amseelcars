@@ -225,8 +225,9 @@
 // export default Cardrive;
 
 "use client"
-import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
+import { useMotionValueEvent, useScroll, useTransform, motion } from 'framer-motion'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 const Cardrive = () => {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -403,6 +404,11 @@ const Cardrive = () => {
 
     const currentIndex = useTransform(scrollYProgress, [0, 1], [0, totalFrames - 1]); // Dynamic based on device
     
+    // Button parallax transforms - comes from bottom and stops in center
+    const buttonY = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], ['100vh', '0vh', '0vh', '0vh']);
+    const buttonOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0, 1, 1]);
+    const buttonScale = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.8, 1, 1]);
+    
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);
     // const logoOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
@@ -519,6 +525,7 @@ const Cardrive = () => {
             style={{ height: isMobile ? "250svh" : "300svh", touchAction: 'pan-y' }}
         >
             <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center  bg-black">
+                {/* Video Canvas */}
                 <canvas 
                     ref={canvasRef}
                     className="block"
@@ -528,13 +535,78 @@ const Cardrive = () => {
                         height: isMobile ? '100svh' : '100vh',
                         objectFit: 'cover',
                         pointerEvents: 'none',
-                        zIndex: 1000,
+                        zIndex: 10,
                         // position: 'absolute',
                         // top: 0,
                         // left: 0,
                         // touchAction: 'none'
                     }}
                 />
+
+                {/* Parallax Button - Explore All Cars */}
+                <motion.div
+                    className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-auto"
+                    style={{
+                        y: buttonY,
+                        opacity: buttonOpacity,
+                        scale: buttonScale,
+                    }}
+                >
+                    <Link href="/cars">
+                        <motion.button
+                            className={`
+                                relative px-8 py-4 bg-white text-black font-bold text-lg
+                                rounded-full border-2 border-white
+                                hover:bg-transparent hover:text-white
+                                transition-all duration-300 ease-out
+                                shadow-2xl backdrop-blur-sm
+                                ${isMobile ? 'px-6 py-3 text-base' : ''}
+                            `}
+                            whileHover={{ 
+                                scale: 1.05,
+                                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)"
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                        >
+                            <span className="relative z-10 flex items-center gap-2">
+                                Explore All Cars
+                                <motion.span
+                                    className="inline-block"
+                                    animate={{ x: [0, 5, 0] }}
+                                    transition={{ 
+                                        duration: 1.5, 
+                                        repeat: Infinity, 
+                                        ease: "easeInOut" 
+                                    }}
+                                >
+                                    →
+                                </motion.span>
+                            </span>
+                            
+                            {/* Animated background gradient */}
+                            <motion.div
+                                className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-100 to-white opacity-0"
+                                whileHover={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                            />
+                            
+                            {/* Ripple effect on hover */}
+                            <motion.div
+                                className="absolute inset-0 rounded-full border-2 border-white opacity-0"
+                                whileHover={{
+                                    opacity: [0, 1, 0],
+                                    scale: [1, 1.2, 1.4],
+                                }}
+                                transition={{ duration: 0.6 }}
+                            />
+                        </motion.button>
+                    </Link>
+                </motion.div>
+
+                {/* Loading Screen */}
                 {!imagesLoaded && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black text-white text-xl z-50">
                         <div className="text-center">
