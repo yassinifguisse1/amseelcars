@@ -22,9 +22,17 @@ export default function Index() {
         </div>
 
         <div data-scroll data-scroll-speed={0.1} className="md:relative">
-          <Rounded className={styles.button} onClick={handleAboutClick}>
-            <p>About me</p>
-          </Rounded>
+          {/* <Rounded className={styles.button} onClick={handleAboutClick}>
+            <p>About us</p>
+          </Rounded> */}
+          <Rounded
+              backgroundColor="#D32F2F"
+              aria-label="About us"
+              onClick={handleAboutClick}
+             
+            >
+              <p className="z-10 text-white  ">About us</p>
+            </Rounded>
         </div>
       </div>
     </div>

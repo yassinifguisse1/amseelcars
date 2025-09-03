@@ -29,3 +29,17 @@
     border-radius: 50%;
     top: 100%;
 }
+//responsive
+@media (max-width: 768px) {
+    .roundedButton{
+        padding: 10px 20px 10px 20px;
+        p{
+            font-size: 10px;
+        }
+    }
+    .circle{
+        width: 150%;
+        height: 150%;
+       
+    }
+}

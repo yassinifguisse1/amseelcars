@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "../Description/Index";
+import "./style.css";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SplitHeadline() {
@@ -40,13 +41,13 @@ export default function SplitHeadline() {
           .timeline({
             scrollTrigger: {
               trigger: section2.current!,
-              start: "top 80%",
-              end: "top 35%",
+              start: "top 100%",
+              end: "top 50%",
               scrub: true,
             },
           })
-          .to(".split-left", { xPercent: -15, ease: "none" }, 0)
-          .to(".split-right", { xPercent: 15, ease: "none" }, 0);
+          .to(".split-left", { xPercent: -25, ease: "none" }, 0)
+          .to(".split-right", { xPercent: 25, ease: "none" }, 0);
       });
     }, root);
 
@@ -68,8 +69,8 @@ export default function SplitHeadline() {
               // text-[clamp(40px,6vw,100px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,100px)]
             "
           >
-            <span  className="split-left inline-block text-[50px]  lg:text-[90px]">We&nbsp;are</span>
-            <span  className="split-right inline-block text-[50px]  lg:text-[90px]">your&nbsp;next&nbsp;ride.</span>
+            <span  className="split-left inline-block text-[30px] md:text-[50px]  lg:text-[90px]">We&nbsp;are</span>
+            <span  className="split-right inline-block text-[30px] md:text-[50px]  lg:text-[90px]">your&nbsp;next&nbsp;ride.</span>
           </h1>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
@@ -83,9 +84,9 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)]
             "
           >
-          <span className="split-lefts inline-block text-[45px]  lg:text-[90px]">From&nbsp;airport&nbsp;</span>
+          <span className="split-lefts inline-block text-[30px] md:text-[45px]  lg:text-[90px]">From&nbsp;airport&nbsp;</span>
 
-            <span className="split-rights inline-block text-[45px]  lg:text-[90px]">to&nbsp;anywhere.</span>
+            <span className="split-rights inline-block text-[30px] md:text-[45px]  lg:text-[90px]">to&nbsp;anywhere.</span>
           </h1>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
@@ -99,8 +100,8 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)]
             "
           >
-            <span className="split-leftc inline-block text-[50px]  lg:text-[90px]">Book</span>
-            <span className="split-rightc inline-block text-[50px]  lg:text-[90px]">in&nbsp;minutes</span>
+            <span className="split-leftc inline-block text-[30px] md:text-[50px]  lg:text-[90px]">Book</span>
+            <span className="split-rightc inline-block text-[30px] md:text-[50px]  lg:text-[90px]">in&nbsp;minutes</span>
 
           </h1>
         </div>
@@ -115,8 +116,8 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)]
             "
           >
-            <span className="split-left inline-block text-[50px]  lg:text-[90px]">Pick</span>
-            <span className="split-right inline-block text-[50px]  lg:text-[90px]">a&nbsp;car</span>
+            <span className="split-left inline-block text-[30px] md:text-[50px]  lg:text-[90px]">Pick</span>
+            <span className="split-right inline-block text-[30px] md:text-[50px]  lg:text-[90px]">a&nbsp;car</span>
 
           </h1>
         </div>
@@ -131,8 +132,8 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)] 
             "
           >
-            <span className="split-left inline-block text-[50px]  lg:text-[90px]">start</span>
-            <span className="split-right inline-block text-[50px]  lg:text-[90px]">the&nbsp;journey.</span>
+            <span className="split-left inline-block text-[30px] md:text-[50px]  lg:text-[90px]">Start</span>
+            <span className="split-right inline-block text-[30px] md:text-[50px]  lg:text-[90px]">the&nbsp;journey.</span>
 
           </h1>
         </div>

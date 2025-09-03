@@ -15,56 +15,147 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            
             .imageContainer{
                 position: relative;
-                width: 25vw;
-                height: 25vh;
-                img{
+                img, video{
                     object-fit: cover;
+                    border-radius: 12px;
                 }
             }
+            
+            // Video container (first element) - always centered
+            &:nth-of-type(1){
+                .imageContainer{
+                    width: clamp(280px, 35vw, 450px);
+                    height: clamp(200px, 25vh, 320px);
+                    top: 0;
+                    left: 0;
+                    
+                    @media (max-width: 768px) {
+                        width: clamp(250px, 80vw, 350px);
+                        height: clamp(180px, 45vw, 250px);
+                    }
+                }
+            }
+            
+            // Image 2 - Top right
             &:nth-of-type(2){
                 .imageContainer{
-                    top: 6vh;
-                    left: 30vw; 
-                    width: 260px; height: 180px;
+                    width: clamp(180px, 22vw, 280px);
+                    height: clamp(120px, 15vh, 180px);
+                    top: clamp(2vh, 8vh, 12vh);
+                    left: clamp(25vw, 35vw, 45vw);
+                    
+                    @media (max-width: 768px) {
+                        width: clamp(120px, 35vw, 200px);
+                        height: clamp(80px, 25vw, 140px);
+                        top: clamp(5vh, 10vh, 15vh);
+                        left: clamp(55vw, 60vw, 70vw);
+                    }
+                    
+                    @media (max-width: 480px) {
+                        width: clamp(100px, 30vw, 160px);
+                        height: clamp(70px, 20vw, 110px);
+                        top: 8vh;
+                        left: 60vw;
+                    }
                 }
             }
+            
+            // Image 3 - Top left
             &:nth-of-type(3){
                 .imageContainer{
-                    top: -25vh; 
-                    right: 30vw; width: 320px; height: 200px;
+                    width: clamp(200px, 25vw, 320px);
+                    height: clamp(140px, 18vh, 220px);
+                    top: clamp(-20vh, -15vh, -10vh);
+                    right: clamp(25vw, 35vw, 45vw);
                     
+                    @media (max-width: 768px) {
+                        width: clamp(140px, 40vw, 220px);
+                        height: clamp(100px, 28vw, 160px);
+                        top: clamp(-15vh, -10vh, -5vh);
+                        right: clamp(55vw, 60vw, 70vw);
+                    }
+                    
+                    @media (max-width: 480px) {
+                        width: clamp(120px, 35vw, 180px);
+                        height: clamp(85px, 25vw, 125px);
+                        top: -8vh;
+                        right: 60vw;
+                    }
                 }
             }
+            
+            // Image 4 - Bottom left
             &:nth-of-type(4){
                 .imageContainer{
-                    top: -30vh;
-                    left: 21.5vw;
-                    width: 320px; height: 200px;
+                    width: clamp(200px, 25vw, 320px);
+                    height: clamp(140px, 18vh, 220px);
+                    top: clamp(-25vh, -20vh, -15vh);
+                    left: clamp(15vw, 25vw, 35vw);
                     
+                    @media (max-width: 768px) {
+                        width: clamp(140px, 40vw, 220px);
+                        height: clamp(100px, 28vw, 160px);
+                        top: clamp(-20vh, -15vh, -10vh);
+                        left: clamp(5vw, 15vw, 25vw);
+                    }
+                    
+                    @media (max-width: 480px) {
+                        width: clamp(120px, 35vw, 180px);
+                        height: clamp(85px, 25vw, 125px);
+                        top: -12vh;
+                        left: 10vw;
+                    }
                 }
             }
+            
+            // Image 5 - Bottom center-left
             &:nth-of-type(5){
                 .imageContainer{
-                    top: 27.5vh;
-                    left: 15vw;
-                    width: 240px; height: 160px;
+                    width: clamp(160px, 20vw, 260px);
+                    height: clamp(110px, 14vh, 180px);
+                    top: clamp(20vh, 30vh, 40vh);
+                    left: clamp(10vw, 20vw, 30vw);
+                    
+                    @media (max-width: 768px) {
+                        width: clamp(100px, 30vw, 180px);
+                        height: clamp(70px, 20vw, 125px);
+                        top: clamp(25vh, 35vh, 45vh);
+                        left: clamp(5vw, 10vw, 20vw);
+                    }
+                    
+                    @media (max-width: 480px) {
+                        width: clamp(80px, 25vw, 140px);
+                        height: clamp(55px, 18vw, 100px);
+                        top: 30vh;
+                        left: 8vw;
+                    }
                 }
             }
+            
+            // Image 6 - Bottom right
             &:nth-of-type(6){
                 .imageContainer{
-                    top: 20.5vh;
-                    right: 28vw; 
-                    width: 260px; height: 180px;
-                }
-            }
-            &:nth-of-type(7){
-                .imageContainer{
-                    top: 22.5vh;
-                    left: 25vw;
-                    width: 15vw;
-                    height: 15vh;
+                    width: clamp(180px, 22vw, 280px);
+                    height: clamp(120px, 15vh, 180px);
+                    top: clamp(15vh, 25vh, 35vh);
+                    right: clamp(20vw, 30vw, 40vw);
+                    
+                    @media (max-width: 768px) {
+                        width: clamp(120px, 35vw, 200px);
+                        height: clamp(80px, 25vw, 140px);
+                        top: clamp(20vh, 30vh, 40vh);
+                        right: clamp(5vw, 15vw, 25vw);
+                    }
+                    
+                    @media (max-width: 480px) {
+                        width: clamp(100px, 30vw, 160px);
+                        height: clamp(70px, 20vw, 110px);
+                        top: 25vh;
+                        right: 10vw;
+                    }
                 }
             }
         }

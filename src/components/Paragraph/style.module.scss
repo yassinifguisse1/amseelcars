@@ -8,27 +8,27 @@
     // Mobile first (320px and up)
     font-size: 24px;
     line-height: 1.2;
-    padding: 16px;
+    // padding: 16px;
     max-width: 100%;
     
     // Small mobile (375px and up)
     @media (min-width: 375px) {
       font-size: 28px;
-      padding: 20px;
+      // padding: 20px;
     }
     
     // Large mobile (425px and up)
     @media (min-width: 425px) {
       font-size: 32px;
       line-height: 1.1;
-      padding: 24px;
+      // padding: 24px;
     }
     
     // Tablet (768px and up)
     @media (min-width: 768px) {
       font-size: 40px;
       line-height: 1.05;
-      padding: 32px;
+      // padding: 32px;
       max-width: 90%;
     }
     
@@ -36,21 +36,21 @@
     @media (min-width: 1024px) {
       font-size: 48px;
       line-height: 1;
-      padding: 36px;
+      // padding: 36px;
       max-width: 85%;
     }
     
     // Desktop (1280px and up)
     @media (min-width: 1280px) {
       font-size: 60px;
-      padding: 40px;
+      // padding: 40px;
       max-width: 1280px;
     }
     
     // Large desktop (1440px and up)
     @media (min-width: 1440px) {
       font-size: 64px;
-      padding: 48px;
+      // padding: 48px;
     }
     
     .word{

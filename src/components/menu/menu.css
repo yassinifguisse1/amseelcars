@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1;
+    z-index: 1000;
 
 }
 
@@ -32,10 +32,10 @@
     height: 100vh;
     padding: 2em;
     background: #FB4545;
-    z-index: 2;
+    z-index: 1000;
     display: flex;
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-    /* align-items: start; */
+    
 
 
 }

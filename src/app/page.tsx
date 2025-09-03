@@ -14,8 +14,12 @@ import SplitHeadline from "@/components/test/SplitHeadline";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Ensure client-side hydration
+    setIsClient(true);
+    
     setTimeout(() => {
       setIsLoading(false);
       document.body.style.cursor = "default";
@@ -28,20 +32,18 @@ export default function Home() {
       <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence>
-      <Cardrive />
-
-      {/* <Landing /> */}
-      {/* <FloatingHero /> */}
-      {/* <MasonryGallery /> */}
-      <ZoomParallax />
-      <BMWCarScroll />
-
-      <SplitHeadline />
-
       
-      <Brands />
-      <Example/>
-      <Footer/>
+      {isClient && (
+        <>
+          <Cardrive />
+          <ZoomParallax />
+          <BMWCarScroll />
+          <SplitHeadline />
+          <Brands />
+          <Example/>
+          <Footer/>
+        </>
+      )}
      
     </div>
   );

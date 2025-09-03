@@ -42,8 +42,8 @@ export default function BMWCarScroll() {
   // Responsive start offsets to keep consistent spacing across devices
   const bmwStartVW = useBreakpointValue({ base: 12, md: 16, lg: 20 });
   const kiaStartVW = useBreakpointValue({ base: 125, md: 130, lg: 150, xl: 105 });
-  const bmwTextStartVW = useBreakpointValue({ base: 34, md: 45, lg: 50 });
-  const kiaTextStartVW = useBreakpointValue({ base: 150, md: 135, lg: 120, xl: 110 });
+  const bmwTextStartVW = useBreakpointValue({ base: 44, md: 45, lg: 50 });
+  const kiaTextStartVW = useBreakpointValue({ base: 120, md: 135, lg: 120, xl: 110 });
   const touaregStartVW = useBreakpointValue({ base: 230, md: 230, lg: 260, xl: 185 });
   const touaregTextStartVW = useBreakpointValue({ base: 230, md: 215, lg: 200, xl: 190 });
   const golf8StartVW = useBreakpointValue({ base: 340, md: 355, lg: 350, xl: 280 });
@@ -130,20 +130,20 @@ export default function BMWCarScroll() {
       <motion.div
         className="
           absolute z-0 pointer-events-none select-none
-          top-[18%] sm:top-[22%] lg:top-1/4
+          top-[35%] sm:top-[29%] lg:top-1/4
           left-[14%] sm:left-[10%] lg:left-[7%]
           -translate-x-1/2 -translate-y-1/2
         "
         style={{ x: bmwTextX, opacity: bmwTextOpacity, scale: bmwTextScale, willChange: 'transform' }}
       >
-    <div className="relative w-[min(80vw,700px)] h-auto">
+    <div className="relative h-auto w-[clamp(180px,50vw,640px)] sm:w-[clamp(220px,45vw,700px)] md:w-[clamp(260px,40vw,760px)]">
       <Image
         src="/images/x3-bm.webp"
         alt="BMW X3 M Logo"
         width={1400}
         height={350}
         // Let the browser pick the right file:
-        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 35vw"
+        sizes="(max-width: 640px) 60vw, (max-width: 1024px) 45vw, 35vw"
         className="w-full h-auto opacity-100 drop-shadow-2xl"
         draggable={false}
         // priority={true} // <-- only keep if this is your FIRST hero
@@ -248,12 +248,12 @@ export default function BMWCarScroll() {
 
         {/* KIA Section */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)]"
+          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: kiaOpacity }}
         >
           {/* KIA Logo - Background parallax layer */}
           <motion.div
-          className=" absolute  z-0 pointer-events-none select-none top-1/5 left-1/22 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+          className=" absolute  z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
             style={{
               x: kiaTextX,
               opacity: kiaTextOpacity,
@@ -261,6 +261,16 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
+                <Image
+                  src="/images/Kia-sportage-logo.webp"
+                  alt="KIA Logo"
+                  width={900}
+                  height={300}
+                  className="opacity-100 pointer-events-none select-none"
+                  draggable={false}
+                />
+            </div>
            
             {/* <Image
               src="/images/kia-logo.webp"
@@ -270,14 +280,7 @@ export default function BMWCarScroll() {
               className="opacity-100 pointer-events-none select-none"
               draggable={false}
             /> */}
-              <Image
-              src="/images/Kia-sportage-logo.webp"
-              alt="KIA Logo"
-              width={900}
-              height={300}
-              className="opacity-100 pointer-events-none select-none"
-              draggable={false}
-            />
+              
           </motion.div>
 
           {/* KIA Car wrapper */}
@@ -347,39 +350,14 @@ export default function BMWCarScroll() {
             />
           </motion.div>
 
-          {/* KIA Book Now Button */}
-          {/* <motion.div
-            className="absolute bottom-16 z-20"
-            style={{
-              x: kiaCarX,
-              left: '40%',
-              bottom: "clamp(12px, 5vh, 4rem)",
-              transform: 'translateX(-50%)',
-              opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
-              y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
-              willChange: 'transform, opacity'
-            }}
-          >
-            <div className="text-center space-y-4">
-              <div className=" space-y-1 p-2">
-                <h3 className="text-2xl font-bold">KIA Sportage</h3>
-                <p className="text-lg">Dynamic design meets advanced technology.</p>
-              </div>
-              
-              <div className="flex items-center justify-center">
-                <Rounded backgroundColor={"#D32F2F"}>
-                  <p>Book Now</p>
-                </Rounded>
-              </div>
-            </div>
-          </motion.div> */}
+    
             <motion.div
               className="
                 absolute z-20 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
                 bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
-                border-2 border-red-500
+               
               "
               style={{
                 x: kiaCarX,
@@ -404,14 +382,14 @@ export default function BMWCarScroll() {
 
         {/* Touareg Section */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[110px]"
+          className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: touaregOpacity }}
         >
           {/* Touareg Logo - Background parallax layer */}
          
            {/* Touareg Logo - Background parallax layer */}
            <motion.div
-            className="absolute z-0 pointer-events-none select-none top-1/5 left-1/20 transform -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-0 pointer-events-none select-none top-[28%] sm:top-[22%] md:top-[21%] lg:top-[17%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
             style={{
               x: touaregTextX,
               opacity: touaregTextOpacity,
@@ -419,6 +397,8 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
+              
             <Image
               src="/images/touareg-LOGO.png"
               alt="Touareg Logo"
@@ -428,6 +408,8 @@ export default function BMWCarScroll() {
               draggable={false}
               priority
             />
+            </div>
+            
           </motion.div>
 
           {/* Touareg Car wrapper */}
@@ -471,7 +453,7 @@ export default function BMWCarScroll() {
 
             {/* Touareg Front wheel (right) */}
             <motion.div
-              className="absolute bottom-[10%] left-[73.5%] w-[16%] aspect-square"
+              className="absolute bottom-[9.2%] left-[73.5%] w-[16%] aspect-square"
               style={{ 
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
@@ -499,41 +481,44 @@ export default function BMWCarScroll() {
 
           {/* Touareg Book Now Button */}
           <motion.div
-            className="absolute bottom-16 z-20"
-            style={{
-              x: touaregCarX,
-              left: '40%',
-              transform: 'translateX(-50%)',
-              opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
-              y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
-              willChange: 'transform, opacity'
-            }}
-          >
-            <div className="text-center space-y-4">
-              <div className=" space-y-1 p-2">
-                <h3 className="text-2xl font-bold">VW Touareg</h3>
-                <p className="text-lg">Luxury SUV with unmatched comfort.</p>
+              className="
+                absolute z-20 
+                left-1/2 md:left-[50%] lg:left-[50%] 
+                -translate-x-1/2 
+                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
+               
+              "
+              style={{
+                x: touaregCarX,
+                opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
+                 y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
+                willChange: 'transform, opacity',
+              }}
+            >
+              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+                <div className="p-2">
+                  <h3 className="text-base sm:text-lg md:text-2xl font-bold">T-Roc</h3>
+                  <p className="text-xs sm:text-sm md:text-lg">Compact SUV built for performance.</p>
+                </div>
+                <div className="flex items-center justify-center">
+                  <Rounded backgroundColor="#D32F2F">
+                    <p>Book Now</p>
+                  </Rounded>
+                </div>
               </div>
-              
-              <div className="flex items-center justify-center">
-                <Rounded backgroundColor={"#D32F2F"}>
-                  <p>Book Now</p>
-                </Rounded>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
         </motion.div>
-
+        
         {/* Golf 8 Section */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[110px]"
+          className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: golf8Opacity }}
         >
           {/* Golf 8 Logo - Background parallax layer */}
        
 
           <motion.div
-            className="absolute z-0 pointer-events-none select-none top-1/5 left-1/14 transform -translate-x-1/2 -translate-y-1/2"
+            className="absolute z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
             style={{
               x: golf8TextX,
               opacity: golf8TextOpacity,
@@ -541,6 +526,7 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
             <Image
               src="/images/GOLF-8-LOGO.png"
               alt="Golf 8 Logo"
@@ -550,6 +536,7 @@ export default function BMWCarScroll() {
               draggable={false}
               priority
             />
+            </div>
           </motion.div>
 
           {/* Golf 8 Car wrapper */}
@@ -621,31 +608,34 @@ export default function BMWCarScroll() {
 
           {/* Golf 8 Book Now Button */}
           <motion.div
-            className="absolute bottom-16 z-20"
+            className=" absolute z-20 
+                left-1/2 md:left-[50%] lg:left-[50%] 
+                -translate-x-1/2 
+                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]"
             style={{
               x: golf8CarX,
-              left: '40%',
+              left: '50%',
               transform: 'translateX(-50%)',
               opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [1, 1, 1, 0]),
               y: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0, 0, 50]),
               willChange: 'transform, opacity'
             }}
           >
-            <div className="text-center space-y-4 ">
-              <div className=" space-y-1 p-2">
-                <h3 className="text-2xl font-bold">VW Golf 8</h3>
-                <p className="text-lg">Compact excellence with modern innovation.</p>
+            <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+              <div className=" p-2">
+                <h3 className="text-base sm:text-lg md:text-2xl font-bold">VW Golf 8</h3>
+                <p className="text-xs sm:text-sm md:text-lg">Compact excellence with modern innovation.</p>
               </div>
               
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center ">
                 <Rounded backgroundColor={"#D32F2F"}>
-                  <p>Book Now</p>
+                  <p className="">Book Now</p>
                 </Rounded>
               </div>
             </div>
           </motion.div>
         </motion.div>
-
+       
         {/* Final Call-to-Action Section - Appears after Golf 8 */}
         <motion.div
           className="absolute inset-0 flex flex-col items-center justify-center z-30"
@@ -654,10 +644,11 @@ export default function BMWCarScroll() {
             y: useTransform(scrollYProgress, [0.75, 0.8, 1], [50, 0, 0])
           }}
         >
-          <div className="text-center space-y-8 px-4 max-w-4xl mx-auto flex flex-col items-center justify-center">
+          <div className="text-center space-y-6 sm:space-y-8 px-3 sm:px-4 max-w-[90rem] mx-auto flex flex-col items-center justify-center">
             {/* Main Heading */}
             <motion.h2 
-              className="text-5xl md:text-7xl font-bold text-gray-800 leading-tight"
+              className="font-bold text-gray-800 leading-tight [text-wrap:balance]
+                         text-[clamp(28px,7vw,56px)] md:text-[clamp(36px,6vw,72px)] lg:text-[clamp(44px,5vw,90px)]"
               style={{
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
                 y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
@@ -667,68 +658,15 @@ export default function BMWCarScroll() {
               <br />
               <span className="text-red-600">Awaits You</span>
             </motion.h2>
-            <Rounded backgroundColor={"#D32F2F"} className="w-[180px] h-[180px] flex items-center justify-center border-2 border-black px-5 py-3  rounded-full text-white">
-              <p className="text-black z-10 text-[25px]">Book Now</p>
+            <Rounded
+              backgroundColor="#D32F2F"
+              aria-label="Book Now"
+             
+            >
+              <p className="z-10 text-black ">Book Now</p>
             </Rounded>
 
-            {/* Description */}
-            {/* <motion.p 
-              className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
-              style={{
-                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
-              }}
-            >
-              From luxury SUVs to compact excellence, discover our complete collection 
-              of premium vehicles. Each car is meticulously maintained and ready for 
-              your next adventure.
-            </motion.p> */}
-
-            {/* Stats Row */}
-            {/* <motion.div 
-              className="flex flex-wrap justify-center gap-8 md:gap-12 py-6"
-              style={{
-                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
-              }}
-            >
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-red-600">20+</div>
-                <div className="text-gray-600">Premium Cars</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-red-600">24/7</div>
-                <div className="text-gray-600">Support</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-red-600">100%</div>
-                <div className="text-gray-600">Satisfaction</div>
-              </div>
-            </motion.div> */}
-
-            {/* CTA Buttons */}
-            {/* <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
-              style={{
-                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
-              }}
-            >
-              <a 
-                href="/cars" 
-                className="group relative px-8 py-4 bg-red-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:bg-red-700 hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <span className="relative z-10">See All Cars</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-emerald-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </a>
-              
-              <a 
-                href="/contact" 
-                className="px-8 py-4 border-2 border-red-600 text-red-600 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-red-600 hover:text-white hover:scale-105"
-              >
-                Contact Us
-              </a>
-            </motion.div> */}
+   
 
             {/* Scroll Indicator */}
             <motion.div 
@@ -738,10 +676,12 @@ export default function BMWCarScroll() {
               }}
             >
               <div className="flex flex-col items-center text-gray-500">
-                <div className="text-sm mb-2">Scroll to explore more</div>
-                <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                <div className="text-xs sm:text-sm mb-2">Scroll to explore more</div>
+                <div className="border-2 border-gray-400 rounded-full flex justify-center
+                                w-[clamp(16px,3vw,24px)] h-[clamp(28px,5.5vw,40px)]">
                   <motion.div 
-                    className="w-1 h-3 bg-gray-400 rounded-full mt-2"
+                    className="bg-gray-400 rounded-full mt-2
+                               w-[clamp(3px,0.6vw,4px)] h-[clamp(10px,2vw,14px)]"
                     animate={{
                       y: [0, 12, 0],
                     }}
