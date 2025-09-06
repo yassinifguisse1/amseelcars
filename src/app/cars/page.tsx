@@ -24,12 +24,10 @@ export default function CarsPage() {
 
   return (
     <div>
-
       <div className='revealed'></div>
       
       {/* Hero Section with Image Slider */}
       <HeroSlider />
-      
       {/* Horizontal Scrolling Cars Section */}
       <HorizontalCarSection />
       

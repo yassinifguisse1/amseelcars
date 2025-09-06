@@ -1,1 +1,1 @@
-import '@react-three/fiber' // Augments JSX.IntrinsicElements with Three elements
+// import '@react-three/fiber' // Augments JSX.IntrinsicElements with Three elements

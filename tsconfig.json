@@ -20,7 +20,6 @@
     "types": [
       "react",
       "react-dom",
-      "@react-three/fiber"
     ],
     "plugins": [
       {
