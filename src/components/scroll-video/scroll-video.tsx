@@ -404,10 +404,10 @@ const Cardrive = () => {
 
     const currentIndex = useTransform(scrollYProgress, [0, 1], [0, totalFrames - 1]); // Dynamic based on device
     
-    // Button parallax transforms - comes from bottom and stops in center
-    const buttonY = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], ['100vh', '0vh', '0vh', '0vh']);
-    const buttonOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 0, 1, 1]);
-    const buttonScale = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.8, 1, 1]);
+    // Button parallax transforms - comes from bottom and stops slightly below center
+    const buttonY = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], ['30vh', '28vh', '12vh', '8vh']);
+    const buttonOpacity = useTransform(scrollYProgress, [0, 0.2, 0.3, 1], [0, 0, 1, 1]);
+    const buttonScale = useTransform(scrollYProgress, [0.2, 0.5, 0.6], [0.4, 1, 1]);
     
     // Logo parallax transforms
     // const logoY = useTransform(scrollYProgress, [0, 1], ['100vh', '-20vh']);

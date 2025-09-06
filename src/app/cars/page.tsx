@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useRevealed } from '@/hooks/useRevealed'
 import HeroSlider from '@/components/Cars/HeroSlider/HeroSlider'
 import HorizontalCarSection from '@/components/Cars/HorizontalCarSection/HorizontalCarSection'
+import PerformanceShowcase from '@/components/Cars/PerformanceShowcase'
 import WeekndParallax from '@/components/about/Hero/WeekndParallax'
 
 export default function CarsPage() {
@@ -31,9 +32,12 @@ export default function CarsPage() {
       {/* Horizontal Scrolling Cars Section */}
       <HorizontalCarSection />
       
+      {/* Performance Showcase Section */}
+      <PerformanceShowcase />
+      
       {/* Additional sections can be added here */}
       {/* <section className="h-screen bg-blackc flex items-center justify-center"> */}
-      <WeekndParallax/>
+      {/* <WeekndParallax/> */}
 
 
       {/* </section> */}
