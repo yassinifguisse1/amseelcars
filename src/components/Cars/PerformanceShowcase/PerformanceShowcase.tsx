@@ -234,7 +234,7 @@ const PerformanceShowcase: React.FC = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800"
+      className="relative h-screen overflow-hidden "
     >
       {/* Background with parallax effect */}
       <div 

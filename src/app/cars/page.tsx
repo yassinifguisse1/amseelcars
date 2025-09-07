@@ -4,10 +4,11 @@ import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useRevealed } from '@/hooks/useRevealed'
-import HeroSlider from '@/components/Cars/HeroSlider/HeroSlider'
 import HorizontalCarSection from '@/components/Cars/HorizontalCarSection/HorizontalCarSection'
-import PerformanceShowcase from '@/components/Cars/PerformanceShowcase'
-import WeekndParallax from '@/components/about/Hero/WeekndParallax'
+// import PerformanceShowcase from '@/components/Cars/PerformanceShowcase'
+// import WeekndParallax from '@/components/about/Hero/WeekndParallax'
+import ParallexCards from '@/components/Cars/ParallexCards/ParallexCards'
+import Heroo from '@/components/Cars/Heroo/Heroo'
 
 export default function CarsPage() {
   useRevealed()
@@ -24,16 +25,18 @@ export default function CarsPage() {
   }, [])
 
   return (
-    <div>
+    <div className=''>
       <div className='revealed'></div>
       
       {/* Hero Section with Image Slider */}
-      <HeroSlider />
+      {/* <HeroSlider /> */}
+      <Heroo />
       {/* Horizontal Scrolling Cars Section */}
       <HorizontalCarSection />
+      <ParallexCards />
       
       {/* Performance Showcase Section */}
-      <PerformanceShowcase />
+      {/* <PerformanceShowcase /> */}
       
       {/* Additional sections can be added here */}
       {/* <section className="h-screen bg-blackc flex items-center justify-center"> */}

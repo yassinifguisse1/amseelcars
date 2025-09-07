@@ -90,10 +90,10 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
   return (
     <>
       {/* JSON-LD Script */}
-      {/* <script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      /> */}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Breadcrumb Navigation */}
@@ -243,7 +243,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
           {/* Description */}
           <div className="mt-12 space-y-8">
             <div>
-              <h2 className="text-2xl font-bold text-foreground mb-4">About This Car</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4 ">About This Car</h2>
               <p className="text-muted-foreground leading-relaxed">{car.description}</p>
             </div>
 
