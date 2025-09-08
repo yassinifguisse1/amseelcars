@@ -25,7 +25,7 @@ export default function SplitHeadline() {
              scrollTrigger: {
                trigger: section2.current!,
                // the moment section-2 starts to enter the viewport:
-               start: "top 190%",
+               start: "top 100%",
                // until its top reaches 20% from top:
                end: "top 50%",
                scrub: true,

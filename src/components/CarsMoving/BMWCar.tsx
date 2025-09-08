@@ -305,7 +305,7 @@ export default function BMWCarScroll() {
     className=" absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(135px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)]
+                bottom-[clamp(135px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)] xl:bottom-[clamp(50px,5vh,4rem)]
                 "
     style={{
       x: bmwCarX,
@@ -447,7 +447,7 @@ export default function BMWCarScroll() {
                 absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)]
+                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)] xl:bottom-[clamp(50px,5vh,4rem)]
                
               "
               style={{
@@ -580,7 +580,7 @@ export default function BMWCarScroll() {
                 absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)]
+                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)] xl:bottom-[clamp(50px,5vh,4rem)]
                
               "
               style={{
@@ -710,7 +710,7 @@ export default function BMWCarScroll() {
             className=" absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]"
+                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)] xl:bottom-[clamp(50px,5vh,4rem)]"
             style={{
               x: golf8CarX,
               left: '50%',
