@@ -228,6 +228,7 @@
 import { useMotionValueEvent, useScroll, useTransform, motion } from 'framer-motion'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { useLoading } from '@/contexts/LoadingContext'
 
 const Cardrive = () => {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -236,18 +237,16 @@ const Cardrive = () => {
     const [imagesLoaded, setImagesLoaded] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [totalFrames, setTotalFrames] = useState(364)
+    const { updateFramesProgress, setFramesLoaded } = useLoading()
     
     const {scrollYProgress} = useScroll({
         target: containerRef,
         offset: ['start start', 'end end']
     });
 
-    // Load images on client side only
+    // Load images with better performance and progress tracking
     useEffect(() => {
         const loadImages = async () => {
-            const loadedImages: HTMLImageElement[] = [];
-            let loadedCount = 0;
-            
             // Check if mobile device
             const isMobileDevice = window.innerWidth < 768;
             setIsMobile(isMobileDevice);
@@ -255,52 +254,80 @@ const Cardrive = () => {
             let startFrame, endFrame, totalImages, frameFolder;
             
             if (isMobileDevice) {
-                // Use mobile frames (753-833)
+                // Use mobile frames - reduced range for better performance
                 startFrame = 400;
-                endFrame = 763;
-                totalImages = endFrame - startFrame + 1; // 81 frames total
+                endFrame = 600; // Reduced from 763 to 600 for mobile performance
+                totalImages = endFrame - startFrame + 1;
                 frameFolder = '/mobile-frames';
                 setTotalFrames(totalImages);
-                console.log('Loading mobile frames:', startFrame, 'to', endFrame);
+                console.log('Loading mobile frames:', startFrame, 'to', endFrame, '(', totalImages, 'total)');
             } else {
-                // Use desktop frames (400-763)
+                // Use desktop frames
                 startFrame = 400;
                 endFrame = 763;
-                totalImages = endFrame - startFrame + 1; // 364 frames total
+                totalImages = endFrame - startFrame + 1;
                 frameFolder = '/frame';
                 setTotalFrames(totalImages);
-                console.log('Loading desktop frames:', startFrame, 'to', endFrame);
+                console.log('Loading desktop frames:', startFrame, 'to', endFrame, '(', totalImages, 'total)');
             }
 
+            // Initialize progress tracking
+            updateFramesProgress(0, totalImages);
+            
+            const loadedImages: HTMLImageElement[] = [];
+            let loadedCount = 0;
+            
+            // Create loading promises with better error handling
+            const loadPromises = [];
+            
             for(let i = startFrame; i <= endFrame; i++){
-                const img = new Image();
-                // Pad the number to 3 digits for mobile frames, 5 for desktop
-                const frameNumber = isMobileDevice ? 
-                    i.toString().padStart(5, '0') : 
-                    i.toString().padStart(5, '0');
+                const loadPromise = new Promise<HTMLImageElement>((resolve, reject) => {
+                    const img = new Image();
+                    const frameNumber = i.toString().padStart(5, '0');
+                    
+                    // Set loading attributes for better performance
+                    img.loading = 'eager'; // Load immediately
+                    img.decoding = 'sync'; // Synchronous decoding for smoother playback
+                    
+                    img.onload = () => {
+                        loadedCount++;
+                        updateFramesProgress(loadedCount, totalImages);
+                        
+                        if (loadedCount === totalImages) {
+                            setImagesLoaded(true);
+                            setFramesLoaded(true);
+                            console.log('All frames loaded successfully!');
+                        }
+                        resolve(img);
+                    };
+                    
+                    img.onerror = () => {
+                        console.error(`Failed to load frame: ${frameFolder}/frame_${frameNumber}.webp`);
+                        loadedCount++;
+                        updateFramesProgress(loadedCount, totalImages);
+                        
+                        if (loadedCount === totalImages) {
+                            setImagesLoaded(true);
+                            setFramesLoaded(true);
+                        }
+                        reject(new Error(`Failed to load frame ${i}`));
+                    };
+                    
+                    img.src = `${frameFolder}/frame_${frameNumber}.webp`;
+                    loadedImages.push(img);
+                });
                 
-                img.src = `${frameFolder}/frame_${frameNumber}.webp`;
-                
-                img.onload = () => {
-                    loadedCount++;
-                    console.log(`Loaded frame ${i} (${loadedCount}/${totalImages})`);
-                    if (loadedCount === totalImages) {
-                        setImagesLoaded(true);
-                        console.log('All frames loaded successfully!');
-                    }
-                };
-                
-                img.onerror = () => {
-                    console.error(`Failed to load frame: ${frameFolder}/frame_${frameNumber}.webp`);
-                    loadedCount++; // Still count it to avoid hanging
-                    if (loadedCount === totalImages) {
-                        setImagesLoaded(true);
-                    }
-                };
-                
-                loadedImages.push(img);
+                loadPromises.push(loadPromise);
             }
+            
             setImages(loadedImages);
+            
+            // Wait for all images with timeout
+            try {
+                await Promise.allSettled(loadPromises);
+            } catch (error) {
+                console.error('Some frames failed to load:', error);
+            }
         };
 
         loadImages();
@@ -326,7 +353,7 @@ const Cardrive = () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('orientationchange', handleResize);
         };
-    }, [isMobile]);
+    }, [isMobile, updateFramesProgress, setFramesLoaded]);
 
     // Set canvas size responsively
     useEffect(() => {
@@ -414,72 +441,58 @@ const Cardrive = () => {
     // const logoOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
     // const logoScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 1.2]);
 
+    // Optimized render function with caching
+    const lastRenderedIndex = useRef(-1);
     const render = useCallback(
         (index: number) => {
             const canvas = canvasRef.current;
             if (!canvas || !imagesLoaded || !images.length) return;
             
+            const imageIndex = Math.max(0, Math.min(Math.round(index), images.length - 1));
+            
+            // Skip if same frame (performance optimization)
+            if (imageIndex === lastRenderedIndex.current) return;
+            lastRenderedIndex.current = imageIndex;
+            
             const ctx = canvas.getContext('2d');
             if (!ctx) return;
 
-            const imageIndex = Math.max(0, Math.min(Math.round(index), images.length - 1));
             const img = images[imageIndex];
             
             if (img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
-                // Clear with black background to prevent flickering
-                ctx.fillStyle = '#000000';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
                 // Get actual display dimensions (not canvas resolution)
                 const displayWidth = parseInt(canvas.style.width) || canvas.width;
                 const displayHeight = parseInt(canvas.style.height) || canvas.height;
                 
-                // Smart responsive cropping based on device orientation
+                // Clear with black background (use clearRect for better performance)
+                ctx.clearRect(0, 0, displayWidth, displayHeight);
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, displayWidth, displayHeight);
+                
+                // Optimized drawing calculations
                 const canvasAspect = displayWidth / displayHeight;
                 const imageAspect = img.naturalWidth / img.naturalHeight;
-                const isPortrait = displayHeight > displayWidth;
                 
                 let drawWidth, drawHeight, offsetX, offsetY;
                 
-                if (isMobile) {
-                    // Mobile: Ensure frames fill the screen properly
-                    if (isPortrait) {
-                        // Portrait mobile: fit to screen width, center vertically
-                        drawWidth = displayWidth;
-                        drawHeight = displayWidth / imageAspect;
-                        offsetX = 0;
-                        offsetY = Math.max(0, (displayHeight - drawHeight) / 2);
-                        
-                        // If image is shorter than screen, scale to fit height instead
-                        if (drawHeight < displayHeight) {
-                            drawHeight = displayHeight;
-                            drawWidth = displayHeight * imageAspect;
-                            offsetX = (displayWidth - drawWidth) / 2;
-                            offsetY = 0;
-                        }
-                    } else {
-                        // Landscape mobile: fit to screen height, center horizontally
-                        drawHeight = displayHeight;
-                        drawWidth = displayHeight * imageAspect;
-                        offsetX = (displayWidth - drawWidth) / 2;
-                        offsetY = 0;
-                    }
+                // Simplified aspect ratio calculation
+                if (canvasAspect > imageAspect) {
+                    // Canvas is wider - fit to width
+                    drawWidth = displayWidth;
+                    drawHeight = displayWidth / imageAspect;
+                    offsetX = 0;
+                    offsetY = (displayHeight - drawHeight) / 2;
                 } else {
-                    // Desktop: Use desktop frames with smart cropping
-                    if (canvasAspect > imageAspect) {
-                        // Wider canvas - fit width and crop height
-                        drawWidth = displayWidth;
-                        drawHeight = displayWidth / imageAspect;
-                        offsetX = 0;
-                        offsetY = (displayHeight - drawHeight) / 2;
-                    } else {
-                        // Taller canvas - fit height and crop width
-                        drawHeight = displayHeight;
-                        drawWidth = displayHeight * imageAspect;
-                        offsetX = (displayWidth - drawWidth) / 2;
-                        offsetY = 0;
-                    }
+                    // Canvas is taller - fit to height
+                    drawHeight = displayHeight;
+                    drawWidth = displayHeight * imageAspect;
+                    offsetX = (displayWidth - drawWidth) / 2;
+                    offsetY = 0;
                 }
+                
+                // Enhanced rendering with better quality settings
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = isMobile ? 'medium' : 'high';
                 
                 // Draw image with error handling
                 try {
@@ -487,8 +500,6 @@ const Cardrive = () => {
                 } catch (error) {
                     console.error('Error drawing frame:', error, 'Frame:', imageIndex);
                 }
-            } else {
-                console.warn('Image not ready:', imageIndex, img?.complete, img?.naturalWidth, img?.naturalHeight);
             }
         },
         [images, imagesLoaded, isMobile]
@@ -606,20 +617,7 @@ const Cardrive = () => {
                     </Link>
                 </motion.div>
 
-                {/* Loading Screen */}
-                {!imagesLoaded && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black text-white text-xl z-50">
-                        <div className="text-center">
-                            <div>Loading frames...</div>
-                            <div className="text-sm mt-2">
-                                {Math.round((images.filter(img => img.complete).length / totalFrames) * 100)}%
-                            </div>
-                            <div className="text-xs mt-1 text-gray-400">
-                                {isMobile ? 'Mobile frames' : 'Desktop frames'} ({totalFrames} total)
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {/* Loading handled by global preloader now */}
             </div>
         </section>
     );
