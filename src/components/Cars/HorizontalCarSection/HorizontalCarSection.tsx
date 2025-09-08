@@ -34,11 +34,27 @@ const HorizontalCarSection = () => {
     // Wait for next frame to ensure proper measurement
     gsap.set([cardsRow1, cardsRow2], { clearProps: "all" })
     
-    // Calculate actual card dimensions
+    // Calculate actual card dimensions with responsive handling
     const firstCard = cardsRow1.children[0] as HTMLElement
+    if (!firstCard) return;
+    
     const cardStyle = getComputedStyle(firstCard)
     const cardWidth = firstCard.offsetWidth
-    const gap = parseInt(cardStyle.marginRight) || 32 // 2rem = 32px default
+    const marginRight = parseInt(cardStyle.marginRight) || 32
+    
+    // Get responsive gap based on screen size
+    const getResponsiveGap = () => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth <= 375) return 10; // 0.6rem
+      if (screenWidth <= 480) return 13; // 0.8rem  
+      if (screenWidth <= 640) return 16; // 1rem
+      if (screenWidth <= 768) return 19; // 1.2rem
+      if (screenWidth <= 1024) return 24; // 1.5rem
+      if (screenWidth <= 1200) return 29; // 1.8rem
+      return 32; // 2rem default
+    };
+    
+    const gap = getResponsiveGap();
     
     // Calculate total width for each row (cards + gaps)
     const row1CardsCount = cardsRow1.children.length
@@ -52,14 +68,20 @@ const HorizontalCarSection = () => {
     // Set both containers to the same width
     gsap.set([cardsRow1, cardsRow2], { width: rowWidth })
     
-    // Calculate viewport and scroll distances
+    // Calculate viewport and scroll distances with responsive adjustments
     const viewportWidth = window.innerWidth
-    // The scroll distance should be the full content width to reveal all cards
-    const scrollDistance = rowWidth
+    // Adjust scroll distance based on screen size for better mobile experience
+    const getScrollDistance = () => {
+      if (viewportWidth <= 768) {
+        return rowWidth * 0.8; // Shorter scroll on mobile
+      }
+      return rowWidth;
+    };
+    const scrollDistance = getScrollDistance();
     
     // Calculate center positions for both rows
     // Center the first card of each row in the viewport
-    const centerOffset = (viewportWidth - cardWidth) / 2
+    const centerOffset = Math.max(0, (viewportWidth - cardWidth) / 2)
     
     // Set initial positions to center both rows
     // Row 1: Start centered, scroll left to reveal all cards
@@ -185,6 +207,12 @@ const HorizontalCarSection = () => {
   return (
     <section ref={sectionRef} className={styles.horizontalSection}>
       <div ref={containerRef} className={styles.container}>
+        {/* Section Header */}
+        {/* <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Premium Fleet</h2>
+          <p className={styles.sectionSubtitle}>Discover Our Cars</p>
+        </div> */}
+
         {/* First row - scrolls right to left */}
         <div className={styles.rowContainer}>
           <div ref={cardsRow1Ref} className={styles.cardsContainer}>

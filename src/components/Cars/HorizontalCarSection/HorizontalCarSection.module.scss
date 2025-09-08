@@ -4,6 +4,7 @@
   height: 100vh;
   background: linear-gradient(135deg, #000000 0%, #000000 100% );
   overflow: hidden;
+  
 }
 
 .container {
@@ -25,6 +26,7 @@ height: 100vh;
   left: 5vw;
   z-index: 10;
   color: white;
+  
 }
 
 .sectionTitle {
@@ -37,6 +39,7 @@ height: 100vh;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  
 }
 
 .sectionSubtitle {
@@ -49,7 +52,7 @@ height: 100vh;
 
 .rowContainer {
   width: 100%;
-  height: 50%;
+  // height: 50%;
   display: flex;
   align-items: center;
 
@@ -154,7 +157,7 @@ height: 100vh;
 // Responsive design
 @media (max-width: 1200px) {
   .cardWrapper {
-    // width: 360px;
+    width: 360px;
     margin-right: 1.8rem;
   }
 }
@@ -175,7 +178,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    // width: 350px;
+    width: 350px;
     margin-right: 1.5rem;
     
     &:last-child {
@@ -186,9 +189,8 @@ height: 100vh;
 
 @media (max-width: 768px) {
   .horizontalSection {
-    height: 100vh; // Slightly taller on tablets for better scrolling
-  
-}
+    height: 120vh; // Taller for better mobile experience
+  }
   
   .sectionHeader {
     top: 8vh;
@@ -205,7 +207,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    // width: 120px;
+    width: 300px; // Much larger for tablets
     margin-right: 1.2rem;
     
     &:last-child {
@@ -228,7 +230,7 @@ height: 100vh;
 
 @media (max-width: 640px) {
   .horizontalSection {
-    height: 160vh; // Even taller on small screens
+    height: 140vh; // Optimized height for mobile
   }
   
   .rowContainer { 
@@ -237,7 +239,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    // width: 100px;
+    width: 280px; // Good size for small screens
     margin-right: 1rem;
     
     &:last-child {
@@ -261,12 +263,13 @@ height: 100vh;
   }
   
   .cardsContainer {
-    padding: 0;
+    padding-top: 5vw;
+  padding-bottom: 5vw;
   }
   
   .cardWrapper {
-    // width: 180px;
-    // margin-right: 0.8rem;
+    width: 260px; // Optimal for mobile phones
+    margin-right: 0.8rem;
     
     &:last-child {
       margin-right: 0;
@@ -288,15 +291,15 @@ height: 100vh;
 
 @media (max-width: 375px) {
   .cardWrapper {
-    // width: 100px;
-    // // margin-right: 0.6rem;
-    // background-color: red;
-    // border: 1px solid blue;
+    width: 240px; // Still decent size for very small screens
+    margin-right: 0.6rem;
   }
   
   .rowContainer { 
     --edge-fade: 20px;
     height: 36%;
+    padding-top: 3vw;
+    padding-bottom: 3vw;
   }
 }
 
