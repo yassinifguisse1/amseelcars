@@ -175,7 +175,9 @@ const ContactForm: React.FC = () => {
     if (!validateForm()) {
       // Shake animation for errors
       gsap.to(formRef.current, {
-        x: [-10, 10, -10, 10, 0],
+        keyframes: {
+          x: [-10, 10, -10, 10, 0]
+        },
         duration: 0.5,
         ease: 'power2.inOut'
       })
@@ -230,7 +232,7 @@ const ContactForm: React.FC = () => {
             Get In Touch
           </h2>
           <p className="text-gray-300 text-lg">
-            Ready to experience luxury? Send us a message and we'll get back to you within 24 hours.
+            Ready to experience luxury? Send us a message and we&apos;ll get back to you within 24 hours.
           </p>
         </div>
 
@@ -385,7 +387,7 @@ const ContactForm: React.FC = () => {
         {isSubmitted && (
           <div className="text-center">
             <p className="text-green-400 text-sm" id="submit-status">
-              Thank you! We'll get back to you within 24 hours.
+              Thank you! We&apos;ll get back to you within 24 hours.
             </p>
           </div>
         )}

@@ -1,6 +1,7 @@
 "use client"
 import React, { ReactNode } from 'react'
 import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './style.module.scss';
 import gsap from 'gsap';
 import Magnetic from '../Magnetic';
@@ -8,11 +9,13 @@ import Magnetic from '../Magnetic';
 interface RoundedButtonProps {
   children: ReactNode;
   backgroundColor?: string;
+  href?: string; // URL to navigate to
+  onClick?: () => void; // Custom click handler
   [key: string]: unknown; // For additional attributes
 }
 
-export default function Index({children, backgroundColor="#cc1939", ...attributes}: RoundedButtonProps) {
-
+export default function Index({children, backgroundColor="#cc1939", href, onClick, ...attributes}: RoundedButtonProps) {
+  const router = useRouter();
   const circle = useRef<HTMLDivElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   let timeoutId: NodeJS.Timeout | null = null;
@@ -38,9 +41,24 @@ export default function Index({children, backgroundColor="#cc1939", ...attribute
     }, 300)
   }
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else if (href) {
+      router.push(href);
+    }
+  }
+
   return (
     <Magnetic>
-      <div className={styles.roundedButton} style={{overflow: "hidden"}} onMouseEnter={() => {manageMouseEnter()}} onMouseLeave={() => {manageMouseLeave()}} {...attributes}>
+      <div 
+        className={styles.roundedButton} 
+        style={{overflow: "hidden"}} 
+        onMouseEnter={() => {manageMouseEnter()}} 
+        onMouseLeave={() => {manageMouseLeave()}} 
+        onClick={handleClick}
+        {...attributes}
+      >
           {
             children
           }

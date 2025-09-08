@@ -128,7 +128,7 @@ export default function ZoomParallaxClient() {
                                             muted
                                             playsInline
                                             preload="metadata"
-                                            className='w-full h-full object-cover rounded-2xl'
+                                            className='w-full h-full object-cover '
                                             style={{
                                                 width: '100%',
                                                 height: '100%',
@@ -141,7 +141,7 @@ export default function ZoomParallaxClient() {
                                             fill
                                             alt={`Car image ${index + 1}`}
                                             placeholder='blur'
-                                            className='rounded-2xl'
+                                            className=''
                                             sizes={isMobile ? 
                                                 "(max-width: 480px) 35vw, (max-width: 768px) 40vw, 25vw" : 
                                                 "(max-width: 1200px) 25vw, 320px"

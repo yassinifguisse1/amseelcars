@@ -205,7 +205,7 @@ const ContactInfo: React.FC = () => {
             Contact Information
           </h2>
           <p className="text-gray-300 text-lg">
-            Multiple ways to reach us. We're here to help you find your perfect ride.
+            Multiple ways to reach us. We&apos;re here to help you find your perfect ride.
           </p>
         </div>
 

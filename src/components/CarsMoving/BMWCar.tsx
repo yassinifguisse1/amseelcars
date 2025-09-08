@@ -101,9 +101,11 @@ export default function BMWCarScroll() {
   const backgroundOpacity2 = useTransform(scrollYProgress, [0.45, 0.6], [0, 1]); // KIA to Touareg (red to blue)
   const backgroundOpacity3 = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]); // Touareg to Golf 8 (blue to red)
 
+
+
       return (
     <section ref={containerRef} style={{ height: "600vh" }}>
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden ">
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         
        
         
@@ -218,10 +220,10 @@ export default function BMWCarScroll() {
 
   {/* BMW Book Now Button (follows car) */}
   <motion.div
-    className=" absolute z-20 
+    className=" absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
+                bottom-[clamp(230px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)]
                 "
     style={{
       x: bmwCarX,
@@ -230,19 +232,20 @@ export default function BMWCarScroll() {
       opacity: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [1, 1, 1, 0]),
       y: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0, 0, 50]),
       willChange: 'transform, opacity',
+      
     }}
   >
-     <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+      <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
                 <div className="p-2">
                   <h3 className="text-base sm:text-lg md:text-2xl font-bold">BMW X3 M</h3>
                   <p className="text-xs sm:text-sm md:text-lg">Premium SUV built for performance.</p>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Rounded backgroundColor="#D32F2F">
+                <div className="flex items-center justify-center pointer-events-auto">
+                  <Rounded backgroundColor="#D32F2F" href="/cars/bmw-x5-2024">
                     <p>Book Now</p>
                   </Rounded>
                 </div>
-              </div>
+      </div>
   </motion.div>
 </motion.div>
 
@@ -353,10 +356,10 @@ export default function BMWCarScroll() {
     
             <motion.div
               className="
-                absolute z-20 
+                absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
+                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)]
                
               "
               style={{
@@ -371,8 +374,8 @@ export default function BMWCarScroll() {
                   <h3 className="text-base sm:text-lg md:text-2xl font-bold">KIA Sportage</h3>
                   <p className="text-xs sm:text-sm md:text-lg">Dynamic design meets advanced technology.</p>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Rounded backgroundColor="#D32F2F">
+                <div className="flex items-center justify-center pointer-events-auto">
+                  <Rounded backgroundColor="#D32F2F" href="/cars/kia-sportage-2024">
                     <p>Book Now</p>
                   </Rounded>
                 </div>
@@ -482,10 +485,10 @@ export default function BMWCarScroll() {
           {/* Touareg Book Now Button */}
           <motion.div
               className="
-                absolute z-20 
+                absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
-                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]
+                bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)]
                
               "
               style={{
@@ -500,8 +503,8 @@ export default function BMWCarScroll() {
                   <h3 className="text-base sm:text-lg md:text-2xl font-bold">T-Roc</h3>
                   <p className="text-xs sm:text-sm md:text-lg">Compact SUV built for performance.</p>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Rounded backgroundColor="#D32F2F">
+                <div className="flex items-center justify-center pointer-events-auto">
+                  <Rounded backgroundColor="#D32F2F" href="/cars/t-roc-2024">
                     <p>Book Now</p>
                   </Rounded>
                 </div>
@@ -608,7 +611,7 @@ export default function BMWCarScroll() {
 
           {/* Golf 8 Book Now Button */}
           <motion.div
-            className=" absolute z-20 
+            className=" absolute z-50 
                 left-1/2 md:left-[50%] lg:left-[50%] 
                 -translate-x-1/2 
                 bottom-[clamp(202px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)]"
@@ -627,8 +630,8 @@ export default function BMWCarScroll() {
                 <p className="text-xs sm:text-sm md:text-lg">Compact excellence with modern innovation.</p>
               </div>
               
-              <div className="flex items-center justify-center ">
-                <Rounded backgroundColor={"#D32F2F"}>
+              <div className="flex items-center justify-center pointer-events-auto">
+                <Rounded backgroundColor={"#D32F2F"} href="/cars/golf-8-2024">
                   <p className="">Book Now</p>
                 </Rounded>
               </div>
@@ -638,7 +641,7 @@ export default function BMWCarScroll() {
        
         {/* Final Call-to-Action Section - Appears after Golf 8 */}
         <motion.div
-          className="absolute inset-0 flex flex-col items-center justify-center z-30"
+          className="absolute inset-0  flex flex-col items-center justify-center z-40"
           style={{
             opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
             y: useTransform(scrollYProgress, [0.75, 0.8, 1], [50, 0, 0])
@@ -656,12 +659,12 @@ export default function BMWCarScroll() {
             >
               Your Perfect Ride
               <br />
-              <span className="text-red-600">Awaits You</span>
+              <span className="text-red-600 z-0">Awaits You</span>
             </motion.h2>
             <Rounded
               backgroundColor="#D32F2F"
+              href="/cars"
               aria-label="Book Now"
-             
             >
               <p className="z-10 text-black ">Book Now</p>
             </Rounded>
