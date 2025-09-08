@@ -62,15 +62,21 @@ export default function Footer() {
                         <span>
                             <h3>socials</h3>
                             <Magnetic>
+                                <Link href="https://www.instagram.com/amseelcars/">
                                 <p>AmseelCars</p>
+                                </Link>
                             </Magnetic>
                         </span>
                         <Magnetic>
+                            <Link href="https://www.instagram.com/amseelcars/">
                             <p>Instagram</p>
+                            </Link>
                         </Magnetic>
                        
                         <Magnetic>
+                            <Link href="https://www.facebook.com/amseelcars/">
                             <p>Facebook</p>
+                            </Link>
                         </Magnetic>
                     </div>
                 </div>

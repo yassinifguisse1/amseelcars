@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "../Description/Index";
-import "./style.css";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SplitHeadline() {

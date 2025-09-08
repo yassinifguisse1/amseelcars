@@ -44,17 +44,17 @@ export interface Car {
 export const cars: Car[] = [
   {
     id: 1,
-    slug: 'bmw-x5-2024',
-    carName: "BMW X5",
+    slug: 'bmw-x3-2024',
+    carName: "BMW X3",
     brand: "BMW",
-    model: "X5",
+    model: "X3",
     year: 2024,
     carImage: "/images/1.jpeg",
     images: [
-      { src: "/images/1.jpeg", alt: "BMW X5 Front View", isPrimary: true },
-      { src: "/images/2.jpeg", alt: "BMW X5 Interior" },
-      { src: "/images/3.jpg", alt: "BMW X5 Side View" },
-      { src: "/images/4.jpg", alt: "BMW X5 Dashboard" }
+      { src: "/images/1.jpeg", alt: "BMW X3 Front View", isPrimary: true },
+      { src: "/images/2.jpeg", alt: "BMW X3 Interior" },
+      { src: "/images/3.jpg", alt: "BMW X3 Side View" },
+      { src: "/images/4.jpg", alt: "BMW X3 Dashboard" }
     ],
     pricePerDay: 89,
     seats: 5,
