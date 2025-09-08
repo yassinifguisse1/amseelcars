@@ -10,25 +10,56 @@ const words = ["Hello", "Bonjour", "Ciao", "Olà", "やあ", "Hallå", "Guten ta
 export default function Index() {
     const [index, setIndex] = useState(0);
     const [dimension, setDimension] = useState({width: 0, height:0});
-    const [wordsComplete, setWordsComplete] = useState(false);
-    const { loadingState } = useLoading();
+    const [showLoadingBar, setShowLoadingBar] = useState(false);
+    const { loadingState, setWordsComplete, setMinimumTimeElapsed } = useLoading();
 
     useEffect( () => {
         setDimension({width: window.innerWidth, height: window.innerHeight})
-    }, [])
+        
+        // Set a minimum total time for the entire preloader experience
+        // This ensures all words are shown regardless of how fast frames load
+        const minimumDuration = 1200 + (words.length - 1) * 400 + 2500; // Total calculated time
+        setTimeout(() => {
+            console.log("Minimum preloader time elapsed");
+            setMinimumTimeElapsed(true);
+        }, minimumDuration);
+    }, [setMinimumTimeElapsed])
 
     useEffect( () => {
+        console.log(`Displaying word ${index + 1}/${words.length}: "${words[index]}"`);
+        
         if(index == words.length - 1) {
-            setWordsComplete(true);
+            console.log("Last word displayed, waiting 1.5 seconds before showing loading...");
+            // After displaying the last word, wait a bit then show loading
+            setTimeout(() => {
+                console.log("All words complete, now showing loading bar...");
+                setShowLoadingBar(true);
+            }, 1500); // Give more time for the last word to be visible
+            
+            // Mark words as complete after additional time
+            setTimeout(() => {
+                console.log("Words animation complete - ready to finish when frames are loaded");
+                setWordsComplete(true);
+            }, 2500); // Total time to ensure all words are seen
             return;
         }
+        
+        // Continue with word progression - slower timing to ensure visibility
         setTimeout( () => {
             setIndex(index + 1)
-        }, index == 0 ? 1000 : 150)
-    }, [index])
+        }, index == 0 ? 1200 : 400) // Increased timing: first word 1.2s, others 400ms
+    }, [index, setWordsComplete])
 
-    // Only allow preloader to finish when both words and frames are complete
-    const canFinish = wordsComplete && loadingState.isComplete;
+    // Only allow preloader to finish when ALL conditions are met:
+    // 1. All words have been displayed (loadingState.wordsComplete)
+    // 2. All frames are loaded (loadingState.framesLoaded) 
+    // 3. Minimum time has elapsed (loadingState.minimumTimeElapsed)
+    const canFinish = loadingState.isComplete;
+    
+    // Debug log for canFinish state
+    useEffect(() => {
+        console.log(`Preloader state - Words: ${loadingState.wordsComplete ? 'Complete' : `${index + 1}/${words.length}`}, Frames: ${loadingState.framesLoaded ? 'Complete' : `${loadingState.framesProgress}%`}, MinTime: ${loadingState.minimumTimeElapsed ? 'Elapsed' : 'Waiting'}, Can Finish: ${canFinish}`);
+    }, [loadingState.wordsComplete, loadingState.framesLoaded, loadingState.framesProgress, loadingState.minimumTimeElapsed, canFinish, index]);
 
     const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width/2} ${dimension.height + 300} 0 ${dimension.height}  L0 0`
     const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width/2} ${dimension.height} 0 ${dimension.height}  L0 0`
@@ -55,16 +86,16 @@ export default function Index() {
             <>
                 <motion.p variants={opacity} initial="initial" animate="enter">
                     <span></span>
-                    {wordsComplete ? "Loading..." : words[index]}
+                    {showLoadingBar ? "Loading..." : words[index]}
                 </motion.p>
                 
-                {/* Loading Progress */}
-                {wordsComplete && (
+                {/* Loading Progress - Only show after the loading bar state is triggered */}
+                {showLoadingBar && (
                     <motion.div 
                         className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
                     >
                         <div className="text-sm mb-2 text-white">
                             Loading Frames: {loadingState.framesProgress}%
@@ -78,6 +109,13 @@ export default function Index() {
                         <div className="text-xs mt-1 text-gray-400">
                             {loadingState.loadedFrames}/{loadingState.totalFrames} frames
                         </div>
+                        
+                        {/* Show completion message when frames are done but still waiting for word animation */}
+                        {loadingState.framesLoaded && !loadingState.wordsComplete && (
+                            <div className="text-xs mt-2 text-green-400">
+                                Frames loaded - Completing animation...
+                            </div>
+                        )}
                     </motion.div>
                 )}
                 
