@@ -256,7 +256,7 @@ const Cardrive = () => {
             if (isMobileDevice) {
                 // Use mobile frames - reduced range for better performance
                 startFrame = 400;
-                endFrame = 600; // Reduced from 763 to 600 for mobile performance
+                endFrame = 763; // Reduced from 763 to 600 for mobile performance
                 totalImages = endFrame - startFrame + 1;
                 frameFolder = '/mobile-frames';
                 setTotalFrames(totalImages);
