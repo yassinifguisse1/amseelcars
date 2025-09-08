@@ -3,8 +3,7 @@ import Link from 'next/link';
 import React, { useState ,useRef, useEffect} from 'react'
 
 import "./menu.css"
-import { usePathname } from 'next/navigation';
-import { useTransitionRouter } from 'next-view-transitions';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -44,25 +43,10 @@ const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);
 
 
-    const router = useTransitionRouter()
+    const router = useRouter()
     const pathname = usePathname()
 
 
-    function triggerPageTransition() {
-        document.documentElement.animate([
-            {
-                clipPath: "polygon(25% 75%, 75% 75%, 75% 75%, 25% 75%)",
-            },
-            {
-                clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-            }
-
-        ],{
-            duration: 2000,
-            easing: "cubic-bezier(0.9, 0, 0.1, 1)",
-            pseudoElement: "::view-transition-new(root)",
-        })
-    }
  
     const handleNavigation = (path: string) => (e: React.MouseEvent<HTMLAnchorElement>) =>{
         if(pathname === path){
@@ -73,13 +57,10 @@ const Menu = () => {
         try {
           const triggers = ScrollTrigger.getAll?.()
           triggers?.forEach(t => t.kill())
-        } catch (err) {
+        } catch {
           // noop – ensure navigation proceeds even if cleanup fails
         }
-        router.push(path , {
-            scroll: false,
-            onTransitionReady: triggerPageTransition,
-        })
+        router.push(path)
     }
     
       

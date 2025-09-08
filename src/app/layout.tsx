@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Menu from "@/components/menu/menu";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
-import { ViewTransitions } from "next-view-transitions";
 import { playfair, anticDidone } from "@/lib/fonts";
 
 export const metadata: Metadata = {
@@ -25,7 +24,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
     <html lang="en" suppressHydrationWarning>
       
       <body
@@ -37,6 +35,5 @@ export default function RootLayout({
       
       </body>
     </html>
-    </ViewTransitions>
   );
 }

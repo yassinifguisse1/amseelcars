@@ -7,7 +7,7 @@ interface MagneticProps {
 }
 
 export default function Index({ children }: MagneticProps) {
-  const magnetic = useRef<HTMLElement>(null);
+  const magnetic = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const currentElement = magnetic.current;
