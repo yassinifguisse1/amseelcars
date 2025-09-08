@@ -108,7 +108,7 @@ height: 100vh;
 
 .cardWrapper {
   flex-shrink: 0;
-  width: 380px; // Default desktop width
+  width: 420px; // Default desktop width
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
   margin-right: 2rem; // Use margin instead of gap for better control
@@ -154,7 +154,7 @@ height: 100vh;
 // Responsive design
 @media (max-width: 1200px) {
   .cardWrapper {
-    width: 360px;
+    // width: 360px;
     margin-right: 1.8rem;
   }
 }
@@ -175,7 +175,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 350px;
+    // width: 350px;
     margin-right: 1.5rem;
     
     &:last-child {
@@ -205,7 +205,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 320px;
+    // width: 120px;
     margin-right: 1.2rem;
     
     &:last-child {
@@ -237,7 +237,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 300px;
+    // width: 100px;
     margin-right: 1rem;
     
     &:last-child {
@@ -252,7 +252,7 @@ height: 100vh;
 //   }
   .rowContainer { 
     --edge-fade: 24px;
-    height: 38%; // Optimize for mobile
+    // height: 38%; // Optimize for mobile
   }
   
   .sectionHeader {
@@ -265,8 +265,8 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 280px;
-    margin-right: 0.8rem;
+    // width: 180px;
+    // margin-right: 0.8rem;
     
     &:last-child {
       margin-right: 0;
@@ -288,8 +288,10 @@ height: 100vh;
 
 @media (max-width: 375px) {
   .cardWrapper {
-    width: 260px;
-    margin-right: 0.6rem;
+    // width: 100px;
+    // // margin-right: 0.6rem;
+    // background-color: red;
+    // border: 1px solid blue;
   }
   
   .rowContainer { 
@@ -306,9 +308,6 @@ height: 100vh;
   left: 0;
   width: 100%;
   height: 100%;
-//   background: 
-//     radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-//     radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
   pointer-events: none;
   z-index: 1;
 }
@@ -321,12 +320,7 @@ height: 100vh;
   left: -100%;
   width: 100%;
   height: 100%;
-//   background: linear-gradient(
-//     90deg,
-//     transparent,
-//     rgba(255, 255, 255, 0.1),
-//     transparent
-//   );
+  
   animation: shimmer 3s infinite;
   pointer-events: none;
 }

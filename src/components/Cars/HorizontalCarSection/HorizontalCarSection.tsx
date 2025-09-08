@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
-import { getAllCars, type Car } from '@/data/cars'
+import { getAllCars } from '@/data/cars'
 import styles from './HorizontalCarSection.module.scss'
 
 const HorizontalCarSection = () => {
@@ -30,7 +30,6 @@ const HorizontalCarSection = () => {
     const section = sectionRef.current
     const cardsRow1 = cardsRow1Ref.current
     const cardsRow2 = cardsRow2Ref.current
-    const container = containerRef.current
 
     // Wait for next frame to ensure proper measurement
     gsap.set([cardsRow1, cardsRow2], { clearProps: "all" })
