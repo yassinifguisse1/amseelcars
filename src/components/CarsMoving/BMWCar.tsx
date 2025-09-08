@@ -1,8 +1,43 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Rounded from '../../common/RoundedButton';
+
+// Image preloading hook for better performance
+function useImagePreloader(imageUrls: string[]) {
+  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const preloadImage = (src: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        const img = document.createElement('img');
+        img.onload = () => {
+          setLoadedImages(prev => new Set([...prev, src]));
+          resolve();
+        };
+        img.onerror = reject;
+        img.src = src;
+      });
+    };
+
+    const preloadAllImages = async () => {
+      try {
+        await Promise.allSettled(imageUrls.map(preloadImage));
+        setIsLoading(false);
+        console.log('All car images preloaded successfully');
+      } catch (error) {
+        console.error('Error preloading images:', error);
+        setIsLoading(false);
+      }
+    };
+
+    preloadAllImages();
+  }, [imageUrls]);
+
+  return { loadedImages, isLoading };
+}
 
 // Tiny helper to return a numeric value based on Tailwind-style breakpoints
 function useBreakpointValue(values: {
@@ -33,11 +68,37 @@ function useBreakpointValue(values: {
 export default function BMWCarScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Define all images that need to be preloaded for instant loading
+  const criticalImages = [
+    '/images/bmw-body.png',
+    '/images/wheel-rear.png',
+    '/images/wheel-front.png',
+    '/images/kia body.webp',
+    '/images/left wheel kia.webp',
+    '/images/right wheel kia.webp',
+    '/images/t-roc body.png',
+    '/images/t-roc wheel left.png',
+    '/images/t-roc wheel right.png',
+    '/images/golf8-body.png',
+    '/images/golf8-wheel-left.png',
+    '/images/golf8-wheel-right.png',
+    '/images/x3-bm.webp',
+    '/images/Kia-sportage-logo.webp',
+    '/images/touareg-LOGO.png',
+    '/images/GOLF-8-LOGO.png'
+  ];
+
+  // Preload all critical images
+  const { loadedImages, isLoading: imagesLoading } = useImagePreloader(criticalImages);
+
   // Track scroll progress within the section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"],
   });
+
+  // Helper function to check if image is loaded
+  const isImageLoaded = useCallback((src: string) => loadedImages.has(src), [loadedImages]);
 
   // Responsive start offsets to keep consistent spacing across devices
   const bmwStartVW = useBreakpointValue({ base: 12, md: 16, lg: 20 });
@@ -107,7 +168,18 @@ export default function BMWCarScroll() {
     <section ref={containerRef} style={{ height: "600vh" }}>
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         
-       
+        {/* Loading indicator */}
+        {imagesLoading && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="text-white text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+              <p className="text-lg">Loading car models...</p>
+              <p className="text-sm text-gray-300 mt-2">
+                {loadedImages.size}/{criticalImages.length} images loaded
+              </p>
+            </div>
+          </div>
+        )}
         
         {/* Background layers */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200" />
@@ -136,7 +208,12 @@ export default function BMWCarScroll() {
           left-[14%] sm:left-[10%] lg:left-[7%]
           -translate-x-1/2 -translate-y-1/2
         "
-        style={{ x: bmwTextX, opacity: bmwTextOpacity, scale: bmwTextScale, willChange: 'transform' }}
+        style={{ 
+          x: bmwTextX, 
+          opacity: isImageLoaded('/images/x3-bm.webp') ? bmwTextOpacity : 0, 
+          scale: bmwTextScale, 
+          willChange: 'transform' 
+        }}
       >
     <div className="relative h-auto w-[clamp(180px,50vw,640px)] sm:w-[clamp(220px,45vw,700px)] md:w-[clamp(260px,40vw,760px)]">
       <Image
@@ -144,11 +221,10 @@ export default function BMWCarScroll() {
         alt="BMW X3 M Logo"
         width={1400}
         height={350}
-        // Let the browser pick the right file:
         sizes="(max-width: 640px) 60vw, (max-width: 1024px) 45vw, 35vw"
         className="w-full h-auto opacity-100 drop-shadow-2xl"
         draggable={false}
-        // priority={true} // <-- only keep if this is your FIRST hero
+        priority={true} // High priority for first car
       />
     </div>
   </motion.div>
@@ -160,6 +236,9 @@ export default function BMWCarScroll() {
       x: bmwCarX,
       y: bmwCarY,
       width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+      opacity: isImageLoaded('/images/bmw-body.png') && 
+               isImageLoaded('/images/wheel-rear.png') && 
+               isImageLoaded('/images/wheel-front.png') ? 1 : 0,
       willChange: 'transform',
     }}
   >
@@ -172,6 +251,7 @@ export default function BMWCarScroll() {
       sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
       className="block w-full h-auto pointer-events-none select-none"
       draggable={false}
+      priority={true} // High priority for first car
     />
 
   
@@ -188,6 +268,7 @@ export default function BMWCarScroll() {
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
+        loading="eager" // Critical for wheel sync
       />
     </motion.div>
 
@@ -203,6 +284,7 @@ export default function BMWCarScroll() {
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
+        loading="eager" // Critical for wheel sync
       />
     </motion.div>
 
@@ -293,6 +375,9 @@ export default function BMWCarScroll() {
               x: kiaCarX, 
               y: kiaCarY,
               width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+              opacity: isImageLoaded('/images/kia body.webp') && 
+                       isImageLoaded('/images/left wheel kia.webp') && 
+                       isImageLoaded('/images/right wheel kia.webp') ? 1 : 0,
                willChange: 'transform',
             }}
           >
@@ -305,6 +390,7 @@ export default function BMWCarScroll() {
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
+              loading="eager" // Load eagerly for second car
             />
 
             {/* KIA Rear wheel (left) */}
@@ -322,6 +408,7 @@ export default function BMWCarScroll() {
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
+                loading="eager" // Critical for wheel sync
               />
             </motion.div>
 
@@ -340,6 +427,7 @@ export default function BMWCarScroll() {
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
+                loading="eager" // Critical for wheel sync
               />
             </motion.div>
 
@@ -422,6 +510,9 @@ export default function BMWCarScroll() {
               x: touaregCarX, 
               y: touaregCarY,
               width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+              opacity: isImageLoaded('/images/t-roc body.png') && 
+                       isImageLoaded('/images/t-roc wheel left.png') && 
+                       isImageLoaded('/images/t-roc wheel right.png') ? 1 : 0,
               willChange: 'transform',
             }}
           >
@@ -434,6 +525,7 @@ export default function BMWCarScroll() {
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
+              loading="lazy" // Lazy load for later cars
             />
 
             {/* Touareg Rear wheel (left) */}
@@ -549,6 +641,9 @@ export default function BMWCarScroll() {
               x: golf8CarX, 
               y: golf8CarY,
               width: 'clamp(280px, 85vw, 1120px)', // <— scales for all devices
+              opacity: isImageLoaded('/images/golf8-body.png') && 
+                       isImageLoaded('/images/golf8-wheel-left.png') && 
+                       isImageLoaded('/images/golf8-wheel-right.png') ? 1 : 0,
               willChange: 'transform',
             }}
           >
@@ -561,6 +656,7 @@ export default function BMWCarScroll() {
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
+              loading="lazy" // Lazy load for later cars
             />
 
             {/* Golf 8 Rear wheel (left) */}
