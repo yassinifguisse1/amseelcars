@@ -9,6 +9,8 @@ import { useTransitionRouter } from 'next-view-transitions';
 import {gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react"
+import Magnetic from '@/common/Magnetic';
+import { Facebook, Instagram, Mail, Phone } from 'lucide-react';
 // register once (outside the component)
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -159,17 +161,47 @@ const Menu = () => {
                     ))}
                 </div>
                 <div className="menu-info ">
-                    <div className="menu-info-col">
-                        <a href="#">X &#x8599;</a>
-                        <a href="#">Instgram &#x8599;</a>
-                        <a href="#">Linkedin &#x8599;</a>
-                        <a href="#">Youtube &#x8599;</a> 
-                        <a href="#">Tiktok &#x8599;</a>
-                        <a href="#">Whatsapp &#x8599;</a>
+                    <div className="menu-info-col flex gap-4">
+                        <Magnetic>
+                            <Link href="https://www.facebook.com/amseelcars/" target='_blank' className='menu-link'>
+                            <div className='flex items-center gap-2'>
+                                <Facebook className='w-7 h-7 text-black bg-black rounded-full p-1' />
+                                <p> Facebook</p>
+                            </div>
+                            </Link>
+                        </Magnetic>
+                        <Magnetic >
+
+                            <Link href="https://www.instagram.com/amseelcars/" target='_blank' className='menu-link'>
+                            <div className='flex items-center gap-2'>
+                                <Instagram className='w-7 h-7 text-black bg-black rounded-full p-1' />
+                                <p>   Instagram</p>
+                            </div>
+                            </Link>
+                        </Magnetic>
+                        <Magnetic>
+                            <Link href="https://wa.me/212662500181" target='_blank' className='menu-link'>
+                            <div className='flex items-center gap-2'>
+                                <Phone className='w-7 h-7 text-black bg-black rounded-full p-1' />
+                                <p> Whatsapp</p>
+                            </div>
+                            </Link>
+                        </Magnetic>
                     </div>
-                    <div className="menu-info-col">
-                        <p>info@amseelcars.com</p>
-                        <p>+966555555555</p>
+                    <div className="menu-info-col flex gap-4">
+                            <Link href="mailto:info@amseelcars.com" target='_blank' className='menu-link'>
+                        <div className='flex items-center gap-2'>
+
+                            <Mail className='w-7 h-7 text-black bg-black rounded-full p-1' />
+                            <p className='menu-link'> info@amseelcars.com</p>
+                        </div>
+                            </Link>
+                        <Link href="tel:+212662500181" target='_blank' className='menu-link'>
+                        <div className='flex items-center gap-2'>
+                            <Phone className='w-7 h-7 text-black bg-black rounded-full p-1' />
+                            <p className='menu-link'> +212 662 500 181</p>
+                        </div>
+                            </Link>
                     </div>
                 </div>
             </div>
