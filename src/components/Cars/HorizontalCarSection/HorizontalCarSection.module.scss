@@ -9,15 +9,16 @@
 
 .container {
   position: relative;
-  // width: 100%;
-  // height: 100%;
-width: 100vw;
-height: 100vh;
-  padding: 0 5vw;
+  width: 100%;
+  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  padding: 0 3vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+ 
 }
 
 .sectionHeader {
@@ -26,6 +27,7 @@ height: 100vh;
   left: 5vw;
   z-index: 10;
   color: white;
+ 
   
 }
 
@@ -52,10 +54,9 @@ height: 100vh;
 
 .rowContainer {
   width: 100%;
-  // height: 90%;
+  height: 90%;
   display: flex;
   align-items: center;
-  background: #ff0000;
 
 //   overflow: hidden;
   position: relative; // for edge-fade overlay
@@ -101,13 +102,15 @@ height: 100vh;
   align-items: center;
   height: 100%;
   width: max-content;
-  padding-top: 5vw;
-  padding-bottom: 5vw; // Remove padding to avoid blanks
+  // padding-top: 5vw;
+  // padding-bottom: 5vw; // Remove padding to avoid blanks
   perspective: 1000px;
 }
 
 .cardsContainerReverse {
   // Initial position will be set by GSAP, no need for CSS transform
+  // padding-top: 1vw;
+  // padding-bottom: 1vw;
 }
 
 .cardWrapper {
@@ -116,7 +119,7 @@ height: 100vh;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
   margin-right: 2rem; // Use margin instead of gap for better control
-  
+  // margin-top: 1.5rem;
   &:last-child {
     margin-right: 0; // Remove margin from last card
   }
@@ -155,26 +158,28 @@ height: 100vh;
   }
 }
 @media (max-width: 1920px) {
+
   .rowContainer {
-   background: #00ff00;
    --edge-fade: 28px;
-   
-  //  padding-top: 1vw;
-  //  padding-bottom: 1vw;
   }
-  .cardsContainer {
-    background: #0000ff;
-   
-    padding-top: 2vw;
-    padding-bottom: 2vw; 
+ 
+  .cardsContainerReverse {
+    // Initial position will be set by GSAP, no need for CSS transform
+    // padding-top: 10vw;
+    // padding-bottom: 10vw;
+
   }
+ 
   .cardWrapper {
-    width: 200px;
+    width: 250px;
     margin-right: 1.5rem;
+    
+   
    
     
     &:last-child {
       margin-right: 0;
+     
     }
   }
  
@@ -183,7 +188,7 @@ height: 100vh;
 // Responsive design
 @media (max-width: 1200px) {
   .cardWrapper {
-    width: 360px;
+    width: 260px;
     margin-right: 1.8rem;
   }
   
@@ -196,10 +201,9 @@ height: 100vh;
 //   }
   .rowContainer { 
     --edge-fade: 48px; 
-    background: #0000ff;
 
   }
-
+ 
   
   .sectionHeader {
     left: 3vw;
@@ -211,7 +215,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 350px;
+    width: 250px;
     margin-right: 1.5rem;
     
     &:last-child {
@@ -224,7 +228,10 @@ height: 100vh;
   .horizontalSection {
     height: 120vh; // Taller for better mobile experience
   }
-  
+.cardWrapper {
+  width: 200px;
+  margin-right: 1rem;
+}  
   .sectionHeader {
     top: 8vh;
     left: 4vw;
@@ -235,15 +242,17 @@ height: 100vh;
   
     
   }
+
  
   
   .cardsContainer {
     padding-top: 2vw;
     padding-bottom: 2vw; 
+    
   }
   
   .cardWrapper {
-    width: 300px; // Much larger for tablets
+    width: 200px; // Much larger for tablets
     margin-right: 1.2rem;
     
     &:last-child {
@@ -278,7 +287,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 280px; // Good size for small screens
+    width: 200px; // Good size for small screens
     margin-right: 1rem;
     
     &:last-child {
@@ -315,7 +324,7 @@ height: 100vh;
   }
   
   .cardWrapper {
-    width: 260px; // Optimal for mobile phones
+    width: 200px; // Optimal for mobile phones
     margin-right: 0.8rem;
     
     &:last-child {
@@ -338,7 +347,7 @@ height: 100vh;
 
 @media (max-width: 375px) {
   .cardWrapper {
-    width: 240px; // Still decent size for very small screens
+    width: 200px; // Still decent size for very small screens
     margin-right: 0.6rem;
   }
   
