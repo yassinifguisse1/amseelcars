@@ -9,6 +9,7 @@ import HorizontalCarSection from '@/components/Cars/HorizontalCarSection/Horizon
 // import WeekndParallax from '@/components/about/Hero/WeekndParallax'
 import ParallexCards from '@/components/Cars/ParallexCards/ParallexCards'
 import Heroo from '@/components/Cars/Heroo/Heroo'
+import Footer from '@/components/Footer/Footer'
 
 export default function CarsPage() {
   useRevealed()
@@ -34,6 +35,7 @@ export default function CarsPage() {
       {/* Horizontal Scrolling Cars Section */}
       <HorizontalCarSection />
       <ParallexCards />
+      <Footer/>
       
       {/* Performance Showcase Section */}
       {/* <PerformanceShowcase /> */}

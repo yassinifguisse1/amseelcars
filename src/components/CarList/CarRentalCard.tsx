@@ -53,7 +53,7 @@ export function CarRentalCard({
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-base sm:text-lg font-semibold text-foreground leading-tight">{carName}</h3>
             <div className="text-right flex-shrink-0">
-              <p className="text-xl sm:text-2xl font-bold text-primary">${pricePerDay}</p>
+              <p className="text-xl sm:text-2xl font-bold text-primary">DH {pricePerDay}</p>
               <p className="text-xs text-muted-foreground">per day</p>
             </div>
           </div>
@@ -90,6 +90,18 @@ export function CarRentalCard({
           size="default"
         >
           Book Now
+        </Button>
+        <Button
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onBook()
+            
+          }}
+          className="mt-3 sm:mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base"
+          size="default"
+        >
+          Whatsapp
         </Button>
       </div>
   )

@@ -187,7 +187,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
               {/* Price */}
               <div className="bg-muted/30 rounded-lg p-6">
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-bold text-foreground">${car.pricePerDay}</span>
+                  <span className="text-3xl font-bold text-foreground">DH {car.pricePerDay}</span>
                   <span className="text-muted-foreground">per day</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
@@ -235,7 +235,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
                 size="lg" 
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                Book Now - ${car.pricePerDay}/day
+                Book Now - DH {car.pricePerDay}/day
               </Button>
             </div>
           </div>
