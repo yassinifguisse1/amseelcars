@@ -55,6 +55,7 @@ height: 100vh;
   // height: 90%;
   display: flex;
   align-items: center;
+  background: #ff0000;
 
 //   overflow: hidden;
   position: relative; // for edge-fade overlay
@@ -153,6 +154,31 @@ height: 100vh;
     transform: translateY(-5px) rotateX(2deg);
   }
 }
+@media (max-width: 1920px) {
+  .rowContainer {
+   background: #00ff00;
+   --edge-fade: 28px;
+   
+  //  padding-top: 1vw;
+  //  padding-bottom: 1vw;
+  }
+  .cardsContainer {
+    background: #0000ff;
+   
+    padding-top: 2vw;
+    padding-bottom: 2vw; 
+  }
+  .cardWrapper {
+    width: 200px;
+    margin-right: 1.5rem;
+   
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+ 
+}
 
 // Responsive design
 @media (max-width: 1200px) {
@@ -170,8 +196,10 @@ height: 100vh;
 //   }
   .rowContainer { 
     --edge-fade: 48px; 
+    background: #0000ff;
 
   }
+
   
   .sectionHeader {
     left: 3vw;
@@ -179,7 +207,7 @@ height: 100vh;
   
   .cardsContainer {
     padding-top: 2vw;
-  padding-bottom: 2vw; 
+    padding-bottom: 2vw; 
   }
   
   .cardWrapper {
