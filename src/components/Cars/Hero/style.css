@@ -4,11 +4,11 @@ img{
     object-fit: cover;
 }
 h2{
-    font-size: 200px;
+    font-size: clamp(60px, 12vw, 200px); /* Responsive font size */
     text-transform: uppercase;
     font-weight: 400;
     color: white;
-    letter-spacing: -4px;
+    letter-spacing: clamp(-2px, -0.4vw, -4px); /* Responsive letter spacing */
 }
 section.hero{
     width: 100vw;
@@ -18,6 +18,7 @@ section.hero{
     align-items: center;
     position: relative;
     overflow: hidden;
+    padding: 0 1rem; /* Add padding for mobile */
 }
 
 .hero-video {
@@ -33,40 +34,46 @@ section.hero{
     font-family: "PP Editorial old";
     font-weight: lighter;
     color: #fff;
+    text-align: center; /* Center text on mobile */
+    line-height: 0.85; /* Improve line height for mobile */
 }
 section.info{
     width: 100vw;
-    height: 150vh;
+    height: clamp(100vh, 150vh, 150vh); /* Responsive height */
     background: #000;
     color: #fff;
+    padding: 2rem 0; /* Add vertical padding */
 }
 .header-rows{
     width: 100%;
-    height: 250px;
-   padding: 0 2em;
-
+    height: auto; /* Auto height for responsiveness */
+    min-height: 250px;
+    padding: 0 clamp(1rem, 4vw, 2rem); /* Responsive padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .header-row:nth-child(1){
    display: flex;
    justify-content: flex-start;
    align-items: center;
-   padding-left: 10em;
-   /* border: 2px solid green; */
+   padding-left: clamp(1rem, 8vw, 10rem); /* Responsive left padding */
 }
 .header-row:nth-child(2){
    display: flex;
    justify-content: flex-end;
    align-items: center;
-   padding-right: 10em;
+   padding-right: clamp(1rem, 8vw, 10rem); /* Responsive right padding */
 }
 
 .header-row h2{
-    font-size: 200px;
+    font-size: clamp(40px, 10vw, 200px); /* Responsive font size */
     text-transform: uppercase;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: white;
-    letter-spacing: 4px;
+    letter-spacing: clamp(1px, 0.4vw, 4px); /* Responsive letter spacing */
+    line-height: 0.9; /* Better line height for mobile */
 }
 
 
@@ -103,7 +110,7 @@ section.pinned {
     position: absolute;
     top:100vh;
     width:100%;
-    height: 250vh;
+    height: 200vh;
     z-index: 2;
     
 
@@ -115,7 +122,7 @@ section.whitespace{
        immediately when the revealer finishes scaling */
     /* height: 400px; */
     height: 100vh;
-    border: 1px solid red;
+   
     background: #000;
     z-index: -1;
 }
@@ -158,9 +165,10 @@ section.whitespace{
 section.website-content{
     position: relative;
     width: 100%;
-    height: 430vh;
-    background: #fff;
+    height: auto;
+    background: #ffffff;
     z-index: 10;
+  
 }
 .website-content h2{
     font-size: 72px;
@@ -170,3 +178,215 @@ section.website-content{
 }
 
 /* lenis */
+
+/* Responsive Styles */
+
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .hero h2 {
+        font-size: 200px;
+        letter-spacing: -4px;
+    }
+    
+    .header-row h2 {
+        font-size: 200px;
+        letter-spacing: 4px;
+    }
+    .header-rows {
+       
+        background: rgb(0, 249, 216);
+    }
+    .website-content h2{
+        font-size: 12px;
+       
+       /* border: 1px solid green; */
+    }
+  
+    
+}
+
+/* Medium screens (768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .hero h2 {
+        font-size: clamp(80px, 15vw, 150px);
+        letter-spacing: clamp(-3px, -0.3vw, -2px);
+        
+    }
+    
+    .header-row h2 {
+        font-size: clamp(60px, 13vw, 120px);
+        letter-spacing: clamp(2px, 0.3vw, 3px);
+       
+    }
+    
+    .header-rows {
+        min-height: 200px;
+        background: green;
+    }
+    
+    .header-info p {
+        font-size: clamp(30px, 5vw, 40px);
+        
+    }
+   
+}
+
+/* Small screens (480px to 767px) */
+@media (max-width: 767px) and (min-width: 480px) {
+    section.hero {
+        padding: 0 0.5rem;
+    }
+    
+    .hero h2 {
+        font-size: clamp(50px, 12vw, 80px);
+        letter-spacing: clamp(-2px, -0.2vw, -1px);
+        line-height: 0.8;
+    }
+    
+    .header-rows {
+        min-height: 150px;
+        padding: 0 1rem;
+        background: blue;
+    }
+    
+    .header-row:nth-child(1) {
+        padding-left: clamp(0.5rem, 4vw, 2rem);
+        /* justify-content: center; Center on mobile */
+    }
+    
+    .header-row:nth-child(2) {
+        padding-right: clamp(0.5rem, 4vw, 2rem);
+        /* justify-content: center; Center on mobile */
+    }
+    
+    .header-row h2 {
+        font-size: clamp(35px, 14vw, 60px);
+        letter-spacing: clamp(1px, 0.2vw, 2px);
+        text-align: center;
+    }
+    
+    .header-info {
+        height: auto;
+        min-height: 10vh;
+        /* background: yellow; */
+    }
+    
+    .header-info p {
+        font-size: clamp(20px, 4vw, 30px);
+        padding: 0.5rem;
+    }
+    
+    .header-images {
+        height: auto;
+        /* min-height: 150px;
+        flex-wrap: wrap;
+        gap: 0.5rem; */
+    }
+    
+    .img {
+        flex: 1 1 calc(50% - 0.25rem);
+        min-height: 100px;
+    }
+    .revealer {
+        width: 80px;
+        height: 80px;
+        margin-top: 200px;
+    }
+   
+    
+   
+}
+
+/* Extra small screens (up to 479px) */
+@media (max-width: 479px) {
+    section.hero {
+        padding: 0 0.25rem;
+    }
+    
+    .hero h2 {
+        font-size: clamp(32px, 10vw, 50px);
+        letter-spacing: clamp(-1px, -0.1vw, -0.5px);
+        line-height: 0.75;
+    }
+    
+    section.info {
+        height: auto;
+        min-height: 80vh;
+        padding: 1rem 0;
+    }
+    
+    .header-rows {
+        min-height: 120px;
+        padding: 0 0.5rem;
+        background: rgb(207, 0, 249);
+    }
+   
+    
+    .header-row:nth-child(1),
+    .header-row:nth-child(2) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+       
+    }
+    
+    .header-row h2 {
+        font-size: clamp(24px, 15vw, 50px);
+        letter-spacing: clamp(0.5px, 2vw, 1px);
+        text-align: center;
+    }
+    
+    .header-info {
+        height: auto;
+        /* min-height: 70vh; */
+        
+    }
+    
+    .header-info p {
+        font-size: clamp(16px, 3vw, 24px);
+        padding: 0.25rem;
+    }
+    
+    .header-images {
+        height: auto;
+        /* min-height: 150px;
+        flex-wrap: wrap;
+        gap: 0.5rem; */
+    }
+    
+    .img {
+        flex: 1 1 calc(50% - 0.25rem);
+        min-height: 100px;
+    }
+    
+    /* Adjust revealer for mobile */
+    .revealer {
+        width: 80px;
+        height: 80px;
+        margin-top: 200px;
+    }
+    
+ 
+}
+
+/* Landscape mobile orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    section.hero {
+        height: 100vh;
+    }
+    
+    .hero h2 {
+        font-size: clamp(30px, 8vh, 60px);
+    }
+    
+    section.info {
+        min-height: 100vh;
+    }
+    
+    .header-rows {
+        min-height: 100px;
+    }
+    
+    .header-row h2 {
+        font-size: clamp(20px, 6vh, 50px);
+    }
+}

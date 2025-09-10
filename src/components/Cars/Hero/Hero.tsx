@@ -112,7 +112,7 @@ const Hero = () => {
      scrub: 0.2,
      onUpdate: (self) => {
         
-        const scaleX = 1 + 16 * Math.pow(self.progress, 0.75);
+        const scaleX = 1 + 19 * Math.pow(self.progress, 0.75);
         const scaleY = 1 + 10 * Math.pow(self.progress, 0.75);
        gsap.set(revealerRef.current, {
         transformOrigin: "50% 50%",
@@ -148,20 +148,20 @@ const Hero = () => {
                 <source src="/video/cardri.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
-            <h2 className='uppercase text-[200px] font-bold text-white'>
+            <h2 className='uppercase font-bold text-white'>
                 Symphonia
             </h2>
         </section>
         <section className="info">
-            <div className='header-rows w-full h-[250px]'>
+            <div className='header-rows w-full'>
                 <div className='header-row flex justify-start items-center'>
-                    <h2 className=' flex justify-start items-center'>
-                        Amssil
+                    <h2 className='flex justify-start items-center'>
+                        Amsseel
                     </h2>
                 </div>
                 <div className="header-row flex justify-end items-center">
-                    <h2 className=''>
-                        Car
+                    <h2>
+                        Cars
                     </h2>
                 </div>
             </div>
@@ -197,7 +197,7 @@ const Hero = () => {
             <OurBrandsGrid brands={sampleBrands} />
             <SplitingText />
             
-            {/* Split Content Sections */}
+           
             <SplitContentSection
                 image={{
                     src: "/images/amseelcars-logo-apropos.jpg",

@@ -25,16 +25,11 @@ const TextHover = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-start h-screen">
+    <div className="flex flex-col justify-center items-start ">
       <h1 className={styles.text}>TEXT EFFECT<span>WOAH</span></h1>
       <h1 className={styles.text}>GSAP<span>AND CLIPPING</span></h1>
       <h1 className={styles.text}>CRAZYYY<span>CRAZYYY</span></h1>
-      <h1 className={styles.text}>HOVER ON ME
-        <span><Link href="https://stacksorted.com/text-effects/minh-pham" target="_blank">SOURCE</Link></span>
-      </h1>
-      <h1 className={styles.text}>LIKE THIS?
-        <span><Link href="https://twitter.com/juxtopposed" target="_blank">LET&apos;S CONNECT</Link></span>
-      </h1>
+     
     </div>
   )
 }

@@ -216,11 +216,11 @@ export default function OurBrandsGrid({
       <div className="px-4">
         {/* Heading */}
         <div className="text-start mb-12 overflow-hidden">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black tracking-wide">
-            <span className="split-lefts inline-block">
+          <h2 className="text-sm md:text-4xl lg:text-5xl font-bold text-black tracking-wide">
+            <span className="split-lefts inline-block text-4xl  md:text-6xl lg:text-7xl font-bold text-black tracking-wide">
               {heading}
             </span>
-            <span className="split-right inline-block">
+            <span className="split-right inline-block text-4xl  md:text-6xl lg:text-7xl font-bold">
               &nbsp;{heading2}
             </span>
           </h2>
