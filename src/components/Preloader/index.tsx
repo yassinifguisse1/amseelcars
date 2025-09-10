@@ -1,8 +1,8 @@
 'use client';
 import styles from './style.module.scss';
-import { useEffect, useState, useCallback } from 'react';
-import { motion, cubicBezier, type Variants, useSpring, useTransform } from 'framer-motion';
-import { opacity, slideUp } from './anim';
+import { useEffect, useState } from 'react';
+import { motion, cubicBezier, type Variants} from 'framer-motion';
+import { slideUp } from './anim';
 import { useLoading } from '@/contexts/LoadingContext';
 
 // Speedometer component
