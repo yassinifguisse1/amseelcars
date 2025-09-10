@@ -237,7 +237,7 @@ const Cardrive = () => {
     const [imagesLoaded, setImagesLoaded] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
     const [totalFrames, setTotalFrames] = useState(364)
-    const { updateFramesProgress, setFramesLoaded } = useLoading()
+    const { updateFramesProgress, setFramesLoaded, setWordsComplete, setMinimumTimeElapsed } = useLoading()
     
     const {scrollYProgress} = useScroll({
         target: containerRef,
@@ -247,6 +247,10 @@ const Cardrive = () => {
     // Load images with better performance and progress tracking
     useEffect(() => {
         const loadImages = async () => {
+            // Initialize loading states
+            setWordsComplete(true); // Speedometer doesn't use word animation
+            setMinimumTimeElapsed(false);
+            
             // Check if mobile device
             const isMobileDevice = window.innerWidth < 768;
             setIsMobile(isMobileDevice);
@@ -273,6 +277,11 @@ const Cardrive = () => {
 
             // Initialize progress tracking
             updateFramesProgress(0, totalImages);
+            
+            // Set minimum time for speedometer display (2 seconds)
+            setTimeout(() => {
+                setMinimumTimeElapsed(true);
+            }, 2000);
             
             const loadedImages: HTMLImageElement[] = [];
             let loadedCount = 0;
@@ -353,7 +362,7 @@ const Cardrive = () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('orientationchange', handleResize);
         };
-    }, [isMobile, updateFramesProgress, setFramesLoaded]);
+    }, [isMobile, updateFramesProgress, setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
 
     // Set canvas size responsively
     useEffect(() => {
@@ -530,10 +539,13 @@ const Cardrive = () => {
     }, [imagesLoaded, images, render]);
 
     return (
-        <section 
+        <motion.section 
             ref={containerRef}
             className="relative bg-black"
             style={{ height: isMobile ? "250svh" : "300svh", touchAction: 'pan-y' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.0, ease: "easeOut" }}
         >
             <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center  bg-black">
                 {/* Video Canvas */}
@@ -619,7 +631,7 @@ const Cardrive = () => {
 
                 {/* Loading handled by global preloader now */}
             </div>
-        </section>
+        </motion.section>
     );
 }
 
