@@ -37,11 +37,11 @@ export default function Heroo() {
       // First letters animation (AMSIL) - slide left and scale up
       tl.to('.header .letters:first-child', {
         x: () => -window.innerWidth * 3,
-        scale: 10,
+        scale: 8,
         ease: "power2.inOut",
       }, 0)
 
-      // Last letters animation (CAR) - slide right and scale up  
+      // Last letters animation (CARS) - slide right and scale up  
       .to('.header .letters:last-child', {
         x: () => window.innerWidth * 3,
         scale: 10,
@@ -54,8 +54,8 @@ export default function Heroo() {
         opacity: 0.8,
         ease: "power2.inOut",
       }, 0);
-    //   gsap.set('.img-holder'
-    gsap.to(".img-holder", {
+      // Image holder animation - responsive rotation and clip-path
+      gsap.to(".img-holder", {
         rotate: 0,
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
         ease: "power2.inOut",
@@ -66,8 +66,10 @@ export default function Heroo() {
         }
 
       })
+      
+      // Image scale animation - responsive scaling
       gsap.to(".img-holder img", {
-        scale: 1,
+        scale: () => window.innerWidth < 768 ? 1.1 : window.innerWidth < 1024 ? 1.05 : 1,
         ease: "power2.inOut",
         scrollTrigger: {
          start: 'top top',
@@ -90,13 +92,13 @@ export default function Heroo() {
   }, []);
 
   return (
-    <section ref={root} className="relative bg-whitex w-full h-screen overflow-hidden bg-black">
+    <section ref={root} className="relative bg-whitex w-full h-[100svh] overflow-hidden bg-black">
       {/* Logo */}
-      <div className="logo absolute top-0 right-0 m-[32px] w-[18px] h-[18px] bg-red-500 rounded-full z-[100] hidden"></div>
+      <div className="logo absolute top-0 right-0 m-[32px] w-[18px] h-[18px]  rounded-full z-[100] hidden"></div>
       
       {/* Header with letters */}
-      <div className="header absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex w-full z-[2] ">
-        {/* First letters group (AMSIL) */}
+      <div className="header absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex w-full z-[2] px-4 sm:px-6 md:px-8">
+        {/* First letters group (AMSEEL) */}
         <div className="letters flex flex-1 uppercase z-10">
           <div className="letter flex-1 text-[15vw] font-bold text-center text-white poppins">A</div>
           <div className="letter flex-1 text-[15vw] font-bold text-center text-white poppins">M</div>
@@ -106,7 +108,7 @@ export default function Heroo() {
           <div className="letter flex-1 text-[15vw] font-bold text-center text-white poppins">L</div>
         </div>
         
-        {/* Second letters group (CAR) */}
+        {/* Second letters group (CARS) */}
         <div className="letters flex flex-1 uppercase z-10">
           <div className="letter flex-1 text-[15vw]  font-extralight text-center text-white">C</div>
           <div className="letter flex-1 text-[15vw]  font-extralight text-center text-white">A</div>
@@ -120,15 +122,21 @@ export default function Heroo() {
       <div className="website-content absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-screen z-0">
         <div 
           ref={imgHolder}
-          className="img-holder relative w-full h-full  [clip-path:polygon(37.5%_20%,_62.5%_20%,_62.5%_80%,_37.5%_80%)] rotate-[30deg] overflow-hidden"
+          className="img-holder relative w-full h-full overflow-hidden
+            aspect-square [clip-path:polygon(15%_15%,_85%_15%,_85%_85%,_15%_85%)]
+            sm:[clip-path:polygon(36%_18%,_64%_18%,_64%_82%,_36%_82%)]
+            md:[clip-path:polygon(37%_20%,_63%_20%,_63%_80%,_37%_80%)]
+            lg:[clip-path:polygon(37.5%_20%,_62.5%_20%,_62.5%_80%,_37.5%_80%)]
+            rotate-[25deg] sm:rotate-[27deg] md:rotate-[28deg] lg:rotate-[30deg] "
         >
           <div ref={imgInner} className="absolute inset-0">
             <Image
               src="/images/banner-5.jpg"
-              alt="img1"
+              alt="AMSEEL Cars Hero Image"
               fill
               className="object-cover  "
               priority
+              sizes="100vw"
             />
           </div>
         </div>

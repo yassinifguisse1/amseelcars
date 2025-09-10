@@ -15,8 +15,8 @@ const HorizontalCarSection = () => {
 
   // Get all cars and split into two rows
   const allCars = getAllCars()
-  const carsRow1 = allCars.slice(0, 6) // First 6 cars
-  const carsRow2 = allCars.slice(6, 12) // Next 6 cars
+  const carsRow1 = allCars.slice(0, 8) // First 6 cars
+  const carsRow2 = allCars.slice(8, 16) // Next 6 cars
 
   const handleBookCar = (carName: string) => {
     alert(`Booking ${carName}! Functionality would be implemented here.`)

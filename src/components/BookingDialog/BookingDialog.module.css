@@ -1,0 +1,39 @@
+/* Custom scrollbar styles for the booking dialog */
+.dialogContent {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f3f4f6;
+}
+
+.dialogContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dialogContent::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.dialogContent::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.dialogContent::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Smooth scrolling */
+.dialogContent {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for better accessibility */
+.dialogContent:focus {
+  outline: none;
+}
+
+/* Ensure the dialog container doesn't interfere with scrolling */
+.dialogContainer {
+  overscroll-behavior: contain;
+}

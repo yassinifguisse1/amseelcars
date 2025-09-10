@@ -45,84 +45,86 @@ export const cars: Car[] = [
   {
     id: 1,
     slug: 'bmw-x3-2025',
-    carName: "BMW X3 pack M",
+    carName: "BMW X3 Pack M",
     brand: "BMW",
-    model: "X3 pack M",
+    model: "X3 Pack M",
     year: 2025,
     carImage: "/images/bmwx3.webp",
     images: [
-      { src: "/images/bmwx3.webp", alt: "BMW X3 Front View", isPrimary: true },
-      { src: "/images/bmwx3.webp", alt: "BMW X3 Interior" },
-      { src: "/images/bmwx3.webp", alt: "BMW X3 Side View" },
-      { src: "/images/bmwx3.webp", alt: "BMW X3 Dashboard" }
+      { src: "/images/bmwx3.webp", alt: "BMW X3 - vue avant", isPrimary: true },
+      { src: "/images/bmwx3.webp", alt: "BMW X3 - intérieur" },
+      { src: "/images/bmwx3.webp", alt: "BMW X3 - vue latérale" },
+      { src: "/images/bmwx3.webp", alt: "BMW X3 - tableau de bord" }
     ],
     pricePerDay: 89,
     seats: 5,
     fuelType: "diesel",
-    transmission: "Automatic",
+    transmission: "Automatique",
     rating: 4.8,
-    description: "Experience luxury and performance with the BMW X3 pack M. This premium SUV combines elegant design with cutting-edge technology, perfect for both city driving and long-distance journeys.",
+    description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel mild-hybrid 48V, la transmission intégrale xDrive, l’iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
     features: [
-      { icon: "🚗", name: "Seats", value: "5" },
-      { icon: "⛽", name: "Fuel Type", value: "diesel" },
-      { icon: "⚙️", name: "Transmission", value: "Automatic" },
-      { icon: "🛡️", name: "Safety Rating", value: "5 Stars" },
-      { icon: "❄️", name: "Climate Control", value: "Dual Zone" },
-      { icon: "📱", name: "Connectivity", value: "Apple CarPlay" }
+      { icon: "🚗", name: "Sièges", value: "5" },
+      { icon: "⛽", name: "Carburant", value: "Diesel (mild-hybrid 48V)" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique Steptronic à 8 rapports" },
+      { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien de voie, angle mort" },
+      { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
+      { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto sans fil" }
     ],
     specs: {
-      engine: "3.0L Twin-Turbo I6",
-      horsepower: "335 HP",
-      acceleration: "0-60 mph in 5.3s",
-      topSpeed: "155 mph",
-      fuelEfficiency: "22/29 mpg",
-      drivetrain: "All-Wheel Drive"
+      engine: "2.0L diesel TwinPower Turbo 4 cylindres (mild-hybrid 48V) – 20d",
+      horsepower: "197 ch",
+      acceleration: "0-100 km/h en 7,7 s",
+      topSpeed: "215 km/h",
+      fuelEfficiency: "5,8-6,5 l/100 km (WLTP)",
+      drivetrain: "xDrive (4 roues motrices)"
     },
     category: 'luxury',
     availability: true,
-    location: "Agadir, Morocco"
-  },
+    location: "Agadir, Maroc"
+  }
+  ,
   {
     id: 2,
     slug: 'Golf-8',
     carName: "Golf 8",
     brand: "Volkswagen",
-    model: "Golf 8",
+    model: "Golf 8 1.5 eTSI 150 DSG",
     year: 2024,
     carImage: "/images/Golf 8 auto diesel 2024.webp",
     images: [
-      { src: "/images/2.jpeg", alt: "Mercedes C-Class Front View", isPrimary: true },
-      { src: "/images/1.jpeg", alt: "Mercedes C-Class Interior" },
-      { src: "/images/5.jpg", alt: "Mercedes C-Class Side View" },
-      { src: "/images/5.jpg", alt: "Mercedes C-Class Dashboard" },
-      { src: "/images/5.jpg", alt: "Mercedes C-Class Dashboard" },
+      { src: "/images/2.jpeg", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
+      { src: "/images/1.jpeg", alt: "Volkswagen Golf 8 - intérieur" },
+      { src: "/images/5.jpg", alt: "Volkswagen Golf 8 - vue latérale" },
+      { src: "/images/5.jpg", alt: "Volkswagen Golf 8 - tableau de bord" },
+      { src: "/images/5.jpg", alt: "Volkswagen Golf 8 - vue arrière" }
     ],
     pricePerDay: 75,
     seats: 5,
-    fuelType: "Hybrid",
-    transmission: "Automatic",
+    fuelType: "Hybride (mild-hybrid 48V, essence)",
+    transmission: "Automatique DSG 7",
     rating: 4.9,
-    description: "The Mercedes C-Class represents the perfect balance of luxury, efficiency, and performance. With its hybrid powertrain and sophisticated design, it's ideal for the modern driver.",
+    description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch mild-hybrid 48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
     features: [
-      { icon: "🚗", name: "Seats", value: "5" },
-      { icon: "🔋", name: "Fuel Type", value: "Hybrid" },
-      { icon: "⚙️", name: "Transmission", value: "Automatic" },
-      { icon: "🛡️", name: "Safety Rating", value: "5 Stars" },
-      { icon: "💎", name: "Interior", value: "Premium Leather" },
-      { icon: "🎵", name: "Audio", value: "Burmester Sound" }
+      { icon: "🚗", name: "Sièges", value: "5" },
+      { icon: "🔋", name: "Carburant", value: "Hybride léger 48V (essence)" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DSG 7" },
+      { icon: "🛡️", name: "Sécurité", value: "5 étoiles Euro NCAP (Golf 8)" },
+      { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
+      { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
     ],
     specs: {
-      engine: "2.0L Turbo + Electric",
-      horsepower: "255 HP",
-      acceleration: "0-60 mph in 6.0s",
-      topSpeed: "145 mph",
-      fuelEfficiency: "28/35 mpg",
-      drivetrain: "Rear-Wheel Drive"
+      engine: "1.5L eTSI turbo essence (mild-hybrid 48V) – 4 cylindres",
+      horsepower: "150 ch",
+      acceleration: "0–100 km/h en 8,4 s",
+      topSpeed: "224 km/h",
+      fuelEfficiency: "5,3–5,4 l/100 km (WLTP)",
+      drivetrain: "Traction (roues avant)"
     },
     category: 'luxury',
     availability: true,
     location: "Rabat, Morocco"
-  },
+  }
+  ,
   {
     id: 3,
     slug: 'T-Roc-2024',
@@ -489,16 +491,16 @@ export const cars: Car[] = [
   },
   {
     id: 12,
-    slug: 'aston-martin-db11-2024',
-    carName: "Aston Martin DB11",
-    brand: "Aston Martin",
-    model: "DB11",
+    slug: 'stepway-blanche-auto-essence',
+    carName: "Stepway",
+    brand: "Renault",
+    model: "Stepway",
     year: 2024,
-    carImage: "/images/12.jpg",
+    carImage: "/images/stepway blanche auto essence.webp",
     images: [
-      { src: "/images/12.jpg", alt: "Aston Martin DB11 Front View", isPrimary: true },
-      { src: "/images/1.jpeg", alt: "Aston Martin DB11 Interior" },
-      { src: "/images/3.jpg", alt: "Aston Martin DB11 Side View" }
+      { src: "/images/stepway blanche auto essence.webp", alt: "Stepway Front View", isPrimary: true },
+      { src: "/images/stepway blanche auto essence.webp", alt: "Stepway Interior" },
+      { src: "/images/stepway blanche auto essence.webp", alt: "Stepway Side View" }
     ],
     pricePerDay: 320,
     seats: 2,
@@ -525,8 +527,204 @@ export const cars: Car[] = [
     category: 'sports',
     availability: true,
     location: "Casablanca, Morocco"
+  },
+  {
+    id: 13,
+    slug: 'stepway-gris-auto-essence',
+    carName: "Stepway",
+    brand: "Renault",
+    model: "Stepway Gris",
+    year: 2024,
+    carImage: "/images/stepway gris auto essence.webp",
+    images: [
+      { src: "/images/stepway gris auto essence.webp", alt: "Stepway Gris Front View", isPrimary: true },
+      { src: "/images/stepway gris auto essence.webp", alt: "Stepway Gris Interior" },
+      { src: "/images/stepway gris auto essence.webp", alt: "Stepway Gris Side View" }
+    ],
+    pricePerDay: 320,
+    seats: 2,
+    fuelType: "Petrol",
+    transmission: "Automatic",
+    rating: 4.8,
+    description: "The Aston Martin DB11 embodies British elegance and performance. With its stunning design and powerful V8 engine, it's the perfect grand tourer for discerning drivers.",
+    features: [
+      { icon: "🚗", name: "Seats", value: "2+2" },
+      { icon: "⛽", name: "Fuel Type", value: "Petrol" },
+      { icon: "⚙️", name: "Transmission", value: "8-Speed Auto" },
+      { icon: "🎨", name: "British", value: "Craftsmanship" },
+      { icon: "🔊", name: "Engine Note", value: "V8 Symphony" },
+      { icon: "🏁", name: "GT Mode", value: "Grand Touring" }
+    ],
+    specs: {
+      engine: "4.0L Twin-Turbo V8",
+      horsepower: "503 HP",
+      acceleration: "0-60 mph in 3.9s",
+      topSpeed: "187 mph",
+      fuelEfficiency: "17/24 mpg",
+      drivetrain: "Rear-Wheel Drive"
+    },
+    category: 'sports',
+    availability: true,
+    location: "Casablanca, Morocco"
+  },
+  {
+    id: 14,
+    slug: 'touareg-auto-diesel-2025-blanche',
+    carName: "Touareg",
+    brand: "Volkswagen",
+    model: "Touareg",
+    year: 2024,
+    carImage: "/images/Touareg auto diesel 2025 blanche.webp",
+    images: [
+      { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Touareg Front View", isPrimary: true },
+      { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Touareg Interior" },
+      { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Touareg Side View" }
+    ],
+    pricePerDay: 320,
+    seats: 2,
+    fuelType: "Petrol",
+    transmission: "Automatic",
+    rating: 4.8,
+    description: "The Aston Martin DB11 embodies British elegance and performance. With its stunning design and powerful V8 engine, it's the perfect grand tourer for discerning drivers.",
+    features: [
+      { icon: "🚗", name: "Seats", value: "2+2" },
+      { icon: "⛽", name: "Fuel Type", value: "Petrol" },
+      { icon: "⚙️", name: "Transmission", value: "8-Speed Auto" },
+      { icon: "🎨", name: "British", value: "Craftsmanship" },
+      { icon: "🔊", name: "Engine Note", value: "V8 Symphony" },
+      { icon: "🏁", name: "GT Mode", value: "Grand Touring" }
+    ],
+    specs: {
+      engine: "4.0L Twin-Turbo V8",
+      horsepower: "503 HP",
+      acceleration: "0-60 mph in 3.9s",
+      topSpeed: "187 mph",
+      fuelEfficiency: "17/24 mpg",
+      drivetrain: "Rear-Wheel Drive"
+    },
+    category: 'sports',
+    availability: true,
+    location: "Casablanca, Morocco"
+  },
+  {
+    id: 15,
+    slug: 'dacia-logan-blanche-manuel-diesel-2025',
+    carName: "Dacia Logan",
+    brand: "Dacia",
+    model: "Dacia Logan",
+    year: 2024,
+    carImage: "/images/__dacia logan blanche manuel diesel 2025.webp",
+    images: [
+      { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan Front View", isPrimary: true },
+      { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan Interior" },
+      { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan Side View" }
+    ],
+    pricePerDay: 320,
+    seats: 2,
+    fuelType: "Diesel",
+    transmission: "Manual",
+    rating: 4.8,
+    description: "The Aston Martin DB11 embodies British elegance and performance. With its stunning design and powerful V8 engine, it's the perfect grand tourer for discerning drivers.",
+    features: [
+      { icon: "🚗", name: "Seats", value: "2+2" },
+      { icon: "⛽", name: "Fuel Type", value: "Diesel" },
+      { icon: "⚙️", name: "Transmission", value: "8-Speed Auto" },
+      { icon: "🎨", name: "British", value: "Craftsmanship" },
+      { icon: "🔊", name: "Engine Note", value: "V8 Symphony" },
+      { icon: "🏁", name: "GT Mode", value: "Grand Touring" }
+    ],
+    specs: {
+      engine: "4.0L Twin-Turbo V8",
+      horsepower: "503 HP",
+      acceleration: "0-60 mph in 3.9s",
+      topSpeed: "187 mph",
+      fuelEfficiency: "17/24 mpg",
+      drivetrain: "Rear-Wheel Drive"
+    },
+    category: 'sports',
+    availability: true,
+    location: "Casablanca, Morocco"
+  },
+  {
+    id: 16,
+    slug: 'kia-sportage-2025-diesel-auto-gris',
+    carName: "Kia Sportage",
+    brand: "Kia",
+    model: "Kia Sportage",
+    year: 2024,
+    carImage: "/images/kia sportage 2025 diesel auto gris.webp",
+    images: [
+      { src: "/images/kia sportage 2025 diesel auto gris.webp", alt: "Kia Sportage Front View", isPrimary: true },
+      { src: "/images/kia sportage 2025 diesel auto gris.webp", alt: "Kia Sportage Interior" },
+      { src: "/images/kia sportage 2025 diesel auto gris.webp", alt: "Kia Sportage Side View" }
+    ],
+    pricePerDay: 320,
+    seats: 2,
+    fuelType: "Diesel",
+    transmission: "Automatic",
+    rating: 4.8,
+    description: "The Aston Martin DB11 embodies British elegance and performance. With its stunning design and powerful V8 engine, it's the perfect grand tourer for discerning drivers.",
+    features: [
+      { icon: "🚗", name: "Seats", value: "2+2" },
+      { icon: "⛽", name: "Fuel Type", value: "Diesel" },
+      { icon: "⚙️", name: "Transmission", value: "Automatic" },
+      { icon: "🎨", name: "British", value: "Craftsmanship" },
+      { icon: "🔊", name: "Engine Note", value: "V8 Symphony" },
+      { icon: "🏁", name: "GT Mode", value: "Grand Touring" }
+    ],
+    specs: {
+      engine: "4.0L Twin-Turbo V8",
+      horsepower: "503 HP",
+      acceleration: "0-60 mph in 3.9s",
+      topSpeed: "187 mph",
+      fuelEfficiency: "17/24 mpg",
+      drivetrain: "Rear-Wheel Drive"
+    },
+    category: 'sports',
+    availability: true,
+    location: "Agadir, Morocco"
+  },
+  {
+    id: 17,
+    slug: 'kia-sportage-2025-diesel-auto-verte',
+    carName: "Kia Sportage",
+    brand: "Kia",
+    model: "Kia Sportage",
+    year: 2024,
+    carImage: "/images/Kia sportage 2025 diesel auto verte.webp",
+    images: [
+      { src: "/images/Kia sportage 2025 diesel auto verte.webp", alt: "Kia Sportage Front View", isPrimary: true },
+      { src: "/images/Kia sportage 2025 diesel auto verte.webp", alt: "Kia Sportage Interior" },
+      { src: "/images/Kia sportage 2025 diesel auto verte.webp", alt: "Kia Sportage Side View" }
+    ],
+    pricePerDay: 320,
+    seats: 2,
+    fuelType: "Diesel",
+    transmission: "Automatic",
+    rating: 4.8,
+    description: "The Aston Martin DB11 embodies British elegance and performance. With its stunning design and powerful V8 engine, it's the perfect grand tourer for discerning drivers.",
+    features: [
+      { icon: "🚗", name: "Seats", value: "2+2" },
+      { icon: "⛽", name: "Fuel Type", value: "Diesel" },
+      { icon: "⚙️", name: "Transmission", value: "Automatic" },
+      { icon: "🎨", name: "British", value: "Craftsmanship" },
+      { icon: "🔊", name: "Engine Note", value: "V8 Symphony" },
+      { icon: "🏁", name: "GT Mode", value: "Grand Touring" }
+    ],
+    specs: {
+      engine: "4.0L Twin-Turbo V8",
+      horsepower: "503 HP",
+      acceleration: "0-60 mph in 3.9s",
+      topSpeed: "187 mph",
+      fuelEfficiency: "17/24 mpg",
+      drivetrain: "Rear-Wheel Drive"
+    },
+    category: 'sports',
+    availability: true,
+    location: "Agadir, Morocco"
   }
 ]
+
 
 // Utility functions
 export function getAllCars(): Car[] {

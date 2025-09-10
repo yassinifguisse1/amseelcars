@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-slot": "^1.2.3",
     "@react-google-maps/api": "^2.20.7",
     "@react-three/drei": "^9.122.0",
@@ -19,6 +20,7 @@
     "autoprefixer": "^10.4.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
     "lamina": "^1.1.25",
@@ -32,10 +34,13 @@
     "r3f-perf": "^7.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-hook-form": "^7.62.0",
     "react-scroll-parallax": "^3.4.5",
+    "resend": "^6.0.3",
     "sass": "^1.90.0",
     "tailwind-merge": "^3.3.1",
-    "three": "^0.179.1"
+    "three": "^0.179.1",
+    "zod": "^4.1.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
