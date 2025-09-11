@@ -9,7 +9,7 @@ const ZoomParallaxClient = dynamic(() => import('./ZoomParallaxClient'), {
             <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
                 <div className="relative">
                     <video
-                        src="/video/centercar.mp4"
+                        src="/video/video-bmW.mp4"
                         autoPlay
                         loop
                         muted
