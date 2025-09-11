@@ -16,8 +16,8 @@ export const sampleBrands: Brand[] = [
   {
     name: "VOLKSWAGEN",
     logo: "/images/VOLKSWAGEN.webp",
-    preview: "/images/touaregggg.webp",
-    href: "/cars/audi"
+    preview: "/images/T roc auto diesel 2024 gris.webp",
+    href: "/cars/T-Roc-2024"
   },
   {
     name: "HYUNDAI",
@@ -40,8 +40,14 @@ export const sampleBrands: Brand[] = [
   {
     name: "RENAULT",
     logo: "/images/RENAULT.webp",
-    preview: "/images/clio-5-restylee-10.jpg",
-    href: "/cars/ferrari"
+    preview: "/images/clio 5 blanche manuel diesel 2024.webp",
+    href: "/cars/clio-5-blanche-manuel-diesel-2024"
+  },
+  {
+    name: "CITROËN",
+    logo: "/images/Citroen-Logo.webp",
+    preview: "/images/C4 auto essence 2025.webp",
+    href: "/cars/citroen-C4-2025"
   }
 ]
 

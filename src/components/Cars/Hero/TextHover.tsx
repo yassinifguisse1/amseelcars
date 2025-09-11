@@ -26,9 +26,11 @@ const TextHover = () => {
 
   return (
     <div className="flex flex-col justify-center items-start ">
-      <h1 className={styles.text}>TEXT EFFECT<span>WOAH</span></h1>
-      <h1 className={styles.text}>GSAP<span>AND CLIPPING</span></h1>
-      <h1 className={styles.text}>CRAZYYY<span>CRAZYYY</span></h1>
+      <h1 className={styles.text}>LOUEZ & PARTEZ<span>AMCEEL CAR</span></h1>
+      <h1 className={styles.text}>RETRAIT RAPIDE<span>AÉROPORT & VILLE</span></h1>
+      <h1 className={styles.text}>RÉSERVATION<span>EN 2 MINUTES</span></h1>
+
+
      
     </div>
   )

@@ -44,6 +44,7 @@ interface CarDetailClientProps {
 
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
   return (
     <div className="min-h-screen bg-background">
@@ -84,8 +85,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             {/* Primary Image */}
             <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
               <Image
-                src={car.images[0]?.src || car.carImage}
-                alt={car.images[0]?.alt || car.carName}
+                src={car.images[selectedImageIndex]?.src || car.carImage}
+                alt={car.images[selectedImageIndex]?.alt || car.carName}
                 width={600}
                 height={450}
                 className="h-full w-full object-cover"
@@ -96,14 +97,22 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             {/* Thumbnail Gallery */}
             {car.images.length > 1 && (
               <div className="grid grid-cols-3 gap-4">
-                {car.images.slice(1, 4).map((image, index) => (
-                  <div key={index} className="aspect-[4/3] overflow-hidden rounded-lg bg-muted">
+                {car.images.map((image, index) => (
+                  <div 
+                    key={index} 
+                    className={`aspect-[4/3] overflow-hidden rounded-lg bg-muted cursor-pointer transition-all duration-300 ${
+                      selectedImageIndex === index 
+                        ? 'ring-2 ring-primary ring-offset-2' 
+                        : 'hover:scale-105'
+                    }`}
+                    onClick={() => setSelectedImageIndex(index)}
+                  >
                     <Image
                       src={image.src}
                       alt={image.alt}
                       width={200}
                       height={150}
-                      className="h-full w-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                 ))}

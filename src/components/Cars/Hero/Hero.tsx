@@ -170,9 +170,9 @@ const Hero = () => {
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
             </p>
-            <div className="header-images">
+            {/* <div className="header-images">
                 <div className="img">
-                    <img src="/images/1.jpeg" alt="img1"/>
+                    <img src="/images/clio 5 blanche manuel diesel 2024.webp" alt="img1"/>
                 </div>
                 <div className="img">
                     <img src="/images/2.jpeg" alt="img2"/>
@@ -183,7 +183,7 @@ const Hero = () => {
                 <div className="img">
                     <img src="/images/4.jpg" alt="img4"/>
                 </div>
-            </div>
+            </div> */}
         </section>
         <section className="whitespace " ref={whitespaceRef}></section>
         <section className="pinned" ref={pinnedRef}>

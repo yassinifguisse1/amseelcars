@@ -192,10 +192,7 @@ section.website-content{
         font-size: 200px;
         letter-spacing: 4px;
     }
-    .header-rows {
-       
-        background: rgb(0, 249, 216);
-    }
+   
     .website-content h2{
         font-size: 12px;
        
@@ -221,7 +218,6 @@ section.website-content{
     
     .header-rows {
         min-height: 200px;
-        background: green;
     }
     
     .header-info p {
@@ -318,7 +314,7 @@ section.website-content{
     .header-rows {
         min-height: 120px;
         padding: 0 0.5rem;
-        background: rgb(207, 0, 249);
+       
     }
    
     
@@ -347,7 +343,7 @@ section.website-content{
     }
     
     .header-images {
-        height: auto;
+        /* height: auto; */
         /* min-height: 150px;
         flex-wrap: wrap;
         gap: 0.5rem; */

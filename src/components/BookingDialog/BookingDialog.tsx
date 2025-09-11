@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, User, Mail, Phone, MapPin, Clock, CreditCard } from 'lucide-react';
+import { X, Calendar, User, MapPin, Clock, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import styles from './BookingDialog.module.css';
 
@@ -19,7 +19,6 @@ const bookingSchema = z.object({
   pickupLocation: z.string().min(2, 'Please enter pickup location'),
   returnLocation: z.string().min(2, 'Please enter return location'),
   driverAge: z.string().min(1, 'Please enter driver age'),
-  licenseNumber: z.string().min(5, 'License number must be at least 5 characters'),
   specialRequests: z.string().optional(),
 }).refine((data) => {
   const pickup = new Date(data.pickupDate);
@@ -369,27 +368,7 @@ export default function BookingDialog({
                     </div>
 
                     {/* License Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <CreditCard className="h-5 w-5" />
-                        License Information
-                      </h3>
-                      
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          License Number *
-                        </label>
-                        <input
-                          {...register('licenseNumber')}
-                          type="text"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="Enter your license number"
-                        />
-                        {errors.licenseNumber && (
-                          <p className="text-red-500 text-sm mt-1">{errors.licenseNumber.message}</p>
-                        )}
-                      </div>
-                    </div>
+                   
 
                     {/* Special Requests */}
                     <div className="space-y-4">
