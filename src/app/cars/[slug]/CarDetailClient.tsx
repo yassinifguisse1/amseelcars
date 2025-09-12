@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Star, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
@@ -45,6 +46,48 @@ interface CarDetailClientProps {
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const router = useRouter()
+
+  const handleBackToCars = () => {
+    // Check if we're already on the cars page
+    if (window.location.pathname === '/cars') {
+      // If already on cars page, just scroll to the section
+      const carsSection = document.getElementById('cars')
+      if (carsSection) {
+        carsSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    } else {
+      // Navigate to cars page with hash
+      router.push('/cars#cars')
+      
+      // Also handle the scroll with multiple attempts for better reliability
+      const scrollToCarsSection = () => {
+        const carsSection = document.getElementById('cars')
+        if (carsSection) {
+          carsSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          })
+          return true
+        }
+        return false
+      }
+
+      // Try scrolling with increasing delays
+      const delays = [100, 300, 500, 1000]
+      delays.forEach(delay => {
+        setTimeout(() => {
+          if (!scrollToCarsSection()) {
+            // If element not found, try again
+            console.log(`Attempting to scroll to cars section after ${delay}ms`)
+          }
+        }, delay)
+      })
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -67,13 +110,13 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
       {/* Back Button */}
       <div className="container mx-auto px-4 py-6">
-        <Link 
-          href="/cars" 
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        <button 
+          onClick={handleBackToCars}
+          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors border-2 border-border rounded-lg p-2 hover:bg-muted/50"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Cars
-        </Link>
+        </button>
       </div>
 
       {/* Main Content */}

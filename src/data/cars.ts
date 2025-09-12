@@ -216,11 +216,11 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5 1.5 Blue dCi 100 BVM6",
     year: 2024,
-    carImage: "/images/clio 5 blanche manuel diesel 2024.webp",
+    carImage: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/clio 5 blanche manuel diesel 2024.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
-      { src: "/images/back-clio-5-white.webp", alt: "Renault Clio 5 - intérieur" },
-      { src: "/images/right-side-clio-5-white.webp", alt: "Renault Clio 5 - vue latérale" },
+      { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio 5 automatique blanche essence 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
+      { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - vue latérale" },
       { src: "/images/left)side-clio-5-white.webp", alt: "Renault Clio 5 - tableau de bord" },
       { src: "/images/inside-clio-5-white.webp", alt: "Renault Clio 5 - détails habitacle" }
     ],

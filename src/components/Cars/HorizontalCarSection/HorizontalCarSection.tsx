@@ -205,7 +205,7 @@ const HorizontalCarSection = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} className={styles.horizontalSection}>
+    <section ref={sectionRef} className={styles.horizontalSection} id="cars">
       <div ref={containerRef} className={styles.container}>
         {/* Section Header */}
         {/* <div className={styles.sectionHeader}>

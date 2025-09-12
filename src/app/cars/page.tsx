@@ -20,8 +20,39 @@ export default function CarsPage() {
     // Refresh ScrollTrigger after component mount
     ScrollTrigger.refresh()
 
+    // Handle hash navigation (for #cars anchor)
+    const handleHashNavigation = () => {
+      const hash = window.location.hash
+      if (hash === '#cars') {
+        // Wait for components to mount and animations to initialize
+        const scrollToSection = () => {
+          const carsSection = document.getElementById('cars')
+          if (carsSection) {
+            setTimeout(() => {
+              carsSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+              })
+            }, 500) // Delay to ensure GSAP animations are set up
+          }
+        }
+        
+        // Try multiple times with increasing delays
+        setTimeout(scrollToSection, 100)
+        setTimeout(scrollToSection, 500)
+        setTimeout(scrollToSection, 1000)
+      }
+    }
+
+    // Handle hash on initial load
+    handleHashNavigation()
+
+    // Handle hash changes (back/forward navigation)
+    window.addEventListener('hashchange', handleHashNavigation)
+
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      window.removeEventListener('hashchange', handleHashNavigation)
     }
   }, [])
 
