@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     // Send email to business owner
     const businessEmail = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: `${email}`, 
       to: ['amseelcars@dadofseo.com'], // Replace with your email
       subject: `New Car Booking Request - ${carName}`,
       html: `
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email to customer
     const customerEmail = await resend.emails.send({
-      from: 'Amseel Cars <noreply@amseelcars.com>',
+      from: `${email}`,
       to: [email],
       subject: `Booking Request Received - ${carName}`,
       html: `
