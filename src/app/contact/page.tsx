@@ -38,9 +38,9 @@ const ContactPage: React.FC = () => {
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 20% 20%, #3b82f6 0%, transparent 50%),
-                             radial-gradient(circle at 80% 80%, #8b5cf6 0%, transparent 50%),
-                             radial-gradient(circle at 40% 60%, #06b6d4 0%, transparent 50%)`
+            backgroundImage: `radial-gradient(circle at 20% 20%, #CB1939 0%, transparent 50%),
+                             radial-gradient(circle at 80% 80%, #CB1939 0%, transparent 50%),
+                             radial-gradient(circle at 40% 60%, #CB1939 0%, transparent 50%)`
           }} />
         </div>
 
@@ -69,11 +69,11 @@ const ContactPage: React.FC = () => {
         </div>
 
         {/* Bottom Gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#CB1939]/30 to-transparent pointer-events-none" />
       </section>
 
       {/* Additional CTA Section */}
-      <section className="relative bg-gradient-to-r from-blue-600/10 to-purple-600/10 py-20">
+      <section className="relative bg-gradient-to-r from-[#CB1939]/10 to-[#CB1939]/20 py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -87,7 +87,7 @@ const ContactPage: React.FC = () => {
               {/* whatsapp */}
               <Link
                 href="https://wa.me/212662500181"
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
+                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 text-white font-semibold rounded-xl hover:from-[#CB1939]/90 hover:to-[#CB1939]/70 transition-all duration-300 hover:shadow-lg hover:shadow-[#CB1939]/25"
               >
                 Whatsapp: +212 662 500 181
               </Link>

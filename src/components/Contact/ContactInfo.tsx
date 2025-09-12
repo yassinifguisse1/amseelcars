@@ -261,8 +261,8 @@ const ContactInfo: React.FC = () => {
               }}
             >
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-3 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-all duration-300">
-                  <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+                <div className="flex-shrink-0 p-3 bg-gradient-to-br from-[#CB1939]/20 to-[#CB1939]/30 rounded-lg group-hover:from-[#CB1939]/30 group-hover:to-[#CB1939]/40 transition-all duration-300">
+                  <div className="text-[#CB1939] group-hover:text-[#CB1939]/80 transition-colors duration-300">
                     {detail.icon}
                   </div>
                 </div>
@@ -320,13 +320,13 @@ const ContactInfo: React.FC = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-gradient-to-r from-blue-600/10 to-purple-600/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+      <div className="bg-gradient-to-r from-[#CB1939]/10 to-[#CB1939]/20 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
         <h3 className="text-2xl font-bold text-white text-center mb-8">Why Choose Amseel Cars?</h3>
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center group">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full mb-4 group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-all duration-300">
-                <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#CB1939]/20 to-[#CB1939]/30 rounded-full mb-4 group-hover:from-[#CB1939]/30 group-hover:to-[#CB1939]/40 transition-all duration-300">
+                <div className="text-[#CB1939] group-hover:text-[#CB1939]/80 transition-colors duration-300">
                   {stat.icon}
                 </div>
               </div>

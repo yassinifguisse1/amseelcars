@@ -200,15 +200,15 @@ export default function BMWCarScroll() {
         {/* Background layers */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200" />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-red-50 to-red-100"
+          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20"
           style={{ opacity: backgroundOpacity }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-blue-50 to-blue-100"
+          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20"
           style={{ opacity: backgroundOpacity2 }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-red-50 to-red-100"
+          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20"
           style={{ opacity: backgroundOpacity3 }}
         />
 

@@ -128,7 +128,7 @@ const AnimatedHeader: React.FC = () => {
   return (
     <div 
       ref={headerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#CB1939]/20 via-black to-[#CB1939]/10"
     >
       {/* Background Pattern */}
       {/* <div className="absolute inset-0 opacity-10">
@@ -158,8 +158,8 @@ const AnimatedHeader: React.FC = () => {
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         {/* Decorative Car Icon */}
-        <div ref={decorRef} className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full mb-8 backdrop-blur-sm border border-white/10">
-          <Car className="w-10 h-10 text-blue-400" />
+        <div ref={decorRef} className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#CB1939]/20 to-[#CB1939]/30 rounded-full mb-8 backdrop-blur-sm border border-white/10">
+          <Car className="w-10 h-10 text-[#CB1939]" />
         </div>
 
         {/* Main Title */}
@@ -168,7 +168,7 @@ const AnimatedHeader: React.FC = () => {
           className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
         >
           Contact
-          <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent ml-4">
+          <span className="bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 bg-clip-text text-transparent ml-4">
             Us
           </span>
         </h1>
@@ -193,7 +193,7 @@ const AnimatedHeader: React.FC = () => {
       </div>
 
       {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#CB1939]/50 to-transparent pointer-events-none" />
     </div>
   )
 }

@@ -359,9 +359,9 @@ const ContactForm: React.FC = () => {
           className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-3 ${
             isSubmitted
               ? 'bg-green-600 hover:bg-green-700 text-white'
-              : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white'
+              : 'bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 hover:from-[#CB1939]/90 hover:to-[#CB1939]/70 text-white'
           } ${
-            isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-blue-500/25'
+            isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-[#CB1939]/25'
           }`}
           aria-describedby="submit-status"
         >

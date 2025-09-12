@@ -251,13 +251,13 @@ const PerformanceShowcase: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-1 bg-gray-800 z-20">
         <div 
           ref={progressRef}
-          className="h-full bg-gradient-to-r from-blue-500 to-purple-500 origin-left"
+          className="h-full bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 origin-left"
         />
       </div>
 
       {/* Section header */}
       <div className="absolute top-10 left-10 z-10 text-white">
-        <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+        <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-[#CB1939] to-[#CB1939]/60 bg-clip-text text-transparent">
           Performance
         </h2>
         <p className="text-lg md:text-xl text-gray-300 max-w-md">

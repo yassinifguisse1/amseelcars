@@ -169,7 +169,7 @@ export default function Brands() {
                     </div>
 
                     {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#CB1939]/20 to-[#CB1939]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
                   </div>
                 </div>
               ))}
@@ -213,7 +213,7 @@ export default function Brands() {
                     </div>
 
                     {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/20 to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#CB1939]/20 to-[#CB1939]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
                   </div>
                 </div>
               ))}

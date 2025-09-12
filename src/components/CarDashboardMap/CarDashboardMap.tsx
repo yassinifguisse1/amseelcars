@@ -329,7 +329,7 @@ export default function CarDashboardMap() {
   return (
     <div className="w-full bg-black">
       {/* Content before dashboard */}
-      <section className="h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+      <section className="h-screen bg-gradient-to-b from-[#CB1939]/20 to-black flex items-center justify-center">
         <div className="text-center text-white">
           <h1 className="text-6xl font-bold mb-4">Premium Car Rental</h1>
           <p className="text-xl text-gray-300">
@@ -478,7 +478,7 @@ export default function CarDashboardMap() {
       </div>
 
       {/* Content after dashboard */}
-      <section className="h-screen bg-gradient-to-t from-gray-900 to-black flex items-center justify-center">
+      <section className="h-screen bg-gradient-to-t from-[#CB1939]/20 to-black flex items-center justify-center">
         <div className="text-center text-white">
           <h2 className="text-5xl font-bold mb-4">Your Journey Awaits</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
