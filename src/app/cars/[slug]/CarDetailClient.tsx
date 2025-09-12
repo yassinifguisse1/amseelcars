@@ -245,7 +245,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 size="lg" 
                 className="bg-green-600 text-white hover:bg-green-700 cursor-pointer"
                 onClick={() => {
-                  const message = `Hello! I'm interested in renting the ${car.carName} for DH ${car.pricePerDay}/day. Could you please provide more information about availability and booking process?`;
+                  const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} DH/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`;
                   const encodedMessage = encodeURIComponent(message);
                   const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
                   window.open(whatsappUrl, '_blank');
