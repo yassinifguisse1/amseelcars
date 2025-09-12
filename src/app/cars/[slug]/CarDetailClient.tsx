@@ -243,12 +243,16 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               </Button>
               <Button 
                 size="lg" 
-                className=" bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
+                className="bg-green-600 text-white hover:bg-green-700 cursor-pointer"
+                onClick={() => {
+                  const message = `Hello! I'm interested in renting the ${car.carName} for DH ${car.pricePerDay}/day. Could you please provide more information about availability and booking process?`;
+                  const encodedMessage = encodeURIComponent(message);
+                  const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
+                  window.open(whatsappUrl, '_blank');
+                }}
               >
-                <Link href={`https://wa.me/212662500181`} target='_blank' className='flex items-center gap-2'>
-                <Phone className="h-5 w-5 text-primary" />
-                Whatsapp
-                </Link>
+                <Phone className="h-5 w-5 mr-2" />
+                WhatsApp
               </Button>
             </div>
           </div>

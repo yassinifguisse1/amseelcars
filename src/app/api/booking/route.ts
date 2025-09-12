@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     // Send confirmation email to customer
     const customerEmail = await resend.emails.send({
       from: 'Amseel Cars <noreply@amseelcars.com>',
-      replyTo: 'info@amseelcars.com', // Your business email for customer replies
+      replyTo: 'amseelcars@dadofseo.com', // Your business email for customer replies
       to: [email],
       subject: `Booking Request Received - ${carName}`,
       html: `

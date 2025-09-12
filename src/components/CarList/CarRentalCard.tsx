@@ -17,6 +17,7 @@ interface CarRentalCardProps {
   slug?: string // Optional slug for routing
   href?: string // Optional custom href
   onBook: () => void
+  onWhatsapp: () => void
 }
 
 export function CarRentalCard({
@@ -30,6 +31,7 @@ export function CarRentalCard({
   slug,
   href,
   onBook,
+  onWhatsapp,
 }: CarRentalCardProps) {
   const cardContent = (
     <div className="flex cursor-pointer flex-col items-stretch rounded-xl sm:rounded-2xl border bg-card p-3 sm:p-4 shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -95,13 +97,12 @@ export function CarRentalCard({
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
-            onBook()
-            
+            onWhatsapp()
           }}
-          className="mt-3 sm:mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base"
+          className="mt-3 sm:mt-4 w-full bg-green-600 text-white hover:bg-green-700 text-sm sm:text-base"
           size="default"
         >
-          Whatsapp
+          WhatsApp
         </Button>
       </div>
   )

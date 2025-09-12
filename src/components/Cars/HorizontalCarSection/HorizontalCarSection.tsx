@@ -1,10 +1,11 @@
 "use client"
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { getAllCars } from '@/data/cars'
+import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import styles from './HorizontalCarSection.module.scss'
 
 const HorizontalCarSection = () => {
@@ -13,13 +14,50 @@ const HorizontalCarSection = () => {
   const cardsRow1Ref = useRef<HTMLDivElement>(null)
   const cardsRow2Ref = useRef<HTMLDivElement>(null)
 
+  // Booking dialog state
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
+  const [selectedCar, setSelectedCar] = useState<{
+    name: string
+    price: number
+    image: string
+  } | null>(null)
+
   // Get all cars and split into two rows
   const allCars = getAllCars()
   const carsRow1 = allCars.slice(0, 10) // First 6 cars
   const carsRow2 = allCars.slice(10, 21) // Next 6 cars
 
   const handleBookCar = (carName: string) => {
-    alert(`Booking ${carName}! Functionality would be implemented here.`)
+    // Find the car data
+    const car = allCars.find(c => c.carName === carName)
+    if (car) {
+      setSelectedCar({
+        name: car.carName,
+        price: car.pricePerDay,
+        image: car.carImage
+      })
+      setIsBookingDialogOpen(true)
+    }
+  }
+  const handleWhatsapp = (carName: string) => {
+    // Find the car data
+    const car = allCars.find(c => c.carName === carName)
+    if (car) {
+      // Create WhatsApp message with car details
+      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} DH/jour. Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
+      
+      // Encode the message for URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // WhatsApp number (replace with your actual WhatsApp number)
+      const whatsappNumber = '212662500181';
+      
+      // Create WhatsApp URL
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+      
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, '_blank');
+    }
   }
 
   useEffect(() => {
@@ -38,9 +76,7 @@ const HorizontalCarSection = () => {
     const firstCard = cardsRow1.children[0] as HTMLElement
     if (!firstCard) return;
     
-    const cardStyle = getComputedStyle(firstCard)
     const cardWidth = firstCard.offsetWidth
-    const marginRight = parseInt(cardStyle.marginRight) || 32
     
     // Get responsive gap based on screen size
     const getResponsiveGap = () => {
@@ -228,6 +264,7 @@ const HorizontalCarSection = () => {
                   rating={car.rating}
                   slug={car.slug}
                   onBook={() => handleBookCar(car.carName)}
+                  onWhatsapp={() => handleWhatsapp(car.carName)}
                 />
               </div>
             ))}
@@ -249,12 +286,27 @@ const HorizontalCarSection = () => {
                   rating={car.rating}
                   slug={car.slug}
                   onBook={() => handleBookCar(car.carName)}
+                  onWhatsapp={() => handleWhatsapp(car.carName)}
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Booking Dialog */}
+      {selectedCar && (
+        <BookingDialog
+          isOpen={isBookingDialogOpen}
+          onClose={() => {
+            setIsBookingDialogOpen(false)
+            setSelectedCar(null)
+          }}
+          carName={selectedCar.name}
+          carPrice={selectedCar.price}
+          carImage={selectedCar.image}
+        />
+      )}
     </section>
   )
 }
