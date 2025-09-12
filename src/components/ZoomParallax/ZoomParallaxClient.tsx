@@ -28,7 +28,7 @@ export default function ZoomParallaxClient() {
     const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
 
     const pictures = [
-        { src: '/video/centercar.mp4', scale: scale4, cls: styles.t1, isVideo: true },
+        { src: '/video/video-bmW.mp4', scale: scale4, cls: styles.t1, isVideo: true },
         { src: Picture2, scale: scale5, cls: styles.t2, isVideo: false },
         { src: Picture3, scale: scale6, cls: styles.t3, isVideo: false },
         { src: Picture4, scale: scale5, cls: styles.t4, isVideo: false },

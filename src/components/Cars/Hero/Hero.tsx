@@ -16,6 +16,7 @@ const Hero = () => {
   const pinnedRef = useRef<HTMLElement>(null)
   const headerInfoRef = useRef<HTMLElement>(null)
   const whitespaceRef = useRef<HTMLElement>(null)
+  
 
   useEffect(() => {
     // Register GSAP plugins
@@ -113,7 +114,7 @@ const Hero = () => {
      onUpdate: (self) => {
         
         const scaleX = 1 + 19 * Math.pow(self.progress, 0.75);
-        const scaleY = 1 + 10 * Math.pow(self.progress, 0.75);
+        const scaleY = 1 + 15 * Math.pow(self.progress, 0.75);
        gsap.set(revealerRef.current, {
         transformOrigin: "50% 50%",
            scaleX,
@@ -148,9 +149,9 @@ const Hero = () => {
                 <source src="/video/cardri.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
-            <h2 className='uppercase font-bold text-white'>
+            {/* <h2 className='uppercase font-bold text-white'>
                 Symphonia
-            </h2>
+            </h2> */}
         </section>
         <section className="info">
             <div className='header-rows w-full'>
@@ -167,8 +168,8 @@ const Hero = () => {
             </div>
         </section>
         <section className="header-info" ref={headerInfoRef}>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+            <p >
+            Amceel Car : réservation rapide, retrait aéroport/centre-ville, prix transparents et assistance 24/7 pour voyager partout au Maroc.
             </p>
             {/* <div className="header-images">
                 <div className="img">

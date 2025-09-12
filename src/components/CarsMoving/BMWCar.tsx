@@ -67,6 +67,7 @@ function useBreakpointValue(values: {
 
 export default function BMWCarScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Define all images that need to be preloaded for instant loading
   const criticalImages = [
@@ -99,6 +100,21 @@ export default function BMWCarScroll() {
 
   // Helper function to check if image is loaded
   const isImageLoaded = useCallback((src: string) => loadedImages.has(src), [loadedImages]);
+
+  // Custom navigation handler to prevent multiple rapid clicks
+  const handleNavigation = useCallback((href: string) => {
+    if (isNavigating) return;
+    
+    setIsNavigating(true);
+    
+    // Use window.location for faster navigation
+    window.location.href = href;
+    
+    // Reset after a delay
+    setTimeout(() => {
+      setIsNavigating(false);
+    }, 2000);
+  }, [isNavigating]);
 
   // Responsive start offsets to keep consistent spacing across devices
   const bmwStartVW = useBreakpointValue({ base: 12, md: 16, lg: 20 });
@@ -323,8 +339,16 @@ export default function BMWCarScroll() {
                   <p className="text-xs sm:text-sm md:text-lg">Premium SUV built for performance.</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto">
-                  <Rounded backgroundColor="#D32F2F" href="/cars/bmw-x5-2024">
-                    <p>Book Now</p>
+                  <Rounded 
+                    backgroundColor="#D32F2F" 
+                    onClick={() => handleNavigation("/cars/bmw-x3-2025")}
+                    style={{ 
+                      pointerEvents: isNavigating ? 'none' : 'auto',
+                      opacity: isNavigating ? 0.7 : 1,
+                      cursor: isNavigating ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
                   </Rounded>
                 </div>
       </div>
@@ -463,8 +487,16 @@ export default function BMWCarScroll() {
                   <p className="text-xs sm:text-sm md:text-lg">Dynamic design meets advanced technology.</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto">
-                  <Rounded backgroundColor="#D32F2F" href="/cars/kia-sportage-2024">
-                    <p>Book Now</p>
+                  <Rounded 
+                    backgroundColor="#D32F2F" 
+                    onClick={() => handleNavigation("/cars/kia-sportage-2025-diesel-auto-verte")}
+                    style={{ 
+                      pointerEvents: isNavigating ? 'none' : 'auto',
+                      opacity: isNavigating ? 0.7 : 1,
+                      cursor: isNavigating ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
                   </Rounded>
                 </div>
               </div>
@@ -491,7 +523,7 @@ export default function BMWCarScroll() {
             <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
               
             <Image
-              src="/images/touareg-LOGO.png"
+              src="/images/t roc logo-0014.webp"
               alt="Touareg Logo"
               width={800}
               height={200}
@@ -596,8 +628,16 @@ export default function BMWCarScroll() {
                   <p className="text-xs sm:text-sm md:text-lg">Compact SUV built for performance.</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto">
-                  <Rounded backgroundColor="#D32F2F" href="/cars/t-roc-2024">
-                    <p>Book Now</p>
+                  <Rounded 
+                    backgroundColor="#D32F2F" 
+                    onClick={() => handleNavigation("/cars/T-Roc-2024")}
+                    style={{ 
+                      pointerEvents: isNavigating ? 'none' : 'auto',
+                      opacity: isNavigating ? 0.7 : 1,
+                      cursor: isNavigating ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
                   </Rounded>
                 </div>
               </div>
@@ -623,7 +663,7 @@ export default function BMWCarScroll() {
           >
             <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
             <Image
-              src="/images/GOLF-8-LOGO.png"
+              src="/images/GOLF 8 LOGO PNG.webp"
               alt="Golf 8 Logo"
               width={800}
               height={200}
@@ -727,8 +767,16 @@ export default function BMWCarScroll() {
               </div>
               
               <div className="flex items-center justify-center pointer-events-auto">
-                <Rounded backgroundColor={"#D32F2F"} href="/cars/golf-8-2024">
-                  <p className="">Book Now</p>
+                <Rounded 
+                  backgroundColor="#D32F2F" 
+                  onClick={() => handleNavigation("/cars/Golf-8")}
+                  style={{ 
+                    pointerEvents: isNavigating ? 'none' : 'auto',
+                    opacity: isNavigating ? 0.7 : 1,
+                    cursor: isNavigating ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
                 </Rounded>
               </div>
             </div>
@@ -759,10 +807,15 @@ export default function BMWCarScroll() {
             </motion.h2>
             <Rounded
               backgroundColor="#D32F2F"
-              href="/cars"
+              onClick={() => handleNavigation("/cars")}
               aria-label="Book Now"
+              style={{ 
+                pointerEvents: isNavigating ? 'none' : 'auto',
+                opacity: isNavigating ? 0.7 : 1,
+                cursor: isNavigating ? 'not-allowed' : 'pointer'
+              }}
             >
-              <p className="z-10 text-black ">Book Now</p>
+              <p className="z-10 text-black">{isNavigating ? 'Loading...' : 'Book Now'}</p>
             </Rounded>
 
    

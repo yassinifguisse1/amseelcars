@@ -6,6 +6,7 @@ import { useRevealed } from '@/hooks/useRevealed'
 import AnimatedHeader from '@/components/Contact/AnimatedHeader'
 import ContactForm from '@/components/Contact/ContactForm'
 import ContactInfo from '@/components/Contact/ContactInfo'
+import Link from 'next/link'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
@@ -83,24 +84,25 @@ const ContactPage: React.FC = () => {
               performance, and service that sets Amseel Cars apart from the rest.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:+212612345678"
+              {/* whatsapp */}
+              <Link
+                href="https://wa.me/212662500181"
                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
               >
-                Call Now: +212 6 12 34 56 78
-              </a>
-              <a
-                href="mailto:info@amseelcars.ma"
+                Whatsapp: +212 662 500 181
+              </Link>
+              <Link
+                href="mailto:info@amseelcars.com"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
               >
                 Send Email
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </section>
     </>
-  )
+  ) 
 }
 
 export default ContactPage

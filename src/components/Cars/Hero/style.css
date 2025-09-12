@@ -1,3 +1,11 @@
+body{
+    overflow-x: hidden;
+}
+
+html{
+    overflow-x: hidden;
+}
+
 img{
     width: 100%;
     height: 100%;
@@ -29,6 +37,7 @@ section.hero{
     height: 100%;
     object-fit: cover;
     z-index: -1;
+    max-width: 100vw;
 }
 .hero h2{
     font-family: "PP Editorial old";
@@ -58,12 +67,16 @@ section.info{
    justify-content: flex-start;
    align-items: center;
    padding-left: clamp(1rem, 8vw, 10rem); /* Responsive left padding */
+   max-width: 100vw; /* Prevent overflow */
+    overflow-x: hidden; /* Hide horizontal overflow */
 }
 .header-row:nth-child(2){
    display: flex;
    justify-content: flex-end;
    align-items: center;
    padding-right: clamp(1rem, 8vw, 10rem); /* Responsive right padding */
+   max-width: 100vw; /* Prevent overflow */
+    overflow-x: hidden; /* Hide horizontal overflow */
 }
 
 .header-row h2{
@@ -93,6 +106,8 @@ section.info{
     font-size: 50px;
     font-weight: lighter;
     color: #fff;
+    max-width: 100vw; /* Prevent overflow */
+    overflow-x: hidden; /* Hide horizontal overflow */
 }
 
 .header-images{
@@ -242,8 +257,11 @@ section.website-content{
     .header-rows {
         min-height: 150px;
         padding: 0 1rem;
-        background: blue;
     }
+    /* section.info {
+        min-height: 80vh;
+        border: 1px solid red;
+    } */
     
     .header-row:nth-child(1) {
         padding-left: clamp(0.5rem, 4vw, 2rem);
@@ -342,12 +360,7 @@ section.website-content{
         padding: 0.25rem;
     }
     
-    .header-images {
-        /* height: auto; */
-        /* min-height: 150px;
-        flex-wrap: wrap;
-        gap: 0.5rem; */
-    }
+   
     
     .img {
         flex: 1 1 calc(50% - 0.25rem);
@@ -360,6 +373,7 @@ section.website-content{
         height: 80px;
         margin-top: 200px;
     }
+
     
  
 }

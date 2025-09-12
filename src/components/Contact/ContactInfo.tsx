@@ -1,16 +1,14 @@
 "use client"
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
 import { 
   Phone, 
   Mail, 
   MapPin, 
-  Clock, 
   Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin,
+  Instagram,
   Car,
   Shield,
   Star,
@@ -19,6 +17,30 @@ import {
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
+
+// Google Maps configuration
+const mapContainerStyle = {
+  width: '100%',
+  height: '400px'
+}
+
+const center = {
+  lat: 30.4007408, // Amseel Cars location in Agadir
+  lng: -9.577593
+}
+
+const mapOptions = {
+  mapTypeId: 'terrain',
+  disableDefaultUI: false,
+  zoomControl: true,
+  streetViewControl: true,
+  fullscreenControl: true,
+  mapTypeControl: true,
+  mapTypeControlOptions: {
+    style: 1, // HORIZONTAL_BAR
+    position: 3 // TOP_RIGHT
+  }
+}
 
 interface ContactDetail {
   icon: React.ReactNode
@@ -40,6 +62,12 @@ const ContactInfo: React.FC = () => {
   const cardsRef = useRef<HTMLDivElement[]>([])
   const socialRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<HTMLDivElement>(null)
+
+  // Google Maps state
+  const [mapLoaded, setMapLoaded] = useState(false)
+  const [mapError, setMapError] = useState(false)
+  const [showInfoWindow, setShowInfoWindow] = useState(false)
 
   // Add card ref to array
   const addCardRef = (el: HTMLDivElement | null) => {
@@ -47,6 +75,26 @@ const ContactInfo: React.FC = () => {
       cardsRef.current.push(el)
     }
   }
+
+  // Google Maps callbacks
+  const onMapLoad = useCallback(() => {
+    setMapLoaded(true)
+    setMapError(false)
+  }, [])
+
+  const onMapError = useCallback(() => {
+    setMapError(true)
+    setMapLoaded(false)
+  }, [])
+
+
+  const onMarkerClick = useCallback(() => {
+    setShowInfoWindow(true)
+  }, [])
+
+  const onInfoWindowClose = useCallback(() => {
+    setShowInfoWindow(false)
+  }, [])
 
   // Contact details data
   const contactDetails: ContactDetail[] = [
@@ -65,13 +113,8 @@ const ContactInfo: React.FC = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Address",
-      info: ["123 Mohammed V Avenue", "Casablanca, Morocco 20000"],
-      link: "https://maps.google.com"
-    },
-    {
-      icon: <Clock className="w-6 h-6" />,
-      title: "Business Hours",
-      info: ["Mon - Fri: 8:00 AM - 8:00 PM", "Sat - Sun: 9:00 AM - 6:00 PM"]
+      info: ["Haut founty rdc imm sinwan, Agadir 80000, Morocco"],
+      link: "https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
     }
   ]
 
@@ -89,18 +132,9 @@ const ContactInfo: React.FC = () => {
       url: "https://instagram.com/amseelcars",
       color: "#e4405f"
     },
-    {
-      icon: <Twitter className="w-5 h-5" />,
-      name: "Twitter",
-      url: "https://twitter.com/amseelcars",
-      color: "#1da1f2"
-    },
-    {
-      icon: <Linkedin className="w-5 h-5" />,
-      name: "LinkedIn",
-      url: "https://linkedin.com/company/amseelcars",
-      color: "#0077b5"
-    }
+   
+   
+   
   ]
 
   // Stats data
@@ -307,15 +341,98 @@ const ContactInfo: React.FC = () => {
         </div>
       </div>
 
-      {/* Map Placeholder */}
+      {/* Google Maps */}
       <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
         <h3 className="text-xl font-bold text-white mb-4">Find Us</h3>
-        <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
-          <div className="text-center">
-            <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-400">Interactive map coming soon</p>
-            <p className="text-sm text-gray-500 mt-2">123 Mohammed V Avenue, Casablanca</p>
-          </div>
+        <div ref={mapRef} className="relative">
+          {!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+            <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
+              <div className="text-center">
+                <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-400">Google Maps API key not configured</p>
+                <p className="text-sm text-gray-500 mt-2">Please add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to your .env.local file</p>
+                <p className="text-sm text-gray-500 mt-2">Haut founty rdc imm sinwan, Agadir 80000, Morocco</p>
+              </div>
+            </div>
+          ) : mapError ? (
+            <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
+              <div className="text-center">
+                <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-gray-400">Map failed to load</p>
+                <p className="text-sm text-gray-500 mt-2">Haut founty rdc imm sinwan, Agadir 80000, Morocco</p>
+                <button 
+                  onClick={() => {
+                    setMapError(false)
+                    setMapLoaded(false)
+                  }}
+                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="relative">
+              {!mapLoaded && (
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10 z-10">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
+                    <p className="text-gray-400">Loading map...</p>
+                  </div>
+                </div>
+              )}
+              <LoadScript
+                googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
+                onLoad={onMapLoad}
+                onError={onMapError}
+                loadingElement={
+                  <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
+                      <p className="text-gray-400">Loading Google Maps...</p>
+                    </div>
+                  </div>
+                }
+              >
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  center={center}
+                  zoom={15}
+                  options={mapOptions}
+                  onLoad={onMapLoad}
+                >
+                  <Marker
+                    position={center}
+                    onClick={onMarkerClick}
+                  />
+                  {showInfoWindow && (
+                    <InfoWindow
+                      position={center}
+                      onCloseClick={onInfoWindowClose}
+                    >
+                      <div className="p-2">
+                        <h4 className="font-bold text-gray-800 mb-2">Amseel Cars</h4>
+                        <p className="text-sm text-gray-600 mb-2">
+                          Haut founty rdc imm sinwan
+                        </p>
+                        <p className="text-sm text-gray-600 mb-2">
+                          Agadir 80000, Morocco
+                        </p>
+                        <a
+                          href="https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        >
+                          View on Google Maps →
+                        </a>
+                      </div>
+                    </InfoWindow>
+                  )}
+                </GoogleMap>
+              </LoadScript>
+            </div>
+          )}
         </div>
       </div>
     </div>
