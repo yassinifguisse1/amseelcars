@@ -4,6 +4,7 @@ import Menu from "@/components/menu/menu";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
 import { ViewTransitions } from "next-view-transitions";
 import { playfair, anticDidone } from "@/lib/fonts";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Rental Cars",
@@ -34,7 +35,8 @@ export default function RootLayout({
         <LenisScrollProvider />
         <Menu />
         {children}
-      
+        <Analytics />
+
       </body>
     </html>
         </ViewTransitions>
