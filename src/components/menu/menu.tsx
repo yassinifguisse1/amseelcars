@@ -228,10 +228,8 @@ const Menu = () => {
                             </Link>
                         <Link href="tel:+212662500181" target='_blank' className='menu-link'>
                         <div className='flex items-center gap-2'>
-                            <Link href="tel:+212662500181" target='_blank' className='menu-link flex items-center gap-2'>
                             <Phone className='w-7 h-7 text-black bg-black rounded-full p-1' />
                             <p className='menu-link'> +212 662 500 181</p>
-                            </Link>
                         </div>
                             </Link>
                     </div>
