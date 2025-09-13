@@ -66,12 +66,44 @@ function SpeedometerPreloader() {
   useRevealed()
   const [isLoading, setIsLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
-  const { loadingState } = useLoading();
+  const { loadingState, updateFramesProgress, setFramesLoaded, setWordsComplete, setMinimumTimeElapsed } = useLoading();
 
   useEffect(() => {
     // Ensure client-side hydration
     setIsClient(true);
   }, []);
+  useEffect(() => {
+    if (isClient) {
+      // Simulate loading progress for cars page
+      let progress = 0;
+      const progressInterval = setInterval(() => {
+        progress += 10;
+        if (progress <= 100) {
+          // Simulate frame loading progress
+          const totalFrames = 100;
+          const loadedFrames = Math.round((progress / 100) * totalFrames);
+          updateFramesProgress(loadedFrames, totalFrames);
+          setWordsComplete(true);
+          setMinimumTimeElapsed(true);
+        } else {
+          clearInterval(progressInterval);
+        }
+      }, 200); // Update every 200ms
+
+      // Complete loading after 2 seconds
+      const completionTimer = setTimeout(() => {
+        clearInterval(progressInterval);
+        setFramesLoaded(true);
+        setWordsComplete(true);
+        setMinimumTimeElapsed(true);
+      }, 2000);
+
+      return () => {
+        clearInterval(progressInterval);
+        clearTimeout(completionTimer);
+      };
+    }
+  }, [isClient, updateFramesProgress, setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
 
   useEffect(() => {
     console.log('Loading state changed:', loadingState);
