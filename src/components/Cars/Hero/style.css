@@ -11,13 +11,13 @@ img{
     height: 100%;
     object-fit: cover;
 }
-h2{
-    font-size: clamp(60px, 12vw, 200px); /* Responsive font size */
+/* h2{
+    font-size: clamp(60px, 12vw, 200px); 
     text-transform: uppercase;
     font-weight: 400;
     color: white;
-    letter-spacing: clamp(-2px, -0.4vw, -4px); /* Responsive letter spacing */
-}
+    letter-spacing: clamp(-2px, -0.4vw, -4px);
+} */
 section.hero{
     width: 100vw;
     height: 100vh;

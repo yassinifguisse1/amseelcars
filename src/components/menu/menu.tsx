@@ -47,37 +47,71 @@ const Menu = () => {
 
 
     function triggerPageTransition() {
-        document.documentElement.animate([
-            {
-                clipPath: "polygon(25% 75%, 75% 75%, 75% 75%, 25% 75%)",
-            },
-            {
-                clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
-            }
-
-        ],{
-            duration: 2000,
-            easing: "cubic-bezier(0.9, 0, 0.1, 1)",
-            pseudoElement: "::view-transition-new(root)",
-        })
+        try {
+            document.documentElement.animate([
+                {
+                    clipPath: "polygon(25% 75%, 75% 75%, 75% 75%, 25% 75%)",
+                },
+                {
+                    clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+                }
+            ],{
+                duration: 800, // Reduced from 2000ms for faster navigation
+                easing: "cubic-bezier(0.4, 0, 0.2, 1)", // Smoother easing
+                pseudoElement: "::view-transition-new(root)",
+            })
+        } catch (error) {
+            // If view transition animation fails, continue anyway
+            console.warn('Page transition animation failed:', error)
+        }
     }
  
     const handleNavigation = (path: string) => (e: React.MouseEvent<HTMLAnchorElement>) =>{
+        e.preventDefault()
+        
         if(pathname === path){
-            e.preventDefault()
             return
         }
-        // Proactively clean up ScrollTrigger pins/wrappers before route change
-        try {
-          const triggers = ScrollTrigger.getAll?.()
-          triggers?.forEach(t => t.kill())
-        } catch (err) {
-          // noop – ensure navigation proceeds even if cleanup fails
-        }
-        router.push(path , {
-            scroll: false,
-            onTransitionReady: triggerPageTransition,
+
+        // Close menu immediately for better UX
+        setIsOpen(false)
+        
+        // Quick cleanup without blocking navigation
+        requestAnimationFrame(() => {
+            try {
+                const triggers = ScrollTrigger.getAll?.()
+                triggers?.forEach(t => t.kill())
+            } catch (err) {
+                // Continue navigation even if cleanup fails
+                console.warn('ScrollTrigger cleanup failed:', err)
+            }
         })
+
+        // Use faster navigation method with timeout fallback
+        const navigationTimeout = setTimeout(() => {
+            console.warn('Navigation timeout, forcing redirect')
+            window.location.href = path
+        }, 3000) // 3 second timeout
+
+        try {
+            // Try view transition first
+            router.push(path, {
+                scroll: false,
+                onTransitionReady: () => {
+                    clearTimeout(navigationTimeout)
+                    triggerPageTransition()
+                },
+            })
+            
+            // Clear timeout if navigation succeeds quickly
+            setTimeout(() => clearTimeout(navigationTimeout), 1000)
+            
+        } catch (error) {
+            // Fallback to standard navigation if view transition fails
+            clearTimeout(navigationTimeout)
+            console.warn('View transition failed, using standard navigation:', error)
+            window.location.href = path
+        }
     }
     
       
@@ -149,7 +183,7 @@ const Menu = () => {
                 <div className="menu-links ">
                     {menuLinks.map((link, index) => (
                         <div className="menu-link-item" key={index}>
-                            <div className="menu-link-item-holder" onClick={toggleMenu} >
+                            <div className="menu-link-item-holder">
                             <Link href={link.path} className='menu-link font-heading font-bold' onClick={handleNavigation(link.path)}>{link.label}</Link>
 
                             </div>

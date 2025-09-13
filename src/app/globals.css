@@ -136,13 +136,13 @@ h1, h2, h3, .font-heading {
   letter-spacing: -0.04em;
   color: #fff;
 } */
-h1 sup {
+/* h1 sup {
   position: relative;
   top: -20px;
   left:10px;
   font-size: 1.5vw;
   letter-spacing: 0;
-}
+} */
 
 @media (max-width: 900px){
   .page-content h1{

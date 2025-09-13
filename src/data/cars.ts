@@ -94,11 +94,11 @@ export const cars: Car[] = [
     year: 2024,
     carImage: "/images/Golf 8 auto diesel 2024.webp",
     images: [
-      { src: "/images/2.jpeg", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
-      { src: "/images/1.jpeg", alt: "Volkswagen Golf 8 - intérieur" },
-      { src: "/images/5.jpg", alt: "Volkswagen Golf 8 - vue latérale" },
-      { src: "/images/5.jpg", alt: "Volkswagen Golf 8 - tableau de bord" },
-      { src: "/images/5.jpg", alt: "Volkswagen Golf 8 - vue arrière" }
+      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
+      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - intérieur" },
+      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue latérale" },
+      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
+      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue arrière" }
     ],
     pricePerDay: 700,
     seats: 5,

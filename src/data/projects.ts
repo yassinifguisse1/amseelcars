@@ -25,7 +25,7 @@ export const projects: Project[] = [
     {
       title: "Wide Range of Cars",
       description: "From compact city cars to SUVs and luxury models, choose the perfect ride for any trip.",
-      src: "img-2.webp",
+      src: "Touareg auto diesel 2025 blanche.webp",
       link: "images/water.jpg",
       color: "#e16133"
     },
