@@ -55,8 +55,7 @@ export const cars: Car[] = [
       { src: "/images/Bmw x3 pack M 2025 diesel vue de côté view amseel cars agadir maroc.webp", alt: "BMW X3 - intérieur" },
       { src: "/images/Bmw x3 pack M 2025 diesel l'intérieure amseel cars agadir maroc.webp", alt: "BMW X3 - vue latérale" },
       { src: "/images/Bmw x3 pack M 2025 diesel intérieure image amseel cars agadir maroc.webp", alt: "BMW X3 - tableau de bord" },
-      { src: "/images/IMG_20250911_105658.jpg", alt: "BMW X3 - vue latérale" },
-      { src: "/images/Bmw x3 pack M 2025 diesel vue d'arrière amseel cars agadir maroc.webp", alt: "BMW X3 - vue latérale" },
+      { src: "/images/Bmw x3 pack M 2025 diesel vue d'arrière amseel cars agadir maroc.webp", alt: "BMW X3 - vue latérale" }
     ],
     pricePerDay: 1400,
     seats: 5,
