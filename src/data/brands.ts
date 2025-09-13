@@ -4,8 +4,8 @@ export const sampleBrands: Brand[] = [
   {
     name: "BMW",
     logo: "/images/bmw.webp",
-    preview: "/images/bmwx3.webp",
-    href: "/cars/bmw"
+    preview: "/images/Bmw x3 pack M 2025 diesel vue devant amseel cars agadir maroc.webp",
+    href: "/cars/bmw-x3-2025"
   },
   {
     name: "DACIA",
@@ -16,7 +16,7 @@ export const sampleBrands: Brand[] = [
   {
     name: "VOLKSWAGEN",
     logo: "/images/VOLKSWAGEN.webp",
-    preview: "/images/T roc auto diesel 2024 gris.webp",
+    preview: "/images/T roc automatique gris diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp",
     href: "/cars/T-Roc-2024"
   },
   {
