@@ -123,7 +123,7 @@ export const cars: Car[] = [
     },
     category: 'luxury',
     availability: true,
-    location: "Rabat, Morocco"
+    location: "Agadir, Maroc"
   }
   ,
   {
@@ -166,7 +166,7 @@ export const cars: Car[] = [
     },
     category: 'premium',
     availability: true,
-    location: "Marrakech, Maroc"
+   location: "Agadir, Maroc"
   },
   {
     id: 4,
@@ -330,7 +330,7 @@ export const cars: Car[] = [
     },
     category: 'suv',
     availability: true,
-    location: "Casablanca, Morocco"
+    location: "Agadir, Maroc"
   }
   ,
   {
@@ -412,7 +412,7 @@ export const cars: Car[] = [
     },
     category: 'economy',
     availability: true,
-    location: "Casablanca, Morocco"
+    location: "Agadir, Maroc"
   }
   ,
   {
@@ -496,7 +496,7 @@ export const cars: Car[] = [
     },
     category: 'economy',
     availability: true,
-    location: "Tangier, Morocco"
+    location: "Agadir, Maroc"
   }
   ,
   {
@@ -536,7 +536,7 @@ export const cars: Car[] = [
     },
     category: 'crossover',
     availability: true,
-    location: "Casablanca, Morocco"
+    location: "Agadir, Maroc"
   }
   ,
   {
@@ -616,7 +616,7 @@ export const cars: Car[] = [
     },
     category: 'suv',
     availability: true,
-    location: "Casablanca, Morocco"
+   location: "Agadir, Maroc"
   }
   ,
   {
@@ -656,7 +656,7 @@ export const cars: Car[] = [
     },
     category: 'economy',
     availability: true,
-    location: "Casablanca, Maroc"
+   location: "Agadir, Maroc"
   }
   ,
   {

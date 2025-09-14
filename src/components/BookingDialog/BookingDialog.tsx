@@ -343,7 +343,7 @@ export default function BookingDialog({
                             {...register('pickupLocation')}
                             type="text"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="e.g., Casablanca Airport"
+                            placeholder="e.g., Agadir Airport"
                           />
                           {errors.pickupLocation && (
                             <p className="text-red-500 text-sm mt-1">{errors.pickupLocation.message}</p>
