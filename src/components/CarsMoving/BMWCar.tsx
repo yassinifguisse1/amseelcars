@@ -274,10 +274,10 @@ export default function BMWCarScroll() {
       </motion.div>
 
   {/* BMW Car wrapper — fluid width via clamp() */}
-  <motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
+  <motion.div className="absolute inset-0 flex items-center justify-center">
 
   <motion.div
-    className="relative z-10 border border-yellow-500"
+    className="relative z-10 "
     style={{
       x: bmwCarX,
       y: bmwCarY,
@@ -337,7 +337,7 @@ export default function BMWCarScroll() {
 
    {/* BMW Book Now Button (follows car) */}
    <motion.div
-    className="  absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500 "
+    className="  absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw]  "
     style={{
       // x: bmwCarX,
       top: isShortLandscape ? '65vh' : '',
@@ -349,7 +349,7 @@ export default function BMWCarScroll() {
       
     }}
   >
-      <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none border border-blue-500"
+      <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none"
       style={{
         gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
       }}
@@ -432,6 +432,8 @@ export default function BMWCarScroll() {
           className=" absolute  z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
             style={{
               x: kiaTextX,
+              top: isShortLandscape ? '15%' : '',
+              left: isShortLandscape ? '10%' : '',
               opacity: kiaTextOpacity,
               scale: kiaTextScale,
               willChange: 'transform'
@@ -453,7 +455,7 @@ export default function BMWCarScroll() {
           </motion.div>
 
       {/* KIA section container (unchanged) */}
-<motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
+<motion.div className="absolute inset-0 flex items-center justify-center">
   <motion.div
     className="relative z-10"
     style={{
@@ -504,17 +506,18 @@ export default function BMWCarScroll() {
 
     {/* ✅ CTA — positioned responsively for different screen sizes */}
     <motion.div
-      className="absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500"
+      className="absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] "
       style={{
         // Conditional positioning based on screen size
         top: isShortLandscape ? '55vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
+
         opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
         y:       useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
         willChange: 'transform,opacity',
       }}
     >
       <div 
-        className="text-center px-3 sm:px-4 border border-blue-500 mb-10"
+        className="text-center px-3 sm:px-4 mb-10"
         style={{
           // Conditional spacing based on screen size
           gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
@@ -619,7 +622,7 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
-            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)] border border-red-500"
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)] "
             style={{
               width: isShortLandscape ? 'clamp(350px,50vw,840px)' : ''
             }}
@@ -639,7 +642,7 @@ export default function BMWCarScroll() {
           </motion.div>
 
           {/* Touareg Car wrapper */}
-          <motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
+          <motion.div className="absolute inset-0 flex items-center justify-center">
 
           <motion.div
             className="relative z-10 "
@@ -708,7 +711,7 @@ export default function BMWCarScroll() {
             {/* Touareg Book Now Button */}
           <motion.div
               className="
-               absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500
+               absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] 
               "
               style={{
                 // x: touaregCarX,
@@ -718,7 +721,7 @@ export default function BMWCarScroll() {
                 willChange: 'transform, opacity',
               }}
             >
-              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none border border-blue-500"
+              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none"
               style={{
                 gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
               }}
@@ -770,7 +773,7 @@ export default function BMWCarScroll() {
         >
           {/* Golf 8 Logo - Background parallax layer */}
        
-          <motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
+          <motion.div className="absolute inset-0 flex items-center justify-center">
 
           <motion.div
             className="absolute z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
@@ -783,7 +786,7 @@ export default function BMWCarScroll() {
               willChange: 'transform'
             }}
           >
-            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)] border border-red-500"
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)] "
             style={{
               width: isShortLandscape ? 'clamp(350px,50vw,840px)' : ''
             }}
@@ -867,7 +870,7 @@ export default function BMWCarScroll() {
 
           {/* Golf 8 Book Now Button */}
           <motion.div
-            className=" absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500"
+            className=" absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] "
             style={{
               // x: golf8CarX,
               top: isShortLandscape ? '51vh' : '',
@@ -878,7 +881,7 @@ export default function BMWCarScroll() {
               willChange: 'transform, opacity'
             }}
           >
-            <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none border border-blue-500"
+            <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none"
             style={{
               gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
             }}
