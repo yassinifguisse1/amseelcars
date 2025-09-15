@@ -245,7 +245,6 @@ export default function BMWCarScroll() {
     </div>
   </motion.div>
 
-  {/* BMW Car wrapper — fluid width via clamp() */}
  {/* BMW Car wrapper — height-aware */}
 <motion.div
   className="relative z-10"
@@ -645,27 +644,6 @@ export default function BMWCarScroll() {
           {/* Golf 8 Logo - Background parallax layer */}
        
 
-          <motion.div
-            className="absolute z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
-            style={{
-              x: golf8TextX,
-              opacity: golf8TextOpacity,
-              scale: golf8TextScale,
-              willChange: 'transform'
-            }}
-          >
-            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
-            <Image
-              src="/images/GOLF 8 LOGO PNG.webp"
-              alt="Golf 8 Logo"
-              width={800}
-              height={200}
-              className="opacity-100 drop-shadow-2xl"
-              draggable={false}
-              priority
-            />
-            </div>
-          </motion.div>
 
          {/* Golf 8 Car wrapper — height-aware */}
 <motion.div
@@ -684,6 +662,31 @@ export default function BMWCarScroll() {
     willChange: 'transform',
   }}
 >
+<div className="absolute inset-x-0 top-[clamp(56px,22dvh,200px)] z-0 pointer-events-none">
+</div>
+<motion.div
+  className="
+    absolute z-20 left-1/2 -translate-x-1/2
+    bottom-[calc(100%+clamp(8px,4dvh,40px))]
+    pointer-events-none select-none
+  "
+  style={{
+    // share fade/scale with your existing text animation, but NO x here
+    opacity: golf8TextOpacity,
+    scale: golf8TextScale,
+    willChange: 'transform,opacity',
+  }}
+>
+  <Image
+    src="/images/GOLF 8 LOGO PNG.webp"
+    alt="VW Golf 8 Logo"
+    width={800}
+    height={200}
+    className="w-[clamp(220px,40vw,760px)] h-auto"
+    draggable={false}
+    priority
+  />
+</motion.div>
   {/* Golf 8 body */}
   <Image
     src="/images/golf8-body.png"
