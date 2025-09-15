@@ -65,10 +65,37 @@ function useBreakpointValue(values: {
   return values.xxl ?? values.xl ?? values.lg ?? values.md ?? values.base;
 }
 
+// Custom hook to detect 1080×500 resolution (wide but short screens)
+function useShortLandscape() {
+  const [isShortLandscape, setIsShortLandscape] = useState(false);
+  
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      // Detect wide but short screens (like 900×800)
+      const isWideButShort = width >= 900 && height <= 800;
+      setIsShortLandscape(isWideButShort);
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  return isShortLandscape;
+}
+
+// Custom hook to detect 1080×500 resolution (wide but short screens)
+
+
+
 export default function BMWCarScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isNavigating, setIsNavigating] = useState(false);
-
+  
+  // Use the custom hook to detect short landscape screens
+  const isShortLandscape = useShortLandscape();
   // Define all images that need to be preloaded for instant loading
   const criticalImages = [
     '/images/bmw-body.png',
@@ -130,21 +157,21 @@ export default function BMWCarScroll() {
   // BMW Car Animations (first part: 0 to 0.3)
   const bmwCarX = useTransform(scrollYProgress, [0, 0.3], [`${bmwStartVW}vw`, "-100vw"]);
   const bmwWheelRotate = useTransform(scrollYProgress, [0, 0.3], [0, -7 * 180]);
-  const bmwCarY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Keep Y position constant - no vertical movement
+  const bmwCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
   const bmwShadowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0.3, 0.3, 0]);
   const bmwTextX = useTransform(scrollYProgress, [0, 0.3], [`${bmwTextStartVW}vw`, "-50vw"]);
   const bmwTextOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0.1, 0.8, 0.8, 0.1]);
-  const bmwTextScale = useTransform(scrollYProgress, [0, 0.15, 0.2], [0.9, 1, 1.1]);
+  const bmwTextScale = useTransform(scrollYProgress, [0, 0.15, 0.3], [0.9, 1, 1.1]);
   const bmwOpacity = useTransform(scrollYProgress, [0, 0.2, 0.25, 0.35], [1, 1, 1, 0]);
 
   // KIA Car Animations (second part: 0.25 to 0.55)
   const kiaCarX = useTransform(scrollYProgress, [0, 0.5], [`${kiaStartVW}vw`, "-100vw"]);
   const kiaWheelRotate = useTransform(scrollYProgress, [0, 0.5], [0, -11 * 180]);
-  const kiaCarY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Keep Y position constant - no vertical movement
+  const kiaCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, -2, -2, 0]);
   const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
   const kiaTextX = useTransform(scrollYProgress, [0, 0.7], [`${kiaTextStartVW}vw`, "-100vw"]);
   const kiaTextOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.3, 0.4], [0.1, 0.8, 0.8, 0.1]);
-  const kiaTextScale = useTransform(scrollYProgress, [0.5, 0.4, 0.85], [1.5, 1.5, 1.2]);
+  const kiaTextScale = useTransform(scrollYProgress, [0.25, 0.4, 0.55], [0.9, 1, 1.1]);
   // const kiaOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0]);
 
 
@@ -153,12 +180,12 @@ export default function BMWCarScroll() {
 
   // Touareg Car Animations (third part: 0.5 to 0.8)
   const touaregCarX = useTransform(scrollYProgress, [0, 0.7], [`${touaregStartVW}vw`, "-100vw"]);
-  const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -11 * 180]);
-  const touaregCarY = useTransform(scrollYProgress, [0, 1], [-40, -40]); // Keep Y position constant - no vertical movement
+  const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -7 * 180]);
+  const touaregCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [-20, -20, -20, 0]);
   const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
   const touaregTextX = useTransform(scrollYProgress, [0, 0.7], [`${touaregTextStartVW}vw`, "-50vw"]); // Same timing as car
   const touaregTextOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]); // Same timing as car
-  const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [1.5, 1.5, 1.2]);
+  const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
   // const touaregOpacity = useTransform(scrollYProgress, [0.45, 0.55, 0.75, 0.85], [0, 1, 1, 0]);
 
 
@@ -166,11 +193,11 @@ export default function BMWCarScroll() {
   // Golf 8 Car Animations (fourth part: 0.75 to 1.0)
   const golf8CarX = useTransform(scrollYProgress, [0, 0.9], [`${golf8StartVW}vw`, "-100vw"]);
   const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.95], [0, -10 * 180]);
-  const golf8CarY = useTransform(scrollYProgress, [0, 1], [-40, -40]); // Keep Y position constant - no vertical movement
+  const golf8CarY = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, -2, -2, 0]);
   const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
   const golf8TextX = useTransform(scrollYProgress, [0, 1], [`${golf8TextStartVW}vw`, "-100vw"]);
   const golf8TextOpacity = useTransform(scrollYProgress, [0.45, 0.6, 0.6, 0.85], [0.1, 0.9, 0.9, 0.1]);
-  const golf8TextScale = useTransform(scrollYProgress, [0.9, 0.95, 1], [1.5, 1.5, 1.2]);
+  const golf8TextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
   // const golf8Opacity = useTransform(scrollYProgress, [0.7, 0.8, 0.95, 1], [0, 1, 1, 1]);
 
   // Background color transitions
@@ -182,7 +209,7 @@ export default function BMWCarScroll() {
 
       return (
     <section ref={containerRef} style={{ height: "600vh" }}>
-      <div className="sticky top-0 h-dvh flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         
         {/* Loading indicator */}
         {imagesLoading && (
@@ -226,6 +253,7 @@ export default function BMWCarScroll() {
         "
         style={{ 
           x: bmwTextX, 
+          top: isShortLandscape ? '20%' : '',
           opacity: isImageLoaded('/images/x3-bm.webp') ? bmwTextOpacity : 0, 
           scale: bmwTextScale, 
           willChange: 'transform' 
@@ -243,530 +271,665 @@ export default function BMWCarScroll() {
         priority={true} // High priority for first car
       />
     </div>
-  </motion.div>
+      </motion.div>
 
- {/* BMW Car wrapper — height-aware */}
-<motion.div
-  className="relative z-10"
-  style={{
-    x: bmwCarX,
-    y: bmwCarY,
-    // cap by height as well as width: 62dvh * (1440/800 ≈ 1.8)
-    width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
-    opacity:
-      isImageLoaded('/images/bmw-body.png') &&
-      isImageLoaded('/images/wheel-rear.png') &&
-      isImageLoaded('/images/wheel-front.png')
-        ? 1
-        : 0,
-    willChange: 'transform',
-  }}
->
-  {/* BMW Car body (keeps aspect, no CLS) */}
-  <Image
-    src="/images/bmw-body.png"
-    alt="BMW X3 body"
-    width={1440}
-    height={800}
-    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
-    className="block w-full h-auto pointer-events-none select-none"
-    draggable={false}
-    priority
-  />
+  {/* BMW Car wrapper — fluid width via clamp() */}
+  <motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
 
-  {/* Rear wheel */}
   <motion.div
-    className="absolute bottom-[16.3%] left-[9.6%] w-[16%] aspect-square"
-    style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/wheel-rear.png"
-      alt="BMW Rear wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-      loading="eager"
-    />
-  </motion.div>
-
-  {/* Front wheel */}
-  <motion.div
-    className="absolute bottom-[16.3%] left-[70.4%] w-[16%] aspect-square"
-    style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/wheel-front.png"
-      alt="BMW Front wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-      loading="eager"
-    />
-  </motion.div>
-
-  {/* Shadow — scale thickness with viewport height */}
-  <motion.div
-    className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
-    style={{
-      bottom: 'calc(-1 * clamp(6px, 1.4dvh, 20px))',
-      height: 'clamp(6px, 1.4dvh, 20px)',
-      opacity: bmwShadowOpacity,
-      willChange: 'opacity',
-    }}
-  />
-</motion.div>
-
-
-  {/* BMW Book Now Button (follows car) */}
- {/* BMW CTA — height-aware, centered via wrapper (no left/translate mix) */}
-<div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
-  <motion.div
-    className="mx-auto w-fit"
+    className="relative z-10 border border-yellow-500"
     style={{
       x: bmwCarX,
-      opacity: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [1, 1, 1, 0]),
-      y: useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0, 0, 50]),
-      willChange: 'transform,opacity',
+      y: bmwCarY,
+      top: isShortLandscape ? '-1vh' : '',
+      width: isShortLandscape 
+        ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
+        : 'clamp(280px, 85vw, 1120px)',
+      opacity: isImageLoaded('/images/bmw-body.png') && 
+               isImageLoaded('/images/wheel-rear.png') && 
+               isImageLoaded('/images/wheel-front.png') ? 1 : 0,
+      willChange: 'transform',
     }}
   >
-    <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-      <div className="p-2">
-        <h3 className="text-base sm:text-lg md:text-2xl font-bold">BMW X3 M</h3>
-        <p className="text-xs sm:text-sm md:text-lg">Premium SUV built for performance.</p>
+    {/* BMW Car body (keeps aspect, no CLS) */}
+    <Image
+      src="/images/bmw-body.png"
+      alt="BMW X3 body"
+      width={1440}
+      height={800}
+      sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
+      className="block w-full h-auto pointer-events-none select-none"
+      draggable={false}
+      priority={true} // High priority for first car
+    />
+
+    {/* Rear wheel */}
+    <motion.div
+      className="absolute bottom-[16.3%] left-[9.6%] w-[16%] aspect-square"
+      style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
+    >
+      <Image
+        src="/images/wheel-rear.png"
+        alt="BMW Rear wheel"
+        fill
+        sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+        className="object-contain pointer-events-none select-none"
+        draggable={false}
+        loading="eager" // Critical for wheel sync
+      />
+    </motion.div>
+
+    {/* Front wheel */}
+    <motion.div
+      className="absolute bottom-[16.3%] left-[70.4%] w-[16%] aspect-square"
+      style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
+    >
+      <Image
+        src="/images/wheel-front.png"
+        alt="BMW Front wheel"
+        fill
+        sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+        className="object-contain pointer-events-none select-none"
+        draggable={false}
+        loading="eager" // Critical for wheel sync
+      />
+    </motion.div>
+
+   {/* BMW Book Now Button (follows car) */}
+   <motion.div
+    className="  absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500 "
+    style={{
+      // x: bmwCarX,
+      top: isShortLandscape ? '65vh' : '',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
+      y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
+      willChange: 'transform, opacity',
+      
+    }}
+  >
+      <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none border border-blue-500"
+      style={{
+        gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
+      }}
+      >
+                <div className="p-2"
+                style={{
+                  padding: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 1vw, 0.5rem)'
+                }}
+                >
+                  <h3 className="text-base sm:text-lg md:text-2xl font-bold"
+                  style={{
+                    fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
+                  }}
+                  >BMW X3 M</h3>
+                  <p className="text-xs sm:text-sm md:text-lg"
+                  style={{
+                    fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
+                  }}
+                  >Premium SUV built for performance.</p>
+                </div>
+                <div className="flex items-center justify-center pointer-events-auto"
+                style={{
+                  gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
+                }}
+                >
+                  <Rounded 
+                    backgroundColor="#D32F2F" 
+                    onClick={() => handleNavigation("/cars/bmw-x3-2025")}
+                    style={{ 
+                      pointerEvents: isNavigating ? 'none' : 'auto',
+                      opacity: isNavigating ? 0.7 : 1,
+                      cursor: isNavigating ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+                  </Rounded>
+                </div>
       </div>
-      <div className="flex items-center justify-center pointer-events-auto">
-        <Rounded
-          backgroundColor="#D32F2F"
-          onClick={() => handleNavigation('/cars/bmw-x3-2025')}
-          style={{
-            pointerEvents: isNavigating ? 'none' : 'auto',
-            opacity: isNavigating ? 0.7 : 1,
-            cursor: isNavigating ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-        </Rounded>
-      </div>
-    </div>
+    
+    
+    </motion.div>
   </motion.div>
-</div>
+
+  
+
+
+  </motion.div>
+
+
 </motion.div>
 
-        {/*-------------------------------------------- KIA Section -------------------------------------------*/}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* --------------------------------------------KIA Section -------------------------------------------- */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)] bottom-[3%] md:bottom-[0%] "
+          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)] bottom-[3%] md:bottom-[0%]"
           // style={{ opacity: kiaOpacity }}
         >
-         
-
-          {/* -----------------------------------KIA Car wrapper---------------------------------- */}
-         {/* KIA Car wrapper — height-aware */}
-        <motion.div
-          className="relative z-10"
-          style={{ 
-            x: kiaCarX, 
-            y: kiaCarY,
-            // Cap by height as well as width (1440×800 → ~1.8 ratio)
-            width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
-            opacity:
-              isImageLoaded('/images/kia body.webp') &&
-              isImageLoaded('/images/left wheel kia.webp') &&
-              isImageLoaded('/images/right wheel kia.webp')
-                ? 1
-                : 0,
-            willChange: 'transform',
-          }}
-        >
-           {/* KIA Logo - Background parallax layer */}
-           <motion.div
-  className="
-    absolute z-20 left-1/2 -translate-x-1/2
-    bottom-[calc(100%+clamp(8px,4dvh,40px))]
-    pointer-events-none select-none
-  "
-  style={{
-    // reuse your opacity/scale, but DO NOT set x here
-    opacity: kiaTextOpacity,
-    scale: kiaTextScale,
-    willChange: 'transform,opacity',
-  }}
->
-  <Image
-    src="/images/Kia-sportage-logo.webp"
-    alt="KIA Logo"
-    width={900}
-    height={300}
-    className="w-[clamp(280px,44vw,900px)] h-auto"
-    draggable={false}
-  />
-</motion.div>
-          {/* KIA Car body */}
-          <Image
-            src="/images/kia body.webp"
-            alt="KIA body"
-            width={1440}
-            height={800}
-            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
-            className="block w-full h-auto pointer-events-none select-none"
-            draggable={false}
-            loading="eager"
-          />
-        
-          {/* KIA Rear wheel (left) */}
+          {/* KIA Logo - Background parallax layer */}
           <motion.div
-            className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
-            style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
-          >
-            <Image
-              src="/images/left wheel kia.webp"
-              alt="KIA Left wheel"
-              fill
-              sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-              className="object-contain pointer-events-none select-none"
-              draggable={false}
-              loading="eager"
-            />
-          </motion.div>
-        
-          {/* KIA Front wheel (right) */}
-          <motion.div
-            className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
-            style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
-          >
-            <Image
-              src="/images/right wheel kia.webp"
-              alt="KIA Right wheel"
-              fill
-              sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-              className="object-contain pointer-events-none select-none"
-              draggable={false}
-              loading="eager"
-            />
-          </motion.div>
-        
-          {/* KIA Shadow — scales with viewport height */}
-          <motion.div 
-            className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
-            style={{ 
-              bottom: 'calc(-1 * clamp(6px, 1.4dvh, 20px))',
-              height: 'clamp(6px, 1.4dvh, 20px)',
-              opacity: kiaShadowOpacity,
-              willChange: 'opacity'
-            }}
-          />
-        </motion.div>
-        
-            
-                   {/* KIA CTA */}
-        <div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
-          <motion.div
-            className="mx-auto w-fit"
+          className=" absolute  z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
             style={{
-              x: kiaCarX,
-              opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
-             y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
-             willChange: 'transform,opacity',
-           }}
-         >
-           <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-             <div className="p-2">
-               <h3 className="text-base sm:text-lg md:text-2xl font-bold">KIA Sportage</h3>
-               <p className="text-xs sm:text-sm md:text-lg">Dynamic design meets advanced technology.</p>
-             </div>
-             <div className="flex items-center justify-center pointer-events-auto">
-               <Rounded
-                 backgroundColor="#D32F2F"
-                 onClick={() => handleNavigation('/cars/kia-sportage-2025-diesel-auto-verte')}
-                 style={{
-                   pointerEvents: isNavigating ? 'none' : 'auto',
-                   opacity: isNavigating ? 0.7 : 1,
-                   cursor: isNavigating ? 'not-allowed' : 'pointer',
-                 }}
-               >
-                 <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-               </Rounded>
-             </div>
-           </div>
-         </motion.div>
-        </div>
-        </motion.div>
+              x: kiaTextX,
+              opacity: kiaTextOpacity,
+              scale: kiaTextScale,
+              willChange: 'transform'
+            }}
+          >
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
+                <Image
+                  src="/images/Kia-sportage-logo.webp"
+                  alt="KIA Logo"
+                  width={900}
+                  height={300}
+                  className="opacity-100 pointer-events-none select-none"
+                  draggable={false}
+                />
+            </div>
+           
+          
+              
+          </motion.div>
 
-        {/*-------------------------------------------- t-roc Section -------------------------------------------*/}
+      {/* KIA section container (unchanged) */}
+<motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
+  <motion.div
+    className="relative z-10"
+    style={{
+      x: kiaCarX,
+      y: kiaCarY,
+      // Dynamic width based on screen size
+      width: isShortLandscape 
+        ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
+        : 'clamp(280px, 85vw, 1120px)',
+      // Add visual indicator for testing
+      // backgroundColor: isShortLandscape ? '#ef4444' : 'transparent',
+      opacity:
+        isImageLoaded('/images/kia body.webp') &&
+        isImageLoaded('/images/left wheel kia.webp') &&
+        isImageLoaded('/images/right wheel kia.webp')
+          ? 1 : 0,
+      willChange: 'transform',
+    }}
+  >
+  
+
+    {/* Car body */}
+    <Image
+      src="/images/kia body.webp"
+      alt="KIA body"
+      width={1440}
+      height={800}
+      sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
+      className="block w-full h-auto pointer-events-none select-none"
+      draggable={false}
+      loading="eager"
+    />
+
+    {/* Wheels */}
+    <motion.div
+      className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
+      style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
+    >
+      <Image src="/images/left wheel kia.webp" alt="KIA Left wheel" fill className="object-contain" draggable={false}/>
+    </motion.div>
+
+    <motion.div
+      className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
+      style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
+    >
+      <Image src="/images/right wheel kia.webp" alt="KIA Right wheel" fill className="object-contain" draggable={false}/>
+    </motion.div>
+
+    {/* ✅ CTA — positioned responsively for different screen sizes */}
+    <motion.div
+      className="absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500"
+      style={{
+        // Conditional positioning based on screen size
+        top: isShortLandscape ? '55vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
+        opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
+        y:       useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
+        willChange: 'transform,opacity',
+      }}
+    >
+      <div 
+        className="text-center px-3 sm:px-4 border border-blue-500 mb-10"
+        style={{
+          // Conditional spacing based on screen size
+          gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
+        }}
+      >
+        <div style={{ padding: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 1vw, 0.5rem)' }}>
+          <h3 
+            className="font-bold"
+            style={{
+              fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
+            }}
+          >
+            KIA Sportage
+          </h3>
+          <p 
+            style={{
+              fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
+            }}
+          >
+            Dynamic design meets advanced technology.
+          </p>
+        </div>
+        <div className="flex justify-center pointer-events-auto">
+          <Rounded
+            backgroundColor="#D32F2F"
+            onClick={() => handleNavigation('/cars/kia-sportage-2025-diesel-auto-verte')}
+          >
+            <p>Book Now</p>
+          </Rounded>
+        </div>
+      </div>
+    </motion.div>
+
+
+
+
+    
+  </motion.div>
+
+
+  {/* ✅ KIA Car wrapper — height-aware + spacing variables */}
+
+
+
+
+
+  
+</motion.div>
+
+       </motion.div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* --------------------------------------------Touareg Section -------------------------------------------- */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: touaregOpacity }}
         >
           {/* Touareg Logo - Background parallax layer */}
          
-          
+           {/* Touareg Logo - Background parallax layer */}
+           <motion.div
+            className="absolute z-0 pointer-events-none select-none top-[28%] sm:top-[22%] md:top-[21%] lg:top-[17%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
+            style={{
+              x: touaregTextX,
+              top: isShortLandscape ? '10%' : '',
+              left: isShortLandscape ? '20%' : '',
+              opacity: touaregTextOpacity,
+              scale: touaregTextScale,
+              willChange: 'transform'
+            }}
+          >
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)] border border-red-500"
+            style={{
+              width: isShortLandscape ? 'clamp(350px,50vw,840px)' : ''
+            }}
+            >
+              
+            <Image
+              src="/images/t roc logo-0014.webp"
+              alt="Touareg Logo"
+              width={800}
+              height={200}
+              className="opacity-100 drop-shadow-2xl"
+              draggable={false}
+              priority
+            />
+            </div>
+            
+          </motion.div>
 
-         {/* T-Roc Car wrapper — height-aware */}
-<motion.div
-  className="relative z-10"
-  style={{ 
-    x: touaregCarX,
-    y: touaregCarY,
-    // Cap by height as well as width (1440×800 ≈ 1.8)
-    width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
-    opacity:
-      isImageLoaded('/images/t-roc body.png') && 
-      isImageLoaded('/images/t-roc wheel left.png') && 
-      isImageLoaded('/images/t-roc wheel right.png') ? 1 : 0,
-    willChange: 'transform',
-  }}
->
-  {/* ✅ T-Roc Logo — anchored to the car */}
-<motion.div
-  className="
-    absolute z-20 left-1/2 -translate-x-1/2
-    bottom-[calc(100%+clamp(8px,4dvh,40px))]
-    pointer-events-none select-none
-  "
-  style={{
-    // reuse your opacity/scale, but do NOT apply x here
-    opacity: touaregTextOpacity,
-    scale: touaregTextScale,
-    willChange: 'transform,opacity',
-  }}
->
-  <Image
-    src="/images/t roc logo-0014.webp"
-    alt="T-Roc Logo"
-    width={800}
-    height={200}
-    className="w-[clamp(220px,40vw,760px)] h-auto"
-    draggable={false}
-    priority
-  />
-</motion.div>
-  {/* T-Roc body */}
-  <Image
-    src="/images/t-roc body.png"
-    alt="Volkswagen T-Roc body"
-    width={1440}
-    height={800}
-    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
-    className="block w-full h-auto pointer-events-none select-none"
-    draggable={false}
-    loading="lazy"
-  />
+          {/* Touareg Car wrapper */}
+          <motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
 
-  {/* Rear wheel (left) */}
-  <motion.div
-    className="absolute bottom-[9%] left-[11.9%] w-[16%] aspect-square"
-    style={{ rotate: touaregWheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/t-roc wheel left.png"
-      alt="T-Roc left wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-    />
-  </motion.div>
+          <motion.div
+            className="relative z-10 "
+            style={{ 
+              x: touaregCarX, 
+              y: touaregCarY,
+              top: isShortLandscape ? '-3.6vh' : '',
 
-  {/* Front wheel (right) */}
-  <motion.div
-    className="absolute bottom-[9.2%] left-[73.5%] w-[16%] aspect-square"
-    style={{ rotate: touaregWheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/t-roc wheel right.png"
-      alt="T-Roc right wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-    />
-  </motion.div>
+                width: isShortLandscape 
+          ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
+          : 'clamp(280px, 85vw, 1120px)',
+                opacity: isImageLoaded('/images/t-roc body.png') && 
+                         isImageLoaded('/images/t-roc wheel left.png') && 
+                       isImageLoaded('/images/t-roc wheel right.png') ? 1 : 0,
+              willChange: 'transform',
+            }}
+          >
+            {/* Touareg Car body */}
+            <Image
+              src="/images/t-roc body.png"
+              alt="Touareg body"
+              width={1440}
+              height={800}
+              sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
+              className="block w-full h-auto pointer-events-none select-none"
+              draggable={false}
+              loading="lazy" // Lazy load for later cars
+            />
 
-  {/* T-Roc Shadow — scales with viewport height */}
-  <motion.div 
-    className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
-    style={{ 
-      bottom: 'calc(-1 * clamp(6px, 1.4dvh, 20px))',
-      height: 'clamp(6px, 1.4dvh, 20px)',
-      opacity: touaregShadowOpacity,
-      willChange: 'opacity'
-    }}
-  />
-</motion.div>
+            {/* Touareg Rear wheel (left) */}
+            <motion.div
+              className="absolute bottom-[9%] left-[11.9%] w-[16%] aspect-square"
+              style={{
+                rotate: touaregWheelRotate,
+                willChange: 'transform'
+              }}
+            >
+              <Image
+                src="/images/t-roc wheel left.png"
+                alt="Touareg Left wheel"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
+                draggable={false}
+              />
+            </motion.div>
+
+            {/* Touareg Front wheel (right) */}
+            <motion.div
+              className="absolute bottom-[9.2%] left-[73.5%] w-[16%] aspect-square"
+              style={{ 
+                rotate: touaregWheelRotate,
+                willChange: 'transform'
+              }}
+            >
+              <Image
+                src="/images/t-roc wheel right.png"
+                alt="Touareg Right wheel"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
+                draggable={false}
+              />
+            </motion.div>
+
+            {/* Touareg Book Now Button */}
+          <motion.div
+              className="
+               absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500
+              "
+              style={{
+                // x: touaregCarX,
+                top: isShortLandscape ? '51vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
+                opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
+                 y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
+                willChange: 'transform, opacity',
+              }}
+            >
+              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none border border-blue-500"
+              style={{
+                gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
+              }}
+              >
+                <div className="p-2">
+                <h3 
+            className="font-bold"
+            style={{
+              fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
+            }}
+          >T-Roc</h3>
+                  <p 
+            style={{
+              fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
+            }}
+          >Compact SUV built for performance.</p>
+                </div>
+                <div className="flex items-center justify-center pointer-events-auto">
+                  <Rounded 
+                    backgroundColor="#D32F2F" 
+                    onClick={() => handleNavigation("/cars/T-Roc-2024")}
+                    style={{ 
+                      pointerEvents: isNavigating ? 'none' : 'auto',
+                      opacity: isNavigating ? 0.7 : 1,
+                      cursor: isNavigating ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+                  </Rounded>
+                </div>
+              </div>
+            </motion.div>
+
+          </motion.div>
 
 
-          {/* T-Roc  Book Now Button */}
-          <div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,9px)] z-50">
-  <motion.div
-    className="mx-auto w-fit"
-    style={{
-      x: touaregCarX,
-      opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
-      y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
-      willChange: 'transform,opacity',
-    }}
-  >
-    <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-      <div className="p-2">
-        <h3 className="text-base sm:text-lg md:text-2xl font-bold">T-Roc</h3>
-        <p className="text-xs sm:text-sm md:text-lg">Compact SUV built for performance.</p>
-      </div>
-      <div className="flex items-center justify-center pointer-events-auto">
-        <Rounded
-          backgroundColor="#D32F2F"
-          onClick={() => handleNavigation('/cars/T-Roc-2024')}
-          style={{
-            pointerEvents: isNavigating ? 'none' : 'auto',
-            opacity: isNavigating ? 0.7 : 1,
-            cursor: isNavigating ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-        </Rounded>
-      </div>
-    </div>
-  </motion.div>
-          </div>
+          </motion.div>
+
+         
+
+
+
         </motion.div>
         
-        {/*-------------------------------------------- Golf 8 Section -------------------------------------------*/}
+        {/* Golf 8 Section */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: golf8Opacity }}
         >
+          {/* Golf 8 Logo - Background parallax layer */}
        
+          <motion.div className="absolute inset-0 flex items-center justify-center border border-blue-500">
+
+          <motion.div
+            className="absolute z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
+            style={{
+              x: golf8TextX,
+              top: isShortLandscape ? '10%' : '',
+              left: isShortLandscape ? '20%' : '',
+              opacity: golf8TextOpacity,
+              scale: golf8TextScale,
+              willChange: 'transform'
+            }}
+          >
+            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)] border border-red-500"
+            style={{
+              width: isShortLandscape ? 'clamp(350px,50vw,840px)' : ''
+            }}
+            >
+            <Image
+              src="/images/GOLF 8 LOGO PNG.webp"
+              alt="Golf 8 Logo"
+              width={800}
+              height={200}
+              className="opacity-100 drop-shadow-2xl"
+              draggable={false}
+              priority
+            />
+            </div>
+          </motion.div>
 
 
-         {/* Golf 8 Car wrapper — height-aware */}
-<motion.div
-  className="relative z-10"
-  style={{ 
-    x: golf8CarX, 
-    y: golf8CarY,
-    // Cap by height as well as width (1440×800 ≈ 1.8)
-    width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
-    opacity:
-      isImageLoaded('/images/golf8-body.png') &&
-      isImageLoaded('/images/golf8-wheel-left.png') &&
-      isImageLoaded('/images/golf8-wheel-right.png')
-        ? 1
-        : 0,
-    willChange: 'transform',
-  }}
->
-<div className="absolute inset-x-0 top-[clamp(56px,22dvh,200px)] z-0 pointer-events-none">
-</div>
-<motion.div
-  className="
-    absolute z-20 left-1/2 -translate-x-1/2
-    bottom-[calc(100%+clamp(8px,4dvh,40px))]
-    pointer-events-none select-none
-  "
-  style={{
-    // share fade/scale with your existing text animation, but NO x here
-    opacity: golf8TextOpacity,
-    scale: golf8TextScale,
-    willChange: 'transform,opacity',
-  }}
->
-  <Image
-    src="/images/GOLF 8 LOGO PNG.webp"
-    alt="VW Golf 8 Logo"
-    width={800}
-    height={200}
-    className="w-[clamp(320px,40vw,800px)] h-auto"
-    draggable={false}
-    priority
-  />
-</motion.div>
-  {/* Golf 8 body */}
-  <Image
-    src="/images/golf8-body.png"
-    alt="Volkswagen Golf 8 body"
-    width={1440}
-    height={800}
-    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
-    className="block w-full h-auto pointer-events-none select-none"
-    draggable={false}
-    loading="lazy"
-  />
+          {/* Golf 8 Car wrapper */}
+          <motion.div
+            className="relative z-10"
+            style={{ 
+              x: golf8CarX, 
+              y: golf8CarY,
+              top: isShortLandscape ? '-3.7vh' : '',
+              width: isShortLandscape 
+              ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
+              : 'clamp(280px, 85vw, 1120px)',
+              opacity: isImageLoaded('/images/golf8-body.png') && 
+                       isImageLoaded('/images/golf8-wheel-left.png') && 
+                       isImageLoaded('/images/golf8-wheel-right.png') ? 1 : 0,
+              willChange: 'transform',
+            }}
+          >
+            {/* Golf 8 Car body */}
+            <Image
+              src="/images/golf8-body.png"
+              alt="Golf 8 body"
+              width={1440}
+              height={800}
+              sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
+              className="block w-full h-auto pointer-events-none select-none"
+              draggable={false}
+              loading="lazy" // Lazy load for later cars
+            />
 
-  {/* Rear wheel (left) */}
-  <motion.div
-    className="absolute bottom-[16.5%] left-[11.77%] w-[15.5%] aspect-square"
-    style={{ rotate: golf8WheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/golf8-wheel-left.png"
-      alt="Golf 8 left wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-    />
-  </motion.div>
+            {/* Golf 8 Rear wheel (left) */}
+            <motion.div
+              className="absolute bottom-[16.5%] left-[11.77%] w-[15.5%] aspect-square"
+              style={{ 
+                rotate: golf8WheelRotate,
+                willChange: 'transform'
+              }}
+            >
+              <Image
+                src="/images/golf8-wheel-left.png"
+                alt="Golf 8 Left wheel"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
+                draggable={false}
+              />
+            </motion.div>
 
-  {/* Front wheel (right) */}
-  <motion.div
-    className="absolute bottom-[16.1%] left-[74.2%] w-[15.5%] aspect-square"
-    style={{ rotate: golf8WheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/golf8-wheel-right.png"
-      alt="Golf 8 right wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-    />
-  </motion.div>
-
-  {/* Shadow — scales with viewport height */}
-  <motion.div 
-    className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
-    style={{ 
-      bottom: 'calc(-1 * clamp(6px, 1.4dvh, 20px))',
-      height: 'clamp(6px, 1.4dvh, 20px)',
-      opacity: golf8ShadowOpacity,
-      willChange: 'opacity'
-    }}
-  />
-</motion.div>
-
+            {/* Golf 8 Front wheel (right) */}
+            <motion.div
+              className="absolute bottom-[16.1%] left-[74.2%] w-[15.5%] aspect-square"
+              style={{ 
+                rotate: golf8WheelRotate,
+                willChange: 'transform'
+              }}
+            >
+              <Image
+                src="/images/golf8-wheel-right.png"
+                alt="Golf 8 Right wheel"
+                fill
+                sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+                className="object-contain pointer-events-none select-none"
+                draggable={false}
+              />
+            </motion.div>
 
           {/* Golf 8 Book Now Button */}
-          <div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
-  <motion.div
-    className="mx-auto w-fit"
-    style={{
-      x: golf8CarX,
-      opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [1, 1, 1, 0]),
-      y: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0, 0, 50]),
-      willChange: 'transform,opacity',
-    }}
-  >
-    <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-      <div className="p-2">
-        <h3 className="text-base sm:text-lg md:text-2xl font-bold">VW Golf 8</h3>
-        <p className="text-xs sm:text-sm md:text-lg">Compact excellence with modern innovation.</p>
-      </div>
-      <div className="flex items-center justify-center pointer-events-auto">
-        <Rounded
-          backgroundColor="#D32F2F"
-          onClick={() => handleNavigation('/cars/Golf-8')}
-          style={{
-            pointerEvents: isNavigating ? 'none' : 'auto',
-            opacity: isNavigating ? 0.7 : 1,
-            cursor: isNavigating ? 'not-allowed' : 'pointer',
-          }}
-        >
-          <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-        </Rounded>
-      </div>
-    </div>
-  </motion.div>
-</div>
+          <motion.div
+            className=" absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] border border-purple-500"
+            style={{
+              // x: golf8CarX,
+              top: isShortLandscape ? '51vh' : '',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [1, 1, 1, 0]),
+              y: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0, 0, 50]),
+              willChange: 'transform, opacity'
+            }}
+          >
+            <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none border border-blue-500"
+            style={{
+              gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
+            }}
+            >
+              <div className=" p-2"
+              style={{
+                padding: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 1vw, 0.5rem)'
+              }}
+              >
+                  <h3 
+            className="font-bold"
+            style={{
+              fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
+            }}
+          >VW Golf 8</h3>
+                <p 
+            style={{
+              fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
+            }}
+          >Compact excellence with modern innovation.</p>
+              </div>
+              
+              <div className="flex items-center justify-center pointer-events-auto"
+              style={{
+                gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
+              }}
+              >
+                <Rounded 
+                  backgroundColor="#D32F2F" 
+                  onClick={() => handleNavigation("/cars/Golf-8")}
+                  style={{ 
+                    pointerEvents: isNavigating ? 'none' : 'auto',
+                    opacity: isNavigating ? 0.7 : 1,
+                    cursor: isNavigating ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+                </Rounded>
+              </div>
+            </div>
+          </motion.div>
+          </motion.div>
+
+          
+
+
+
+          </motion.div>
+
+
+
         </motion.div>
        
         {/* Final Call-to-Action Section - Appears after Golf 8 */}
