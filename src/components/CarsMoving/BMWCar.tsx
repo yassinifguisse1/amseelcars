@@ -130,7 +130,7 @@ export default function BMWCarScroll() {
   // BMW Car Animations (first part: 0 to 0.3)
   const bmwCarX = useTransform(scrollYProgress, [0, 0.3], [`${bmwStartVW}vw`, "-100vw"]);
   const bmwWheelRotate = useTransform(scrollYProgress, [0, 0.3], [0, -7 * 180]);
-  const bmwCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
+  const bmwCarY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Keep Y position constant - no vertical movement
   const bmwShadowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0.3, 0.3, 0]);
   const bmwTextX = useTransform(scrollYProgress, [0, 0.3], [`${bmwTextStartVW}vw`, "-50vw"]);
   const bmwTextOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0.1, 0.8, 0.8, 0.1]);
@@ -140,7 +140,7 @@ export default function BMWCarScroll() {
   // KIA Car Animations (second part: 0.25 to 0.55)
   const kiaCarX = useTransform(scrollYProgress, [0, 0.5], [`${kiaStartVW}vw`, "-100vw"]);
   const kiaWheelRotate = useTransform(scrollYProgress, [0, 0.5], [0, -11 * 180]);
-  const kiaCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, -2, -2, 0]);
+  const kiaCarY = useTransform(scrollYProgress, [0, 1], [0, 0]); // Keep Y position constant - no vertical movement
   const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
   const kiaTextX = useTransform(scrollYProgress, [0, 0.7], [`${kiaTextStartVW}vw`, "-100vw"]);
   const kiaTextOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.3, 0.4], [0.1, 0.8, 0.8, 0.1]);
@@ -153,8 +153,8 @@ export default function BMWCarScroll() {
 
   // Touareg Car Animations (third part: 0.5 to 0.8)
   const touaregCarX = useTransform(scrollYProgress, [0, 0.7], [`${touaregStartVW}vw`, "-100vw"]);
-  const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -7 * 180]);
-  const touaregCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [-20, -20, -20, 0]);
+  const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -11 * 180]);
+  const touaregCarY = useTransform(scrollYProgress, [0, 1], [-40, -40]); // Keep Y position constant - no vertical movement
   const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
   const touaregTextX = useTransform(scrollYProgress, [0, 0.7], [`${touaregTextStartVW}vw`, "-50vw"]); // Same timing as car
   const touaregTextOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]); // Same timing as car
@@ -166,7 +166,7 @@ export default function BMWCarScroll() {
   // Golf 8 Car Animations (fourth part: 0.75 to 1.0)
   const golf8CarX = useTransform(scrollYProgress, [0, 0.9], [`${golf8StartVW}vw`, "-100vw"]);
   const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.95], [0, -10 * 180]);
-  const golf8CarY = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, -2, -2, 0]);
+  const golf8CarY = useTransform(scrollYProgress, [0, 1], [-40, -40]); // Keep Y position constant - no vertical movement
   const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
   const golf8TextX = useTransform(scrollYProgress, [0, 1], [`${golf8TextStartVW}vw`, "-100vw"]);
   const golf8TextOpacity = useTransform(scrollYProgress, [0.45, 0.6, 0.6, 0.85], [0.1, 0.9, 0.9, 0.1]);
@@ -322,7 +322,7 @@ export default function BMWCarScroll() {
 
   {/* BMW Book Now Button (follows car) */}
  {/* BMW CTA — height-aware, centered via wrapper (no left/translate mix) */}
-<div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,88px)] z-50">
+<div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
   <motion.div
     className="mx-auto w-fit"
     style={{
@@ -537,7 +537,7 @@ export default function BMWCarScroll() {
 <motion.div
   className="relative z-10"
   style={{ 
-    x: touaregCarX,     // consider renaming to tRocCarX for clarity
+    x: touaregCarX,
     y: touaregCarY,
     // Cap by height as well as width (1440×800 ≈ 1.8)
     width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
@@ -604,41 +604,37 @@ export default function BMWCarScroll() {
 
 
           {/* T-Roc  Book Now Button */}
-          <motion.div
-              className="
-                absolute z-50 
-                left-1/2 md:left-[50%] lg:left-[50%] 
-                -translate-x-1/2 
-                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)] xl:bottom-[clamp(50px,5vh,4rem)]
-               
-              "
-              style={{
-                x: touaregCarX,
-                opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
-                 y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
-                willChange: 'transform, opacity',
-              }}
-            >
-              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-                <div className="p-2">
-                  <h3 className="text-base sm:text-lg md:text-2xl font-bold">T-Roc</h3>
-                  <p className="text-xs sm:text-sm md:text-lg">Compact SUV built for performance.</p>
-                </div>
-                <div className="flex items-center justify-center pointer-events-auto">
-                  <Rounded 
-                    backgroundColor="#D32F2F" 
-                    onClick={() => handleNavigation("/cars/T-Roc-2024")}
-                    style={{ 
-                      pointerEvents: isNavigating ? 'none' : 'auto',
-                      opacity: isNavigating ? 0.7 : 1,
-                      cursor: isNavigating ? 'not-allowed' : 'pointer'
-                    }}
-                  >
-                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-                  </Rounded>
-                </div>
-              </div>
-            </motion.div>
+          <div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,9px)] z-50">
+  <motion.div
+    className="mx-auto w-fit"
+    style={{
+      x: touaregCarX,
+      opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
+      y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
+      willChange: 'transform,opacity',
+    }}
+  >
+    <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+      <div className="p-2">
+        <h3 className="text-base sm:text-lg md:text-2xl font-bold">T-Roc</h3>
+        <p className="text-xs sm:text-sm md:text-lg">Compact SUV built for performance.</p>
+      </div>
+      <div className="flex items-center justify-center pointer-events-auto">
+        <Rounded
+          backgroundColor="#D32F2F"
+          onClick={() => handleNavigation('/cars/T-Roc-2024')}
+          style={{
+            pointerEvents: isNavigating ? 'none' : 'auto',
+            opacity: isNavigating ? 0.7 : 1,
+            cursor: isNavigating ? 'not-allowed' : 'pointer',
+          }}
+        >
+          <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+        </Rounded>
+      </div>
+    </div>
+  </motion.div>
+</div>
         </motion.div>
         
         {/*-------------------------------------------- Golf 8 Section -------------------------------------------*/}
@@ -744,41 +740,37 @@ export default function BMWCarScroll() {
 
 
           {/* Golf 8 Book Now Button */}
-          <motion.div
-            className=" absolute z-50 
-                left-1/2 md:left-[50%] lg:left-[50%] 
-                -translate-x-1/2 
-                bottom-[clamp(100px,4vh,4rem)] md:bottom-[clamp(30px,5vh,4rem)] lg:bottom-[clamp(150px,5vh,4rem)] xl:bottom-[clamp(50px,5vh,4rem)]"
-            style={{
-              x: golf8CarX,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [1, 1, 1, 0]),
-              y: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0, 0, 50]),
-              willChange: 'transform, opacity'
-            }}
-          >
-            <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-              <div className=" p-2">
-                <h3 className="text-base sm:text-lg md:text-2xl font-bold">VW Golf 8</h3>
-                <p className="text-xs sm:text-sm md:text-lg">Compact excellence with modern innovation.</p>
-              </div>
-              
-              <div className="flex items-center justify-center pointer-events-auto">
-                <Rounded 
-                  backgroundColor="#D32F2F" 
-                  onClick={() => handleNavigation("/cars/Golf-8")}
-                  style={{ 
-                    pointerEvents: isNavigating ? 'none' : 'auto',
-                    opacity: isNavigating ? 0.7 : 1,
-                    cursor: isNavigating ? 'not-allowed' : 'pointer'
-                  }}
-                >
-                  <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-                </Rounded>
-              </div>
-            </div>
-          </motion.div>
+          <div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
+  <motion.div
+    className="mx-auto w-fit"
+    style={{
+      x: golf8CarX,
+      opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [1, 1, 1, 0]),
+      y: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0, 0, 50]),
+      willChange: 'transform,opacity',
+    }}
+  >
+    <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+      <div className="p-2">
+        <h3 className="text-base sm:text-lg md:text-2xl font-bold">VW Golf 8</h3>
+        <p className="text-xs sm:text-sm md:text-lg">Compact excellence with modern innovation.</p>
+      </div>
+      <div className="flex items-center justify-center pointer-events-auto">
+        <Rounded
+          backgroundColor="#D32F2F"
+          onClick={() => handleNavigation('/cars/Golf-8')}
+          style={{
+            pointerEvents: isNavigating ? 'none' : 'auto',
+            opacity: isNavigating ? 0.7 : 1,
+            cursor: isNavigating ? 'not-allowed' : 'pointer',
+          }}
+        >
+          <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+        </Rounded>
+      </div>
+    </div>
+  </motion.div>
+</div>
         </motion.div>
        
         {/* Final Call-to-Action Section - Appears after Golf 8 */}

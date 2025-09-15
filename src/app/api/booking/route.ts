@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     const businessEmail = await resend.emails.send({
       from: 'Amseel Cars <noreply@amseelcars.com>', // Use your verified domain
       replyTo: email, // Customer's email for easy replies
-      to: ['amseelcars@dadofseo.com'], // Replace with your email
+      to: ['amseelcars5@gmail.com'], // Replace with your email
       subject: `New Car Booking Request - ${carName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     // Send confirmation email to customer
     const customerEmail = await resend.emails.send({
       from: 'Amseel Cars <noreply@amseelcars.com>',
-      replyTo: 'amseelcars@dadofseo.com', // Your business email for customer replies
+      replyTo: 'amseelcars5@gmail.com', // Your business email for customer replies
       to: [email],
       subject: `Booking Request Received - ${carName}`,
       html: `
