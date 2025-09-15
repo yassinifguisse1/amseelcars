@@ -144,7 +144,7 @@ export default function BMWCarScroll() {
   const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
   const kiaTextX = useTransform(scrollYProgress, [0, 0.7], [`${kiaTextStartVW}vw`, "-100vw"]);
   const kiaTextOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.3, 0.4], [0.1, 0.8, 0.8, 0.1]);
-  const kiaTextScale = useTransform(scrollYProgress, [0.25, 0.4, 0.55], [0.9, 1, 1.1]);
+  const kiaTextScale = useTransform(scrollYProgress, [0.5, 0.4, 0.85], [1.5, 1.5, 1.2]);
   // const kiaOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0]);
 
 
@@ -158,7 +158,7 @@ export default function BMWCarScroll() {
   const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
   const touaregTextX = useTransform(scrollYProgress, [0, 0.7], [`${touaregTextStartVW}vw`, "-50vw"]); // Same timing as car
   const touaregTextOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]); // Same timing as car
-  const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
+  const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [1.5, 1.5, 1.2]);
   // const touaregOpacity = useTransform(scrollYProgress, [0.45, 0.55, 0.75, 0.85], [0, 1, 1, 0]);
 
 
@@ -170,7 +170,7 @@ export default function BMWCarScroll() {
   const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
   const golf8TextX = useTransform(scrollYProgress, [0, 1], [`${golf8TextStartVW}vw`, "-100vw"]);
   const golf8TextOpacity = useTransform(scrollYProgress, [0.45, 0.6, 0.6, 0.85], [0.1, 0.9, 0.9, 0.1]);
-  const golf8TextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
+  const golf8TextScale = useTransform(scrollYProgress, [0.9, 0.95, 1], [1.5, 1.5, 1.2]);
   // const golf8Opacity = useTransform(scrollYProgress, [0.7, 0.8, 0.95, 1], [0, 1, 1, 1]);
 
   // Background color transitions
@@ -359,178 +359,148 @@ export default function BMWCarScroll() {
           className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: kiaOpacity }}
         >
-          {/* KIA Logo - Background parallax layer */}
-          <motion.div
-          className=" absolute  z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
-            style={{
-              x: kiaTextX,
-              opacity: kiaTextOpacity,
-              scale: kiaTextScale,
-              willChange: 'transform'
-            }}
-          >
-            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
-                <Image
-                  src="/images/Kia-sportage-logo.webp"
-                  alt="KIA Logo"
-                  width={900}
-                  height={300}
-                  className="opacity-100 pointer-events-none select-none"
-                  draggable={false}
-                />
-            </div>
-           
-            {/* <Image
-              src="/images/kia-logo.webp"
-              alt="KIA Logo"
-              width={600}
-              height={100}
-              className="opacity-100 pointer-events-none select-none"
-              draggable={false}
-            /> */}
-              
-          </motion.div>
+         
 
           {/* -----------------------------------KIA Car wrapper---------------------------------- */}
          {/* KIA Car wrapper — height-aware */}
-<motion.div
-  className="relative z-10"
-  style={{ 
-    x: kiaCarX, 
-    y: kiaCarY,
-    // Cap by height as well as width (1440×800 → ~1.8 ratio)
-    width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
-    opacity:
-      isImageLoaded('/images/kia body.webp') &&
-      isImageLoaded('/images/left wheel kia.webp') &&
-      isImageLoaded('/images/right wheel kia.webp')
-        ? 1
-        : 0,
-    willChange: 'transform',
-  }}
->
-  {/* KIA Car body */}
-  <Image
-    src="/images/kia body.webp"
-    alt="KIA body"
-    width={1440}
-    height={800}
-    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
-    className="block w-full h-auto pointer-events-none select-none"
-    draggable={false}
-    loading="eager"
-  />
-
-  {/* KIA Rear wheel (left) */}
-  <motion.div
-    className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
-    style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/left wheel kia.webp"
-      alt="KIA Left wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-      loading="eager"
-    />
-  </motion.div>
-
-  {/* KIA Front wheel (right) */}
-  <motion.div
-    className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
-    style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
-  >
-    <Image
-      src="/images/right wheel kia.webp"
-      alt="KIA Right wheel"
-      fill
-      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      className="object-contain pointer-events-none select-none"
-      draggable={false}
-      loading="eager"
-    />
-  </motion.div>
-
-  {/* KIA Shadow — scales with viewport height */}
-  <motion.div 
-    className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
-    style={{ 
-      bottom: 'calc(-1 * clamp(6px, 1.4dvh, 20px))',
-      height: 'clamp(6px, 1.4dvh, 20px)',
-      opacity: kiaShadowOpacity,
-      willChange: 'opacity'
-    }}
-  />
-</motion.div>
-
-    
-           {/* KIA CTA */}
-<div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
-  <motion.div
-    className="mx-auto w-fit"
-    style={{
-      x: kiaCarX,
-      opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
-      y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
-      willChange: 'transform,opacity',
-    }}
-  >
-    <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
-      <div className="p-2">
-        <h3 className="text-base sm:text-lg md:text-2xl font-bold">KIA Sportage</h3>
-        <p className="text-xs sm:text-sm md:text-lg">Dynamic design meets advanced technology.</p>
-      </div>
-      <div className="flex items-center justify-center pointer-events-auto">
-        <Rounded
-          backgroundColor="#D32F2F"
-          onClick={() => handleNavigation('/cars/kia-sportage-2025-diesel-auto-verte')}
-          style={{
-            pointerEvents: isNavigating ? 'none' : 'auto',
-            opacity: isNavigating ? 0.7 : 1,
-            cursor: isNavigating ? 'not-allowed' : 'pointer',
+        <motion.div
+          className="relative z-10"
+          style={{ 
+            x: kiaCarX, 
+            y: kiaCarY,
+            // Cap by height as well as width (1440×800 → ~1.8 ratio)
+            width: 'min(1120px, 85vw, calc(62dvh * 1.8))',
+            opacity:
+              isImageLoaded('/images/kia body.webp') &&
+              isImageLoaded('/images/left wheel kia.webp') &&
+              isImageLoaded('/images/right wheel kia.webp')
+                ? 1
+                : 0,
+            willChange: 'transform',
           }}
         >
-          <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
-        </Rounded>
-      </div>
-    </div>
-  </motion.div>
-</div>
+           {/* KIA Logo - Background parallax layer */}
+           <motion.div
+  className="
+    absolute z-20 left-1/2 -translate-x-1/2
+    bottom-[calc(100%+clamp(8px,4dvh,40px))]
+    pointer-events-none select-none
+  "
+  style={{
+    // reuse your opacity/scale, but DO NOT set x here
+    opacity: kiaTextOpacity,
+    scale: kiaTextScale,
+    willChange: 'transform,opacity',
+  }}
+>
+  <Image
+    src="/images/Kia-sportage-logo.webp"
+    alt="KIA Logo"
+    width={900}
+    height={300}
+    className="w-[clamp(280px,44vw,900px)] h-auto"
+    draggable={false}
+  />
+</motion.div>
+          {/* KIA Car body */}
+          <Image
+            src="/images/kia body.webp"
+            alt="KIA body"
+            width={1440}
+            height={800}
+            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
+            className="block w-full h-auto pointer-events-none select-none"
+            draggable={false}
+            loading="eager"
+          />
+        
+          {/* KIA Rear wheel (left) */}
+          <motion.div
+            className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
+            style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
+          >
+            <Image
+              src="/images/left wheel kia.webp"
+              alt="KIA Left wheel"
+              fill
+              sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+              className="object-contain pointer-events-none select-none"
+              draggable={false}
+              loading="eager"
+            />
+          </motion.div>
+        
+          {/* KIA Front wheel (right) */}
+          <motion.div
+            className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
+            style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
+          >
+            <Image
+              src="/images/right wheel kia.webp"
+              alt="KIA Right wheel"
+              fill
+              sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+              className="object-contain pointer-events-none select-none"
+              draggable={false}
+              loading="eager"
+            />
+          </motion.div>
+        
+          {/* KIA Shadow — scales with viewport height */}
+          <motion.div 
+            className="absolute left-1/2 -translate-x-1/2 w-[60%] rounded-full bg-black blur-2xl"
+            style={{ 
+              bottom: 'calc(-1 * clamp(6px, 1.4dvh, 20px))',
+              height: 'clamp(6px, 1.4dvh, 20px)',
+              opacity: kiaShadowOpacity,
+              willChange: 'opacity'
+            }}
+          />
+        </motion.div>
+        
+            
+                   {/* KIA CTA */}
+        <div className="absolute inset-x-0 bottom-[clamp(12px,6dvh,8px)] z-50">
+          <motion.div
+            className="mx-auto w-fit"
+            style={{
+              x: kiaCarX,
+              opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
+             y: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
+             willChange: 'transform,opacity',
+           }}
+         >
+           <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none">
+             <div className="p-2">
+               <h3 className="text-base sm:text-lg md:text-2xl font-bold">KIA Sportage</h3>
+               <p className="text-xs sm:text-sm md:text-lg">Dynamic design meets advanced technology.</p>
+             </div>
+             <div className="flex items-center justify-center pointer-events-auto">
+               <Rounded
+                 backgroundColor="#D32F2F"
+                 onClick={() => handleNavigation('/cars/kia-sportage-2025-diesel-auto-verte')}
+                 style={{
+                   pointerEvents: isNavigating ? 'none' : 'auto',
+                   opacity: isNavigating ? 0.7 : 1,
+                   cursor: isNavigating ? 'not-allowed' : 'pointer',
+                 }}
+               >
+                 <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+               </Rounded>
+             </div>
+           </div>
+         </motion.div>
+        </div>
         </motion.div>
 
-        {/*-------------------------------------------- Touareg Section -------------------------------------------*/}
+        {/*-------------------------------------------- t-roc Section -------------------------------------------*/}
         <motion.div
           className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: touaregOpacity }}
         >
           {/* Touareg Logo - Background parallax layer */}
          
-           {/* Touareg Logo - Background parallax layer */}
-           <motion.div
-            className="absolute z-0 pointer-events-none select-none top-[28%] sm:top-[22%] md:top-[21%] lg:top-[17%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
-            style={{
-              x: touaregTextX,
-              opacity: touaregTextOpacity,
-              scale: touaregTextScale,
-              willChange: 'transform'
-            }}
-          >
-            <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
-              
-            <Image
-              src="/images/t roc logo-0014.webp"
-              alt="Touareg Logo"
-              width={800}
-              height={200}
-              className="opacity-100 drop-shadow-2xl"
-              draggable={false}
-              priority
-            />
-            </div>
-            
-          </motion.div>
+          
 
          {/* T-Roc Car wrapper — height-aware */}
 <motion.div
@@ -547,6 +517,30 @@ export default function BMWCarScroll() {
     willChange: 'transform',
   }}
 >
+  {/* ✅ T-Roc Logo — anchored to the car */}
+<motion.div
+  className="
+    absolute z-20 left-1/2 -translate-x-1/2
+    bottom-[calc(100%+clamp(8px,4dvh,40px))]
+    pointer-events-none select-none
+  "
+  style={{
+    // reuse your opacity/scale, but do NOT apply x here
+    opacity: touaregTextOpacity,
+    scale: touaregTextScale,
+    willChange: 'transform,opacity',
+  }}
+>
+  <Image
+    src="/images/t roc logo-0014.webp"
+    alt="T-Roc Logo"
+    width={800}
+    height={200}
+    className="w-[clamp(220px,40vw,760px)] h-auto"
+    draggable={false}
+    priority
+  />
+</motion.div>
   {/* T-Roc body */}
   <Image
     src="/images/t-roc body.png"
@@ -633,7 +627,7 @@ export default function BMWCarScroll() {
       </div>
     </div>
   </motion.div>
-</div>
+          </div>
         </motion.div>
         
         {/*-------------------------------------------- Golf 8 Section -------------------------------------------*/}
@@ -641,7 +635,6 @@ export default function BMWCarScroll() {
           className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
           // style={{ opacity: golf8Opacity }}
         >
-          {/* Golf 8 Logo - Background parallax layer */}
        
 
 
@@ -682,7 +675,7 @@ export default function BMWCarScroll() {
     alt="VW Golf 8 Logo"
     width={800}
     height={200}
-    className="w-[clamp(220px,40vw,760px)] h-auto"
+    className="w-[clamp(320px,40vw,800px)] h-auto"
     draggable={false}
     priority
   />
