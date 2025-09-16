@@ -1,0 +1,292 @@
+// CarGridSection - Responsive Grid Layout for Car Cards
+// Following mobile-first approach with semantic class names
+
+.carGridSection {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 2rem 0;
+  
+  // Ensure proper spacing and layout
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.container {
+  width: 100%;
+  // max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Center the container content
+  
+  // Tablet and up
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+  
+  // Desktop and up
+  @media (min-width: 1024px) {
+    padding: 0 3rem;
+  }
+}
+
+// Section Header
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  // Mobile adjustments
+  @media (max-width: 767px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  
+  // Tablet and up
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+  }
+  
+  // Desktop and up
+  @media (min-width: 1024px) {
+    font-size: 3rem;
+  }
+  
+  // Large desktop
+  @media (min-width: 1440px) {
+    font-size: 3.5rem;
+  }
+}
+
+.sectionSubtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #718096;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  // Tablet and up
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
+  }
+  
+  // Desktop and up
+  @media (min-width: 1024px) {
+    font-size: 1.25rem;
+  }
+}
+
+// Responsive Car Grid
+.carGrid {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  justify-items: center; // Center cards on all devices
+  
+  // Mobile: 1 column
+  grid-template-columns: 1fr;
+  
+  // Small mobile (350px+): Still 1 column but better spacing
+  @media (min-width: 350px) {
+    gap: 1.25rem;
+  }
+  
+  // Large mobile (480px+): 2 columns
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-items: center; // Ensure cards are centered in each column
+  }
+  
+  // Mobile specific: Ensure single column is perfectly centered
+  @media (max-width: 479px) {
+    justify-items: center;
+    place-items: center;
+  }
+  
+  // Tablet (768px+): 2-3 columns based on content
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  // Desktop (1024px+): 3-4 columns
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  // Large desktop (1200px+): Optimal 4 columns
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  
+  // Extra large (1440px+): 4-5 columns with max width
+  @media (min-width: 1440px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+// Car Card Container
+.carCard {
+  width: 100%;
+  max-width: 400px; // Limit card width for better centering
+  height: auto;
+  // Ensure cards have consistent minimum height
+  min-height: 400px;
+  
+  // Add subtle hover effect on non-touch devices
+  @media (hover: hover) and (pointer: fine) {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  
+  // Touch device interactions
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      transform: translateY(-2px);
+      transition: transform 0.1s ease;
+    }
+  }
+  
+  // Tablet adjustments
+  @media (min-width: 768px) {
+    min-height: 420px;
+  }
+  
+  // Desktop adjustments
+  @media (min-width: 1024px) {
+    min-height: 450px;
+  }
+  
+  // Mobile specific adjustments for better centering
+  @media (max-width: 479px) {
+    max-width: 350px; // Smaller max width on mobile for better centering
+    width: 90%; // Use percentage width for better responsiveness
+  }
+  
+  // Small mobile adjustments
+  @media (max-width: 350px) {
+    max-width: 300px;
+    width: 95%;
+  }
+}
+
+// Height-based responsive adjustments
+// Very short screens (500px and below)
+@media (max-height: 500px) {
+  .carGridSection {
+    padding: 1rem 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 1.5rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+  
+  .sectionSubtitle {
+    font-size: 0.9rem;
+  }
+  
+  .carGrid {
+    gap: 0.8rem;
+  }
+  
+  .carCard {
+    min-height: 320px;
+  }
+}
+
+// Short screens (600px and below)
+@media (max-height: 600px) {
+  .carGridSection {
+    padding: 1.5rem 0;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 2rem;
+  }
+  
+  .carGrid {
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .carCard {
+    min-height: 350px;
+  }
+}
+
+// Medium height screens (700px and below)
+@media (max-height: 700px) {
+  .carGridSection {
+    padding: 1.5rem 0;
+  }
+  
+  .carCard {
+    min-height: 380px;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .sectionTitle {
+    color: #000000;
+  }
+  
+  .sectionSubtitle {
+    color: #333333;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .carCard {
+    transition: none;
+    
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .carGridSection {
+    background: white;
+    padding: 1rem 0;
+  }
+  
+  .carGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .carCard {
+    min-height: auto;
+    break-inside: avoid;
+  }
+}

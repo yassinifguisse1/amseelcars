@@ -77,7 +77,7 @@ export default function ParallexCards() {
         if (cardElement) {
           ScrollTrigger.create({
             trigger: cardElement,
-            start: "top top",
+            start: "top center",
             end: "bottom center", 
             onEnter: () => {
               // Create a darker version of the project color for background
