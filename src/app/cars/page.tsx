@@ -5,9 +5,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useRevealed } from '@/hooks/useRevealed'
 import CarGridSection from '@/components/Cars/CarGridSection'
-import Heroo from '@/components/Cars/Heroo/Heroo'
 import Footer from '@/components/Footer/Footer'
 import ParallexCards from '@/components/Cars/ParallexCards/ParallexCards'
+import HeroVideo from '@/components/Cars/HeroVedio/HeroVideo'
 
 export default function CarsPage() {
   useRevealed()
@@ -48,7 +48,8 @@ export default function CarsPage() {
   return (
     <div className=''>
       <div className='revealed'></div>
-      <Heroo />
+      {/* <Heroo /> */}
+      <HeroVideo/>
       <CarGridSection />
       <ParallexCards />
       <Footer />

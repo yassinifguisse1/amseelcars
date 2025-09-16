@@ -4,7 +4,7 @@
 .carGridSection {
   width: 100%;
   min-height: 100vh;
-  background: #f8fafc;
+  background: #000;
   padding: 2rem 0;
   
   // Ensure proper spacing and layout
@@ -48,7 +48,7 @@
 .sectionTitle {
   font-size: 2rem;
   font-weight: 700;
-  color: #1a202c;
+  color: #FFF;
   margin: 0 0 1rem 0;
   line-height: 1.2;
   letter-spacing: -0.025em;
@@ -72,7 +72,7 @@
 .sectionSubtitle {
   font-size: 1rem;
   font-weight: 400;
-  color: #718096;
+  color: #cecece;
   margin: 0;
   line-height: 1.5;
   max-width: 600px;
