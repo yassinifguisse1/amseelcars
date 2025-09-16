@@ -42,7 +42,7 @@ export default function Footer() {
                             </Link>
                         </Rounded>
                         <Rounded>
-                            <Link href="tel:+212662500181">
+                            <Link href=" https://wa.me/212662500181/?text=Bonjour, je souhaite louer une voiture. ">
                             <p>+212 662 500 181</p>
                             </Link>
                         </Rounded>

@@ -20,7 +20,7 @@ export default function Heroo() {
         scrollTrigger: {
           trigger: root.current,
           start: 'top top',
-          end: '+=300%', // How long the animation lasts (3x viewport height)
+          end: '+=10%', // How long the animation lasts (3x viewport height)
           scrub: 1,
           pin: true, // Pin the entire section during animation
           anticipatePin: 1,
@@ -92,7 +92,7 @@ export default function Heroo() {
   }, []);
 
   return (
-    <section ref={root} className="relative bg-whitex w-full h-[100svh] overflow-hidden bg-black">
+    <section ref={root} className="relative bg-whitex w-full h-[50svh] overflow-hidden bg-black">
       {/* Logo */}
       <div className="logo absolute top-0 right-0 m-[32px] w-[18px] h-[18px]  rounded-full z-[100] hidden"></div>
       
@@ -119,28 +119,8 @@ export default function Heroo() {
       </div>
 
       {/* Website content with image */}
-      <div className="website-content absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-screen z-0">
-        <div 
-          ref={imgHolder}
-          className="img-holder relative w-full h-full overflow-hidden
-            aspect-square [clip-path:polygon(15%_15%,_85%_15%,_85%_85%,_15%_85%)]
-            sm:[clip-path:polygon(36%_18%,_64%_18%,_64%_82%,_36%_82%)]
-            md:[clip-path:polygon(37%_20%,_63%_20%,_63%_80%,_37%_80%)]
-            lg:[clip-path:polygon(37.5%_20%,_62.5%_20%,_62.5%_80%,_37.5%_80%)]
-            rotate-[25deg] sm:rotate-[27deg] md:rotate-[28deg] lg:rotate-[30deg] "
-        >
-          <div ref={imgInner} className="absolute inset-0">
-            <Image
-              src="/images/banner-5.jpg"
-              alt="AMSEEL Cars Hero Image"
-              fill
-              className="object-cover  "
-              priority
-              sizes="100vw"
-            />
-          </div>
-        </div>
-      </div>
+      
+     
     </section>
   );
 }

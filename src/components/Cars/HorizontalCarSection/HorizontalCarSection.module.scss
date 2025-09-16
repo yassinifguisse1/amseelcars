@@ -2,23 +2,43 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #000000 0%, #000000 100% );
+  background: #000;
   overflow: hidden;
   
+  // Allow scrolling for grid layouts
+  &.gridMode {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+  }
+  
+  // Ensure non-grid mode keeps 100vh
+  &:not(.gridMode) {
+    height: 100vh;
+  }
 }
 
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
   width: 100vw;
-  height: 100vh;
   padding: 0 3vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
- 
+  
+  // Default height for non-grid mode
+  &:not(.gridMode) {
+    height: 100vh;
+  }
+  
+  // For grid mode, adjust container
+  .gridMode & {
+    height: auto;
+    min-height: 100vh;
+    padding: 0;
+  }
 }
 
 .sectionHeader {
@@ -111,6 +131,11 @@
   // Initial position will be set by GSAP, no need for CSS transform
   // padding-top: 1vw;
   // padding-bottom: 1vw;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  perspective: 1000px;
 }
 
 .cardWrapper {
@@ -167,7 +192,11 @@
     // Initial position will be set by GSAP, no need for CSS transform
     // padding-top: 10vw;
     // padding-bottom: 10vw;
-
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    perspective: 1000px;
   }
  
   .cardWrapper {
@@ -394,3 +423,253 @@
     left: 100%;
   }
 } 
+// Grid layout for short height screens (no animations)
+.gridContainer {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+
+.gridLayout {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  min-height: calc(100vh - 4rem); // Ensure enough height for scrolling
+}
+
+.gridCard {
+  width: 100%;
+  transform: none !important; // Override any GSAP transforms
+  opacity: 1 !important; // Ensure visibility
+}
+
+// Height-specific grid configurations
+.grid-ultra-short {
+  // 500px and below: 4 columns, compact
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.8rem;
+  
+  .gridCard {
+    max-width: 320px;
+  }
+}
+
+.grid-very-short {
+  // 600px: 3-4 columns
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  
+  .gridCard {
+    max-width: 350px;
+  }
+}
+
+.grid-short {
+  // 700px and 800px: 3 columns, more space
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.2rem;
+  
+  .gridCard {
+    max-width: 380px;
+  }
+}
+
+// Responsive height-based layouts (for animated layouts)
+.singleRowLayout {
+  height: 100% !important;
+  justify-content: center;
+  
+  &[data-height-category="ultra-short"] {
+    height: 90% !important;
+    
+    .cardWrapper {
+      width: 180px;
+      margin-right: 0.8rem;
+    }
+  }
+  
+  &[data-height-category="very-short"] {
+    height: 95% !important;
+    
+    .cardWrapper {
+      width: 200px;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.twoRowLayout {
+  &[data-height-category="short"] {
+    height: 40% !important; // Reduced height for short screens
+    
+    .cardWrapper {
+      width: 220px;
+      margin-right: 1rem;
+    }
+  }
+  
+  &[data-height-category="very-short"] {
+    height: 45% !important;
+    
+    .cardWrapper {
+      width: 200px;
+      margin-right: 0.8rem;
+    }
+  }
+}
+
+// Height-specific media queries
+@media (max-height: 500px) {
+  .horizontalSection:not(.gridMode) {
+    height: 100vh;
+  }
+  
+  .gridContainer {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  
+  .rowContainer {
+    height: 90% !important;
+  }
+  
+  .cardWrapper {
+    width: 160px !important;
+    margin-right: 0.6rem !important;
+  }
+}
+
+@media (max-height: 600px) and (min-width: 769px) {
+  .horizontalSection:not(.gridMode) {
+    height: 100vh;
+  }
+  
+  .singleRowLayout {
+    height: 85% !important;
+  }
+  
+  .twoRowLayout {
+    height: 42% !important;
+  }
+}
+
+@media (max-height: 700px) {
+  .horizontalSection:not(.gridMode) {
+    height: 100vh;
+  }
+  
+  .singleRowLayout {
+    height: 90% !important;
+  }
+  
+  .cardWrapper {
+    width: 200px !important;
+    margin-right: 0.8rem !important;
+  }
+}
+
+// Grid responsive breakpoints
+@media (max-width: 768px) {
+  .gridLayout {
+    padding: 0.5rem;
+  }
+  
+  .grid-ultra-short {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.6rem;
+  }
+  
+  .grid-very-short {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  .grid-short {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  
+  .gridContainer {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-ultra-short,
+  .grid-very-short,
+  .grid-short {
+    grid-template-columns: 1fr 1fr; // Always 2 columns on mobile
+    gap: 0.5rem;
+  }
+  
+  .gridContainer {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-height: 800px) {
+  .gridContainer {
+    height: auto;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .gridContainer {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .gridContainer {
+    padding: 0.6rem;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  
+  .gridLayout {
+    gap: 0.8rem;
+    min-height: calc(100vh - 1.2rem);
+  }
+}
+
+@media (max-height: 500px) {
+  .gridContainer {
+    padding: 0.5rem;
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  
+  .gridLayout {
+    gap: 0.6rem;
+    padding: 0.5rem 0;
+    min-height: calc(100vh - 1rem);
+  }
+}
+
+// Ensure grid is always scrollable for short heights
+@media (max-height: 800px) {
+  .gridMode {
+    .horizontalSection {
+      overflow: visible !important;
+      height: auto !important;
+    }
+    
+    .container {
+      height: auto !important;
+      min-height: 100vh;
+    }
+  }
+}
+
