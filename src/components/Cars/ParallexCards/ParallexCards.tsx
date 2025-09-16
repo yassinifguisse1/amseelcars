@@ -33,19 +33,9 @@ const darkenColor = (hex: string, amount: number): string => {
 export default function ParallexCards() {
   const container = useRef<HTMLElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
 
   // Show the fixed BG only while this section is in view
-  useEffect(() => {
-    const el = container.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setActive(entry.isIntersecting),
-      { root: null, threshold: 0, rootMargin: "-10% 0px -10% 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+
   
   const { scrollYProgress } = useScroll({
     target: container,
@@ -116,9 +106,7 @@ export default function ParallexCards() {
         ref={backgroundRef}
         className="fixed inset-0 h-full w-full -z-10 transition-colors duration-300"
         style={{ 
-           // Hero is 50svh tall; keep this BG below it
-          //  top: "var(--hero-h, 30svh)",           // fallback to 50vh if you like
-           opacity: active ? 1 : 0,               // hidden until section is in view
+        
           backgroundColor: darkenColor(projects[0]?.color || '#BBACAF', 0.3) }}
       />
       

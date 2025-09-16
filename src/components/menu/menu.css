@@ -1,113 +1,128 @@
-.menu-overlay-bar, .menu-bar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    
-    padding: 2em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
+/* top bars */
+.menu-overlay-bar,
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1001; /* base for bars */
 
 }
 
+/* Dynamic text color using CSS mix-blend-mode */
 .menu-bar a,
-.menu-open p {
-    color: #fff;
-    cursor: pointer;
-
+.menu-open p { 
+  color: #fff; 
+  cursor: pointer; 
+  mix-blend-mode: difference;  /* Auto-flips: white on dark, black on light */
+  transition: color 0.2s ease;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-.menu-close p {
-    color: #000;
-    cursor: pointer;
-
+.menu-close p { 
+  color: #000; 
+  cursor: pointer; 
+  mix-blend-mode: normal;  /* Keep normal in overlay */
+  transition: color 0.2s ease;
 }
+
+/* Overlay elements use normal blending */
+.menu-overlay a,
+.menu-overlay p {
+  mix-blend-mode: normal;
+  color: #000;
+}
+
+
+/* full overlay */
 .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    padding: 2em;
-    background: #FB4545;
-    z-index: 1000;
-    display: flex;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-    
+  position: fixed;
+  inset: 0;
+  padding: 2em;
+  background: #fb4545;
+  z-index: 2000;           /* <<< ABOVE .menu-bar */
+  display: flex;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
 
-
+  /* closed: don't intercept clicks */
+  pointer-events: none;
+  opacity: 0;
+}
+.menu-overlay[data-open="true"] {
+  pointer-events: auto;
+  opacity: 1;
 }
 
-.menu-close-icon { 
+/* when overlay is open, hide/disable the top bar with "Menu" */
+.menu-container[data-open="true"] .menu-bar {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
 
-    flex: 2;
-    display: flex;
-    align-items: flex-end;
-    cursor: pointer;
+.menu-close-icon {
+  flex: 2;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
 }
 .menu-copy {
-    
-    flex: 4;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-top: 2em;
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 2em;
 }
 .menu-preview {
-
-    flex: 4;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+  flex: 4;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .menu-close-icon p {
-    font-size: 100px;
-    -webkit-text-stroke: 5px #FB4545;
-    line-height: 70%;
+  font-size: 100px;
+  -webkit-text-stroke: 5px #fb4545;
+  line-height: 70%;
 }
 
 .menu-link-item {
-    width: max-content;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-
+  width: max-content;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
-.menu-link-item-holder a {
-    position: relative;
-
+.menu-link-item:hover .menu-link-item-holder,
+.menu-link-item-holder:hover {
+  border-bottom: 1px solid #000;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
-.menu-link-item-holder a {
-    color: #000;
-    font-size: 80px;
-    font-weight: 400;
-    letter-spacing: -0.02;
-    line-height: 85%;
 
+.menu-link-item-holder  {
+  position: relative;
+  color: #000;
+  font-size: 80px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 85%;
 }
-.menu-info {
-    display: flex;
 
-}
+.menu-info { display: flex; }
 .menu-info-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-
-@media (max-width: 900px){
-    .menu-close-icon{
-        display: none;
-
-    }
-    .menu-copy{
-        padding-top: 8em;
-    }
-    .menu-link-item-holder a {
-        font-size: 60px;
-    }
+/* smaller screens */
+@media (max-width: 900px) {
+  .menu-close-icon { display: none; }
+  .menu-copy { padding-top: 8em; }
+  .menu-link-item-holder a { font-size: 60px; }
 }
