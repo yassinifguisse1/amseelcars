@@ -246,7 +246,7 @@ const Cardrive = () => {
 
     // Load images with better performance and progress tracking
     useEffect(() => {
-        const loadImages = async () => {
+        const loadImages = async (useMobileFrames = true) => {
             // Initialize loading states
             setWordsComplete(true); // Speedometer doesn't use word animation
             setMinimumTimeElapsed(false);
@@ -257,7 +257,7 @@ const Cardrive = () => {
             
             let startFrame, endFrame, totalImages, frameFolder;
             
-            if (isMobileDevice) {
+            if (isMobileDevice && useMobileFrames) {
                 // Use mobile frames - reduced range for better performance
                 startFrame = 400;
                 endFrame = 763; // Reduced from 763 to 600 for mobile performance
@@ -265,14 +265,29 @@ const Cardrive = () => {
                 frameFolder = '/mobile-frames';
                 setTotalFrames(totalImages);
                 console.log('Loading mobile frames:', startFrame, 'to', endFrame, '(', totalImages, 'total)');
+                console.log('Mobile frame folder:', frameFolder);
+                
+                // Test if mobile frames directory exists by trying to load first frame
+                const testImg = new Image();
+                const testFrameNumber = startFrame.toString().padStart(5, '0');
+                testImg.onload = () => {
+                    console.log('Mobile frames directory exists, proceeding with mobile frames');
+                };
+                testImg.onerror = () => {
+                    console.log('Mobile frames directory not found, falling back to desktop frames');
+                    setTimeout(() => loadImages(false), 100);
+                    return;
+                };
+                testImg.src = `${frameFolder}/frame_${testFrameNumber}.webp`;
             } else {
-                // Use desktop frames
+                // Use desktop frames (fallback for mobile if mobile frames fail)
                 startFrame = 400;
                 endFrame = 763;
                 totalImages = endFrame - startFrame + 1;
                 frameFolder = '/frame';
                 setTotalFrames(totalImages);
                 console.log('Loading desktop frames:', startFrame, 'to', endFrame, '(', totalImages, 'total)');
+                console.log('Desktop frame folder:', frameFolder);
             }
 
             // Initialize progress tracking
@@ -302,10 +317,14 @@ const Cardrive = () => {
                         loadedCount++;
                         updateFramesProgress(loadedCount, totalImages);
                         
+                        // Add image to loadedImages array only when it's actually loaded
+                        loadedImages[i - startFrame] = img;
+                        
                         if (loadedCount === totalImages) {
+                            setImages(loadedImages); // Set images only when all are loaded
                             setImagesLoaded(true);
                             setFramesLoaded(true);
-                            console.log('All frames loaded successfully!');
+                            console.log('All frames loaded successfully!', `Loaded ${loadedCount}/${totalImages} frames`);
                         }
                         resolve(img);
                     };
@@ -315,27 +334,47 @@ const Cardrive = () => {
                         loadedCount++;
                         updateFramesProgress(loadedCount, totalImages);
                         
+                        // Create a placeholder image for failed loads
+                        const placeholder = new Image();
+                        placeholder.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwMCIvPjwvc3ZnPg==';
+                        loadedImages[i - startFrame] = placeholder;
+                        
                         if (loadedCount === totalImages) {
+                            setImages(loadedImages); // Set images even with some failures
                             setImagesLoaded(true);
                             setFramesLoaded(true);
+                            console.log(`Loaded ${loadedCount}/${totalImages} frames (some failed)`);
                         }
                         reject(new Error(`Failed to load frame ${i}`));
                     };
                     
                     img.src = `${frameFolder}/frame_${frameNumber}.webp`;
-                    loadedImages.push(img);
                 });
                 
                 loadPromises.push(loadPromise);
             }
             
-            setImages(loadedImages);
-            
             // Wait for all images with timeout
             try {
-                await Promise.allSettled(loadPromises);
+                const results = await Promise.allSettled(loadPromises);
+                const failedCount = results.filter(result => result.status === 'rejected').length;
+                console.log('Image loading completed', `Failed: ${failedCount}/${totalImages}`);
+                
+                // If too many frames failed and we're on mobile, try desktop frames as fallback
+                if (isMobileDevice && useMobileFrames && failedCount > totalImages * 0.5) {
+                    console.log('Too many mobile frames failed, falling back to desktop frames...');
+                    setTimeout(() => loadImages(false), 1000);
+                    return;
+                }
             } catch (error) {
                 console.error('Some frames failed to load:', error);
+                
+                // If we're on mobile and mobile frames failed, try desktop frames
+                if (isMobileDevice && useMobileFrames) {
+                    console.log('Mobile frames failed, falling back to desktop frames...');
+                    setTimeout(() => loadImages(false), 1000);
+                    return;
+                }
             }
         };
 
@@ -528,6 +567,17 @@ const Cardrive = () => {
     // Initial render when images are loaded and canvas is ready
     useEffect(() => {
         if (imagesLoaded && images.length > 0) {
+            console.log('Images loaded, attempting initial render...', {
+                imagesLoaded,
+                imagesLength: images.length,
+                firstImage: images[0] ? {
+                    complete: images[0].complete,
+                    naturalWidth: images[0].naturalWidth,
+                    naturalHeight: images[0].naturalHeight,
+                    src: images[0].src
+                } : 'No first image'
+            });
+            
             // Small delay to ensure canvas is properly initialized
             const timer = setTimeout(() => {
                 console.log('Rendering initial frame...');
