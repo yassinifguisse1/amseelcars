@@ -43,7 +43,7 @@ const HeroVideo = () => {
     {/* <h2 className='uppercase font-bold text-white'>
         Symphonia
     </h2> */}
-</section>
+    </section>
   )
 }
 

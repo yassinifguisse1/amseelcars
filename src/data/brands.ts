@@ -3,7 +3,7 @@ import { Brand } from '@/components/about/Hero/OurBrandsGrid'
 export const sampleBrands: Brand[] = [
   {
     name: "BMW",
-    logo: "/images/bmw.webp",
+    logo: "/images/BMW.webp",
     preview: "/images/Bmw x3 pack M 2025 diesel vue devant amseel cars agadir maroc.webp",
     href: "/cars/bmw-x3-2025"
   },
