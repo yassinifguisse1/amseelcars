@@ -19,6 +19,14 @@ const menuLinks = [
   { path: "/cars", label: "CARS" },
   { path: "/contact", label: "Contact" },
 ];
+// Choose the ink (black text or white text) per route.
+// Use "dark" when the background behind the bar is dark.
+const inkByRoute: Record<string, "light" | "dark"> = {
+    "/": "dark",       // e.g. hero is dark → show white ink
+    "/about": "light",
+    "/cars": "light",
+    "/contact": "light",
+  };
 
 export default function Menu() {
   const container = useRef<HTMLDivElement>(null);
@@ -26,58 +34,20 @@ export default function Menu() {
   const tl = useRef<gsap.core.Timeline | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [textColor, setTextColor] = useState('#fff');
   const pathname = usePathname();
   const router = useRouter();
 
+    // Set the ink per route (update when route changes)
+    useEffect(() => {
+        const ink = inkByRoute[pathname] ?? "light";
+        document.documentElement.setAttribute("data-ink", ink);
+      }, [pathname]);
   useEffect(() => {
     try { menuLinks.forEach((l) => router.prefetch?.(l.path)); } catch {}
   }, [router]);
 
   // Fallback: Detect background color if mix-blend-mode doesn't work
-  useEffect(() => {
-    const detectBackground = () => {
-      const menuBar = document.querySelector('.menu-bar');
-      if (!menuBar) return;
 
-      // Get the element behind the menu bar
-      const rect = menuBar.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const elementBelow = document.elementFromPoint(centerX, centerY);
-      
-      if (elementBelow) {
-        const style = window.getComputedStyle(elementBelow);
-        const bgColor = style.backgroundColor;
-        
-        // Simple detection: if background is white-ish, use black text
-        if (bgColor.includes('rgb(255, 255, 255)') || 
-            bgColor.includes('rgb(248, 250, 252)') || 
-            bgColor.includes('#fff') ||
-            bgColor.includes('#f8fafc')) {
-          setTextColor('#000'); // Black text on white background
-        } else {
-          setTextColor('#fff'); // White text on dark background
-        }
-      }
-    };
-
-    // Check on scroll and resize
-    const handleScroll = () => requestAnimationFrame(detectBackground);
-    const handleResize = () => requestAnimationFrame(detectBackground);
-
-    // Initial check
-    detectBackground();
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [pathname]);
 
   useGSAP(
     () => {
@@ -139,11 +109,12 @@ export default function Menu() {
   };
 
   return (
-    <div className="menu-container" ref={container} data-open="false">
+    <div className="menu-container" ref={container} data-open={isOpen ? "true" : "false"}
+    >
       {/* Top bar (hidden while overlay is open via CSS) */}
       <div className="menu-bar">
         <div className="menu-logo">
-          <Link href="/" style={{ color: textColor }}>amseelcars</Link>
+          <Link href="/" >amseelcars</Link>
         </div>
         <button
           className="menu-open"
@@ -151,7 +122,7 @@ export default function Menu() {
           aria-expanded={isOpen}
           onClick={openMenu}
         >
-          <p style={{ color: textColor }}>Menu</p>
+          <p >Menu</p>
         </button>
       </div>
 

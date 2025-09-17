@@ -455,16 +455,22 @@ const Cardrive = () => {
     const render = useCallback(
         (index: number) => {
             const canvas = canvasRef.current;
-            if (!canvas || !imagesLoaded || !images.length) return;
+            if (!canvas || !imagesLoaded || !images.length) {
+                console.log('Render skipped - canvas:', !!canvas, 'imagesLoaded:', imagesLoaded, 'images.length:', images.length);
+                return;
+            }
             
             const imageIndex = Math.max(0, Math.min(Math.round(index), images.length - 1));
             
-            // Skip if same frame (performance optimization)
-            if (imageIndex === lastRenderedIndex.current) return;
+            // Skip if same frame (performance optimization) - but allow first frame
+            if (imageIndex === lastRenderedIndex.current && lastRenderedIndex.current !== -1) return;
             lastRenderedIndex.current = imageIndex;
             
             const ctx = canvas.getContext('2d');
-            if (!ctx) return;
+            if (!ctx) {
+                console.log('No canvas context available');
+                return;
+            }
 
             const img = images[imageIndex];
             
@@ -473,10 +479,8 @@ const Cardrive = () => {
                 const displayWidth = parseInt(canvas.style.width) || canvas.width;
                 const displayHeight = parseInt(canvas.style.height) || canvas.height;
                 
-                // Clear with black background (use clearRect for better performance)
+                // Clear canvas completely
                 ctx.clearRect(0, 0, displayWidth, displayHeight);
-                ctx.fillStyle = '#000000';
-                ctx.fillRect(0, 0, displayWidth, displayHeight);
                 
                 // Optimized drawing calculations
                 const canvasAspect = displayWidth / displayHeight;
@@ -506,13 +510,53 @@ const Cardrive = () => {
                 // Draw image with error handling
                 try {
                     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+                    console.log(`Successfully rendered frame ${imageIndex}`);
                 } catch (error) {
                     console.error('Error drawing frame:', error, 'Frame:', imageIndex);
                 }
+            } else {
+                console.log(`Image not ready for frame ${imageIndex}:`, {
+                    complete: img?.complete,
+                    naturalWidth: img?.naturalWidth,
+                    naturalHeight: img?.naturalHeight
+                });
             }
         },
         [images, imagesLoaded, isMobile]
     );
+
+    // Initial render when images are loaded and canvas is ready
+    useEffect(() => {
+        if (imagesLoaded && images.length > 0) {
+            // Small delay to ensure canvas is properly initialized
+            const timer = setTimeout(() => {
+                console.log('Rendering initial frame...');
+                render(0); // Render first frame immediately
+            }, 50);
+            
+            return () => clearTimeout(timer);
+        }
+    }, [imagesLoaded, images, render]);
+
+    // Additional effect to ensure first frame renders when canvas is ready
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (canvas && imagesLoaded && images.length > 0) {
+            // Check if canvas has been properly sized
+            const hasValidSize = canvas.width > 0 && canvas.height > 0;
+            if (hasValidSize) {
+                console.log('Canvas ready, rendering first frame...');
+                render(0);
+            } else {
+                // Wait a bit more for canvas to be sized
+                const timer = setTimeout(() => {
+                    console.log('Delayed first frame render...');
+                    render(0);
+                }, 100);
+                return () => clearTimeout(timer);
+            }
+        }
+    }, [imagesLoaded, images, render]);
 
     // Add throttling state for mobile
     const lastRenderTime = useRef(0);
@@ -531,10 +575,16 @@ const Cardrive = () => {
         render(frameIndex);
     });
 
-    // Initial render when component mounts
+
+    // Fallback render effect - ensures first frame is shown
     useEffect(() => {
         if (imagesLoaded && images.length > 0) {
-            render(0); // Render first frame
+            const fallbackTimer = setTimeout(() => {
+                console.log('Fallback render - ensuring first frame is shown');
+                render(0);
+            }, 200);
+            
+            return () => clearTimeout(fallbackTimer);
         }
     }, [imagesLoaded, images, render]);
 
