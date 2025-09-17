@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -26,7 +25,7 @@ const TextHover = () => {
 
   return (
     <div className="flex flex-col justify-center items-start ">
-      <h1 className={styles.text}>LOUEZ & PARTEZ<span>AMCEEL CAR</span></h1>
+      <h1 className={styles.text}>LOUEZ & PARTEZ<span>AMSEEL CAR</span></h1>
       <h1 className={styles.text}>RETRAIT RAPIDE<span>AÉROPORT & VILLE</span></h1>
       <h1 className={styles.text}>RÉSERVATION<span>EN 2 MINUTES</span></h1>
 

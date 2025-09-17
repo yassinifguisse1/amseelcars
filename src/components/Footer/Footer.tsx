@@ -37,8 +37,8 @@ export default function Footer() {
                 </div>
                 <div className={styles.nav}>
                         <Rounded>
-                            <Link href="mailto:contact@amseelcars.com" >
-                            <p>contact@amseelcars.com</p>
+                            <Link href="mailto:amseelcars5@gmail.com" >
+                            <p>amseelcars5@gmail.com</p>
                             </Link>
                         </Rounded>
                         <Rounded>

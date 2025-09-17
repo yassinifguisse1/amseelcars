@@ -187,10 +187,10 @@ export default function Menu() {
             </div>
 
             <div className="menu-info-col flex gap-4">
-              <Link href="mailto:info@amseelcars.com" target="_blank" className="menu-link">
+              <Link href="mailto:amseelcars5@gmail.com" target="_blank" className="menu-link">
                 <div className="flex items-center gap-2">
                   <Mail className="w-7 h-7 text-black bg-black rounded-full p-1" />
-                  <p className="menu-link">info@amseelcars.com</p>
+                  <p className="menu-link">amseelcars5@gmail.com</p>
                 </div>
               </Link>
 

@@ -157,7 +157,7 @@ const Hero = () => {
             <div className='header-rows w-full'>
                 <div className='header-row flex justify-start items-center'>
                     <h2 className='flex justify-start items-center'>
-                        Amsseel
+                        Amseel
                     </h2>
                 </div>
                 <div className="header-row flex justify-end items-center">
@@ -171,20 +171,7 @@ const Hero = () => {
             <p >
             Amceel Car : réservation rapide, retrait aéroport/centre-ville, prix transparents et assistance 24/7 pour voyager partout au Maroc.
             </p>
-            {/* <div className="header-images">
-                <div className="img">
-                    <img src="/images/clio 5 blanche manuel diesel 2024.webp" alt="img1"/>
-                </div>
-                <div className="img">
-                    <img src="/images/2.jpeg" alt="img2"/>
-                </div>
-                <div className="img">
-                    <img src="/images/3.jpg" alt="img3"/>
-                </div>
-                <div className="img">
-                    <img src="/images/4.jpg" alt="img4"/>
-                </div>
-            </div> */}
+           
         </section>
         <section className="whitespace " ref={whitespaceRef}></section>
         <section className="pinned" ref={pinnedRef}>
