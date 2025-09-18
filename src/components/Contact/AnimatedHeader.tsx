@@ -167,9 +167,9 @@ const AnimatedHeader: React.FC = () => {
           ref={titleRef}
           className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
         >
-          Contact
+          Contactez
           <span className="bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 bg-clip-text text-transparent ml-4">
-            Us
+          -nous
           </span>
         </h1>
 
@@ -178,18 +178,12 @@ const AnimatedHeader: React.FC = () => {
           ref={subtitleRef}
           className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
         >
-          Ready to experience the ultimate in luxury car rental? 
+          Prêt(e) à vivre l’ultime expérience de location de voitures de luxe ?
           <br className="hidden md:block" />
-          Get in touch with our expert team and let&apos;s make your journey unforgettable.
+          Contactez notre équipe d’experts et faisons de votre voyage un moment inoubliable.
         </p>
 
-        {/* Scroll Indicator */}
-        {/* <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full relative">
-            <div className="w-1 h-2 bg-white/60 rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-pulse" />
-          </div>
-          <p className="text-white/60 text-sm mt-2">Scroll to explore</p>
-        </div> */}
+     
       </div>
 
       {/* Gradient Overlay */}

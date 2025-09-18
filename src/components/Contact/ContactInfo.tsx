@@ -100,20 +100,20 @@ const ContactInfo: React.FC = () => {
   const contactDetails: ContactDetail[] = [
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Phone",
-      info: ["+212 6 12 34 56 78", "+212 5 22 34 56 78"],
-      link: "tel:+212612345678"
+      title: "Whatsapp",
+      info: ["+212 662 500 181"],
+      link: "https://wa.me/212662500181"
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      info: ["info@amseelcars.ma", "support@amseelcars.ma"],
-      link: "mailto:info@amseelcars.ma"
+      info: ["amseelcars5@gmail.com"],
+      link: "mailto:amseelcars5@gmail.com"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Address",
-      info: ["Haut founty rdc imm sinwan, Agadir 80000, Morocco"],
+      title: "Adresse",
+      info: ["Haut founty rdc imm sinwan, Agadir 80000, Maroc"],
       link: "https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
     }
   ]
@@ -123,13 +123,13 @@ const ContactInfo: React.FC = () => {
     {
       icon: <Facebook className="w-5 h-5" />,
       name: "Facebook",
-      url: "https://facebook.com/amseelcars",
+      url: "https://www.facebook.com/amseelcars/",
       color: "#1877f2"
     },
     {
       icon: <Instagram className="w-5 h-5" />,
       name: "Instagram",
-      url: "https://instagram.com/amseelcars",
+      url: "https://www.instagram.com/amseelcars/",
       color: "#e4405f"
     },
    
@@ -139,10 +139,10 @@ const ContactInfo: React.FC = () => {
 
   // Stats data
   const stats = [
-    { icon: <Car className="w-8 h-8" />, value: "500+", label: "Premium Cars" },
-    { icon: <Users className="w-8 h-8" />, value: "10K+", label: "Happy Clients" },
-    { icon: <Star className="w-8 h-8" />, value: "4.9", label: "Average Rating" },
-    { icon: <Shield className="w-8 h-8" />, value: "24/7", label: "Support" }
+    { icon: <Car className="w-8 h-8" />, value: "30+", label: "Voitures de luxe" },
+    { icon: <Users className="w-8 h-8" />, value: "1000+", label: "Clients Satisfaits" },
+    { icon: <Star className="w-8 h-8" />, value: "4.9", label: "Note Moyenne" },
+    { icon: <Shield className="w-8 h-8" />, value: "24/7", label: "Assistance" }
   ]
 
   // GSAP animations setup
@@ -236,10 +236,10 @@ const ContactInfo: React.FC = () => {
       <div className="space-y-6">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Contact Information
+            Informations de Contact
           </h2>
           <p className="text-gray-300 text-lg">
-            Multiple ways to reach us. We&apos;re here to help you find your perfect ride.
+            Plusieurs façons de nous contacter. Nous sommes là pour vous aider à trouver votre trajet parfait.
           </p>
         </div>
 
@@ -286,7 +286,7 @@ const ContactInfo: React.FC = () => {
 
       {/* Social Media Links */}
       <div className="text-center">
-        <h3 className="text-2xl font-bold text-white mb-6">Follow Us</h3>
+        <h3 className="text-2xl font-bold text-white mb-6">Suivez-nous</h3>
         <div ref={socialRef} className="flex justify-center space-x-4">
           {socialLinks.map((social, index) => (
             <a
@@ -321,7 +321,7 @@ const ContactInfo: React.FC = () => {
 
       {/* Stats Section */}
       <div className="bg-gradient-to-r from-[#CB1939]/10 to-[#CB1939]/20 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-        <h3 className="text-2xl font-bold text-white text-center mb-8">Why Choose Amseel Cars?</h3>
+        <h3 className="text-2xl font-bold text-white text-center mb-8">Pourquoi choisir Amseel Cars?</h3>
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center group">
@@ -343,13 +343,13 @@ const ContactInfo: React.FC = () => {
 
       {/* Google Maps */}
       <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-        <h3 className="text-xl font-bold text-white mb-4">Find Us</h3>
+        <h3 className="text-xl font-bold text-white mb-4">Nous trouver</h3>
         <div ref={mapRef} className="relative">
           {!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
             <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-400">Google Maps API key not configured</p>
+                <p className="text-gray-400">Google Maps API key non configuré</p>
                 <p className="text-sm text-gray-500 mt-2">Please add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to your .env.local file</p>
                 <p className="text-sm text-gray-500 mt-2">Haut founty rdc imm sinwan, Agadir 80000, Morocco</p>
               </div>
@@ -358,7 +358,7 @@ const ContactInfo: React.FC = () => {
             <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-400">Map failed to load</p>
+                <p className="text-gray-400">Map échoué à charger</p>
                 <p className="text-sm text-gray-500 mt-2">Haut founty rdc imm sinwan, Agadir 80000, Morocco</p>
                 <button 
                   onClick={() => {
@@ -367,7 +367,7 @@ const ContactInfo: React.FC = () => {
                   }}
                   className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  Retry
+                  Réessayer
                 </button>
               </div>
             </div>
@@ -377,7 +377,7 @@ const ContactInfo: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10 z-10">
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
-                    <p className="text-gray-400">Loading map...</p>
+                    <p className="text-gray-400">Chargement de la map...</p>
                   </div>
                 </div>
               )}
@@ -389,7 +389,7 @@ const ContactInfo: React.FC = () => {
                   <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
                     <div className="text-center">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
-                      <p className="text-gray-400">Loading Google Maps...</p>
+                      <p className="text-gray-400">Chargement de Google Maps...</p>
                     </div>
                   </div>
                 }
@@ -424,7 +424,7 @@ const ContactInfo: React.FC = () => {
                           rel="noopener noreferrer"
                           className="text-blue-600 hover:text-blue-800 text-sm font-medium"
                         >
-                          View on Google Maps →
+                          Voir sur Google Maps →
                         </a>
                       </div>
                     </InfoWindow>

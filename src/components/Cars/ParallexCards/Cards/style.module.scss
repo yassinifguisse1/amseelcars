@@ -5,7 +5,9 @@
     justify-content: center;
     position: sticky;
     top: 0px;
+    z-index: 1;
     .card{
+      // margin-top: 100px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -14,14 +16,24 @@
       width: 1000px;
       border-radius: 25px;
       padding: 50px;
-      transform-origin: top;
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       transition: all 0.3s ease;
+      
+      // Apply transform-origin to the card content wrapper
+      .cardContent {
+        transform-origin: top;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      
       &:hover {
         transform: translateY(-5px);
         box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
       }
+      
       
       h2{
         text-align: center;
@@ -32,6 +44,7 @@
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       }
       .body{
+        
         display: flex;
         height: 100%;
         margin-top: 50px;
@@ -80,6 +93,7 @@
         }
   
         .imageContainer{
+          
           position: relative;
           width: 100%;
           height: 100%;
@@ -101,6 +115,7 @@
     .card{
       width: 100%;
       height: 100%;
+      padding: 200px;
      
     }
     .body{
@@ -118,3 +133,37 @@
      
     }
   }
+  // 1080 * 500
+  @media (max-width: 1089px) and (max-height: 600px) {
+    .cardContainer{
+      top: 10px;
+      width: 80%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      // overflow: hidden;
+
+      margin: auto auto;
+    }
+
+    .card{
+      margin-top: 100px;
+      padding: 100px;
+      width: 50px;
+      width: 100%;
+      // border: 1px solid blue;
+      // background-color: red;
+      // margin-bottom: 200px;
+      
+
+
+    }
+    .cardContent{
+      // width: 10%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+ 
+  }
+

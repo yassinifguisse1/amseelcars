@@ -104,7 +104,7 @@ export default function ParallexCards() {
       {/* Animated background */}
       <div 
         ref={backgroundRef}
-        className="fixed inset-0 h-full w-full -z-10 transition-colors duration-300"
+        className="fixed inset-0 h-full w-full -z-10 transition-colors duration-300 "
         style={{ 
         
           backgroundColor: darkenColor(projects[0]?.color || '#BBACAF', 0.3) }}

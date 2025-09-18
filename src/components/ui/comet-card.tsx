@@ -6,8 +6,8 @@ import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } fr
 import { cn } from "../../lib/utils"
 
 export const CometCard = ({
-  rotateDepth = 17.5,
-  translateDepth = 20,
+  rotateDepth = 8.5,
+  translateDepth = 8,
   className,
   children,
 }: {

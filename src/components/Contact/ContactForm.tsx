@@ -186,11 +186,22 @@ const ContactForm: React.FC = () => {
 
     setIsSubmitting(true)
 
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message')
+      }
       
-      console.log('Form submitted:', formData)
+      console.log('Form submitted successfully:', result)
       
       setIsSubmitted(true)
       
@@ -213,6 +224,20 @@ const ContactForm: React.FC = () => {
 
     } catch (error) {
       console.error('Form submission error:', error)
+      
+      // Show error message to user
+      setErrors({ 
+        message: 'Erreur lors de l\'envoi du message. Veuillez réessayer.' 
+      })
+      
+      // Shake animation for error
+      gsap.to(formRef.current, {
+        keyframes: {
+          x: [-10, 10, -10, 10, 0]
+        },
+        duration: 0.5,
+        ease: 'power2.inOut'
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -229,10 +254,11 @@ const ContactForm: React.FC = () => {
         {/* Form Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Get In Touch
+            Contactez-nous
           </h2>
           <p className="text-gray-300 text-lg">
-            Ready to experience luxury? Send us a message and we&apos;ll get back to you within 24 hours.
+            Prêt(e) à vivre l’ultime expérience de location de voitures de luxe ?
+            Envoyez-nous un message et nous vous répondrons dans les 24 heures.
           </p>
         </div>
 
@@ -242,7 +268,7 @@ const ContactForm: React.FC = () => {
             htmlFor="name" 
             className="block text-sm font-medium text-gray-300 mb-2"
           >
-            Full Name *
+            Nom et Prénom *
           </label>
           <div className="relative">
             <User className="field-icon absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-colors duration-300" />
@@ -255,7 +281,7 @@ const ContactForm: React.FC = () => {
               className={`w-full pl-12 pr-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ${
                 errors.name ? 'border-red-500' : 'border-white/20'
               }`}
-              placeholder="Enter your full name"
+              placeholder="Entrez votre nom et prénom"
               aria-describedby={errors.name ? 'name-error' : undefined}
               required
             />
@@ -273,7 +299,7 @@ const ContactForm: React.FC = () => {
             htmlFor="email" 
             className="block text-sm font-medium text-gray-300 mb-2"
           >
-            Email Address *
+            Adresse Email *
           </label>
           <div className="relative">
             <Mail className="field-icon absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-colors duration-300" />
@@ -286,7 +312,7 @@ const ContactForm: React.FC = () => {
               className={`w-full pl-12 pr-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ${
                 errors.email ? 'border-red-500' : 'border-white/20'
               }`}
-              placeholder="your.email@example.com"
+              placeholder="votre.email@exemple.com"
               aria-describedby={errors.email ? 'email-error' : undefined}
               required
             />
@@ -304,7 +330,7 @@ const ContactForm: React.FC = () => {
             htmlFor="phone" 
             className="block text-sm font-medium text-gray-300 mb-2"
           >
-            Phone Number (Optional)
+            Numéro de Téléphone (Optionnel)
           </label>
           <div className="relative">
             <Phone className="field-icon absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-colors duration-300" />
@@ -315,7 +341,7 @@ const ContactForm: React.FC = () => {
               value={formData.phone}
               onChange={handleChange}
               className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-              placeholder="+1 (555) 123-4567"
+              placeholder="+212 (555) 123-4567"
             />
           </div>
         </div>
@@ -326,7 +352,7 @@ const ContactForm: React.FC = () => {
             htmlFor="message" 
             className="block text-sm font-medium text-gray-300 mb-2"
           >
-            Message *
+            Message (Optionnel)
           </label>
           <div className="relative">
             <MessageSquare className="field-icon absolute left-4 top-4 w-5 h-5 text-gray-400 transition-colors duration-300" />
@@ -339,7 +365,7 @@ const ContactForm: React.FC = () => {
               className={`w-full pl-12 pr-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none ${
                 errors.message ? 'border-red-500' : 'border-white/20'
               }`}
-              placeholder="Tell us about your rental needs, preferred dates, or any special requirements..."
+              placeholder="Dites-nous vos besoins de location, vos dates préférées, ou toutes vos exigences spéciales..."
               aria-describedby={errors.message ? 'message-error' : undefined}
               required
             />
@@ -368,17 +394,17 @@ const ContactForm: React.FC = () => {
           {isSubmitting ? (
             <>
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              <span>Sending Message...</span>
+              <span>Envoi du Message...</span>
             </>
           ) : isSubmitted ? (
             <>
               <CheckCircle className="w-5 h-5" />
-              <span>Message Sent!</span>
+              <span>Message Envoyé!</span>
             </>
           ) : (
             <>
               <Send className="w-5 h-5" />
-              <span>Send Message</span>
+              <span>Envoyer Message</span>
             </>
           )}
         </button>
@@ -387,7 +413,7 @@ const ContactForm: React.FC = () => {
         {isSubmitted && (
           <div className="text-center">
             <p className="text-green-400 text-sm" id="submit-status">
-              Thank you! We&apos;ll get back to you within 24 hours.
+              Merci! Nous vous répondrons dans les 24 heures.
             </p>
           </div>
         )}

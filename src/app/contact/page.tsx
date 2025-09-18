@@ -200,11 +200,11 @@ gsap.registerPlugin(ScrollTrigger)
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Drive Your Dream Car?
+              Prêt(e) à conduire votre rêve de voiture ?
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Don&apos;t wait any longer. Contact us today and experience the luxury, 
-              performance, and service that sets Amseel Cars apart from the rest.
+              Ne plus attendre. Contactez-nous aujourd’hui et profitez du luxe, 
+              performance, et service qui nous distingue du reste.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {/* whatsapp */}
@@ -212,13 +212,13 @@ gsap.registerPlugin(ScrollTrigger)
                 href="https://wa.me/212662500181"
                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 text-white font-semibold rounded-xl hover:from-[#CB1939]/90 hover:to-[#CB1939]/70 transition-all duration-300 hover:shadow-lg hover:shadow-[#CB1939]/25"
               >
-                Whatsapp: +212 662 500 181
+                Whatsapp: +212 662 500 181 (Whatsapp)
               </Link>
               <Link
                 href="mailto:info@amseelcars.com"
                 className="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 backdrop-blur-sm"
               >
-                Send Email
+                Envoyer Email
               </Link>
             </div>
           </div>

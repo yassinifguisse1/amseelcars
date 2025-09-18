@@ -104,8 +104,13 @@ export default function Menu() {
 
   const handleRoute = (path: string) => (e: React.MouseEvent) => {
     e.preventDefault();
+      //redirect to the pth then close the menu
     if (pathname === path) return closeMenu();
-    closeMenu(() => router.push(path));
+
+    closeMenu(() => 
+      router.push(path));
+     // Scroll to top after navigation
+     window.scrollTo(0, 0);
   };
 
   return (
