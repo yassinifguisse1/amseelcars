@@ -11,21 +11,21 @@ import styles from './BookingDialog.module.css';
 
 // Form validation schema
 const bookingSchema = z.object({
-  fullName: z.string().min(2, 'Full name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Phone number must be at least 10 digits'),
-  pickupDate: z.string().min(1, 'Please select a pickup date'),
-  returnDate: z.string().min(1, 'Please select a return date'),
-  pickupLocation: z.string().min(2, 'Please enter pickup location'),
-  returnLocation: z.string().min(2, 'Please enter return location'),
-  driverAge: z.string().min(1, 'Please enter driver age'),
+  fullName: z.string().min(2, 'Nom complet doit être au moins de 2 caractères'),
+  email: z.string().email('Veuillez entrer une adresse email valide'),
+  phone: z.string().min(10, 'Numéro de téléphone doit être au moins de 10 chiffres'),
+  pickupDate: z.string().min(1, 'Veuillez sélectionner une date de récupération'),
+  returnDate: z.string().min(1, 'Veuillez sélectionner une date de retour'),
+  pickupLocation: z.string().min(2, 'Veuillez entrer le lieu de récupération'),
+  returnLocation: z.string().min(2, 'Veuillez entrer le lieu de retour'),
+  driverAge: z.string().min(1, 'Veuillez entrer l\'âge du conducteur'),
   specialRequests: z.string().optional(),
 }).refine((data) => {
   const pickup = new Date(data.pickupDate);
   const returnDate = new Date(data.returnDate);
   return returnDate > pickup;
 }, {
-  message: "Return date must be after pickup date",
+  message: "Date de retour doit être après la date de récupération",
   path: ["returnDate"],
 });
 
@@ -175,7 +175,7 @@ export default function BookingDialog({
                     <CreditCard className="h-8 w-8" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold">Book Your Car</h2>
+                    <h2 className="text-2xl font-bold">Réservez votre voiture</h2>
                     <p className="text-blue-100">{carName}</p>
                   </div>
                 </div>
@@ -210,8 +210,8 @@ export default function BookingDialog({
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Booking Confirmed!</h3>
-                    <p className="text-gray-600">We&apos;ve received your booking request and will contact you shortly.</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Réservation confirmée!</h3>
+                    <p className="text-gray-600">Nous avons reçu votre demande de réservation et nous vous contacterons sous peu.</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -219,19 +219,19 @@ export default function BookingDialog({
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <User className="h-5 w-5" />
-                        Personal Information
+                        Informations personnelles
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Full Name *
+                            Nom complet *
                           </label>
                           <input
                             {...register('fullName')}
                             type="text"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Enter your full name"
+                            placeholder="Entrez votre nom complet"
                           />
                           {errors.fullName && (
                             <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
@@ -240,13 +240,13 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Email Address *
+                            Adresse email *
                           </label>
                           <input
                             {...register('email')}
                             type="email"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="your@email.com"
+                            placeholder="votre@email.com"
                           />
                           {errors.email && (
                             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -255,7 +255,7 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Phone Number *
+                            Numéro de téléphone *
                           </label>
                           <input
                             {...register('phone')}
@@ -270,7 +270,7 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Driver Age *
+                            Âge du conducteur *
                           </label>
                           <input
                             {...register('driverAge')}
@@ -291,13 +291,13 @@ export default function BookingDialog({
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <Calendar className="h-5 w-5" />
-                        Rental Dates
+                        Dates de location
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Pickup Date *
+                            Date de récupération *
                           </label>
                           <input
                             {...register('pickupDate')}
@@ -312,7 +312,7 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Return Date *
+                            Date de retour *
                           </label>
                           <input
                             {...register('returnDate')}
@@ -331,19 +331,19 @@ export default function BookingDialog({
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <MapPin className="h-5 w-5" />
-                        Pickup & Return Locations
+                        Lieux de récupération et de retour
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Pickup Location *
+                            Lieu de récupération *
                           </label>
                           <input
                             {...register('pickupLocation')}
                             type="text"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="e.g., Agadir Airport"
+                            placeholder="e.g., Agadir Aéroport"
                           />
                           {errors.pickupLocation && (
                             <p className="text-red-500 text-sm mt-1">{errors.pickupLocation.message}</p>
@@ -352,13 +352,13 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Return Location *
+                            Lieu de retour *
                           </label>
                           <input
                             {...register('returnLocation')}
                             type="text"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="e.g., Same as pickup"
+                            placeholder="e.g., Même que la récupération"
                           />
                           {errors.returnLocation && (
                             <p className="text-red-500 text-sm mt-1">{errors.returnLocation.message}</p>
@@ -374,18 +374,18 @@ export default function BookingDialog({
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <Clock className="h-5 w-5" />
-                        Additional Information
+                        Informations supplémentaires
                       </h3>
                       
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Special Requests (Optional)
+                          Demandes spéciales (optionnel)
                         </label>
                         <textarea
                           {...register('specialRequests')}
                           rows={3}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="Any special requests or additional information..."
+                          placeholder="Toute demande spéciale ou toute information supplémentaire..."
                         />
                       </div>
                     </div>
@@ -393,18 +393,18 @@ export default function BookingDialog({
                     {/* Rental Summary */}
                     {days > 0 && (
                       <div className="bg-gray-50 rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Rental Summary</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Résumé de la location</h3>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span>Rental Duration:</span>
+                            <span>Durée de la location:</span>
                             <span className="font-medium">{days} day{days > 1 ? 's' : ''}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Price per day:</span>
+                            <span>Prix par jour:</span>
                             <span className="font-medium">DH {carPrice}</span>
                           </div>
                           <div className="flex justify-between text-lg font-semibold border-t pt-2">
-                            <span>Total Price:</span>
+                            <span>Prix total:</span>
                             <span className="text-blue-600">DH {total}</span>
                           </div>
                         </div>
@@ -415,7 +415,7 @@ export default function BookingDialog({
                     {submitStatus === 'error' && (
                       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                         <p className="text-red-600 text-sm">
-                          There was an error submitting your booking. Please try again or contact us directly.
+                          Il y a eu une erreur lors de la réservation. Veuillez réessayer ou contactez-nous directement.
                         </p>
                       </div>
                     )}
@@ -429,7 +429,7 @@ export default function BookingDialog({
                         disabled={isSubmitting}
                         className="flex-1"
                       >
-                        Cancel
+                        Annuler
                       </Button>
                       <Button
                         type="submit"
@@ -439,10 +439,10 @@ export default function BookingDialog({
                         {isSubmitting ? (
                           <div className="flex items-center gap-2">
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Submitting...
+                            Envoi...
                           </div>
                         ) : (
-                          'Submit Booking'
+                          'Envoyer la réservation'
                         )}
                       </Button>
                     </div>

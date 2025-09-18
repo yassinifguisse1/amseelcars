@@ -71,12 +71,13 @@ export const cars: Car[] = [
       { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto sans fil" }
     ],
+    // french specs
     specs: {
-      engine: "2.0L diesel TwinPower Turbo 4 cylindres (mild-hybrid 48V) – 20d",
-      horsepower: "197 ch",
-      acceleration: "0-100 km/h en 7,7 s",
+      engine: "2.0L diesel TwinPower Turbo (20 xDrive, MHEV 48V)",
+      horsepower: "208 ch",
+      acceleration: "0-100 km/h en 7,8 s",
       topSpeed: "215 km/h",
-      fuelEfficiency: "5,8-6,5 l/100 km (WLTP)",
+      fuelEfficiency: "7,6–6,9 l/100 km WLTP",
       drivetrain: "xDrive (4 roues motrices)"
     },
     category: 'luxury',
