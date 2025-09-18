@@ -69,8 +69,9 @@ export default function SplitHeadline() {
               // text-[clamp(40px,6vw,100px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,100px)]
             "
           >
-            <span  className="split-left inline-block text-[30px] md:text-[50px]  lg:text-[90px]">We&nbsp;are</span>
-            <span  className="split-right inline-block text-[30px] md:text-[50px]  lg:text-[90px]">your&nbsp;next&nbsp;ride.</span>
+         
+            <span  className="split-left inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Nous sommes</span>
+            <span  className="split-right inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Votre prochain trajet.</span>
           </h1>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
@@ -84,9 +85,10 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)]
             "
           >
-          <span className="split-lefts inline-block text-[30px] md:text-[45px]  lg:text-[90px]">From&nbsp;airport&nbsp;</span>
+          
+          <span className="split-lefts inline-block text-[20px] sm:-[28px] md:text-[45px]  lg:text-[50px] ">De l’aéroport</span>
 
-            <span className="split-rights inline-block text-[30px] md:text-[45px]  lg:text-[90px]">to&nbsp;anywhere.</span>
+            <span className="split-rights inline-block text-[20px] sm:-[28px] md:text-[45px]  lg:text-[50px]">A n’importe où.</span>
           </h1>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
@@ -100,8 +102,9 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)]
             "
           >
-            <span className="split-leftc inline-block text-[30px] md:text-[50px]  lg:text-[90px]">Book</span>
-            <span className="split-rightc inline-block text-[30px] md:text-[50px]  lg:text-[90px]">in&nbsp;minutes</span>
+            
+            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Réservez en</span>
+            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Quelques minutes</span>
 
           </h1>
         </div>
@@ -116,8 +119,9 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)]
             "
           >
-            <span className="split-left inline-block text-[30px] md:text-[50px]  lg:text-[90px]">Pick</span>
-            <span className="split-right inline-block text-[30px] md:text-[50px]  lg:text-[90px]">a&nbsp;car</span>
+           
+            <span className="split-leftc inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Choisissez</span>
+            <span className="split-rightc inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Une voiture</span>
 
           </h1>
         </div>
@@ -132,8 +136,9 @@ export default function SplitHeadline() {
               text-[clamp(28px,9vw,72px)] md:text-[clamp(36px,7.5vw,96px)] lg:text-[clamp(40px,6vw,110px)] 
             "
           >
-            <span className="split-left inline-block text-[30px] md:text-[50px]  lg:text-[90px]">Start</span>
-            <span className="split-right inline-block text-[30px] md:text-[50px]  lg:text-[90px]">the&nbsp;journey.</span>
+
+            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Commencez</span>
+            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">Le voyage.</span>
 
           </h1>
         </div>

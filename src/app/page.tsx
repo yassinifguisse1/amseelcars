@@ -19,7 +19,7 @@ function SpeedometerPreloader() {
   
   return (
     <motion.div 
-      className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+      className="fixed inset-0 bg-black z-50 flex items-center justify-center "
       initial={{ opacity: 1 }}
       exit={{ 
         opacity: 0,
@@ -33,7 +33,7 @@ function SpeedometerPreloader() {
       }}
     >
       <motion.div 
-        className="text-center"
+        className="text-center "
         initial={{ y: 0, opacity: 1, scale: 1 }}
         exit={{ 
           y: -80, 
@@ -61,7 +61,7 @@ function SpeedometerPreloader() {
           transition={{ delay: 0.5, duration: 0.6 }}
         >
           <h1 className="text-2xl md:text-4xl font-bold mb-2">AMSSEEL CARS</h1>
-          <p className="text-sm md:text-base text-gray-400 mb-4">Premium Car Rental Experience</p>
+          <p className="text-sm md:text-base text-gray-400 mb-4">Expérience de location de voitures haut de gamme.</p>
          
         </motion.div>
       </motion.div>

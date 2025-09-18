@@ -491,7 +491,7 @@ export default function Speedometer({
   return (
     <div
       ref={ref}
-      className={`relative select-none touch-none ${className}`}
+      className={`relative select-none touch-none flex items-center justify-center mx-auto ${className}`}
       style={{ width: box, height: box }}
       onPointerDown={(e) => {
         if (!loadingState.framesLoaded) return;

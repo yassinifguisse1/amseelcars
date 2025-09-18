@@ -132,8 +132,8 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
 
 export default function OurBrandsGrid({
   brands,
-  heading = "(OUR",
-  heading2 = " BRANDS)",
+  heading = "(Nos",
+  heading2 = " Marques)",
   columns = { base: 2, md: 3, lg: 4 },
   onTileHover,
   onTileClick

@@ -192,12 +192,12 @@ const Hero = () => {
                     alt: "Luxury car interior detail"
                 }}
                 content={{
-                    title: "About Amseel Cars",
+                    title: "À propos d’Amseel Cars",
                     paragraphs: [
-                        "At Amseel Cars, we don't just provide transportation - we craft experiences. Driven by passion for automotive excellence, we work at the edge of luxury - pushing the boundaries of premium car rental services.",
-                        "We're not here to offer ordinary rides. We're here to create journeys that captivate you from start to finish. That's why we've curated an exceptional fleet, served thousands of satisfied customers, and established partnerships with premium brands across Morocco.",
-                        "Amseel Cars is where luxury meets reliability. We're talking premium vehicles, professional service, and unforgettable experiences. We don't just meet expectations, we exceed them - every. single. time.",
-                        "We're bringing automotive excellence to Agadir and beyond. Every vehicle, every service, meticulously maintained, because ordinary won't cut it. We're here to make your journey exceptional. At Amseel Cars, we don't just move people - we're crafting memories. That's what we do."
+                        "Chez Amseel Cars, nous ne nous contentons pas de vous transporter — nous créons des expériences. Animés par la passion de l’excellence automobile, nous évoluons aux frontières du luxe, repoussant les limites de la location de voitures haut de gamme.",
+                        "Nous ne sommes pas là pour proposer des trajets ordinaires. Nous sommes là pour créer des voyages qui vous captivent du début à la fin. C’est pourquoi nous avons constitué une flotte d’exception, servi des milliers de clients satisfaits et établi des partenariats avec des marques premium à travers le Maroc.",
+                        "Amseel Cars, c’est l’endroit où le luxe rencontre la fiabilité : des véhicules d’exception, un service professionnel et des expériences inoubliables. Nous ne faisons pas que répondre aux attentes, nous les dépassons à chaque fois. Sans exception.",
+                        "Nous apportons l’excellence automobile à Agadir et au-delà. Chaque véhicule, chaque service, est entretenu avec le plus grand soin, car l’ordinaire ne suffit pas. Nous sommes là pour rendre votre voyage exceptionnel. Chez Amseel Cars, nous ne faisons pas que déplacer des personnes nous créons des souvenirs. C’est notre métier."
                     ]
                 }}
                 backgroundColor="#000000"
@@ -207,14 +207,14 @@ const Hero = () => {
             <SplitContentSection
                 image={{
                     src: "/images/banner-5.jpg",
-                    alt: "Premium sports car"
+                    alt: "Expérience de flotte haut de gammer"
                 }}
                 content={{
                     title: "Premium Fleet Experience",
                     paragraphs: [
-                        "Experience luxury redefined with our carefully curated fleet of premium vehicles. Each car in our collection represents the pinnacle of automotive excellence, combining cutting-edge technology with timeless design.",
-                        "From airport transfers to special occasions, our vehicles are meticulously maintained to ensure your journey is as memorable as your destination. We believe in providing not just transportation, but an experience that elevates every moment.",
-                        "Our commitment to excellence extends beyond our vehicles to every aspect of our service. Professional drivers, seamless booking experience, and 24/7 customer support ensure your peace of mind throughout your rental period."
+                        "Vivez un luxe réinventé grâce à notre flotte soigneusement sélectionnée de véhicules premium. Chaque voiture de notre collection incarne le summum de l’excellence automobile, alliant technologies de pointe et design intemporel.",
+                        "Des transferts aéroport aux occasions spéciales, nos véhicules sont entretenus avec un soin méticuleux pour que votre trajet soit aussi mémorable que votre destination. Nous ne vous offrons pas seulement un moyen de transport, mais une expérience qui sublime chaque instant.",
+                        "Notre engagement envers l’excellence dépasse le simple véhicule : chauffeurs professionnels, réservation fluide et assistance client 24h/24 et 7j/7 vous assurent une tranquillité d’esprit totale tout au long de votre location."
                     ]
                 }}
                 backgroundColor="#000000"

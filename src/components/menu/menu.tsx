@@ -14,10 +14,10 @@ import { Facebook, Instagram, Mail, Phone } from "lucide-react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const menuLinks = [
-  { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/cars", label: "CARS" },
-  { path: "/contact", label: "Contact" },
+    { path: "/", label: "Accueil" },
+    { path: "/about", label: "À propos" },
+    { path: "/cars", label: "Voitures" },
+    { path: "/contact", label: "Contactez-nous" },
 ];
 // Choose the ink (black text or white text) per route.
 // Use "dark" when the background behind the bar is dark.
@@ -112,9 +112,9 @@ export default function Menu() {
     <div className="menu-container" ref={container} data-open={isOpen ? "true" : "false"}
     >
       {/* Top bar (hidden while overlay is open via CSS) */}
-      <div className="menu-bar">
+      <div className="menu-bar bg-black">
         <div className="menu-logo">
-          <Link href="/" >amseelcars</Link>
+          <Link href="/" >AmseelCars</Link>
         </div>
         <button
           className="menu-open"
@@ -130,10 +130,10 @@ export default function Menu() {
       <div className="menu-overlay" ref={overlayRef} data-open="false">
         <div className="menu-overlay-bar">
           <div className="menu-logo">
-            <Link href="/" onClick={handleRoute("/")}>amseelcars</Link>
+            <Link href="/" onClick={handleRoute("/")}>AmseelCars</Link>
           </div>
           <button className="menu-close" onClick={() => closeMenu()} aria-label="Close menu">
-            <p>Close</p>
+            <p>Fermer</p>
           </button>
         </div>
 
@@ -205,7 +205,7 @@ export default function Menu() {
         </div>
 
         <div className="menu-preview">
-          <p>view showreel</p>
+          <p>Voir le showreel</p>
         </div>
       </div>
     </div>

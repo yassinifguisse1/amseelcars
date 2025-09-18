@@ -8,8 +8,7 @@ export default function Index() {
   const router = useRouter();
   const description = useRef<HTMLDivElement>(null);
   const paragraph =
-    "No hidden fees, no confusing terms. Just clear pricing and reliable vehicles. From compact cars to spacious SUVs, every ride is backed by full coverage and 24/7 support. Renting a car has never been this easy.";
-
+"No frais cachés, aucune condition déroutante. Des prix clairs et des véhicules fiables. Des voitures compactes aux SUV spacieux, chaque trajet bénéficie d’une couverture complète et d’une assistance 24h/24 et 7j/7. Louer une voiture n’a jamais été aussi simple."
   const handleAboutClick = () => {
     router.push("/about");
   };
@@ -22,16 +21,14 @@ export default function Index() {
         </div>
 
         <div data-scroll data-scroll-speed={0.1} className="md:relative">
-          {/* <Rounded className={styles.button} onClick={handleAboutClick}>
-            <p>About us</p>
-          </Rounded> */}
+         
           <Rounded
               backgroundColor="#D32F2F"
               aria-label="About us"
               onClick={handleAboutClick}
              
             >
-              <p className="z-10 text-white  ">About us</p>
+              <p className="z-10 text-white  ">À propos de nous</p>
             </Rounded>
         </div>
       </div>

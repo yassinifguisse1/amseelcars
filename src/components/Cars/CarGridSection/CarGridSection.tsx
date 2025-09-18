@@ -16,8 +16,9 @@ interface CarGridSectionProps {
 const CarGridSection = ({ 
   className = '', 
   showTitle = true,
-  title = "Our Premium Fleet",
-  subtitle = "Choose from our extensive collection of luxury vehicles"
+  title = "Notre flotte haut de gamme",
+  subtitle = "Choisissez parmi notre vaste collection de véhicules de luxe"
+ 
 }: CarGridSectionProps) => {
   // Booking dialog state
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)

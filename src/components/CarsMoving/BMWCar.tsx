@@ -371,7 +371,7 @@ export default function BMWCarScroll() {
                   style={{
                     fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
                   }}
-                  >Premium SUV built for performance.</p>
+                  >SUV premium conçu pour la performance.</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto"
                 style={{
@@ -387,7 +387,7 @@ export default function BMWCarScroll() {
                       cursor: isNavigating ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+                    <p>{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
                   </Rounded>
                 </div>
       </div>
@@ -540,7 +540,7 @@ export default function BMWCarScroll() {
               fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
             }}
           >
-            Dynamic design meets advanced technology.
+            Le design dynamique rencontre une technologie avancée.
           </p>
         </div>
         <div className="flex justify-center pointer-events-auto">
@@ -548,7 +548,7 @@ export default function BMWCarScroll() {
             backgroundColor="#D32F2F"
             onClick={() => handleNavigation('/cars/kia-sportage-2025-diesel-auto-verte')}
           >
-            <p>Book Now</p>
+            <p>Réservez maintenant</p>
           </Rounded>
         </div>
       </div>
@@ -744,7 +744,7 @@ export default function BMWCarScroll() {
             style={{
               fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
             }}
-          >Compact SUV built for performance.</p>
+          >Compact SUV conçu pour la performance.</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto">
                   <Rounded 
@@ -756,7 +756,7 @@ export default function BMWCarScroll() {
                       cursor: isNavigating ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+                    <p>{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
                   </Rounded>
                 </div>
               </div>
@@ -914,7 +914,7 @@ export default function BMWCarScroll() {
             style={{
               fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
             }}
-          >Compact excellence with modern innovation.</p>
+          >L’excellence compacte alliée à une innovation moderne.</p>
               </div>
               
               <div className="flex items-center justify-center pointer-events-auto"
@@ -931,7 +931,7 @@ export default function BMWCarScroll() {
                     cursor: isNavigating ? 'not-allowed' : 'pointer'
                   }}
                 >
-                  <p>{isNavigating ? 'Loading...' : 'Book Now'}</p>
+                  <p>{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
                 </Rounded>
               </div>
             </div>
@@ -966,21 +966,21 @@ export default function BMWCarScroll() {
                 y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
               }}
             >
-              Your Perfect Ride
+              Votre Trajet Idéal
               <br />
-              <span className="text-red-600 z-0">Awaits You</span>
+              <span className="text-red-600 z-0">Vous attend</span>
             </motion.h2>
             <Rounded
               backgroundColor="#D32F2F"
               onClick={() => handleNavigation("/cars")}
-              aria-label="Book Now"
+              aria-label="Réservez maintenant"
               style={{ 
                 pointerEvents: isNavigating ? 'none' : 'auto',
                 opacity: isNavigating ? 0.7 : 1,
                 cursor: isNavigating ? 'not-allowed' : 'pointer'
               }}
             >
-              <p className="z-10 text-black">{isNavigating ? 'Loading...' : 'Book Now'}</p>
+              <p className="z-10 text-black">{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
             </Rounded>
 
    
@@ -992,12 +992,12 @@ export default function BMWCarScroll() {
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1])
               }}
             >
-              <div className="flex flex-col items-center text-gray-500">
-                <div className="text-xs sm:text-sm mb-2">Scroll to explore more</div>
-                <div className="border-2 border-gray-400 rounded-full flex justify-center
+              <div className="flex flex-col items-center text-gray-200">
+                <div className="text-xs sm:text-sm mb-2">Faites défiler pour explorer plus</div>
+                <div className="border-2 border-gray-300 rounded-full flex justify-center
                                 w-[clamp(16px,3vw,24px)] h-[clamp(28px,5.5vw,40px)]">
                   <motion.div 
-                    className="bg-gray-400 rounded-full mt-2
+                    className="bg-gray-300 rounded-full mt-2
                                w-[clamp(3px,0.6vw,4px)] h-[clamp(10px,2vw,14px)]"
                     animate={{
                       y: [0, 12, 0],

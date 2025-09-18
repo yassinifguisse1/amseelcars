@@ -123,10 +123,10 @@ export default function Brands() {
         {/* Section Title */}
         <div ref={titleRef} className="text-center mb-16 ">
           <h2 ref={headingRef} className="text-6xl md:text-7xl font-bold text-white mb-4">
-            Our Brands
+          Nos Marques
           </h2>
           <p ref={descriptionRef} className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Premium automotive brands that define excellence and innovation
+          Des marques automobiles haut de gamme qui incarnent l’excellence et l’innovation.
           </p>
         </div>
 

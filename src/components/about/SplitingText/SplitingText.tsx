@@ -72,8 +72,8 @@ export default function SplitingText() {
               text-[clamp(36px,11vw,100px)]
             "
           >
-            <span  className="split-left inline-block  text-[clamp(22px,8vw,100px)]">EXPLORE</span>
-            <span  className="split-right inline-block text-[clamp(22px,8vw,100px)]">AGADIR.</span>
+            <span  className="split-left inline-block  text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">DÉCOUVREZ</span>
+            <span  className="split-right inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px]">AGADIR.</span>
           </h1>
         </div>
         <div className="w-full flex flex-col items-center justify-center">
@@ -85,7 +85,7 @@ export default function SplitingText() {
               text-[clamp(36px,11vw,100px)]
             "
           >
-            <span className="inline-block text-[clamp(22px,8vw,100px)] font-poppins">AMSEEL CARS</span>
+            <span className="inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px] font-poppins">AMSEEL CARS</span>
           </h1>
         </div>
         <div className="w-full flex flex-col items-center justify-center">
@@ -97,8 +97,8 @@ export default function SplitingText() {
               text-[clamp(36px,11vw,100px)]
             "
           >
-            <span className="split-left inline-block text-[clamp(22px,8vw,100px)] font-poppins">PICK</span>
-            <span className="split-right inline-block text-[clamp(22px,8vw,100px)] font-poppins">YOUR BRAND</span>
+            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px] font-poppins">CHOISISSEZ</span>
+            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px] font-poppins">VOTRE MARQUE</span>
           </h1>
         </div>
         <div className="w-full flex flex-col items-center justify-center">
@@ -110,27 +110,14 @@ export default function SplitingText() {
               text-[clamp(36px,11vw,100px)]
             "
           >
-            <span className="split-left inline-block text-[clamp(22px,8vw,100px)] font-poppins">SHORT OR</span>
-            <span className="split-right inline-block text-[clamp(22px,8vw,100px)] font-poppins">LONG TERM</span>
+            <span className="split-leftd inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px] font-poppins">COURTE OU</span>
+            <span className="split-rightd inline-block text-[20px] sm:-[28px] md:text-[50px]  lg:text-[50px] font-poppins">LONGUE DURÉE</span>
           </h1>
         </div>
-        {/* <div className="w-full flex flex-col items-center justify-center">
-          <h1
-            className="
-              flex justify-center items-start gap-[0.3ch]
-              font-bold leading-[0.95]
-              whitespace-nowrap text-black will-change-transform
-              text-[clamp(36px,11vw,160px)]
-            "
-          >
-            <span className="split-left inline-block">start</span>
-            <span className="split-right inline-block">the&nbsp;journey.</span>
-          </h1>
-        </div> */}
+       
 
       </section>
 
-      {/* SECTION 2 (this drives the animation) */}
      
     </div>
   );
