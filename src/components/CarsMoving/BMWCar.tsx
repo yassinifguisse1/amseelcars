@@ -225,17 +225,17 @@ export default function BMWCarScroll() {
         )}
         
         {/* Background layers */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200" />
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200 pointer-events-none" />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20"
+          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20 pointer-events-none"
           style={{ opacity: backgroundOpacity }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20"
+          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20 pointer-events-none"
           style={{ opacity: backgroundOpacity2 }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20"
+          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20 pointer-events-none"
           style={{ opacity: backgroundOpacity3 }}
         />
 
@@ -316,6 +316,7 @@ export default function BMWCarScroll() {
         className="object-contain pointer-events-none select-none"
         draggable={false}
         loading="eager" // Critical for wheel sync
+
       />
     </motion.div>
 
@@ -337,7 +338,7 @@ export default function BMWCarScroll() {
 
    {/* BMW Book Now Button (follows car) */}
    <motion.div
-    className="  absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw]  "
+    className="  absolute left-1/2 -translate-x-1/2 z-60 w-full max-w-[90vw] border-2 border-red-500  pointer-events-auto"
     style={{
       // x: bmwCarX,
       top: isShortLandscape ? '65vh' : '',
@@ -711,7 +712,7 @@ export default function BMWCarScroll() {
             {/* Touareg Book Now Button */}
           <motion.div
               className="
-               absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] 
+               absolute left-1/2 -translate-x-1/2 z-0 w-full max-w-[90vw] 
               "
               style={{
                 // x: touaregCarX,
@@ -937,7 +938,7 @@ export default function BMWCarScroll() {
        
         {/* Final Call-to-Action Section - Appears after Golf 8 */}
         <motion.div
-          className="absolute inset-0  flex flex-col items-center justify-center z-40"
+          className="absolute inset-0  flex flex-col items-center justify-center z-0"
           style={{
             opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
             y: useTransform(scrollYProgress, [0.75, 0.8, 1], [50, 0, 0])

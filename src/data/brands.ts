@@ -31,12 +31,7 @@ export const sampleBrands: Brand[] = [
     preview: "/images/kia.jpg",
     href: "/cars/kia-sportage-2025-diesel-auto-verte"
   },
-  // {
-  //   name: "FORD",
-  //   logo: "/images/FORD.webp",
-  //   preview: "/images/kia.jpg",
-  //   href: "/cars"
-  // },
+
   {
     name: "RENAULT",
     logo: "/images/RENAULT.webp",
