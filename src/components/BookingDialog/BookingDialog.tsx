@@ -160,7 +160,7 @@ export default function BookingDialog({
             onWheel={(e) => e.stopPropagation()}
           >
             {/* h-full for mobile fix */}
-            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90dvh]  overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full  max-h-[90dvh] h-[90vh] overflow-hidden">
               {/* Header */}
               <div className="relative bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 p-6 text-white">
                 <button
