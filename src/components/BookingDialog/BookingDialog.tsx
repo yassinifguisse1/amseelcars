@@ -156,11 +156,11 @@ export default function BookingDialog({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className={`fixed inset-0 z-50 flex items-center justify-center pt-24 md:pt-0 ${styles.dialogContainer}`}
+            className={`fixed inset-0 z-50 flex items-center justify-center pt-24 md:pt-0  ${styles.dialogContainer}`}
             onWheel={(e) => e.stopPropagation()}
           >
             {/* h-full for mobile fix */}
-            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full  max-h-[90dvh] h-[90vh] overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full  max-h-[90dvh]  overflow-hidden">
               {/* Header */}
               <div className="relative bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 p-6 text-white">
                 <button
