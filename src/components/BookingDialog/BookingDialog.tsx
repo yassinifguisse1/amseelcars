@@ -62,10 +62,39 @@ export default function BookingDialog({
   const watchedPickupDate = watch('pickupDate');
   const watchedReturnDate = watch('returnDate');
 
-  // Prevent body scroll when dialog is open
+  // Prevent body scroll when dialog is open and handle mobile viewport
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      
+      // Handle mobile viewport changes
+      const handleViewportChange = () => {
+        // Force a reflow to ensure proper height calculation
+        const dialog = document.querySelector('[data-dialog="booking"]');
+        if (dialog) {
+          (dialog as HTMLElement).style.height = 'auto';
+          // Trigger reflow
+          (dialog as HTMLElement).offsetHeight;
+        }
+      };
+
+      // Listen for viewport changes (mobile keyboard, orientation, etc.)
+      window.addEventListener('resize', handleViewportChange);
+      window.addEventListener('orientationchange', handleViewportChange);
+      
+      // Handle visual viewport changes (mobile keyboard)
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleViewportChange);
+      }
+
+      // Cleanup listeners
+      return () => {
+        window.removeEventListener('resize', handleViewportChange);
+        window.removeEventListener('orientationchange', handleViewportChange);
+        if (window.visualViewport) {
+          window.visualViewport.removeEventListener('resize', handleViewportChange);
+        }
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -156,11 +185,20 @@ export default function BookingDialog({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className={`fixed inset-0 z-50 flex items-center justify-center pt-24 md:pt-0  ${styles.dialogContainer}`}
+            className={`fixed inset-0 z-50 flex items-center justify-center pt-24 md:pt-0 p-4 md:p-8 ${styles.dialogContainer}`}
             onWheel={(e) => e.stopPropagation()}
+            style={{
+              paddingTop: 'env(safe-area-inset-top)',
+              paddingBottom: 'env(safe-area-inset-bottom)',
+              paddingLeft: 'env(safe-area-inset-left)',
+              paddingRight: 'env(safe-area-inset-right)',
+            }}
           >
-            {/* h-full for mobile fix */}
-            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full  max-h-[90dvh]  overflow-hidden">
+            {/* Mobile-optimized dialog container */}
+            <div 
+              className={`bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden  ${styles.dialogWrapper}`}
+              data-dialog="booking"
+            >
               {/* Header */}
               <div className="relative bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 p-6 text-white">
                 <button
@@ -184,7 +222,7 @@ export default function BookingDialog({
 
               {/* Content */}
               <div 
-                className={`p-6 overflow-y-auto max-h-[calc(90vh-120px)] ${styles.dialogContent}`}
+                className={`p-6 overflow-y-auto ${styles.dialogContent}`}
                 onWheel={(e) => {
                   e.stopPropagation();
                   const element = e.currentTarget;

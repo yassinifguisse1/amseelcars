@@ -1,9 +1,30 @@
+/* Mobile-optimized dialog wrapper */
+.dialogWrapper {
+  /* Use dynamic viewport height for mobile */
+  max-height: 100dvh; /* Dynamic viewport height - accounts for mobile UI changes */
+  max-height: 100svh; /* Small viewport height - fallback */
+  max-height: 100vh;  /* Standard viewport height - fallback */
+  
+  /* Ensure proper mobile behavior */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 /* Custom scrollbar styles for the booking dialog */
 .dialogContent {
   scrollbar-width: thin;
   scrollbar-color: #d1d5db #f3f4f6;
-  height: 100dvh;
-  height: 100vh;
+  
+  /* Flexible height that adapts to mobile viewport */
+  flex: 1;
+  min-height: 0; /* Important for flexbox scrolling */
+  
+  /* Mobile-specific height calculations */
+  max-height: calc(100dvh - 120px); /* Dynamic viewport minus header */
+  max-height: calc(100svh - 120px); /* Small viewport minus header */
+  max-height: calc(100vh - 120px);  /* Standard viewport minus header */
+
 }
 
 .dialogContent::-webkit-scrollbar {
@@ -28,7 +49,6 @@
 /* Smooth scrolling */
 .dialogContent {
   scroll-behavior: smooth;
-
 }
 
 /* Focus styles for better accessibility */
@@ -39,4 +59,38 @@
 /* Ensure the dialog container doesn't interfere with scrolling */
 .dialogContainer {
   overscroll-behavior: contain;
+  
+  /* Mobile-specific adjustments */
+  min-height: 100dvh;
+  min-height: 100svh;
+  min-height: 100vh;
+}
+
+/* Mobile-specific media queries */
+@media screen and (max-width: 768px) {
+  .dialogWrapper {
+    /* On mobile, use more conservative height */
+    max-height: calc(100dvh - 2rem);
+    max-height: calc(100svh - 2rem);
+    max-height: calc(100vh - 2rem);
+    margin: 1rem;
+  }
+  
+  .dialogContent {
+    /* More conservative height on mobile */
+    max-height: calc(100dvh - 200px);
+    max-height: calc(100svh - 200px);
+    max-height: calc(100vh - 200px);
+  }
+}
+
+/* iPhone-specific adjustments */
+@supports (padding: max(0px)) {
+  .dialogContainer {
+    /* Use safe area insets for iPhone */
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
 }
