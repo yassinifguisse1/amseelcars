@@ -2,8 +2,8 @@
 .dialogContent {
   scrollbar-width: thin;
   scrollbar-color: #d1d5db #f3f4f6;
-  max-height: 90dvh;
-  height: 90vh;
+  height: 100dvh;
+  height: 100vh;
 }
 
 .dialogContent::-webkit-scrollbar {
@@ -28,8 +28,7 @@
 /* Smooth scrolling */
 .dialogContent {
   scroll-behavior: smooth;
-  max-height: 90dvh;
-  height: 90vh;
+
 }
 
 /* Focus styles for better accessibility */

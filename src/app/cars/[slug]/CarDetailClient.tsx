@@ -90,7 +90,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background border-2 border-red-500 pt-20">
+    <div className="min-h-screen bg-background  pt-20">
       {/* Breadcrumb Navigation */}
       <nav className="bg-muted/30 py-4">
         <div className="container mx-auto px-4">
