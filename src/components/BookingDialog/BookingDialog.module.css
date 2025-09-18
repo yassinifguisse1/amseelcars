@@ -21,9 +21,9 @@
   min-height: 0; /* Important for flexbox scrolling */
   
   /* Mobile-specific height calculations */
-  max-height: calc(90dvh - 120px); /* Dynamic viewport minus header */
-  max-height: calc(90svh - 120px); /* Small viewport minus header */
-  max-height: calc(90vh - 120px);  /* Standard viewport minus header */
+  max-height: calc(90dvh - 100px); /* Dynamic viewport minus header */
+  max-height: calc(90svh - 100px); /* Small viewport minus header */
+  max-height: calc(90vh - 100px);  /* Standard viewport minus header */
 
 }
 
