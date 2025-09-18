@@ -152,7 +152,7 @@ export default function Menu() {
               <div className="menu-link-item" key={link.path}>
                 <div className="menu-link-item-holder">
                   <Link
-                    className="menu-link font-heading font-bold"
+                    className="menu-link font-heading font-bold  "
                     href={link.path}
                     onClick={handleRoute(link.path)}
                   >

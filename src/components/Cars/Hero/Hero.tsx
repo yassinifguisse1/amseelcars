@@ -21,12 +21,9 @@ const Hero = () => {
   useEffect(() => {
     // Register GSAP plugins
     gsap.registerPlugin(ScrollTrigger)
-
     // Initialize Lenis smooth scroll
     const lenis = new Lenis()
-
     lenis.on("scroll", ScrollTrigger.update)
-
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000)
     })
@@ -152,41 +149,9 @@ const Hero = () => {
             {/* <h2 className='uppercase font-bold text-white'>
                 Symphonia
             </h2> */}
-        </section>
-        <section className="info">
-            <div className='header-rows w-full'>
-                <div className='header-row flex justify-start items-center'>
-                    <h2 className='flex justify-start items-center'>
-                        Amseel
-                    </h2>
-                </div>
-                <div className="header-row flex justify-end items-center">
-                    <h2>
-                        Cars
-                    </h2>
-                </div>
-            </div>
-        </section>
-        <section className="header-info" ref={headerInfoRef}>
-            <p >
-            Amceel Car : réservation rapide, retrait aéroport/centre-ville, prix transparents et assistance 24/7 pour voyager partout au Maroc.
-            </p>
            
         </section>
-        <section className="whitespace " ref={whitespaceRef}></section>
-        <section className="pinned" ref={pinnedRef}>
-            <div className="revealer " ref={revealerRef}>
-                <div className="revealer-1" ref={revealer1Ref}></div>
-                <div className="revealer-2" ref={revealer2Ref}></div>
-            </div>
-        </section>
-        <section className="website-content">
-            <TextHover />
-            <OurBrandsGrid brands={sampleBrands} />
-            <SplitingText />
-            
-           
-            <SplitContentSection
+        <SplitContentSection
                 image={{
                     src: "/images/amseelcars-logo-apropos.jpg",
                     alt: "Luxury car interior detail"
@@ -220,7 +185,38 @@ const Hero = () => {
                 backgroundColor="#000000"
                 textColor="#ffffff"
             />
-        
+       
+        <section className="info">
+            <div className='header-rows w-full'>
+                <div className='header-row flex justify-start items-center'>
+                    <h2 className='flex justify-start items-center'>
+                        Amseel
+                    </h2>
+                </div>
+                <div className="header-row flex justify-end items-center">
+                    <h2>
+                        Cars
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section className="header-info" ref={headerInfoRef}>
+            <p >
+            Amceel Car : réservation rapide, retrait aéroport/centre-ville, prix transparents et assistance 24/7 pour voyager partout au Maroc.
+            </p>
+           
+        </section>
+        <section className="whitespace " ref={whitespaceRef}></section>
+        <section className="pinned" ref={pinnedRef}>
+            <div className="revealer " ref={revealerRef}>
+                <div className="revealer-1" ref={revealer1Ref}></div>
+                <div className="revealer-2" ref={revealer2Ref}></div>
+            </div>
+        </section>
+        <section className="website-content">
+            <TextHover />
+            <OurBrandsGrid brands={sampleBrands} />
+            <SplitingText />
         </section>
     </div>
   )

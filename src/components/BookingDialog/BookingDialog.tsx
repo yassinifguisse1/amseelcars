@@ -18,8 +18,6 @@ const bookingSchema = z.object({
   returnDate: z.string().min(1, 'Veuillez sélectionner une date de retour'),
   pickupLocation: z.string().min(2, 'Veuillez entrer le lieu de récupération'),
   returnLocation: z.string().min(2, 'Veuillez entrer le lieu de retour'),
-  driverAge: z.string().min(1, 'Veuillez entrer l\'âge du conducteur'),
-  specialRequests: z.string().optional(),
 }).refine((data) => {
   const pickup = new Date(data.pickupDate);
   const returnDate = new Date(data.returnDate);
@@ -307,22 +305,6 @@ export default function BookingDialog({
                           )}
                         </div>
 
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Âge du conducteur *
-                          </label>
-                          <input
-                            {...register('driverAge')}
-                            type="number"
-                            min="18"
-                            max="80"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="18"
-                          />
-                          {errors.driverAge && (
-                            <p className="text-red-500 text-sm mt-1">{errors.driverAge.message}</p>
-                          )}
-                        </div>
                       </div>
                     </div>
 
@@ -406,28 +388,6 @@ export default function BookingDialog({
                       </div>
                     </div>
 
-                    {/* License Information */}
-                   
-
-                    {/* Special Requests */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <Clock className="h-5 w-5" />
-                        Informations supplémentaires
-                      </h3>
-                      
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Demandes spéciales (optionnel)
-                        </label>
-                        <textarea
-                          {...register('specialRequests')}
-                          rows={3}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="Toute demande spéciale ou toute information supplémentaire..."
-                        />
-                      </div>
-                    </div>
 
                     {/* Rental Summary */}
                     {days > 0 && (

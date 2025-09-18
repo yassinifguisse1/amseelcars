@@ -100,7 +100,7 @@ export default function SplitContentSection({
         <div ref={textRef} className="space-y-6 lg:space-y-8">
           {content.title && (
             <h2 
-              className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight"
+              className="text-2xl md:text-3xl lg:text-5xl font-bold leading-tight"
               style={{ color: textColor }}
             >
               {content.title}

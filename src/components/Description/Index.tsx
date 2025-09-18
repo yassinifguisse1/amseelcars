@@ -7,8 +7,13 @@ import Paragraph from "../Paragraph/Character";
 export default function Index() {
   const router = useRouter();
   const description = useRef<HTMLDivElement>(null);
-  const paragraph =
-"No frais cachés, aucune condition déroutante. Des prix clairs et des véhicules fiables. Des voitures compactes aux SUV spacieux, chaque trajet bénéficie d’une couverture complète et d’une assistance 24h/24 et 7j/7. Louer une voiture n’a jamais été aussi simple."
+
+  const bullets = [
+    "Aucun frais caché, aucune condition déroutante : tarifs clairs et véhicules fiables.",
+    "Des citadines aux SUV spacieux : chaque trajet bénéficie d’une couverture complète et d’une assistance 24h/24 et 7j/7.",
+    "Louer une voiture n’a jamais été aussi simple."
+  ];
+  
   const handleAboutClick = () => {
     router.push("/about");
   };
@@ -17,7 +22,7 @@ export default function Index() {
     <div ref={description} className={`${styles.description} w-full `} >
       <div className={`${styles.body}`}>
         <div className="flex-1 w-full">
-          <Paragraph paragraph={paragraph} />
+          <Paragraph bullets={bullets} />
         </div>
 
         <div data-scroll data-scroll-speed={0.1} className="md:relative">

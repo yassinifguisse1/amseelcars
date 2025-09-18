@@ -14,9 +14,6 @@ export async function POST(request: NextRequest) {
       returnDate,
       pickupLocation,
       returnLocation,
-      driverAge,
-      licenseNumber,
-      specialRequests,
       carName,
       carPrice,
       rentalDays,
@@ -68,8 +65,6 @@ export async function POST(request: NextRequest) {
               <p><strong>Full Name:</strong> ${fullName}</p>
               <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #667eea;">${email}</a></p>
               <p><strong>Phone:</strong> <a href="tel:${phone}" style="color: #667eea;">${phone}</a></p>
-              <p><strong>Driver Age:</strong> ${driverAge} years old</p>
-              <p><strong>License Number:</strong> ${licenseNumber}</p>
             </div>
 
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -80,12 +75,6 @@ export async function POST(request: NextRequest) {
               <p><strong>Return Location:</strong> ${returnLocation}</p>
             </div>
 
-            ${specialRequests ? `
-            <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-              <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Special Requests</h2>
-              <p style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #667eea;">${specialRequests}</p>
-            </div>
-            ` : ''}
 
             <div style="background: #667eea; color: white; padding: 20px; border-radius: 8px; text-align: center;">
               <h3 style="margin-top: 0;">Next Steps</h3>

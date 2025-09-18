@@ -230,7 +230,6 @@ section.footer {
     section.main {
         width: 100%;
         padding-top: 100px;
-        background: #ff0000;
     }
 }
 /* // 1080 * 500 */
@@ -240,9 +239,5 @@ section.footer {
         width: 80%;
         height: 200px;
     }
-    section.main {
-        /* width: 100%; */
-        /* padding-top: 100px; */
-        background: #ff0000;
-    }
+
 }

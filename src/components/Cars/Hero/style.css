@@ -47,6 +47,7 @@ section.hero{
     line-height: 0.85; /* Improve line height for mobile */
 }
 section.info{
+    position: relative;
     width: 100vw;
     height: clamp(100vh, 150vh, 150vh); /* Responsive height */
     background: #000;
@@ -97,7 +98,7 @@ section.info{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: #000;
+    background: #000000;
     color: #fff;
 }
 .header-info p{
@@ -127,6 +128,9 @@ section.pinned {
     width:100%;
     height: 200vh;
     z-index: 2;
+    top: 100vh;
+    margin-top: 2625px;
+    
     
 
 }
@@ -138,14 +142,15 @@ section.whitespace{
     /* height: 400px; */
     height: 100vh;
    
-    background: #000;
     z-index: -1;
+    
 }
 .revealer{
     position: absolute;
     transform: translate(-50%, 0%);
     left:35%;
     margin-top: 325px;
+    /* top: 50%; */
     width: 120px;
     height: 120px;
     transform-origin: 50% 50%;
@@ -239,7 +244,15 @@ section.website-content{
         font-size: clamp(30px, 5vw, 40px);
         
     }
-   
+    .revealer {
+        width: 80px;
+        height: 80px;
+        /* margin-top: 220px; */
+    }
+    section.pinned{
+        top: 100vh;
+        margin-top: 2200px;
+    }
 }
 
 /* Small screens (480px to 767px) */
@@ -282,13 +295,17 @@ section.website-content{
     .header-info {
         height: auto;
         min-height: 10vh;
-        /* background: yellow; */
+    }
+    section.pinned{
+        top: 100vh;
+        margin-top: 2000px;
     }
     
     .header-info p {
         font-size: clamp(20px, 4vw, 30px);
         padding: 0.5rem;
     }
+
     
     .header-images {
         height: auto;
@@ -302,8 +319,8 @@ section.website-content{
         min-height: 100px;
     }
     .revealer {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         margin-top: 200px;
     }
    
@@ -369,9 +386,13 @@ section.website-content{
     
     /* Adjust revealer for mobile */
     .revealer {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
         margin-top: 200px;
+    }
+    section.pinned{
+        top: 100vh;
+        margin-top: 1800px;
     }
 
     
@@ -398,5 +419,9 @@ section.website-content{
     
     .header-row h2 {
         font-size: clamp(20px, 6vh, 50px);
+    }
+    section.pinned{
+        top: 100vh;
+        margin-top: 2200px;
     }
 }
