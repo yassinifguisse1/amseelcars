@@ -98,22 +98,22 @@ export default function BMWCarScroll() {
   const isShortLandscape = useShortLandscape();
   // Define all images that need to be preloaded for instant loading
   const criticalImages = [
-    '/images/bmw-body.png',
-    '/images/wheel-rear.png',
-    '/images/wheel-front.png',
+    '/images/bmw-body.webp',
+    '/images/wheel-rear.webp',
+    '/images/wheel-front.webp',
     '/images/kia body.webp',
     '/images/left wheel kia.webp',
     '/images/right wheel kia.webp',
-    '/images/t-roc body.png',
-    '/images/t-roc wheel left.png',
-    '/images/t-roc wheel right.png',
-    '/images/golf8-body.png',
-    '/images/golf8-wheel-left.png',
-    '/images/golf8-wheel-right.png',
+    '/images/t-roc body.webp',
+    '/images/t-roc wheel left.webp',
+    '/images/t-roc wheel right.webp',
+    '/images/golf8-body.webp',
+    '/images/golf8-wheel-left.webp',
+    '/images/golf8-wheel-right.webp',
     '/images/x3-bm.webp',
     '/images/Kia-sportage-logo.webp',
-    '/images/touareg-LOGO.png',
-    '/images/GOLF-8-LOGO.png'
+    '/images/t roc logo-0014.webp',
+    '/images/GOLF 8 LOGO PNG.webp'
   ];
 
   // Preload all critical images
@@ -269,6 +269,7 @@ export default function BMWCarScroll() {
         className="w-full h-auto opacity-100 drop-shadow-2xl"
         draggable={false}
         priority={true} // High priority for first car
+        
       />
     </div>
       </motion.div>
@@ -285,15 +286,15 @@ export default function BMWCarScroll() {
       width: isShortLandscape 
         ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
         : 'clamp(280px, 85vw, 1120px)',
-      opacity: isImageLoaded('/images/bmw-body.png') && 
-               isImageLoaded('/images/wheel-rear.png') && 
-               isImageLoaded('/images/wheel-front.png') ? 1 : 0,
+      opacity: isImageLoaded('/images/bmw-body.webp') && 
+               isImageLoaded('/images/wheel-rear.webp') && 
+               isImageLoaded('/images/wheel-front.webp') ? 1 : 0,
       willChange: 'transform',
     }}
   >
     {/* BMW Car body (keeps aspect, no CLS) */}
     <Image
-      src="/images/bmw-body.png"
+      src="/images/bmw-body.webp"
       alt="BMW X3 body"
       width={1440}
       height={800}
@@ -309,13 +310,14 @@ export default function BMWCarScroll() {
       style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
     >
       <Image
-        src="/images/wheel-rear.png"
+        src="/images/wheel-rear.webp"
         alt="BMW Rear wheel"
         fill
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
-        loading="eager" // Critical for wheel sync
+         // Critical for wheel sync
+        priority={true}
 
       />
     </motion.div>
@@ -326,19 +328,19 @@ export default function BMWCarScroll() {
       style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
     >
       <Image
-        src="/images/wheel-front.png"
+        src="/images/wheel-front.webp"
         alt="BMW Front wheel"
         fill
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
-        loading="eager" // Critical for wheel sync
+         // Critical for wheel sync
       />
     </motion.div>
 
    {/* BMW Book Now Button (follows car) */}
    <motion.div
-    className="  absolute left-1/2 -translate-x-1/2 z-60 w-full max-w-[90vw] border-2 border-red-500  pointer-events-auto"
+    className="  absolute left-1/2 -translate-x-1/2 z-60 w-full max-w-[90vw]  pointer-events-auto"
     style={{
       // x: bmwCarX,
       top: isShortLandscape ? '65vh' : '',
@@ -487,7 +489,7 @@ export default function BMWCarScroll() {
       sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
       className="block w-full h-auto pointer-events-none select-none"
       draggable={false}
-      loading="eager"
+      
     />
 
     {/* Wheels */}
@@ -655,22 +657,22 @@ export default function BMWCarScroll() {
                 width: isShortLandscape 
           ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
           : 'clamp(280px, 85vw, 1120px)',
-                opacity: isImageLoaded('/images/t-roc body.png') && 
-                         isImageLoaded('/images/t-roc wheel left.png') && 
-                       isImageLoaded('/images/t-roc wheel right.png') ? 1 : 0,
+                opacity: isImageLoaded('/images/t-roc body.webp') && 
+                         isImageLoaded('/images/t-roc wheel left.webp') && 
+                       isImageLoaded('/images/t-roc wheel right.webp') ? 1 : 0,
               willChange: 'transform',
             }}
           >
             {/* Touareg Car body */}
             <Image
-              src="/images/t-roc body.png"
+              src="/images/t-roc body.webp"
               alt="Touareg body"
               width={1440}
               height={800}
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
-              loading="lazy" // Lazy load for later cars
+              priority={true}
             />
 
             {/* Touareg Rear wheel (left) */}
@@ -682,12 +684,13 @@ export default function BMWCarScroll() {
               }}
             >
               <Image
-                src="/images/t-roc wheel left.png"
+                src="/images/t-roc wheel left.webp"
                 alt="Touareg Left wheel"
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
+                priority={true}
               />
             </motion.div>
 
@@ -700,12 +703,14 @@ export default function BMWCarScroll() {
               }}
             >
               <Image
-                src="/images/t-roc wheel right.png"
+                src="/images/t-roc wheel right.webp"
                 alt="Touareg Right wheel"
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
+                
+                priority={true}
               />
             </motion.div>
 
@@ -714,6 +719,7 @@ export default function BMWCarScroll() {
               className="
                absolute left-1/2 -translate-x-1/2 z-0 w-full max-w-[90vw] 
               "
+              
               style={{
                 // x: touaregCarX,
                 top: isShortLandscape ? '51vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
@@ -799,7 +805,8 @@ export default function BMWCarScroll() {
               height={200}
               className="opacity-100 drop-shadow-2xl"
               draggable={false}
-              priority
+              priority={true}
+              
             />
             </div>
           </motion.div>
@@ -815,22 +822,23 @@ export default function BMWCarScroll() {
               width: isShortLandscape 
               ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
               : 'clamp(280px, 85vw, 1120px)',
-              opacity: isImageLoaded('/images/golf8-body.png') && 
-                       isImageLoaded('/images/golf8-wheel-left.png') && 
-                       isImageLoaded('/images/golf8-wheel-right.png') ? 1 : 0,
+              opacity: isImageLoaded('/images/golf8-body.webp') && 
+                       isImageLoaded('/images/golf8-wheel-left.webp') && 
+                       isImageLoaded('/images/golf8-wheel-right.webp') ? 1 : 0,
               willChange: 'transform',
             }}
           >
             {/* Golf 8 Car body */}
             <Image
-              src="/images/golf8-body.png"
+              src="/images/golf8-body.webp"
               alt="Golf 8 body"
               width={1440}
               height={800}
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
               className="block w-full h-auto pointer-events-none select-none"
               draggable={false}
-              loading="lazy" // Lazy load for later cars
+               // Lazy load for later cars
+              priority={true}
             />
 
             {/* Golf 8 Rear wheel (left) */}
@@ -842,12 +850,14 @@ export default function BMWCarScroll() {
               }}
             >
               <Image
-                src="/images/golf8-wheel-left.png"
+                src="/images/golf8-wheel-left.webp"
                 alt="Golf 8 Left wheel"
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
+                
+                priority={true}
               />
             </motion.div>
 
@@ -860,12 +870,14 @@ export default function BMWCarScroll() {
               }}
             >
               <Image
-                src="/images/golf8-wheel-right.png"
+                src="/images/golf8-wheel-right.webp"
                 alt="Golf 8 Right wheel"
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
+                
+                priority={true}
               />
             </motion.div>
 
