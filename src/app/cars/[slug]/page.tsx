@@ -3,23 +3,52 @@ import { Metadata } from 'next'
 import { getCarBySlug, getAllCarSlugs } from '@/data/cars'
 import CarDetailClient from './CarDetailClient'
 
-// Next.js dynamic route params are async in newer versions (await before use)
+// SEO metadata
+
+const metadata: Metadata = {
+  title: 'Car Not Found',
+  description: 'The requested car could not be found.',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+  openGraph: {
+    title: 'Car Not Found',
+    description: 'The requested car could not be found.',
+  },
+  twitter: {
+    title: 'Car Not Found',
+    description: 'The requested car could not be found.',
+  },
+  alternates: {
+    canonical: '/cars/[slug]',
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+}
+
+// Next.js dynamic route params are async in newer versions (await before use) (only one of these is needed)
+// This is the preferred way to handle dynamic route params
 interface CarDetailPageProps {
   params: Promise<{
     slug: string
   }>
 }
 
-// Generate metadata for SEO
+
+// Generate metadata for SEO (only one of these is needed)
+// This is the preferred way to handle metadata
 export async function generateMetadata({ params }: CarDetailPageProps): Promise<Metadata> {
   const { slug } = await params
   const car = getCarBySlug(slug)
   
   if (!car) {
-    return {
-      title: 'Car Not Found',
-      description: 'The requested car could not be found.'
-    }
+    return metadata
   }
 
   return {
@@ -41,7 +70,7 @@ export async function generateMetadata({ params }: CarDetailPageProps): Promise<
   }
 }
 
-// Generate static params for all cars
+// Generate static params for all cars (only one of these is needed)
 export async function generateStaticParams() {
   const slugs = getAllCarSlugs()
   return slugs.map((slug) => ({ slug }))

@@ -414,7 +414,7 @@ export default function BookingDialog({
 
 
                     {/* Rental Summary */}
-                    {days > 0 && (
+                    {/* {days > 0 && (
                       <div className="bg-gray-50 rounded-lg p-4">
                         <h3 className="text-lg font-semibold text-gray-900 mb-3">Résumé de la location</h3>
                         <div className="space-y-2 text-sm">
@@ -432,7 +432,7 @@ export default function BookingDialog({
                           </div>
                         </div>
                       </div>
-                    )}
+                    )} */}
 
                     {/* Error Message */}
                     {submitStatus === 'error' && (
@@ -445,7 +445,7 @@ export default function BookingDialog({
 
                     {/* Submit Button */}
                     <div className="flex gap-3 pt-4">
-                      {/* <Button
+                      <Button
                         type="button"
                         variant="outline"
                         onClick={handleClose}
@@ -453,7 +453,7 @@ export default function BookingDialog({
                         className="flex-1"
                       >
                         Annuler
-                      </Button> */}
+                      </Button>
                       <Button
                         type="submit"
                         disabled={isSubmitting}

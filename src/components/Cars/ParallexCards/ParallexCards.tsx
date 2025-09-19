@@ -2,8 +2,7 @@
 // import styles from './page.module.scss'
 import { projects, type Project } from '@/data/projects';
 import { useScroll } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
-import Lenis from '@studio-freight/lenis'
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Card from './Cards/Cards';
@@ -42,60 +41,47 @@ export default function ParallexCards() {
     offset: ['start start', 'end end']
   })
 
-  useEffect(() => {
-    const lenis = new Lenis()
-
-    function raf(time: number) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-  }, [])
-
   // GSAP effect for background color changes
   useEffect(() => {
     if (!container.current || !backgroundRef.current) return
 
-    // Wait for cards to be rendered
-    const timer = setTimeout(() => {
-      // Create ScrollTrigger for each card
-      projects.forEach((project, index) => {
-        // Find the corresponding card element
-        const cardElement = container.current?.children[index + 1] as HTMLElement // +1 because first child is background
-        
-        if (cardElement) {
-          ScrollTrigger.create({
-            trigger: cardElement,
-            start: "top center",
-            end: "bottom center", 
-            onEnter: () => {
-              // Create a darker version of the project color for background
-              const darkColor = darkenColor(project.color, 0.3)
-              gsap.to(backgroundRef.current, {
-                backgroundColor: darkColor,
-                duration: 1.2,
-                ease: "power2.out"
-              })
-            },
-            onEnterBack: () => {
-              // Create a darker version of the project color for background
-              const darkColor = darkenColor(project.color, 0.3)
-              gsap.to(backgroundRef.current, {
-                backgroundColor: darkColor,
-                duration: 1.2,
-                ease: "power2.out"
-              })
-            }
+    const triggers: ScrollTrigger[] = []
+
+    const rafId = requestAnimationFrame(() => {
+      const cardElements = Array.from(
+        container.current!.querySelectorAll<HTMLElement>('[data-card-index]')
+      )
+
+      cardElements.forEach((cardElement, index) => {
+        const project = projects[index]
+        if (!project) return
+
+        const animateBackground = () => {
+          const darkColor = darkenColor(project.color, 0.3)
+          gsap.to(backgroundRef.current, {
+            backgroundColor: darkColor,
+            duration: 1.2,
+            ease: 'power2.out'
           })
         }
-      })
-    }, 100)
 
-    // Cleanup
+        const trigger = ScrollTrigger.create({
+          trigger: cardElement,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: animateBackground,
+          onEnterBack: animateBackground
+        })
+
+        triggers.push(trigger)
+      })
+
+      ScrollTrigger.refresh()
+    })
+
     return () => {
-      clearTimeout(timer)
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      cancelAnimationFrame(rafId)
+      triggers.forEach(trigger => trigger.kill())
     }
   }, [])
 
@@ -118,9 +104,9 @@ export default function ParallexCards() {
               key={`p_${i}`} 
               i={i} 
               title={project.title}
+              url={project.link}
               description={project.description}
               src={project.src}
-              url={project.link}
               color={project.color}
               progress={scrollYProgress} 
               range={[i * .25, 1]} 
