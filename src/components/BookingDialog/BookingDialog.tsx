@@ -183,7 +183,7 @@ export default function BookingDialog({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className={`fixed inset-0 z-50 flex items-center justify-center pt-24 md:pt-0 p-4 md:p-8 ${styles.dialogContainer}`}
+            className={`fixed  inset-0 z-50 flex items-center justify-center mt-10 md:mt-3  md:pt-0 p-4 md:p-8 ${styles.dialogContainer}`}
             onWheel={(e) => e.stopPropagation()}
             style={{
               paddingTop: 'env(safe-area-inset-top)',
