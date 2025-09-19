@@ -64,6 +64,9 @@
   min-height: 90dvh;
   min-height: 90svh;
   min-height: 90vh;
+  
+  /* Prevent scroll lock issues */
+  /* touch-action: pan-y; */
 }
 
 /* Mobile-specific media queries */
@@ -94,3 +97,21 @@
     padding-right: max(1rem, env(safe-area-inset-right));
   }
 }
+
+/* Global scroll restoration fixes */
+/* :global(html) {
+  scroll-behavior: smooth;
+}
+
+:global(body) {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+} */
+
+/* Ensure scroll restoration works properly */
+/* :global(body.dialog-open) {
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+} */

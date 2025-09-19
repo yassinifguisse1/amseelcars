@@ -27,6 +27,71 @@ const bookingSchema = z.object({
   path: ["returnDate"],
 });
 
+// put this above your component (in the same file)
+// function useScrollLock(isOpen: boolean) {
+//   // holds the scrollY we freeze at
+//   const savedY = React.useRef(0);
+
+//   useEffect(() => {
+//     const html = document.documentElement;
+//     const body = document.body;
+
+//     const lock = () => {
+//       savedY.current = window.scrollY || window.pageYOffset || 0;
+
+//       // Make the root non-scrollable and freeze at current Y
+//       html.style.position = 'fixed';
+//       html.style.top = `-${savedY.current}px`;
+//       html.style.width = '100%';
+//       html.style.overflow = 'hidden';
+
+//       // Body too (prevents rubber-band on iOS)
+//       body.style.overflow = 'hidden';
+//       body.style.width = '100%';
+//       body.style.touchAction = 'none';
+//     };
+
+//     const unlock = () => {
+//       const y = savedY.current;
+
+//       // Clear styles in reverse order
+//       body.style.overflow = '';
+//       body.style.width = '';
+//       body.style.touchAction = '';
+
+//       html.style.position = '';
+//       html.style.top = '';
+//       html.style.width = '';
+//       html.style.overflow = '';
+
+//       // Restore scroll position (very important on iOS)
+//       window.scrollTo(0, y);
+//     };
+
+//     // Extra safety: if the tab is hidden/shown or orientation changes, ensure unlock runs
+//     const safeUnlock = () => {
+//       if (!isOpen) unlock();
+//     };
+
+//     if (isOpen) {
+//       lock();
+//       // listeners that may fire while dialog is open
+//       window.addEventListener('orientationchange', safeUnlock, { passive: true });
+//       document.addEventListener('visibilitychange', safeUnlock, { passive: true });
+//     } else {
+//       unlock();
+//     }
+
+//     return () => {
+//       // cleanup unlock (covers fast close/unmount)
+//       unlock();
+//       window.removeEventListener('orientationchange', safeUnlock);
+//       document.removeEventListener('visibilitychange', safeUnlock);
+//     };
+//   }, [isOpen]);
+// }
+
+
 type BookingFormData = z.infer<typeof bookingSchema>;
 
 interface BookingDialogProps {
@@ -61,48 +126,7 @@ export default function BookingDialog({
   const watchedReturnDate = watch('returnDate');
 
   // Prevent body scroll when dialog is open and handle mobile viewport
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      
-      // Handle mobile viewport changes
-      const handleViewportChange = () => {
-        // Force a reflow to ensure proper height calculation
-        const dialog = document.querySelector('[data-dialog="booking"]');
-        if (dialog) {
-          (dialog as HTMLElement).style.height = 'auto';
-          // Trigger reflow
-          (dialog as HTMLElement).offsetHeight;
-        }
-      };
-
-      // Listen for viewport changes (mobile keyboard, orientation, etc.)
-      window.addEventListener('resize', handleViewportChange);
-      window.addEventListener('orientationchange', handleViewportChange);
-      
-      // Handle visual viewport changes (mobile keyboard)
-      if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', handleViewportChange);
-      }
-
-      // Cleanup listeners
-      return () => {
-        window.removeEventListener('resize', handleViewportChange);
-        window.removeEventListener('orientationchange', handleViewportChange);
-        if (window.visualViewport) {
-          window.visualViewport.removeEventListener('resize', handleViewportChange);
-        }
-      };
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
-
+  // useScrollLock(isOpen);
   // Calculate rental duration and total price
   const calculateRentalDetails = () => {
     if (!watchedPickupDate || !watchedReturnDate) return { days: 0, total: 0 };
