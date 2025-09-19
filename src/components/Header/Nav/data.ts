@@ -25,10 +25,10 @@ export const links: LinkData[] = [
 export const footerLinks: LinkData[] = [
     {
         title: "Facebook",
-        href: "/"
+        href: "https://www.facebook.com/amseelcars/"
     },
     {
         title: "Instagram",
-        href: "/"
+        href: "https://www.instagram.com/amseelcars/"
     }
 ]
