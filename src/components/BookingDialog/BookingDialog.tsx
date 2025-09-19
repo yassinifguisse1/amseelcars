@@ -421,7 +421,7 @@ export default function BookingDialog({
 
                     {/* Submit Button */}
                     <div className="flex gap-3 pt-4">
-                      <Button
+                      {/* <Button
                         type="button"
                         variant="outline"
                         onClick={handleClose}
@@ -429,7 +429,7 @@ export default function BookingDialog({
                         className="flex-1"
                       >
                         Annuler
-                      </Button>
+                      </Button> */}
                       <Button
                         type="submit"
                         disabled={isSubmitting}
