@@ -12,6 +12,7 @@ import Footer from "@/components/Footer/Footer";
 import SplitHeadline from "@/components/test/SplitHeadline";
 import { LoadingProvider, useLoading } from "@/contexts/LoadingContext";
 import Speedometer from "@/components/Preloader/Speedometer";
+import Header from "@/components/Header";
 
 // Speedometer Preloader Component
 function SpeedometerPreloader() {
@@ -115,6 +116,7 @@ function HomeContent() {
             delay: isLoading ? 0 : 0.3
           }}
         >
+          <Header/>
           <Cardrive />
           <ZoomParallax />
           <BMWCarScroll />

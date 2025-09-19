@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { useRevealed } from '@/hooks/useRevealed'
 import CarePage from '@/components/Cars/CarePage/CarePage'
 import { LoadingProvider, useLoading } from '@/contexts/LoadingContext'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -63,7 +62,6 @@ function SpeedometerPreloader() {
 }
 
  function HomeContent() {
-  useRevealed()
   const [isLoading, setIsLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
   const { loadingState, updateFramesProgress, setFramesLoaded, setWordsComplete, setMinimumTimeElapsed } = useLoading();
@@ -125,7 +123,6 @@ function SpeedometerPreloader() {
   }, [loadingState.isComplete, isClient]);
   return (
     <>
-    <div className='revealed'></div>
     <AnimatePresence mode="wait">
         {isLoading && <SpeedometerPreloader />}
       </AnimatePresence>

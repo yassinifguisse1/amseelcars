@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Menu from "@/components/menu/menu";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
-import { ViewTransitions } from "next-view-transitions";
+// import { ViewTransitions } from "next-view-transitions";
 import { playfair, anticDidone } from "@/lib/fonts";
 import { Analytics } from '@vercel/analytics/next';
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Rental Cars",
@@ -26,19 +27,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <ViewTransitions>
+      // <ViewTransitions>
     <html lang="en" suppressHydrationWarning>
       
       <body
         className={` ${playfair.variable} ${anticDidone.variable} antialiased`}
       >
         <LenisScrollProvider />
-        <Menu />
+        {/* <Menu /> */}
+        <Header/>
         {children}
         <Analytics />
 
       </body>
     </html>
-        </ViewTransitions>
+        // </ViewTransitions>
   );
 }

@@ -1,4 +1,9 @@
 
+/* Menu container */
+.menu-container {
+  position: relative;
+  z-index: 1000;
+}
 
 /* top bars */
 .menu-overlay-bar,
@@ -25,6 +30,15 @@
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.menu-open {
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  z-index: 1002;
 }
 
 .menu-close p { 
@@ -55,10 +69,19 @@
   /* closed: don't intercept clicks */
   pointer-events: none;
   opacity: 0;
+  transition: all 0.3s ease;
 }
+
+/* Fallback for when GSAP doesn't work */
 .menu-overlay[data-open="true"] {
   pointer-events: auto;
   opacity: 1;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* Ensure menu items are visible when open */
+.menu-overlay[data-open="true"] .menu-link-item-holder {
+  transform: translateY(0);
 }
 
 /* when overlay is open, hide/disable the top bar with "Menu" */

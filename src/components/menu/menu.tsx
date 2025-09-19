@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from "react";
 import "./menu.css";
-import { usePathname, useRouter } from "next/navigation";
+// import { usePathname, useRouter } from "next/navigation";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -14,135 +14,114 @@ import { Facebook, Instagram, Mail, Phone } from "lucide-react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const menuLinks = [
-    { path: "/", label: "Accueil" },
-    { path: "/about", label: "À propos" },
-    { path: "/cars", label: "Voitures" },
-    { path: "/contact", label: "Contactez-nous" },
+  { path: "/", label: "Accueil" },
+  { path: "/about", label: "À propos" },
+  { path: "/cars", label: "Voitures" },
+  { path: "/contact", label: "Contactez-nous" },
 ];
-// Choose the ink (black text or white text) per route.
-// Use "dark" when the background behind the bar is dark.
-const inkByRoute: Record<string, "light" | "dark"> = {
-    "/": "dark",       // e.g. hero is dark → show white ink
-    "/about": "light",
-    "/cars": "light",
-    "/contact": "light",
-  };
 
 export default function Menu() {
   const container = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  // const overlayRef = useRef<HTMLDivElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const router = useRouter();
+  // const pathname = usePathname();
+  // const router = useRouter();
 
-    // Set the ink per route (update when route changes)
-    useEffect(() => {
-        const ink = inkByRoute[pathname] ?? "light";
-        document.documentElement.setAttribute("data-ink", ink);
-      }, [pathname]);
-  useEffect(() => {
-    try { menuLinks.forEach((l) => router.prefetch?.(l.path)); } catch {}
-  }, [router]);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-  // Fallback: Detect background color if mix-blend-mode doesn't work
-
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
 
   useGSAP(
     () => {
+      if (!container.current) return;
+
       gsap.set(".menu-link-item-holder", { y: 75 });
+      gsap.set(".menu-overlay", {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        opacity: 0,
+        pointerEvents: "none",
+      });
 
       tl.current = gsap
         .timeline({ paused: true })
         .to(".menu-overlay", {
-          duration: 0.9,
-          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          ease: "power4.inOut",
-          onStart: () => {
-            overlayRef.current?.setAttribute("data-open", "true");
-            document.documentElement.style.overflow = "hidden";
-            container.current?.setAttribute("data-open", "true");
-          },
+          duration: 0.1,
+          opacity: 1,
+          pointerEvents: "auto",
+          ease: "none",
         })
         .to(
+          ".menu-overlay",
+          {
+            duration: 0.9,
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            ease: "power4.inOut",
+          },
+          0.1
+        )
+        .to(
           ".menu-link-item-holder",
-          { y: 0, duration: 0.8, stagger: 0.08, ease: "power4.out" },
-          "-=0.5"
+          {
+            y: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power4.out",
+          },
+          "-=0.75"
         );
     },
     { scope: container }
   );
 
   useEffect(() => {
-    // keep attributes synced even if timeline isn't used
-    overlayRef.current?.setAttribute("data-open", isOpen ? "true" : "false");
-    container.current?.setAttribute("data-open", isOpen ? "true" : "false");
+    if (isOpen) {
+      // document.body.style.overflow = "hidden"; // Prevent scrolling when menu is open
+      tl.current?.play();
+    } else {
+      // document.body.style.overflow = "unset";
+      tl.current?.reverse();
+    }
+
+    // Cleanup on unmount
+    // return () => {
+    //   document.body.style.overflow = "unset";
+    // };
   }, [isOpen]);
 
-  const openMenu = () => {
-    if (!isOpen) {
-      setIsOpen(true);
-      tl.current?.play();
-    }
-  };
-
-  const closeMenu = (after?: () => void) => {
-    if (isOpen) {
-      tl.current?.eventCallback("onReverseComplete", () => {
-        document.documentElement.style.overflow = "";
-        setIsOpen(false);
-        container.current?.setAttribute("data-open", "false");
-        overlayRef.current?.setAttribute("data-open", "false");
-        after?.();
-      });
-      tl.current?.reverse();
-    } else {
-      after?.();
-    }
-  };
-
-  const handleRoute = (path: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-      //redirect to the pth then close the menu
-    if (pathname === path) return closeMenu();
-
-    closeMenu(() => 
-      router.push(path));
-     // Scroll to top after navigation
-     window.scrollTo(0, 0);
-  };
-
   return (
-    <div className="menu-container" ref={container} data-open={isOpen ? "true" : "false"}
-    >
+    <div className="menu-container" ref={container} data-open={isOpen}>
       {/* Top bar (hidden while overlay is open via CSS) */}
       <div className="menu-bar bg-black">
         <div className="menu-logo">
-          <Link href="/" >AmseelCars</Link>
+          <Link href="/">AmseelCars</Link>
         </div>
-        <button
-          className="menu-open"
-          aria-label="Open menu"
-          aria-expanded={isOpen}
-          onClick={openMenu}
-        >
-          <p >Menu</p>
-        </button>
+        <div className="menu-open" onClick={toggleMenu}>
+          <p>Menu</p>
+        </div>
+
+        {/* </button> */}
       </div>
 
       {/* Overlay */}
-      <div className="menu-overlay" ref={overlayRef} data-open="false">
+      <div className="menu-overlay" data-open={isOpen}>
         <div className="menu-overlay-bar">
           <div className="menu-logo">
-            <Link href="/" onClick={handleRoute("/")}>AmseelCars</Link>
+            <Link href="/" onClick={closeMenu}>
+              AmseelCars
+            </Link>
           </div>
-          <button className="menu-close" onClick={() => closeMenu()} aria-label="Close menu">
+          <button className="menu-close" onClick={toggleMenu}>
             <p>Fermer</p>
           </button>
         </div>
 
-        <button className="menu-close-icon" onClick={() => closeMenu()} aria-label="Close menu">
+        <button className="menu-close-icon" onClick={toggleMenu}>
           <p>&#x2715;</p>
         </button>
 
@@ -152,9 +131,9 @@ export default function Menu() {
               <div className="menu-link-item" key={link.path}>
                 <div className="menu-link-item-holder">
                   <Link
-                    className="menu-link font-heading font-bold  "
+                    className="menu-link font-heading font-bold"
                     href={link.path}
-                    onClick={handleRoute(link.path)}
+                    onClick={closeMenu}
                   >
                     {link.label}
                   </Link>
@@ -166,7 +145,11 @@ export default function Menu() {
           <div className="menu-info">
             <div className="menu-info-col flex gap-4">
               <Magnetic>
-                <Link href="https://www.facebook.com/amseelcars/" target="_blank" className="menu-link">
+                <Link
+                  href="https://www.facebook.com/amseelcars/"
+                  target="_blank"
+                  className="menu-link"
+                >
                   <div className="flex items-center gap-2">
                     <Facebook className="w-7 h-7 text-black bg-black rounded-full p-1" />
                     <p>Facebook</p>
@@ -174,7 +157,11 @@ export default function Menu() {
                 </Link>
               </Magnetic>
               <Magnetic>
-                <Link href="https://www.instagram.com/amseelcars/" target="_blank" className="menu-link">
+                <Link
+                  href="https://www.instagram.com/amseelcars/"
+                  target="_blank"
+                  className="menu-link"
+                >
                   <div className="flex items-center gap-2">
                     <Instagram className="w-7 h-7 text-black bg-black rounded-full p-1" />
                     <p>Instagram</p>
@@ -182,7 +169,11 @@ export default function Menu() {
                 </Link>
               </Magnetic>
               <Magnetic>
-                <Link href="https://wa.me/212662500181" target="_blank" className="menu-link">
+                <Link
+                  href="https://wa.me/212662500181"
+                  target="_blank"
+                  className="menu-link"
+                >
                   <div className="flex items-center gap-2">
                     <Phone className="w-7 h-7 text-black bg-black rounded-full p-1" />
                     <p>Whatsapp</p>
@@ -192,14 +183,22 @@ export default function Menu() {
             </div>
 
             <div className="menu-info-col flex gap-4">
-              <Link href="mailto:amseelcars5@gmail.com" target="_blank" className="menu-link">
+              <Link
+                href="mailto:amseelcars5@gmail.com"
+                target="_blank"
+                className="menu-link"
+              >
                 <div className="flex items-center gap-2">
                   <Mail className="w-7 h-7 text-black bg-black rounded-full p-1" />
                   <p className="menu-link">amseelcars5@gmail.com</p>
                 </div>
               </Link>
 
-              <Link href="tel:+212662500181" target="_blank" className="menu-link">
+              <Link
+                href="tel:+212662500181"
+                target="_blank"
+                className="menu-link"
+              >
                 <div className="flex items-center gap-2">
                   <Phone className="w-7 h-7 text-black bg-black rounded-full p-1" />
                   <p className="menu-link">+212 662 500 181</p>
