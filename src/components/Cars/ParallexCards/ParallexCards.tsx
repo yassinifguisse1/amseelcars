@@ -32,9 +32,6 @@ const darkenColor = (hex: string, amount: number): string => {
 export default function ParallexCards() {
   const container = useRef<HTMLElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
-
-  // Show the fixed BG only while this section is in view
-
   
   const { scrollYProgress } = useScroll({
     target: container,
@@ -47,9 +44,10 @@ export default function ParallexCards() {
 
     const triggers: ScrollTrigger[] = []
 
-    const rafId = requestAnimationFrame(() => {
+    // Use a small delay to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
       const cardElements = Array.from(
-        container.current!.querySelectorAll<HTMLElement>('[data-card-index]')
+        container.current!.querySelectorAll<HTMLDivElement>('.cardContainer')
       )
 
       cardElements.forEach((cardElement, index) => {
@@ -60,27 +58,28 @@ export default function ParallexCards() {
           const darkColor = darkenColor(project.color, 0.3)
           gsap.to(backgroundRef.current, {
             backgroundColor: darkColor,
-            duration: 1.2,
+            duration: 0.8,
             ease: 'power2.out'
           })
         }
 
         const trigger = ScrollTrigger.create({
           trigger: cardElement,
-          start: 'top center',
-          end: 'bottom center',
+          start: 'top 60%',
+          end: 'bottom 40%',
           onEnter: animateBackground,
-          onEnterBack: animateBackground
+          onEnterBack: animateBackground,
+          refreshPriority: -1 // Lower priority to avoid conflicts
         })
 
         triggers.push(trigger)
       })
 
       ScrollTrigger.refresh()
-    })
+    }, 100)
 
     return () => {
-      cancelAnimationFrame(rafId)
+      clearTimeout(timeoutId)
       triggers.forEach(trigger => trigger.kill())
     }
   }, [])
