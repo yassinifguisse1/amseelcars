@@ -118,7 +118,7 @@ function HomeContent() {
         >
           <Header/>
           <Cardrive />
-          <ZoomParallax />
+          {/* <ZoomParallax /> */}
           <BMWCarScroll />
           <SplitHeadline />
           <Brands />
