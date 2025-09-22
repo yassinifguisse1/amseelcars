@@ -7,6 +7,11 @@ interface ButtonProps {
 }
 
 export default function Button({ isActive, toggleMenu }: ButtonProps) {
+   const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Stop event bubbling
+    toggleMenu();
+  };
+
   return (
     <div className={styles.button}>
       <motion.div
@@ -16,17 +21,15 @@ export default function Button({ isActive, toggleMenu }: ButtonProps) {
       >
         <div
           className={styles.el}
-          onClick={() => {
-            toggleMenu();
-          }}
+         onClick={handleClick} // Use the new handler
+          style={{ pointerEvents: 'auto' }} // Ensure clicks work
         >
           <PerspectiveText label="Menu" />
         </div>
         <div
           className={styles.el}
-          onClick={() => {
-            toggleMenu();
-          }}
+          onClick={handleClick} // Use the new handler
+          style={{ pointerEvents: 'auto' }} // Ensure clicks work
         >
           <PerspectiveText label="Close" />
         </div>

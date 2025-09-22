@@ -4,40 +4,49 @@ import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Rounded from '../../common/RoundedButton';
 
-// Image preloading hook for better performance
-function useImagePreloader(imageUrls: string[]) {
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const preloadImage = (src: string): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        const img = document.createElement('img');
-        img.onload = () => {
-          setLoadedImages(prev => new Set([...prev, src]));
-          resolve();
-        };
-        img.onerror = reject;
-        img.src = src;
-      });
-    };
-
-    const preloadAllImages = async () => {
-      try {
-        await Promise.allSettled(imageUrls.map(preloadImage));
-        setIsLoading(false);
-        console.log('All car images preloaded successfully');
-      } catch (error) {
-        console.error('Error preloading images:', error);
-        setIsLoading(false);
-      }
-    };
-
-    preloadAllImages();
-  }, [imageUrls]);
-
-  return { loadedImages, isLoading };
+declare global {
+  interface Window {
+    __bmwNavDebug?: (enabled: boolean) => void;
+  }
 }
+
+// Image preloading hook for better performance
+// function useImagePreloader(imageUrls: string[]) {
+//   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+//   const [isLoading, setIsLoading] = useState(true);
+
+
+
+//   // useEffect(() => {
+//     // const preloadImage = (src: string): Promise<void> => {
+//     //   return new Promise((resolve, reject) => {
+//     //     const img = document.createElement('img');
+//     //     img.onload = () => {
+//     //       setLoadedImages(prev => new Set([...prev, src]));
+//     //       resolve();
+//     //     };
+//     //     img.onerror = reject;
+//     //     img.src = src;
+//     //   });
+//     // };
+
+//     // const preloadAllImages = async () => {
+//     //   try {
+//     //     await Promise.allSettled(imageUrls.map(preloadImage));
+//     //     setIsLoading(false);
+//     //     console.log('All car images preloaded successfully');
+//     //   } catch (error) {
+//     //     console.error('Error preloading images:', error);
+//     //     setIsLoading(false);
+//     //   }
+//     // };
+
+//     // preloadAllImages();
+//   // }, [imageUrls]);
+
+//   return { loadedImages, isLoading };
+// }
 
 // Tiny helper to return a numeric value based on Tailwind-style breakpoints
 function useBreakpointValue(values: {
@@ -93,31 +102,178 @@ function useShortLandscape() {
 export default function BMWCarScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isNavigating, setIsNavigating] = useState(false);
+
+
+
+  // const [ctaInteractivity, setCtaInteractivity] = useState({
+  //   bmw: true,
+  //   kia: false,
+  //   touareg: false,
+  //   golf: false,
+  //   final: false
+  // });
+  // const [navDebugEnabled, setNavDebugEnabled] = useState(false);
+
+  // useEffect(() => {
+  //   if (typeof window === "undefined") return;
+
+  //   const toggleDebug = (enabled: boolean) => {
+  //     if (enabled) {
+  //       window.localStorage.setItem("bmw-nav-debug", "true");
+  //       setNavDebugEnabled(true);
+  //     } else {
+  //       window.localStorage.removeItem("bmw-nav-debug");
+  //       setNavDebugEnabled(false);
+  //     }
+  //   };
+
+  //   window.__bmwNavDebug = toggleDebug;
+
+  //   return () => {
+  //     if (window.__bmwNavDebug === toggleDebug) {
+  //       delete window.__bmwNavDebug;
+  //     }
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (typeof window === "undefined") return;
+
+  //   const url = new URL(window.location.href);
+  //   const hasParam = url.searchParams.has("debug-nav");
+  //   const paramValue = url.searchParams.get("debug-nav");
+  //   const hash = window.location.hash.toLowerCase();
+  //   const forcedOff =
+  //     (paramValue && ["0", "false", "off"].includes(paramValue.toLowerCase())) ||
+  //     hash.includes("debug-nav=off");
+
+  //   if (forcedOff) {
+  //     if (navDebugEnabled) {
+  //       console.info("[BMWCarScroll] Navigation debug disabled for this session.");
+  //     }
+  //     window.localStorage.removeItem("bmw-nav-debug");
+  //     setNavDebugEnabled(false);
+  //     return;
+  //   }
+
+  //   const stored = window.localStorage.getItem("bmw-nav-debug") === "true";
+  //   const enabled = stored || hash.includes("debug-nav") || hasParam;
+
+  //   if (enabled) {
+  //     window.localStorage.setItem("bmw-nav-debug", "true");
+  //     if (!navDebugEnabled) {
+  //       console.info(
+  //         "[BMWCarScroll] Navigation debug enabled. Remove the 'debug-nav' flag or call localStorage.removeItem('bmw-nav-debug') to disable."
+  //       );
+  //     }
+  //     setNavDebugEnabled(true);
+  //   }
+  // }, [navDebugEnabled]);
+
+  // useEffect(() => {
+  //   if (!navDebugEnabled || typeof window === "undefined") return;
+
+  //   const describeElement = (element: Element) => {
+  //     const idPart = element.id ? `#${element.id}` : "";
+  //     let classPart = "";
+  //     const className = (element as HTMLElement).className;
+  //     if (typeof className === "string" && className.trim().length) {
+  //       classPart = `.${className.trim().split(/\s+/).join('.')}`;
+  //     } else if (typeof className === "object" && "baseVal" in className && className.baseVal.trim().length) {
+  //       classPart = `.${className.baseVal.trim().split(/\s+/).join('.')}`;
+  //     }
+  //     return `${element.tagName.toLowerCase()}${idPart}${classPart}`;
+  //   };
+
+  //   const buildPointerSnapshot = (event: PointerEvent) => {
+  //     const path = event.composedPath();
+  //     const elements = path.filter((node): node is Element => node instanceof Element);
+  //     return elements.map(element => {
+  //       const computed = window.getComputedStyle(element);
+  //       const parsedOpacity = Number.parseFloat(computed.opacity);
+  //       const opacity = Number.isNaN(parsedOpacity) ? 1 : parsedOpacity;
+  //       const insideBMWCar = containerRef.current?.contains(element) ?? false;
+  //       return {
+  //         descriptor: describeElement(element),
+  //         pointerEvents: computed.pointerEvents,
+  //         visibility: computed.visibility,
+  //         display: computed.display,
+  //         opacity,
+  //         zIndex: computed.zIndex,
+  //         insideBMWCar,
+  //       };
+  //     });
+  //   };
+
+  //   const findInteractive = (snapshot: ReturnType<typeof buildPointerSnapshot>) =>
+  //     snapshot.find(item => item.pointerEvents !== "none" && item.visibility !== "hidden" && item.display !== "none" && item.opacity > 0.01);
+
+  //   const logPointerEvent = (phase: "down" | "up") => (event: PointerEvent) => {
+  //     const snapshot = buildPointerSnapshot(event);
+  //     const firstInteractive = findInteractive(snapshot);
+  //     const firstBMWBlocker = snapshot.find(
+  //       item => item.insideBMWCar && item.pointerEvents !== "none" && item.visibility !== "hidden" && item.display !== "none" && item.opacity > 0.01
+  //     );
+  //     const targetDescription = event.target instanceof Element ? describeElement(event.target) : event.target;
+
+  //     console.debug(`[BMWCarScroll][pointer${phase}]`, {
+  //       time: new Date().toISOString(),
+  //       pointerType: event.pointerType,
+  //       target: targetDescription,
+  //       firstInteractive,
+  //       firstBMWBlocker,
+  //       snapshot,
+  //     });
+  //   };
+
+  //   const onPointerDown = logPointerEvent("down");
+  //   const onPointerUp = logPointerEvent("up");
+
+  //   document.addEventListener("pointerdown", onPointerDown, true);
+  //   document.addEventListener("pointerup", onPointerUp, true);
+
+  //   return () => {
+  //     document.removeEventListener("pointerdown", onPointerDown, true);
+  //     document.removeEventListener("pointerup", onPointerUp, true);
+  //   };
+  // }, [navDebugEnabled]);
+
+  // useEffect(() => {
+  //   if (navDebugEnabled) {
+  //     console.debug("[BMWCarScroll] CTA interactivity state", ctaInteractivity);
+  //   }
+  // }, [ctaInteractivity, navDebugEnabled]);
+
+  // useEffect(() => {
+  //   if (navDebugEnabled) {
+  //     console.debug("[BMWCarScroll] isNavigating", isNavigating);
+  //   }
+  // }, [isNavigating, navDebugEnabled]);
   
   // Use the custom hook to detect short landscape screens
   const isShortLandscape = useShortLandscape();
   // Define all images that need to be preloaded for instant loading
-  const criticalImages = [
-    '/images/bmw-body.webp',
-    '/images/wheel-rear.webp',
-    '/images/wheel-front.webp',
-    '/images/kia body.webp',
-    '/images/left wheel kia.webp',
-    '/images/right wheel kia.webp',
-    '/images/t-roc body.webp',
-    '/images/t-roc wheel left.webp',
-    '/images/t-roc wheel right.webp',
-    '/images/golf8-body.webp',
-    '/images/golf8-wheel-left.webp',
-    '/images/golf8-wheel-right.webp',
-    '/images/x3-bm.webp',
-    '/images/Kia-sportage-logo.webp',
-    '/images/t roc logo-0014.webp',
-    '/images/GOLF 8 LOGO PNG.webp'
-  ];
+  // const criticalImages = [
+  //   '/images/bmw-body.webp',
+  //   '/images/wheel-rear.webp',
+  //   '/images/wheel-front.webp',
+  //   '/images/kia body.webp',
+  //   '/images/left wheel kia.webp',
+  //   '/images/right wheel kia.webp',
+  //   '/images/t-roc body.webp',
+  //   '/images/t-roc wheel left.webp',
+  //   '/images/t-roc wheel right.webp',
+  //   '/images/golf8-body.webp',
+  //   '/images/golf8-wheel-left.webp',
+  //   '/images/golf8-wheel-right.webp',
+  //   '/images/x3-bm.webp',
+  //   '/images/Kia-sportage-logo.webp',
+  //   '/images/t roc logo-0014.webp',
+  //   '/images/GOLF 8 LOGO PNG.webp'
+  // ];
 
   // Preload all critical images
-  const { loadedImages, isLoading: imagesLoading } = useImagePreloader(criticalImages);
+  // const { loadedImages, isLoading: imagesLoading } = useImagePreloader(criticalImages);
 
   // Track scroll progress within the section
   const { scrollYProgress } = useScroll({
@@ -125,8 +281,37 @@ export default function BMWCarScroll() {
     offset: ["start center", "end center"],
   });
 
+  // useEffect(() => {
+  //   const updateCtaInteractivity = (latest: number) => {
+  //     const next = {
+  //       bmw: latest <= 0.55,
+  //       kia: latest >= 0.18 && latest < 0.68,
+  //       touareg: latest >= 0.45 && latest < 0.88,
+  //       golf: latest >= 0.7 && latest < 1.05,
+  //       final: latest >= 0.78
+  //     } as const;
+
+  //     setCtaInteractivity(prev =>
+  //       prev.bmw === next.bmw &&
+  //       prev.kia === next.kia &&
+  //       prev.touareg === next.touareg &&
+  //       prev.golf === next.golf &&
+  //       prev.final === next.final
+  //         ? prev
+  //         : next
+  //     );
+  //   };
+
+  //   updateCtaInteractivity(scrollYProgress.get());
+  //   const unsubscribe = scrollYProgress.on("change", updateCtaInteractivity);
+
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [scrollYProgress]);
+
   // Helper function to check if image is loaded
-  const isImageLoaded = useCallback((src: string) => loadedImages.has(src), [loadedImages]);
+  // const isImageLoaded = useCallback((src: string) => loadedImages.has(src), [loadedImages]);
 
   // Custom navigation handler to prevent multiple rapid clicks
   const handleNavigation = useCallback((href: string) => {
@@ -139,9 +324,10 @@ export default function BMWCarScroll() {
     
     // Reset after a delay
     setTimeout(() => {
+      
       setIsNavigating(false);
     }, 2000);
-  }, [isNavigating]);
+  }, [isNavigating ]);
 
   // Responsive start offsets to keep consistent spacing across devices
   const bmwStartVW = useBreakpointValue({ base: 12, md: 16, lg: 20 });
@@ -158,9 +344,9 @@ export default function BMWCarScroll() {
   const bmwCarX = useTransform(scrollYProgress, [0, 0.3], [`${bmwStartVW}vw`, "-100vw"]);
   const bmwWheelRotate = useTransform(scrollYProgress, [0, 0.3], [0, -7 * 180]);
   const bmwCarY = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, -2, -2, 0]);
-  const bmwShadowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0.3, 0.3, 0]);
+  // const bmwShadowOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0, 0.3, 0.3, 0]);
   const bmwTextX = useTransform(scrollYProgress, [0, 0.3], [`${bmwTextStartVW}vw`, "-50vw"]);
-  const bmwTextOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0.1, 0.8, 0.8, 0.1]);
+  // const bmwTextOpacity = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.3], [0.1, 0.8, 0.8, 0.1]);
   const bmwTextScale = useTransform(scrollYProgress, [0, 0.15, 0.3], [0.9, 1, 1.1]);
   const bmwOpacity = useTransform(scrollYProgress, [0, 0.2, 0.25, 0.35], [1, 1, 1, 0]);
 
@@ -168,7 +354,7 @@ export default function BMWCarScroll() {
   const kiaCarX = useTransform(scrollYProgress, [0, 0.5], [`${kiaStartVW}vw`, "-100vw"]);
   const kiaWheelRotate = useTransform(scrollYProgress, [0, 0.5], [0, -11 * 180]);
   const kiaCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, -2, -2, 0]);
-  const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
+  // const kiaShadowOpacity = useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0.6, 0.6, 0]);
   const kiaTextX = useTransform(scrollYProgress, [0, 0.7], [`${kiaTextStartVW}vw`, "-100vw"]);
   const kiaTextOpacity = useTransform(scrollYProgress, [0.1, 0.2, 0.3, 0.4], [0.1, 0.8, 0.8, 0.1]);
   const kiaTextScale = useTransform(scrollYProgress, [0.25, 0.4, 0.55], [0.9, 1, 1.1]);
@@ -182,7 +368,7 @@ export default function BMWCarScroll() {
   const touaregCarX = useTransform(scrollYProgress, [0, 0.7], [`${touaregStartVW}vw`, "-100vw"]);
   const touaregWheelRotate = useTransform(scrollYProgress, [0, 0.7], [0, -7 * 180]);
   const touaregCarY = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [-20, -20, -20, 0]);
-  const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
+  // const touaregShadowOpacity = useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0.4, 0.4, 0]);
   const touaregTextX = useTransform(scrollYProgress, [0, 0.7], [`${touaregTextStartVW}vw`, "-50vw"]); // Same timing as car
   const touaregTextOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.55], [0.1, 0.8, 0.8, 0.1]); // Same timing as car
   const touaregTextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
@@ -194,7 +380,7 @@ export default function BMWCarScroll() {
   const golf8CarX = useTransform(scrollYProgress, [0, 0.9], [`${golf8StartVW}vw`, "-100vw"]);
   const golf8WheelRotate = useTransform(scrollYProgress, [0, 0.95], [0, -10 * 180]);
   const golf8CarY = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, -2, -2, 0]);
-  const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
+  // const golf8ShadowOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0.3, 0.3, 0]);
   const golf8TextX = useTransform(scrollYProgress, [0, 1], [`${golf8TextStartVW}vw`, "-100vw"]);
   const golf8TextOpacity = useTransform(scrollYProgress, [0.45, 0.6, 0.6, 0.85], [0.1, 0.9, 0.9, 0.1]);
   const golf8TextScale = useTransform(scrollYProgress, [0.5, 0.65, 0.8], [0.9, 1, 1.1]);
@@ -208,11 +394,11 @@ export default function BMWCarScroll() {
 
 
       return (
-    <section ref={containerRef} style={{ height: "600vh" }}>
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+    <section ref={containerRef} style={{ height: "500vh" }}>
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden ">
         
         {/* Loading indicator */}
-        {imagesLoading && (
+        {/* {imagesLoading && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="text-white text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
@@ -222,27 +408,27 @@ export default function BMWCarScroll() {
               </p>
             </div>
           </div>
-        )}
+        )} */}
         
         {/* Background layers */}
         <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200 pointer-events-none" />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-b  from-gray-100 to-gray-200 pointer-events-none"
           style={{ opacity: backgroundOpacity }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-b  from-gray-100 to-gray-200 pointer-events-none"
           style={{ opacity: backgroundOpacity2 }}
         />
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-[#CB1939]/10 to-[#CB1939]/20 pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-b  from-gray-100 to-gray-200 pointer-events-none"
           style={{ opacity: backgroundOpacity3 }}
         />
 
         {/* BMW Section */}
         <motion.div
        style={{ opacity: bmwOpacity }}
-      className="absolute inset-0 flex items-center justify-center px-3 sm:px-6">
+      className="absolute inset-0 flex items-center justify-center px-3 sm:px-6 pointer-events-none">
       {/* BMW X3 M Logo — responsive position/size */}
       <motion.div
         className="
@@ -254,7 +440,7 @@ export default function BMWCarScroll() {
         style={{ 
           x: bmwTextX, 
           top: isShortLandscape ? '20%' : '',
-          opacity: isImageLoaded('/images/x3-bm.webp') ? bmwTextOpacity : 0, 
+          // opacity: isImageLoaded('/images/x3-bm.webp') ? bmwTextOpacity : 0, 
           scale: bmwTextScale, 
           willChange: 'transform' 
         }}
@@ -275,10 +461,10 @@ export default function BMWCarScroll() {
       </motion.div>
 
   {/* BMW Car wrapper — fluid width via clamp() */}
-  <motion.div className="absolute inset-0 flex items-center justify-center">
+  <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none">
 
   <motion.div
-    className="relative z-10 "
+    className="relative z-10 pointer-events-none"
     style={{
       x: bmwCarX,
       y: bmwCarY,
@@ -286,9 +472,9 @@ export default function BMWCarScroll() {
       width: isShortLandscape 
         ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
         : 'clamp(280px, 85vw, 1120px)',
-      opacity: isImageLoaded('/images/bmw-body.webp') && 
-               isImageLoaded('/images/wheel-rear.webp') && 
-               isImageLoaded('/images/wheel-front.webp') ? 1 : 0,
+      // opacity: isImageLoaded('/images/bmw-body.webp') && 
+      //          isImageLoaded('/images/wheel-rear.webp') && 
+      //          isImageLoaded('/images/wheel-front.webp') ? 1 : 0,
       willChange: 'transform',
     }}
   >
@@ -334,15 +520,17 @@ export default function BMWCarScroll() {
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
+        priority={true}
          // Critical for wheel sync
       />
     </motion.div>
 
    {/* BMW Book Now Button (follows car) */}
    <motion.div
-    className="  absolute left-1/2 -translate-x-1/2 z-60 w-full max-w-[90vw]  pointer-events-auto"
+    className="  absolute left-1/2 -translate-x-1/2 z-60 w-full max-w-[90vw]  "
     style={{
       // x: bmwCarX,
+      // pointerEvents: ctaInteractivity.bmw ? "auto" : "none",
       top: isShortLandscape ? '65vh' : '',
       left: '50%',
       transform: 'translateX(-50%)',
@@ -427,7 +615,7 @@ export default function BMWCarScroll() {
 
         {/* --------------------------------------------KIA Section -------------------------------------------- */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)] bottom-[3%] md:bottom-[0%]"
+          className="absolute inset-0 flex items-center justify-center mt-[clamp(24px,8vh,120px)] bottom-[3%] md:bottom-[0%] pointer-events-none"
           // style={{ opacity: kiaOpacity }}
         >
           {/* KIA Logo - Background parallax layer */}
@@ -450,6 +638,7 @@ export default function BMWCarScroll() {
                   height={300}
                   className="opacity-100 pointer-events-none select-none"
                   draggable={false}
+                  priority
                 />
             </div>
            
@@ -458,9 +647,9 @@ export default function BMWCarScroll() {
           </motion.div>
 
       {/* KIA section container (unchanged) */}
-<motion.div className="absolute inset-0 flex items-center justify-center">
+<motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none">
   <motion.div
-    className="relative z-10"
+    className="relative z-10 pointer-events-none"
     style={{
       x: kiaCarX,
       y: kiaCarY,
@@ -470,11 +659,11 @@ export default function BMWCarScroll() {
         : 'clamp(280px, 85vw, 1120px)',
       // Add visual indicator for testing
       // backgroundColor: isShortLandscape ? '#ef4444' : 'transparent',
-      opacity:
-        isImageLoaded('/images/kia body.webp') &&
-        isImageLoaded('/images/left wheel kia.webp') &&
-        isImageLoaded('/images/right wheel kia.webp')
-          ? 1 : 0,
+      // opacity:
+      //   isImageLoaded('/images/kia body.webp') &&
+      //   isImageLoaded('/images/left wheel kia.webp') &&
+      //   isImageLoaded('/images/right wheel kia.webp')
+      //     ? 1 : 0,
       willChange: 'transform',
     }}
   >
@@ -489,7 +678,7 @@ export default function BMWCarScroll() {
       sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
       className="block w-full h-auto pointer-events-none select-none"
       draggable={false}
-      
+      priority
     />
 
     {/* Wheels */}
@@ -497,19 +686,26 @@ export default function BMWCarScroll() {
       className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
       style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
     >
-      <Image src="/images/left wheel kia.webp" alt="KIA Left wheel" fill className="object-contain" draggable={false}/>
+      <Image 
+      src="/images/left wheel kia.webp" 
+      alt="KIA Left wheel" 
+      fill 
+      className="object-contain" 
+      draggable={false} 
+      sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
+      priority/>
     </motion.div>
 
     <motion.div
       className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
       style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
     >
-      <Image src="/images/right wheel kia.webp" alt="KIA Right wheel" fill className="object-contain" draggable={false}/>
+      <Image src="/images/right wheel kia.webp" alt="KIA Right wheel" fill className="object-contain" draggable={false} priority/>
     </motion.div>
 
     {/* ✅ CTA — positioned responsively for different screen sizes */}
     <motion.div
-      className="absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] "
+      className="absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] pointer-events-none"
       style={{
         // Conditional positioning based on screen size
         top: isShortLandscape ? '55vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
@@ -547,6 +743,11 @@ export default function BMWCarScroll() {
           <Rounded
             backgroundColor="#D32F2F"
             onClick={() => handleNavigation('/cars/kia-sportage-2025-diesel-auto-verte')}
+            style={{ 
+              pointerEvents: isNavigating ? 'none' : 'auto',
+              opacity: isNavigating ? 0.7 : 1,
+              cursor: isNavigating ? 'not-allowed' : 'pointer'
+            }}
           >
             <p>Réservez maintenant</p>
           </Rounded>
@@ -608,7 +809,7 @@ export default function BMWCarScroll() {
 
         {/* --------------------------------------------Touareg Section -------------------------------------------- */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
+          className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] pointer-events-none"
           // style={{ opacity: touaregOpacity }}
         >
           {/* Touareg Logo - Background parallax layer */}
@@ -645,10 +846,10 @@ export default function BMWCarScroll() {
           </motion.div>
 
           {/* Touareg Car wrapper */}
-          <motion.div className="absolute inset-0 flex items-center justify-center">
+          <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none">
 
           <motion.div
-            className="relative z-10 "
+            className="relative z-10 pointer-events-none"
             style={{ 
               x: touaregCarX, 
               y: touaregCarY,
@@ -657,9 +858,9 @@ export default function BMWCarScroll() {
                 width: isShortLandscape 
           ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
           : 'clamp(280px, 85vw, 1120px)',
-                opacity: isImageLoaded('/images/t-roc body.webp') && 
-                         isImageLoaded('/images/t-roc wheel left.webp') && 
-                       isImageLoaded('/images/t-roc wheel right.webp') ? 1 : 0,
+                // opacity: isImageLoaded('/images/t-roc body.webp') && 
+                //          isImageLoaded('/images/t-roc wheel left.webp') && 
+                //        isImageLoaded('/images/t-roc wheel right.webp') ? 1 : 0,
               willChange: 'transform',
             }}
           >
@@ -717,18 +918,18 @@ export default function BMWCarScroll() {
             {/* Touareg Book Now Button */}
           <motion.div
               className="
-               absolute left-1/2 -translate-x-1/2 z-0 w-full max-w-[90vw] 
-              "
+               absolute left-1/2 -translate-x-1/2 z-0 w-full max-w-[90vw] "
               
               style={{
                 // x: touaregCarX,
+                // pointerEvents: ctaInteractivity.touareg ? "auto" : "none",
                 top: isShortLandscape ? '51vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
                 opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
                  y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
                 willChange: 'transform, opacity',
               }}
             >
-              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none"
+              <div className="text-center px-3 sm:px-4 md:px-0 space-y-2 sm:space-y-3 md:space-y-4 max-w-[90vw] md:max-w-none "
               style={{
                 gap: isShortLandscape ? '0.25rem' : 'clamp(0.25rem, 2vw, 0.75rem)'
               }}
@@ -775,12 +976,12 @@ export default function BMWCarScroll() {
         
         {/* Golf 8 Section */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] "
+          className="absolute inset-0 flex items-center justify-center mt-[110px] bottom-[3%] md:bottom-[0%] pointer-events-none"
           // style={{ opacity: golf8Opacity }}
         >
           {/* Golf 8 Logo - Background parallax layer */}
        
-          <motion.div className="absolute inset-0 flex items-center justify-center">
+          <motion.div className="absolute inset-0 flex items-center justify-center pointer-events-none">
 
           <motion.div
             className="absolute z-0 pointer-events-none select-none top-[30%] sm:top-[24%] md:top-[23%] lg:top-[19%] left-1/10 transform -translate-x-1/2 -translate-y-1/2"
@@ -814,7 +1015,7 @@ export default function BMWCarScroll() {
 
           {/* Golf 8 Car wrapper */}
           <motion.div
-            className="relative z-10"
+            className="relative z-10 pointer-events-none"
             style={{ 
               x: golf8CarX, 
               y: golf8CarY,
@@ -822,9 +1023,9 @@ export default function BMWCarScroll() {
               width: isShortLandscape 
               ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
               : 'clamp(280px, 85vw, 1120px)',
-              opacity: isImageLoaded('/images/golf8-body.webp') && 
-                       isImageLoaded('/images/golf8-wheel-left.webp') && 
-                       isImageLoaded('/images/golf8-wheel-right.webp') ? 1 : 0,
+              // opacity: isImageLoaded('/images/golf8-body.webp') && 
+              //          isImageLoaded('/images/golf8-wheel-left.webp') && 
+              //          isImageLoaded('/images/golf8-wheel-right.webp') ? 1 : 0,
               willChange: 'transform',
             }}
           >
@@ -883,9 +1084,10 @@ export default function BMWCarScroll() {
 
           {/* Golf 8 Book Now Button */}
           <motion.div
-            className=" absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] "
+            className=" absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw"
             style={{
               // x: golf8CarX,
+              // pointerEvents: ctaInteractivity.golf ? "auto" : "none",
               top: isShortLandscape ? '51vh' : '',
               left: '50%',
               transform: 'translateX(-50%)',
@@ -962,6 +1164,7 @@ export default function BMWCarScroll() {
               className="font-bold text-gray-800 leading-tight [text-wrap:balance]
                          text-[clamp(28px,7vw,56px)] md:text-[clamp(36px,6vw,72px)] lg:text-[clamp(44px,5vw,90px)]"
               style={{
+                // pointerEvents: ctaInteractivity.final ? "auto" : "none",
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
                 y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
               }}
@@ -992,7 +1195,7 @@ export default function BMWCarScroll() {
                 opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1])
               }}
             >
-              <div className="flex flex-col items-center text-gray-200">
+              <div className="flex flex-col items-center border-gray-300">
                 <div className="text-xs sm:text-sm mb-2">Faites défiler pour explorer plus</div>
                 <div className="border-2 border-gray-300 rounded-full flex justify-center
                                 w-[clamp(16px,3vw,24px)] h-[clamp(28px,5.5vw,40px)]">

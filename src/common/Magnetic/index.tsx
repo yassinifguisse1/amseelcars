@@ -13,7 +13,6 @@ export default function Index({ children }: MagneticProps) {
     const currentElement = magnetic.current;
     if (!currentElement) return;
 
-    console.log(children);
     const xTo = gsap.quickTo(currentElement, "x", {
       duration: 1,
       ease: "elastic.out(1, 0.3)",

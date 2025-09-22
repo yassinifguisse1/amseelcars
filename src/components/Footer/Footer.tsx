@@ -1,3 +1,4 @@
+"use client"
 import styles from './style.module.scss';
 import Image from 'next/image';
 import Rounded from '../../common/RoundedButton';
@@ -12,7 +13,7 @@ export default function Footer() {
         target: container,
         offset: ["start end", "end end"]
     })
-    const x = useTransform(scrollYProgress, [0, 1], [0, 100])
+    // const x = useTransform(scrollYProgress, [0, 1], [0, 100])
     const y = useTransform(scrollYProgress, [0, 1], [-100, 0])
     const rotate = useTransform(scrollYProgress, [0, 1], [90, 90])
     return (

@@ -10,7 +10,7 @@ interface NavProps {
 
 export default function Nav({ closeMenu }: NavProps) {
   return (
-    <div className={styles.nav}>
+    <div className={styles.nav} >
       <div className={styles.body}>
         {links.map((link, i) => {
           const { title, href } = link;

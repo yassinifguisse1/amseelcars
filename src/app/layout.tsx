@@ -27,17 +27,20 @@ export default function RootLayout({
 }>) {
   return (
       // <ViewTransitions>
-    <html lang="en" suppressHydrationWarning>
-      
-      <body
-        className={` ${playfair.variable} ${anticDidone.variable} antialiased`}
-      >
+       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <body className={`${playfair.variable} ${anticDidone.variable} antialiased relative`}>
         <LenisScrollProvider />
-        {/* <Menu /> */}
-        <Header/>
-        {children}
+        {/* Add a wrapper for the header with high z-index */}
+        {/* <div className="fixed inset-x-0 top-0 z-[1001] pointer-events-none">
+          <div className="pointer-events-none"> */}
+            <Header />
+          {/* </div>
+        </div> */}
+        {/* Add relative positioning and lower z-index to main content */}
+        {/* <main className="relative z-0"> */}
+          {children}
+        {/* </main> */}
         <Analytics />
-
       </body>
     </html>
         // </ViewTransitions>

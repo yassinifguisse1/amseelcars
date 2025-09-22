@@ -112,7 +112,7 @@ export function CarRentalCard({
 
   if (linkUrl) {
     return (
-      <CometCard className="w-full max-w-full   sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
+      <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
         <Link href={linkUrl} className="block">
           {cardContent}
         </Link>

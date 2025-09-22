@@ -71,12 +71,16 @@ const menuVariants: Variants = {
   open: {
     scale: 1,
     borderRadius: 24,
-    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] }
+    transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+    pointerEvents: "auto",
+    visibility: "visible",
   },
   closed: {
     scale: 0.001, // avoids scale=0 issues
     borderRadius: 999,
-    transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] }
+    transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] },
+    pointerEvents: "none",
+    transitionEnd: { visibility: "hidden" }
   }
 };
 
@@ -84,16 +88,18 @@ export default function Index() {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <div className={styles.header}>
+    <div className={styles.header} onClick={() => setIsActive(false)}>
       <motion.div
         className={styles.menu}
         variants={menuVariants}
         animate={isActive ? "open" : "closed"}
         initial="closed"
         style={{ transformOrigin: "top right" }}
-        aria-hidden={!isActive}
+
       >
-        <AnimatePresence>{isActive && <Nav closeMenu={() => setIsActive(false)} />}</AnimatePresence>
+        <AnimatePresence>{isActive && <Nav 
+        closeMenu={() => setIsActive(false)}/>}
+        </AnimatePresence>
       </motion.div>
 
       <Button
