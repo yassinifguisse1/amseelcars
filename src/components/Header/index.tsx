@@ -72,14 +72,12 @@ const menuVariants: Variants = {
     scale: 1,
     borderRadius: 24,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    pointerEvents: "auto",
     visibility: "visible",
   },
   closed: {
     scale: 0.001, // avoids scale=0 issues
     borderRadius: 999,
     transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] },
-    pointerEvents: "none",
     transitionEnd: { visibility: "hidden" }
   }
 };
@@ -88,13 +86,17 @@ export default function Index() {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <div className={styles.header} onClick={() => setIsActive(false)}>
+    <div className={styles.header} >
       <motion.div
         className={styles.menu}
         variants={menuVariants}
         animate={isActive ? "open" : "closed"}
         initial="closed"
-        style={{ transformOrigin: "top right" }}
+        style={{ 
+          transformOrigin: "top right",
+          pointerEvents: isActive ? "auto" : "none", // Critical: disable clicks when closed
+          // zIndex: isActive ? 1001 : -1 // Move behind content when closed
+        }}
 
       >
         <AnimatePresence>{isActive && <Nav 
