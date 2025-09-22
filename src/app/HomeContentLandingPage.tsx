@@ -118,9 +118,9 @@ export function HomeContentLandingPage() {
           {/* <Header/> */}
           <Cardrive />
           {/* <ZoomParallax /> */}
+          <BMWCarScroll />
           <SplitHeadline />
           <Brands />
-          <BMWCarScroll />
           <Example/>
           <Footer/>
         </motion.div>
