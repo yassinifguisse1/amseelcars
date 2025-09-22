@@ -3,7 +3,8 @@ import "./globals.css";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
 // import { ViewTransitions } from "next-view-transitions";
 import { playfair, anticDidone } from "@/lib/fonts";
-import { Analytics } from '@vercel/analytics/next';
+import { clsx } from "clsx";
+import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header";
 
 export const metadata: Metadata = {
@@ -17,7 +18,6 @@ export const metadata: Metadata = {
       follow: false,
     },
   },
-  
 };
 
 export default function RootLayout({
@@ -25,24 +25,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const fontVariables = clsx(playfair.variable, anticDidone.variable);
   return (
-      // <ViewTransitions>
-       <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
-      <body className={`${playfair.variable} ${anticDidone.variable} antialiased relative`}>
+    // <ViewTransitions>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <body
+        suppressHydrationWarning
+        className={clsx(fontVariables, "antialiased")}
+      >
         <LenisScrollProvider />
         {/* Add a wrapper for the header with high z-index */}
         {/* <div className="fixed inset-x-0 top-0 z-[1001] pointer-events-none">
           <div className="pointer-events-none"> */}
-            <Header />
-          {/* </div>
+        <Header />
+        {/* </div>
         </div> */}
         {/* Add relative positioning and lower z-index to main content */}
         {/* <main className="relative z-0"> */}
-          {children}
+        {children}
         {/* </main> */}
         <Analytics />
       </body>
     </html>
-        // </ViewTransitions>
+    // </ViewTransitions>
   );
 }

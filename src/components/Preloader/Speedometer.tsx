@@ -488,6 +488,22 @@ export default function Speedometer({
   const idGlow = `glow-${uid}`;
   const idClip = `clip-progress-${uid}`;
 
+
+  if (!hydrated) {
+    return (
+      <div
+        className={`relative mx-auto flex items-center justify-center select-none ${className}`}
+        style={{ width: box, height: box }}
+        role="img"
+        aria-label="Speedometer"
+      >
+        <div className="absolute inset-0 rounded-full bg-[#0c0c0d]" />
+        <div className="absolute inset-[12%] rounded-full border border-white/10" />
+        <div className="absolute inset-[22%] rounded-full border border-white/5 animate-pulse" />
+      </div>
+    );
+  }
+
   return (
     <div
       ref={ref}

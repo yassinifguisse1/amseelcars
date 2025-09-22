@@ -50,7 +50,8 @@ export default function Index({ children }: MagneticProps) {
     ref: (node: HTMLElement) => {
       magnetic.current = node;
       // If the original element had a ref, call it too
-      const originalRef = (children as React.ReactElement & { ref?: unknown }).ref;
+      const originalRef = (children as React.ReactElement & { ref?: unknown })
+        .ref;
       if (typeof originalRef === "function") {
         originalRef(node);
       } else if (originalRef) {

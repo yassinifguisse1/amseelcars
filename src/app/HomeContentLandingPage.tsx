@@ -97,7 +97,7 @@ export function HomeContentLandingPage() {
 
       return () => clearTimeout(timer);
     }
-  }, [loadingState.isComplete]);
+  }, [loadingState]);
 
   return (
     <div className="page-content hero">
