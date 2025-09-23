@@ -23,11 +23,14 @@ const Hero = () => {
     gsap.registerPlugin(ScrollTrigger)
     // Initialize Lenis smooth scroll
     const lenis = new Lenis()
-    lenis.on("scroll", ScrollTrigger.update)
-    gsap.ticker.add((time) => {
+    
+    // Store the RAF function for proper cleanup
+    const lenisRAF = (time: number) => {
       lenis.raf(time * 1000)
-    })
-
+    }
+    
+    lenis.on("scroll", ScrollTrigger.update)
+    gsap.ticker.add(lenisRAF)
     gsap.ticker.lagSmoothing(0)
 
     // Pin the "pinned" section
@@ -123,13 +126,25 @@ const Hero = () => {
      }
    })
 
-    // Cleanup function
+    // Cleanup function - CRITICAL for preventing scroll conflicts
     return () => {
-      lenis.destroy()
+      // Remove scroll listener first
+      lenis.off("scroll", ScrollTrigger.update)
+      
+      // Remove RAF from ticker with the same function reference
+      gsap.ticker.remove(lenisRAF)
+      
+      // Kill all ScrollTrigger instances
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000)
-      })
+      
+      // Destroy Lenis instance
+      lenis.destroy()
+      
+      // Reset GSAP ticker settings
+      gsap.ticker.lagSmoothing(500, 33)
+      
+      // Force ScrollTrigger refresh to clean up any remaining listeners
+      ScrollTrigger.refresh()
     }
   }, [])
 

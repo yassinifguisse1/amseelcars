@@ -6,6 +6,7 @@ import { playfair, anticDidone } from "@/lib/fonts";
 import { clsx } from "clsx";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header";
+import Navbar from "@/components/Navbar/Navbar";
 
 export const metadata: Metadata = {
   title: "Rental Cars",
@@ -38,6 +39,7 @@ export default function RootLayout({
         {/* <div className="fixed inset-x-0 top-0 z-[1001] pointer-events-none">
           <div className="pointer-events-none"> */}
         <Header />
+        {/* <Navbar/> */}
         {/* </div>
         </div> */}
         {/* Add relative positioning and lower z-index to main content */}

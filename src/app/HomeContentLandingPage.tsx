@@ -73,12 +73,28 @@ function SpeedometerPreloader() {
 export function HomeContentLandingPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
-  const { loadingState } = useLoading();
+  const { loadingState} = useLoading();
 
   useEffect(() => {
     // Ensure client-side hydration
     setIsClient(true);
+    
+    // Clean up any lingering scroll conflicts from other pages
+    if (typeof window !== 'undefined') {
+      // Reset scroll behavior to default
+      document.documentElement.style.scrollBehavior = 'auto';
+      document.body.style.overflow = 'visible';
+      document.body.style.height = 'auto';
+      
+      // Reset any transform styles that might block scroll
+      document.body.style.transform = 'none';
+      document.documentElement.style.transform = 'none';
+      
+      // Ensure scroll is at top
+      window.scrollTo(0, 0);
+    }
   }, []);
+
 
   useEffect(() => {
     console.log('Loading state changed:', loadingState);
@@ -99,6 +115,20 @@ export function HomeContentLandingPage() {
     }
   }, [loadingState]);
 
+  // Cleanup when component unmounts (navigating away)
+  useEffect(() => {
+    return () => {
+      // Reset any scroll-related styles when leaving home page
+      if (typeof window !== 'undefined') {
+        document.body.style.overflow = '';
+        document.body.style.height = '';
+        document.body.style.transform = '';
+        document.documentElement.style.transform = '';
+        document.documentElement.style.scrollBehavior = '';
+      }
+    };
+  }, []);
+
   return (
     <div className="page-content hero">
       <AnimatePresence mode="wait">
@@ -115,9 +145,7 @@ export function HomeContentLandingPage() {
             delay: isLoading ? 0 : 0.3
           }}
         >
-          {/* <Header/> */}
           <Cardrive />
-          {/* <ZoomParallax /> */}
           <BMWCarScroll />
           <SplitHeadline />
           <Brands />

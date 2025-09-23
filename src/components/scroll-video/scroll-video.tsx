@@ -1,3 +1,4 @@
+
 // "use client"
 // import { useMotionValueEvent, useScroll, useTransform, motion } from 'framer-motion'
 // import React, { useCallback, useEffect, useRef, useState } from 'react'
@@ -1104,3 +1105,180 @@ const Cardrive = () => {
 };
 
 export default Cardrive;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+// "use client";
+
+// import {
+//   motion,
+//   useScroll,
+//   useTransform,
+// } from "framer-motion";
+// import Link from "next/link";
+// import React, { useEffect, useRef, useState } from "react";
+
+// import { useLoading } from "@/contexts/LoadingContext";
+
+// const Cardrive = () => {
+//   const containerRef = useRef<HTMLDivElement>(null);
+//   const [isMobile, setIsMobile] = useState(false);
+//   const [isClient, setIsClient] = useState(false);
+
+//   const {
+//     setFramesLoaded,
+//     setWordsComplete,
+//     setMinimumTimeElapsed,
+//   } = useLoading();
+
+//   useEffect(() => {
+//     // Set client-side flag
+//     setIsClient(true);
+    
+//     const checkMobile = () => {
+//       setIsMobile(window.innerWidth < 768);
+//     };
+    
+//     checkMobile();
+//     window.addEventListener('resize', checkMobile);
+    
+//     return () => window.removeEventListener('resize', checkMobile);
+//   }, []);
+
+//   // Set loading states immediately
+//   useEffect(() => {
+//     setFramesLoaded(true);
+//     setWordsComplete(true);
+//     setMinimumTimeElapsed(true);
+//   }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
+
+//   // Always call hooks - but use conditional target
+//   const { scrollYProgress } = useScroll({
+//     target: isClient ? containerRef : undefined,
+//     offset: ["start start", "end end"],
+//   });
+
+//   const buttonY = useTransform(
+//     scrollYProgress,
+//     [0, 0.4, 0.8, 1],
+//     ["30vh", "28vh", "12vh", "8vh"]
+//   );
+//   const buttonOpacity = useTransform(
+//     scrollYProgress,
+//     [0, 0.2, 0.3, 1],
+//     [0, 0, 1, 1]
+//   );
+//   const buttonScale = useTransform(
+//     scrollYProgress,
+//     [0.2, 0.5, 0.6],
+//     [0.4, 1, 1]
+//   );
+
+//   // Don't render until client-side to avoid hydration mismatch
+//   if (!isClient) {
+//     return <div className="w-full h-[300svh] bg-black"></div>;
+//   }
+
+//   return (
+//     <motion.section
+//       ref={containerRef}
+//       className="relative bg-black"
+//       style={{ height: isMobile ? "250svh" : "300svh" }}
+//       initial={{ opacity: 0 }}
+//       animate={{ opacity: 1 }}
+//       transition={{ duration: 1, ease: "easeOut" }}
+//     >
+//       <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center bg-black">
+//         {/* Simple video like HeroVideo */}
+//         <video 
+//           className="absolute inset-0 w-full h-full object-cover" 
+//           autoPlay 
+//           muted 
+//           loop 
+//           playsInline
+//           preload="metadata"
+//           key={isMobile ? 'mobile' : 'desktop'} // Force re-render when mobile state changes
+//         >
+//           <source 
+//             src={isMobile ? "/video/mobile-video-amseel-car.mp4" : "/video/desktop-video-amseel-car.mp4"} 
+//             type="video/mp4" 
+//           />
+//           Your browser does not support the video tag.
+//         </video>
+
+//         {/* Explore cars button */}
+//         <motion.div
+//           className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+//           style={{
+//             y: buttonY,
+//             opacity: buttonOpacity,
+//             scale: buttonScale,
+//           }}
+//         >
+//           <Link href="/cars">
+//             <motion.button
+//               className={`relative rounded-full border-2 border-white bg-white px-8 py-4 text-lg font-bold text-black shadow-2xl transition-all duration-300 ease-out hover:bg-transparent hover:text-white backdrop-blur-sm ${
+//                 isMobile ? "px-6 py-3 text-base" : ""
+//               }`}
+//               whileHover={{
+//                 scale: 1.05,
+//                 boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
+//               }}
+//               whileTap={{ scale: 0.95 }}
+//               initial={{ opacity: 0, y: 20 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.6, ease: "easeOut" }}
+//             >
+//               <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
+//                 Nos voitures
+//                 <motion.span
+//                   className="inline-block"
+//                   animate={{ x: [0, 5, 0] }}
+//                   transition={{
+//                     duration: 1.5,
+//                     repeat: Infinity,
+//                     ease: "easeInOut",
+//                   }}
+//                 >
+//                   →
+//                 </motion.span>
+//               </span>
+
+//               <motion.div
+//                 className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-100 to-white opacity-0"
+//                 whileHover={{ opacity: 1 }}
+//                 transition={{ duration: 0.3 }}
+//               />
+
+//               <motion.div
+//                 className="absolute inset-0 rounded-full border-2 border-white opacity-0"
+//                 whileHover={{
+//                   opacity: [0, 1, 0],
+//                   scale: [1, 1.2, 1.4],
+//                 }}
+//                 transition={{ duration: 0.6 }}
+//               />
+//             </motion.button>
+//           </Link>
+//         </motion.div>
+//       </div>
+//     </motion.section>
+//   );
+// };
+
+// export default Cardrive;

@@ -8,9 +8,10 @@ gsap.registerPlugin(ScrollTrigger);
 const TextHover = () => {
   useEffect(() => {
     const textElements = gsap.utils.toArray(`.${styles.text}`) as Element[];
+    const scrollTriggers: ScrollTrigger[] = [];
 
     textElements.forEach((text) => {
-      gsap.to(text as Element, {
+      const animation = gsap.to(text as Element, {
         backgroundSize: '100%',
         ease: 'none',
         scrollTrigger: {
@@ -20,7 +21,16 @@ const TextHover = () => {
           scrub: true,
         },
       });
+      
+      if (animation.scrollTrigger) {
+        scrollTriggers.push(animation.scrollTrigger);
+      }
     });
+
+    // Cleanup function
+    return () => {
+      scrollTriggers.forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
