@@ -511,667 +511,106 @@
 
 // export default Cardrive
 
-"use client";
-
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
-import { useLoading } from "@/contexts/LoadingContext";
-
-const MOBILE_BREAKPOINT = 768;
-const FRAME_START = 400;
-const FRAME_END = 763;
-const FALLBACK_FAILURE_RATIO = 0.5;
-
-interface FrameConfig {
-  start: number;
-  end: number;
-  folder: string;
-  total: number;
-}
-
-type DeviceBreakpoint = "mobile" | "desktop";
-
-const padFrame = (value: number) => value.toString().padStart(5, "0");
-
-const testFrameAvailability = (src: string) =>
-  new Promise<boolean>((resolve) => {
-    const img = new Image();
-    img.decoding = "async";
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
-    img.src = src;
-  });
-
-const loadFrameImage = (src: string) =>
-  new Promise<HTMLImageElement>((resolve, reject) => {
-    const img = new Image();
-    img.decoding = "async";
-    img.loading = "eager";
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`Failed to load frame ${src}`));
-    img.src = src;
-  });
-
-const computeConcurrency = () => {
-  if (typeof navigator === "undefined") {
-    return 4;
-  }
-  const cores = navigator.hardwareConcurrency || 4;
-  return Math.min(8, Math.max(2, Math.floor(cores / 2)));
-};
-const Cardrive = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canvasSizeRef = useRef({ width: 0, height: 0 });
-  const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
-  const lastRenderedIndexRef = useRef(-1);
-  const firstRenderableRef = useRef(false);
-  const renderRef = useRef<(index: number) => void>(() => undefined);
-  const loadTokenRef = useRef(0);
-  const lastRenderTimeRef = useRef(0);
-  const scrollRafRef = useRef<number | null>(null);
-
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [deviceBreakpoint, setDeviceBreakpoint] = useState<DeviceBreakpoint>(
-    () => {
-      if (
-        typeof window !== "undefined" &&
-        window.innerWidth < MOBILE_BREAKPOINT
-      ) {
-        return "mobile";
-      }
-      return "desktop";
-    }
-  );
-  const [totalFrames, setTotalFrames] = useState(FRAME_END - FRAME_START + 1);
-
-  const isMobile = deviceBreakpoint === "mobile";
-
-  const {
-    updateFramesProgress,
-    setFramesLoaded,
-    setWordsComplete,
-    setMinimumTimeElapsed,
-  } = useLoading();
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const currentIndex = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, totalFrames - 1]
-  );
-
-  const buttonY = useTransform(
-    scrollYProgress,
-    [0, 0.4, 0.8, 1],
-    ["30vh", "28vh", "12vh", "8vh"]
-  );
-  const buttonOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.3, 1],
-    [0, 0, 1, 1]
-  );
-  const buttonScale = useTransform(
-    scrollYProgress,
-    [0.2, 0.5, 0.6],
-    [0.4, 1, 1]
-  );
-
-  const render = useCallback((index: number) => {
-    const canvas = canvasRef.current;
-    const frames = imagesRef.current;
-    if (!canvas || frames.length === 0) {
-      return;
-    }
-
-    const { width, height } = canvasSizeRef.current;
-    if (width === 0 || height === 0) {
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return;
-    }
-
-    const safeIndex = Math.max(
-      0,
-      Math.min(Math.round(index), frames.length - 1)
-    );
-    const frame = frames[safeIndex];
-    
-    // Enhanced frame validation to prevent expensive operations
-    if (!frame || !frame.complete || frame.naturalWidth === 0) {
-      return;
-    }
-
-    // Skip redundant renders to prevent unnecessary work
-    if (safeIndex === lastRenderedIndexRef.current) {
-      return;
-    }
-
-    lastRenderedIndexRef.current = safeIndex;
-
-    try {
-      ctx.clearRect(0, 0, width, height);
-
-      const canvasAspect = width / height;
-      const imageAspect = frame.naturalWidth / frame.naturalHeight;
-
-      let drawWidth = width;
-      let drawHeight = height;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      if (canvasAspect > imageAspect) {
-        drawHeight = width / imageAspect;
-        offsetY = (height - drawHeight) / 2;
-      } else {
-        drawWidth = height * imageAspect;
-        offsetX = (width - drawWidth) / 2;
-      }
-
-      ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
-    } catch {
-      // Silently handle errors to prevent console spam
-      console.warn('Render error for frame:', safeIndex);
-    }
-  }, []);
-
-  useEffect(() => {
-    renderRef.current = render;
-  }, [render]);
-
-  useEffect(() => {
-    const updateBreakpoint = () => {
-      if (typeof window === "undefined") {
-        return;
-      }
-      const next = window.innerWidth < MOBILE_BREAKPOINT ? "mobile" : "desktop";
-      setDeviceBreakpoint((current) => (current === next ? current : next));
-    };
-
-    updateBreakpoint();
-
-    window.addEventListener("resize", updateBreakpoint);
-    const handleOrientationChange = () => {
-      window.setTimeout(updateBreakpoint, 250);
-    };
-    window.addEventListener("orientationchange", handleOrientationChange);
-
-    return () => {
-      window.removeEventListener("resize", updateBreakpoint);
-      window.removeEventListener("orientationchange", handleOrientationChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) {
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return;
-    }
-
-    let resizeRaf: number | null = null;
-
-    const resizeCanvas = () => {
-      if (typeof window === "undefined") {
-        return;
-      }
-
-      const width = window.innerWidth;
-      const height = isMobile
-        ? window.visualViewport?.height ?? window.innerHeight
-        : window.innerHeight;
-      const pixelRatio = isMobile
-        ? Math.min(window.devicePixelRatio || 1, 2)
-        : Math.min(window.devicePixelRatio || 1, 3);
-
-      canvas.width = Math.floor(width * pixelRatio);
-      canvas.height = Math.floor(height * pixelRatio);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-
-      canvasSizeRef.current = { width, height };
-
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(pixelRatio, pixelRatio);
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = isMobile ? "medium" : "high";
-
-      if (firstRenderableRef.current) {
-        if (resizeRaf) {
-          cancelAnimationFrame(resizeRaf);
-        }
-        resizeRaf = requestAnimationFrame(() => {
-          const lastIndex = lastRenderedIndexRef.current;
-          renderRef.current(lastIndex >= 0 ? lastIndex : 0);
-        });
-      }
-    };
-
-    resizeCanvas();
-
-    const handleWindowResize = () => {
-      if (resizeRaf) {
-        cancelAnimationFrame(resizeRaf);
-      }
-      resizeRaf = requestAnimationFrame(resizeCanvas);
-    };
-
-    window.addEventListener("resize", handleWindowResize);
-
-    const handleOrientationChange = () => {
-      if (resizeRaf) {
-        cancelAnimationFrame(resizeRaf);
-      }
-      resizeRaf = requestAnimationFrame(resizeCanvas);
-    };
-
-    window.addEventListener("orientationchange", handleOrientationChange);
-
-    const visualViewport = window.visualViewport;
-    if (visualViewport && isMobile) {
-      const handleViewportResize = () => {
-        if (resizeRaf) {
-          cancelAnimationFrame(resizeRaf);
-        }
-        resizeRaf = requestAnimationFrame(resizeCanvas);
-      };
-      visualViewport.addEventListener("resize", handleViewportResize);
-      return () => {
-        if (resizeRaf) {
-          cancelAnimationFrame(resizeRaf);
-        }
-        window.removeEventListener("resize", handleWindowResize);
-        window.removeEventListener(
-          "orientationchange",
-          handleOrientationChange
-        );
-        visualViewport.removeEventListener("resize", handleViewportResize);
-      };
-    }
-
-    return () => {
-      if (resizeRaf) {
-        cancelAnimationFrame(resizeRaf);
-      }
-      window.removeEventListener("resize", handleWindowResize);
-      window.removeEventListener("orientationchange", handleOrientationChange);
-    };
-  }, [isMobile]);
-  useEffect(() => {
-    let isActive = true;
-    const token = ++loadTokenRef.current;
-
-    const ensureMinimumTimer = window.setTimeout(() => {
-      if (isActive && loadTokenRef.current === token) {
-        setMinimumTimeElapsed(true);
-      }
-    }, 2000);
-
-    const resolveConfig = async (
-      preferMobile: boolean
-    ): Promise<FrameConfig> => {
-      const start = FRAME_START;
-      const end = FRAME_END;
-      const total = end - start + 1;
-
-      if (preferMobile) {
-        const mobileFolder = "/mobile-frames";
-        const available = await testFrameAvailability(
-          `${mobileFolder}/frame_${padFrame(start)}.webp`
-        );
-
-        if (!isActive || loadTokenRef.current !== token) {
-          return { start, end, folder: mobileFolder, total };
-        }
-        if (available) {
-          return { start, end, folder: mobileFolder, total };
-        }
-      }
-
-      return { start, end, folder: "/frame", total };
-    };
-
-    const loadFrameSet = async (
-      config: FrameConfig
-    ): Promise<{ failed: number }> => {
-      const { start, folder, total } = config;
-
-      imagesRef.current = new Array(total).fill(null);
-      lastRenderedIndexRef.current = -1;
-      firstRenderableRef.current = false;
-      setImagesLoaded(false);
-      setFramesLoaded(false);
-      setTotalFrames(total);
-      updateFramesProgress(0, total);
-
-      let loaded = 0;
-      let failed = 0;
-
-      const frames = Array.from({ length: total }, (_, index) => start + index);
-      const concurrency = computeConcurrency();
-      const queue = [...frames];
-
-      const runNext = async (): Promise<void> => {
-        if (!isActive || loadTokenRef.current !== token) {
-          return;
-        }
-
-        const frameNumber = queue.shift();
-        if (frameNumber === undefined) {
-          return;
-        }
-
-        const slotIndex = frameNumber - start;
-        const src = `${folder}/frame_${padFrame(frameNumber)}.webp`;
-
-        try {
-          const image = await loadFrameImage(src);
-          if (!isActive || loadTokenRef.current !== token) {
-            return;
-          }
-
-          imagesRef.current[slotIndex] = image;
-          loaded += 1;
-
-          if (!firstRenderableRef.current) {
-            firstRenderableRef.current = true;
-            requestAnimationFrame(() => {
-              if (isActive && loadTokenRef.current === token) {
-                renderRef.current(0);
-              }
-            });
-          }
-        } catch (error) {
-          if (!isActive || loadTokenRef.current !== token) {
-            return;
-          }
-
-          console.warn(error);
-          imagesRef.current[slotIndex] = null;
-          failed += 1;
-        } finally {
-          if (isActive && loadTokenRef.current === token) {
-            updateFramesProgress(loaded + failed, total);
-          }
-          await runNext();
-        }
-      };
-
-      const starters = Array.from(
-        { length: Math.min(concurrency, queue.length) },
-        () => runNext()
-      );
-      await Promise.all(starters);
-
-      if (!isActive || loadTokenRef.current !== token) {
-        return { failed };
-      }
-
-      setImagesLoaded(true);
-      setFramesLoaded(true);
-
-      return { failed };
-    };
-
-    const load = async () => {
-      setWordsComplete(true);
-      setMinimumTimeElapsed(false);
-      setFramesLoaded(false);
-
-      const preferMobile = deviceBreakpoint === "mobile";
-      const primaryConfig = await resolveConfig(preferMobile);
-      if (!isActive || loadTokenRef.current !== token) {
-        return;
-      }
-
-      const result = await loadFrameSet(primaryConfig);
-      if (!isActive || loadTokenRef.current !== token) {
-        return;
-      }
-
-      if (
-        preferMobile &&
-        result.failed > primaryConfig.total * FALLBACK_FAILURE_RATIO
-      ) {
-        const desktopConfig = await resolveConfig(false);
-        if (!isActive || loadTokenRef.current !== token) {
-          return;
-        }
-        await loadFrameSet(desktopConfig);
-      }
-    };
-
-    load();
-
-    return () => {
-      isActive = false;
-      window.clearTimeout(ensureMinimumTimer);
-    };
-  }, [
-    deviceBreakpoint,
-    setFramesLoaded,
-    setMinimumTimeElapsed,
-    setWordsComplete,
-    updateFramesProgress,
-  ]);
-
-  useMotionValueEvent(currentIndex, "change", (latest) => {
-    if (!firstRenderableRef.current) {
-      return;
-    }
-
-    // Always throttle scroll events to prevent blocking
-    const now = performance.now();
-    if (now - lastRenderTimeRef.current < 16) {
-      return;
-    }
-    lastRenderTimeRef.current = now;
-
-    const frameIndex = Math.round(Number(latest));
-    
-    // Cancel previous RAF to prevent stacking
-    if (scrollRafRef.current) {
-      cancelAnimationFrame(scrollRafRef.current);
-    }
-    
-    // Use requestAnimationFrame to prevent blocking main thread
-    scrollRafRef.current = requestAnimationFrame(() => {
-      renderRef.current(frameIndex);
-      scrollRafRef.current = null;
-    });
-  });
-
-  useEffect(() => {
-    if (imagesLoaded && firstRenderableRef.current) {
-      const timeout = window.setTimeout(() => {
-        renderRef.current(
-          lastRenderedIndexRef.current >= 0 ? lastRenderedIndexRef.current : 0
-        );
-      }, 150);
-
-      return () => window.clearTimeout(timeout);
-    }
-
-    return undefined;
-  }, [imagesLoaded]);
-
-  // Cleanup RAF on unmount
-  useEffect(() => {
-    return () => {
-      if (scrollRafRef.current) {
-        cancelAnimationFrame(scrollRafRef.current);
-      }
-    };
-  }, []);
-
-  return (
-    <motion.section
-      ref={containerRef}
-      className="relative bg-black"
-      style={{ height: isMobile ? "250svh" : "300svh", touchAction: "auto" }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-    >
-      <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center bg-black">
-        <canvas
-          ref={canvasRef}
-          className="block"
-          style={{
-            display: "block",
-            width: "100vw",
-            height: isMobile ? "100svh" : "100vh",
-            objectFit: "cover",
-            pointerEvents: "none",
-            zIndex: 10,
-          }}
-        />
-
-        <motion.div
-          className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
-          style={{
-            y: buttonY,
-            opacity: buttonOpacity,
-            scale: buttonScale,
-          }}
-        >
-          <Link href="/cars">
-            <motion.button
-              className={`relative rounded-full border-2 border-white bg-white px-8 py-4 text-lg font-bold text-black shadow-2xl transition-all duration-300 ease-out hover:bg-transparent hover:text-white backdrop-blur-sm ${
-                isMobile ? "px-6 py-3 text-base" : ""
-              }`}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
-                Découvrir toutes les voitures
-                <motion.span
-                  className="inline-block"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  →
-                </motion.span>
-              </span>
-
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-100 to-white opacity-0"
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-white opacity-0"
-                whileHover={{
-                  opacity: [0, 1, 0],
-                  scale: [1, 1.2, 1.4],
-                }}
-                transition={{ duration: 0.6 }}
-              />
-            </motion.button>
-          </Link>
-        </motion.div>
-      </div>
-    </motion.section>
-  );
-};
-
-export default Cardrive;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ------------------------------------------------------------------------------------------------
 // "use client";
 
 // import {
 //   motion,
+//   useMotionValueEvent,
 //   useScroll,
 //   useTransform,
 // } from "framer-motion";
 // import Link from "next/link";
-// import React, { useEffect, useRef, useState } from "react";
+// import React, { useCallback, useEffect, useRef, useState } from "react";
 
 // import { useLoading } from "@/contexts/LoadingContext";
 
+// const MOBILE_BREAKPOINT = 768;
+// const FRAME_START = 400;
+// const FRAME_END = 763;
+// const FALLBACK_FAILURE_RATIO = 0.5;
+
+// interface FrameConfig {
+//   start: number;
+//   end: number;
+//   folder: string;
+//   total: number;
+// }
+
+// type DeviceBreakpoint = "mobile" | "desktop";
+
+// const padFrame = (value: number) => value.toString().padStart(5, "0");
+
+// const testFrameAvailability = (src: string) =>
+//   new Promise<boolean>((resolve) => {
+//     const img = new Image();
+//     img.decoding = "async";
+//     img.onload = () => resolve(true);
+//     img.onerror = () => resolve(false);
+//     img.src = src;
+//   });
+
+// const loadFrameImage = (src: string) =>
+//   new Promise<HTMLImageElement>((resolve, reject) => {
+//     const img = new Image();
+//     img.decoding = "async";
+//     img.loading = "eager";
+//     img.onload = () => resolve(img);
+//     img.onerror = () => reject(new Error(`Failed to load frame ${src}`));
+//     img.src = src;
+//   });
+
+// const computeConcurrency = () => {
+//   if (typeof navigator === "undefined") {
+//     return 4;
+//   }
+//   const cores = navigator.hardwareConcurrency || 4;
+//   return Math.min(8, Math.max(2, Math.floor(cores / 2)));
+// };
 // const Cardrive = () => {
 //   const containerRef = useRef<HTMLDivElement>(null);
-//   const [isMobile, setIsMobile] = useState(false);
-//   const [isClient, setIsClient] = useState(false);
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
+//   const canvasSizeRef = useRef({ width: 0, height: 0 });
+//   const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
+//   const lastRenderedIndexRef = useRef(-1);
+//   const firstRenderableRef = useRef(false);
+//   const renderRef = useRef<(index: number) => void>(() => undefined);
+//   const loadTokenRef = useRef(0);
+//   const lastRenderTimeRef = useRef(0);
+//   const scrollRafRef = useRef<number | null>(null);
+
+//   const [imagesLoaded, setImagesLoaded] = useState(false);
+//   const [deviceBreakpoint, setDeviceBreakpoint] = useState<DeviceBreakpoint>(
+//     () => {
+//       if (
+//         typeof window !== "undefined" &&
+//         window.innerWidth < MOBILE_BREAKPOINT
+//       ) {
+//         return "mobile";
+//       }
+//       return "desktop";
+//     }
+//   );
+//   const [totalFrames, setTotalFrames] = useState(FRAME_END - FRAME_START + 1);
+
+//   const isMobile = deviceBreakpoint === "mobile";
 
 //   const {
+//     updateFramesProgress,
 //     setFramesLoaded,
 //     setWordsComplete,
 //     setMinimumTimeElapsed,
 //   } = useLoading();
 
-//   useEffect(() => {
-//     // Set client-side flag
-//     setIsClient(true);
-    
-//     const checkMobile = () => {
-//       setIsMobile(window.innerWidth < 768);
-//     };
-    
-//     checkMobile();
-//     window.addEventListener('resize', checkMobile);
-    
-//     return () => window.removeEventListener('resize', checkMobile);
-//   }, []);
-
-//   // Set loading states immediately
-//   useEffect(() => {
-//     setFramesLoaded(true);
-//     setWordsComplete(true);
-//     setMinimumTimeElapsed(true);
-//   }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
-
-//   // Always call hooks - but use conditional target
 //   const { scrollYProgress } = useScroll({
-//     target: isClient ? containerRef : undefined,
+//     target: containerRef,
 //     offset: ["start start", "end end"],
 //   });
+
+//   const currentIndex = useTransform(
+//     scrollYProgress,
+//     [0, 1],
+//     [0, totalFrames - 1]
+//   );
 
 //   const buttonY = useTransform(
 //     scrollYProgress,
@@ -1189,39 +628,423 @@ export default Cardrive;
 //     [0.4, 1, 1]
 //   );
 
-//   // Don't render until client-side to avoid hydration mismatch
-//   if (!isClient) {
-//     return <div className="w-full h-[300svh] bg-black"></div>;
-//   }
+//   const render = useCallback((index: number) => {
+//     const canvas = canvasRef.current;
+//     const frames = imagesRef.current;
+//     if (!canvas || frames.length === 0) {
+//       return;
+//     }
+
+//     const { width, height } = canvasSizeRef.current;
+//     if (width === 0 || height === 0) {
+//       return;
+//     }
+
+//     const ctx = canvas.getContext("2d");
+//     if (!ctx) {
+//       return;
+//     }
+
+//     const safeIndex = Math.max(
+//       0,
+//       Math.min(Math.round(index), frames.length - 1)
+//     );
+//     const frame = frames[safeIndex];
+    
+//     // Enhanced frame validation to prevent expensive operations
+//     if (!frame || !frame.complete || frame.naturalWidth === 0) {
+//       return;
+//     }
+
+//     // Skip redundant renders to prevent unnecessary work
+//     if (safeIndex === lastRenderedIndexRef.current) {
+//       return;
+//     }
+
+//     lastRenderedIndexRef.current = safeIndex;
+
+//     try {
+//       ctx.clearRect(0, 0, width, height);
+
+//       const canvasAspect = width / height;
+//       const imageAspect = frame.naturalWidth / frame.naturalHeight;
+
+//       let drawWidth = width;
+//       let drawHeight = height;
+//       let offsetX = 0;
+//       let offsetY = 0;
+
+//       if (canvasAspect > imageAspect) {
+//         drawHeight = width / imageAspect;
+//         offsetY = (height - drawHeight) / 2;
+//       } else {
+//         drawWidth = height * imageAspect;
+//         offsetX = (width - drawWidth) / 2;
+//       }
+
+//       ctx.drawImage(frame, offsetX, offsetY, drawWidth, drawHeight);
+//     } catch {
+//       // Silently handle errors to prevent console spam
+//       console.warn('Render error for frame:', safeIndex);
+//     }
+//   }, []);
+
+//   useEffect(() => {
+//     renderRef.current = render;
+//   }, [render]);
+
+//   useEffect(() => {
+//     const updateBreakpoint = () => {
+//       if (typeof window === "undefined") {
+//         return;
+//       }
+//       const next = window.innerWidth < MOBILE_BREAKPOINT ? "mobile" : "desktop";
+//       setDeviceBreakpoint((current) => (current === next ? current : next));
+//     };
+
+//     updateBreakpoint();
+
+//     window.addEventListener("resize", updateBreakpoint);
+//     const handleOrientationChange = () => {
+//       window.setTimeout(updateBreakpoint, 250);
+//     };
+//     window.addEventListener("orientationchange", handleOrientationChange);
+
+//     return () => {
+//       window.removeEventListener("resize", updateBreakpoint);
+//       window.removeEventListener("orientationchange", handleOrientationChange);
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     if (!canvas) {
+//       return;
+//     }
+
+//     const ctx = canvas.getContext("2d");
+//     if (!ctx) {
+//       return;
+//     }
+
+//     let resizeRaf: number | null = null;
+
+//     const resizeCanvas = () => {
+//       if (typeof window === "undefined") {
+//         return;
+//       }
+
+//       const width = window.innerWidth;
+//       const height = isMobile
+//         ? window.visualViewport?.height ?? window.innerHeight
+//         : window.innerHeight;
+//       const pixelRatio = isMobile
+//         ? Math.min(window.devicePixelRatio || 1, 2)
+//         : Math.min(window.devicePixelRatio || 1, 3);
+
+//       canvas.width = Math.floor(width * pixelRatio);
+//       canvas.height = Math.floor(height * pixelRatio);
+//       canvas.style.width = `${width}px`;
+//       canvas.style.height = `${height}px`;
+
+//       canvasSizeRef.current = { width, height };
+
+//       ctx.setTransform(1, 0, 0, 1, 0, 0);
+//       ctx.scale(pixelRatio, pixelRatio);
+//       ctx.imageSmoothingEnabled = true;
+//       ctx.imageSmoothingQuality = isMobile ? "medium" : "high";
+
+//       if (firstRenderableRef.current) {
+//         if (resizeRaf) {
+//           cancelAnimationFrame(resizeRaf);
+//         }
+//         resizeRaf = requestAnimationFrame(() => {
+//           const lastIndex = lastRenderedIndexRef.current;
+//           renderRef.current(lastIndex >= 0 ? lastIndex : 0);
+//         });
+//       }
+//     };
+
+//     resizeCanvas();
+
+//     const handleWindowResize = () => {
+//       if (resizeRaf) {
+//         cancelAnimationFrame(resizeRaf);
+//       }
+//       resizeRaf = requestAnimationFrame(resizeCanvas);
+//     };
+
+//     window.addEventListener("resize", handleWindowResize);
+
+//     const handleOrientationChange = () => {
+//       if (resizeRaf) {
+//         cancelAnimationFrame(resizeRaf);
+//       }
+//       resizeRaf = requestAnimationFrame(resizeCanvas);
+//     };
+
+//     window.addEventListener("orientationchange", handleOrientationChange);
+
+//     const visualViewport = window.visualViewport;
+//     if (visualViewport && isMobile) {
+//       const handleViewportResize = () => {
+//         if (resizeRaf) {
+//           cancelAnimationFrame(resizeRaf);
+//         }
+//         resizeRaf = requestAnimationFrame(resizeCanvas);
+//       };
+//       visualViewport.addEventListener("resize", handleViewportResize);
+//       return () => {
+//         if (resizeRaf) {
+//           cancelAnimationFrame(resizeRaf);
+//         }
+//         window.removeEventListener("resize", handleWindowResize);
+//         window.removeEventListener(
+//           "orientationchange",
+//           handleOrientationChange
+//         );
+//         visualViewport.removeEventListener("resize", handleViewportResize);
+//       };
+//     }
+
+//     return () => {
+//       if (resizeRaf) {
+//         cancelAnimationFrame(resizeRaf);
+//       }
+//       window.removeEventListener("resize", handleWindowResize);
+//       window.removeEventListener("orientationchange", handleOrientationChange);
+//     };
+//   }, [isMobile]);
+//   useEffect(() => {
+//     let isActive = true;
+//     const token = ++loadTokenRef.current;
+
+//     const ensureMinimumTimer = window.setTimeout(() => {
+//       if (isActive && loadTokenRef.current === token) {
+//         setMinimumTimeElapsed(true);
+//       }
+//     }, 2000);
+
+//     const resolveConfig = async (
+//       preferMobile: boolean
+//     ): Promise<FrameConfig> => {
+//       const start = FRAME_START;
+//       const end = FRAME_END;
+//       const total = end - start + 1;
+
+//       if (preferMobile) {
+//         const mobileFolder = "/mobile-frames";
+//         const available = await testFrameAvailability(
+//           `${mobileFolder}/frame_${padFrame(start)}.webp`
+//         );
+
+//         if (!isActive || loadTokenRef.current !== token) {
+//           return { start, end, folder: mobileFolder, total };
+//         }
+//         if (available) {
+//           return { start, end, folder: mobileFolder, total };
+//         }
+//       }
+
+//       return { start, end, folder: "/frame", total };
+//     };
+
+//     const loadFrameSet = async (
+//       config: FrameConfig
+//     ): Promise<{ failed: number }> => {
+//       const { start, folder, total } = config;
+
+//       imagesRef.current = new Array(total).fill(null);
+//       lastRenderedIndexRef.current = -1;
+//       firstRenderableRef.current = false;
+//       setImagesLoaded(false);
+//       setFramesLoaded(false);
+//       setTotalFrames(total);
+//       updateFramesProgress(0, total);
+
+//       let loaded = 0;
+//       let failed = 0;
+
+//       const frames = Array.from({ length: total }, (_, index) => start + index);
+//       const concurrency = computeConcurrency();
+//       const queue = [...frames];
+
+//       const runNext = async (): Promise<void> => {
+//         if (!isActive || loadTokenRef.current !== token) {
+//           return;
+//         }
+
+//         const frameNumber = queue.shift();
+//         if (frameNumber === undefined) {
+//           return;
+//         }
+
+//         const slotIndex = frameNumber - start;
+//         const src = `${folder}/frame_${padFrame(frameNumber)}.webp`;
+
+//         try {
+//           const image = await loadFrameImage(src);
+//           if (!isActive || loadTokenRef.current !== token) {
+//             return;
+//           }
+
+//           imagesRef.current[slotIndex] = image;
+//           loaded += 1;
+
+//           if (!firstRenderableRef.current) {
+//             firstRenderableRef.current = true;
+//             requestAnimationFrame(() => {
+//               if (isActive && loadTokenRef.current === token) {
+//                 renderRef.current(0);
+//               }
+//             });
+//           }
+//         } catch (error) {
+//           if (!isActive || loadTokenRef.current !== token) {
+//             return;
+//           }
+
+//           console.warn(error);
+//           imagesRef.current[slotIndex] = null;
+//           failed += 1;
+//         } finally {
+//           if (isActive && loadTokenRef.current === token) {
+//             updateFramesProgress(loaded + failed, total);
+//           }
+//           await runNext();
+//         }
+//       };
+
+//       const starters = Array.from(
+//         { length: Math.min(concurrency, queue.length) },
+//         () => runNext()
+//       );
+//       await Promise.all(starters);
+
+//       if (!isActive || loadTokenRef.current !== token) {
+//         return { failed };
+//       }
+
+//       setImagesLoaded(true);
+//       setFramesLoaded(true);
+
+//       return { failed };
+//     };
+
+//     const load = async () => {
+//       setWordsComplete(true);
+//       setMinimumTimeElapsed(false);
+//       setFramesLoaded(false);
+
+//       const preferMobile = deviceBreakpoint === "mobile";
+//       const primaryConfig = await resolveConfig(preferMobile);
+//       if (!isActive || loadTokenRef.current !== token) {
+//         return;
+//       }
+
+//       const result = await loadFrameSet(primaryConfig);
+//       if (!isActive || loadTokenRef.current !== token) {
+//         return;
+//       }
+
+//       if (
+//         preferMobile &&
+//         result.failed > primaryConfig.total * FALLBACK_FAILURE_RATIO
+//       ) {
+//         const desktopConfig = await resolveConfig(false);
+//         if (!isActive || loadTokenRef.current !== token) {
+//           return;
+//         }
+//         await loadFrameSet(desktopConfig);
+//       }
+//     };
+
+//     load();
+
+//     return () => {
+//       isActive = false;
+//       window.clearTimeout(ensureMinimumTimer);
+//     };
+//   }, [
+//     deviceBreakpoint,
+//     setFramesLoaded,
+//     setMinimumTimeElapsed,
+//     setWordsComplete,
+//     updateFramesProgress,
+//   ]);
+
+//   useMotionValueEvent(currentIndex, "change", (latest) => {
+//     if (!firstRenderableRef.current) {
+//       return;
+//     }
+
+//     // Always throttle scroll events to prevent blocking
+//     const now = performance.now();
+//     if (now - lastRenderTimeRef.current < 16) {
+//       return;
+//     }
+//     lastRenderTimeRef.current = now;
+
+//     const frameIndex = Math.round(Number(latest));
+    
+//     // Cancel previous RAF to prevent stacking
+//     if (scrollRafRef.current) {
+//       cancelAnimationFrame(scrollRafRef.current);
+//     }
+    
+//     // Use requestAnimationFrame to prevent blocking main thread
+//     scrollRafRef.current = requestAnimationFrame(() => {
+//       renderRef.current(frameIndex);
+//       scrollRafRef.current = null;
+//     });
+//   });
+
+//   useEffect(() => {
+//     if (imagesLoaded && firstRenderableRef.current) {
+//       const timeout = window.setTimeout(() => {
+//         renderRef.current(
+//           lastRenderedIndexRef.current >= 0 ? lastRenderedIndexRef.current : 0
+//         );
+//       }, 150);
+
+//       return () => window.clearTimeout(timeout);
+//     }
+
+//     return undefined;
+//   }, [imagesLoaded]);
+
+//   // Cleanup RAF on unmount
+//   useEffect(() => {
+//     return () => {
+//       if (scrollRafRef.current) {
+//         cancelAnimationFrame(scrollRafRef.current);
+//       }
+//     };
+//   }, []);
 
 //   return (
 //     <motion.section
 //       ref={containerRef}
 //       className="relative bg-black"
-//       style={{ height: isMobile ? "250svh" : "300svh" }}
+//       style={{ height: isMobile ? "250svh" : "300svh", touchAction: "auto" }}
 //       initial={{ opacity: 0 }}
 //       animate={{ opacity: 1 }}
 //       transition={{ duration: 1, ease: "easeOut" }}
 //     >
 //       <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center bg-black">
-//         {/* Simple video like HeroVideo */}
-//         <video 
-//           className="absolute inset-0 w-full h-full object-cover" 
-//           autoPlay 
-//           muted 
-//           loop 
-//           playsInline
-//           preload="metadata"
-//           key={isMobile ? 'mobile' : 'desktop'} // Force re-render when mobile state changes
-//         >
-//           <source 
-//             src={isMobile ? "/video/mobile-video-amseel-car.mp4" : "/video/desktop-video-amseel-car.mp4"} 
-//             type="video/mp4" 
-//           />
-//           Your browser does not support the video tag.
-//         </video>
+//         <canvas
+//           ref={canvasRef}
+//           className="block"
+//           style={{
+//             display: "block",
+//             width: "100vw",
+//             height: isMobile ? "100svh" : "100vh",
+//             objectFit: "cover",
+//             pointerEvents: "none",
+//             zIndex: 10,
+//           }}
+//         />
 
-//         {/* Explore cars button */}
 //         <motion.div
 //           className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
 //           style={{
@@ -1245,7 +1068,7 @@ export default Cardrive;
 //               transition={{ duration: 0.6, ease: "easeOut" }}
 //             >
 //               <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
-//                 Nos voitures
+//                 Découvrir toutes les voitures
 //                 <motion.span
 //                   className="inline-block"
 //                   animate={{ x: [0, 5, 0] }}
@@ -1282,3 +1105,180 @@ export default Cardrive;
 // };
 
 // export default Cardrive;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------
+"use client";
+
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+
+import { useLoading } from "@/contexts/LoadingContext";
+
+const Cardrive = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  const {
+    setFramesLoaded,
+    setWordsComplete,
+    setMinimumTimeElapsed,
+  } = useLoading();
+
+  useEffect(() => {
+    // Set client-side flag
+    setIsClient(true);
+    
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Set loading states immediately
+  useEffect(() => {
+    setFramesLoaded(true);
+    setWordsComplete(true);
+    setMinimumTimeElapsed(true);
+  }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
+
+  // Always call hooks - but use conditional target
+  const { scrollYProgress } = useScroll({
+    target: isClient ? containerRef : undefined,
+    offset: ["start start", "end end"],
+  });
+
+  const buttonY = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.8, 1],
+    ["30vh", "28vh", "12vh", "8vh"]
+  );
+  const buttonOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.3, 1],
+    [0, 0, 1, 1]
+  );
+  const buttonScale = useTransform(
+    scrollYProgress,
+    [0.2, 0.5, 0.6],
+    [0.4, 1, 1]
+  );
+
+  // Don't render until client-side to avoid hydration mismatch
+  if (!isClient) {
+    return <div className="w-full h-[300svh] bg-black"></div>;
+  }
+
+  return (
+    <motion.section
+      ref={containerRef}
+      className="relative bg-black"
+      style={{ height: isMobile ? "250svh" : "300svh" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, ease: "easeOut" }}
+    >
+      <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center bg-black">
+        {/* Simple video like HeroVideo */}
+        <video 
+          className="absolute inset-0 w-full h-full object-cover" 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          preload="metadata"
+          key={isMobile ? 'mobile' : 'desktop'} // Force re-render when mobile state changes
+        >
+          <source 
+            src={isMobile ? "/video/mobile-video-amseel-car.mp4" : "/video/desktop-video-amseel-car.mp4"} 
+            type="video/mp4" 
+          />
+          Your browser does not support the video tag.
+        </video>
+
+        {/* Explore cars button */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+          style={{
+            y: buttonY,
+            opacity: buttonOpacity,
+            scale: buttonScale,
+          }}
+        >
+          <Link href="/cars">
+            <motion.button
+              className={`relative rounded-full border-2 border-white bg-white px-8 py-4 text-lg font-bold text-black shadow-2xl transition-all duration-300 ease-out hover:bg-transparent hover:text-white backdrop-blur-sm ${
+                isMobile ? "px-6 py-3 text-base" : ""
+              }`}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
+                Nos voitures
+                <motion.span
+                  className="inline-block"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  →
+                </motion.span>
+              </span>
+
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-100 to-white opacity-0"
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-white opacity-0"
+                whileHover={{
+                  opacity: [0, 1, 0],
+                  scale: [1, 1.2, 1.4],
+                }}
+                transition={{ duration: 0.6 }}
+              />
+            </motion.button>
+          </Link>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};
+
+export default Cardrive;
