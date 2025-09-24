@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Star, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone } from 'lucide-react'
+import { ArrowLeft, Star, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag, TrendingDown } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 
 interface CarDetailClientProps {
@@ -19,6 +19,11 @@ interface CarDetailClientProps {
     rating: number
     location: string
     pricePerDay: number
+    pricing?: {
+      shortTerm: number
+      longTerm: number
+      hasDiscount: boolean
+    }
     seats: number
     fuelType: string
     transmission: string
@@ -96,11 +101,11 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-2 text-sm">
             <Link href="/" className="text-muted-foreground hover:text-foreground">
-              Home
+              Accueil
             </Link>
             <span className="text-muted-foreground">/</span>
             <Link href="/cars" className="text-muted-foreground hover:text-foreground">
-              Cars
+              Voitures
             </Link>
             <span className="text-muted-foreground">/</span>
             <span className="text-foreground font-medium">{car.carName}</span>
@@ -115,7 +120,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors border-2 border-border rounded-lg p-2 hover:bg-muted/50"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Cars
+          Retour aux voitures
         </button>
       </div>
 
@@ -189,12 +194,33 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
             {/* Price */}
             <div className="bg-muted/30 rounded-lg p-6">
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-3xl font-bold text-foreground">DH {car.pricePerDay}</span>
-                <span className="text-muted-foreground">per day</span>
-              </div>
+              {car.pricing?.hasDiscount ? (
+                <div>
+                  {/* Short-term pricing */}
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-2xl font-bold text-foreground">DH {car.pricing.shortTerm}</span>
+                    <span className="text-muted-foreground">par jour (1-4 jours)</span>
+                    <Tag className="h-4 w-4 text-primary" />
+                  </div>
+                  
+                  {/* Long-term pricing with discount */}
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                   
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-bold text-green-700">DH {car.pricing.longTerm}</span>
+                      <span className="text-green-600">par jour (5+ jours)</span>
+                    </div>
+                   
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-bold text-foreground">DH {car.pricePerDay}</span>
+                  <span className="text-muted-foreground">par jour</span>
+                </div>
+              )}
               <p className="text-sm text-muted-foreground">
-                Best price guaranteed • Free cancellation
+                Meilleur prix garanti • Annulation gratuite
               </p>
             </div>
 
@@ -203,8 +229,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
                 <Users className="h-5 w-5 text-primary" />
                 <div>
-                  <p className="font-medium">{car.seats} Seats</p>
-                  <p className="text-sm text-muted-foreground">Capacity</p>
+                  <p className="font-medium">{car.seats} Sièges</p>
+                  <p className="text-sm text-muted-foreground">Capacité</p>
                 </div>
               </div>
               
@@ -212,7 +238,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 <Fuel className="h-5 w-5 text-primary" />
                 <div>
                   <p className="font-medium">{car.fuelType}</p>
-                  <p className="text-sm text-muted-foreground">Fuel Type</p>
+                  <p className="text-sm text-muted-foreground">Type de carburant</p>
                 </div>
               </div>
               
@@ -228,7 +254,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 <Calendar className="h-5 w-5 text-primary" />
                 <div>
                   <p className="font-medium">{car.year}</p>
-                  <p className="text-sm text-muted-foreground">Model Year</p>
+                  <p className="text-sm text-muted-foreground">Année du modèle</p>
                 </div>
               </div>
             </div>
@@ -239,7 +265,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 className=" bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
                 onClick={() => setIsBookingDialogOpen(true)}
               >
-                Book Now - DH {car.pricePerDay}/day
+                Réserver maintenant - DH {car.pricePerDay}/jour
               </Button>
               <Button 
                 size="lg" 
@@ -261,13 +287,13 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
         {/* Description */}
         <div className="mt-12 space-y-8">
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-4 ">About This Car</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4 ">À propos de cette voiture</h2>
             <p className="text-muted-foreground leading-relaxed">{car.description}</p>
           </div>
 
           {/* Features Grid */}
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Features & Amenities</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">Caractéristiques et aménagements</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {car.features.map((feature, index) => (
                 <div key={index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
@@ -283,34 +309,34 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
           {/* Specifications */}
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">Technical Specifications</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">Spécifications techniques</h2>
             <div className="bg-muted/30 rounded-lg p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">Engine</span>
+                    <span className="text-muted-foreground">Moteur</span>
                     <span className="font-medium">{car.specs.engine}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">Horsepower</span>
+                    <span className="text-muted-foreground">Puissance</span>
                     <span className="font-medium">{car.specs.horsepower}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">Acceleration</span>
+                    <span className="text-muted-foreground">Accélération</span>
                     <span className="font-medium">{car.specs.acceleration}</span>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">Top Speed</span>
+                    <span className="text-muted-foreground">Vitesse maximale</span>
                     <span className="font-medium">{car.specs.topSpeed}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">Fuel Efficiency</span>
+                    <span className="text-muted-foreground">Efficacité du carburant</span>
                     <span className="font-medium">{car.specs.fuelEfficiency}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">Drivetrain</span>
+                    <span className="text-muted-foreground">Transmission</span>
                     <span className="font-medium">{car.specs.drivetrain}</span>
                   </div>
                 </div>
@@ -323,9 +349,9 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             <div className="flex items-center gap-3">
               <Shield className="h-6 w-6 text-green-600" />
               <div>
-                <p className="font-medium text-green-900">Available for Rental</p>
+                <p className="font-medium text-green-900">Disponible pour la location</p>
                 <p className="text-sm text-green-700">
-                  This vehicle is currently available and ready for your next adventure.
+                  Cette voiture est actuellement disponible et prête pour votre prochaine aventure.
                 </p>
               </div>
             </div>

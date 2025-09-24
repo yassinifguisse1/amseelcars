@@ -19,6 +19,12 @@ export interface CarSpecs {
   drivetrain: string
 }
 
+export interface CarPricing {
+  shortTerm: number // 1-4 days price per day
+  longTerm: number  // 5+ days price per day
+  hasDiscount: boolean // Whether this car has a discount for long-term rentals
+}
+
 export interface Car {
   id: number
   slug: string
@@ -28,7 +34,8 @@ export interface Car {
   year: number
   carImage: string // Primary image for card display
   images: CarImage[] // Gallery images for detail page
-  pricePerDay: number
+  pricePerDay: number // Default price (short-term) for backward compatibility
+  pricing?: CarPricing // New dynamic pricing structure (optional for backward compatibility)
   seats: number
   fuelType: string
   transmission: string
@@ -40,6 +47,7 @@ export interface Car {
   availability: boolean
   location: string
 }
+
 
 export const cars: Car[] = [
   {
@@ -58,6 +66,11 @@ export const cars: Car[] = [
       { src: "/images/Bmw x3 pack M 2025 diesel vue d'arrière amseel cars agadir maroc.webp", alt: "BMW X3 - vue arrière" }
     ],
     pricePerDay: 1400,
+    pricing: {
+      shortTerm: 1400, // 1-4 days
+      longTerm: 1300,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "diesel",
     transmission: "Automatique",
@@ -100,7 +113,12 @@ export const cars: Car[] = [
       { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
       { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue arrière" }
     ],
-    pricePerDay: 700,
+    pricePerDay: 800,
+    pricing: {
+      shortTerm: 800, // 1-4 days
+      longTerm: 700,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Hybride (mild-hybrid 48V, essence)",
     transmission: "Automatique DSG 7",
@@ -143,7 +161,12 @@ export const cars: Car[] = [
       { src: "/images/back-troc.jpeg", alt: "Volkswagen T-Roc - tableau de bord" },
       { src: "/images/side-troc.webp", alt: "Volkswagen T-Roc - détails habitacle" }
     ],
-    pricePerDay: 600,
+    pricePerDay: 700,
+    pricing: {
+      shortTerm: 700, // 1-4 days
+      longTerm: 600,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
     transmission: "Manuelle",
@@ -183,6 +206,11 @@ export const cars: Car[] = [
       { src: "/images/clio 5 gris manuel diesel 2024.webp", alt: "Renault Clio 5 - vue latérale" }
     ],
     pricePerDay: 350,
+    pricing: {
+      shortTerm: 350, // 1-4 days (Auto)
+      longTerm: 300,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Diesel",
     transmission: "Manuelle 6 rapports",
@@ -224,7 +252,12 @@ export const cars: Car[] = [
       { src: "/images/left)side-clio-5-white.webp", alt: "Renault Clio 5 - tableau de bord" },
       { src: "/images/inside-clio-5-white.webp", alt: "Renault Clio 5 - détails habitacle" }
     ],
-    pricePerDay: 350,
+    pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days (Manual - no discount)
+      longTerm: 300,  // 5+ days (same price)
+      hasDiscount: false
+    },
     seats: 5,
     fuelType: "Diesel",
     transmission: "Manuelle 6 rapports",
@@ -266,7 +299,12 @@ export const cars: Car[] = [
       { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - tableau de bord" },
       { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - détails habitacle" }
     ],
-    pricePerDay: 500,
+    pricePerDay: 450,
+    pricing: {
+      shortTerm: 450, // 1-4 days
+      longTerm: 400,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
     transmission: "Automatique EAT8",
@@ -307,7 +345,12 @@ export const cars: Car[] = [
       { src: "/images/clipboard-image-1757626720.webp", alt: "Citroën C3 Aircross - vue latérale" },
       { src: "/images/clipboard-image-1757626807.webp", alt: "Citroën C3 Aircross - tableau de bord" }
     ],
-    pricePerDay: 300,
+    pricePerDay: 400,
+    pricing: {
+      shortTerm: 400, // 1-4 days (C3 Aircross)
+      longTerm: 350,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Hybride (mild-hybrid 48V, essence)",
     transmission: "Automatique e-DSC6",
@@ -432,6 +475,11 @@ export const cars: Car[] = [
     ],
     
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days (Hyundai i10)
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 4,
     fuelType: "Essence",
     transmission: "Automatique (BVR 5 rapports)",
@@ -474,6 +522,11 @@ export const cars: Car[] = [
       { src: "/images/kia picanto auto essence blanche 2024.webp", alt: "Kia Picanto - détails habitacle" }
     ],
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days (Kia Picanto)
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
     transmission: "Automatique (AMT 5)",
@@ -593,7 +646,12 @@ export const cars: Car[] = [
       { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Volkswagen Touareg - intérieur" },
       { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Volkswagen Touareg - vue latérale" }
     ],
-    pricePerDay: 1100,
+    pricePerDay: 1400,
+    pricing: {
+      shortTerm: 1400, // 1-4 days
+      longTerm: 1300,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Diesel",
     transmission: "Automatique Tiptronic 8",
@@ -932,4 +990,53 @@ export function searchCars(query: string): Car[] {
     car.model.toLowerCase().includes(lowercaseQuery) ||
     car.category.toLowerCase().includes(lowercaseQuery)
   )
+}
+
+// Pricing utility functions
+export function calculateCarPrice(car: Car, days: number): number {
+  if (!car.pricing) {
+    return car.pricePerDay // Fallback to default price
+  }
+  
+  if (days >= 5) {
+    return car.pricing.longTerm
+  }
+  return car.pricing.shortTerm
+}
+
+export function calculateTotalPrice(car: Car, days: number): number {
+  const dailyPrice = calculateCarPrice(car, days)
+  return dailyPrice * days
+}
+
+export function getPricingInfo(car: Car): {
+  shortTermPrice: number
+  longTermPrice: number
+  hasDiscount: boolean
+  discountAmount: number
+  discountPercentage: number
+} {
+  if (!car.pricing) {
+    return {
+      shortTermPrice: car.pricePerDay,
+      longTermPrice: car.pricePerDay,
+      hasDiscount: false,
+      discountAmount: 0,
+      discountPercentage: 0
+    }
+  }
+
+  const shortTermPrice = car.pricing.shortTerm
+  const longTermPrice = car.pricing.longTerm
+  const hasDiscount = car.pricing.hasDiscount
+  const discountAmount = hasDiscount ? shortTermPrice - longTermPrice : 0
+  const discountPercentage = hasDiscount ? Math.round((discountAmount / shortTermPrice) * 100) : 0
+
+  return {
+    shortTermPrice,
+    longTermPrice,
+    hasDiscount,
+    discountAmount,
+    discountPercentage
+  }
 } 

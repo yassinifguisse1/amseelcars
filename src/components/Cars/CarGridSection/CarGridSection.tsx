@@ -73,6 +73,7 @@ const CarGridSection = ({
                 carName={car.carName}
                 carImage={car.carImage}
                 pricePerDay={car.pricePerDay}
+                pricing={car.pricing}
                 seats={car.seats}
                 fuelType={car.fuelType}
                 transmission={car.transmission}

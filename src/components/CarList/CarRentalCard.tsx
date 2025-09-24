@@ -3,13 +3,18 @@
 import Link from "next/link"
 import { CometCard } from "@/components/ui/comet-card"
 import { Button } from "@/components/ui/button"
-import { Car, Users, Fuel, Settings } from "lucide-react"
+import { Car, Users, Fuel, Settings, Tag } from "lucide-react"
 import Image from "next/image"
 
 interface CarRentalCardProps {
   carName: string
   carImage: string
   pricePerDay: number
+  pricing?: {
+    shortTerm: number
+    longTerm: number
+    hasDiscount: boolean
+  }
   seats: number
   fuelType: string
   transmission: string
@@ -24,6 +29,7 @@ export function CarRentalCard({
   carName,
   carImage,
   pricePerDay,
+  pricing,
   seats,
   fuelType,
   transmission,
@@ -55,8 +61,24 @@ export function CarRentalCard({
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-base sm:text-lg font-semibold text-foreground leading-tight">{carName}</h3>
             <div className="text-right flex-shrink-0">
-              <p className="text-xl sm:text-2xl font-bold text-primary">DH {pricePerDay}</p>
-              <p className="text-xs text-muted-foreground">per day</p>
+              {pricing?.hasDiscount ? (
+                <div>
+                  <div className="flex items-center gap-1">
+                    <p className="text-lg sm:text-xl font-bold text-primary">DH {pricing.shortTerm}</p>
+                    {/* <Tag className="h-3 w-3 text-green-600" /> */}
+                  <p className="text-xs text-muted-foreground">1-4 jours</p>
+                  </div>
+                  <div className="flex items-center gap-1 mt-1">
+                    <p className="text-sm font-semibold text-green-600">DH {pricing.longTerm}</p>
+                    <span className="text-xs bg-green-100 text-green-700 px-1 rounded">5+ jours</span>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-xl sm:text-2xl font-bold text-primary">DH {pricePerDay}</p>
+                  <p className="text-xs text-muted-foreground">par jour</p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -64,7 +86,7 @@ export function CarRentalCard({
           <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Users className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-              <span className="truncate">{seats} seats</span>
+              <span className="truncate">{seats} Sièges</span>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Fuel className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
@@ -91,7 +113,7 @@ export function CarRentalCard({
           className="mt-3 sm:mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base"
           size="default"
         >
-          Book Now
+          Réserver maintenant
         </Button>
         <Button
           onClick={(e) => {
