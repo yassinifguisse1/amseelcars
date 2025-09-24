@@ -43,16 +43,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-       gap: 40px;
+        justify-content: center;
+        gap: 40px;
         width: 100%;
         // max-width: 100vw;
         
         
         // Tablet and up - side by side layout
         @media (min-width: 768px) {
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
+            // flex-direction: row;
+            // align-items: center;
+            // justify-content: center;
             gap: 60px;
         }
         
