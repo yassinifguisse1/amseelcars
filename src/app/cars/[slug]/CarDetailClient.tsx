@@ -259,7 +259,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               </div>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col md:flex-row items-center  gap-2">
               <Button 
                 size="lg" 
                 className=" bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
