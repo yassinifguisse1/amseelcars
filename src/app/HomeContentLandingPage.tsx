@@ -60,7 +60,7 @@ function SpeedometerPreloader() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <h1 className="text-2xl md:text-4xl font-bold mb-2">AMSSEEL CARS</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-2">AMSEEL CARS</h1>
           <p className="text-sm md:text-base text-gray-400 mb-4">Expérience de location de voitures haut de gamme.</p>
          
         </motion.div>

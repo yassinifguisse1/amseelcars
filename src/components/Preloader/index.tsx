@@ -279,10 +279,10 @@ export default function Index() {
                     transition={{ delay: 0.8, duration: 0.6 }}
                 >
                     <h1 className="text-2xl md:text-4xl font-bold text-white tracking-wider">
-                        AMSSEEL CARS
+                        AMSEEL CARS
                     </h1>
                     <p className="text-sm md:text-base text-gray-400 mt-2">
-                        Premium Car Rental Experience
+                        Expérience de location de voitures haut de gamme.
                     </p>
                 </motion.div>
                 

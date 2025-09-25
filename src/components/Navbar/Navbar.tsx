@@ -9,7 +9,7 @@ export default function Navbar() {
         <nav className="mx-auto max-w-7xl h-14 px-4 sm:px-6 lg:px-8 flex items-center">
           {/* Brand */}
           <Link href="/" className="font-semibold tracking-tight text-gray-900">
-            AMSSEEL CARS
+            AMSEEL CARS
           </Link>
 
           {/* Links */}
