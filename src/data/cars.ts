@@ -1001,7 +1001,7 @@ export const cars: Car[] = [
   },
   {
     id: 22,
-    slug: 'C3-normal-manuel-diesel-2024',
+    slug: 'C3-normal-automatique-blanche-diesel-2024',
     carName: "C3 Normal",
     brand: "Citroën",
     model: "C3",
@@ -1009,10 +1009,9 @@ export const cars: Car[] = [
     carImage: "/images/C3 normal automatique blanche diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/C3 normal automatique blanche diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
-      // { src: "/images/C3 normal automatique blanche diesel 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - intérieur" },
-      // { src: "/images/C3 normal automatique blanche diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
-      // { src: "/images/C3 normal automatique blanche diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
-      // { src: "/images/C3 normal automatique blanche diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" }
+      { src: "/images/C3 normal automatique blanche diesel 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - intérieur" },
+      { src: "/images/C3 normal automatique blanche diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
+      { src: "/images/C3 normal automatique blanche diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
     ],
     pricePerDay: 350,
     pricing: {
