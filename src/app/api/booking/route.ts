@@ -68,9 +68,9 @@ export async function POST(request: NextRequest) {
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de la voiture</h2>
               <p><strong>Car:</strong> ${carName}</p>
-              <p><strong>Price par jour:</strong> DH ${carPrice}</p>
+              <p><strong>Price par jour:</strong>${carPrice} DH </p>
               <p><strong>Durée de location:</strong> ${rentalDays} jour${rentalDays > 1 ? 's' : ''}</p>
-              <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">DH ${totalPrice}</span></p>
+              <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${totalPrice} DH </span></p>
             </div>
 
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
               <p><strong>Car:</strong> ${carName}</p>
               <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}</p>
               <p><strong>Date de retour:</strong> ${formatDate(returnDate)}</p>
-              <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">DH ${totalPrice}</span></p>
+              <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${totalPrice} DH </span></p>
               <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
               <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
             </div>

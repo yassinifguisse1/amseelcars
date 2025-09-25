@@ -6835,7 +6835,7 @@ export async function POST(request: NextRequest) {
               <p><strong>Car:</strong> ${carName}</p>
               <p><strong>Pickup Date:</strong> ${formatDate(pickupDate)}</p>
               <p><strong>Return Date:</strong> ${formatDate(returnDate)}</p>
-              <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">DH ${totalPrice}</span></p>
+              <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${totalPrice} DH </span></p>
             </div>
 
             <div style="background: #28a745; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">

@@ -207,12 +207,7 @@ export const cars: Car[] = [
       { src: "/images/clio 5 gris manuel diesel 2024.webp", alt: "Renault Clio 5 - intérieur" },
       { src: "/images/clio 5 gris manuel diesel 2024.webp", alt: "Renault Clio 5 - vue latérale" }
     ],
-    pricePerDay: 350,
-    pricing: {
-      shortTerm: 350, // 1-4 days (Auto)
-      longTerm: 300,  // 5+ days  
-      hasDiscount: true
-    },
+    pricePerDay: 300,
     seats: 5,
     fuelType: "Diesel",
     transmission: "Manuelle 6 rapports",
@@ -255,11 +250,6 @@ export const cars: Car[] = [
       { src: "/images/inside-clio-5-white.webp", alt: "Renault Clio 5 - détails habitacle" }
     ],
     pricePerDay: 300,
-    pricing: {
-      shortTerm: 300, // 1-4 days (Manual - no discount)
-      longTerm: 300,  // 5+ days (same price)
-      hasDiscount: false
-    },
     seats: 5,
     fuelType: "Diesel",
     transmission: "Manuelle 6 rapports",
@@ -347,10 +337,10 @@ export const cars: Car[] = [
       { src: "/images/clipboard-image-1757626720.webp", alt: "Citroën C3 Aircross - vue latérale" },
       { src: "/images/clipboard-image-1757626807.webp", alt: "Citroën C3 Aircross - tableau de bord" }
     ],
-    pricePerDay: 400,
+    pricePerDay: 450,
     pricing: {
-      shortTerm: 400, // 1-4 days (C3 Aircross)
-      longTerm: 350,  // 5+ days  
+      shortTerm: 450, // 1-4 days (C3 Aircross)
+      longTerm: 400,  // 5+ days  
       hasDiscount: true
     },
     seats: 5,
@@ -392,10 +382,10 @@ export const cars: Car[] = [
       { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - intérieur" },
       { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - vue latérale" }
     ],
-    pricePerDay: 400,
+    pricePerDay: 450,
     pricing: {
-      shortTerm: 400, // 1-4 days
-      longTerm: 350,  // 5+ days  
+      shortTerm: 450, // 1-4 days
+      longTerm: 400,  // 5+ days  
       hasDiscount: true
     },
     seats: 5,
@@ -439,7 +429,7 @@ export const cars: Car[] = [
       { src: "/images/C3 normal manuel diesel 2024 intérieure location de voiture agadir maroc  amseel cars.webp", alt: "Citroën C3 - vue latérale" },
       { src: "/images/C3 normal manuel diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" }
     ],
-    pricePerDay: 350,
+    pricePerDay: 300,
     seats: 5,
     fuelType: "Diesel",
     transmission: "Manuelle",
@@ -473,11 +463,11 @@ export const cars: Car[] = [
     brand: "Hyundai",
     model: "i10",
     year: 2024,
-    carImage: "/images/Hyundai i10 agadir.webp",
+    carImage: "/images/hyundai i10 noire automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/Hyundai i10 agadir.webp", alt: "Hyundai i10 - vue avant", isPrimary: true },
-      { src: "/images/right-side-hyondia-10.webp", alt: "Hyundai i10 - intérieur" },
-      { src: "/images/back-htondia-i10.webp", alt: "Hyundai i10 - vue latérale" },
+      { src: "/images/hyundai i10 noire automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - vue avant", isPrimary: true },
+      { src: "/images/hyundai i10 noire automatique essence 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - intérieur" },
+      { src: "/images/hyundai i10 noire automatique essence 2024 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - vue latérale" },
       { src: "/images/inside-hyondia-i10.webp", alt: "Hyundai i10 - vue latérale" }
     ],
     
@@ -576,11 +566,6 @@ export const cars: Car[] = [
       { src: "/images/Sandero Stepway automatique essence blanche 2025 vue intérieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" }
     ],
     pricePerDay: 300,
-    pricing: {
-      shortTerm: 300, // 1-4 days
-      longTerm: 250,  // 5+ days  
-      hasDiscount: true
-    },
     seats: 5,
     fuelType: "Essence",
     transmission: "Automatique (CVT X-Tronic)",
@@ -621,11 +606,8 @@ export const cars: Car[] = [
       { src: "/images/stepway gris auto essence.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
     ],
     pricePerDay: 300,
-    pricing: {
-      shortTerm: 300, // 1-4 days
-      longTerm: 250,  // 5+ days  
-      hasDiscount: true
-    },
+  
+
     seats: 5,
     fuelType: "Essence",
     transmission: "Automatique",
@@ -756,10 +738,10 @@ export const cars: Car[] = [
 
 
     ],
-    pricePerDay: 650,
+    pricePerDay: 700,
     pricing: {
-      shortTerm: 650, // 1-4 days
-      longTerm: 600,  // 5+ days  
+      shortTerm: 700, // 1-4 days
+      longTerm: 650,  // 5+ days  
       hasDiscount: true
     },
     seats: 5,
@@ -805,10 +787,10 @@ export const cars: Car[] = [
       { src: "/images/Kia sportage automatique 2025 diesel verte vue arrière location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
 
     ],
-    pricePerDay: 650,
+    pricePerDay: 700,
     pricing: {
-      shortTerm: 650, // 1-4 days
-      longTerm: 600,  // 5+ days  
+      shortTerm: 700, // 1-4 days
+      longTerm: 650,  // 5+ days  
       hasDiscount: true
     },
     seats: 5,
@@ -1016,6 +998,52 @@ export const cars: Car[] = [
     category: 'suv',
     availability: true,
     location: "Agadir, Morocco"
+  },
+  {
+    id: 22,
+    slug: 'C3-normal-manuel-diesel-2024',
+    carName: "C3 Normal",
+    brand: "Citroën",
+    model: "C3",
+    year: 2024,
+    carImage: "/images/C3 normal automatique blanche diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    images: [
+      { src: "/images/C3 normal automatique blanche diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
+      // { src: "/images/C3 normal automatique blanche diesel 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - intérieur" },
+      // { src: "/images/C3 normal automatique blanche diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
+      // { src: "/images/C3 normal automatique blanche diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
+      // { src: "/images/C3 normal automatique blanche diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" }
+    ],
+    pricePerDay: 350,
+    pricing: {
+      shortTerm: 350, // 1-4 days
+      longTerm: 300,  // 5+ days  
+      hasDiscount: true
+    },
+    seats: 5,
+    fuelType: "Diesel",
+    transmission: "Automatique",
+    rating: 4.7,
+    description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
+    features: [
+      { icon: "🚗", name: "Sièges", value: "5" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+      { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie" },
+      { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
+      { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
+    ],
+    specs: {
+      engine: "1.5L BlueHDi (4 cylindres, diesel)",
+      horsepower: "102 ch",
+      acceleration: "0–100 km/h en 10,2 s",
+      topSpeed: "188 km/h",
+      fuelEfficiency: "4,4–4,5 l/100 km (WLTP)",
+      drivetrain: "Traction (roues avant)"
+    },
+    category: 'economy',
+    availability: true,
+    location: "Agadir, Maroc"
   }
 ]
 

@@ -198,8 +198,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 <div>
                   {/* Short-term pricing */}
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-2xl font-bold text-foreground">DH {car.pricing.shortTerm}</span>
-                    <span className="text-muted-foreground">par jour (1-4 jours)</span>
+                    <span className="text-2xl font-bold text-foreground">{car.pricing.shortTerm} DH </span>
+                    <span className="text-muted-foreground">/ (1-4 jours)</span>
                     <Tag className="h-4 w-4 text-primary" />
                   </div>
                   
@@ -207,16 +207,16 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                    
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-green-700">DH {car.pricing.longTerm}</span>
-                      <span className="text-green-600">par jour (5+ jours)</span>
+                      <span className="text-3xl font-bold text-green-700">{car.pricing.longTerm} DH </span>
+                      <span className="text-green-600">/ (5+ jours)</span>
                     </div>
                    
                   </div>
                 </div>
               ) : (
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-bold text-foreground">DH {car.pricePerDay}</span>
-                  <span className="text-muted-foreground">par jour</span>
+                  <span className="text-3xl font-bold text-foreground">{car.pricePerDay} DH </span>
+                  <span className="text-muted-foreground">/</span>
                 </div>
               )}
               <p className="text-sm text-muted-foreground">
