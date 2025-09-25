@@ -78,7 +78,7 @@ export const cars: Car[] = [
     description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel mild-hybrid 48V, la transmission intégrale xDrive, l’iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (mild-hybrid 48V)" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique Steptronic à 8 rapports" },
       { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien de voie, angle mort" },
       { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
@@ -105,13 +105,15 @@ export const cars: Car[] = [
     brand: "Volkswagen",
     model: "Golf 8 1.5 eTSI 150 DSG",
     year: 2024,
-    carImage: "/images/Golf 8 auto diesel 2024.webp",
+    carImage: "/images/Golf 8 style automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
-      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - intérieur" },
-      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue latérale" },
-      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
-      { src: "/images/Golf 8 auto diesel 2024.webp", alt: "Volkswagen Golf 8 - vue arrière" }
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - intérieur" },
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue latérale" },
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue intérieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" },
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
+
     ],
     pricePerDay: 800,
     pricing: {
@@ -120,13 +122,13 @@ export const cars: Car[] = [
       hasDiscount: true
     },
     seats: 5,
-    fuelType: "Hybride (mild-hybrid 48V, essence)",
+    fuelType: "Diesel",
     transmission: "Automatique DSG 7",
     rating: 4.9,
     description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch mild-hybrid 48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "🔋", name: "Carburant", value: "Hybride léger 48V (essence)" },
+      { icon: "🔋", name: "Carburant", value: "Diesel" },
       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DSG 7" },
       { icon: "🛡️", name: "Sécurité", value: "5 étoiles Euro NCAP (Golf 8)" },
       { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
@@ -168,20 +170,20 @@ export const cars: Car[] = [
       hasDiscount: true
     },
     seats: 5,
-    fuelType: "Essence",
-    transmission: "Manuelle",
+    fuelType: "Diesel",
+    transmission: "Automatique",
     rating: 4.7,
     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien — idéal pour Marrakech et ses environs.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.5 TSI 150)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Sécurité", value: "5 étoiles Euro NCAP (2017)" },
       { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
     ],
     specs: {
-      engine: "1.5L TSI (ACT) 4 cylindres essence",
+      engine: "1.5L TSI (ACT) 4 cylindres Diesel",
       horsepower: "150 ch",
       acceleration: "0–100 km/h en 8,6 s",
       topSpeed: "205 km/h",
@@ -218,8 +220,8 @@ export const cars: Car[] = [
     description: "La Renault Clio 5 (phase 2) en motorisation 1.5 Blue dCi 100 ch associe sobriété et agrément. Avec sa boîte manuelle à 6 rapports, ses aides à la conduite et la connectivité EASY LINK (Apple CarPlay/Android Auto), elle est parfaite pour la ville comme pour les trajets interurbains.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (Blue dCi 100)" },
-      { icon: "🔄", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "🔄", name: "Boîte de vitesses", value: "Manuelle" },
       { icon: "🛡️", name: "Sécurité", value: "AEB, maintien de voie, reconnaissance panneaux (Euro NCAP 5★)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (EASY LINK)" }
@@ -234,7 +236,7 @@ export const cars: Car[] = [
     },
     category: 'economy',
     availability: true,
-    location: "Casablanca, Maroc"
+    location: "agadir, Maroc"
   }
   ,
   {
@@ -265,8 +267,8 @@ export const cars: Car[] = [
     description: "Pratique et économique, la Renault Clio 5 (phase 2) en 1.5 Blue dCi 100 ch avec boîte manuelle 6 rapports offre une faible consommation, des aides à la conduite complètes et la connectivité EASY LINK (Apple CarPlay/Android Auto). Parfaite pour circuler à Agadir comme pour les trajets interurbains.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (Blue dCi 100)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
       { icon: "🛡️", name: "Sécurité", value: "AEB, maintien de voie, lecture panneaux (Euro NCAP 5★)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (EASY LINK)" }
@@ -328,7 +330,7 @@ export const cars: Car[] = [
     },
     category: 'suv',
     availability: true,
-    location: "Fez, Morocco"
+    location: "Agadir, Morocco"
   }
   ,
   {
@@ -336,7 +338,7 @@ export const cars: Car[] = [
     slug: 'C3-aircross-blanche',
     carName: "C3 Aircross",
     brand: "Citroën",
-    model: "C3 Aircross Hybrid 136 e-DSC6",
+    model: "C3 Aircross",
     year: 2024,
     carImage: "/images/C3 aircross blanche automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
@@ -352,20 +354,20 @@ export const cars: Car[] = [
       hasDiscount: true
     },
     seats: 5,
-    fuelType: "Hybride (mild-hybrid 48V, essence)",
-    transmission: "Automatique e-DSC6",
+    fuelType: "Diesel",
+    transmission: "Automatique",
     rating: 5.0,
-    description: "SUV compact confortable et polyvalent, la nouvelle Citroën C3 Aircross Hybrid 136 e-DSC6 offre une conduite souple, une faible consommation WLTP et une connectivité moderne (écran 10,25\" avec Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
+    description: "SUV compact confortable et polyvalent, la nouvelle Citroën C3 Aircross   offre une conduite souple, une faible consommation WLTP et une connectivité moderne (écran 10,25\" avec Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Hybride léger 48V (essence)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique e-DSC6" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien de voie, régulateur" },
       { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.2L PureTech mild-hybrid (48V) – 3 cylindres",
+      engine: "1.2L PureTech mild-hybrid (48V) – 3 cylindres Diesel",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 8,8 s",
       topSpeed: "192 km/h",
@@ -382,7 +384,7 @@ export const cars: Car[] = [
     slug: 'C3-aircross-gris',
     carName: "C3 Aircross",
     brand: "Citroën",
-    model: "C3 Aircross Hybrid 136 e-DSC6",
+    model: "C3 Aircross",
     year: 2024,
     carImage: "/images/C3 aircross gris.webp",
     images: [
@@ -390,22 +392,27 @@ export const cars: Car[] = [
       { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - intérieur" },
       { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - vue latérale" }
     ],
-    pricePerDay: 350,
+    pricePerDay: 400,
+    pricing: {
+      shortTerm: 400, // 1-4 days
+      longTerm: 350,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
-    fuelType: "Hybride (mild-hybrid 48V, essence)",
-    transmission: "Automatique e-DSC6",
+    fuelType: "Diesel",
+    transmission: "Automatique",
     rating: 5.0,
     description: "SUV compact confortable et polyvalent, la nouvelle C3 Aircross Hybrid 136 e-DSC6 offre une conduite souple, une faible consommation WLTP et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d’Agadir comme pour les trajets interurbains.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Hybride léger 48V (essence)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique e-DSC6" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien de voie, régulateur" },
       { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.2L PureTech mild-hybrid (48V) – 3 cylindres",
+      engine: "1.2L PureTech mild-hybrid (48V) – 3 cylindres Diesel",
       horsepower: "136 ch",
       acceleration: "0–60 mph en 8,8 s",
       topSpeed: "125 mph",
@@ -422,7 +429,7 @@ export const cars: Car[] = [
     slug: 'C3-normal-manuel-diesel-2024',
     carName: "C3 Normal",
     brand: "Citroën",
-    model: "C3 BlueHDi 100 BVM6",
+    model: "C3",
     year: 2024,
     carImage: "/images/C3 normal manuel diesel 2024 vue de face location de voiture agadir maroc amseel cars.webp",
     images: [
@@ -435,13 +442,13 @@ export const cars: Car[] = [
     pricePerDay: 350,
     seats: 5,
     fuelType: "Diesel",
-    transmission: "Manuelle 6 rapports",
+    transmission: "Manuelle",
     rating: 4.7,
     description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (BlueHDi 100)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
       { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -464,7 +471,7 @@ export const cars: Car[] = [
     slug: 'hyundai-i10-noire-auto-essence-2024',
     carName: "Hyundai i10",
     brand: "Hyundai",
-    model: "i10 1.0 MPi 63 BVR (AMT 5)",
+    model: "i10",
     year: 2024,
     carImage: "/images/Hyundai i10 agadir.webp",
     images: [
@@ -482,13 +489,13 @@ export const cars: Car[] = [
     },
     seats: 4,
     fuelType: "Essence",
-    transmission: "Automatique (BVR 5 rapports)",
+    transmission: "Automatique",
     rating: 5.0,
     description: "Citadine agile et économique, la Hyundai i10 1.0 MPi 63 ch avec boîte robotisée (BVR 5) est idéale pour la ville. Elle offre une faible consommation WLTP, les aides à la conduite essentielles et une connectivité moderne via écran 8\" (Apple CarPlay / Android Auto).",
     features: [
       { icon: "🚗", name: "Sièges", value: "4" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 MPi 63 ch)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique BVR 5 (AMT)" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien/suivi de voie" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (écran 8”)" }
@@ -511,7 +518,7 @@ export const cars: Car[] = [
     slug: 'kia-picanto-auto-essence-blanche-2024',
     carName: "Kia Picanto",
     brand: "Kia",
-    model: "Picanto 1.0 MPi AMT (5 rapports)",
+    model: "Picanto",
     year: 2024,
     carImage: "/images/kia picanto auto essence blanche 2024.webp",
     images: [
@@ -529,13 +536,13 @@ export const cars: Car[] = [
     },
     seats: 5,
     fuelType: "Essence",
-    transmission: "Automatique (AMT 5)",
+    transmission: "Automatique ",
     rating: 4.9,
     description: "Citadine agile et économique, la Kia Picanto 1.0 MPi avec boîte automatique robotisée (AMT 5) offre une consommation contenue, des aides à la conduite essentielles (freinage d’urgence, aide au maintien de voie) et une connectivité moderne via écran 8\" avec Apple CarPlay / Android Auto (selon finition).",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 MPi)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique AMT (5 rapports)" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Sécurité", value: "AEB, maintien de voie (selon version)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -560,21 +567,28 @@ export const cars: Car[] = [
     brand: "Dacia",
     model: "Sandero Stepway TCe 90 X-Tronic",
     year: 2024,
-    carImage: "/images/stepway blanche auto essence.webp",
+    carImage: "/images/Sandero Stepway automatique essence blanche 2025 vue devont location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/stepway blanche auto essence.webp", alt: "Dacia Sandero Stepway - vue avant", isPrimary: true },
-      { src: "/images/stepway blanche auto essence.webp", alt: "Dacia Sandero Stepway - intérieur" },
-      { src: "/images/stepway blanche auto essence.webp", alt: "Dacia Sandero Stepway - vue latérale" }
+      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue devont location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue avant", isPrimary: true },
+      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - intérieur" },
+      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
+      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue de l'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
+      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue intérieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" }
     ],
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
     transmission: "Automatique (CVT X-Tronic)",
     rating: 4.8,
-    description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic (boîte CVT) offre une conduite souple, une consommation contenue et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains à Casablanca.",
+    description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic (boîte CVT) offre une conduite souple, une consommation contenue et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains à agadir.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 TCe 90)" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique CVT (X-Tronic)" },
       { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien de voie" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/auto selon finition" },
@@ -598,7 +612,7 @@ export const cars: Car[] = [
     slug: 'stepway-gris-auto-essence',
     carName: "Stepway",
     brand: "Dacia",
-    model: "Sandero Stepway TCe 90 X-Tronic",
+    model: "Sandero Stepway",
     year: 2024,
     carImage: "/images/stepway gris auto essence.webp",
     images: [
@@ -607,15 +621,20 @@ export const cars: Car[] = [
       { src: "/images/stepway gris auto essence.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
     ],
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
-    transmission: "Automatique (CVT X-Tronic)",
+    transmission: "Automatique",
     rating: 4.8,
-    description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Parfaite pour la ville comme pour les trajets interurbains à Casablanca.",
+    description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Parfaite pour la ville comme pour les trajets interurbains à agadir.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 TCe 90)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique CVT (X-Tronic)" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d’urgence, maintien de voie" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/auto selon finition" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -630,7 +649,7 @@ export const cars: Car[] = [
     },
     category: 'crossover',
     availability: true,
-    location: "Casablanca, Morocco"
+    location: "agadir, Morocco"
   }
   ,
   {
@@ -638,7 +657,7 @@ export const cars: Car[] = [
     slug: 'touareg-auto-diesel-2025-blanche',
     carName: "Touareg",
     brand: "Volkswagen",
-    model: "Touareg V6 TDI 286 4MOTION",
+    model: "Touareg",
     year: 2024,
     carImage: "/images/Touareg auto diesel 2025 blanche.webp",
     images: [
@@ -654,13 +673,13 @@ export const cars: Car[] = [
     },
     seats: 5,
     fuelType: "Diesel",
-    transmission: "Automatique Tiptronic 8",
+    transmission: "Automatique",
     rating: 4.8,
     description: "SUV haut de gamme confortable et puissant, le Volkswagen Touareg V6 TDI 286 ch associe transmission intégrale 4MOTION, boîte automatique Tiptronic à 8 rapports et technologies de pointe (IQ.LIGHT HD Matrix, Innovision Cockpit 15\"). Idéal pour les longs trajets comme pour la ville.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel V6 TDI" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique Tiptronic 8" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🧭", name: "Transmission", value: "4MOTION (intégrale)" },
       { icon: "💡", name: "Éclairage", value: "IQ.LIGHT HD Matrix" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -683,7 +702,7 @@ export const cars: Car[] = [
     slug: 'dacia-logan-blanche-manuel-diesel-2025',
     carName: "Dacia Logan",
     brand: "Dacia",
-    model: "Logan 1.5 Blue dCi 95 BVM5",
+    model: "Logan",
     year: 2024,
     carImage: "/images/__dacia logan blanche manuel diesel 2025.webp",
     images: [
@@ -692,15 +711,16 @@ export const cars: Car[] = [
       { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan - vue latérale" }
     ],
     pricePerDay: 300,
+   
     seats: 5,
     fuelType: "Diesel",
-    transmission: "Manuelle 5 rapports",
+    transmission: "Manuelle",
     rating: 4.8,
     description: "Berline économique et spacieuse, la Dacia Logan 1.5 Blue dCi 95 ch (boîte manuelle 5 rapports) allie sobriété, fiabilité et coffre généreux (528 L). Équipements modernes selon finition : écran 8\" Media Display, aides à la conduite essentielles, et connectivité Apple CarPlay / Android Auto.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (Blue dCi 95)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 5 rapports" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
       { icon: "🛡️", name: "Sécurité", value: "ABS, ESP, aide au démarrage en côte" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Media Display 8\" (Apple CarPlay / Android Auto selon version)" }
@@ -725,22 +745,32 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Sportage 1.6 CRDi 136 DCT7",
     year: 2024,
-    carImage: "/images/kia sportage 2025 diesel auto gris.webp",
+    carImage: "/images/Kia sportage automatique 2025 diesel gris vue devant location de voiture agadir amseel cars.webp",
     images: [
-      { src: "/images/kia sportage 2025 diesel auto gris.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
-      { src: "/images/kia sportage 2025 diesel auto gris.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/kia sportage 2025 diesel auto gris.webp", alt: "Kia Sportage - vue latérale" }
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue arrière location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue de l'intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue du coffre location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue de côté location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" }
+
+
     ],
-    pricePerDay: 600,
+    pricePerDay: 650,
+    pricing: {
+      shortTerm: 650, // 1-4 days
+      longTerm: 600,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Diesel",
-    transmission: "Automatique DCT 7",
+    transmission: "Automatique",
     rating: 4.8,
     description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch avec boîte automatique DCT à 7 rapports (2WD) offre confort, technologies utiles (écran 8\" avec Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (1.6 CRDi 136)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DCT 7" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Sécurité", value: "6 airbags, ABS/ESC; AEB & maintien de voie selon finition" },
       { icon: "❄️", name: "Climatisation", value: "Semi-auto ou bi-zone (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -765,22 +795,31 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Sportage 1.6 CRDi 136 DCT7",
     year: 2024,
-    carImage: "/images/Kia sportage 2025 diesel auto verte.webp",
+    carImage: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp",
     images: [
-      { src: "/images/Kia sportage 2025 diesel auto verte.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
-      { src: "/images/Kia sportage 2025 diesel auto verte.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/Kia sportage 2025 diesel auto verte.webp", alt: "Kia Sportage - vue latérale" }
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue d'intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue de coffre location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue de côté location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue arrière location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+
     ],
-    pricePerDay: 600,
+    pricePerDay: 650,
+    pricing: {
+      shortTerm: 650, // 1-4 days
+      longTerm: 600,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Diesel",
-    transmission: "Automatique DCT 7",
+    transmission: "Automatique ",
     rating: 4.8,
     description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (1.6 CRDi 136 MHEV)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DCT 7" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique " },
       { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie (selon finition)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -803,7 +842,7 @@ export const cars: Car[] = [
     slug: 'clio-5-auto-blanche-essence-2025',
     carName: "Clio 5",
     brand: "Renault",
-    model: "Clio 5 1.5 Blue dCi 100 BVM6",
+    model: "Clio 5",
     year: 2024,
     carImage: "/images/clio 5 auto blanche essence 2025.webp",
     images: [
@@ -812,21 +851,26 @@ export const cars: Car[] = [
       { src: "/images/clio 5 auto blanche essence 2025.webp", alt: "Clio 5 - vue latérale" }
     ],
     pricePerDay: 350,
+    pricing: {
+      shortTerm: 350, // 1-4 days
+      longTerm: 300,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
-    fuelType: "Diesel",
-    transmission: "Automatique DCT 7",
+    fuelType: "Essence",
+    transmission: "Automatique",
     rating: 4.8,
     description: "SUV familial moderne, le Clio 5 1.5 Blue dCi 100 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Diesel (1.6 CRDi 136 MHEV)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DCT 7" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie (selon finition)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.6L CRDi (4 cyl., turbo diesel, mild-hybrid 48V)",
+      engine: "1.6L CRDi (4 cyl., turbo essence, mild-hybrid 48V)",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 11,4 s",
       topSpeed: "180 km/h",
@@ -842,7 +886,7 @@ export const cars: Car[] = [
     slug: 'kia-picanto-auto-essence-blanche-2025',
     carName: "Kia Picanto",
     brand: "Kia",
-    model: "Kia Picanto 1.0 GDI 66 AMT",
+    model: "Kia Picanto",
     year: 2024,
     carImage: "/images/kia picanto auto essence blanche 2025.webp",
     images: [
@@ -851,15 +895,20 @@ export const cars: Car[] = [
       { src: "/images/kia picanto auto essence blanche 2025.webp", alt: "Kia Picanto - vue latérale" }
     ],
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
-    transmission: "Automatique AMT 7",
+    transmission: "Automatique",
     rating: 4.8,
     description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 GDI 66)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DCT 7" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique " },
       { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie (selon finition)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -881,7 +930,7 @@ export const cars: Car[] = [
     slug: 'kia-picanto-auto-essence-blue-2025',
     carName: "Kia Picanto",
     brand: "Kia",
-    model: "Kia Picanto 1.0 GDI 66 AMT",
+    model: "Kia Picanto",
     year: 2024,
     carImage: "/images/kia picanto blue automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
@@ -892,15 +941,20 @@ export const cars: Car[] = [
       { src: "/images/kia picanto blue automatique essence 2025 vue d'intérieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
     ],
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
-    transmission: "Automatique AMT 7",
+    transmission: "Automatique",
     rating: 4.8,
     description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 GDI 66)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DCT 7" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie (selon finition)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -922,7 +976,7 @@ export const cars: Car[] = [
     slug: 'kia-picanto-auto-essence-gris-2025',
     carName: "Kia Picanto",
     brand: "Kia",
-    model: "Kia Picanto 1.0 GDI 66 AMT",
+    model: "Kia Picanto",
     year: 2024,
     carImage: "/images/kia picanto automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
@@ -933,15 +987,20 @@ export const cars: Car[] = [
       { src: "/images/kia picanto automatique essence gris 2025 vue de l'intérieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
     ],
     pricePerDay: 300,
+    pricing: {
+      shortTerm: 300, // 1-4 days
+      longTerm: 250,  // 5+ days  
+      hasDiscount: true
+    },
     seats: 5,
     fuelType: "Essence",
-    transmission: "Automatique AMT 7",
+    transmission: "Automatique",
     rating: 4.8,
     description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
-      { icon: "⛽", name: "Carburant", value: "Essence (1.0 GDI 66)" },
-      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DCT 7" },
+      { icon: "⛽", name: "Carburant", value: "Essence " },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
       { icon: "🛡️", name: "Sécurité", value: "Freinage d’urgence, maintien de voie (selon finition)" },
       { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }

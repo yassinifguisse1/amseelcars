@@ -3,6 +3,14 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Location mapping for display
+const locationLabels: { [key: string]: string } = {
+  'agadir-centre': 'Agadir Centre',
+  'aeroport-al-massira': 'Aéroport Al Massira',
+  'taghazout': 'Taghazout',
+  'agence': 'Agence'
+};
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -30,12 +38,17 @@ export async function POST(request: NextRequest) {
 
     // Format dates
     const formatDate = (dateString: string) => {
-      return new Date(dateString).toLocaleDateString('en-US', {
+      return new Date(dateString).toLocaleDateString('fr-FR', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       });
+    };
+
+    // Format location labels
+    const formatLocation = (locationKey: string) => {
+      return locationLabels[locationKey] || locationKey;
     };
 
     // Send email to business owner
@@ -71,8 +84,8 @@ export async function POST(request: NextRequest) {
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de la location</h2>
               <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}</p>
               <p><strong>Date de retour:</strong> ${formatDate(returnDate)}</p>
-              <p><strong>Lieu de retrait:</strong> ${pickupLocation}</p>
-              <p><strong>Lieu de retour:</strong> ${returnLocation}</p>
+              <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
+              <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
             </div>
 
 
@@ -105,8 +118,8 @@ export async function POST(request: NextRequest) {
               <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}</p>
               <p><strong>Date de retour:</strong> ${formatDate(returnDate)}</p>
               <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">DH ${totalPrice}</span></p>
-              <p><strong>Lieu de retrait:</strong> ${pickupLocation}</p>
-              <p><strong>Lieu de retour:</strong> ${returnLocation}</p>
+              <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
+              <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
             </div>
 
             <div style="background: #28a745; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">

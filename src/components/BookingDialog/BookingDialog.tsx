@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, User, MapPin, Clock, CreditCard } from 'lucide-react';
+import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import styles from './BookingDialog.module.css';
 
@@ -16,8 +16,8 @@ const bookingSchema = z.object({
   phone: z.string().min(10, 'Numéro de téléphone doit être au moins de 10 chiffres'),
   pickupDate: z.string().min(1, 'Veuillez sélectionner une date de récupération'),
   returnDate: z.string().min(1, 'Veuillez sélectionner une date de retour'),
-  pickupLocation: z.string().min(2, 'Veuillez entrer le lieu de récupération'),
-  returnLocation: z.string().min(2, 'Veuillez entrer le lieu de retour'),
+  pickupLocation: z.string().min(1, 'Veuillez sélectionner le lieu de récupération'),
+  returnLocation: z.string().min(1, 'Veuillez sélectionner le lieu de retour'),
 }).refine((data) => {
   const pickup = new Date(data.pickupDate);
   const returnDate = new Date(data.returnDate);
@@ -94,6 +94,15 @@ const bookingSchema = z.object({
 
 type BookingFormData = z.infer<typeof bookingSchema>;
 
+// Location options
+const locationOptions = [
+  { value: '', label: 'Sélectionnez un lieu' },
+  { value: 'agadir-centre', label: 'Agadir Centre' },
+  { value: 'aeroport-al-massira', label: 'Aéroport Al Massira' },
+  { value: 'taghazout', label: 'Taghazout' },
+  { value: 'agence', label: 'Agence' }
+];
+
 interface BookingDialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -106,9 +115,8 @@ export default function BookingDialog({
   isOpen, 
   onClose, 
   carName, 
-  carPrice, 
-  carImage 
-}: BookingDialogProps) {
+  carPrice 
+}: Omit<BookingDialogProps, 'carImage'>) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -384,12 +392,16 @@ export default function BookingDialog({
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Lieu de récupération *
                           </label>
-                          <input
+                          <select
                             {...register('pickupLocation')}
-                            type="text"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="e.g., Agadir Aéroport"
-                          />
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          >
+                            {locationOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
                           {errors.pickupLocation && (
                             <p className="text-red-500 text-sm mt-1">{errors.pickupLocation.message}</p>
                           )}
@@ -399,12 +411,16 @@ export default function BookingDialog({
                           <label className="block text-sm font-medium text-gray-700 mb-1">
                             Lieu de retour *
                           </label>
-                          <input
+                          <select
                             {...register('returnLocation')}
-                            type="text"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="e.g., Même que la récupération"
-                          />
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          >
+                            {locationOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
                           {errors.returnLocation && (
                             <p className="text-red-500 text-sm mt-1">{errors.returnLocation.message}</p>
                           )}

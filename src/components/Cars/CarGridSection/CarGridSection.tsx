@@ -97,7 +97,6 @@ const CarGridSection = ({
           }}
           carName={selectedCar.name}
           carPrice={selectedCar.price}
-          carImage={selectedCar.image}
         />
       )}
     </section>
