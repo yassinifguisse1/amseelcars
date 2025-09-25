@@ -561,7 +561,6 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
           }}
           carName={selectedCar.name}
           carPrice={selectedCar.price}
-          carImage={selectedCar.image}
         />
       )}
     </section>
