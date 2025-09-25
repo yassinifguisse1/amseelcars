@@ -110,9 +110,9 @@ export const cars: Car[] = [
       { src: "/images/Golf 8 style automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
       { src: "/images/Golf 8 style automatique gris diesel 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - intérieur" },
       { src: "/images/Golf 8 style automatique gris diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue latérale" },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue intérieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue interieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
       { src: "/images/Golf 8 style automatique gris diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
+      { src: "/images/Golf 8 style automatique gris diesel 2024 vue arrieere location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
 
     ],
     pricePerDay: 800,
