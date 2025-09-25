@@ -365,7 +365,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
         onClose={() => setIsBookingDialogOpen(false)}
         carName={car.carName}
         carPrice={car.pricePerDay}
-        carImage={car.carImage}
+        // carImage={car.carImage}
       />
     </div>
   )
