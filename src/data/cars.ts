@@ -741,7 +741,7 @@ export const cars: Car[] = [
     pricePerDay: 700,
     pricing: {
       shortTerm: 700, // 1-4 days
-      longTerm: 650,  // 5+ days  
+      longTerm: 600,  // 5+ days  
       hasDiscount: true
     },
     seats: 5,
@@ -790,7 +790,7 @@ export const cars: Car[] = [
     pricePerDay: 700,
     pricing: {
       shortTerm: 700, // 1-4 days
-      longTerm: 650,  // 5+ days  
+      longTerm: 600,  // 5+ days  
       hasDiscount: true
     },
     seats: 5,
