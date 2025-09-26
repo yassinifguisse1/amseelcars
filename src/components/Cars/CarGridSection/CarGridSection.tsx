@@ -46,7 +46,7 @@ const CarGridSection = ({
   const handleWhatsapp = (carName: string) => {
     const car = allCars.find(c => c.carName === carName)
     if (car) {
-      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} DH/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`
+      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} MAD/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`

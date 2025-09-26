@@ -440,11 +440,11 @@ export default function BookingDialog({
                           </div>
                           <div className="flex justify-between">
                             <span>Prix par jour:</span>
-                            <span className="font-medium">DH {carPrice}</span>
+                            <span className="font-medium">MAD {carPrice}</span>
                           </div>
                           <div className="flex justify-between text-lg font-semibold border-t pt-2">
                             <span>Prix total:</span>
-                            <span className="text-blue-600">DH {total}</span>
+                            <span className="text-blue-600">MAD {total}</span>
                           </div>
                         </div>
                       </div>

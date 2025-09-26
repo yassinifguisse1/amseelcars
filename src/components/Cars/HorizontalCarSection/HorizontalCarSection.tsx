@@ -121,7 +121,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
     const car = allCars.find(c => c.carName === carName)
     if (car) {
       // Create WhatsApp message with car details
-      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} DH/jour. Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
+      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} MAD/jour. Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL
       const encodedMessage = encodeURIComponent(message);

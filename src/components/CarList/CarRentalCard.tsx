@@ -64,18 +64,18 @@ export function CarRentalCard({
               {pricing?.hasDiscount ? (
                 <div>
                   <div className="flex items-center gap-1">
-                    <p className="text-lg sm:text-xl font-bold text-primary">{pricing.shortTerm} DH /</p>
+                    <p className="text-lg sm:text-xl font-bold text-primary">{pricing.shortTerm} MAD /</p>
                     {/* <Tag className="h-3 w-3 text-green-600" /> */}
                   <p className="text-xs text-muted-foreground"> 1-4 jours</p>
                   </div>
                   <div className="flex items-center gap-1 mt-1">
-                    <p className="text-sm font-semibold text-green-600">{pricing.longTerm} DH </p>
+                    <p className="text-sm font-semibold text-green-600">{pricing.longTerm} MAD </p>
                     <span className="text-xs bg-green-100 text-green-700 px-1 rounded">5+ jours</span>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="text-xl sm:text-2xl font-bold text-primary">{pricePerDay} DH </p>
+                  <p className="text-xl sm:text-2xl font-bold text-primary">{pricePerDay} MAD </p>
                   <p className="text-xs text-muted-foreground"></p>
                 </div>
               )}
