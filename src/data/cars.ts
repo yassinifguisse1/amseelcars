@@ -734,7 +734,7 @@ export const cars: Car[] = [
       { src: "/images/Kia sportage automatique 2025 diesel gris vue de l'intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
       { src: "/images/Kia sportage automatique 2025 diesel gris vue du coffre location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
       { src: "/images/Kia sportage automatique 2025 diesel gris vue intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue de côté location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" }
+      { src: "/images/Kia sportage automatique 2025 diesel gris vue de cote location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" }
 
 
     ],
@@ -780,7 +780,7 @@ export const cars: Car[] = [
     carImage: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp",
     images: [
       { src: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia sportage automatique 2025 diesel verte vue interieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
       { src: "/images/Kia sportage automatique 2025 diesel verte vue d'intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
       { src: "/images/Kia sportage automatique 2025 diesel verte vue de coffre location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
       { src: "/images/Kia sportage automatique 2025 diesel verte vue de côté location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
