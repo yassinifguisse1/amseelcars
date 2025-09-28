@@ -690,11 +690,12 @@ export const cars: Car[] = [
     brand: "Dacia",
     model: "Logan",
     year: 2024,
-    carImage: "/images/__dacia logan blanche manuel diesel 2025.webp",
+    carImage: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan - vue avant", isPrimary: true },
-      { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan - intérieur" },
-      { src: "/images/__dacia logan blanche manuel diesel 2025.webp", alt: "Dacia Logan - vue latérale" }
+      { src: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue avant", isPrimary: true },
+      { src: "/images/dacia logan blanche manuel diesel 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - intérieur" },
+      { src: "/images/dacia logan blanche manuel diesel 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue latérale" },
+      { src: "/images/dacia logan blanche manuel diesel 2025 vue d'intèrieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue latérale" },
     ],
     pricePerDay: 300,
    
