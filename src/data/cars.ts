@@ -603,11 +603,12 @@ export const cars: Car[] = [
     brand: "Dacia",
     model: "Sandero Stepway",
     year: 2024,
-    carImage: "/images/stepway gris auto essence.webp",
+    carImage: "/images/Sandero Stepway automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/stepway gris auto essence.webp", alt: "Dacia Sandero Stepway Gris - vue avant", isPrimary: true },
-      { src: "/images/stepway gris auto essence.webp", alt: "Dacia Sandero Stepway Gris - intérieur" },
-      { src: "/images/stepway gris auto essence.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
+      { src: "/images/Sandero Stepway automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue avant", isPrimary: true },
+      { src: "/images/Sandero Stepway automatique essence gris 2025 vue de arriere location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - intérieur" },
+      { src: "/images/Sandero Stepway automatique essence gris 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" },
+      { src: "/images/Sandero Stepway automatique essence gris 2025 vue de interieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
     ],
     pricePerDay: 300,
   
