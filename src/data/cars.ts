@@ -693,7 +693,7 @@ export const cars: Car[] = [
     carImage: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue avant", isPrimary: true },
-      { src: "/images/dacia logan blanche manuel diesel 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - intérieur" },
+      { src: "/images/dacia logan blanche manuel diesel 2025 vue de arriere location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - intérieur" },
       { src: "/images/dacia logan blanche manuel diesel 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue latérale" },
       { src: "/images/dacia logan blanche manuel diesel 2025 vue d'intèrieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue latérale" },
     ],
