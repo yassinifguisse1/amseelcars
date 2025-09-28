@@ -514,13 +514,12 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Picanto",
     year: 2024,
-    carImage: "/images/kia picanto auto essence blanche 2024.webp",
+    carImage: "/images/kia picanto blanche automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/kia picanto auto essence blanche 2024.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
-      { src: "/images/kia picanto auto essence blanche 2024.webp", alt: "Kia Picanto - intérieur" },
-      { src: "/images/kia picanto auto essence blanche 2024.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto auto essence blanche 2024.webp", alt: "Kia Picanto - tableau de bord" },
-      { src: "/images/kia picanto auto essence blanche 2024.webp", alt: "Kia Picanto - détails habitacle" }
+      { src: "/images/kia picanto blanche automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
+      { src: "/images/kia picanto blanche automatique essence 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - intérieur" },
+      { src: "/images/kia picanto blanche automatique essence 2025 vue de linterieur location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia picanto blanche automatique essence 2025 vue dinterieur location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - tableau de bord" }
     ],
     pricePerDay: 300,
     pricing: {
@@ -876,11 +875,12 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Kia Picanto",
     year: 2024,
-    carImage: "/images/kia picanto auto essence blanche 2025.webp",
+    carImage: "/images/kia picanto blanche automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/kia picanto auto essence blanche 2025.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
-      { src: "/images/kia picanto auto essence blanche 2025.webp", alt: "Kia Picanto - intérieur" },
-      { src: "/images/kia picanto auto essence blanche 2025.webp", alt: "Kia Picanto - vue latérale" }
+      { src: "/images/kia picanto blanche automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
+      { src: "/images/kia picanto blanche automatique essence 2024 vue darriere location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - intérieur" },
+      { src: "/images/kia picanto blanche automatique essence 2024 vue dinterieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia picanto blanche automatique essence 2024 vue de linteerieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" }
     ],
     pricePerDay: 300,
     pricing: {
