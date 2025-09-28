@@ -376,11 +376,15 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C3 Aircross",
     year: 2024,
-    carImage: "/images/C3 aircross gris.webp",
+    carImage: "/images/C3 aircross gris automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
-      { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - intérieur" },
-      { src: "/images/C3 aircross gris.webp", alt: "Citroën C3 Aircross - vue latérale" }
+      { src: "/images/C3 aircross gris automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
+      { src: "/images/C3 aircross gris automatique diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - intérieur" },
+      { src: "/images/C3 aircross gris automatique diesel 2024 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
+      { src: "/images/C3 aircross gris automatique diesel 2024 vue de interieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
+      { src: "/images/C3 aircross gris automatique diesel 2024 vue iinterieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue latérale" }
+
+
     ],
     pricePerDay: 450,
     pricing: {
