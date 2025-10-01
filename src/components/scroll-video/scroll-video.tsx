@@ -1175,17 +1175,17 @@ const Cardrive = () => {
 
   const buttonY = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.8, 1],
+    [0, 0.2, 0.4, 1],
     ["30vh", "28vh", "12vh", "8vh"]
   );
   const buttonOpacity = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.3, 1],
+    [0, 0.1, 0.15, 1],
     [0, 0, 1, 1]
   );
   const buttonScale = useTransform(
     scrollYProgress,
-    [0.2, 0.5, 0.6],
+    [0.1, 0.2, 0.25],
     [0.4, 1, 1]
   );
 
