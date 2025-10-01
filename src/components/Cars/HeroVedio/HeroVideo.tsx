@@ -27,7 +27,7 @@ const HeroVideo = () => {
   return (
     <section className="hero  ">
     <video 
-        className="hero-video w-full h-[100svh] object-cover" 
+        className="hero-video w-full h-[80svh] object-cover" 
         autoPlay 
         muted 
         loop 
