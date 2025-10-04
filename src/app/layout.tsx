@@ -10,13 +10,13 @@ import Navbar from "@/components/Navbar/Navbar";
 
 export const metadata: Metadata = {
   title: "Rental Cars",
-  description: "Rental Cars",
+  description: "Rental Cars Agadir ",
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
     googleBot: {
-      index: false,
-      follow: false,
+      index: true,
+      follow: true,
     },
   },
 };
