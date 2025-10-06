@@ -10,7 +10,7 @@ export const sampleBrands: Brand[] = [
   {
     name: "DACIA",
     logo: "/images/Dacia.webp", 
-    preview: "/images/__dacia logan blanche manuel diesel 2025.webp",
+    preview: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     href: "/cars/dacia-logan-blanche-manuel-diesel-2025"
   },
   {
