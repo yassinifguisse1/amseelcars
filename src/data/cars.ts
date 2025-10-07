@@ -75,7 +75,7 @@ export const cars: Car[] = [
     fuelType: "diesel",
     transmission: "Automatique",
     rating: 4.8,
-    description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel mild-hybrid 48V, la transmission intégrale xDrive, l’iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
+    description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel  48V, la transmission intégrale xDrive, l’iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Diesel" },
@@ -125,7 +125,7 @@ export const cars: Car[] = [
     fuelType: "Diesel",
     transmission: "Automatique DSG 7",
     rating: 4.9,
-    description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch mild-hybrid 48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
+    description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch  48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "🔋", name: "Carburant", value: "Diesel" },
@@ -135,7 +135,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
     ],
     specs: {
-      engine: "1.5L eTSI turbo essence (mild-hybrid 48V) – 4 cylindres",
+      engine: "1.5L eTSI turbo essence  cylindres",
       horsepower: "150 ch",
       acceleration: "0–100 km/h en 8,4 s",
       topSpeed: "224 km/h",
@@ -154,14 +154,14 @@ export const cars: Car[] = [
     brand: "Volkswagen",
     model: "T-Roc 1.5 TSI 150 BVM6",
     year: 2024,
-    carImage: "/images/T roc automatique gris diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/T roc automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/T roc automatique gris diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue avant", isPrimary: true },
-      { src: "/images/T roc automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue latérale" },
-      { src: "/images/inside-troc.webp", alt: "Volkswagen T-Roc - intérieur" },
-      { src: "/images/inside-2-troc.webp", alt: "Volkswagen T-Roc - vue latérale" },
-      { src: "/images/back-troc.jpeg", alt: "Volkswagen T-Roc - tableau de bord" },
-      { src: "/images/side-troc.webp", alt: "Volkswagen T-Roc - détails habitacle" }
+      { src: "/images/T roc automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue avant", isPrimary: true },
+      { src: "/images/T roc automatique gris diesel 2024 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - intérieur" },
+      { src: "/images/T roc automatique gris diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue latérale" },
+      { src: "/images/T roc automatique gris diesel 2024 vue arriere coffre location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - tableau de bord" },
+      { src: "/images/T roc automatique gris diesel 2024 vue interieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - détails habitacle" },
+      { src: "/images/T roc automatique gris diesel 2024 vue de linterieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue arrière" },
     ],
     pricePerDay: 700,
     pricing: {
@@ -201,11 +201,13 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5 1.5 Blue dCi 100 BVM6",
     year: 2024,
-    carImage: "/images/clio 5 gris manuel diesel 2024.webp",
+    carImage: "/images/clio 5 gris manuel diesel 2024 vue de devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/clio 5 gris manuel diesel 2024.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
-      { src: "/images/clio 5 gris manuel diesel 2024.webp", alt: "Renault Clio 5 - intérieur" },
-      { src: "/images/clio 5 gris manuel diesel 2024.webp", alt: "Renault Clio 5 - vue latérale" }
+      { src: "/images/clio 5 gris manuel diesel 2024 vue de devant location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio 5 gris manuel diesel 2024 vue de arriere location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
+      { src: "/images/clio 5 gris manuel diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue latérale" },
+      { src: "/images/clio 5 gris manuel diesel 2024 vue de lintérieure location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue latérale" }
+
     ],
     pricePerDay: 300,
     seats: 5,
@@ -241,14 +243,16 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5 1.5 Blue dCi 100 BVM6",
     year: 2024,
-    carImage: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/clio5 blanche manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp",
     images: [
-      { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio5 blanche manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
       { src: "/images/clio 5 automatique blanche essence 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
       { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - vue latérale" },
       { src: "/images/left)side-clio-5-white.webp", alt: "Renault Clio 5 - tableau de bord" },
-      { src: "/images/inside-clio-5-white.webp", alt: "Renault Clio 5 - détails habitacle" }
+      { src: "/images/clio5 blanche manuel diesel 2024 vue de linterieure location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - détails habitacle" }
     ],
+    
     pricePerDay: 300,
     seats: 5,
     fuelType: "Diesel",
@@ -283,13 +287,14 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C4 1.2 PureTech 130 EAT8",
     year: 2024,
-    carImage: "/images/C4 auto essence 2025.webp",
+    carImage: "/images/C4 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - vue avant", isPrimary: true },
-      { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - intérieur" },
-      { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - vue latérale" },
-      { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - tableau de bord" },
-      { src: "/images/C4 auto essence 2025.webp", alt: "Citroën C4 - détails habitacle" }
+      { src: "/images/C4 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - vue avant", isPrimary: true },
+      { src: "/images/C4 gris automatique essence 2025 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - intérieur" },
+      { src: "/images/C4 gris automatique essence 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - vue latérale" },
+      { src: "/images/C4 gris automatique essence 2025 vue arriere de coffre  location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - tableau de bord" },
+      { src: "/images/C4 gris automatique essence 2025 vue de linterieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - détails habitacle" },
+      { src: "/images/C4 gris automatique essence 2025 vue dinterieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - vue arrière" },
     ],
     pricePerDay: 450,
     pricing: {
@@ -357,7 +362,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.2L PureTech mild-hybrid (48V) – 3 cylindres Diesel",
+      engine: "1.2L PureTech  (48V) – 3 cylindres Diesel",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 8,8 s",
       topSpeed: "192 km/h",
@@ -396,7 +401,7 @@ export const cars: Car[] = [
     fuelType: "Diesel",
     transmission: "Automatique",
     rating: 5.0,
-    description: "SUV compact confortable et polyvalent, la nouvelle C3 Aircross Hybrid 136 e-DSC6 offre une conduite souple, une faible consommation WLTP et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d’Agadir comme pour les trajets interurbains.",
+    description: "SUV compact confortable et polyvalent, la nouvelle C3 Aircross  136 e-DSC6 offre une conduite souple, une faible consommation WLTP et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d’Agadir comme pour les trajets interurbains.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Diesel" },
@@ -406,7 +411,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.2L PureTech mild-hybrid (48V) – 3 cylindres Diesel",
+      engine: "1.2L PureTech (48V) – 3 cylindres Diesel",
       horsepower: "136 ch",
       acceleration: "0–60 mph en 8,8 s",
       topSpeed: "125 mph",
@@ -425,12 +430,15 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C3",
     year: 2024,
-    carImage: "/images/C3 normal manuel diesel 2024 vue de face location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/C3 manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp",
     images: [
-      { src: "/images/C3 normal manuel diesel 2024 vue de face location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
-      { src: "/images/C3 normal manuel diesel 2024 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - intérieur" },
+      
+      { src: "/images/C3 manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
+
+      { src: "/images/C3 normal manuel diesel 2024 vue de face location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue avant" },
+      { src: "/images/C3 manuel diesel 2024 vue arrière location de voiture agadir maroc amseelcars.webp", alt: "Citroën C3 - intérieur" },
       { src: "/images/C3 normal manuel diesel 2024 vue coffre location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
-      { src: "/images/C3 normal manuel diesel 2024 intérieure location de voiture agadir maroc  amseel cars.webp", alt: "Citroën C3 - vue latérale" },
+      { src: "/images/C3 manuel diesel 2024 vue devant de l'intérieure location de voiture agadir maroc amseelcars.webp", alt: "Citroën C3 - vue latérale" },
       { src: "/images/C3 normal manuel diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" }
     ],
     pricePerDay: 300,
@@ -467,14 +475,17 @@ export const cars: Car[] = [
     brand: "Hyundai",
     model: "i10",
     year: 2024,
-    carImage: "/images/hyundai i10 noire automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/hyundai i10  automatique blanche essence 2024 vue devant location de voiture agadir maroc amseelcars.webp",
     images: [
-      { src: "/images/hyundai i10 noire automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - vue avant", isPrimary: true },
+      { src: "/images/hyundai i10  automatique blanche essence 2024 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Hyundai i10 - vue avant", isPrimary: true },
+      { src: "/images/hyundai i10 noire automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - intérieur" },
       { src: "/images/hyundai i10 noire automatique essence 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - intérieur" },
+      { src: "/images/hyundai i10  automatique blanche essence 2024 vue darriere location de voiture agadir maroc amseelcars.webp", alt: "Hyundai i10 - vue darriere" },
       { src: "/images/hyundai i10 noire automatique essence 2024 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - vue latérale" },
+
       { src: "/images/inside-hyondia-i10.webp", alt: "Hyundai i10 - vue latérale" }
     ],
-    
+
     pricePerDay: 300,
     pricing: {
       shortTerm: 300, // 1-4 days (Hyundai i10)
@@ -645,11 +656,14 @@ export const cars: Car[] = [
     brand: "Volkswagen",
     model: "Touareg",
     year: 2024,
-    carImage: "/images/Touareg auto diesel 2025 blanche.webp",
+    carImage: "/images/Touareg noire automatique diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Volkswagen Touareg - vue avant", isPrimary: true },
-      { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Volkswagen Touareg - intérieur" },
-      { src: "/images/Touareg auto diesel 2025 blanche.webp", alt: "Volkswagen Touareg - vue latérale" }
+      { src: "/images/Touareg noire automatique diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue avant", isPrimary: true },
+      { src: "/images/Touareg noire automatique diesel 2025 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - intérieur" },
+      { src: "/images/Touareg noire automatique diesel 2025 vue arriere de coffre location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue latérale" },
+      { src: "/images/Touareg noire automatique diesel 2025 vue dinterieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - tableau de bord" },
+      { src: "/images/Touareg noire automatique diesel 2025 vue interieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue interieure" },
+      { src: "/images/Touareg noire automatique diesel 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue latérale" },
     ],
     pricePerDay: 1400,
     pricing: {
@@ -802,7 +816,7 @@ export const cars: Car[] = [
     fuelType: "Diesel",
     transmission: "Automatique ",
     rating: 4.8,
-    description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+    description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch ( avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Diesel" },
@@ -812,7 +826,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.6L CRDi (4 cyl., turbo diesel, mild-hybrid 48V)",
+      engine: "1.6L CRDi (4 cyl., turbo diesel, ",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 11,4 s",
       topSpeed: "180 km/h",
@@ -831,11 +845,12 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5",
     year: 2024,
-    carImage: "/images/clio 5 auto blanche essence 2025.webp",
+    carImage: "/images/clio 5 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
-      { src: "/images/clio 5 auto blanche essence 2025.webp", alt: "Clio 5 - vue avant", isPrimary: true },
-      { src: "/images/clio 5 auto blanche essence 2025.webp", alt: "Clio 5 - intérieur" },
-      { src: "/images/clio 5 auto blanche essence 2025.webp", alt: "Clio 5 - vue latérale" }
+      { src: "/images/clio 5 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio 5 gris automatique essence 2025 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - intérieur" },
+      { src: "/images/clio 5 gris automatique essence 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - vue latérale" },
+      { src: "/images/clio 5 gris automatique essence 2025 vue interieure location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - vue latérale" },
     ],
     pricePerDay: 350,
     pricing: {
@@ -847,7 +862,7 @@ export const cars: Car[] = [
     fuelType: "Essence",
     transmission: "Automatique",
     rating: 4.8,
-    description: "SUV familial moderne, le Clio 5 1.5 Blue dCi 100 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+    description: "SUV familial moderne, le Clio 5 1.5 Blue dCi 100 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Essence" },
@@ -857,7 +872,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.6L CRDi (4 cyl., turbo essence, mild-hybrid 48V)",
+      engine: "1.6L CRDi (4 cyl., turbo essence, ",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 11,4 s",
       topSpeed: "180 km/h",
@@ -892,7 +907,7 @@ export const cars: Car[] = [
     fuelType: "Essence",
     transmission: "Automatique",
     rating: 4.8,
-    description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+    description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Essence" },
@@ -902,7 +917,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.6L CRDi (4 cyl., turbo diesel, mild-hybrid 48V)",
+      engine: "1.6L CRDi (4 cyl., turbo diesel",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 11,4 s",
       topSpeed: "180 km/h",
@@ -938,7 +953,7 @@ export const cars: Car[] = [
     fuelType: "Essence",
     transmission: "Automatique",
     rating: 4.8,
-    description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+    description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Essence" },
@@ -948,7 +963,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.6L CRDi (4 cyl., turbo diesel, mild-hybrid 48V)",
+      engine: "1.6L CRDi (4 cyl., turbo diesel",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 11,4 s",
       topSpeed: "180 km/h",
@@ -984,7 +999,7 @@ export const cars: Car[] = [
     fuelType: "Essence",
     transmission: "Automatique",
     rating: 4.8,
-    description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch (mild-hybrid 48V) avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+    description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Essence " },
@@ -994,7 +1009,7 @@ export const cars: Car[] = [
       { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
     ],
     specs: {
-      engine: "1.6L CRDi (4 cyl., turbo diesel, mild-hybrid 48V)",
+      engine: "1.6L CRDi (4 cyl., turbo diesel",
       horsepower: "136 ch",
       acceleration: "0–100 km/h en 11,4 s",
       topSpeed: "180 km/h",

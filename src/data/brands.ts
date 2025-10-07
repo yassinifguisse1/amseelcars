@@ -49,8 +49,3 @@ export const sampleBrands: Brand[] = [
 export function getAllBrands(): Brand[] {
   return sampleBrands
 }
-
-// export function getBrandsByCategory(category: string): Brand[] {
-//   // For future categorization if needed
-//   return sampleBrands
-// } 
