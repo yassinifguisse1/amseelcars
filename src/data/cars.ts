@@ -53,7 +53,7 @@ export const cars: Car[] = [
   {
     id: 1,
     slug: 'bmw-x3-2025',
-    carName: "BMW X3 M",
+    carName: "BMW X3 Pack M",
     brand: "BMW",
     model: "X3 Pack M",
     year: 2025,
