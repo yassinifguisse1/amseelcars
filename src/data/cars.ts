@@ -520,11 +520,11 @@ export const cars: Car[] = [
   ,
   {
     id: 11,
-    slug: 'kia-picanto-auto-essence-blanche-2024',
+    slug: 'kia-picanto-auto-essence-blanche-2025',
     carName: "Kia Picanto",
     brand: "Kia",
     model: "Picanto",
-    year: 2024,
+    year: 2025,
     carImage: "/images/kia picanto blanche automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/kia picanto blanche automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
@@ -570,7 +570,7 @@ export const cars: Car[] = [
     carName: "Stepway",
     brand: "Dacia",
     model: "Sandero Stepway TCe 90 X-Tronic",
-    year: 2024,
+    year: 2025,
     carImage: "/images/Sandero Stepway automatique essence blanche 2025 vue devont location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/Sandero Stepway automatique essence blanche 2025 vue devont location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue avant", isPrimary: true },
@@ -612,7 +612,7 @@ export const cars: Car[] = [
     carName: "Stepway",
     brand: "Dacia",
     model: "Sandero Stepway",
-    year: 2024,
+    year: 2025,
     carImage: "/images/Sandero Stepway automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/Sandero Stepway automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue avant", isPrimary: true },
@@ -655,7 +655,7 @@ export const cars: Car[] = [
     carName: "Touareg",
     brand: "Volkswagen",
     model: "Touareg",
-    year: 2024,
+    year: 2025,
     carImage: "/images/Touareg noire automatique diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/Touareg noire automatique diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue avant", isPrimary: true },
@@ -745,7 +745,7 @@ export const cars: Car[] = [
     carName: "Kia Sportage",
     brand: "Kia",
     model: "Sportage 1.6 CRDi 136 DCT7",
-    year: 2024,
+    year: 2025,
     carImage: "/images/Kia sportage automatique 2025 diesel gris vue devant location de voiture agadir amseel cars.webp",
     images: [
       { src: "/images/Kia sportage automatique 2025 diesel gris vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
@@ -795,7 +795,7 @@ export const cars: Car[] = [
     carName: "Kia Sportage",
     brand: "Kia",
     model: "Sportage 1.6 CRDi 136 DCT7",
-    year: 2024,
+    year: 2025,
     carImage: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp",
     images: [
       { src: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
@@ -889,7 +889,7 @@ export const cars: Car[] = [
     carName: "Kia Picanto",
     brand: "Kia",
     model: "Kia Picanto",
-    year: 2024,
+    year: 2025,
     carImage: "/images/kia picanto blanche automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/kia picanto blanche automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
@@ -934,7 +934,7 @@ export const cars: Car[] = [
     carName: "Kia Picanto",
     brand: "Kia",
     model: "Kia Picanto",
-    year: 2024,
+    year: 2025,
     carImage: "/images/kia picanto blue automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/kia picanto blue automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
@@ -980,7 +980,7 @@ export const cars: Car[] = [
     carName: "Kia Picanto",
     brand: "Kia",
     model: "Kia Picanto",
-    year: 2024,
+    year: 2025,
     carImage: "/images/kia picanto automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp",
     images: [
       { src: "/images/kia picanto automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
