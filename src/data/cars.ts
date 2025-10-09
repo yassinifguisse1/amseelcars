@@ -62,6 +62,7 @@ export const cars: Car[] = [
       { src: "/images/Bmw x3 pack M 2025 diesel vue devant amseel cars agadir maroc.webp", alt: "BMW X3 - vue avant", isPrimary: true },
       { src: "/images/Bmw x3 pack M 2025 diesel vue de côté view amseel cars agadir maroc.webp", alt: "BMW X3 - intérieur" },
       { src: "/images/Bmw x3 pack M 2025 diesel l'intérieure amseel cars agadir maroc.webp", alt: "BMW X3 - vue latérale" },
+      { src: "/images/Bmw x3 pack M 2025 diesel vue de linteerieure image amseel cars agadir maroc.png", alt: "BMW X3 - vue latérale" },
       { src: "/images/Bmw x3 pack M 2025 diesel intérieure image amseel cars agadir maroc.webp", alt: "BMW X3 - tableau de bord" },
       { src: "/images/Bmw x3 pack M 2025 diesel vue d'arrière amseel cars agadir maroc.webp", alt: "BMW X3 - vue arrière" }
     ],
