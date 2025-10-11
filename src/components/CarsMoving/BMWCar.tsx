@@ -494,17 +494,17 @@ export default function BMWCarScroll() {
     <motion.div
       className="absolute bottom-[16.3%] left-[9.6%] w-[16%] aspect-square"
       style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
+      data-noindex="true"
     >
       <Image
         src="/images/wheel-rear.webp"
-        alt="BMW Rear wheel"
+        alt=""
         fill
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
-         // Critical for wheel sync
         priority={true}
-
+        data-noindex="true"
       />
     </motion.div>
 
@@ -512,16 +512,17 @@ export default function BMWCarScroll() {
     <motion.div
       className="absolute bottom-[16.3%] left-[70.4%] w-[16%] aspect-square"
       style={{ rotate: bmwWheelRotate, willChange: 'transform' }}
+      data-noindex="true"
     >
       <Image
         src="/images/wheel-front.webp"
-        alt="BMW Front wheel"
+        alt=""
         fill
         sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
         className="object-contain pointer-events-none select-none"
         draggable={false}
         priority={true}
-         // Critical for wheel sync
+        data-noindex="true"
       />
     </motion.div>
 
@@ -685,22 +686,25 @@ export default function BMWCarScroll() {
     <motion.div
       className="absolute bottom-[16.9%] left-[12.77%] w-[15.1%] aspect-square"
       style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
+      data-noindex="true"
     >
       <Image 
       src="/images/left wheel kia.webp" 
-      alt="KIA Left wheel" 
+      alt="" 
       fill 
       className="object-contain" 
       draggable={false} 
       sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
-      priority/>
+      priority
+      data-noindex="true"/>
     </motion.div>
 
     <motion.div
       className="absolute bottom-[16.7%] left-[68.55%] w-[15.1%] aspect-square"
       style={{ rotate: kiaWheelRotate, willChange: 'transform' }}
+      data-noindex="true"
     >
-      <Image src="/images/right wheel kia.webp" alt="KIA Right wheel" fill className="object-contain" draggable={false} priority/>
+      <Image src="/images/right wheel kia.webp" alt="" fill className="object-contain" draggable={false} priority data-noindex="true"/>
     </motion.div>
 
     {/* ✅ CTA — positioned responsively for different screen sizes */}
@@ -883,15 +887,17 @@ export default function BMWCarScroll() {
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
               }}
+              data-noindex="true"
             >
               <Image
                 src="/images/t-roc wheel left.webp"
-                alt="Touareg Left wheel"
+                alt=""
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
                 priority={true}
+                data-noindex="true"
               />
             </motion.div>
 
@@ -902,16 +908,17 @@ export default function BMWCarScroll() {
                 rotate: touaregWheelRotate,
                 willChange: 'transform'
               }}
+              data-noindex="true"
             >
               <Image
                 src="/images/t-roc wheel right.webp"
-                alt="Touareg Right wheel"
+                alt=""
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
-                
                 priority={true}
+                data-noindex="true"
               />
             </motion.div>
 
@@ -1049,16 +1056,17 @@ export default function BMWCarScroll() {
                 rotate: golf8WheelRotate,
                 willChange: 'transform'
               }}
+              data-noindex="true"
             >
               <Image
                 src="/images/golf8-wheel-left.webp"
-                alt="Golf 8 Left wheel"
+                alt=""
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
-                
                 priority={true}
+                data-noindex="true"
               />
             </motion.div>
 
@@ -1069,16 +1077,17 @@ export default function BMWCarScroll() {
                 rotate: golf8WheelRotate,
                 willChange: 'transform'
               }}
+              data-noindex="true"
             >
               <Image
                 src="/images/golf8-wheel-right.webp"
-                alt="Golf 8 Right wheel"
+                alt=""
                 fill
                 sizes="(max-width: 640px) 22vw, (max-width: 1024px) 18vw, 16vw"
                 className="object-contain pointer-events-none select-none"
                 draggable={false}
-                
                 priority={true}
+                data-noindex="true"
               />
             </motion.div>
 
