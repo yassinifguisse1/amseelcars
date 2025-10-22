@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block wheel images from being indexed
+Disallow: /images/wheel-*.webp
+Disallow: /images/*wheel*.webp
+Disallow: /images/left wheel*.webp
+Disallow: /images/right wheel*.webp
+Disallow: /images/*wheel left*.webp
+Disallow: /images/*wheel right*.webp
+
+# Sitemap
+Sitemap: https://amseelcars.com/sitemap.xml

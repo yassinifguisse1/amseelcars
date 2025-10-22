@@ -74,12 +74,14 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    noimageindex: true,
     googleBot: {
       index: true,
       follow: true,
       "max-snippet": -1,
       "max-image-preview": "large",
       "max-video-preview": -1,
+      noimageindex: true,
     },
   },
 
@@ -145,6 +147,11 @@ export default function RootLayout({
 
   return (
     <html lang="fr" suppressHydrationWarning data-scroll-behavior="smooth">
+      <head>
+        {/* Block wheel images from search engines */}
+        <meta name="robots" content="noimageindex" />
+        <meta name="googlebot" content="noimageindex" />
+      </head>
       <body className={clsx(fontVariables, "antialiased")} suppressHydrationWarning>
         <LenisScrollProvider />
         <Header />
