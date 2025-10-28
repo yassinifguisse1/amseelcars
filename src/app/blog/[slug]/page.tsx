@@ -5,9 +5,9 @@ import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleContent } from './ArticleContent';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Generate static params for all articles (SSG)

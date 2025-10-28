@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,8 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Heroo() {
   const root = useRef<HTMLDivElement>(null);
-  const imgHolder = useRef<HTMLDivElement>(null);
-  const imgInner = useRef<HTMLDivElement>(null);
+
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
