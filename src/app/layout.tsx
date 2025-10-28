@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     "louer voiture aéroport Agadir",
     "AmseelCars",
     "SUV location Agadir",
-    
+
   ],
   authors: [{ name: "AmseelCars" }],
   creator: "AmseelCars",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     locale: "fr_MA",
     images: [
       {
-        url: "/og/amseelcars-logo-apropos.jpg", // put a 1200x630 image in /public/og/og-default.jpg
+        url: "/og/amseel-car-logo.png", // put a 1200x630 image in /public/og/og-default.jpg
         width: 1200,
         height: 630,
         alt: "AmseelCars – Location de voitures à Agadir",
@@ -111,7 +111,7 @@ export const metadata: Metadata = {
     title: "AmseelCars — Location de voitures à Agadir",
     description:
       "Location de voitures à Agadir au meilleur prix. Large flotte (citadines, SUV, premium).",
-    images: ["/og/amseelcars-logo-apropos.jpg"], // ← same image
+    images: ["/og/amseel-car-logo.png"], // ← same image
   },
 
   icons: {
