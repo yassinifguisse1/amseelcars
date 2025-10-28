@@ -19,7 +19,7 @@ export default function NotFound() {
           Article non trouvé
         </h2>
         <p className="text-gray-400 mb-8 max-w-md mx-auto">
-          L'article que vous recherchez n'existe pas ou a été déplacé.
+          L&apos;article que vous recherchez n&apos;existe pas ou a été déplacé.
         </p>
         <div className="space-y-4">
           <Link 
@@ -33,7 +33,7 @@ export default function NotFound() {
               href="/"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              Retour à l'accueil
+              Retour à l&apos;accueil
             </Link>
           </div>
         </div>

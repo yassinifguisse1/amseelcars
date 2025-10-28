@@ -47,9 +47,9 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
           viewport={{ once: true }}
         >
           <div className={styles.ctaContent}>
-            <h3 className={styles.ctaTitle}>Besoin d'aide pour votre location ?</h3>
+            <h3 className={styles.ctaTitle}>Besoin d&apos;aide pour votre location ?</h3>
             <p className={styles.ctaText}>
-              Notre équipe d'experts est là pour vous accompagner dans le choix de votre véhicule
+              Notre équipe d&apos;experts est là pour vous accompagner dans le choix de votre véhicule
             </p>
             <div className={styles.ctaButtons}>
               <motion.a 
