@@ -1,0 +1,283 @@
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #EC1C25, #ff4757);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  &:hover {
+    border-color: #EC1C25;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.featured {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  
+  .imageContainer {
+    position: relative;
+    height: 300px;
+    width: 100%;
+  }
+  
+  .content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+  
+  .title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    margin-bottom: 1.5rem;
+  }
+  
+  .excerpt {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+}
+
+.regular {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  .imageContainer {
+    position: relative;
+    height: 200px;
+  }
+  
+  .content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+    margin-bottom: 1rem;
+  }
+  
+  .excerpt {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+}
+
+.link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 0.8;
+}
+
+.category {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #EC1C25;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 2;
+}
+
+.meta {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.readTime,
+.date {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+}
+
+.content {
+  background: #ffffff;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  color: #000000;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 1rem 0;
+  transition: color 0.3s ease;
+}
+
+.card:hover .title {
+  color: #EC1C25;
+}
+
+.excerpt {
+  color: #666666;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.footer {
+  margin-top: auto;
+}
+
+.readMore {
+  color: #EC1C25;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.arrow {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover .readMore {
+  color: #ff4757;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .featured {
+    grid-template-columns: 1fr;
+    
+    .imageContainer {
+      height: 250px;
+    }
+    
+    .content {
+      padding: 2rem;
+    }
+    
+    .title {
+      font-size: 1.5rem;
+    }
+    
+    .excerpt {
+      font-size: 1rem;
+    }
+  }
+  
+  .regular {
+    .imageContainer {
+      height: 180px;
+    }
+    
+    .content {
+      padding: 1.25rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .featured {
+    .content {
+      padding: 1.5rem;
+    }
+  }
+  
+  .regular {
+    .content {
+      padding: 1rem;
+    }
+  }
+  
+  .category {
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.6875rem;
+  }
+  
+  .meta {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .readTime,
+  .date {
+    padding: 0.1875rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+}

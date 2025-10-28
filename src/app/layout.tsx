@@ -26,6 +26,8 @@ export const metadata: Metadata = {
   generator: "Next.js",
   keywords: [
     "location voiture Agadir",
+    "location de voiture Agadir",
+    "location de voiture à Agadir",
     "location voiture Agadir aéroport",
     "location voiture Agadir pas cher",
     "location voiture sans caution Agadir",
@@ -38,6 +40,26 @@ export const metadata: Metadata = {
     "Agadir airport car hire",
     "SUV rental Agadir",
     "unlimited mileage car rental Agadir",
+    "location voiture Agadir aéroport",
+    "location voiture Agadir pas cher",
+    "location voiture sans caution Agadir",
+    "car rental Agadir",
+    "louer voiture aéroport Agadir",
+    "AmseelCars",
+    "SUV location Agadir",
+    "location voiture pas cher Maroc",
+    "car rental Agadir",
+    "Agadir airport car hire",
+    "SUV rental Agadir",
+    "unlimited mileage car rental Agadir",
+    "location voiture Agadir aéroport",
+    "location voiture Agadir pas cher",
+    "location voiture sans caution Agadir",
+    "car rental Agadir",
+    "louer voiture aéroport Agadir",
+    "AmseelCars",
+    "SUV location Agadir",
+    
   ],
   authors: [{ name: "AmseelCars" }],
   creator: "AmseelCars",
@@ -52,7 +74,7 @@ export const metadata: Metadata = {
     locale: "fr_MA",
     images: [
       {
-        url: "/og/og-default.jpg", // put a 1200x630 image in /public/og/og-default.jpg
+        url: "/og/amseelcars-logo-apropos.jpg", // put a 1200x630 image in /public/og/og-default.jpg
         width: 1200,
         height: 630,
         alt: "AmseelCars – Location de voitures à Agadir",
@@ -74,15 +96,22 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    noimageindex: true,
+    
     googleBot: {
       index: true,
       follow: true,
       "max-snippet": -1,
       "max-image-preview": "large",
       "max-video-preview": -1,
-      noimageindex: true,
+      
     },
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AmseelCars — Location de voitures à Agadir",
+    description:
+      "Location de voitures à Agadir au meilleur prix. Large flotte (citadines, SUV, premium).",
+    images: ["/og/amseelcars-logo-apropos.jpg"], // ← same image
   },
 
   icons: {
@@ -147,11 +176,11 @@ export default function RootLayout({
 
   return (
     <html lang="fr" suppressHydrationWarning data-scroll-behavior="smooth">
-      <head>
+
         {/* Block wheel images from search engines */}
         <meta name="robots" content="noimageindex" />
         <meta name="googlebot" content="noimageindex" />
-      </head>
+     
       <body className={clsx(fontVariables, "antialiased")} suppressHydrationWarning>
         <LenisScrollProvider />
         <Header />

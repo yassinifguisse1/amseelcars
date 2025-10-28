@@ -17,6 +17,10 @@ export const links: LinkData[] = [
         href: "/cars"
     },
     {
+        title: "Blog",
+        href: "/blog"
+    },
+    {
         title: "Contactez-nous",
         href: "/contact"
     }
