@@ -69,9 +69,7 @@ export default function ArticleCard({ article, variant }: ArticleCardProps) {
             {article.title}
           </h3>
           
-          <p className={styles.excerpt}>
-            {article.excerpt}
-          </p>
+          
           
           <div className={styles.footer}>
             <span className={styles.readMore}>

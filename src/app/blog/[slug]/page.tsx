@@ -44,7 +44,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       type: 'article',
       title: article.title,
-      description: article.excerpt,
       url: `https://amseelcars.com${article.seo.canonical}`,
       siteName: 'AmseelCars',
       locale: 'fr_MA',
@@ -53,7 +52,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: article.image,
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: article.altText,
         },
       ],
       publishedTime: article.publishedAt,
@@ -64,7 +63,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: 'summary_large_image',
       title: article.title,
-      description: article.excerpt,
       images: [article.image],
       creator: '@amseelcars',
     },

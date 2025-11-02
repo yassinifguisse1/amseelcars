@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { BlogArticle } from '@/data/blog';
 import styles from "./ArticleBody.module.scss";
 
@@ -33,10 +34,12 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div 
-            className={styles.content}
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+          <div className={styles.content}>
+            {/* Render article content with direct HTML image tags */}
+            <div 
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          </div>
         </motion.article>
 
         <motion.div 

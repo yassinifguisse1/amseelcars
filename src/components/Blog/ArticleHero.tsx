@@ -66,15 +66,7 @@ export default function ArticleHero({ article }: ArticleHeroProps) {
             {article.title}
           </motion.h1>
           
-          <motion.p 
-            className={styles.excerpt}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            {article.excerpt}
-          </motion.p>
-
+     
           <motion.div 
             className={styles.meta}
             initial={{ opacity: 0, y: 20 }}

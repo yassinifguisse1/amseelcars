@@ -50,6 +50,11 @@
     font-size: 1.125rem;
   }
   
+  // Reduce bottom margin for paragraphs followed by images
+  .paragraphBeforeImage {
+    margin-bottom: 0.5rem !important;
+  }
+  
   ul, ol {
     margin: 1.5rem 0;
     padding-left: 2rem;
@@ -115,9 +120,16 @@
   img {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin: 2rem 0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    margin: 2rem auto;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dee2e6;
+    display: block;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
   }
   
   table {
@@ -145,6 +157,54 @@
   tr:hover {
     background: rgba(236, 28, 37, 0.05);
   }
+}
+
+// Inline Images Styles
+.inlineImageContainer {
+  margin: 0 0 3rem 0;
+  padding: 0;
+  text-align: center;
+  
+  // Reset any default image styles
+  img {
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: top;
+  }
+}
+
+.inlineImageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  margin: 0;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid #dee2e6;
+}
+
+.inlineImage {
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  margin: 0;
+  padding: 0;
+  
+  .inlineImageWrapper:hover & {
+    transform: scale(1.02);
+  }
+}
+
+.inlineImageCaption {
+  margin: 1rem 0 0 0;
+  font-size: 0.95rem;
+  color: #666666;
+  font-style: italic;
+  text-align: center;
+  padding: 0 ;
+  display: none;
 }
 
 .cta {
@@ -293,6 +353,15 @@
     max-width: 300px;
     text-align: center;
   }
+  
+  .inlineImageContainer {
+    margin:  0;
+  }
+  
+  .inlineImageWrapper {
+    height: 300px;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -316,6 +385,19 @@
   
   .ctaText {
     font-size: 1rem;
+  }
+  
+  .inlineImageContainer {
+    margin:  0;
+  }
+  
+  .inlineImageWrapper {
+    height: 250px;
+  }
+  
+  .inlineImageCaption {
+    font-size: 0.875rem;
+    padding: 0 0.5rem;
   }
 }
 
