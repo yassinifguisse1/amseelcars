@@ -74,7 +74,7 @@ export function extractFAQs(content: string): Array<{ question: string; answer: 
     answer = answer.replace(/<\/?p>/g, '').trim();
     
     // Clean up question
-    let question = questions[i].question
+    const question = questions[i].question
       .replace(/&nbsp;/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
