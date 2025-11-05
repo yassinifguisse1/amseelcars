@@ -20,6 +20,48 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
+  // Process content to wrap FAQ section in a styled container
+  let processedContent = article.content;
+  
+  // Use regex to find FAQ section - flexible matching for variations
+  // Match: <h2>Foire aux questions</h2> (case-insensitive, with possible whitespace)
+  const faqStartRegex = /<h2>\s*Foire\s+aux\s+questions\s*<\/h2>/i;
+  
+  const faqStartMatch = processedContent.match(faqStartRegex);
+  
+  if (faqStartMatch) {
+    const faqStartIndex = faqStartMatch.index!;
+    let faqEndIndex: number = processedContent.length; // Default to end of content
+    
+    // Try to find common ending headings after FAQ section
+    const possibleEndMarkers = [
+      /<h2>\s*Conclusion\s*<\/h2>/i,
+      /<h2>\s*En\s+résumé\s*<\/h2>/i,
+      /<h2>\s*Résumé\s*<\/h2>/i,
+      /<h2>\s*Final\s*<\/h2>/i,
+    ];
+    
+    // Find the first matching end marker after FAQ start
+    for (const endRegex of possibleEndMarkers) {
+      const endMatch = processedContent.match(endRegex);
+      if (endMatch && endMatch.index! > faqStartIndex) {
+        faqEndIndex = endMatch.index!;
+        break; // Use the first found end marker
+      }
+    }
+    
+    // Extract the FAQ section
+    const faqSection = processedContent.substring(faqStartIndex, faqEndIndex);
+    
+    // Wrap the FAQ section with the styled container
+    const wrappedFaqSection = `<div class="${styles.faqContainer}">${faqSection}</div>`;
+    
+    // Replace the original FAQ section with the wrapped one
+    processedContent = processedContent.substring(0, faqStartIndex) + 
+                       wrappedFaqSection + 
+                       processedContent.substring(faqEndIndex);
+  }
+
   return (
     <motion.section 
       ref={containerRef}
@@ -37,7 +79,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
           <div className={styles.content}>
             {/* Render article content with direct HTML image tags */}
             <div 
-              dangerouslySetInnerHTML={{ __html: article.content }}
+              dangerouslySetInnerHTML={{ __html: processedContent }}
             />
           </div>
         </motion.article>

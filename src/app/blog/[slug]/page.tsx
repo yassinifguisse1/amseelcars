@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getArticleBySlug, getAllArticles } from '@/data/blog';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleContent } from './ArticleContent';
+import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
 
 interface PageProps {
   params: Promise<{
@@ -89,9 +90,23 @@ export default async function ArticlePage({ params }: PageProps) {
     notFound();
   }
 
+  // Extract FAQs and generate schema
+  const faqs = extractFAQs(article.content);
+  const faqSchema = generateFAQSchema(faqs);
+
   return (
-    <LoadingProvider>
-      <ArticleContent article={article} />
-    </LoadingProvider>
+    <>
+      {/* FAQ Schema for SEO */}
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      
+      <LoadingProvider>
+        <ArticleContent article={article} />
+      </LoadingProvider>
+    </>
   );
 }
