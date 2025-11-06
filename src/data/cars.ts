@@ -57,14 +57,14 @@ export const cars: Car[] = [
     brand: "BMW",
     model: "X3 Pack M",
     year: 2025,
-    carImage: "/images/Bmw x3 pack M 2025 diesel vue devant amseel cars agadir maroc.webp",
+    carImage: "/images/Bmw-x3-pack-M-2025-diesel-vue-devant-amseel-cars-agadir-maroc.webp",
     images: [
-      { src: "/images/Bmw x3 pack M 2025 diesel vue devant amseel cars agadir maroc.webp", alt: "BMW X3 - vue avant", isPrimary: true },
-      { src: "/images/Bmw x3 pack M 2025 diesel vue de côté view amseel cars agadir maroc.webp", alt: "BMW X3 - intérieur" },
-      { src: "/images/Bmw x3 pack M 2025 diesel l'intérieure amseel cars agadir maroc.webp", alt: "BMW X3 - vue latérale" },
-      { src: "/images/Bmw x3 pack M 2025 diesel vue de linteerieure image amseel cars agadir maroc.png", alt: "BMW X3 - vue latérale" },
-      { src: "/images/Bmw x3 pack M 2025 diesel intérieure image amseel cars agadir maroc.webp", alt: "BMW X3 - tableau de bord" },
-      { src: "/images/Bmw x3 pack M 2025 diesel vue d'arrière amseel cars agadir maroc.webp", alt: "BMW X3 - vue arrière" }
+      { src: "/images/Bmw-x3-pack-M-2025-diesel-vue-devant-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - vue avant", isPrimary: true },
+      { src: "/images/Bmw-x3-pack-M-2025-diesel-vue-de-côté-view-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - intérieur" },
+      { src: "/images/Bmw-x3-pack-M-2025-diesel-l'intérieure-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - vue latérale" },
+      { src: "/images/Bmw-x3-pack-M-2025-diesel-vue-de-linteerieure-image-amseel-cars-agadir-maroc.png", alt: "BMW X3 - vue latérale" },
+      { src: "/images/Bmw-x3-pack-M-2025-diesel-intérieure-image-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - tableau de bord" },
+      { src: "/images/Bmw-x3-pack-M-2025-diesel-vue-d'arrière-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - vue arrière" }
     ],
     pricePerDay: 1400,
     pricing: {
@@ -106,14 +106,14 @@ export const cars: Car[] = [
     brand: "Volkswagen",
     model: "Golf 8 1.5 eTSI 150 DSG",
     year: 2024,
-    carImage: "/images/Golf 8 style automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - intérieur" },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue latérale" },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue interieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue d'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" },
-      { src: "/images/Golf 8 style automatique gris diesel 2024 vue arrieere location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
+      { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
+      { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - intérieur" },
+      { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue latérale" },
+      { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
+      { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-d'intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" },
+      { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arrieere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
 
     ],
     pricePerDay: 800,
@@ -155,14 +155,14 @@ export const cars: Car[] = [
     brand: "Volkswagen",
     model: "T-Roc 1.5 TSI 150 BVM6",
     year: 2024,
-    carImage: "/images/T roc automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/T-roc-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/T roc automatique gris diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue avant", isPrimary: true },
-      { src: "/images/T roc automatique gris diesel 2024 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - intérieur" },
-      { src: "/images/T roc automatique gris diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue latérale" },
-      { src: "/images/T roc automatique gris diesel 2024 vue arriere coffre location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - tableau de bord" },
-      { src: "/images/T roc automatique gris diesel 2024 vue interieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - détails habitacle" },
-      { src: "/images/T roc automatique gris diesel 2024 vue de linterieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen T-Roc - vue arrière" },
+      { src: "/images/T-roc-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue avant", isPrimary: true },
+      { src: "/images/T-roc-automatique-gris-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - intérieur" },
+      { src: "/images/T-roc-automatique-gris-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue latérale" },
+      { src: "/images/T-roc-automatique-gris-diesel-2024-vue-arriere-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - tableau de bord" },
+      { src: "/images/T-roc-automatique-gris-diesel-2024-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - détails habitacle" },
+      { src: "/images/T-roc-automatique-gris-diesel-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue arrière" },
     ],
     pricePerDay: 700,
     pricing: {
@@ -202,12 +202,12 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5 1.5 Blue dCi 100 BVM6",
     year: 2024,
-    carImage: "/images/clio 5 gris manuel diesel 2024 vue de devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/clio-5-gris-manuel-diesel-2024-vue-de-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/clio 5 gris manuel diesel 2024 vue de devant location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
-      { src: "/images/clio 5 gris manuel diesel 2024 vue de arriere location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
-      { src: "/images/clio 5 gris manuel diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue latérale" },
-      { src: "/images/clio 5 gris manuel diesel 2024 vue de lintérieure location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - vue latérale" }
+      { src: "/images/clio-5-gris-manuel-diesel-2024-vue-de-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio-5-gris-manuel-diesel-2024-vue-de-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - intérieur" },
+      { src: "/images/clio-5-gris-manuel-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - vue latérale" },
+      { src: "/images/clio-5-gris-manuel-diesel-2024-vue-de-lintérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - vue latérale" }
 
     ],
     pricePerDay: 300,
@@ -244,14 +244,14 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5 1.5 Blue dCi 100 BVM6",
     year: 2024,
-    carImage: "/images/clio5 blanche manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp",
+    carImage: "/images/clio5-blanche-manuel-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp",
     images: [
-      { src: "/images/clio5 blanche manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
-      { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
-      { src: "/images/clio 5 automatique blanche essence 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Renault Clio 5 - intérieur" },
-      { src: "/images/clio 5 automatique blanche essence 2025 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - vue latérale" },
+      { src: "/images/clio5-blanche-manuel-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio-5-automatique-blanche-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - intérieur" },
+      { src: "/images/clio-5-automatique-blanche-essence-2025-vue-d'arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - intérieur" },
+      { src: "/images/clio-5-automatique-blanche-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Renault Clio 5 - vue latérale" },
       { src: "/images/left)side-clio-5-white.webp", alt: "Renault Clio 5 - tableau de bord" },
-      { src: "/images/clio5 blanche manuel diesel 2024 vue de linterieure location de voiture agadir maroc amseelcars.webp", alt: "Renault Clio 5 - détails habitacle" }
+      { src: "/images/clio5-blanche-manuel-diesel-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Renault Clio 5 - détails habitacle" }
     ],
     
     pricePerDay: 300,
@@ -288,14 +288,14 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C4 1.2 PureTech 130 EAT8",
     year: 2024,
-    carImage: "/images/C4 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/C4-gris-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/C4 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - vue avant", isPrimary: true },
-      { src: "/images/C4 gris automatique essence 2025 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - intérieur" },
-      { src: "/images/C4 gris automatique essence 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - vue latérale" },
-      { src: "/images/C4 gris automatique essence 2025 vue arriere de coffre  location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - tableau de bord" },
-      { src: "/images/C4 gris automatique essence 2025 vue de linterieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - détails habitacle" },
-      { src: "/images/C4 gris automatique essence 2025 vue dinterieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C4 - vue arrière" },
+      { src: "/images/C4-gris-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - vue avant", isPrimary: true },
+      { src: "/images/C4-gris-automatique-essence-2025-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - intérieur" },
+      { src: "/images/C4-gris-automatique-essence-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - vue latérale" },
+      { src: "/images/C4-gris-automatique-essence-2025-vue-arriere-de-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - tableau de bord" },
+      { src: "/images/C4-gris-automatique-essence-2025-vue-de-linterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - détails habitacle" },
+      { src: "/images/C4-gris-automatique-essence-2025-vue-dinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - vue arrière" },
     ],
     pricePerDay: 450,
     pricing: {
@@ -336,9 +336,9 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C3 Aircross",
     year: 2024,
-    carImage: "/images/C3 aircross blanche automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/C3-aircross-blanche-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/C3 aircross blanche automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
+      { src: "/images/C3-aircross-blanche-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
       { src: "/images/clipboard-image-1757626620.webp", alt: "Citroën C3 Aircross - intérieur" },
       { src: "/images/clipboard-image-1757626720.webp", alt: "Citroën C3 Aircross - vue latérale" },
       { src: "/images/clipboard-image-1757626807.webp", alt: "Citroën C3 Aircross - tableau de bord" }
@@ -382,13 +382,13 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C3 Aircross",
     year: 2024,
-    carImage: "/images/C3 aircross gris automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/C3-aircross-gris-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/C3 aircross gris automatique diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
-      { src: "/images/C3 aircross gris automatique diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - intérieur" },
-      { src: "/images/C3 aircross gris automatique diesel 2024 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
-      { src: "/images/C3 aircross gris automatique diesel 2024 vue de interieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
-      { src: "/images/C3 aircross gris automatique diesel 2024 vue iinterieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 Aircross - vue latérale" }
+      { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
+      { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - intérieur" },
+      { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
+      { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
+      { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-iinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" }
 
 
     ],
@@ -431,16 +431,16 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C3",
     year: 2024,
-    carImage: "/images/C3 manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp",
+    carImage: "/images/C3-manuel-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp",
     images: [
       
-      { src: "/images/C3 manuel diesel 2024 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
+      { src: "/images/C3-manuel-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
 
-      { src: "/images/C3 normal manuel diesel 2024 vue de face location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue avant" },
-      { src: "/images/C3 manuel diesel 2024 vue arrière location de voiture agadir maroc amseelcars.webp", alt: "Citroën C3 - intérieur" },
-      { src: "/images/C3 normal manuel diesel 2024 vue coffre location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
-      { src: "/images/C3 manuel diesel 2024 vue devant de l'intérieure location de voiture agadir maroc amseelcars.webp", alt: "Citroën C3 - vue latérale" },
-      { src: "/images/C3 normal manuel diesel 2024 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" }
+      { src: "/images/C3-normal-manuel-diesel-2024-vue-de-face-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue avant" },
+      { src: "/images/C3-manuel-diesel-2024-vue-arrière-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Citroën C3 - intérieur" },
+      { src: "/images/C3-normal-manuel-diesel-2024-vue-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
+      { src: "/images/C3-manuel-diesel-2024-vue-devant-de-l'intérieure-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Citroën C3 - vue latérale" },
+      { src: "/images/C3-normal-manuel-diesel-2024-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" }
     ],
     pricePerDay: 300,
     seats: 5,
@@ -476,13 +476,13 @@ export const cars: Car[] = [
     brand: "Hyundai",
     model: "i10",
     year: 2024,
-    carImage: "/images/hyundai i10  automatique blanche essence 2024 vue devant location de voiture agadir maroc amseelcars.webp",
+    carImage: "/images/hyundai-i10-automatique-blanche-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp",
     images: [
-      { src: "/images/hyundai i10  automatique blanche essence 2024 vue devant location de voiture agadir maroc amseelcars.webp", alt: "Hyundai i10 - vue avant", isPrimary: true },
-      { src: "/images/hyundai i10 noire automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - intérieur" },
-      { src: "/images/hyundai i10 noire automatique essence 2024 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - intérieur" },
-      { src: "/images/hyundai i10  automatique blanche essence 2024 vue darriere location de voiture agadir maroc amseelcars.webp", alt: "Hyundai i10 - vue darriere" },
-      { src: "/images/hyundai i10 noire automatique essence 2024 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Hyundai i10 - vue latérale" },
+      { src: "/images/hyundai-i10-automatique-blanche-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Hyundai i10 - vue avant", isPrimary: true },
+      { src: "/images/hyundai-i10-noire-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Hyundai i10 - intérieur" },
+      { src: "/images/hyundai-i10-noire-automatique-essence-2024-vue-arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Hyundai i10 - intérieur" },
+      { src: "/images/hyundai-i10-automatique-blanche-essence-2024-vue-darriere-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Hyundai i10 - vue darriere" },
+      { src: "/images/hyundai-i10-noire-automatique-essence-2024-vue-d'arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Hyundai i10 - vue latérale" },
 
       { src: "/images/inside-hyondia-i10.webp", alt: "Hyundai i10 - vue latérale" }
     ],
@@ -526,12 +526,12 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Picanto",
     year: 2025,
-    carImage: "/images/kia picanto blanche automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/kia-picanto-blanche-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/kia picanto blanche automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
-      { src: "/images/kia picanto blanche automatique essence 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - intérieur" },
-      { src: "/images/kia picanto blanche automatique essence 2025 vue de linterieur location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto blanche automatique essence 2025 vue dinterieur location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - tableau de bord" }
+      { src: "/images/kia-picanto-blanche-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
+      { src: "/images/kia-picanto-blanche-automatique-essence-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - intérieur" },
+      { src: "/images/kia-picanto-blanche-automatique-essence-2025-vue-de-linterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-blanche-automatique-essence-2025-vue-dinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - tableau de bord" }
     ],
     pricePerDay: 300,
     pricing: {
@@ -572,13 +572,13 @@ export const cars: Car[] = [
     brand: "Dacia",
     model: "Sandero Stepway TCe 90 X-Tronic",
     year: 2025,
-    carImage: "/images/Sandero Stepway automatique essence blanche 2025 vue devont location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-devont-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue devont location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue avant", isPrimary: true },
-      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - intérieur" },
-      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
-      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue de l'intérieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
-      { src: "/images/Sandero Stepway automatique essence blanche 2025 vue intérieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway - vue latérale" }
+      { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-devont-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - vue avant", isPrimary: true },
+      { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - intérieur" },
+      { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-d'arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
+      { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-de-l'intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
+      { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - vue latérale" }
     ],
     pricePerDay: 300,
     seats: 5,
@@ -614,12 +614,12 @@ export const cars: Car[] = [
     brand: "Dacia",
     model: "Sandero Stepway",
     year: 2025,
-    carImage: "/images/Sandero Stepway automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/Sandero Stepway automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue avant", isPrimary: true },
-      { src: "/images/Sandero Stepway automatique essence gris 2025 vue de arriere location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - intérieur" },
-      { src: "/images/Sandero Stepway automatique essence gris 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" },
-      { src: "/images/Sandero Stepway automatique essence gris 2025 vue de interieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
+      { src: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway Gris - vue avant", isPrimary: true },
+      { src: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-de-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway Gris - intérieur" },
+      { src: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" },
+      { src: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
     ],
     pricePerDay: 300,
   
@@ -657,14 +657,14 @@ export const cars: Car[] = [
     brand: "Volkswagen",
     model: "Touareg",
     year: 2025,
-    carImage: "/images/Touareg noire automatique diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/Touareg-noire-automatique-diesel-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/Touareg noire automatique diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue avant", isPrimary: true },
-      { src: "/images/Touareg noire automatique diesel 2025 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - intérieur" },
-      { src: "/images/Touareg noire automatique diesel 2025 vue arriere de coffre location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue latérale" },
-      { src: "/images/Touareg noire automatique diesel 2025 vue dinterieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - tableau de bord" },
-      { src: "/images/Touareg noire automatique diesel 2025 vue interieure location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue interieure" },
-      { src: "/images/Touareg noire automatique diesel 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Volkswagen Touareg - vue latérale" },
+      { src: "/images/Touareg-noire-automatique-diesel-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - vue avant", isPrimary: true },
+      { src: "/images/Touareg-noire-automatique-diesel-2025-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - intérieur" },
+      { src: "/images/Touareg-noire-automatique-diesel-2025-vue-arriere-de-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - vue latérale" },
+      { src: "/images/Touareg-noire-automatique-diesel-2025-vue-dinterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - tableau de bord" },
+      { src: "/images/Touareg-noire-automatique-diesel-2025-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - vue interieure" },
+      { src: "/images/Touareg-noire-automatique-diesel-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - vue latérale" },
     ],
     pricePerDay: 1400,
     pricing: {
@@ -705,12 +705,12 @@ export const cars: Car[] = [
     brand: "Dacia",
     model: "Logan",
     year: 2024,
-    carImage: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/dacia logan blanche manuel diesel 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue avant", isPrimary: true },
-      { src: "/images/dacia logan blanche manuel diesel 2025 vue de arriere location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - intérieur" },
-      { src: "/images/dacia logan blanche manuel diesel 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue latérale" },
-      { src: "/images/dacia logan blanche manuel diesel 2025 vue d'intèrieur location de voiture agadir maroc amseel cars.webp", alt: "Dacia Logan - vue latérale" },
+      { src: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Logan - vue avant", isPrimary: true },
+      { src: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-de-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Logan - intérieur" },
+      { src: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Logan - vue latérale" },
+      { src: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-d'intèrieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Logan - vue latérale" },
     ],
     pricePerDay: 300,
    
@@ -747,14 +747,14 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Sportage 1.6 CRDi 136 DCT7",
     year: 2025,
-    carImage: "/images/Kia sportage automatique 2025 diesel gris vue devant location de voiture agadir amseel cars.webp",
+    carImage: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-devant-location-de-voiture-agadir-amseel-cars.webp",
     images: [
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue arrière location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue de l'intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue du coffre location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" },
-      { src: "/images/Kia sportage automatique 2025 diesel gris vue de cote location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue latérale" }
+      { src: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-devant-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-arrière-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-de-l'intérieur-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - vue latérale" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-du-coffre-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - vue latérale" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-intérieur-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - vue latérale" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-gris-vue-de-cote-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - vue latérale" }
 
 
     ],
@@ -797,14 +797,14 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Sportage 1.6 CRDi 136 DCT7",
     year: 2025,
-    carImage: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp",
+    carImage: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-devant-location-de-voiture-agadir-amseel-cars.webp",
     images: [
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue devant location de voiture agadir amseel cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue interieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue d'intérieur location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue de coffre location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue de côté location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
-      { src: "/images/Kia sportage automatique 2025 diesel verte vue arrière location de voiture agadir amseel cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-devant-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - vue avant", isPrimary: true },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-interieur-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-d'intérieur-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-de-coffre-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-de-côté-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
+      { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-arrière-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
 
     ],
     pricePerDay: 700,
@@ -846,12 +846,12 @@ export const cars: Car[] = [
     brand: "Renault",
     model: "Clio 5",
     year: 2024,
-    carImage: "/images/clio 5 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/clio-5-gris-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/clio 5 gris automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - vue avant", isPrimary: true },
-      { src: "/images/clio 5 gris automatique essence 2025 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - intérieur" },
-      { src: "/images/clio 5 gris automatique essence 2025 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - vue latérale" },
-      { src: "/images/clio 5 gris automatique essence 2025 vue interieure location de voiture agadir maroc amseel cars.webp", alt: "Clio 5 - vue latérale" },
+      { src: "/images/clio-5-gris-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - vue avant", isPrimary: true },
+      { src: "/images/clio-5-gris-automatique-essence-2025-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - intérieur" },
+      { src: "/images/clio-5-gris-automatique-essence-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - vue latérale" },
+      { src: "/images/clio-5-gris-automatique-essence-2025-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - vue latérale" },
     ],
     pricePerDay: 350,
     pricing: {
@@ -891,12 +891,12 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Kia Picanto",
     year: 2025,
-    carImage: "/images/kia picanto blanche automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/kia-picanto-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/kia picanto blanche automatique essence 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
-      { src: "/images/kia picanto blanche automatique essence 2024 vue darriere location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - intérieur" },
-      { src: "/images/kia picanto blanche automatique essence 2024 vue dinterieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto blanche automatique essence 2024 vue de linteerieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" }
+      { src: "/images/kia-picanto-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
+      { src: "/images/kia-picanto-blanche-automatique-essence-2024-vue-darriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - intérieur" },
+      { src: "/images/kia-picanto-blanche-automatique-essence-2024-vue-dinterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-blanche-automatique-essence-2024-vue-de-linteerieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" }
     ],
     pricePerDay: 300,
     pricing: {
@@ -936,13 +936,13 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Kia Picanto",
     year: 2025,
-    carImage: "/images/kia picanto blue automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/kia-picanto-blue-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/kia picanto blue automatique essence 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
-      { src: "/images/kia picanto blue automatique essence 2025 vue arrière coffre location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - intérieur" },
-      { src: "/images/kia picanto blue automatique essence 2025 vue arrière location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto blue automatique essence 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto blue automatique essence 2025 vue d'intérieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
+      { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-arrière-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - intérieur" },
+      { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-d'intérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
     ],
     pricePerDay: 300,
     pricing: {
@@ -982,13 +982,13 @@ export const cars: Car[] = [
     brand: "Kia",
     model: "Kia Picanto",
     year: 2025,
-    carImage: "/images/kia picanto automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/kia-picanto-automatique-essence-gris-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/kia picanto automatique essence gris 2025 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
-      { src: "/images/kia picanto automatique essence gris 2025 vue d'arrière location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - intérieur" },
-      { src: "/images/kia picanto automatique essence gris 2025 vue de côté location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto automatique essence gris 2025 vue d'intérieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
-      { src: "/images/kia picanto automatique essence gris 2025 vue de l'intérieure location de voiture agadir maroc amseel cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue avant", isPrimary: true },
+      { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-d'arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - intérieur" },
+      { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-d'intérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
+      { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-de-l'intérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
     ],
     pricePerDay: 300,
     pricing: {
@@ -1028,12 +1028,12 @@ export const cars: Car[] = [
     brand: "Citroën",
     model: "C3",
     year: 2024,
-    carImage: "/images/C3 normal automatique blanche diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp",
+    carImage: "/images/C3-normal-automatique-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     images: [
-      { src: "/images/C3 normal automatique blanche diesel 2024 vue devant location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
-      { src: "/images/C3 normal automatique blanche diesel 2024 vue arriere location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - intérieur" },
-      { src: "/images/C3 normal automatique blanche diesel 2024 vue de cote location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
-      { src: "/images/C3 normal automatique blanche diesel 2024 vue interieur location de voiture agadir maroc amseel cars.webp", alt: "Citroën C3 - vue latérale" },
+      { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
+      { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - intérieur" },
+      { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
+      { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
     ],
     pricePerDay: 350,
     pricing: {
