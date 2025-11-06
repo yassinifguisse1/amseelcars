@@ -1,6 +1,18 @@
 import type { MetadataRoute } from 'next'
+import { getAllArticles } from '@/data/blog'
  
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Get all blog articles
+  const articles = getAllArticles()
+  
+  // Generate sitemap entries for blog articles
+  const blogArticleEntries: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `https://amseelcars.com/blog/${article.slug}`,
+    lastModified: new Date(article.publishedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   return [
     {
       url: 'https://amseelcars.com',
@@ -26,5 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.5,
     },
+    {
+      url: 'https://amseelcars.com/blog',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    },
+    ...blogArticleEntries,
   ]
 }
