@@ -295,59 +295,7 @@ export const blogArticles: BlogArticle[] = [
       canonical: "/blog/visiter-agadir",
     }
   },
-  {
-    id: 3,
-    slug: "assurance-auto-location-voiture",
-    title: "Assurance Auto: Ce qu'il Faut Savoir",
-    
-    content: `
-      <h2>Types d'Assurance en Location</h2>
-      <p>L'assurance est un élément crucial lors de la location d'une voiture. Chez AmseelCars, nous vous proposons plusieurs niveaux de protection.</p>
-
-      <h3>Assurance de Base</h3>
-      <p>Incluse dans tous nos forfaits, elle couvre :</p>
-      <ul>
-        <li>Responsabilité civile</li>
-        <li>Protection du véhicule contre le vol</li>
-        <li>Assistance 24h/24</li>
-      </ul>
-
-      <h3>Assurance Complète</h3>
-      <p>Pour une tranquillité maximale :</p>
-      <ul>
-        <li>Franchise réduite</li>
-        <li>Protection tous risques</li>
-        <li>Remboursement en cas d'annulation</li>
-      </ul>
-    `,
-    category: "Conseils",
-    readTime: "4 min",
-    date: "10 Jan 2025",
-    publishedAt: "2025-01-10T09:15:00Z",
-    image: "/images/blog/insurance.jpg",
-    altText: "Assurance Location Voiture Agadir - Guide Complet",
-    caption: "Assurance Location Voiture Agadir - Guide Complet",
-    description:
-      "Guide complet sur l'assurance en location de voiture à Agadir. Types d'assurance, conseils, protection optimale.",
-    featured: false,
-    tags: ["assurance", "location", "protection", "conseils"],
-    author: {
-      name: "Équipe AmseelCars",
-      avatar: "/images/team/amseel-team.jpg",
-      bio: "Experts en location de voitures premium à Agadir",
-    },
-    seo: {
-      metaTitle: "Assurance Location Voiture Agadir - Guide Complet",
-      metaDescription:
-        "Guide complet sur l'assurance en location de voiture à Agadir. Types d'assurance, conseils, protection optimale.",
-      keywords: [
-        "assurance location voiture",
-        "protection location",
-        "assurance agadir",
-      ],
-      canonical: "/blog/assurance-auto-location-voiture",
-    },
-  },
+  
 ];
 
 // Utility functions
