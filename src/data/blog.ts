@@ -303,6 +303,11 @@ export function getArticleBySlug(slug: string): BlogArticle | undefined {
   return blogArticles.find((article) => article.slug === slug);
 }
 
+export function getArticleByCategoryAndSlug(categorySlug: string, slug: string): BlogArticle | undefined {
+  const category = getCategoryFromSlug(categorySlug);
+  return blogArticles.find((article) => article.slug === slug && article.category === category);
+}
+
 export function getAllArticles(): BlogArticle[] {
   return blogArticles;
 }
@@ -330,4 +335,24 @@ export function getRelatedArticles(
           article.tags.some((tag) => currentArticle.tags.includes(tag)))
     )
     .slice(0, limit);
+}
+
+// Category slug conversion utilities
+export function categoryToSlug(category: string): string {
+  return category
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove accents
+    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+    .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+}
+
+export function getCategoryFromSlug(categorySlug: string): string | undefined {
+  const allCategories = getAllCategories();
+  return allCategories.find(cat => categoryToSlug(cat) === categorySlug);
+}
+
+export function getAllCategories(): string[] {
+  const categories = new Set(blogArticles.map(article => article.category));
+  return Array.from(categories);
 }

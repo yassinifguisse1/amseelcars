@@ -1,16 +1,20 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useScroll, useTransform } from "framer-motion";
-import { getAllArticles, getFeaturedArticles } from '@/data/blog';
+import Link from "next/link";
+import { getAllArticles, getFeaturedArticles, getAllCategories, categoryToSlug, BlogArticle } from '@/data/blog';
 import styles from "./BlogArticles.module.scss";
 import ArticleCard from "./ArticleCard";
 
-// Get articles from the data file
-const blogArticles = getAllArticles();
+interface BlogArticlesProps {
+  articles?: BlogArticle[];
+  showFilter?: boolean;
+}
 
-export default function BlogArticles() {
+export default function BlogArticles({ articles, showFilter = true }: BlogArticlesProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -19,8 +23,19 @@ export default function BlogArticles() {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
-  const featuredArticle = getFeaturedArticles()[0]; // Get first featured article
-  const regularArticles = blogArticles.filter(article => !article.featured);
+  // Use provided articles or get all articles
+  const allArticles = articles || getAllArticles();
+  const categories = getAllCategories();
+  
+  // Filter articles by selected category
+  const filteredArticles = selectedCategory 
+    ? allArticles.filter(article => article.category === selectedCategory)
+    : allArticles;
+  
+  const featuredArticle = showFilter && !selectedCategory ? getFeaturedArticles()[0] : null;
+  const regularArticles = showFilter && !selectedCategory
+    ? filteredArticles.filter(article => !article.featured)
+    : filteredArticles;
 
   return (
     <motion.section 
@@ -36,10 +51,45 @@ export default function BlogArticles() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className={styles.title}>Articles Récents</h2>
+          <h2 className={styles.title}>
+            {selectedCategory ? `${selectedCategory}` : "Articles Récents"}
+          </h2>
           <p className={styles.subtitle}>
-            Découvrez nos derniers conseils et actualités pour optimiser votre expérience de location
+            {selectedCategory 
+              ? `Découvrez tous nos articles sur ${selectedCategory.toLowerCase()}`
+              : "Découvrez nos derniers conseils et actualités pour optimiser votre expérience de location"
+            }
           </p>
+          
+          {showFilter && (
+            <motion.div 
+              className={styles.categoryFilter}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <button
+                className={`${styles.categoryButton} ${!selectedCategory ? styles.active : ''}`}
+                onClick={() => setSelectedCategory(null)}
+              >
+                Tous
+              </button>
+              {categories.map((category) => (
+                <Link
+                  key={category}
+                  href={`/blog/${categoryToSlug(category)}`}
+                  className={`${styles.categoryButton} ${selectedCategory === category ? styles.active : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedCategory(category);
+                  }}
+                >
+                  {category}
+                </Link>
+              ))}
+            </motion.div>
+          )}
         </motion.div>
 
         {featuredArticle && (

@@ -1,29 +1,31 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getArticleBySlug, getAllArticles } from '@/data/blog';
+import { getArticleByCategoryAndSlug, getAllArticles, categoryToSlug } from '@/data/blog';
 import { LoadingProvider } from '@/contexts/LoadingContext';
-import { ArticleContent } from './ArticleContent';
+import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
 
 interface PageProps {
   params: Promise<{
+    category: string;
     slug: string;
   }>;
 }
 
-// Generate static params for all articles (SSG)
+// Generate static params for all articles with their categories
 export async function generateStaticParams() {
   const articles = getAllArticles();
   
   return articles.map((article) => ({
+    category: categoryToSlug(article.category),
     slug: article.slug,
   }));
 }
 
 // Generate metadata for each article (SEO optimized)
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const { category: categorySlug, slug } = await params;
+  const article = getArticleByCategoryAndSlug(categorySlug, slug);
   
   if (!article) {
     return {
@@ -40,12 +42,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     creator: article.author.name,
     publisher: 'AmseelCars',
     alternates: {
-      canonical: article.seo.canonical,
+      canonical: `/blog/${categorySlug}/${slug}`,
     },
     openGraph: {
       type: 'article',
       title: article.title,
-      url: `https://amseelcars.com${article.seo.canonical}`,
+      url: `https://amseelcars.com/blog/${categorySlug}/${slug}`,
       siteName: 'AmseelCars',
       locale: 'fr_MA',
       images: [
@@ -83,10 +85,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ArticlePage({ params }: PageProps) {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const { category: categorySlug, slug } = await params;
+  
+  // Debug logging (remove in production)
+  console.log('Route params:', { categorySlug, slug });
+  
+  const article = getArticleByCategoryAndSlug(categorySlug, slug);
   
   if (!article) {
+    console.log('Article not found for:', { categorySlug, slug });
     notFound();
   }
 
@@ -110,3 +117,4 @@ export default async function ArticlePage({ params }: PageProps) {
     </>
   );
 }
+

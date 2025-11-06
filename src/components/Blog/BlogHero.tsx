@@ -4,7 +4,12 @@ import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import styles from "./BlogHero.module.scss";
 
-export default function BlogHero() {
+interface BlogHeroProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export default function BlogHero({ title, subtitle }: BlogHeroProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -34,7 +39,11 @@ export default function BlogHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Notre <span className={styles.accent}>Blog</span>
+            {title ? (
+              <>{title} <span className={styles.accent}>Articles</span></>
+            ) : (
+              <>Notre <span className={styles.accent}>Blog</span></>
+            )}
           </motion.h1>
           
           <motion.p 
@@ -43,7 +52,7 @@ export default function BlogHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Conseils, actualités et guides pour votre location de voiture à Agadir
+            {subtitle || "Conseils, actualités et guides pour votre location de voiture à Agadir"}
           </motion.p>
 
           <motion.div 

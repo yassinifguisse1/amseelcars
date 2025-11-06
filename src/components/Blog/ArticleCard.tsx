@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { BlogArticle } from '@/data/blog';
+import { BlogArticle, categoryToSlug } from '@/data/blog';
 import styles from "./ArticleCard.module.scss";
 
 interface ArticleCardProps {
@@ -38,7 +38,7 @@ export default function ArticleCard({ article, variant }: ArticleCardProps) {
       whileHover="hover"
       layout
     >
-      <Link href={`/blog/${article.slug}`} className={styles.link}>
+      <Link href={`/blog/${categoryToSlug(article.category)}/${article.slug}`} className={styles.link}>
         <div className={styles.imageContainer}>
           <motion.div 
             className={styles.imageWrapper}
