@@ -3,7 +3,7 @@
  * Following Schema.org best practices
  */
 
-const siteUrl = 'https://amseelcars.com';
+const siteUrl = 'https://www.amseelcars.com';
 const siteName = 'AmseelCars';
 
 /**

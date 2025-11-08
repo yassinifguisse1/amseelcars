@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'website',
       title: `${category} - AmseelCars Blog`,
       description: `Découvrez tous nos articles sur ${category.toLowerCase()}.`,
-      url: `https://amseelcars.com/blog/${categorySlug}`,
+      url: `https://www.amseelcars.com/blog/${categorySlug}`,
       siteName: 'AmseelCars',
       locale: 'fr_MA',
     },

@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       type: 'article',
       title: article.title,
-      url: `https://amseelcars.com/blog/${categorySlug}/${slug}`,
+      url: `https://www.amseelcars.com/blog/${categorySlug}/${slug}`,
       siteName: 'AmseelCars',
       locale: 'fr_MA',
       images: [

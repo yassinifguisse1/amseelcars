@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { getAllArticles, categoryToSlug } from '@/data/blog'
 
 export async function GET() {
-  const baseUrl = 'https://amseelcars.com'
+  const baseUrl = 'https://www.amseelcars.com'
   const articles = getAllArticles()
 
   // Generate blog post URLs

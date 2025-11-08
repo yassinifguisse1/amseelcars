@@ -8,7 +8,7 @@ import { clsx } from "clsx";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header";
 
-const siteUrl = "https://amseelcars.com";
+const siteUrl = "https://www.amseelcars.com";
 const siteName = "AmseelCars";
 const siteTitle = "AmseelCars — Location de voitures à Agadir";
 const siteDescription =

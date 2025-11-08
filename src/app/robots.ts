@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://amseelcars.com/sitemap.xml',
+    sitemap: 'https://www.amseelcars.com/sitemap.xml',
   }
 }
 

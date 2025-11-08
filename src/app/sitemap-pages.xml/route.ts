@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { getAllCarSlugs } from '@/data/cars'
 
 export async function GET() {
-  const baseUrl = 'https://amseelcars.com'
+  const baseUrl = 'https://www.amseelcars.com'
   const now = new Date().toISOString().split('T')[0]
 
   // Static pages
