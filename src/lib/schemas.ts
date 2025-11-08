@@ -50,6 +50,7 @@ export function generateWebSiteSchema() {
  */
 export function generateLocalBusinessSchema() {
   return {
+    '@context': 'https://schema.org',
     '@type': 'CarRental',
     '@id': `${siteUrl}#business`,
     name: siteName,
