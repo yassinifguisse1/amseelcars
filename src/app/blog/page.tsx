@@ -1,6 +1,8 @@
 import { LoadingProvider } from "@/contexts/LoadingContext";
+import Script from 'next/script';
 import { Metadata } from 'next';
 import { HomeContent } from "./HomeContent";
+import { generateBreadcrumbSchema } from '@/lib/schemas';
 
 export const metadata: Metadata = {
   title: "Blog AmseelCars - Conseils & Actualités Location Voiture Agadir",
@@ -31,9 +33,22 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+  ]);
+
   return (
-    <LoadingProvider>
-      <HomeContent />
-    </LoadingProvider>
+    <>
+      {/* Breadcrumb Schema */}
+      <Script
+        id="ld-json-breadcrumb-blog"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <LoadingProvider>
+        <HomeContent />
+      </LoadingProvider>
+    </>
   );
 }

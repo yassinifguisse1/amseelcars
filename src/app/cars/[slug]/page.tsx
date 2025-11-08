@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+import Script from 'next/script'
 import { getCarBySlug, getAllCarSlugs } from '@/data/cars'
 import CarDetailClient from './CarDetailClient'
+import { generateCarProductSchema, generateBreadcrumbSchema } from '@/lib/schemas'
 
 // SEO metadata
 
@@ -84,41 +86,44 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
     notFound()
   }
 
-  // JSON-LD structured data for SEO
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: car.carName,
+  // Generate improved Car Product schema
+  const carProductSchema = generateCarProductSchema({
+    carName: car.carName,
+    brand: car.brand,
+    model: car.model,
     description: car.description,
-    brand: {
-      '@type': 'Brand',
-      name: car.brand,
-    },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'USD',
-      price: car.pricePerDay,
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: car.pricePerDay,
-        priceCurrency: 'USD',
-        unitText: 'per day',
-      },
-    },
-    image: car.images.map(img => img.src),
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: car.rating,
-      ratingCount: 100, // Mock review count
-    },
-  }
+    pricePerDay: car.pricePerDay,
+    images: car.images,
+    rating: car.rating,
+    slug: car.slug,
+    category: car.category,
+    year: car.year,
+    fuelType: car.fuelType,
+    transmission: car.transmission,
+    seats: car.seats,
+  });
+
+  // Generate Breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Cars', url: '/cars' },
+    { name: car.carName, url: `/cars/${car.slug}` },
+  ]);
 
   return (
     <>
-      {/* JSON-LD Script */}
-      <script
+      {/* Car Product Schema */}
+      <Script
+        id="ld-json-car-product"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(carProductSchema) }}
+      />
+
+      {/* Breadcrumb Schema */}
+      <Script
+        id="ld-json-breadcrumb-car"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <CarDetailClient car={car} />

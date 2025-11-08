@@ -2,6 +2,8 @@
 import React from "react";
 import CarePage from "@/components/Cars/CarePage/CarePage";
 import { LoadingProvider } from "@/contexts/LoadingContext";
+import Script from "next/script";
+import { generateBreadcrumbSchema } from "@/lib/schemas";
 
 
 
@@ -79,9 +81,22 @@ function HomeContent() {
 }
 
 export default function Home() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about" },
+  ]);
+
   return (
-    <LoadingProvider>
-      <HomeContent />
-    </LoadingProvider>
+    <>
+      {/* Breadcrumb Schema */}
+      <Script
+        id="ld-json-breadcrumb-about"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <LoadingProvider>
+        <HomeContent />
+      </LoadingProvider>
+    </>
   );
 }

@@ -142,36 +142,38 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const fontVariables = clsx(playfair.variable, anticDidone.variable);
 
-  // JSON-LD (Organization + Local Business / CarRental)
+  // JSON-LD (Organization + WebSite) - Sitewide
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CarRental",
-    "@id": `${siteUrl}#business`,
-    name: siteName,
-    url: siteUrl,
-    image: `${siteUrl}/og/og-default.jpg`,
-    telephone: "+212662500181",
-    email: "info@amseelcars.com",
-    sameAs: [
-      "https://www.facebook.com/amseelcars/",
-      "https://www.instagram.com/amseelcars/",
-      "https://wa.me/212662500181",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}#org`,
+        name: siteName,
+        url: siteUrl,
+        logo: `${siteUrl}/og/amseel-car-logo.png`,
+        sameAs: [
+          "https://www.facebook.com/amseelcars/",
+          "https://www.instagram.com/amseelcars/",
+          "https://wa.me/212662500181",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}#website`,
+        url: siteUrl,
+        name: siteName,
+        publisher: { "@id": `${siteUrl}#org` },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${siteUrl}/search?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
+      },
     ],
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Agadir",
-      addressRegion: "Souss-Massa",
-      addressCountry: "MA",
-    },
-    areaServed: ["Agadir", "Aéroport Agadir–Al Massira", "Maroc"],
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "08:00", closes: "22:00" },
-    ],
-    priceRange: "DH",
-    makesOffer: {
-      "@type": "OfferCatalog",
-      name: "Flotte de véhicules",
-    },
   };
 
   return (

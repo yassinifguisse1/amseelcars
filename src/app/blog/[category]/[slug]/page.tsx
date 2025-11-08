@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { getArticleByCategoryAndSlug, getAllArticles, categoryToSlug } from '@/data/blog';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
+import { generateBlogPostingSchema, generateBreadcrumbSchema } from '@/lib/schemas';
 
 interface PageProps {
   params: Promise<{
@@ -101,11 +103,45 @@ export default async function ArticlePage({ params }: PageProps) {
   const faqs = extractFAQs(article.content);
   const faqSchema = generateFAQSchema(faqs);
 
+  // Generate BlogPosting schema
+  const blogPostingSchema = generateBlogPostingSchema({
+    title: article.title,
+    description: article.seo.metaDescription,
+    image: article.image,
+    author: article.author,
+    publishedAt: article.publishedAt,
+    slug: `${categoryToSlug(article.category)}/${article.slug}`,
+    category: article.category,
+  });
+
+  // Generate Breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: article.category, url: `/blog/${categoryToSlug(article.category)}` },
+    { name: article.title, url: `/blog/${categoryToSlug(article.category)}/${article.slug}` },
+  ]);
+
   return (
     <>
+      {/* BlogPosting Schema */}
+      <Script
+        id="ld-json-blog-posting"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
+      />
+      
+      {/* Breadcrumb Schema */}
+      <Script
+        id="ld-json-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* FAQ Schema for SEO */}
       {faqSchema && (
-        <script
+        <Script
+          id="ld-json-faq"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
