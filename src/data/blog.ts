@@ -295,6 +295,98 @@ export const blogArticles: BlogArticle[] = [
       canonical: "/blog/visiter-agadir",
     }
   },
+  {
+    id: 3,
+    slug: "activites-a-agadir",
+    title: "Activités à Agadir: plages, souks, nature et idées locales",
+    content: `
+ <h2>Introduction générale</h2>
+<p>D’abord, les activités à Agadir séduisent par leur diversité et leur simplicité. Ensuite, la ville combine plage, culture, gastronomie et nature proche. En effet, les distances restent courtes et très abordables. De plus, la circulation demeure fluide hors pics saisonniers. Cependant, louer une voiture facilite vraiment les excursions alentour. Ainsi, vous reliez côte, souks et montagnes en une journée. Par conséquent, visiter Agadir devient un projet clair et agréable. Enfin, les sections suivantes détaillent un itinéraire pratique et progressif.</p>
+<h2>Les incontournables d’Agadir</h2>
+<img src="/images/blog/incontournables-agadir-corniche-marina.webp" alt="Corniche et Marina d’Agadir au coucher du soleil avec palmiers" />
+<h3>Corniche et marina d’Agadir</h3>
+<p>D’abord, la corniche structure vos balades quotidiennes avec sérénité. Ensuite, la promenade relie cafés, hôtels, plage et marina. En effet, les vues sur la baie se renouvellent à chaque pas. De plus, les terrasses offrent des haltes gourmandes et conviviales. Cependant, privilégiez matin et fin de journée pour la lumière. Ainsi, les photos gagnent en relief et en douceur. Par conséquent, choses à faire à Agadir commence souvent ici. Enfin, la marina propose aussi des sorties en mer encadrées.</p>
+<h3>Kasbah d’Agadir Oufella</h3>
+<p>D’abord, la Kasbah domine la baie et l’arc littoral. Ensuite, l’accès en fin de journée devient très plaisant. En effet, la lumière dorée magnifie océan et reliefs. De plus, le panorama aide à comprendre le plan urbain. Cependant, prévoyez eau, casquette et marge horaire. Ainsi, la montée reste confortable en toute saison. Par conséquent, que voir à Agadir inclut ce point de vue majeur. Enfin, la descente se fait tranquillement après le coucher du soleil.</p>
+<h3>Souk El Had et artisanat</h3>
+<p>D’abord, le Souk El Had rassemble artisanat, épices et produits frais. Ensuite, l’organisation par allées simplifie votre progression. En effet, l’abondance peut surprendre lors de la première visite. De plus, la négociation reste courtoise et plutôt souriante. Cependant, fixez un budget clair avant d’entrer dans le marché. Ainsi, vous évitez les achats peu utiles ou pressés. Par conséquent, incontournables à Agadir rime aussi avec souvenirs durables. Enfin, prévoyez du temps pour comparer plusieurs stands.</p>
+<h2>Activités océanes</h2>
+<img src="/images/blog/agadir-activites-oceanes-plage.webp" alt="Panorama aérien d’Agadir au Maroc avec plage en arc, promenade bordée de palmiers et Atlantique d’un bleu profond" />
+<h3>Plage centrale et marche active</h3>
+<p>D’abord, la plage centrale convient parfaitement aux familles et groupes. Ensuite, le sable fin facilite la marche sportive quotidienne. En effet, la baie offre un tracé large et régulier. De plus, les services de plage simplifient les journées complètes. Cependant, respectez toujours les consignes des sauveteurs présents. Ainsi, la baignade demeure sereine et sécurisée. Par conséquent, visiter Agadir inclut marche, bronzage et détente. Enfin, la lumière matinale reste idéale pour les photos.</p>
+<h3>Surf, paddle et sorties en mer</h3>
+<p>D’abord, les écoles encadrent débutants et niveaux intermédiaires avec sérieux. Ensuite, le paddle propose une alternative douce et accessible. En effet, la côte permet des sessions variées selon la houle. De plus, des sorties bateau offrent observation et pêche sportive. Cependant, comparez tarifs, assurances et matériels avant paiement. Ainsi, vous alignez budget, sécurité et qualité. Par conséquent, que faire autour d’Agadir inclut l’océan actif. Enfin, ces activités rythment agréablement une semaine complète.</p>
+<h2>Nature et excursions en voiture</h2>
+<img src="/images/blog/agadir-vallee-du-paradis-excursions.webp" alt="Panorama aérien d’Agadir au Maroc avec plage en arc, promenade bordée de palmiers et Atlantique d’un bleu profond" />
+<h3>Pourquoi louer une voiture à Agadir</h3>  
+<p>D’abord, la location de voiture Agadir ouvre des horizons très proches. Ensuite, vous gérez librement horaires, détours et arrêts. En effet, les sites naturels restent dispersés sur la région. De plus, les routes principales demeurent globalement lisibles. Cependant, prévoyez GPS, eau et carburant avant le départ. Ainsi, chaque journée gagne en confort et en efficacité. Par conséquent, itinéraire Agadir en voiture devient un vrai atout. Enfin, comparez agences et franchises pour limiter les coûts.</p>
+<h3>Vallée du Paradis et Imouzzer</h3>
+<p>D’abord, la Vallée du Paradis charme par ses bassins naturels. Ensuite, Imouzzer complète l’excursion avec cascades saisonnières. En effet, l’alternance palmeraies et roches crée un beau contraste. De plus, la route offre des points d’arrêt panoramiques. Cependant, vérifiez les conditions d’eau avant la baignade. Ainsi, vous adaptez horaires, chaussures et protection solaire. Par conséquent, que faire à Agadir inclut cette boucle nature. Enfin, la voiture permet un retour souple et rapide.</p>
+<h3>Parc National de Souss Massa</h3>
+<p>D’abord, le parc protège des écosystèmes rares et sensibles. Ensuite, l’ibis chauve symbolise l’effort de conservation régional. En effet, l’observation demande patience et discrétion constantes. De plus, un guide local améliore nettement l’expérience. Cependant, restez sur les pistes autorisées et signalées. Ainsi, vous respectez faune, flore et zones fragiles. Par conséquent, que voir à Agadir s’élargit vers la réserve. Enfin, la location voiture aéroport Agadir Al Massira simplifie la logistique.</p>
+<h3>Taghazout, Tamraght et la côte nord</h3>
+<p>D’abord, Taghazout attire une communauté surf internationale et conviviale. Ensuite, Tamraght propose des spots progressifs et réguliers. En effet, cafés et écoles jalonnent la côte avec rythme. De plus, les couchers de soleil créent des ambiances uniques. Cependant, consultez les prévisions pour ajuster vos sessions. Ainsi, vous optimisez créneaux et déplacements. Par conséquent, choses à faire à Agadir inclut ces haltes. Enfin, le road trip depuis Agadir rend la boucle très simple.</p>
+<h2>Culture, musées et panoramas</h2>
+<img src="/images/blog/agadir-kasbah-oufella-panorama.webp" alt="Panorama aérien d’Agadir au Maroc avec plage en arc, promenade bordée de palmiers et Atlantique d’un bleu profond" />
+<h3>Histoire récente et mémoire urbaine</h3>
+<p>D’abord, la mémoire urbaine éclaire l’identité actuelle de la ville. Ensuite, des espaces dédiés racontent reconstruction et modernité. En effet, ces repères clarifient l’architecture et les tracés. De plus, la visite équilibre plage et apprentissages concrets. Cependant, vérifiez horaires et fermetures avant de vous déplacer. Ainsi, vous évitez des trajets inutiles et fatigants. Par conséquent, visiter Agadir nourrit l’esprit autant que les sens. Enfin, une demi-journée suffit souvent pour un bon aperçu.</p>
+<h3>Couchers de soleil et points de vue</h3>
+<p>D’abord, la Kasbah propose une lumière dorée très photogénique. Ensuite, la corniche offre des perspectives maritimes apaisantes. En effet, la baie se teinte de tons chauds et doux. De plus, les promenades du soir restent très agréables. Cependant, prévoyez une petite laine en hiver. Ainsi, la pause reste confortable face au vent. Par conséquent, points de vue Agadir devient un thème photo. Enfin, la voiture aide à varier rapidement les angles.</p>
+<h2>Bien-être et détente</h2>
+<h3>Hammam, spa et yoga</h3>
+<p>D’abord, les hammams traditionnels apportent une vraie détente. Ensuite, les spas complètent avec soins modernes et reposants. En effet, les sessions durent selon le programme choisi. De plus, le yoga renforce souplesse, souffle et énergie. Cependant, réservez vos créneaux en haute saison. Ainsi, vous sécurisez horaires et tarifs préférentiels. Par conséquent, activités à Agadir inclut bien-être et récupération. Enfin, cette parenthèse équilibre sport et visites urbaines.</p>
+<h2>Gastronomie et sorties</h2>
+<h3>Restaurants bord de mer et marché aux poissons</h3>
+<p>D’abord, le front de mer concentre de nombreuses adresses visibles. Ensuite, la fraîcheur dépend directement de l’arrivage du jour. En effet, les grillades de poisson séduisent rapidement les voyageurs. De plus, le marché aux poissons propose une expérience vivante. Cependant, comparez cartes, emplacements et formules avant de choisir. Ainsi, vous maîtrisez budget et qualité gustative. Par conséquent, où manger à Agadir devient simple et plaisant. Enfin, la lumière du soir sublime les dîners sur la baie.</p>
+<h3>Cafés, nightlife et événements</h3>
+<p>D’abord, les cafés animent la promenade à toute heure. Ensuite, certains bars proposent musique et vue sur l’océan. En effet, l’ambiance reste détendue et conviviale. De plus, des événements ponctuels rythment les saisons. Cependant, vérifiez les programmes quelques jours avant sortie. Ainsi, vous captez la bonne soirée au bon moment. Par conséquent, nightlife Agadir s’intègre naturellement à l’itinéraire. Enfin, la voiture n’est pas nécessaire pour la corniche.</p>
+<h2>Famille et petit budget</h2>
+<h3>Activités gratuites et parcs</h3>
+<p>D’abord, la plage centrale offre de longues heures gratuites. Ensuite, la corniche permet marche, course et jeux légers. En effet, les parcs urbains offrent pauses et ombrages. De plus, le souk se visite sans dépense obligatoire. Cependant, fixez des limites claires pour les souvenirs. Ainsi, vous gardez un budget serein et maîtrisé. Par conséquent, activités gratuites à Agadir restent nombreuses et variées. Enfin, ces options conviennent très bien aux familles.</p>
+<h3>Idées avec enfants et astuces budget</h3>
+<p>D’abord, privilégiez matin et fin d’après-midi pour les sorties. Ensuite, prévoyez eau, casquettes et crème solaire. En effet, la lumière peut surprendre même en hiver. De plus, la location de voiture Agadir aide pour l’équipement. Cependant, comparez sièges enfants et assurances avant signature. Ainsi, la logistique reste fluide et sécurisée. Par conséquent, Agadir en famille gagne en confort global. Enfin, regroupez visites proches pour limiter les déplacements.</p>
+<h2>Itinéraires conseillés avec location de voiture</h2>
+<h3>Week-end de 3 jours</h3>
+<p>D’abord, jour 1 combine corniche, plage et Kasbah au coucher. Ensuite, dînez côté marina pour une soirée lumineuse. En effet, cette séquence pose un cadre clair. De plus, jour 2 explore le Souk El Had et un musée. Cependant, terminez par un café panoramique sur la baie. Ainsi, le rythme reste doux et régulier. Par conséquent, jour 3 file vers la Vallée du Paradis. Enfin, retournez tôt pour un dernier coucher de soleil.</p> 
+<h3>Séjour de 5 jours</h3>
+<p>D’abord, reprenez le programme du week-end avec souplesse. Ensuite, ajoutez Taghazout pour une journée surf et cafés. En effet, la route s’effectue rapidement en voiture. De plus, prévoyez une demi-journée au Souss Massa. Cependant, respectez les zones protégées et la signalétique. Ainsi, vous soutenez une approche responsable et attentive. Par conséquent, le séjour gagne en variété équilibrée. Enfin, gardez une soirée libre pour la corniche.</p>
+<h3>Semaine complète</h3>
+<p>D’abord, combinez océan, souks, Kasbah et deux grandes excursions. Ensuite, ajoutez Imouzzer selon les conditions saisonnières. En effet, la boucle fonctionne bien en voiture. De plus, intégrez une séance hammam pour récupérer. Cependant, ménagez des matinées calmes pour la plage. Ainsi, l’énergie reste stable toute la semaine. Par conséquent, visiter Agadir devient riche et reposant. Enfin, terminez par un dîner face au coucher de soleil.</p>
+<h2>Conseils “location de voiture Agadir”</h2>
+<img src="/images/blog/agadir-location-voiture-road-trip.webp" alt="Panorama aérien d’Agadir au Maroc avec plage en arc, promenade bordée de palmiers et Atlantique d’un bleu profond" />
+<p>D’abord, comparez plusieurs agences avant de réserver. Ensuite, vérifiez kilométrage, dépôt et franchise en détail. En effet, ces points changent fortement le prix final. De plus, privilégiez une location voiture aéroport Agadir Al Massira. Cependant, inspectez le véhicule et photographiez les angles. Ainsi, vous clarifiez l’état avant chaque départ. Par conséquent, le retour se déroule sans discussions inutiles. Enfin, gardez l’essentiel dans la boîte à gants.</p>
+<h2>Foire aux questions</h2>
+<p><strong>La voiture est-elle nécessaire à Agadir ?</strong></p>
+<p>D’abord, non, la ville se parcourt bien à pied et taxi. Ensuite, oui, la voiture facilite les excursions naturelles. En effet, les sites sont dispersés autour d’Agadir. Ainsi, louer un véhicule élargit clairement le programme.</p>
+<p><strong>Où se garer près de la corniche ?</strong></p>
+<p>D’abord, plusieurs zones proposent des places réglementées. Ensuite, respectez les marquages et les consignes. En effet, la rotation reste importante aux heures de pointe. Ainsi, anticipez vos horaires pour limiter l’attente.</p>
+<p><strong>Quel est le meilleur moment pour les excursions ?</strong></p>
+<p>D’abord, partez tôt pour éviter chaleur et affluence. Ensuite, gardez une marge pour les retours. En effet, la lumière du soir reste idéale pour les photos. Ainsi, la journée conclut sur une note paisible.</p>
+<p><strong>Quelles activités gratuites à Agadir ?</strong></p>
+<p>D’abord, balade sur la corniche et la marina pour profiter de l’océan. Ensuite, détends-toi sur la plage centrale et cours au lever du soleil. Puis, admire le panorama à la Kasbah Oufella et flâne au Souk El Had sans acheter. Enfin, fais une pause au Jardin d’Olhao ou visite la Vallée des Oiseaux gratuitement.</p>
+`,
+    category: "Guide Pratique",
+    readTime: "6 min",
+    date: "10 novembre 2025",
+    publishedAt: "2025-11-10T12:00:00Z",
+    image: "/images/blog/Balade-à-dos-de-dromadaire-sur-la-plage-d’Agadir.webp",
+    altText: "Femme en robe blanche montée sur un dromadaire guidé par un chamelier en bleu sur la plage d’Agadir, baie et colline d’Agadir Oufella en arrière-plan.",
+    caption: "Balade en dromadaire sur la plage d’Agadir, face à la colline d’Agadir Oufella.",
+    description: "La photo montre une promeneuse souriante à dos de dromadaire, guidée par un chamelier en tenue bleue sur le sable doré d’Agadir. La mer turquoise, les baigneurs et la colline d’Agadir Oufella forment un décor emblématique de la baie. Cette scène illustre une activité populaire et photogénique lors d’un séjour à Agadir.",
+    featured: false,
+    tags: ["Visiter Agadir", "Souk El Had Agadir", "agadir", "guide", "réservation", "Paradis"],
+    author: {
+      name: "Équipe AmseelCars",
+      avatar: "/images/team/amseel-team.jpg",
+      bio: "Experts en location de voitures premium à Agadir"
+    },
+    seo: {
+      metaTitle: "Visiter Agadir : Le meilleur guide complet ",
+      metaDescription: "Visiter Agadir : plages, corniche, souk et Kasbah. Climat doux toute l’année, nature et surf à proximité. Conseils pratiques pour un séjour réussi.",
+      keywords: ["Visiter Agadir", "", "Souk El Had Agadir", "Vallée du Paradis"],
+      canonical: "/blog/visiter-agadir",
+    }
+  }
   
 ];
 

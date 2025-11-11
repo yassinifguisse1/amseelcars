@@ -5,6 +5,7 @@ import { useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { BlogArticle } from '@/data/blog';
 import styles from "./ArticleBody.module.scss";
+import TableOfContents, { processContentWithIds } from "./TableOfContents";
 
 interface ArticleBodyProps {
   article: BlogArticle;
@@ -20,12 +21,13 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
-  // Process content to wrap FAQ section in a styled container
-  let processedContent = article.content;
+  // Process content to add IDs to H2 headings first
+  let processedContent = processContentWithIds(article.content);
   
+  // Then process content to wrap FAQ section in a styled container
   // Use regex to find FAQ section - flexible matching for variations
   // Match: <h2>Foire aux questions</h2> (case-insensitive, with possible whitespace)
-  const faqStartRegex = /<h2>\s*Foire\s+aux\s+questions\s*<\/h2>/i;
+  const faqStartRegex = /<h2[^>]*>\s*Foire\s+aux\s+questions\s*<\/h2>/i;
   
   const faqStartMatch = processedContent.match(faqStartRegex);
   
@@ -35,10 +37,10 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
     
     // Try to find common ending headings after FAQ section
     const possibleEndMarkers = [
-      /<h2>\s*Conclusion\s*<\/h2>/i,
-      /<h2>\s*En\s+résumé\s*<\/h2>/i,
-      /<h2>\s*Résumé\s*<\/h2>/i,
-      /<h2>\s*Final\s*<\/h2>/i,
+      /<h2[^>]*>\s*Conclusion\s*<\/h2>/i,
+      /<h2[^>]*>\s*En\s+résumé\s*<\/h2>/i,
+      /<h2[^>]*>\s*Résumé\s*<\/h2>/i,
+      /<h2[^>]*>\s*Final\s*<\/h2>/i,
     ];
     
     // Find the first matching end marker after FAQ start
@@ -69,20 +71,25 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
       style={{ y }}
     >
       <div className={styles.container}>
-        <motion.article 
-          className={styles.article}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className={styles.content}>
-            {/* Render article content with direct HTML image tags */}
-            <div 
-              dangerouslySetInnerHTML={{ __html: processedContent }}
-            />
-          </div>
-        </motion.article>
+        <div className={styles.articleWrapper}>
+          {/* Table of Contents - Sticky position, next to article */}
+          <TableOfContents content={article.content} />
+          
+          <motion.article 
+            className={styles.article}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.content}>
+              {/* Render article content with direct HTML image tags */}
+              <div 
+                dangerouslySetInnerHTML={{ __html: processedContent }}
+              />
+            </div>
+          </motion.article>
+        </div>
 
         <motion.div 
           className={styles.cta}
