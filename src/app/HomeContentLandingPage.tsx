@@ -9,6 +9,8 @@ import BMWCarScroll from "@/components/CarsMoving/BMWCar";
 import Example from "@/components/CarDashboardMap/Example";
 import Footer from "@/components/Footer/Footer";
 import SplitHeadline from "@/components/test/SplitHeadline";
+import Reviews from "@/components/Reviews/Reviews";
+import { reviews } from "@/data/reviews";
 import { useLoading } from "@/contexts/LoadingContext";
 import Speedometer from "@/components/Preloader/Speedometer";
 // import Header from "@/components/Header";
@@ -149,6 +151,7 @@ export function HomeContentLandingPage() {
           <BMWCarScroll />
           <SplitHeadline />
           <Brands />
+          <Reviews reviews={reviews} />
           <Example/>
           <Footer/>
         </motion.div>

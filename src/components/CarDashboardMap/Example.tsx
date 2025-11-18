@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Script from "next/script";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -14,6 +15,7 @@ export default function FullscreenMap() {
   const pathRef = useRef<SVGPathElement>(null);
   const [clickedPoints, setClickedPoints] = useState<{x: number, y: number}[]>([]);
   const [isPathCreationMode, setIsPathCreationMode] = useState(false);
+  const storeLocatorContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Generate path string from clicked points
   const generatePathFromPoints = (points: {x: number, y: number}[]) => {
@@ -131,6 +133,119 @@ export default function FullscreenMap() {
     };
   }, []);
 
+  // Initialize Google Maps Store Locator
+  useEffect(() => {
+    if (!storeLocatorContainerRef.current) return;
+    
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+    if (!apiKey) {
+      console.warn('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is not set');
+      return;
+    }
+
+    const initStoreLocator = async () => {
+      try {
+        // Wait for custom elements to be defined
+        await customElements.whenDefined('gmpx-api-loader');
+        await customElements.whenDefined('gmpx-store-locator');
+
+        const container = storeLocatorContainerRef.current;
+        if (!container) return;
+
+        // Create API loader
+        const apiLoader = document.createElement('gmpx-api-loader') as any;
+        apiLoader.setAttribute('key', apiKey);
+        apiLoader.setAttribute('solution-channel', 'GMP_QB_locatorplus_v11_cF');
+        
+        // Create store locator
+        const storeLocator = document.createElement('gmpx-store-locator') as any;
+        storeLocator.setAttribute('map-id', 'DEMO_MAP_ID');
+        storeLocator.style.width = '100%';
+        storeLocator.style.height = '100%';
+        storeLocator.style.setProperty('--gmpx-color-surface', '#fff');
+        storeLocator.style.setProperty('--gmpx-color-on-surface', '#212121');
+        storeLocator.style.setProperty('--gmpx-color-on-surface-variant', '#757575');
+        storeLocator.style.setProperty('--gmpx-color-primary', '#1967d2');
+        storeLocator.style.setProperty('--gmpx-color-outline', '#e0e0e0');
+        storeLocator.style.setProperty('--gmpx-fixed-panel-width-row-layout', '28.5em');
+        storeLocator.style.setProperty('--gmpx-fixed-panel-height-column-layout', '65%');
+        storeLocator.style.setProperty('--gmpx-font-family-base', 'Roboto, sans-serif');
+        storeLocator.style.setProperty('--gmpx-font-family-headings', 'Roboto, sans-serif');
+        storeLocator.style.setProperty('--gmpx-font-size-base', '0.875rem');
+        storeLocator.style.setProperty('--gmpx-hours-color-open', '#188038');
+        storeLocator.style.setProperty('--gmpx-hours-color-closed', '#d50000');
+        storeLocator.style.setProperty('--gmpx-rating-color', '#ffb300');
+        storeLocator.style.setProperty('--gmpx-rating-color-empty', '#e0e0e0');
+        
+        container.innerHTML = '';
+        container.appendChild(apiLoader);
+        container.appendChild(storeLocator);
+
+        // Configure the locator
+        const CONFIGURATION = {
+          locations: [
+            {
+              title: "Amseel Cars — Location voiture Agadir / Car Rental Agadir Without Deposit / Location Voiture Agadir Aéroport Sans Caution",
+              address1: "Haut founty rdc imm sinwan",
+              address2: "Agadir, Morocco",
+              coords: { lat: 30.4008209, lng: -9.5775943 },
+              placeId: "ChIJ6UYIlG63sw0Rkl2swhA3p08",
+              actions: [
+                {
+                  label: "Book appointment",
+                  defaultUrl: "https://www.amseelcars.com/cars"
+                }
+              ]
+            }
+          ],
+          mapOptions: {
+            center: { lat: 30.4008209, lng: -9.5775943 },
+            fullscreenControl: true,
+            mapTypeControl: false,
+            streetViewControl: false,
+            zoom: 15,
+            zoomControl: true,
+            maxZoom: 17,
+            mapId: ""
+          },
+          mapsApiKey: apiKey,
+          capabilities: {
+            input: false,
+            autocomplete: false,
+            directions: false,
+            distanceMatrix: false,
+            details: false,
+            actions: true
+          }
+        };
+
+        // Wait a bit for the element to be ready
+        setTimeout(() => {
+          if (storeLocator && typeof storeLocator.configureFromQuickBuilder === 'function') {
+            storeLocator.configureFromQuickBuilder(CONFIGURATION);
+          }
+        }, 1000);
+      } catch (error) {
+        console.error('Error initializing Store Locator:', error);
+      }
+    };
+
+    // Check if script is already loaded
+    if (document.querySelector('script[src*="extended-component-library"]')) {
+      initStoreLocator();
+    } else {
+      // Wait for script to load
+      const checkScript = setInterval(() => {
+        if (document.querySelector('script[src*="extended-component-library"]')) {
+          clearInterval(checkScript);
+          initStoreLocator();
+        }
+      }, 100);
+      
+      return () => clearInterval(checkScript);
+    }
+  }, []);
+
   // Handle map clicks to create custom path
   const handleMapClick = (e: React.MouseEvent<SVGSVGElement>) => {
     if (!isPathCreationMode) return;
@@ -162,7 +277,7 @@ export default function FullscreenMap() {
   // };
 
   return (
-    <div className="relative h-[500vh] bg-[#f2efe9] ">
+    <div className="relative h-[100vh] bg-[#f2efe9] ">
       {/* Path Creation Controls */}
       {/* <div className="fixed top-4 left-4 z-50 bg-white p-4 rounded-lg shadow-lg max-w-md">
         <h3 className="font-bold mb-2">🗺️ Route Creator Tool</h3>
@@ -261,75 +376,24 @@ export default function FullscreenMap() {
                        lg:top-[32%] lg:left-[16.5%] lg:w-[65%] lg:h-[48%]
                        rounded-xl overflow-hidden border border-gray-600 shadow-inner"
           >
-            <svg
-              ref={svgRef}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 1687 758"
-              className="w-full h-full cursor-crosshair bg-gray-900 origin-center scale-[1.05] md:scale-[1.15] lg:scale-[1.2]"
-              onClick={handleMapClick}
-            >
-          <image
-            href="/images/myownmap.png"
-            width="1687"
-            height="758"
-            onError={(e) => {
-              console.log("Custom map failed to load");
-              (e.target as SVGImageElement).style.display = "none";
-            }}
-          />
-
-          <path
-            ref={pathRef}
-            id="p"
-            stroke="#2563eb"
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d={clickedPoints.length > 1 ? generatePathFromPoints(clickedPoints) : "M720,611 L710,596 Q703.5,583.5 697,571 Q686,557.5 675,544 Q672,537.5 669,531 Q657,528.5 645,526 Q637,521 629,516 Q629.5,522.5 630,529 Q627.5,519 625,509 Q619,503.5 613,498 Q605.5,499 598,500 Q599.5,487.5 601,475 Q604.5,465.5 608,456 Q618,448.5 628,441 Q638.5,439.5 649,438 Q658.5,429.5 668,421 Q680.5,411.5 693,402 Q712.5,391.5 732,381 Q745,376 758,371 Q765.5,375.5 773,380 Q792,374.5 811,369 Q842.5,349 874,329 Q897.5,313.5 921,298 Q929.5,294 938,290 Q946,287 954,284 Q957.5,275.5 961,267 Q963.5,258.5 966,250 Q962.5,240 959,230 Q950,228 941,226 Q940.5,207.5 940,189 Q938,167 936,145 Q945.5,143.5 955,142 Q954.5,132 954,122 Q956.5,122 959,122"}
-            strokeDasharray={isPathCreationMode ? "5,5" : "none"}
-          />
-
-          {isPathCreationMode && clickedPoints.map((point, index) => (
-            <g key={index}>
-              <circle
-                cx={point.x}
-                cy={point.y}
-                r="6"
-                fill="#ef4444"
-                stroke="white"
-                strokeWidth="2"
-              />
-              <text
-                x={point.x + 10}
-                y={point.y - 10}
-                fontSize="12"
-                fill="#ef4444"
-                fontWeight="bold"
-              >
-                {index + 1}
-              </text>
-            </g>
-          ))}
-
-          <circle
-            ref={circleRef}
-            id="c"
-            r="8"
-            fill="#2563eb"
-            stroke="white"
-            strokeWidth="2"
-          >
-            <animate
-              attributeName="r"
-              values="8;16;8"
-              dur="2s"
-              repeatCount="indefinite"
-            />
-          </circle>
-
-        
-            </svg>
+            {/* 
+              To get the correct embed URL:
+              1. Go to https://www.google.com/maps
+              2. Search for "Amseel cars Agadir" or use the address: "Haut founty rdc imm sinwan, Agadir 80000, Morocco"
+              3. Click the "Share" button
+              4. Select "Embed a map"
+              5. Copy the iframe src URL and replace the src below
+            */}
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3444.1234567890!2d-9.577593!3d30.4007408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb3b76e940846e9%3A0x4fa73710c2ac5d92!2sAmseel%20cars!5e0!3m2!1sen!2sus!4v1699999999999!5m2!1sen!2sus"
+              width="100%" 
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Amseel Cars Location - Agadir"
+            ></iframe>
           </div>
           
 

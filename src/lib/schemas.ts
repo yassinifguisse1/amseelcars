@@ -211,3 +211,75 @@ export function generateCarProductSchema(car: {
   };
 }
 
+/**
+ * Review schema - used for individual reviews on homepage
+ * Following Google's Review snippet guidelines: https://developers.google.com/search/docs/appearance/structured-data/review-snippet
+ */
+export function generateReviewSchema(review: {
+  id: string;
+  author: { name: string; image?: string };
+  rating: number;
+  reviewBody: string;
+  datePublished: string;
+  publisher?: { name: string; url?: string };
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    '@id': `${siteUrl}#review-${review.id}`,
+    itemReviewed: {
+      '@type': 'CarRental',
+      '@id': `${siteUrl}#business`,
+      name: siteName,
+      image: `${siteUrl}/og/amseel-car-logo.png`,
+      telephone: '+212662500181',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Haut founty rdc imm sinwan',
+        addressLocality: 'Agadir',
+        addressRegion: 'Souss-Massa',
+        postalCode: '80000',
+        addressCountry: 'MA',
+      },
+    },
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: review.rating.toString(),
+      bestRating: '5',
+      worstRating: '1',
+    },
+    author: {
+      '@type': 'Person',
+      name: review.author.name,
+      ...(review.author.image && { image: review.author.image }),
+    },
+    reviewBody: review.reviewBody,
+    datePublished: review.datePublished,
+    ...(review.publisher && {
+      publisher: {
+        '@type': 'Organization',
+        name: review.publisher.name,
+        ...(review.publisher.url && { url: review.publisher.url }),
+      },
+    }),
+  };
+}
+
+/**
+ * AggregateRating schema for LocalBusiness - used on homepage
+ * Combines all reviews into an aggregate rating
+ */
+export function generateAggregateRatingSchema(reviews: Array<{ rating: number }>) {
+  const ratingCount = reviews.length;
+  const ratingValue = reviews.reduce((sum, review) => sum + review.rating, 0) / ratingCount;
+
+  return {
+    '@type': 'AggregateRating',
+    ratingValue: ratingValue.toFixed(1),
+    ratingCount: ratingCount.toString(),
+    reviewCount: ratingCount.toString(),
+    bestRating: '5',
+    worstRating: '1',
+  };
+}
+
