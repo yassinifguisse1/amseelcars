@@ -158,7 +158,7 @@ export const blogArticles: BlogArticle[] = [
         "location voiture maroc",
         "aéroport agadir location",
       ],
-      canonical: "/blog/Location-devoiture-a-Agadir",
+      canonical: "/blog/location-de-voiture-a-agadir",
     },
   },
   {
@@ -384,7 +384,7 @@ export const blogArticles: BlogArticle[] = [
       metaTitle: "Visiter Agadir : Le meilleur guide complet ",
       metaDescription: "Visiter Agadir : plages, corniche, souk et Kasbah. Climat doux toute l’année, nature et surf à proximité. Conseils pratiques pour un séjour réussi.",
       keywords: ["Visiter Agadir", "", "Souk El Had Agadir", "Vallée du Paradis"],
-      canonical: "/blog/visiter-agadir",
+      canonical: "/blog/activites-a-agadir",
     }
   }
   

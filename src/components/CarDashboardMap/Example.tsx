@@ -252,7 +252,7 @@ export default function FullscreenMap() {
             sizes="100vw"
             className="object-cover pointer-events-none select-none"
           />
-          
+  
           {/* Map Screen Area - positioned over the dashboard screen */}
           <div
             className="absolute 
@@ -268,7 +268,6 @@ export default function FullscreenMap() {
               className="w-full h-full cursor-crosshair bg-gray-900 origin-center scale-[1.05] md:scale-[1.15] lg:scale-[1.2]"
               onClick={handleMapClick}
             >
-          {/* Map background - your custom Agadir map */}
           <image
             href="/images/myownmap.png"
             width="1687"
@@ -279,7 +278,6 @@ export default function FullscreenMap() {
             }}
           />
 
-          {/* Business route path - Click on map to create accurate route */}
           <path
             ref={pathRef}
             id="p"
@@ -292,7 +290,6 @@ export default function FullscreenMap() {
             strokeDasharray={isPathCreationMode ? "5,5" : "none"}
           />
 
-          {/* Show clicked points as dots when creating path */}
           {isPathCreationMode && clickedPoints.map((point, index) => (
             <g key={index}>
               <circle
@@ -315,7 +312,6 @@ export default function FullscreenMap() {
             </g>
           ))}
 
-          {/* GPS tracking circle */}
           <circle
             ref={circleRef}
             id="c"
@@ -335,6 +331,8 @@ export default function FullscreenMap() {
         
             </svg>
           </div>
+          
+
         </div>
       </div>
       
