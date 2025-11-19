@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 import styles from "./Reviews.module.scss";
 
 export interface Review {
@@ -20,29 +21,28 @@ export interface Review {
 }
 
 interface ReviewsProps {
-  reviews: Review[];
+  reviews?: Review[]; // Optional - if not provided, fetch from API
+  useApi?: boolean; // Toggle between API and manual (default: true)
 }
 
-export default function Reviews({ reviews }: ReviewsProps) {
-  const averageRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+export default function Reviews({ reviews: manualReviews, useApi = false }: ReviewsProps) {
+  // Fetch reviews from API if enabled
+  const { reviews: apiReviews, loading: apiLoading } = useGoogleReviews();
+  
+  // Use API reviews if enabled, otherwise use manual reviews
+  // When useApi=true, only show API reviews (no fallback to manual)
+  const reviews = useApi 
+    ? apiReviews 
+    : (manualReviews || []);
+  
+  // Show loading state when using API
+  const isLoading = useApi && apiLoading;
+  
+  // Calculate average rating and count (only if reviews exist)
+  const averageRating = reviews.length > 0 
+    ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length 
+    : 0;
   const ratingCount = reviews.length;
-
-  // Distribute reviews into 3 columns
-  const column1: typeof reviews = [];
-  const column2: typeof reviews = [];
-  const column3: typeof reviews = [];
-
-  reviews.forEach((review, index) => {
-    if (index % 3 === 0) {
-      column1.push(review);
-    } else if (index % 3 === 1) {
-      column2.push(review);
-    } else {
-      column3.push(review);
-    }
-  });
-
-  const columns = [column1, column2, column3];
 
   // Duplicate reviews for seamless loop
   const duplicateReviews = (reviewList: Review[]) => [...reviewList, ...reviewList];
@@ -56,6 +56,7 @@ export default function Reviews({ reviews }: ReviewsProps) {
               src={review.author.image}
               alt={review.author.name}
               className={styles.authorImage}
+              loading="lazy"
             />
           )}
           <div>
@@ -92,6 +93,25 @@ export default function Reviews({ reviews }: ReviewsProps) {
     </div>
   );
 
+  // Show loading state
+  if (isLoading) {
+    return (
+      <section className={styles.reviewsSection}>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Ce que nos clients disent</h2>
+            <p>Chargement des avis...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show empty state if no reviews
+  if (reviews.length === 0) {
+    return null; // Don't show section if no reviews
+  }
+
   return (
     <section className={styles.reviewsSection}>
       <div className={styles.container}>
@@ -118,52 +138,17 @@ export default function Reviews({ reviews }: ReviewsProps) {
           </div>
         </motion.div>
 
-        {/* Desktop: 3 columns with vertical scrolling */}
+        {/* Single row with horizontal scrolling for both desktop and mobile */}
         <div className={styles.reviewsGrid}>
-          {columns.map((column, columnIndex) => {
-            const duplicatedColumn = duplicateReviews(column);
-            const isReverse = columnIndex === 1; // Column 2 scrolls top to bottom
-            
-            // Calculate scroll distance: approximately half the content height for seamless loop
-            // Each card is roughly 300px + gap, so for duplicated content, scroll by half
-            const scrollDistance = column.length * 320; // Approximate: card height + gap
-            
-            return (
-              <div key={columnIndex} className={styles.reviewColumn}>
-                <motion.div
-                  className={styles.scrollingColumn}
-                  animate={{
-                    y: isReverse ? [0, -scrollDistance] : [0, scrollDistance],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "linear",
-                    repeatDelay: 0,
-                  }}
-                  style={{
-                    animationPlayState: "running",
-                  }}
-                >
-                  {duplicatedColumn.map((review, idx) => 
-                    renderReviewCard(review, `${review.id}-${idx}`)
-                  )}
-                </motion.div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Mobile: Single row with horizontal scrolling */}
-        <div className={styles.reviewsGridMobile}>
           <motion.div
             className={styles.scrollingRow}
             animate={{
-              x: [0, -50],
+              // Calculate scroll distance: approximately half the content width for seamless loop
+              // Each card is ~350px + 16px gap = ~366px, so for duplicated content, scroll by half
+              x: [0, -(reviews.length * 366)],
             }}
             transition={{
-              duration: 20,
+              duration: reviews.length * 4, // Slower animation - increased from 2 to 4
               repeat: Infinity,
               repeatType: "loop",
               ease: "linear",
@@ -174,7 +159,7 @@ export default function Reviews({ reviews }: ReviewsProps) {
             }}
           >
             {duplicateReviews(reviews).map((review, idx) => 
-              renderReviewCard(review, `mobile-${review.id}-${idx}`)
+              renderReviewCard(review, `${review.id}-${idx}`)
             )}
           </motion.div>
         </div>

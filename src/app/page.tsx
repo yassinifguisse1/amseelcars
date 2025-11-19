@@ -42,9 +42,10 @@ export default function Home() {
         />
       ))}
       
-      <LoadingProvider>
-        <HomeContentLandingPage />
-      </LoadingProvider>
+    <LoadingProvider>
+      <HomeContentLandingPage />
+    </LoadingProvider>
+    
     </>
   );
 }

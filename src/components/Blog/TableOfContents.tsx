@@ -161,7 +161,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
       <h3 className={styles.title}>Table des matières</h3>
       <nav className={styles.nav}>
         <ul className={styles.list}>
-          {headings.map((heading, index) => (
+          {headings.map((heading) => (
             <li key={heading.id} className={styles.item}>
               <a
                 href={`#${heading.id}`}

@@ -31,12 +31,12 @@ export default function CarsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <div>
-        <HeroVideo/>
-        <CarGridSection />
-        <ParallexCards />
-        <Footer />
-      </div>
+    <div>
+      <HeroVideo/>
+      <CarGridSection />
+      <ParallexCards />
+      <Footer />
+    </div>
     </>
   )
 }

@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { BlogArticle } from '@/data/blog';
 import styles from "./ArticleBody.module.scss";
 import TableOfContents, { processContentWithIds } from "./TableOfContents";

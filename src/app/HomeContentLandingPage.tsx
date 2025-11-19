@@ -151,7 +151,7 @@ export function HomeContentLandingPage() {
           <BMWCarScroll />
           <SplitHeadline />
           <Brands />
-          <Reviews reviews={reviews} />
+          <Reviews reviews={reviews} useApi={true} />
           <Example/>
           <Footer/>
         </motion.div>

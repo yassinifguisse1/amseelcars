@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Script from "next/script";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -153,12 +152,22 @@ export default function FullscreenMap() {
         if (!container) return;
 
         // Create API loader
-        const apiLoader = document.createElement('gmpx-api-loader') as any;
+        interface GMpxApiLoader extends HTMLElement {
+          setAttribute(name: string, value: string): void;
+        }
+        
+        interface GMpxStoreLocator extends HTMLElement {
+          setAttribute(name: string, value: string): void;
+          style: CSSStyleDeclaration;
+          configureFromQuickBuilder?: (config: unknown) => void;
+        }
+        
+        const apiLoader = document.createElement('gmpx-api-loader') as GMpxApiLoader;
         apiLoader.setAttribute('key', apiKey);
         apiLoader.setAttribute('solution-channel', 'GMP_QB_locatorplus_v11_cF');
         
         // Create store locator
-        const storeLocator = document.createElement('gmpx-store-locator') as any;
+        const storeLocator = document.createElement('gmpx-store-locator') as GMpxStoreLocator;
         storeLocator.setAttribute('map-id', 'DEMO_MAP_ID');
         storeLocator.style.width = '100%';
         storeLocator.style.height = '100%';

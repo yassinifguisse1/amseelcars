@@ -149,14 +149,14 @@ export default function RootLayout({
       {
         "@type": "Organization",
         "@id": `${siteUrl}#org`,
-        name: siteName,
-        url: siteUrl,
+    name: siteName,
+    url: siteUrl,
         logo: `${siteUrl}/og/amseel-car-logo.png`,
-        sameAs: [
-          "https://www.facebook.com/amseelcars/",
-          "https://www.instagram.com/amseelcars/",
-          "https://wa.me/212662500181",
-        ],
+    sameAs: [
+      "https://www.facebook.com/amseelcars/",
+      "https://www.instagram.com/amseelcars/",
+      "https://wa.me/212662500181",
+    ],
       },
       {
         "@type": "WebSite",
@@ -171,7 +171,7 @@ export default function RootLayout({
             urlTemplate: `${siteUrl}/search?q={search_term_string}`,
           },
           "query-input": "required name=search_term_string",
-        },
+    },
       },
     ],
   };

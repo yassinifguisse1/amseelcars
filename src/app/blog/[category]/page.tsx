@@ -33,8 +33,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const articles = getArticlesByCategory(category);
-
   return {
     title: `${category} - AmseelCars Blog`,
     description: `Découvrez tous nos articles sur ${category.toLowerCase()}. Conseils, guides et actualités pour la location de voiture à Agadir.`,

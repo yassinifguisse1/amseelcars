@@ -94,9 +94,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <LoadingProvider>
-        <HomeContent />
-      </LoadingProvider>
+    <LoadingProvider>
+      <HomeContent />
+    </LoadingProvider>
     </>
   );
 }
