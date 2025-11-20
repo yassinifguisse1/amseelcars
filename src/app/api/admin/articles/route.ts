@@ -158,14 +158,44 @@ export async function GET(request: NextRequest) {
     
     if (slugsOnly) {
       // Return only id, slug, and category for the list view
-      const articles = await prisma.blogArticle.findMany({
-        select: {
-          id: true,
-          slug: true,
-          category: true,
-        },
-        orderBy: { publishedAt: 'desc' },
-      });
+      // Add retry logic for serverless connection issues
+      let articles;
+      const maxRetries = 3;
+      let retryCount = 0;
+      
+      while (retryCount < maxRetries) {
+        try {
+          articles = await prisma.blogArticle.findMany({
+            select: {
+              id: true,
+              slug: true,
+              category: true,
+            },
+            orderBy: { publishedAt: 'desc' },
+          });
+          break; // Success, exit retry loop
+        } catch (error: unknown) {
+          retryCount++;
+          const isConnectionError = 
+            error instanceof Error && 
+            (error.message.includes('DNS resolution') || 
+             error.message.includes('timeout') ||
+             error.message.includes('connection') ||
+             (error as { code?: string }).code === 'P2010');
+          
+          if (isConnectionError && retryCount < maxRetries) {
+            // Wait before retry (exponential backoff)
+            await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount));
+            console.warn(`Retrying database query (attempt ${retryCount + 1}/${maxRetries})...`);
+            continue;
+          }
+          throw error; // Re-throw if not a connection error or max retries reached
+        }
+      }
+      
+      if (!articles) {
+        throw new Error('Failed to fetch articles after retries');
+      }
       
       return NextResponse.json({
         articles,
@@ -178,15 +208,44 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     const skip = (page - 1) * limit;
 
-    // Get articles
-    const [articles, total] = await Promise.all([
-      prisma.blogArticle.findMany({
-        skip,
-        take: limit,
-        orderBy: { publishedAt: 'desc' },
-      }),
-      prisma.blogArticle.count(),
-    ]);
+    // Get articles with retry logic for serverless connection issues
+    let articles, total;
+    const maxRetries = 3;
+    let retryCount = 0;
+    
+    while (retryCount < maxRetries) {
+      try {
+        [articles, total] = await Promise.all([
+          prisma.blogArticle.findMany({
+            skip,
+            take: limit,
+            orderBy: { publishedAt: 'desc' },
+          }),
+          prisma.blogArticle.count(),
+        ]);
+        break; // Success, exit retry loop
+      } catch (error: unknown) {
+        retryCount++;
+        const isConnectionError = 
+          error instanceof Error && 
+          (error.message.includes('DNS resolution') || 
+           error.message.includes('timeout') ||
+           error.message.includes('connection') ||
+           (error as { code?: string }).code === 'P2010');
+        
+        if (isConnectionError && retryCount < maxRetries) {
+          // Wait before retry (exponential backoff)
+          await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount));
+          console.warn(`Retrying database query (attempt ${retryCount + 1}/${maxRetries})...`);
+          continue;
+        }
+        throw error; // Re-throw if not a connection error or max retries reached
+      }
+    }
+    
+    if (!articles || total === undefined) {
+      throw new Error('Failed to fetch articles after retries');
+    }
 
     return NextResponse.json({
       articles,
