@@ -1,5 +1,7 @@
 // tailwind.config.js
-export default {
+const { withUt } = require("uploadthing/tw");
+
+export default withUt({
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -15,4 +17,4 @@ export default {
       },
     },
   },
-};
+});

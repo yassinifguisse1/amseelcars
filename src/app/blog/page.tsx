@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     "Découvrez nos conseils pour la location de voiture à Agadir, actualités du secteur automobile et guides pratiques pour vos déplacements au Maroc.",
   alternates: { canonical: "/blog" },
   robots: {
-    index: false,
+    index: true,
     follow: true,
     googleBot: {
-      index: false,
+      index: true,
       follow: true,
       "max-snippet": -1,
       "max-image-preview": "large",
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     images: ["/og/amseel-car-logo.png"], // ← same image
   },
 };
+
 
 export default function BlogPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([

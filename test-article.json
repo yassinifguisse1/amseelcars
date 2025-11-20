@@ -1,0 +1,28 @@
+{
+  "slug": "test-article-json",
+  "title": "Test Article from JSON - Location de Voiture à Agadir",
+  "content": "<p>Ceci est un article de test créé via JSON. Il démontre comment utiliser le mode JSON dans le panneau d'administration.</p><h2>Avantages du mode JSON</h2><p>Le mode JSON permet de créer rapidement des articles en collant directement le contenu JSON. C'est idéal pour:</p><ul><li>Migration de contenu</li><li>Importation en masse</li><li>Copie d'articles existants</li></ul><h2>Foire aux questions</h2><p><strong>Comment utiliser le mode JSON?</strong></p><p>Il suffit de coller votre JSON dans le champ texte et de cliquer sur \"Create Article\".</p><p><strong>Le champ indexable est-il obligatoire?</strong></p><p>Non, il est optionnel. Par défaut, il est défini sur <code>true</code> (indexé).</p>",
+  "category": "Guide Pratique",
+  "readTime": "3 min",
+  "date": "15 janvier 2025",
+  "publishedAt": "2025-01-15T10:00:00Z",
+  "image": "/images/blog/location de voiture à agadir.webp",
+  "altText": "Test article image - Location de voiture à Agadir",
+  "caption": "Image de test pour l'article JSON",
+  "description": "Article de test créé via le mode JSON du panneau d'administration pour démontrer la fonctionnalité.",
+  "featured": false,
+  "indexable": true,
+  "tags": ["test", "json", "admin", "agadir", "location"],
+  "author": {
+    "name": "Équipe AmseelCars",
+    "avatar": "/images/team/amseel-team.jpg",
+    "bio": "Experts en location de voitures premium à Agadir"
+  },
+  "seo": {
+    "metaTitle": "Test Article JSON - Location Voiture Agadir",
+    "metaDescription": "Article de test créé via JSON pour démontrer la fonctionnalité du panneau d'administration.",
+    "keywords": ["test", "json", "location voiture agadir", "admin panel"],
+    "canonical": "/blog/test-article-json"
+  }
+}
+

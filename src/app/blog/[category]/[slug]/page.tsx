@@ -16,7 +16,7 @@ interface PageProps {
 
 // Generate static params for all articles with their categories
 export async function generateStaticParams() {
-  const articles = getAllArticles();
+  const articles = await getAllArticles();
   
   return articles.map((article) => ({
     category: categoryToSlug(article.category),
@@ -27,7 +27,7 @@ export async function generateStaticParams() {
 // Generate metadata for each article (SEO optimized)
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category: categorySlug, slug } = await params;
-  const article = getArticleByCategoryAndSlug(categorySlug, slug);
+  const article = await getArticleByCategoryAndSlug(categorySlug, slug);
   
   if (!article) {
     return {
@@ -72,10 +72,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       creator: '@amseelcars',
     },
     robots: {
-      index: true,
+      index: article.indexable !== false,
       follow: true,
       googleBot: {
-        index: true,
+        index: article.indexable !== false,
         follow: true,
         'max-snippet': -1,
         'max-image-preview': 'large',
@@ -92,7 +92,7 @@ export default async function ArticlePage({ params }: PageProps) {
   // Debug logging (remove in production)
   console.log('Route params:', { categorySlug, slug });
   
-  const article = getArticleByCategoryAndSlug(categorySlug, slug);
+  const article = await getArticleByCategoryAndSlug(categorySlug, slug);
   
   if (!article) {
     console.log('Article not found for:', { categorySlug, slug });

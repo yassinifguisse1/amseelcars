@@ -7,6 +7,10 @@ import { playfair, anticDidone } from "@/lib/fonts";
 import { clsx } from "clsx";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/Header";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ourFileRouter } from "./api/uploadthing/core";
+import { extractRouterConfig } from "uploadthing/server";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 
 const siteUrl = "https://www.amseelcars.com";
 const siteName = "AmseelCars";
@@ -177,6 +181,8 @@ export default function RootLayout({
   };
 
   return (
+    <ClerkProvider>
+
     <html lang="fr" suppressHydrationWarning data-scroll-behavior="smooth">
 
         {/* Block wheel images from search engines */}
@@ -186,7 +192,17 @@ export default function RootLayout({
       <body className={clsx(fontVariables, "antialiased")} suppressHydrationWarning>
         <LenisScrollProvider />
         <Header />
+        <NextSSRPlugin
+          /**
+           * The `extractRouterConfig` will extract **only** the route configs
+           * from the router to prevent additional information from being
+           * leaked to the client. The data passed to the client is the same
+           * as if you were to fetch `/api/uploadthing` directly.
+           */
+          routerConfig={extractRouterConfig(ourFileRouter)}
+        />
         {children}
+
         <Analytics />
 
         {/* Structured Data */}
@@ -197,5 +213,6 @@ export default function RootLayout({
         />
       </body>
     </html>
+    </ClerkProvider>
   );
 }

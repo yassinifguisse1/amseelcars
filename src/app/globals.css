@@ -248,6 +248,43 @@ html {
   /* background: rgba(0, 255, 136, 0.5); */
 }
 
+/* Custom scrollbar for JSON textarea - always visible */
+#json-input {
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af #f3f4f6;
+  /* Ensure mouse wheel scrolling works */
+  overflow-y: scroll !important;
+  overflow-x: scroll !important;
+  /* Allow scrolling even when not focused */
+  pointer-events: auto;
+  touch-action: pan-y pan-x;
+  overscroll-behavior: contain;
+}
+
+#json-input::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+#json-input::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 6px;
+}
+
+#json-input::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 6px;
+  border: 2px solid #f3f4f6;
+}
+
+#json-input::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+#json-input::-webkit-scrollbar-corner {
+  background: #f3f4f6;
+}
+
 /* Progress indicator animation */
 @keyframes progress-pulse {
   0%, 100% {
@@ -377,4 +414,28 @@ html {
 
 .animate-scroll {
   animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+}
+
+/* Uploadthing Button Styles - Ensure visibility */
+[data-ut-element="button"] {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.375rem !important;
+  border: 2px solid hsl(var(--input)) !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+[data-ut-element="button"]:hover {
+  background-color: hsl(var(--primary) / 0.9) !important;
+}
+
+[data-ut-element="button"]:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
 }

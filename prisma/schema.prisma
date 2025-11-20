@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model BlogArticle {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique
+  title       String
+  content     String
+  category    String
+  readTime    String
+  date        String
+  publishedAt DateTime
+  image       String
+  altText     String
+  caption     String
+  description String
+  featured    Boolean  @default(false)
+  indexable   Boolean  @default(true)
+  tags        String[]
+  author      Json     // { name, avatar, bio }
+  seo         Json     // { metaTitle, metaDescription, keywords, canonical }
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String   // Clerk user ID
+  
+  @@index([category])
+  @@index([publishedAt])
+  @@map("blog_articles")
+}

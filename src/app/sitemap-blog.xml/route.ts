@@ -3,7 +3,7 @@ import { getAllArticles, categoryToSlug } from '@/data/blog'
 
 export async function GET() {
   const baseUrl = 'https://www.amseelcars.com'
-  const articles = getAllArticles()
+  const articles = await getAllArticles()
 
   // Generate blog post URLs
   const urls = articles
