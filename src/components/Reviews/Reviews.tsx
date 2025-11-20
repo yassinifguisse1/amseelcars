@@ -44,6 +44,7 @@ export default function Reviews({ reviews: manualReviews, useApi = false }: Revi
     : 0;
   const ratingCount = reviews.length;
 
+
   // Duplicate reviews for seamless loop
   const duplicateReviews = (reviewList: Review[]) => [...reviewList, ...reviewList];
 
@@ -134,7 +135,7 @@ export default function Reviews({ reviews: manualReviews, useApi = false }: Revi
               ))}
             </div>
             <span className={styles.ratingValue}>{averageRating.toFixed(1)}</span>
-            <span className={styles.ratingCount}>({ratingCount} avis)</span>
+            {/* <span className={styles.ratingCount}>({ratingCount} avis)</span> */}
           </div>
         </motion.div>
 

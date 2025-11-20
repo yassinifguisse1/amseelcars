@@ -67,6 +67,7 @@ export async function GET() {
       },
     }));
 
+
     // Return with cache headers (cache for 1 hour, stale-while-revalidate for 24h)
     return NextResponse.json(
       { 
