@@ -35,14 +35,49 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse and validate request body
+    // Parse and validate request body first (before database calls)
     const body = await request.json();
     const validatedData = articleSchema.parse(body);
 
-    // Check if slug already exists
-    const existingArticle = await prisma.blogArticle.findUnique({
-      where: { slug: validatedData.slug },
-    });
+    // Helper function for retrying database operations
+    const retryDbOperation = async <T>(
+      operation: () => Promise<T>,
+      operationName: string
+    ): Promise<T> => {
+      const maxRetries = 3;
+      let retryCount = 0;
+      
+      while (retryCount < maxRetries) {
+        try {
+          return await operation();
+        } catch (error: unknown) {
+          retryCount++;
+          const isConnectionError = 
+            error instanceof Error && 
+            (error.message.includes('DNS resolution') || 
+             error.message.includes('timeout') ||
+             error.message.includes('connection') ||
+             (error as { code?: string }).code === 'P2010');
+          
+          if (isConnectionError && retryCount < maxRetries) {
+            // Wait before retry (exponential backoff)
+            await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount));
+            console.warn(`Retrying ${operationName} (attempt ${retryCount + 1}/${maxRetries})...`);
+            continue;
+          }
+          throw error; // Re-throw if not a connection error or max retries reached
+        }
+      }
+      throw new Error(`Failed ${operationName} after ${maxRetries} retries`);
+    };
+
+    // Check if slug already exists with retry
+    const existingArticle = await retryDbOperation(
+      () => prisma.blogArticle.findUnique({
+        where: { slug: validatedData.slug },
+      }),
+      'check slug existence'
+    );
 
     if (existingArticle) {
       return NextResponse.json(
@@ -51,28 +86,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create article
-    const article = await prisma.blogArticle.create({
-      data: {
-        slug: validatedData.slug,
-        title: validatedData.title,
-        content: validatedData.content,
-        category: validatedData.category,
-        readTime: validatedData.readTime,
-        date: validatedData.date,
-        publishedAt: new Date(validatedData.publishedAt),
-        image: validatedData.image,
-        altText: validatedData.altText,
-        caption: validatedData.caption || '',
-        description: validatedData.description,
-        featured: validatedData.featured,
-        indexable: validatedData.indexable ?? true,
-        tags: validatedData.tags,
-        author: validatedData.author,
-        seo: validatedData.seo,
-        createdBy: userId,
-      },
-    });
+    // Create article with retry
+    const article = await retryDbOperation(
+      () => prisma.blogArticle.create({
+        data: {
+          slug: validatedData.slug,
+          title: validatedData.title,
+          content: validatedData.content,
+          category: validatedData.category,
+          readTime: validatedData.readTime,
+          date: validatedData.date,
+          publishedAt: new Date(validatedData.publishedAt),
+          image: validatedData.image,
+          altText: validatedData.altText,
+          caption: validatedData.caption || '',
+          description: validatedData.description,
+          featured: validatedData.featured,
+          indexable: validatedData.indexable ?? true,
+          tags: validatedData.tags,
+          author: validatedData.author,
+          seo: validatedData.seo,
+          createdBy: userId,
+        },
+      }),
+      'create article'
+    );
 
     return NextResponse.json(
       { message: 'Article created successfully', article },
@@ -336,40 +374,88 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
+  const startTime = Date.now();
+  console.log('[PUT /api/admin/articles] Request received');
+  
   try {
     // Check authentication
     const { userId } = await auth();
     if (!userId) {
+      console.log('[PUT /api/admin/articles] Unauthorized: No userId');
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
+    console.log('[PUT /api/admin/articles] User authenticated:', userId);
 
     // Check admin role
     const admin = await isAdmin();
     if (!admin) {
+      console.log('[PUT /api/admin/articles] Forbidden: Not admin');
       return NextResponse.json(
         { error: 'Forbidden: Admin access required' },
         { status: 403 }
       );
     }
+    console.log('[PUT /api/admin/articles] Admin role confirmed');
 
     // Get article ID from query parameters
     const { searchParams } = new URL(request.url);
     const articleId = searchParams.get('id');
+    console.log('[PUT /api/admin/articles] Article ID:', articleId);
 
     if (!articleId) {
+      console.log('[PUT /api/admin/articles] Bad request: No article ID');
       return NextResponse.json(
         { error: 'Article ID is required' },
         { status: 400 }
       );
     }
 
-    // Check if article exists
-    const existingArticle = await prisma.blogArticle.findUnique({
-      where: { id: articleId },
-    });
+    // Parse and validate request body first (before database calls)
+    const body = await request.json();
+    const validatedData = articleSchema.parse(body);
+
+    // Helper function for retrying database operations
+    const retryDbOperation = async <T>(
+      operation: () => Promise<T>,
+      operationName: string
+    ): Promise<T> => {
+      const maxRetries = 3;
+      let retryCount = 0;
+      
+      while (retryCount < maxRetries) {
+        try {
+          return await operation();
+        } catch (error: unknown) {
+          retryCount++;
+          const isConnectionError = 
+            error instanceof Error && 
+            (error.message.includes('DNS resolution') || 
+             error.message.includes('timeout') ||
+             error.message.includes('connection') ||
+             (error as { code?: string }).code === 'P2010');
+          
+          if (isConnectionError && retryCount < maxRetries) {
+            // Wait before retry (exponential backoff)
+            await new Promise((resolve) => setTimeout(resolve, 1000 * retryCount));
+            console.warn(`Retrying ${operationName} (attempt ${retryCount + 1}/${maxRetries})...`);
+            continue;
+          }
+          throw error; // Re-throw if not a connection error or max retries reached
+        }
+      }
+      throw new Error(`Failed ${operationName} after ${maxRetries} retries`);
+    };
+
+    // Check if article exists with retry
+    const existingArticle = await retryDbOperation(
+      () => prisma.blogArticle.findUnique({
+        where: { id: articleId },
+      }),
+      'find article'
+    );
 
     if (!existingArticle) {
       return NextResponse.json(
@@ -378,15 +464,14 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Parse and validate request body
-    const body = await request.json();
-    const validatedData = articleSchema.parse(body);
-
     // Check if slug is being changed and if new slug already exists
     if (validatedData.slug !== existingArticle.slug) {
-      const slugExists = await prisma.blogArticle.findUnique({
-        where: { slug: validatedData.slug },
-      });
+      const slugExists = await retryDbOperation(
+        () => prisma.blogArticle.findUnique({
+          where: { slug: validatedData.slug },
+        }),
+        'check slug uniqueness'
+      );
 
       if (slugExists) {
         return NextResponse.json(
@@ -396,27 +481,42 @@ export async function PUT(request: NextRequest) {
       }
     }
 
-    // Update the article
-    const updatedArticle = await prisma.blogArticle.update({
-      where: { id: articleId },
-      data: {
-        slug: validatedData.slug,
-        title: validatedData.title,
-        content: validatedData.content,
-        category: validatedData.category,
-        readTime: validatedData.readTime,
-        date: validatedData.date,
-        publishedAt: new Date(validatedData.publishedAt),
-        image: validatedData.image,
-        altText: validatedData.altText,
-        caption: validatedData.caption || '',
-        description: validatedData.description,
-        featured: validatedData.featured,
-        indexable: validatedData.indexable ?? true,
-        tags: validatedData.tags,
-        author: validatedData.author,
-        seo: validatedData.seo,
-      },
+    // Update the article with retry
+    console.log('[PUT /api/admin/articles] Updating article:', {
+      id: articleId,
+      slug: validatedData.slug,
+      title: validatedData.title.substring(0, 50) + '...',
+    });
+    
+    const updatedArticle = await retryDbOperation(
+      () => prisma.blogArticle.update({
+        where: { id: articleId },
+        data: {
+          slug: validatedData.slug,
+          title: validatedData.title,
+          content: validatedData.content,
+          category: validatedData.category,
+          readTime: validatedData.readTime,
+          date: validatedData.date,
+          publishedAt: new Date(validatedData.publishedAt),
+          image: validatedData.image,
+          altText: validatedData.altText,
+          caption: validatedData.caption || '',
+          description: validatedData.description,
+          featured: validatedData.featured,
+          indexable: validatedData.indexable ?? true,
+          tags: validatedData.tags,
+          author: validatedData.author,
+          seo: validatedData.seo,
+        },
+      }),
+      'update article'
+    );
+
+    const duration = Date.now() - startTime;
+    console.log(`[PUT /api/admin/articles] Article updated successfully in ${duration}ms:`, {
+      id: updatedArticle.id,
+      slug: updatedArticle.slug,
     });
 
     return NextResponse.json(
@@ -426,6 +526,16 @@ export async function PUT(request: NextRequest) {
   } catch (error: unknown) {
     console.error('Error updating article:', error);
     
+    // Log detailed error information for debugging
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    if (error && typeof error === 'object' && 'code' in error) {
+      console.error('Error code:', error.code);
+    }
+    
     if (error instanceof ZodError) {
       return NextResponse.json(
         { error: 'Validation error', details: error.issues },
@@ -434,11 +544,19 @@ export async function PUT(request: NextRequest) {
     }
 
     // Handle Prisma errors
-    if (error && typeof error === 'object' && 'code' in error && error.code === 'P2025') {
-      return NextResponse.json(
-        { error: 'Article not found' },
-        { status: 404 }
-      );
+    if (error && typeof error === 'object' && 'code' in error) {
+      if (error.code === 'P2025') {
+        return NextResponse.json(
+          { error: 'Article not found' },
+          { status: 404 }
+        );
+      }
+      if (error.code === 'P2010') {
+        return NextResponse.json(
+          { error: 'Database connection error. Please try again.', message: error instanceof Error ? error.message : 'Connection timeout' },
+          { status: 503 }
+        );
+      }
     }
 
     return NextResponse.json(

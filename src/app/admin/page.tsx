@@ -59,6 +59,7 @@ export default function AdminPage() {
   const [isCheckingRole, setIsCheckingRole] = useState(true);
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [loadingArticle, setLoadingArticle] = useState(false);
+  const [lastSuccessOperation, setLastSuccessOperation] = useState<'create' | 'update' | 'delete' | null>(null);
 
   // Fetch articles list (only slugs)
   const fetchArticles = async () => {
@@ -157,9 +158,11 @@ export default function AdminPage() {
       setDeleteConfirm(null);
       
       // Show success message
+      setLastSuccessOperation('delete');
       setSubmitSuccess(true);
       setTimeout(() => {
         setSubmitSuccess(false);
+        setLastSuccessOperation(null);
       }, 3000);
     } catch (error: unknown) {
       console.error('Error deleting article:', error);
@@ -252,6 +255,12 @@ export default function AdminPage() {
         : '/api/admin/articles';
       const method = editingArticleId ? 'PUT' : 'POST';
 
+      console.log(`[Admin] ${method} request to ${url}`, { 
+        articleId: editingArticleId,
+        slug: data.slug,
+        title: data.title 
+      });
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -260,12 +269,27 @@ export default function AdminPage() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
+      console.log(`[Admin] Response status: ${response.status} ${response.statusText}`);
 
-      if (!response.ok) {
-        throw new Error(result.error || `Failed to ${editingArticleId ? 'update' : 'create'} article`);
+      // Try to parse JSON, but handle cases where response might not be JSON
+      let result;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+      } else {
+        const text = await response.text();
+        console.error('[Admin] Non-JSON response:', text);
+        throw new Error(`Server returned ${response.status}: ${text || response.statusText}`);
       }
 
+      if (!response.ok) {
+        const errorMessage = result.error || result.message || `Failed to ${editingArticleId ? 'update' : 'create'} article`;
+        console.error('[Admin] Server error:', result);
+        throw new Error(errorMessage);
+      }
+
+      console.log('[Admin] Success:', result.message || 'Article saved successfully');
+      setLastSuccessOperation(editingArticleId ? 'update' : 'create');
       setSubmitSuccess(true);
       form.reset();
       setEditingArticleId(null);
@@ -282,8 +306,16 @@ export default function AdminPage() {
         }
       }, 2000);
     } catch (error: unknown) {
-      console.error('Error submitting form:', error);
-      setSubmitError(error instanceof Error ? error.message : `Failed to ${editingArticleId ? 'update' : 'create'} article`);
+      console.error('[Admin] Error submitting form:', error);
+      
+      // Handle network errors
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        setSubmitError('Network error: Unable to connect to server. Please check your connection and try again.');
+      } else if (error instanceof Error) {
+        setSubmitError(error.message);
+      } else {
+        setSubmitError(`Failed to ${editingArticleId ? 'update' : 'create'} article. Please try again.`);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -482,11 +514,13 @@ export default function AdminPage() {
           <Card className="mb-6 border-green-500 bg-green-50 dark:bg-green-950">
             <CardContent className="pt-6">
               <p className="text-green-700 dark:text-green-300">
-                {activeTab === 'list' 
+                {lastSuccessOperation === 'delete'
                   ? 'Article deleted successfully!'
-                  : editingArticleId
+                  : lastSuccessOperation === 'update'
                   ? 'Article updated successfully! Redirecting...'
-                  : 'Article created successfully! Redirecting...'}
+                  : lastSuccessOperation === 'create'
+                  ? 'Article created successfully! Redirecting...'
+                  : 'Operation completed successfully!'}
               </p>
             </CardContent>
           </Card>
