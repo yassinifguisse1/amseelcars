@@ -66,12 +66,20 @@ export default function AdminPage() {
     setArticlesLoading(true);
     setArticlesError(null);
     try {
-      const response = await fetch('/api/admin/articles?slugsOnly=true');
+      const response = await fetch('/api/admin/articles?slugsOnly=true', {
+        // Prevent caching to ensure fresh data
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch articles');
       }
       const data = await response.json();
       setArticles(data.articles || []);
+      console.log('[Admin] Articles list refreshed:', data.articles?.length || 0, 'articles');
     } catch (error: unknown) {
       console.error('Error fetching articles:', error);
       setArticlesError(error instanceof Error ? error.message : 'Failed to fetch articles');
@@ -85,12 +93,23 @@ export default function AdminPage() {
     setLoadingArticle(true);
     setSubmitError(null);
     try {
-      const response = await fetch(`/api/admin/articles?id=${articleId}`);
+      const response = await fetch(`/api/admin/articles?id=${articleId}`, {
+        // Prevent caching to ensure fresh data
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch article');
       }
       const data = await response.json();
       const article = data.article;
+      
+      if (!article) {
+        throw new Error('Article not found');
+      }
       
       // Transform article data to form format
       const formData: ArticleFormData = {
@@ -116,6 +135,7 @@ export default function AdminPage() {
       form.reset(formData);
       setActiveTab('create');
       setJsonMode(false);
+      console.log('[Admin] Article loaded for editing:', article.slug);
     } catch (error: unknown) {
       console.error('Error fetching article:', error);
       setSubmitError(error instanceof Error ? error.message : 'Failed to fetch article');
@@ -265,7 +285,12 @@ export default function AdminPage() {
         method,
         headers: {
           'Content-Type': 'application/json',
+          // Add cache-busting headers for production
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
         },
+        // Prevent caching in production
+        cache: 'no-store',
         body: JSON.stringify(data),
       });
 
@@ -289,14 +314,31 @@ export default function AdminPage() {
       }
 
       console.log('[Admin] Success:', result.message || 'Article saved successfully');
-      setLastSuccessOperation(editingArticleId ? 'update' : 'create');
+      
+      // VERIFY: For updates, log the response to confirm data
+      if (editingArticleId && result.article) {
+        console.log('[Admin] Update response verified:', {
+          id: result.article.id,
+          slug: result.article.slug,
+          title: result.article.title?.substring(0, 50),
+        });
+      }
+
+      const wasEditing = !!editingArticleId;
+      setLastSuccessOperation(wasEditing ? 'update' : 'create');
       setSubmitSuccess(true);
+      
+      // Clear form and editing state
       form.reset();
       setEditingArticleId(null);
       
-      // Refresh articles list if on list tab
-      if (activeTab === 'list') {
-        fetchArticles();
+      // IMPORTANT: Always refresh articles list after update/create
+      // This ensures the UI reflects the latest data, especially in production
+      await fetchArticles();
+      
+      // If we were editing, switch to list view to see the update
+      if (wasEditing) {
+        setActiveTab('list');
       }
       
       // Redirect to article list or show success message
@@ -304,7 +346,9 @@ export default function AdminPage() {
         if (activeTab === 'create') {
           setActiveTab('list');
         }
-      }, 2000);
+        // Force Next.js to refresh cached data in production
+        router.refresh();
+      }, 1500);
     } catch (error: unknown) {
       console.error('[Admin] Error submitting form:', error);
       
