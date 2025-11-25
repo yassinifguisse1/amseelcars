@@ -6,32 +6,49 @@ import { isAdmin } from '@/lib/auth';
 import { BlogArticle } from '@/data/blog';
 import { ZodError } from 'zod';
 
+// Force dynamic rendering - prevent Next.js from caching this route
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+// Helper function to create response with no-cache headers
+function createNoCacheResponse(data: unknown, status: number = 200) {
+  return NextResponse.json(data, {
+    status,
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'X-Content-Type-Options': 'nosniff',
+    },
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
     const { userId } = await auth();
     if (!userId) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Unauthorized' },
-        { status: 401 }
+        401
       );
     }
 
     // Check admin role
     const admin = await isAdmin();
     if (!admin) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Forbidden: Admin access required' },
-        { status: 403 }
+        403
       );
     }
 
     // Get user info
     const user = await currentUser();
     if (!user) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'User not found' },
-        { status: 401 }
+        401
       );
     }
 
@@ -80,9 +97,9 @@ export async function POST(request: NextRequest) {
     );
 
     if (existingArticle) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'An article with this slug already exists' },
-        { status: 400 }
+        400
       );
     }
 
@@ -112,23 +129,24 @@ export async function POST(request: NextRequest) {
       'create article'
     );
 
-    return NextResponse.json(
+    // Return with no-cache headers
+    return createNoCacheResponse(
       { message: 'Article created successfully', article },
-      { status: 201 }
+      201
     );
   } catch (error: unknown) {
     console.error('Error creating article:', error);
     
     if (error instanceof ZodError) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Validation error', details: error.issues },
-        { status: 400 }
+        400
       );
     }
 
-    return NextResponse.json(
+    return createNoCacheResponse(
       { error: 'Failed to create article', message: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      500
     );
   }
 }
@@ -138,18 +156,18 @@ export async function GET(request: NextRequest) {
     // Check authentication
     const { userId } = await auth();
     if (!userId) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Unauthorized' },
-        { status: 401 }
+        401
       );
     }
 
     // Check admin role
     const admin = await isAdmin();
     if (!admin) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Forbidden: Admin access required' },
-        { status: 403 }
+        403
       );
     }
 
@@ -165,13 +183,14 @@ export async function GET(request: NextRequest) {
       });
       
       if (!article) {
-        return NextResponse.json(
+        return createNoCacheResponse(
           { error: 'Article not found' },
-          { status: 404 }
+          404
         );
       }
       
-      return NextResponse.json({
+      // Return with no-cache headers to ensure fresh data
+      return createNoCacheResponse({
         article: {
           id: article.id,
           slug: article.slug,
@@ -235,7 +254,8 @@ export async function GET(request: NextRequest) {
         throw new Error('Failed to fetch articles after retries');
       }
       
-      return NextResponse.json({
+      // Return with no-cache headers to ensure fresh data
+      return createNoCacheResponse({
         articles,
         total: articles.length,
       });
@@ -285,7 +305,8 @@ export async function GET(request: NextRequest) {
       throw new Error('Failed to fetch articles after retries');
     }
 
-    return NextResponse.json({
+    // Return with no-cache headers to ensure fresh data
+    return createNoCacheResponse({
       articles,
       pagination: {
         page,
@@ -296,9 +317,9 @@ export async function GET(request: NextRequest) {
     });
   } catch (error: unknown) {
     console.error('Error fetching articles:', error);
-    return NextResponse.json(
+    return createNoCacheResponse(
       { error: 'Failed to fetch articles', message: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      500
     );
   }
 }
@@ -308,18 +329,18 @@ export async function DELETE(request: NextRequest) {
     // Check authentication
     const { userId } = await auth();
     if (!userId) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Unauthorized' },
-        { status: 401 }
+        401
       );
     }
 
     // Check admin role
     const admin = await isAdmin();
     if (!admin) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Forbidden: Admin access required' },
-        { status: 403 }
+        403
       );
     }
 
@@ -328,9 +349,9 @@ export async function DELETE(request: NextRequest) {
     const articleId = searchParams.get('id');
 
     if (!articleId) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Article ID is required' },
-        { status: 400 }
+        400
       );
     }
 
@@ -340,9 +361,9 @@ export async function DELETE(request: NextRequest) {
     });
 
     if (!article) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Article not found' },
-        { status: 404 }
+        404
       );
     }
 
@@ -351,24 +372,24 @@ export async function DELETE(request: NextRequest) {
       where: { id: articleId },
     });
 
-    return NextResponse.json(
+    return createNoCacheResponse(
       { message: 'Article deleted successfully', deletedArticle: { id: articleId, slug: article.slug } },
-      { status: 200 }
+      200
     );
   } catch (error: unknown) {
     console.error('Error deleting article:', error);
     
     // Handle Prisma errors
     if (error && typeof error === 'object' && 'code' in error && error.code === 'P2025') {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Article not found' },
-        { status: 404 }
+        404
       );
     }
 
-    return NextResponse.json(
+    return createNoCacheResponse(
       { error: 'Failed to delete article', message: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      500
     );
   }
 }
@@ -382,9 +403,9 @@ export async function PUT(request: NextRequest) {
     const { userId } = await auth();
     if (!userId) {
       console.log('[PUT /api/admin/articles] Unauthorized: No userId');
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Unauthorized' },
-        { status: 401 }
+        401
       );
     }
     console.log('[PUT /api/admin/articles] User authenticated:', userId);
@@ -393,9 +414,9 @@ export async function PUT(request: NextRequest) {
     const admin = await isAdmin();
     if (!admin) {
       console.log('[PUT /api/admin/articles] Forbidden: Not admin');
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Forbidden: Admin access required' },
-        { status: 403 }
+        403
       );
     }
     console.log('[PUT /api/admin/articles] Admin role confirmed');
@@ -407,9 +428,9 @@ export async function PUT(request: NextRequest) {
 
     if (!articleId) {
       console.log('[PUT /api/admin/articles] Bad request: No article ID');
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Article ID is required' },
-        { status: 400 }
+        400
       );
     }
 
@@ -458,9 +479,9 @@ export async function PUT(request: NextRequest) {
     );
 
     if (!existingArticle) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Article not found' },
-        { status: 404 }
+        404
       );
     }
 
@@ -474,9 +495,9 @@ export async function PUT(request: NextRequest) {
       );
 
       if (slugExists) {
-        return NextResponse.json(
+        return createNoCacheResponse(
           { error: 'An article with this slug already exists' },
-          { status: 400 }
+          400
         );
       }
     }
@@ -519,9 +540,10 @@ export async function PUT(request: NextRequest) {
       slug: updatedArticle.slug,
     });
 
-    return NextResponse.json(
+    // Return with no-cache headers to ensure fresh data
+    return createNoCacheResponse(
       { message: 'Article updated successfully', article: updatedArticle },
-      { status: 200 }
+      200
     );
   } catch (error: unknown) {
     console.error('Error updating article:', error);
@@ -537,31 +559,31 @@ export async function PUT(request: NextRequest) {
     }
     
     if (error instanceof ZodError) {
-      return NextResponse.json(
+      return createNoCacheResponse(
         { error: 'Validation error', details: error.issues },
-        { status: 400 }
+        400
       );
     }
 
     // Handle Prisma errors
     if (error && typeof error === 'object' && 'code' in error) {
       if (error.code === 'P2025') {
-        return NextResponse.json(
+        return createNoCacheResponse(
           { error: 'Article not found' },
-          { status: 404 }
+          404
         );
       }
       if (error.code === 'P2010') {
-        return NextResponse.json(
+        return createNoCacheResponse(
           { error: 'Database connection error. Please try again.', message: error instanceof Error ? error.message : 'Connection timeout' },
-          { status: 503 }
+          503
         );
       }
     }
 
-    return NextResponse.json(
+    return createNoCacheResponse(
       { error: 'Failed to update article', message: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      500
     );
   }
 }
