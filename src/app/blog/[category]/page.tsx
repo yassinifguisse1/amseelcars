@@ -6,6 +6,11 @@ import BlogArticles from '@/components/Blog/BlogArticles';
 import BlogHero from '@/components/Blog/BlogHero';
 import Footer from '@/components/Footer/Footer';
 
+// Force dynamic rendering - prevent Next.js from caching this route
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 interface PageProps {
   params: Promise<{
     category: string;

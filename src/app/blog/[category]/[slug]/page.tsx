@@ -7,6 +7,11 @@ import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
 import { generateBlogPostingSchema, generateBreadcrumbSchema } from '@/lib/schemas';
 
+// Force dynamic rendering - prevent Next.js from caching this route
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 interface PageProps {
   params: Promise<{
     category: string;

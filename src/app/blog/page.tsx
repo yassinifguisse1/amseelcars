@@ -4,6 +4,11 @@ import { Metadata } from 'next';
 import { HomeContent } from "./HomeContent";
 import { generateBreadcrumbSchema } from '@/lib/schemas';
 
+// Force dynamic rendering - prevent Next.js from caching this route
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+
 export const metadata: Metadata = {
   title: "Blog AmseelCars - Conseils & Actualités Location Voiture Agadir",
   description:
