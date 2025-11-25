@@ -1,7 +1,14 @@
 import useSWR from 'swr';
 import { BlogArticle } from '@/data/blog';
 
-const fetcher = (url: string) => fetch(url).then((res) => {
+// Fetcher with cache-busting headers for production
+const fetcher = (url: string) => fetch(url, {
+  cache: 'no-store',
+  headers: {
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+  },
+}).then((res) => {
   if (!res.ok) {
     throw new Error('Failed to fetch');
   }
@@ -15,10 +22,11 @@ export function useArticles(category?: string) {
     : '/api/articles';
   
   const { data, error, isLoading, mutate } = useSWR<BlogArticle[]>(url, fetcher, {
-    revalidateOnFocus: false,
+    revalidateOnFocus: true, // Revalidate when window gets focus
     revalidateOnReconnect: true,
-    dedupingInterval: 60000, // Cache for 1 minute
-    suspense: false, // We'll handle loading states manually for now
+    dedupingInterval: 0, // No caching - always fetch fresh data
+    refreshInterval: 0, // No auto-refresh
+    keepPreviousData: false, // Don't keep old data while fetching
   });
 
   return {
@@ -35,9 +43,11 @@ export function useFeaturedArticles() {
     '/api/articles?featured=true',
     fetcher,
     {
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       revalidateOnReconnect: true,
-      dedupingInterval: 60000,
+      dedupingInterval: 0, // No caching
+      refreshInterval: 0,
+      keepPreviousData: false,
     }
   );
 
@@ -55,9 +65,11 @@ export function useArticle(slug: string | null) {
     slug ? `/api/articles?slug=${encodeURIComponent(slug)}` : null,
     fetcher,
     {
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       revalidateOnReconnect: true,
-      dedupingInterval: 60000,
+      dedupingInterval: 0, // No caching
+      refreshInterval: 0,
+      keepPreviousData: false,
     }
   );
 
@@ -75,9 +87,11 @@ export function useRelatedArticles(slug: string | null, limit: number = 3) {
     slug ? `/api/articles/related?slug=${encodeURIComponent(slug)}&limit=${limit}` : null,
     fetcher,
     {
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       revalidateOnReconnect: true,
-      dedupingInterval: 60000,
+      dedupingInterval: 0, // No caching
+      refreshInterval: 0,
+      keepPreviousData: false,
     }
   );
 
@@ -95,9 +109,11 @@ export function useCategories() {
     '/api/articles/categories',
     fetcher,
     {
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
       revalidateOnReconnect: true,
-      dedupingInterval: 60000,
+      dedupingInterval: 0, // No caching
+      refreshInterval: 0,
+      keepPreviousData: false,
     }
   );
 

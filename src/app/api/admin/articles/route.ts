@@ -188,6 +188,7 @@ export async function GET(request: NextRequest) {
           404
         );
       }
+      console.log('[GET /api/admin/articles] Article found:', article);
       
       // Return with no-cache headers to ensure fresh data
       return createNoCacheResponse({
@@ -212,7 +213,7 @@ export async function GET(request: NextRequest) {
         },
       });
     }
-    
+
     if (slugsOnly) {
       // Return only id, slug, and category for the list view
       // Add retry logic for serverless connection issues
@@ -253,6 +254,7 @@ export async function GET(request: NextRequest) {
       if (!articles) {
         throw new Error('Failed to fetch articles after retries');
       }
+      console.log('[GET /api/admin/articles] Articles found:', articles);
       
       // Return with no-cache headers to ensure fresh data
       return createNoCacheResponse({
@@ -304,7 +306,7 @@ export async function GET(request: NextRequest) {
     if (!articles || total === undefined) {
       throw new Error('Failed to fetch articles after retries');
     }
-
+    console.log('[GET /api/admin/articles] Articles found:', articles);
     // Return with no-cache headers to ensure fresh data
     return createNoCacheResponse({
       articles,
