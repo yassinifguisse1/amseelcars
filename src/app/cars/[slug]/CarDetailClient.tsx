@@ -45,6 +45,18 @@ interface CarDetailClientProps {
       fuelEfficiency: string
       drivetrain: string
     }
+    richContent?: {
+      h1Title?: string
+      sections: Array<{
+        h2?: string
+        h3?: string
+        paragraphs: string[]
+      }>
+      faqs?: Array<{
+        question: string
+        answer: string
+      }>
+    }
   }
 }
 
@@ -286,10 +298,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
 
         {/* Description */}
         <div className="mt-12 space-y-8">
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-4 ">À propos de cette voiture</h2>
-            <p className="text-muted-foreground leading-relaxed">{car.description}</p>
-          </div>
+         
 
           {/* Features Grid */}
           <div>
@@ -355,6 +364,51 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 </p>
               </div>
             </div>
+          </div>
+          {/* Rich Content Description */}
+          <div className="space-y-8">
+            <h1 className="text-3xl font-bold text-foreground mb-6">
+              {car.richContent?.h1Title || "À propos de cette voiture"}
+            </h1>
+            
+            {car.richContent ? (
+              <>
+                {/* Render rich content sections */}
+                {car.richContent.sections.map((section, sectionIndex) => (
+                  <div key={sectionIndex} className="space-y-4">
+                    {section.h2 && (
+                      <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">{section.h2}</h2>
+                    )}
+                    {section.h3 && (
+                      <h3 className="text-xl font-semibold text-foreground mt-6 mb-3">{section.h3}</h3>
+                    )}
+                    {section.paragraphs.map((paragraph, paraIndex) => (
+                      <p key={paraIndex} className="text-muted-foreground leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+
+                {/* Render FAQs */}
+                {car.richContent.faqs && car.richContent.faqs.length > 0 && (
+                  <div className="mt-12 space-y-6">
+                    <h2 className="text-2xl font-bold text-foreground mb-6">Questions fréquentes</h2>
+                    <div className="space-y-6">
+                      {car.richContent.faqs.map((faq, faqIndex) => (
+                        <div key={faqIndex} className="bg-muted/30 rounded-lg p-6 space-y-2">
+                          <h3 className="text-lg font-semibold text-foreground">{faq.question}</h3>
+                          <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              /* Fallback to simple description if richContent is not available */
+              <p className="text-muted-foreground leading-relaxed">{car.description}</p>
+            )}
           </div>
         </div>
       </div>

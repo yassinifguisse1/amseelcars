@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { getCarBySlug, getAllCarSlugs } from '@/data/cars'
 import CarDetailClient from './CarDetailClient'
 import { generateCarProductSchema, generateBreadcrumbSchema } from '@/lib/schemas'
+import { generateFAQSchema } from '@/lib/faqSchema'
 
 // SEO metadata
 
@@ -53,13 +54,17 @@ export async function generateMetadata({ params }: CarDetailPageProps): Promise<
     return metadata
   }
 
+  // Use richContent SEO fields if available, otherwise use defaults
+  const pageTitle = car.richContent?.seoTitle || car.richContent?.h1Title || `${car.carName} - Luxury Car Rental | Amseel Cars`
+  const metaDescription = car.richContent?.seoMetaDescription || car.description
+  
   return {
-    title: `${car.carName} - Luxury Car Rental | Amseel Cars`,
-    description: car.description,
-    keywords: [car.brand, car.model, car.category, 'luxury car rental', 'Morocco'],
+    title: pageTitle,
+    description: metaDescription,
+    keywords: [car.brand, car.model, car.category, 'luxury car rental', 'Morocco', 'location voiture', 'Agadir'],
     openGraph: {
-      title: `${car.carName} - Luxury Car Rental`,
-      description: car.description,
+      title: pageTitle,
+      description: metaDescription,
       images: [
         {
           url: car.carImage,
@@ -68,6 +73,12 @@ export async function generateMetadata({ params }: CarDetailPageProps): Promise<
           alt: car.carName,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: metaDescription,
+      images: [car.carImage],
     },
   }
 }
@@ -110,6 +121,11 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
     { name: car.carName, url: `/cars/${car.slug}` },
   ]);
 
+  // Generate FAQ schema if FAQs exist in richContent
+  const faqSchema = car.richContent?.faqs 
+    ? generateFAQSchema(car.richContent.faqs)
+    : null;
+
   return (
     <>
       {/* Car Product Schema */}
@@ -125,6 +141,15 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+
+      {/* FAQ Schema for SEO */}
+      {faqSchema && (
+        <Script
+          id="ld-json-faq-car"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <CarDetailClient car={car} />
     </>

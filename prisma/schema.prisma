@@ -40,3 +40,22 @@ model BlogArticle {
   @@index([publishedAt])
   @@map("blog_articles")
 }
+
+model Page {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique
+  title       String
+  content     String
+  description String
+  image       String?
+  altText     String?
+  published   Boolean  @default(false)
+  indexable   Boolean  @default(true)
+  seo         Json     // { metaTitle, metaDescription, keywords, canonical }
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String   // Clerk user ID
+  
+  @@index([published])
+  @@map("pages")
+}

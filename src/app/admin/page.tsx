@@ -49,7 +49,7 @@ export default function AdminPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [jsonMode, setJsonMode] = useState(false);
   const [jsonInput, setJsonInput] = useState('');
-  const [activeTab, setActiveTab] = useState<'create' | 'list'>('create');
+  const [activeTab, setActiveTab] = useState<'create' | 'list' | 'pages'>('create');
   const [articles, setArticles] = useState<Array<{ id: string; slug: string; category: string }>>([]);
   const [articlesLoading, setArticlesLoading] = useState(false);
   const [articlesError, setArticlesError] = useState<string | null>(null);
@@ -60,6 +60,30 @@ export default function AdminPage() {
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [loadingArticle, setLoadingArticle] = useState(false);
   const [lastSuccessOperation, setLastSuccessOperation] = useState<'create' | 'update' | 'delete' | null>(null);
+  
+  // Page management states
+  const [pages, setPages] = useState<Array<{ id: string; slug: string; title: string; published: boolean }>>([]);
+  const [pagesLoading, setPagesLoading] = useState(false);
+  const [pagesError, setPagesError] = useState<string | null>(null);
+  const [pageFormData, setPageFormData] = useState({
+    slug: '',
+    title: '',
+    content: '',
+    description: '',
+    image: '',
+    altText: '',
+    published: false,
+    indexable: true,
+    seo: {
+      metaTitle: '',
+      metaDescription: '',
+      keywords: [] as string[],
+      canonical: '',
+    },
+  });
+  const [editingPageId, setEditingPageId] = useState<string | null>(null);
+  const [deletingPageId, setDeletingPageId] = useState<string | null>(null);
+  const [deletePageConfirm, setDeletePageConfirm] = useState<string | null>(null);
 
   // Fetch articles list (only slugs)
   const fetchArticles = async () => {
@@ -192,6 +216,195 @@ export default function AdminPage() {
     }
   };
 
+  // Fetch pages list
+  const fetchPages = async () => {
+    setPagesLoading(true);
+    setPagesError(null);
+    try {
+      const response = await fetch('/api/admin/pages?slugsOnly=true', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch pages');
+      }
+      const data = await response.json();
+      setPages(data.pages || []);
+      console.log('[Admin] Pages list refreshed:', data.pages?.length || 0, 'pages');
+    } catch (error: unknown) {
+      console.error('Error fetching pages:', error);
+      setPagesError(error instanceof Error ? error.message : 'Failed to fetch pages');
+    } finally {
+      setPagesLoading(false);
+    }
+  };
+
+  // Handle page form submission
+  const handlePageSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+    try {
+      const url = editingPageId
+        ? `/api/admin/pages?id=${editingPageId}`
+        : '/api/admin/pages';
+      
+      const method = editingPageId ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pageFormData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to save page');
+      }
+
+      setSubmitSuccess(true);
+      setLastSuccessOperation(editingPageId ? 'update' : 'create');
+      
+      // Reset form
+      setPageFormData({
+        slug: '',
+        title: '',
+        content: '',
+        description: '',
+        image: '',
+        altText: '',
+        published: false,
+        indexable: true,
+        seo: {
+          metaTitle: '',
+          metaDescription: '',
+          keywords: [],
+          canonical: '',
+        },
+      });
+      setEditingPageId(null);
+      
+      // Refresh pages list
+      await fetchPages();
+      
+      console.log('[Admin] Page saved successfully:', data.page.slug);
+    } catch (error: unknown) {
+      console.error('Error saving page:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to save page');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Delete page
+  const handleDeletePage = async (pageId: string) => {
+    // Confirm deletion
+    if (deletePageConfirm !== pageId) {
+      setDeletePageConfirm(pageId);
+      return;
+    }
+
+    setDeletingPageId(pageId);
+    setPagesError(null);
+
+    try {
+      const response = await fetch(`/api/admin/pages?id=${pageId}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to delete page');
+      }
+
+      // Remove page from list
+      setPages((prevPages) => prevPages.filter((p) => p.id !== pageId));
+      setDeletePageConfirm(null);
+      setSubmitSuccess(true);
+      setLastSuccessOperation('delete');
+
+      console.log('[Admin] Page deleted successfully');
+    } catch (error: unknown) {
+      console.error('Error deleting page:', error);
+      setPagesError(error instanceof Error ? error.message : 'Failed to delete page');
+    } finally {
+      setDeletingPageId(null);
+    }
+  };
+
+  // Fetch page for editing
+  const fetchPageForEdit = async (pageId: string) => {
+    setLoadingArticle(true);
+    setSubmitError(null);
+    try {
+      const response = await fetch(`/api/admin/pages?id=${pageId}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch page');
+      }
+
+      const data = await response.json();
+      const page = data.page;
+
+      setPageFormData({
+        slug: page.slug,
+        title: page.title,
+        content: page.content,
+        description: page.description,
+        image: page.image || '',
+        altText: page.altText || '',
+        published: page.published,
+        indexable: page.indexable ?? true,
+        seo: page.seo,
+      });
+
+      setEditingPageId(pageId);
+      console.log('[Admin] Page loaded for editing:', page.slug);
+    } catch (error: unknown) {
+      console.error('Error fetching page:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to fetch page');
+    } finally {
+      setLoadingArticle(false);
+    }
+  };
+
+  // Cancel page editing
+  const cancelPageEdit = () => {
+    setEditingPageId(null);
+    setPageFormData({
+      slug: '',
+      title: '',
+      content: '',
+      description: '',
+      image: '',
+      altText: '',
+      published: false,
+      indexable: true,
+      seo: {
+        metaTitle: '',
+        metaDescription: '',
+        keywords: [],
+        canonical: '',
+      },
+    });
+    setSubmitError(null);
+  };
+
   // Check admin role on mount
   useEffect(() => {
     const checkAdminRole = async () => {
@@ -229,6 +442,9 @@ export default function AdminPage() {
   useEffect(() => {
     if (activeTab === 'list' && isAdmin) {
       fetchArticles();
+    }
+    if (activeTab === 'pages' && isAdmin) {
+      fetchPages();
     }
   }, [activeTab, isAdmin]);
 
@@ -518,6 +734,23 @@ export default function AdminPage() {
             <List className="mr-2 h-4 w-4" />
             Articles List
           </Button>
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setActiveTab('pages');
+              cancelEdit();
+              cancelPageEdit();
+            }}
+            className={`rounded-b-none border-b-2 ${
+              activeTab === 'pages'
+                ? 'border-primary text-primary'
+                : 'border-transparent'
+            }`}
+            size="sm"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Pages
+          </Button>
           {editingArticleId && (
             <Button
               variant="ghost"
@@ -559,11 +792,11 @@ export default function AdminPage() {
             <CardContent className="pt-6">
               <p className="text-green-700 dark:text-green-300">
                 {lastSuccessOperation === 'delete'
-                  ? 'Article deleted successfully!'
+                  ? activeTab === 'pages' ? 'Page deleted successfully!' : 'Article deleted successfully!'
                   : lastSuccessOperation === 'update'
-                  ? 'Article updated successfully! Redirecting...'
+                  ? activeTab === 'pages' ? 'Page updated successfully!' : 'Article updated successfully! Redirecting...'
                   : lastSuccessOperation === 'create'
-                  ? 'Article created successfully! Redirecting...'
+                  ? activeTab === 'pages' ? 'Page created successfully!' : 'Article created successfully! Redirecting...'
                   : 'Operation completed successfully!'}
               </p>
             </CardContent>
@@ -579,8 +812,301 @@ export default function AdminPage() {
           </Card>
         )}
 
-        {/* Articles List Tab */}
-        {activeTab === 'list' ? (
+        {/* Pages Tab */}
+        {activeTab === 'pages' ? (
+          <div className="space-y-6">
+            {/* Page Form */}
+            <Card>
+              <CardHeader>
+                <CardTitle>{editingPageId ? 'Edit Page' : 'Add New Page'}</CardTitle>
+                <CardDescription>
+                  {editingPageId 
+                    ? 'Update the page details below.'
+                    : 'Create a new page for your website.'}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handlePageSubmit} className="space-y-6">
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="page-slug">Slug *</Label>
+                      <Input
+                        id="page-slug"
+                        value={pageFormData.slug}
+                        onChange={(e) => setPageFormData({ ...pageFormData, slug: e.target.value })}
+                        placeholder="about-us"
+                        required
+                      />
+                      <p className="text-sm text-muted-foreground mt-1">
+                        URL-friendly identifier (lowercase, hyphens only)
+                      </p>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="page-title">Title *</Label>
+                      <Input
+                        id="page-title"
+                        value={pageFormData.title}
+                        onChange={(e) => setPageFormData({ ...pageFormData, title: e.target.value })}
+                        placeholder="About Us"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="page-description">Description *</Label>
+                      <Textarea
+                        id="page-description"
+                        value={pageFormData.description}
+                        onChange={(e) => setPageFormData({ ...pageFormData, description: e.target.value })}
+                        placeholder="Brief description of the page"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="page-content">Content (HTML) *</Label>
+                      <Textarea
+                        id="page-content"
+                        value={pageFormData.content}
+                        onChange={(e) => setPageFormData({ ...pageFormData, content: e.target.value })}
+                        placeholder="<div>Your page content here...</div>"
+                        className="h-[300px] font-mono text-sm"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="page-image">Image URL (Optional)</Label>
+                      <Input
+                        id="page-image"
+                        value={pageFormData.image}
+                        onChange={(e) => setPageFormData({ ...pageFormData, image: e.target.value })}
+                        placeholder="/images/page-image.webp"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="page-altText">Image Alt Text (Optional)</Label>
+                      <Input
+                        id="page-altText"
+                        value={pageFormData.altText}
+                        onChange={(e) => setPageFormData({ ...pageFormData, altText: e.target.value })}
+                        placeholder="Description of the image"
+                      />
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="page-published"
+                        checked={pageFormData.published}
+                        onChange={(e) => setPageFormData({ ...pageFormData, published: e.target.checked })}
+                        className="h-4 w-4"
+                      />
+                      <Label htmlFor="page-published">Published</Label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="page-indexable"
+                        checked={pageFormData.indexable}
+                        onChange={(e) => setPageFormData({ ...pageFormData, indexable: e.target.checked })}
+                        className="h-4 w-4"
+                      />
+                      <Label htmlFor="page-indexable">Indexable (SEO)</Label>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">SEO Settings</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="page-metaTitle">Meta Title</Label>
+                          <Input
+                            id="page-metaTitle"
+                            value={pageFormData.seo.metaTitle}
+                            onChange={(e) => setPageFormData({ 
+                              ...pageFormData, 
+                              seo: { ...pageFormData.seo, metaTitle: e.target.value }
+                            })}
+                            placeholder="SEO Title"
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="page-metaDescription">Meta Description</Label>
+                          <Textarea
+                            id="page-metaDescription"
+                            value={pageFormData.seo.metaDescription}
+                            onChange={(e) => setPageFormData({ 
+                              ...pageFormData, 
+                              seo: { ...pageFormData.seo, metaDescription: e.target.value }
+                            })}
+                            placeholder="SEO Description"
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="page-canonical">Canonical URL</Label>
+                          <Input
+                            id="page-canonical"
+                            value={pageFormData.seo.canonical}
+                            onChange={(e) => setPageFormData({ 
+                              ...pageFormData, 
+                              seo: { ...pageFormData.seo, canonical: e.target.value }
+                            })}
+                            placeholder="/page-slug"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          {editingPageId ? 'Updating...' : 'Creating...'}
+                        </>
+                      ) : (
+                        editingPageId ? 'Update Page' : 'Create Page'
+                      )}
+                    </Button>
+                    {editingPageId && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={cancelPageEdit}
+                      >
+                        Cancel
+                      </Button>
+                    )}
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+
+            {/* Pages List */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Pages List</CardTitle>
+                <CardDescription>
+                  {pagesLoading
+                    ? 'Loading pages...'
+                    : pages.length > 0
+                    ? `Total: ${pages.length} page${pages.length > 1 ? 's' : ''}`
+                    : 'No pages found'}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {pagesLoading ? (
+                  <div className="flex items-center justify-center py-12">
+                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  </div>
+                ) : pagesError ? (
+                  <div className="rounded-lg border border-red-500 bg-red-50 dark:bg-red-950 p-4">
+                    <p className="text-red-700 dark:text-red-300">{pagesError}</p>
+                    <Button
+                      onClick={fetchPages}
+                      variant="outline"
+                      size="sm"
+                      className="mt-4"
+                    >
+                      Retry
+                    </Button>
+                  </div>
+                ) : pages.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">No pages found.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {pages.map((page, index) => (
+                      <div
+                        key={page.id}
+                        className="flex items-center justify-between rounded-md border bg-background p-3 hover:bg-muted/50 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm text-muted-foreground w-8">
+                            #{index + 1}
+                          </span>
+                          <div>
+                            <p className="text-sm font-medium">{page.title}</p>
+                            <code className="text-xs text-muted-foreground font-mono">
+                              /{page.slug}
+                            </code>
+                          </div>
+                          <span className={`text-xs px-2 py-1 rounded ${
+                            page.published 
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+                              : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+                          }`}>
+                            {page.published ? 'Published' : 'Draft'}
+                          </span>
+                          {deletePageConfirm === page.id && (
+                            <span className="text-xs text-red-600 dark:text-red-400 font-medium">
+                              Click delete again to confirm
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => fetchPageForEdit(page.id)}
+                            disabled={loadingArticle || deletingPageId === page.id}
+                            className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950"
+                          >
+                            {loadingArticle && editingPageId === page.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Edit className="h-4 w-4" />
+                            )}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDeletePage(page.id)}
+                            disabled={deletingPageId === page.id || loadingArticle}
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
+                          >
+                            {deletingPageId === page.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="h-4 w-4" />
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                    <Button
+                      onClick={fetchPages}
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-4"
+                      disabled={pagesLoading}
+                    >
+                      {pagesLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Refreshing...
+                        </>
+                      ) : (
+                        'Refresh List'
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        ) : activeTab === 'list' ? (
           <Card>
             <CardHeader>
               <CardTitle>Articles List</CardTitle>

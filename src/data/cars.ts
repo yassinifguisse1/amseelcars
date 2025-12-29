@@ -25,6 +25,25 @@ export interface CarPricing {
   hasDiscount: boolean // Whether this car has a discount for long-term rentals
 }
 
+export interface ContentSection {
+  h2?: string // H2 heading
+  h3?: string // H3 subheading
+  paragraphs: string[] // Array of paragraph texts
+}
+
+export interface FAQ {
+  question: string
+  answer: string
+}
+
+export interface CarRichContent {
+  h1Title: string // Dynamic H1 title for the "À propos de cette voiture" section
+  seoTitle?: string // SEO optimized page title (for <title> tag)
+  seoMetaDescription?: string // SEO optimized meta description (for <meta name="description">)
+  sections: ContentSection[]
+  faqs?: FAQ[]
+}
+
 export interface Car {
   id: number
   slug: string
@@ -40,7 +59,8 @@ export interface Car {
   fuelType: string
   transmission: string
   rating: number
-  description: string
+  description: string // Short description for cards/listings (backward compatibility)
+  richContent?: CarRichContent // Rich SEO-friendly content with h2, h3, paragraphs, and FAQs
   features: CarFeature[]
   specs: CarSpecs
   category: 'luxury' | 'sports' | 'suv' | 'electric' | 'premium' | 'economy' | 'crossover'
@@ -76,7 +96,88 @@ export const cars: Car[] = [
     fuelType: "diesel",
     transmission: "Automatique",
     rating: 4.8,
-    description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel  48V, la transmission intégrale xDrive, l’iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
+    description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel  48V, la transmission intégrale xDrive, l'iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
+    richContent: {
+      h1Title: "Location BMW X3 à Agadir – SUV premium Pack M 2025 | Amseel Cars",
+      seoTitle: "Location BMW X3 à Agadir – SUV premium Pack M 2025 | Amseel Cars",
+      seoMetaDescription: "Louez le BMW X3 Pack M 2025 à Agadir avec Amseel Cars. SUV premium diesel 48V, transmission intégrale xDrive, iDrive 9. Tarifs à partir de 1400 MAD/jour. Réservez maintenant !",
+      sections: [
+        {
+          h2: "Présentation du BMW X3 Pack M 2025",
+          paragraphs: [
+            "Le BMW X3 Pack M 2025 représente l'excellence du SUV premium allemand, alliant performance, confort et technologies de pointe. Disponible à la location à Agadir, ce véhicule incarne le savoir-faire BMW avec son moteur diesel 48V, sa transmission intégrale xDrive et son système d'infotainment iDrive 9 dernier cri.",
+            "Que vous souhaitiez explorer les routes côtières du Maroc, parcourir les montagnes de l'Atlas ou simplement profiter du confort urbain, le BMW X3 Pack M s'adapte à tous vos besoins de mobilité."
+          ]
+        },
+        {
+          h2: "Performances et motorisation",
+          h3: "Moteur diesel 48V hybride léger",
+          paragraphs: [
+            "Le BMW X3 Pack M est équipé d'un moteur 2.0L diesel TwinPower Turbo avec technologie MHEV 48V (hybride léger). Cette motorisation développe 208 chevaux et offre une accélération de 0 à 100 km/h en seulement 7,8 secondes.",
+            "La technologie 48V permet une réduction significative de la consommation de carburant tout en améliorant les performances, notamment lors des démarrages et des accélérations. Le système récupère l'énergie au freinage pour alimenter les équipements électriques du véhicule."
+          ]
+        },
+        {
+          h3: "Transmission intégrale xDrive",
+          paragraphs: [
+            "La transmission intégrale xDrive de BMW garantit une traction optimale sur tous les types de routes. Que vous rouliez sur l'asphalte sec des routes marocaines ou sur des chemins plus difficiles, le système xDrive répartit intelligemment la puissance entre les quatre roues pour une conduite sécurisée et dynamique.",
+            "Cette technologie est particulièrement appréciable lors des sorties en montagne ou lors de conditions météorologiques changeantes, offrant une stabilité et une adhérence exceptionnelles."
+          ]
+        },
+        {
+          h2: "Technologies et connectivité",
+          h3: "Système iDrive 9 avec écran incurvé",
+          paragraphs: [
+            "Le BMW X3 Pack M 2025 intègre le système iDrive 9, la dernière génération de l'interface multimédia BMW. L'écran incurvé offre une expérience visuelle immersive et intuitive, avec des graphismes haute définition et une navigation fluide.",
+            "Le système est compatible avec Apple CarPlay et Android Auto en mode sans fil, vous permettant de connecter votre smartphone sans fil et d'accéder à vos applications favorites directement depuis l'écran du véhicule."
+          ]
+        },
+        {
+          h3: "Aides à la conduite avancées",
+          paragraphs: [
+            "Pour votre sécurité et votre confort, le BMW X3 Pack M est équipé d'un ensemble complet d'aides à la conduite : freinage d'urgence automatique, maintien de voie actif, et système de détection d'angle mort.",
+            "Ces technologies vous assistent au quotidien, réduisant la fatigue au volant et augmentant la sécurité de vos trajets, que ce soit en ville à Agadir ou sur les routes nationales marocaines."
+          ]
+        },
+        {
+          h2: "Confort et espace",
+          h3: "Intérieur premium et spacieux",
+          paragraphs: [
+            "L'intérieur du BMW X3 Pack M allie élégance et fonctionnalité. Les sièges en cuir offrent un confort optimal pour les longs trajets, tandis que l'espace généreux permet d'accueillir confortablement jusqu'à 5 passagers.",
+            "La climatisation bi-zone permet à chaque passager de régler individuellement la température, garantissant un confort optimal pour tous, même lors des chaudes journées marocaines."
+          ]
+        },
+        {
+          h2: "Pourquoi louer le BMW X3 Pack M à Agadir ?",
+          paragraphs: [
+            "Louer un BMW X3 Pack M à Agadir avec Amseel Cars, c'est choisir l'excellence pour vos déplacements au Maroc. Que vous soyez en voyage d'affaires ou en vacances, ce SUV premium vous offre la combinaison parfaite entre luxe, performance et praticité.",
+            "Notre véhicule est parfaitement entretenu et régulièrement révisé pour garantir votre sécurité et votre satisfaction. Avec notre service de location flexible, vous pouvez réserver pour quelques jours ou plusieurs semaines selon vos besoins."
+          ]
+        }
+      ],
+      faqs: [
+        {
+          question: "Quel est le prix de location du BMW X3 Pack M 2025 ?",
+          answer: "Le BMW X3 Pack M est disponible à partir de 1400 MAD par jour pour les locations courtes durées (1-4 jours). Pour les locations de 5 jours et plus, bénéficiez d'un tarif préférentiel à 1300 MAD par jour. Contactez-nous pour connaître nos offres spéciales et nos tarifs dégressifs pour les locations longues durées."
+        },
+        {
+          question: "Le BMW X3 Pack M est-il adapté aux longs trajets ?",
+          answer: "Absolument ! Le BMW X3 Pack M est parfaitement conçu pour les longs trajets. Son moteur diesel économique, son confort premium et ses technologies d'aide à la conduite en font un véhicule idéal pour explorer le Maroc. La transmission intégrale xDrive garantit également une sécurité optimale sur tous les types de routes."
+        },
+        {
+          question: "Quels documents sont nécessaires pour louer le véhicule ?",
+          answer: "Pour louer le BMW X3 Pack M, vous devez présenter un permis de conduire valide (minimum 2 ans d'ancienneté), une pièce d'identité, et une carte bancaire pour la caution. Les résidents du Maroc peuvent également utiliser leur carte grise comme garantie. Contactez-nous pour plus d'informations sur les modalités de location."
+        },
+        {
+          question: "Le véhicule est-il équipé d'un GPS ?",
+          answer: "Oui, le BMW X3 Pack M dispose du système de navigation BMW intégré avec l'iDrive 9. De plus, vous pouvez utiliser Apple CarPlay ou Android Auto pour accéder à Google Maps, Waze ou d'autres applications de navigation depuis votre smartphone."
+        },
+        {
+          question: "Puis-je réserver le BMW X3 Pack M en ligne ?",
+          answer: "Oui, vous pouvez réserver directement depuis notre site web ou nous contacter par WhatsApp au +212 662 500 181. Notre équipe vous confirmera la disponibilité et vous guidera dans le processus de réservation. Nous proposons également la livraison du véhicule à votre hôtel ou à l'aéroport d'Agadir."
+        }
+      ]
+    },
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
       { icon: "⛽", name: "Carburant", value: "Diesel" },
@@ -174,6 +275,7 @@ export const cars: Car[] = [
     fuelType: "Diesel",
     transmission: "Automatique",
     rating: 4.7,
+    
     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien — idéal pour Marrakech et ses environs.",
     features: [
       { icon: "🚗", name: "Sièges", value: "5" },
