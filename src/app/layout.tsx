@@ -11,6 +11,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { statsigAdapter } from "@flags-sdk/statsig";
+import { DynamicStatsigProvider } from "./my-statsig";
 
 const siteUrl = "https://www.amseelcars.com";
 const siteName = "AmseelCars";
@@ -18,6 +20,12 @@ const siteTitle = "AmseelCars — Location de voitures à Agadir";
 const siteDescription =
   "Location de voitures à Agadir au meilleur prix. Large flotte (citadines, SUV, premium), retrait à l’aéroport ou en ville, réservation facile par WhatsApp. Assurance & kilométrage clairs.";
 
+
+
+
+  const Statsig = await statsigAdapter.initialize();
+ const datafile = await Statsig.getClientInitializeResponse({userID: "1234"}, {hash: "djb2",});
+ 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   // Title template across the site
@@ -201,7 +209,9 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-        {children}
+        <DynamicStatsigProvider datafile={datafile}>
+          {children}
+        </DynamicStatsigProvider>
 
         <Analytics />
 
