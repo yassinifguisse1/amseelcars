@@ -46,12 +46,12 @@ export function generateWebSiteSchema() {
 }
 
 /**
- * LocalBusiness (CarRental) schema - used on homepage and contact page
+ * LocalBusiness (AutoRental) schema - used on homepage and contact page
  */
 export function generateLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'CarRental',
+    '@type': 'AutoRental',
     '@id': `${siteUrl}#business`,
     name: siteName,
     url: siteUrl,
@@ -228,7 +228,7 @@ export function generateReviewSchema(review: {
     '@type': 'Review',
     '@id': `${siteUrl}#review-${review.id}`,
     itemReviewed: {
-      '@type': 'CarRental',
+      '@type': 'AutoRental',
       '@id': `${siteUrl}#business`,
       name: siteName,
       image: `${siteUrl}/og/amseel-car-logo.png`,
