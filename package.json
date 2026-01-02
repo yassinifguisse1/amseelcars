@@ -21,6 +21,7 @@
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@statsig/react-bindings": "^3.31.0",
+    "@statsig/session-replay": "^3.31.0",
     "@statsig/web-analytics": "^3.31.0",
     "@studio-freight/lenis": "^1.0.42",
     "@types/three": "^0.179.0",

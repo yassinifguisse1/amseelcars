@@ -6,6 +6,7 @@ import {
   useClientBootstrapInit,
 } from "@statsig/react-bindings";
 import { StatsigAutoCapturePlugin } from '@statsig/web-analytics';
+import { StatsigSessionReplayPlugin } from '@statsig/session-replay';
  
 export function DynamicStatsigProvider({ children, datafile,}: {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ export function DynamicStatsigProvider({ children, datafile,}: {
     process.env.NEXT_PUBLIC_STATSIG_CLIENT_KEY as string,
     datafile.user,
     JSON.stringify(datafile),
-    { plugins: [ new StatsigAutoCapturePlugin() ] } //Optional, will add autocaptured web analytics events to Statsig
+    { plugins: [ new StatsigAutoCapturePlugin(), new StatsigSessionReplayPlugin() ] } //Optional, will add autocaptured web analytics events to Statsig
   );
  
   return (
