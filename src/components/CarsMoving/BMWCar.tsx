@@ -569,7 +569,7 @@ export default function BMWCarScroll() {
                 >
                   <Rounded 
                     backgroundColor="#D32F2F" 
-                    onClick={() => handleNavigation("/cars/bmw-x3-pack-m")}
+                    onClick={() => handleNavigation("/cars/location-voiture-agadir-bmw-x3-pack-m")}
                     style={{ 
                       pointerEvents: isNavigating ? 'none' : 'auto',
                       opacity: isNavigating ? 0.7 : 1,
@@ -746,7 +746,7 @@ export default function BMWCarScroll() {
         <div className="flex justify-center pointer-events-auto">
           <Rounded
             backgroundColor="#D32F2F"
-            onClick={() => handleNavigation('/cars/kia-sportage-vert')}
+            onClick={() => handleNavigation('/cars/location-voiture-agadir-kia-sportage-vert')}
             style={{ 
               pointerEvents: isNavigating ? 'none' : 'auto',
               opacity: isNavigating ? 0.7 : 1,
@@ -957,7 +957,7 @@ export default function BMWCarScroll() {
                 <div className="flex items-center justify-center pointer-events-auto">
                   <Rounded 
                     backgroundColor="#D32F2F" 
-                    onClick={() => handleNavigation("/cars/t-roc")}
+                    onClick={() => handleNavigation("/cars/location-voiture-agadir-t-roc")}
                     style={{ 
                       pointerEvents: isNavigating ? 'none' : 'auto',
                       opacity: isNavigating ? 0.7 : 1,
@@ -1135,7 +1135,7 @@ export default function BMWCarScroll() {
               >
                 <Rounded 
                   backgroundColor="#D32F2F" 
-                  onClick={() => handleNavigation("/cars/Golf-8")}
+                  onClick={() => handleNavigation("/cars/location-voiture-agadir-golf-8")}
                   style={{ 
                     pointerEvents: isNavigating ? 'none' : 'auto',
                     opacity: isNavigating ? 0.7 : 1,
