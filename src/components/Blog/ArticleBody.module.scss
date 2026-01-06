@@ -2,8 +2,10 @@
   padding: 8rem 0;
   background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
   position: relative;
+  width: 100%;
   overflow-x: hidden; // Only hide horizontal overflow, allow vertical
   overflow-y: visible; // Allow fixed TOC to be visible
+  box-sizing: border-box;
 }
 
 .container {
@@ -12,8 +14,10 @@
   padding: 0 2rem;
   position: relative;
   z-index: 2;
-  // Ensure fixed TOC can be visible outside container bounds
-  overflow: visible;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  box-sizing: border-box;
 }
 
 .articleWrapper {
@@ -21,26 +25,49 @@
   gap: 2rem;
   align-items: flex-start;
   position: relative;
+  width: 100%;
   overflow: visible;
 
   @media (max-width: 1024px) {
     flex-direction: column;
     gap: 0;
+    width: 100%;
   }
 }
 
 .article {
   flex: 1;
   min-width: 0; // Prevents flex item from overflowing
+  width: 100%;
+  max-width: 100%;
   margin-bottom: 6rem;
+  overflow: visible;
   
-  // No need for padding since TOC is now in flex layout
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
 }
 
 .content {
   color: #333333;
   line-height: 1.8;
   font-size: 1.125rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  
+  // Ensure all child elements respect container width
+  > div {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
   
   // Typography styles for the article content
   h1, h2, h3, h4, h5, h6 {
@@ -134,12 +161,22 @@
     padding: 1.5rem;
     border-radius: 8px;
     overflow-x: auto;
+    overflow-y: visible;
     margin: 2rem 0;
     border: 1px solid #dee2e6;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    
+    @media (max-width: 768px) {
+      padding: 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
   }
   
   img {
-    max-width: 100%;
+    max-width: 100% !important;
+    width: 100%;
     height: auto;
     border-radius: 12px;
     margin: 2rem auto;
@@ -147,6 +184,7 @@
     border: 1px solid #dee2e6;
     display: block;
     transition: transform 0.3s ease;
+    object-fit: contain;
     
     &:hover {
       transform: scale(1.02);
@@ -155,12 +193,21 @@
   
   table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     margin: 2rem 0;
     background: #ffffff;
     border-radius: 8px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: visible;
+    display: block;
     border: 1px solid #dee2e6;
+    
+    @media (max-width: 768px) {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
   }
   
   th, td {
@@ -186,25 +233,38 @@
   padding: 0;
   text-align: center;
   border: 1px solid #dee2e6;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
   // Reset any default image styles
   img {
     margin: 0 !important;
     padding: 0 !important;
     vertical-align: top;
+    max-width: 100% !important;
+    width: 100%;
+    height: auto;
   }
 }
 
 .inlineImageWrapper {
   position: relative;
   width: 100%;
-  max-width: 800px;
-  height: 400px;
+  max-width: 100%;
+  height: auto;
+  min-height: 200px;
   margin: 0;
   padding: 0;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   border: 1px solid #dee2e6;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+    height: auto;
+    min-height: 200px;
+  }
 }
 
 .inlineImage {
@@ -212,6 +272,13 @@
   transition: transform 0.3s ease;
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  
+  @media (max-width: 768px) {
+    object-fit: contain;
+  }
   
   .inlineImageWrapper:hover & {
     transform: scale(1.02);
@@ -330,22 +397,73 @@
 }
 
 // Responsive Design
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .article {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 4rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .content {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    
+    img {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+  
+  .inlineImageContainer {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 2rem 0;
+    padding: 0;
+  }
+  
+  .inlineImageWrapper {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 250px;
+  }
+}
+
 @media (max-width: 768px) {
   .section {
     padding: 4rem 0;
+    width: 100%;
   }
   
   .container {
     padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
   }
   
   .article {
     margin-bottom: 4rem;
-    padding-left: 0; // Remove padding on mobile
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    max-width: 100%;
   }
   
   .content {
     font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
     
     h2 {
       font-size: 1.75rem;
@@ -358,15 +476,26 @@
     p {
       font-size: 1rem;
     }
+    
+    img {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: auto !important;
+      margin: 1.5rem 0;
+    }
   }
   
   .cta {
     padding: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .ctaButtons {
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
   
   .primaryButton,
@@ -377,17 +506,30 @@
   }
   
   .inlineImageContainer {
-    margin:  0;
+    margin: 0 0 2rem 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
   }
   
   .inlineImageWrapper {
-    height: 300px;
+    height: auto;
+    min-height: 200px;
     max-width: 100%;
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
   .content {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    
     h2 {
       font-size: 1.5rem;
     }
@@ -395,10 +537,20 @@
     h3 {
       font-size: 1.125rem;
     }
+    
+    img {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: auto !important;
+      margin: 1rem 0;
+    }
   }
   
   .cta {
     padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .ctaTitle {
@@ -410,11 +562,17 @@
   }
   
   .inlineImageContainer {
-    margin:  0;
+    margin: 0 0 1.5rem 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
   }
   
   .inlineImageWrapper {
-    height: 250px;
+    height: auto;
+    min-height: 180px;
+    width: 100%;
+    max-width: 100%;
   }
   
   .inlineImageCaption {
@@ -432,7 +590,10 @@
   margin: 4rem 0;
   box-shadow: 0 10px 40px rgba(236, 28, 37, 0.1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 
   &::before {
     content: '';
@@ -445,9 +606,17 @@
   }
 
   @media (max-width: 768px) {
-    padding: 2rem;
+    padding: 2rem 1rem;
     margin: 3rem 0;
     border-radius: 12px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.5rem 0.75rem;
+    margin: 2rem 0;
   }
 
   // Main FAQ title (h2)
@@ -538,11 +707,11 @@
   }
 
   // Images within FAQ (if any)
-  img {
-    border-radius: 12px;
-    margin: 1.5rem 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  }
+  // img {
+  //   border-radius: 12px;
+  //   margin: 1.5rem 0;
+  //   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  // }
 
   // Links within FAQ
   a {
