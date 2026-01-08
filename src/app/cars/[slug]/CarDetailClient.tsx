@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Star, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
+
+// Currency conversion rates (same as CarGridSection)
+const EUR_TO_MAD_RATE = 11
+const USD_TO_MAD_RATE = 10
 
 interface CarDetailClientProps {
   car: {
@@ -63,7 +67,44 @@ interface CarDetailClientProps {
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
   const router = useRouter()
+
+  // Load currency from localStorage or URL param
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Check URL parameter first
+      const urlParams = new URLSearchParams(window.location.search)
+      const urlCurrency = urlParams.get('currency') as 'MAD' | 'EUR' | 'USD' | null
+      
+      if (urlCurrency && (urlCurrency === 'MAD' || urlCurrency === 'EUR' || urlCurrency === 'USD')) {
+        setCurrency(urlCurrency)
+        localStorage.setItem('carRentalCurrency', urlCurrency)
+      } else {
+        // Fallback to localStorage
+        const savedCurrency = localStorage.getItem('carRentalCurrency') as 'MAD' | 'EUR' | 'USD' | null
+        if (savedCurrency && (savedCurrency === 'MAD' || savedCurrency === 'EUR' || savedCurrency === 'USD')) {
+          setCurrency(savedCurrency)
+        }
+      }
+    }
+  }, [])
+
+  // Convert price based on currency
+  const convertPrice = (priceInMAD: number, targetCurrency: 'MAD' | 'EUR' | 'USD'): number => {
+    if (targetCurrency === 'EUR') {
+      return Math.round((priceInMAD / EUR_TO_MAD_RATE) * 100) / 100
+    }
+    if (targetCurrency === 'USD') {
+      return Math.round((priceInMAD / USD_TO_MAD_RATE) * 100) / 100
+    }
+    return priceInMAD
+  }
+
+  // Format price with appropriate decimals
+  const formatPrice = (price: number, curr: 'MAD' | 'EUR' | 'USD'): string => {
+    return price.toFixed(curr === 'MAD' ? 0 : 2)
+  }
 
   const handleBackToCars = () => {
     // Check if we're already on the cars page
@@ -210,7 +251,9 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 <div>
                   {/* Short-term pricing */}
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-2xl font-bold text-foreground">{car.pricing.shortTerm} MAD /</span>
+                    <span className="text-2xl font-bold text-foreground">
+                      {formatPrice(convertPrice(car.pricing.shortTerm, currency), currency)} {currency} /
+                    </span>
                     <span className="text-muted-foreground">(1-4 jours)</span>
                     <Tag className="h-4 w-4 text-primary" />
                   </div>
@@ -219,7 +262,9 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                    
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-green-700">{car.pricing.longTerm} MAD /</span>
+                      <span className="text-3xl font-bold text-green-700">
+                        {formatPrice(convertPrice(car.pricing.longTerm, currency), currency)} {currency} /
+                      </span>
                       <span className="text-green-600"> (5+ jours)</span>
                     </div>
                    
@@ -227,7 +272,9 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 </div>
               ) : (
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-bold text-foreground">{car.pricePerDay} MAD </span>
+                  <span className="text-3xl font-bold text-foreground">
+                    {formatPrice(convertPrice(car.pricePerDay, currency), currency)} {currency} 
+                  </span>
                   <span className="text-muted-foreground">/</span>
                 </div>
               )}
@@ -277,13 +324,15 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 className=" bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
                 onClick={() => setIsBookingDialogOpen(true)}
               >
-                Réserver maintenant - MAD {car.pricePerDay}/jour
+                Réserver maintenant - {formatPrice(convertPrice(car.pricePerDay, currency), currency)} {currency}/jour
               </Button>
               <Button 
                 size="lg" 
                 className="bg-green-600 text-white hover:bg-green-700 cursor-pointer"
                 onClick={() => {
-                  const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} MAD/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`;
+                  const price = car.pricing?.shortTerm || car.pricePerDay
+                  const priceInCurrency = convertPrice(price, currency)
+                  const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatPrice(priceInCurrency, currency)} ${currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`;
                   const encodedMessage = encodeURIComponent(message);
                   const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
                   window.open(whatsappUrl, '_blank');

@@ -21,6 +21,7 @@ interface CarRentalCardProps {
   rating: number
   slug?: string // Optional slug for routing
   href?: string // Optional custom href
+  currency?: 'MAD' | 'EUR' | 'USD' // Currency for price display
   onBook: () => void
   onWhatsapp: () => void
 }
@@ -36,6 +37,7 @@ export function CarRentalCard({
   rating,
   slug,
   href,
+  currency = 'MAD',
   onBook,
   onWhatsapp,
 }: CarRentalCardProps) {
@@ -64,18 +66,18 @@ export function CarRentalCard({
               {pricing?.hasDiscount ? (
                 <div>
                   <div className="flex items-center gap-1">
-                    <p className="text-lg sm:text-xl font-bold text-primary">{pricing.shortTerm} MAD /</p>
+                    <p className="text-lg sm:text-xl font-bold text-primary">{pricing.shortTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} /</p>
                     {/* <Tag className="h-3 w-3 text-green-600" /> */}
                   <p className="text-xs text-muted-foreground"> 1-4 jours</p>
                   </div>
                   <div className="flex items-center gap-1 mt-1">
-                    <p className="text-sm font-semibold text-green-600">{pricing.longTerm} MAD </p>
+                    <p className="text-sm font-semibold text-green-600">{pricing.longTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
                     <span className="text-xs bg-green-100 text-green-700 px-1 rounded">5+ jours</span>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="text-xl sm:text-2xl font-bold text-primary">{pricePerDay} MAD </p>
+                  <p className="text-xl sm:text-2xl font-bold text-primary">{pricePerDay.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
                   <p className="text-xs text-muted-foreground"></p>
                 </div>
               )}

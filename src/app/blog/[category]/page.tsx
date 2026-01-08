@@ -84,7 +84,7 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <LoadingProvider>
       <div className="page-content blog">
-        <BlogHero title={category} subtitle={`Découvrez tous nos articles sur ${category.toLowerCase()}`} />
+        <BlogHero title={category} subtitle={`Découvrez tous nos articles sur ${category.toLowerCase()}`} articles={articles} />
         <BlogArticles articles={articles} showFilter={false} />
         <Footer />
       </div>

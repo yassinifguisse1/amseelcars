@@ -1,0 +1,261 @@
+.filterBar {
+  width: 100%;
+//   background: #1a1a1a;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+//   border: 1px solid #333;
+
+  @media (min-width: 768px) {
+    padding: 1.5rem;
+  }
+}
+
+.filterBarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background: #2a2a2a;
+    border-color: #EC1C25;
+  }
+
+  .filterIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #EC1C25;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+}
+
+.currencySelector {
+  display: flex;
+  gap: 0.5rem;
+  background: #2a2a2a;
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.currencyButton {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: #999;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  &:hover {
+    color: #fff;
+    background: #333;
+  }
+
+  &.active {
+    background: #EC1C25;
+    color: white;
+  }
+}
+
+.filterContent {
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.select {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #555;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #EC1C25;
+    box-shadow: 0 0 0 3px rgba(236, 28, 37, 0.1);
+  }
+
+  option {
+    background: #2a2a2a;
+    color: #fff;
+  }
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  width: 18px;
+  height: 18px;
+  color: #999;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+
+  &::placeholder {
+    color: #666;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #EC1C25;
+    box-shadow: 0 0 0 3px rgba(236, 28, 37, 0.1);
+  }
+
+  &[type="number"] {
+    padding-left: 0.75rem;
+  }
+}
+
+.clearButton {
+  position: absolute;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #fff;
+    background: #333;
+  }
+
+  .clearIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.priceRange {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.priceSeparator {
+  color: #999;
+  font-weight: 500;
+}
+
+.clearAllButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid #EC1C25;
+  color: #EC1C25;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+
+  @media (min-width: 768px) {
+    grid-column: 1 / -1;
+  }
+
+  &:hover {
+    background: #EC1C25;
+    color: white;
+  }
+
+  .clearIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+

@@ -20,16 +20,9 @@ export function convertSrvToStandard(connectionString: string): string {
 
   // Parse SRV connection string
   // Format: mongodb+srv://[username]:[password]@[host]/[database]?[params]
-  const url = new URL(connectionString.replace('mongodb+srv://', 'https://'));
-  
-  const username = url.username;
-  const password = url.password;
-  const host = url.hostname;
-  const pathname = url.pathname;
-  const searchParams = url.searchParams;
+ 
 
   // Extract database name from pathname
-  const database = pathname.slice(1) || '';
 
   // For MongoDB Atlas, we need to construct the standard connection string
   // This requires knowing the replica set members, which we can't get from SRV

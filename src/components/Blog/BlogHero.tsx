@@ -3,15 +3,17 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import styles from "./BlogHero.module.scss";
+import { BlogArticle } from "@/data/blog";
 
 interface BlogHeroProps {
   title?: string;
   subtitle?: string;
-}
+  articles: BlogArticle[];
+  }
 
-export default function BlogHero({ title, subtitle }: BlogHeroProps = {}) {
+export default function BlogHero({ title, subtitle, articles }: BlogHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -62,7 +64,8 @@ export default function BlogHero({ title, subtitle }: BlogHeroProps = {}) {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <div className={styles.stat}>
-              <span className={styles.number}>50+</span>
+              {/* get the number of articles from the blog articles */}
+              <span className={styles.number}>{articles?.length}</span>
               <span className={styles.label}>Articles</span>
             </div>
             <div className={styles.stat}>

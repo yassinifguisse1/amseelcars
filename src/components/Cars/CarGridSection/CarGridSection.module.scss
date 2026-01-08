@@ -37,11 +37,67 @@
 // Section Header
 .sectionHeader {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   
   // Mobile adjustments
   @media (max-width: 767px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Results Count
+.resultsCount {
+  color: #cecece;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  
+  @media (min-width: 768px) {
+    font-size: 1rem;
     margin-bottom: 2rem;
+  }
+}
+
+// No Results
+.noResults {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #cecece;
+  
+  p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    color: #999;
+  }
+  
+  @media (min-width: 768px) {
+    padding: 4rem 2rem;
+    
+    p {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.resetButton {
+  background: #EC1C25;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: #d0161f;
+    transform: translateY(-2px);
+  }
+  
+  @media (min-width: 768px) {
+    padding: 1rem 2rem;
+    font-size: 1rem;
   }
 }
 

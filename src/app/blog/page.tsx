@@ -1,8 +1,10 @@
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import Script from 'next/script';
 import { Metadata } from 'next';
-import { HomeContent } from "./HomeContent";
+import HomeContent from "./HomeContent";
 import { generateBreadcrumbSchema } from '@/lib/schemas';
+import { getArticles } from "@/app/action/article";
+
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -38,11 +40,13 @@ export const metadata: Metadata = {
 };
 
 
-export default function BlogPage() {
+export default async function BlogPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Blog', url: '/blog' },
   ]);
+  const articles = await getArticles();
+
 
   return (
     <>
@@ -53,7 +57,7 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <LoadingProvider>
-        <HomeContent />
+        <HomeContent articles={articles} />
       </LoadingProvider>
     </>
   );

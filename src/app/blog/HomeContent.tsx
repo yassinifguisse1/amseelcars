@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import Footer from "@/components/Footer/Footer";
 import BlogHero from "@/components/Blog/BlogHero";
 import BlogArticles from "@/components/Blog/BlogArticles";
-
-export function HomeContent() {
+import { BlogArticle } from "@/data/blog";
+export default function HomeContent({ articles }: { articles: BlogArticle[] }) {
+  
   return (
     <div className="page-content blog">
       <motion.div
@@ -15,8 +16,8 @@ export function HomeContent() {
           ease: [0.25, 0.1, 0.25, 1]
         }}
       >
-        <BlogHero />
-        <BlogArticles />
+        <BlogHero articles={articles as BlogArticle[]} />
+        <BlogArticles articles={articles} />
         <Footer />
       </motion.div>
     </div>
