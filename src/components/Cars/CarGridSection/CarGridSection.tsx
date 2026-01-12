@@ -39,10 +39,10 @@ const CarGridSection = ({
     name: '',
     minPrice: '',
     maxPrice: '',
-    currency: 'MAD'
+    currency: 'EUR'
   })
 
-  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
+  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('EUR')
 
   // Get all cars
   const allCars = getAllCars()
