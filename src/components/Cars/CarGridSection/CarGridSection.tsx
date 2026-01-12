@@ -8,7 +8,7 @@ import FilterBar, { FilterState } from './FilterBar'
 import styles from './CarGridSection.module.scss'
 
 // Currency conversion rates
-const EUR_TO_MAD_RATE = 11
+const EUR_TO_MAD_RATE = 10.7
 const USD_TO_MAD_RATE = 10
 
 interface CarGridSectionProps {
