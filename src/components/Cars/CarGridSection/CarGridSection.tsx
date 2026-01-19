@@ -56,7 +56,8 @@ const CarGridSection = ({
   // Convert price based on currency
   const convertPrice = (priceInMAD: number, targetCurrency: 'MAD' | 'EUR' | 'USD'): number => {
     if (targetCurrency === 'EUR') {
-      return Math.round((priceInMAD / EUR_TO_MAD_RATE) * 100) / 100
+      // Round to nearest whole number for EUR (like USD)
+      return Math.round(priceInMAD / EUR_TO_MAD_RATE)
     }
     if (targetCurrency === 'USD') {
       return Math.round((priceInMAD / USD_TO_MAD_RATE) * 100) / 100
