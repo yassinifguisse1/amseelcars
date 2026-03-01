@@ -43,17 +43,38 @@ interface BookingDialogProps {
   onClose?: () => void;
   carName: string;
   carPrice: number;
+  /** Optional tiered pricing: shortTerm (1–4 days), longTerm (5+ days). When set, total uses longTerm for 5+ days. */
+  pricing?: {
+    shortTerm: number;
+    longTerm: number;
+    hasDiscount: boolean;
+  };
   /** When true, render the form inline on the page instead of in a modal */
   inline?: boolean;
   /** Optional content rendered below the submit button when inline (e.g. WhatsApp button) */
   extraActions?: React.ReactNode;
 }
 
+/**
+ * Render a booking dialog or inline reservation form for a car and handle user input, validation, pricing calculation, and submission.
+ *
+ * The component validates form fields, computes rental days and total price (uses `pricing.longTerm` when `pricing?.hasDiscount` is true and rental is 5 or more days, otherwise uses `pricing.shortTerm` or `carPrice`), and POSTs the booking payload to `/api/booking`. On successful submission the form is reset and the component either auto-closes (modal mode) or clears its success state after a delay (inline mode). While submitting, the UI shows a loading state and prevents the dialog from closing.
+ *
+ * @param isOpen - If false, the modal dialog is not rendered; defaults to `true`.
+ * @param onClose - Callback invoked when the dialog is closed.
+ * @param carName - Display name of the car being booked.
+ * @param carPrice - Base price per day used as a fallback when `pricing` is not provided.
+ * @param pricing - Optional tiered pricing object. If `hasDiscount` is true and the rental duration is 5 or more days, `longTerm` is used as the per-day rate; otherwise `shortTerm` is used when available.
+ * @param inline - When true, render a compact inline reservation card instead of a modal; defaults to `false`.
+ * @param extraActions - Optional React node rendered below the submit controls in inline mode.
+ * @returns The dialog or inline reservation form as a React element.
+ */
 export default function BookingDialog({ 
   isOpen = true, 
   onClose = () => {}, 
   carName, 
   carPrice,
+  pricing,
   inline = false,
   extraActions,
 }: BookingDialogProps) {
@@ -76,7 +97,7 @@ export default function BookingDialog({
 
   // Prevent body scroll when dialog is open and handle mobile viewport
   // useScrollLock(isOpen);
-  // Calculate rental duration and total price
+  // Calculate rental duration and total price (use 5+ days rate when pricing.hasDiscount and days >= 5)
   const calculateRentalDetails = () => {
     if (!watchedPickupDate || !watchedReturnDate) return { days: 0, total: 0 };
     
@@ -84,7 +105,11 @@ export default function BookingDialog({
     const returnDate = new Date(watchedReturnDate);
     const diffTime = Math.abs(returnDate.getTime() - pickup.getTime());
     const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const total = days * carPrice;
+    const pricePerDay =
+      pricing?.hasDiscount && days >= 5
+        ? pricing.longTerm
+        : (pricing?.shortTerm ?? carPrice);
+    const total = days * pricePerDay;
     
     return { days, total };
   };

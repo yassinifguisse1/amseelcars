@@ -71,6 +71,12 @@ function isValidCurrency(v: string | null): v is ValidCurrency {
   return v === 'MAD' || v === 'EUR' || v === 'USD'
 }
 
+/**
+ * Renders a client-side car details page with image gallery, pricing, specifications, features, booking UI, and a sticky reservation shortcut.
+ *
+ * @param car - Detailed car data used to populate images, pricing (including short/long term discounts), specs, features, location, and rich content shown on the page
+ * @returns The React element for the car detail client component
+ */
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
@@ -324,6 +330,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               inline
               carName={car.carName}
               carPrice={car.pricePerDay}
+              pricing={car.pricing}
               extraActions={
                 <Button
                   type="button"
