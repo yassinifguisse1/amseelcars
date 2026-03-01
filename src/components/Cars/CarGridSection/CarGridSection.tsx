@@ -5,11 +5,8 @@ import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
+import { convertCarPrice } from '@/lib/currency'
 import styles from './CarGridSection.module.scss'
-
-// Currency conversion rates
-const EUR_TO_MAD_RATE = 10.7
-const USD_TO_MAD_RATE = 10
 
 interface CarGridSectionProps {
   className?: string
@@ -53,18 +50,6 @@ const CarGridSection = ({
     return uniqueBrands.sort()
   }, [allCars])
 
-  // Convert price based on currency
-  const convertPrice = (priceInMAD: number, targetCurrency: 'MAD' | 'EUR' | 'USD'): number => {
-    if (targetCurrency === 'EUR') {
-      // Round to nearest whole number for EUR (like USD)
-      return Math.round(priceInMAD / EUR_TO_MAD_RATE)
-    }
-    if (targetCurrency === 'USD') {
-      return Math.round((priceInMAD / USD_TO_MAD_RATE) * 100) / 100
-    }
-    return priceInMAD
-  }
-
   // Filter cars based on filter state
   const filteredCars = useMemo(() => {
     return allCars.filter((car: Car) => {
@@ -84,7 +69,7 @@ const CarGridSection = ({
 
       // Price filter
       const carPrice = car.pricing?.shortTerm || car.pricePerDay
-      const priceInSelectedCurrency = convertPrice(carPrice, currency)
+      const priceInSelectedCurrency = convertCarPrice(carPrice, currency)
 
       if (filters.minPrice) {
         const minPrice = parseFloat(filters.minPrice)
@@ -120,7 +105,7 @@ const CarGridSection = ({
     const car = allCars.find(c => c.carName === carName)
     if (car) {
       const price = car.pricing?.shortTerm || car.pricePerDay
-      const priceInCurrency = convertPrice(price, currency)
+      const priceInCurrency = convertCarPrice(price, currency)
       const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${priceInCurrency.toFixed(currency === 'MAD' ? 0 : 2)} ${currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'
@@ -184,9 +169,9 @@ const CarGridSection = ({
           <div className={styles.carGrid}>
             {filteredCars.map((car) => {
               const pricePerDay = car.pricing?.shortTerm || car.pricePerDay
-              const priceInCurrency = convertPrice(pricePerDay, currency)
+              const priceInCurrency = convertCarPrice(pricePerDay, currency)
               const longTermPrice = car.pricing?.longTerm 
-                ? convertPrice(car.pricing.longTerm, currency)
+                ? convertCarPrice(car.pricing.longTerm, currency)
                 : undefined
 
               return (
