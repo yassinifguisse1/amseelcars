@@ -131,8 +131,8 @@ export function CarRentalCard({
       </div>
   )
 
-  // Determine the link URL
-  const linkUrl = href || (slug ? `/cars/${slug}` : null)
+  // Determine the link URL (include currency so detail page shows same currency as list)
+  const linkUrl = href || (slug ? `/cars/${slug}?currency=${currency}` : null)
 
   if (linkUrl) {
     return (

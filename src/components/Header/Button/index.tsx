@@ -50,3 +50,31 @@ function PerspectiveText({ label }: PerspectiveTextProps) {
     </div>
   );
 }
+
+/** Reusable pill button that matches the menu button design (red #EC1C25, rounded, perspective text hover). */
+export function MenuStyleButton({
+  label,
+  onClick,
+  className,
+}: {
+  label: string;
+  onClick: () => void;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`${styles.button} ${className ?? ""}`}
+      onClick={onClick}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      role="button"
+      tabIndex={0}
+      style={{ cursor: "pointer" }}
+    >
+      <div className={styles.slider} style={{ top: 0 }}>
+        <div className={styles.el} style={{ pointerEvents: "auto" }}>
+          <PerspectiveText label={label} />
+        </div>
+      </div>
+    </div>
+  );
+}

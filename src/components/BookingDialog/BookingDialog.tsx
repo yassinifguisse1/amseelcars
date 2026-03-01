@@ -104,19 +104,25 @@ const locationOptions = [
 ];
 
 interface BookingDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
   carName: string;
   carPrice: number;
-  carImage: string;
+  carImage?: string;
+  /** When true, render the form inline on the page instead of in a modal */
+  inline?: boolean;
+  /** Optional content rendered below the submit button when inline (e.g. WhatsApp button) */
+  extraActions?: React.ReactNode;
 }
 
 export default function BookingDialog({ 
-  isOpen, 
-  onClose, 
+  isOpen = true, 
+  onClose = () => {}, 
   carName, 
-  carPrice 
-}: Omit<BookingDialogProps, 'carImage'>) {
+  carPrice,
+  inline = false,
+  extraActions,
+}: BookingDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
@@ -172,11 +178,15 @@ export default function BookingDialog({
       if (response.ok) {
         setSubmitStatus('success');
         reset();
-        // Auto close after 3 seconds
-        setTimeout(() => {
-          onClose();
-          setSubmitStatus('idle');
-        }, 3000);
+        // Auto close after 3 seconds only when in modal mode
+        if (!inline) {
+          setTimeout(() => {
+            onClose?.();
+            setSubmitStatus('idle');
+          }, 3000);
+        } else {
+          setTimeout(() => setSubmitStatus('idle'), 5000);
+        }
       } else {
         setSubmitStatus('error');
       }
@@ -190,11 +200,270 @@ export default function BookingDialog({
 
   const handleClose = () => {
     if (!isSubmitting) {
-      onClose();
+      onClose?.();
       setSubmitStatus('idle');
       reset();
     }
   };
+
+  const formContent = (
+    <>
+                {submitStatus === 'success' ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center py-8"
+                  >
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Réservation confirmée!</h3>
+                    <p className="text-gray-600">Nous avons reçu votre demande de réservation et nous vous contacterons sous peu.</p>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+                    {/* Rental Dates - first */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <Calendar className="h-5 w-5" />
+                        Dates de location
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Date de récupération *
+                          </label>
+                          <input
+                            {...register('pickupDate')}
+                            type="date"
+                            min={new Date().toISOString().split('T')[0]}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          />
+                          {errors.pickupDate && (
+                            <p className="text-red-500 text-sm mt-1">{errors.pickupDate.message}</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Date de retour *
+                          </label>
+                          <input
+                            {...register('returnDate')}
+                            type="date"
+                            min={watchedPickupDate || new Date().toISOString().split('T')[0]}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          />
+                          {errors.returnDate && (
+                            <p className="text-red-500 text-sm mt-1">{errors.returnDate.message}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Locations - second */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <MapPin className="h-5 w-5" />
+                        Lieux de récupération et de retour
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Lieu de récupération *
+                          </label>
+                          <select
+                            {...register('pickupLocation')}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          >
+                            {locationOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                          {errors.pickupLocation && (
+                            <p className="text-red-500 text-sm mt-1">{errors.pickupLocation.message}</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Lieu de retour *
+                          </label>
+                          <select
+                            {...register('returnLocation')}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          >
+                            {locationOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                          {errors.returnLocation && (
+                            <p className="text-red-500 text-sm mt-1">{errors.returnLocation.message}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Personal Information - third */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <User className="h-5 w-5" />
+                        Informations personnelles
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Nom complet *
+                          </label>
+                          <input
+                            {...register('fullName')}
+                            type="text"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Entrez votre nom complet"
+                          />
+                          {errors.fullName && (
+                            <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Adresse email *
+                          </label>
+                          <input
+                            {...register('email')}
+                            type="email"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="votre@email.com"
+                          />
+                          {errors.email && (
+                            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Numéro de téléphone *
+                          </label>
+                          <input
+                            {...register('phone')}
+                            type="tel"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="+212 6XX XXX XXX"
+                          />
+                          {errors.phone && (
+                            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                          )}
+                        </div>
+
+                      </div>
+                    </div>
+
+                    {/* Rental Summary */}
+                    {/* {days > 0 && (
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Résumé de la location</h3>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span>Durée de la location:</span>
+                            <span className="font-medium">{days} day{days > 1 ? 's' : ''}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Prix par jour:</span>
+                            <span className="font-medium">MAD {carPrice}</span>
+                          </div>
+                          <div className="flex justify-between text-lg font-semibold border-t pt-2">
+                            <span>Prix total:</span>
+                            <span className="text-blue-600">MAD {total}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )} */}
+
+                    {/* Error Message */}
+                    {submitStatus === 'error' && (
+                      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <p className="text-red-600 text-sm">
+                          Il y a eu une erreur lors de la réservation. Veuillez réessayer ou contactez-nous directement.
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Submit Button */}
+                    <div className="flex gap-1 pt-4">
+                      {!inline && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleClose}
+                          disabled={isSubmitting}
+                          className="flex-1"
+                        >
+                          Annuler
+                        </Button>
+                      )}
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={inline ? "w-full bg-[#EC1C25] hover:bg-[#EC1C25]/90 text-white rounded-[25px] h-10 uppercase font-medium" : "flex-1 bg-blue-600 hover:bg-blue-700"}
+                      >
+                        {isSubmitting ? (
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            Envoi...
+                          </div>
+                        ) : (
+                          'Envoyer la réservation'
+                        )}
+                      </Button>
+                    </div>
+                    {inline && extraActions && (
+                      <div className="pt-0">
+                        {extraActions}
+                      </div>
+                    )}
+                  </form>
+                )}
+    </>
+  );
+
+  if (inline) {
+    return (
+      <motion.div
+        id="reservation-form"
+        initial={{ opacity: 0, y: 32 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className={styles.inlineFormWrapper}
+      >
+        <div className="relative rounded-2xl overflow-hidden border-2 border-primary/25 bg-card shadow-xl ring-2 ring-primary/10">
+          {/* Accent corner badge */}
+          <div className="absolute top-0 right-0 z-10 bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-bl-xl shadow-md">
+            Réservation
+          </div>
+          <div className="bg-[#EC1C25] p-5 md:p-7 text-white relative">
+            <div className="pr-24">
+              <h2 className="text-xl md:text-2xl font-bold drop-shadow-sm">Réservez cette voiture</h2>
+              <p className="text-white/95 text-sm md:text-base mt-0.5">{carName}</p>
+            </div>
+          </div>
+          <div className={`p-5 md:p-7 ${styles.inlineFormBody}`}>
+            {formContent}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <AnimatePresence>
@@ -268,225 +537,7 @@ export default function BookingDialog({
                   }
                 }}
               >
-                {submitStatus === 'success' ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center py-8"
-                  >
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Réservation confirmée!</h3>
-                    <p className="text-gray-600">Nous avons reçu votre demande de réservation et nous vous contacterons sous peu.</p>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                    {/* Personal Information */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <User className="h-5 w-5" />
-                        Informations personnelles
-                      </h3>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Nom complet *
-                          </label>
-                          <input
-                            {...register('fullName')}
-                            type="text"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Entrez votre nom complet"
-                          />
-                          {errors.fullName && (
-                            <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Adresse email *
-                          </label>
-                          <input
-                            {...register('email')}
-                            type="email"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="votre@email.com"
-                          />
-                          {errors.email && (
-                            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Numéro de téléphone *
-                          </label>
-                          <input
-                            {...register('phone')}
-                            type="tel"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="+212 6XX XXX XXX"
-                          />
-                          {errors.phone && (
-                            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
-                          )}
-                        </div>
-
-                      </div>
-                    </div>
-
-                    {/* Rental Dates */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <Calendar className="h-5 w-5" />
-                        Dates de location
-                      </h3>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Date de récupération *
-                          </label>
-                          <input
-                            {...register('pickupDate')}
-                            type="date"
-                            min={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          />
-                          {errors.pickupDate && (
-                            <p className="text-red-500 text-sm mt-1">{errors.pickupDate.message}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Date de retour *
-                          </label>
-                          <input
-                            {...register('returnDate')}
-                            type="date"
-                            min={watchedPickupDate || new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          />
-                          {errors.returnDate && (
-                            <p className="text-red-500 text-sm mt-1">{errors.returnDate.message}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Locations */}
-                    <div className="space-y-4">
-                      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <MapPin className="h-5 w-5" />
-                        Lieux de récupération et de retour
-                      </h3>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Lieu de récupération *
-                          </label>
-                          <select
-                            {...register('pickupLocation')}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                          >
-                            {locationOptions.map((option) => (
-                              <option key={option.value} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
-                          </select>
-                          {errors.pickupLocation && (
-                            <p className="text-red-500 text-sm mt-1">{errors.pickupLocation.message}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Lieu de retour *
-                          </label>
-                          <select
-                            {...register('returnLocation')}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
-                          >
-                            {locationOptions.map((option) => (
-                              <option key={option.value} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
-                          </select>
-                          {errors.returnLocation && (
-                            <p className="text-red-500 text-sm mt-1">{errors.returnLocation.message}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-
-                    {/* Rental Summary */}
-                    {/* {days > 0 && (
-                      <div className="bg-gray-50 rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Résumé de la location</h3>
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span>Durée de la location:</span>
-                            <span className="font-medium">{days} day{days > 1 ? 's' : ''}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Prix par jour:</span>
-                            <span className="font-medium">MAD {carPrice}</span>
-                          </div>
-                          <div className="flex justify-between text-lg font-semibold border-t pt-2">
-                            <span>Prix total:</span>
-                            <span className="text-blue-600">MAD {total}</span>
-                          </div>
-                        </div>
-                      </div>
-                    )} */}
-
-                    {/* Error Message */}
-                    {submitStatus === 'error' && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                        <p className="text-red-600 text-sm">
-                          Il y a eu une erreur lors de la réservation. Veuillez réessayer ou contactez-nous directement.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Submit Button */}
-                    <div className="flex gap-3 pt-4">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={handleClose}
-                        disabled={isSubmitting}
-                        className="flex-1"
-                      >
-                        Annuler
-                      </Button>
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="flex-1 bg-blue-600 hover:bg-blue-700"
-                      >
-                        {isSubmitting ? (
-                          <div className="flex items-center gap-2">
-                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Envoi...
-                          </div>
-                        ) : (
-                          'Envoyer la réservation'
-                        )}
-                      </Button>
-                    </div>
-                  </form>
-                )}
+                {formContent}
               </div>
             </div>
           </motion.div>

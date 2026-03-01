@@ -3,14 +3,12 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Star, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
-
-// Currency conversion rates (same as CarGridSection)
-const EUR_TO_MAD_RATE = 11
-const USD_TO_MAD_RATE = 10
+import { MenuStyleButton } from '@/components/Header/Button'
+import { convertCarPrice, formatCarPrice } from '@/lib/currency'
 
 interface CarDetailClientProps {
   car: {
@@ -64,48 +62,50 @@ interface CarDetailClientProps {
   }
 }
 
+const RESERVATION_FORM_ID = 'reservation-form'
+
+function getInitialCurrency(): 'MAD' | 'EUR' | 'USD' {
+  if (typeof window === 'undefined') return 'MAD'
+  const urlParams = new URLSearchParams(window.location.search)
+  const urlCurrency = urlParams.get('currency') as 'MAD' | 'EUR' | 'USD' | null
+  if (urlCurrency && (urlCurrency === 'MAD' || urlCurrency === 'EUR' || urlCurrency === 'USD')) return urlCurrency
+  const saved = localStorage.getItem('carRentalCurrency') as 'MAD' | 'EUR' | 'USD' | null
+  if (saved && (saved === 'MAD' || saved === 'EUR' || saved === 'USD')) return saved
+  return 'MAD'
+}
+
 export default function CarDetailClient({ car }: CarDetailClientProps) {
-  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
+  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>(getInitialCurrency)
+  const [isReservationFormInView, setIsReservationFormInView] = useState(true)
   const router = useRouter()
 
-  // Load currency from localStorage or URL param
+  // Show/hide sticky "Go to reservation" button based on form visibility
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Check URL parameter first
-      const urlParams = new URLSearchParams(window.location.search)
-      const urlCurrency = urlParams.get('currency') as 'MAD' | 'EUR' | 'USD' | null
-      
-      if (urlCurrency && (urlCurrency === 'MAD' || urlCurrency === 'EUR' || urlCurrency === 'USD')) {
-        setCurrency(urlCurrency)
-        localStorage.setItem('carRentalCurrency', urlCurrency)
-      } else {
-        // Fallback to localStorage
-        const savedCurrency = localStorage.getItem('carRentalCurrency') as 'MAD' | 'EUR' | 'USD' | null
-        if (savedCurrency && (savedCurrency === 'MAD' || savedCurrency === 'EUR' || savedCurrency === 'USD')) {
-          setCurrency(savedCurrency)
-        }
-      }
-    }
+    const el = document.getElementById(RESERVATION_FORM_ID)
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsReservationFormInView(entry.isIntersecting),
+      { threshold: 0.2, rootMargin: '-80px 0px -80px 0px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [])
 
-  // Convert price based on currency
-  const convertPrice = (priceInMAD: number, targetCurrency: 'MAD' | 'EUR' | 'USD'): number => {
-    if (targetCurrency === 'EUR') {
-      // Round to nearest whole number for EUR (like USD)
-      return Math.round(priceInMAD / EUR_TO_MAD_RATE)
-    }
-    if (targetCurrency === 'USD') {
-      return Math.round((priceInMAD / USD_TO_MAD_RATE) * 100) / 100
-    }
-    return priceInMAD
+  const scrollToReservationForm = () => {
+    document.getElementById(RESERVATION_FORM_ID)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  // Format price with appropriate decimals
-  const formatPrice = (price: number, curr: 'MAD' | 'EUR' | 'USD'): string => {
-    return price.toFixed(curr === 'MAD' ? 0 : 2)
-  }
+  const searchParams = useSearchParams()
+  const urlCurrency = searchParams.get('currency') as 'MAD' | 'EUR' | 'USD' | null
+
+  // Sync currency when URL has ?currency= (e.g. navigated from cars list with currency)
+  useEffect(() => {
+    if (urlCurrency && (urlCurrency === 'MAD' || urlCurrency === 'EUR' || urlCurrency === 'USD')) {
+      setCurrency(urlCurrency)
+      if (typeof window !== 'undefined') localStorage.setItem('carRentalCurrency', urlCurrency)
+    }
+  }, [urlCurrency])
 
   const handleBackToCars = () => {
     // Check if we're already on the cars page
@@ -253,7 +253,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                   {/* Short-term pricing */}
                   <div className="flex items-baseline gap-2 mb-2">
                     <span className="text-2xl font-bold text-foreground">
-                      {formatPrice(convertPrice(car.pricing.shortTerm, currency), currency)} {currency} /
+                      {formatCarPrice(convertCarPrice(car.pricing.shortTerm, currency), currency)} {currency} /
                     </span>
                     <span className="text-muted-foreground">(1-4 jours)</span>
                     <Tag className="h-4 w-4 text-primary" />
@@ -264,7 +264,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                    
                     <div className="flex items-baseline gap-2">
                       <span className="text-3xl font-bold text-green-700">
-                        {formatPrice(convertPrice(car.pricing.longTerm, currency), currency)} {currency} /
+                        {formatCarPrice(convertCarPrice(car.pricing.longTerm, currency), currency)} {currency} /
                       </span>
                       <span className="text-green-600"> (5+ jours)</span>
                     </div>
@@ -274,7 +274,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               ) : (
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="text-3xl font-bold text-foreground">
-                    {formatPrice(convertPrice(car.pricePerDay, currency), currency)} {currency} 
+                    {formatCarPrice(convertCarPrice(car.pricePerDay, currency), currency)} {currency} 
                   </span>
                   <span className="text-muted-foreground">/</span>
                 </div>
@@ -319,30 +319,30 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               </div>
             </div>
             
-            <div className="flex flex-col md:flex-row items-center  gap-2">
-              <Button 
-                size="lg" 
-                className=" bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer"
-                onClick={() => setIsBookingDialogOpen(true)}
-              >
-                Réserver maintenant - {formatPrice(convertPrice(car.pricePerDay, currency), currency)} {currency}/jour
-              </Button>
-              <Button 
-                size="lg" 
-                className="bg-green-600 text-white hover:bg-green-700 cursor-pointer"
-                onClick={() => {
-                  const price = car.pricing?.shortTerm || car.pricePerDay
-                  const priceInCurrency = convertPrice(price, currency)
-                  const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatPrice(priceInCurrency, currency)} ${currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`;
-                  const encodedMessage = encodeURIComponent(message);
-                  const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
-                  window.open(whatsappUrl, '_blank');
-                }}
-              >
-                <Phone className="h-5 w-5 mr-2" />
-                WhatsApp
-              </Button>
-            </div>
+            {/* Booking form visible directly - no need to click a button; WhatsApp button below submit */}
+            <BookingDialog
+              inline
+              carName={car.carName}
+              carPrice={car.pricePerDay}
+              extraActions={
+                <Button
+                  type="button"
+                  size="lg"
+                  className="w-full bg-green-600 text-white hover:bg-green-700 cursor-pointer rounded-[25px] h-10"
+                  onClick={() => {
+                    const price = car.pricing?.shortTerm || car.pricePerDay
+                    const priceInCurrency = convertCarPrice(price, currency)
+                    const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatCarPrice(priceInCurrency, currency)} ${currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`;
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
+                    window.open(whatsappUrl, '_blank');
+                  }}
+                >
+                  <Phone className="h-5 w-5 mr-2" />
+                  WhatsApp
+                </Button>
+              }
+            />
           </div>
         </div>
 
@@ -463,14 +463,14 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
         </div>
       </div>
 
-      {/* Booking Dialog */}
-      <BookingDialog
-        isOpen={isBookingDialogOpen}
-        onClose={() => setIsBookingDialogOpen(false)}
-        carName={car.carName}
-        carPrice={car.pricePerDay}
-        // carImage={car.carImage}
-      />
+      {/* Sticky "Go to reservation" button - same design as menu button, visible when form is not in view */}
+      {!isReservationFormInView && (
+        <div className="fixed bottom-4 left-6 z-40 px-12 py-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="relative w-[100px] h-[40px]">
+            <MenuStyleButton label="Réserver" onClick={scrollToReservationForm} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
