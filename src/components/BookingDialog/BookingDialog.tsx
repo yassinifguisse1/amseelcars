@@ -55,6 +55,20 @@ interface BookingDialogProps {
   extraActions?: React.ReactNode;
 }
 
+/**
+ * Render a booking dialog or inline reservation form for a car and handle user input, validation, pricing calculation, and submission.
+ *
+ * The component validates form fields, computes rental days and total price (uses `pricing.longTerm` when `pricing?.hasDiscount` is true and rental is 5 or more days, otherwise uses `pricing.shortTerm` or `carPrice`), and POSTs the booking payload to `/api/booking`. On successful submission the form is reset and the component either auto-closes (modal mode) or clears its success state after a delay (inline mode). While submitting, the UI shows a loading state and prevents the dialog from closing.
+ *
+ * @param isOpen - If false, the modal dialog is not rendered; defaults to `true`.
+ * @param onClose - Callback invoked when the dialog is closed.
+ * @param carName - Display name of the car being booked.
+ * @param carPrice - Base price per day used as a fallback when `pricing` is not provided.
+ * @param pricing - Optional tiered pricing object. If `hasDiscount` is true and the rental duration is 5 or more days, `longTerm` is used as the per-day rate; otherwise `shortTerm` is used when available.
+ * @param inline - When true, render a compact inline reservation card instead of a modal; defaults to `false`.
+ * @param extraActions - Optional React node rendered below the submit controls in inline mode.
+ * @returns The dialog or inline reservation form as a React element.
+ */
 export default function BookingDialog({ 
   isOpen = true, 
   onClose = () => {}, 
