@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -108,7 +108,6 @@ interface BookingDialogProps {
   onClose?: () => void;
   carName: string;
   carPrice: number;
-  carImage?: string;
   /** When true, render the form inline on the page instead of in a modal */
   inline?: boolean;
   /** Optional content rendered below the submit button when inline (e.g. WhatsApp button) */
@@ -125,6 +124,7 @@ export default function BookingDialog({
 }: BookingDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
@@ -205,6 +205,24 @@ export default function BookingDialog({
       reset();
     }
   };
+
+  // Non-passive wheel listener so preventDefault() works when at scroll bounds (React's onWheel is passive)
+  useEffect(() => {
+    if (!isOpen) return;
+    const el = contentRef.current;
+    if (!el) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.stopPropagation();
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+      if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
+        e.preventDefault();
+      }
+    };
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, [isOpen]);
 
   const formContent = (
     <>
@@ -520,22 +538,9 @@ export default function BookingDialog({
               </div>
 
               {/* Content */}
-              <div 
+              <div
+                ref={contentRef}
                 className={`p-6 overflow-y-auto ${styles.dialogContent}`}
-                onWheel={(e) => {
-                  e.stopPropagation();
-                  const element = e.currentTarget;
-                  const { scrollTop, scrollHeight, clientHeight } = element;
-                  
-                  // Check if we're at the top or bottom
-                  const isAtTop = scrollTop === 0;
-                  const isAtBottom = scrollTop + clientHeight >= scrollHeight;
-                  
-                  // If scrolling up and at top, or scrolling down and at bottom, prevent default
-                  if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) {
-                    e.preventDefault();
-                  }
-                }}
               >
                 {formContent}
               </div>

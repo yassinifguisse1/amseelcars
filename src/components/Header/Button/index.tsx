@@ -61,14 +61,22 @@ export function MenuStyleButton({
   onClick: () => void;
   className?: string;
 }) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      onClick();
+    } else if (e.key === " " || e.key === "Spacebar") {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   return (
     <div
       className={`${styles.button} ${className ?? ""}`}
       onClick={onClick}
-      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
-      style={{ cursor: "pointer" }}
     >
       <div className={styles.slider} style={{ top: 0 }}>
         <div className={styles.el} style={{ pointerEvents: "auto" }}>

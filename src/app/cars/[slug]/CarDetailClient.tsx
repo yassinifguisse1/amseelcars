@@ -64,21 +64,35 @@ interface CarDetailClientProps {
 
 const RESERVATION_FORM_ID = 'reservation-form'
 
-function getInitialCurrency(): 'MAD' | 'EUR' | 'USD' {
-  if (typeof window === 'undefined') return 'MAD'
-  const urlParams = new URLSearchParams(window.location.search)
-  const urlCurrency = urlParams.get('currency') as 'MAD' | 'EUR' | 'USD' | null
-  if (urlCurrency && (urlCurrency === 'MAD' || urlCurrency === 'EUR' || urlCurrency === 'USD')) return urlCurrency
-  const saved = localStorage.getItem('carRentalCurrency') as 'MAD' | 'EUR' | 'USD' | null
-  if (saved && (saved === 'MAD' || saved === 'EUR' || saved === 'USD')) return saved
-  return 'MAD'
+const VALID_CURRENCIES = ['MAD', 'EUR', 'USD'] as const
+type ValidCurrency = (typeof VALID_CURRENCIES)[number]
+
+function isValidCurrency(v: string | null): v is ValidCurrency {
+  return v === 'MAD' || v === 'EUR' || v === 'USD'
 }
 
 export default function CarDetailClient({ car }: CarDetailClientProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>(getInitialCurrency)
+  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
   const [isReservationFormInView, setIsReservationFormInView] = useState(true)
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // Resolve currency on client only: URL wins, then localStorage, default MAD (avoids SSR/hydration mismatch)
+  useEffect(() => {
+    const fromUrl = searchParams.get('currency')
+    if (isValidCurrency(fromUrl)) {
+      setCurrency(fromUrl)
+      try {
+        localStorage.setItem('carRentalCurrency', fromUrl)
+      } catch (_) {}
+      return
+    }
+    try {
+      const saved = localStorage.getItem('carRentalCurrency')
+      if (isValidCurrency(saved)) setCurrency(saved)
+    } catch (_) {}
+  }, [searchParams])
 
   // Show/hide sticky "Go to reservation" button based on form visibility
   useEffect(() => {
@@ -95,17 +109,6 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
   const scrollToReservationForm = () => {
     document.getElementById(RESERVATION_FORM_ID)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
-
-  const searchParams = useSearchParams()
-  const urlCurrency = searchParams.get('currency') as 'MAD' | 'EUR' | 'USD' | null
-
-  // Sync currency when URL has ?currency= (e.g. navigated from cars list with currency)
-  useEffect(() => {
-    if (urlCurrency && (urlCurrency === 'MAD' || urlCurrency === 'EUR' || urlCurrency === 'USD')) {
-      setCurrency(urlCurrency)
-      if (typeof window !== 'undefined') localStorage.setItem('carRentalCurrency', urlCurrency)
-    }
-  }, [urlCurrency])
 
   const handleBackToCars = () => {
     // Check if we're already on the cars page
@@ -466,7 +469,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
       {/* Sticky "Go to reservation" button - same design as menu button, visible when form is not in view */}
       {!isReservationFormInView && (
         <div className="fixed bottom-4 left-6 z-40 px-12 py-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
-          <div className="relative w-[100px] h-[40px]">
+          <div className="relative w-[140px] h-[50px]">
             <MenuStyleButton label="Réserver" onClick={scrollToReservationForm} />
           </div>
         </div>
