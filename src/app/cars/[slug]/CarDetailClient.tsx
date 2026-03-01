@@ -324,6 +324,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
               inline
               carName={car.carName}
               carPrice={car.pricePerDay}
+              pricing={car.pricing}
               extraActions={
                 <Button
                   type="button"
