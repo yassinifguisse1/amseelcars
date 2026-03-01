@@ -142,10 +142,7 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
       const delays = [100, 300, 500, 1000]
       delays.forEach(delay => {
         setTimeout(() => {
-          if (!scrollToCarsSection()) {
-            // If element not found, try again
-            console.log(`Attempting to scroll to cars section after ${delay}ms`)
-          }
+          scrollToCarsSection()
         }, delay)
       })
     }
