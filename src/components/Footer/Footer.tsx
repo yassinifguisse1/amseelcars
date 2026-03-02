@@ -54,6 +54,15 @@ export default function Footer() {
                             <h3>Version</h3>
                             <p>2025 © Edition</p>
                         </span>
+                        <span>
+                            <h3></h3>
+                            <p>
+                                SITE DEVELOPED BY{" "}
+                                <Link href="https://itagroupe.com" target="_blank">
+                                    ITA GROUPE
+                                </Link>
+                            </p>
+                        </span>
                         {/* <span>
                             <h3>Version</h3>
                             <p>11:49 PM GMT+2</p>
