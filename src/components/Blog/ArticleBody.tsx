@@ -25,18 +25,31 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
     const containerElement = containerRef.current;
     if (!containerElement) return;
     const handleClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a, button');
+      if (!(e.target instanceof Element)) return;
+      const target = e.target.closest('a, button');
       if (!target || !containerElement.contains(target)) return;
-      const ctaLabel = (target.textContent?.trim() || (target as HTMLAnchorElement).href || '').slice(0, 200);
+      const hrefPart = target instanceof HTMLAnchorElement ? target.href : '';
+      const ctaLabel = (target.textContent?.trim() || hrefPart || '').slice(0, 200);
+      const currentUrl = new URL(window.location.href);
+      const fullUrl = currentUrl.origin + currentUrl.pathname;
+      let referrer = '';
+      if (document.referrer) {
+        try {
+          const refUrl = new URL(document.referrer);
+          referrer = refUrl.origin + refUrl.pathname;
+        } catch {
+          referrer = '';
+        }
+      }
       const payload = {
         path: window.location.pathname,
         source: 'blog',
         event: 'blog-cta',
         ctaLabel,
-        fullUrl: window.location.href,
+        fullUrl,
         userAgent: navigator.userAgent,
         language: navigator.language,
-        referrer: document.referrer || '',
+        referrer,
         screen: `${window.screen.width}x${window.screen.height}`,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
