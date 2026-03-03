@@ -6,6 +6,7 @@ import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
 import { convertCarPrice } from '@/lib/currency'
+import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
 import styles from './CarGridSection.module.scss'
 
 interface CarGridSectionProps {
@@ -104,6 +105,19 @@ const CarGridSection = ({
   const handleWhatsapp = (carName: string) => {
     const car = allCars.find(c => c.carName === carName)
     if (car) {
+      fetch('/api/track/whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+          getWhatsAppTrackBody({
+            path: '/cars',
+            source: 'car-listing',
+            carSlug: car.slug,
+            carName: car.carName,
+            event: 'whatsapp',
+          })
+        ),
+      }).catch(() => {})
       const price = car.pricing?.shortTerm || car.pricePerDay
       const priceInCurrency = convertCarPrice(price, currency)
       const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${priceInCurrency.toFixed(currency === 'MAD' ? 0 : 2)} ${currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`

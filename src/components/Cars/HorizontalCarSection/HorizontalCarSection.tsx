@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { getAllCars } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
+import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
 import styles from './HorizontalCarSection.module.scss'
 
 interface HorizontalCarSectionProps {
@@ -117,10 +118,21 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
     }
   }
   const handleWhatsapp = (carName: string) => {
-    // Find the car data
     const car = allCars.find(c => c.carName === carName)
     if (car) {
-      // Create WhatsApp message with car details
+      fetch('/api/track/whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+          getWhatsAppTrackBody({
+            path: typeof window !== 'undefined' ? window.location.pathname : '/',
+            source: 'car-listing',
+            carSlug: car.slug,
+            carName: car.carName,
+            event: 'whatsapp',
+          })
+        ),
+      }).catch(() => {})
       const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} MAD/jour. Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL

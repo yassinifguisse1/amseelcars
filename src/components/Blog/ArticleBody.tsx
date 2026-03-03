@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { BlogArticle } from '@/data/blog';
 import styles from "./ArticleBody.module.scss";
@@ -19,6 +19,36 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  // Delegate clicks on any link or button in the blog section (article body + CTA) and track to API + Make
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a, button');
+      if (!target || !el.contains(target)) return;
+      const ctaLabel = (target.textContent?.trim() || (target as HTMLAnchorElement).href || '').slice(0, 200);
+      const payload = {
+        path: typeof window !== 'undefined' ? window.location.pathname : '',
+        source: 'blog',
+        event: 'blog-cta',
+        ctaLabel,
+        fullUrl: typeof window !== 'undefined' ? window.location.href : '',
+        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+        language: typeof navigator !== 'undefined' ? navigator.language : '',
+        referrer: typeof document !== 'undefined' ? document.referrer || '' : '',
+        screen: typeof window !== 'undefined' && window.screen ? `${window.screen.width}x${window.screen.height}` : '',
+        timezone: typeof Intl !== 'undefined' && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
+      };
+      fetch('/api/track/whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    };
+    el.addEventListener('click', handleClick);
+    return () => el.removeEventListener('click', handleClick);
+  }, []);
 
   // Process content to add IDs to H2 headings first
   let processedContent = processContentWithIds(article.content);
