@@ -1,10 +1,11 @@
-"use client" // Added semicolon after "use client" directive
+"use client"
 
 import Link from "next/link"
 import { CometCard } from "@/components/ui/comet-card"
 import { Button } from "@/components/ui/button"
 import { Car, Users, Fuel, Settings, Tag } from "lucide-react"
 import Image from "next/image"
+import { getWhatsAppTrackBody } from "@/lib/trackWhatsApp"
 
 interface CarRentalCardProps {
   carName: string
@@ -110,6 +111,19 @@ export function CarRentalCard({
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
+            fetch('/api/track/whatsapp', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(
+                getWhatsAppTrackBody({
+                  path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
+                  source: 'car-card',
+                  carSlug: slug,
+                  carName,
+                  event: 'reserver',
+                })
+              ),
+            }).catch(() => {})
             onBook()
           }}
           className="mt-3 sm:mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base"

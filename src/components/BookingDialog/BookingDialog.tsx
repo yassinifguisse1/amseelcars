@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp';
 import styles from './BookingDialog.module.css';
 
 // Form validation schema
@@ -119,6 +120,28 @@ export default function BookingDialog({
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
+
+    fetch('/api/track/whatsapp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...getWhatsAppTrackBody({
+          path: typeof window !== 'undefined' ? window.location.pathname : '/',
+          source: 'booking-form',
+          carName,
+          event: 'booking-submit',
+        }),
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        pickupDate: data.pickupDate,
+        returnDate: data.returnDate,
+        pickupLocation: data.pickupLocation,
+        returnLocation: data.returnLocation,
+        rentalDays: days,
+        totalPrice: total,
+      }),
+    }).catch(() => {});
 
     try {
       const response = await fetch('/api/booking', {

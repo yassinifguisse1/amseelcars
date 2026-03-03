@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { BlogArticle } from '@/data/blog';
 import styles from "./ArticleBody.module.scss";
@@ -19,6 +19,57 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  // Delegate clicks on any link or button in the blog section (article body + CTA) and track to API + Make
+  useEffect(() => {
+    const containerElement = containerRef.current;
+    if (!containerElement) return;
+    const handleClick = (e: MouseEvent) => {
+      if (!(e.target instanceof Element)) return;
+      const target = e.target.closest('a, button');
+      if (!target || !containerElement.contains(target)) return;
+      const hrefPart = target instanceof HTMLAnchorElement ? target.href : '';
+      const ctaLabel = (target.textContent?.trim() || hrefPart || '').slice(0, 200);
+      const currentUrl = new URL(window.location.href);
+      const fullUrl = currentUrl.origin + currentUrl.pathname;
+      let referrer = '';
+      if (document.referrer) {
+        try {
+          const refUrl = new URL(document.referrer);
+          referrer = refUrl.origin + refUrl.pathname;
+        } catch {
+          referrer = '';
+        }
+      }
+      const payload = {
+        path: window.location.pathname,
+        source: 'blog',
+        event: 'blog-cta',
+        ctaLabel,
+        fullUrl,
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        referrer,
+        screen: `${window.screen.width}x${window.screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      };
+      const url = '/api/track/whatsapp';
+      const bodyStr = JSON.stringify(payload);
+      if (navigator.sendBeacon) {
+        const blob = new Blob([bodyStr], { type: 'application/json' });
+        navigator.sendBeacon(url, blob);
+      } else {
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: bodyStr,
+          keepalive: true,
+        }).catch((err) => console.error('[ArticleBody] CTA tracking request failed', err));
+      }
+    };
+    containerElement.addEventListener('click', handleClick);
+    return () => containerElement.removeEventListener('click', handleClick);
+  }, []);
 
   // Process content to add IDs to H2 headings first
   let processedContent = processContentWithIds(article.content);
