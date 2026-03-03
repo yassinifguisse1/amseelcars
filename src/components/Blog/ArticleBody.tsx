@@ -22,27 +22,27 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
 
   // Delegate clicks on any link or button in the blog section (article body + CTA) and track to API + Make
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+    const containerElement = containerRef.current;
+    if (!containerElement) return;
     const handleClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest('a, button');
-      if (!target || !el.contains(target)) return;
+      if (!target || !containerElement.contains(target)) return;
       const ctaLabel = (target.textContent?.trim() || (target as HTMLAnchorElement).href || '').slice(0, 200);
       const payload = {
-        path: typeof window !== 'undefined' ? window.location.pathname : '',
+        path: window.location.pathname,
         source: 'blog',
         event: 'blog-cta',
         ctaLabel,
-        fullUrl: typeof window !== 'undefined' ? window.location.href : '',
-        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
-        language: typeof navigator !== 'undefined' ? navigator.language : '',
-        referrer: typeof document !== 'undefined' ? document.referrer || '' : '',
-        screen: typeof window !== 'undefined' && window.screen ? `${window.screen.width}x${window.screen.height}` : '',
-        timezone: typeof Intl !== 'undefined' && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
+        fullUrl: window.location.href,
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        referrer: document.referrer || '',
+        screen: `${window.screen.width}x${window.screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
       const url = '/api/track/whatsapp';
       const bodyStr = JSON.stringify(payload);
-      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+      if (navigator.sendBeacon) {
         const blob = new Blob([bodyStr], { type: 'application/json' });
         navigator.sendBeacon(url, blob);
       } else {
@@ -51,11 +51,11 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
           headers: { 'Content-Type': 'application/json' },
           body: bodyStr,
           keepalive: true,
-        }).catch(() => {});
+        }).catch((err) => console.error('[ArticleBody] CTA tracking request failed', err));
       }
     };
-    el.addEventListener('click', handleClick);
-    return () => el.removeEventListener('click', handleClick);
+    containerElement.addEventListener('click', handleClick);
+    return () => containerElement.removeEventListener('click', handleClick);
   }, []);
 
   // Process content to add IDs to H2 headings first

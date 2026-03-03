@@ -391,7 +391,8 @@ export async function POST(request: NextRequest) {
       <p style="${rowStyle}"><span style="${labelStyle}">Date et heure</span><span style="${valueStyle}">${escapeHtml(String(dateStr))}, ${escapeHtml(String(timeStr))}</span></p>
       <p style="${rowStyle}"><span style="${labelStyle}">Page</span><span style="${valueStyle}">${escapeHtml(String(path))}</span></p>
       <p style="${rowStyle}"><span style="${labelStyle}">Source</span><span style="${valueStyle}">${escapeHtml(String(sourceLabel))}</span></p>
-      <p style="${rowStyle} margin-bottom: 0; border-bottom: none;"><span style="${labelStyle}">Voiture</span><span style="${valueStyle}">${escapeHtml(String(carDisplay))}</span></p>
+      <p style="${rowStyle}"><span style="${labelStyle}">Voiture</span><span style="${valueStyle}">${escapeHtml(String(carDisplay))}</span></p>
+      ${carSlug ? `<p style="${rowStyle} margin-bottom: 0; border-bottom: none;"><span style="${labelStyle}">Slug</span><span style="${valueStyle}">${escapeHtml(String(carSlug))}</span></p>` : `<p style="${rowStyle} margin-bottom: 0; border-bottom: none;"><span style="${labelStyle}">Slug</span><span style="${valueStyle}">–</span></p>`}
     `;
 
     const bookingSection = hasBookingForm
@@ -440,6 +441,7 @@ export async function POST(request: NextRequest) {
     // Build webhook payload explicitly: no spread of body. Only non-PII common fields; add minimal booking only for booking-submit.
     const webhookPayload: Record<string, unknown> = {
       path: body.path,
+      slug: body.carSlug,
       event: body.event,
       clientIp,
       eventLabel,
