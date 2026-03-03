@@ -40,11 +40,19 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
         screen: typeof window !== 'undefined' && window.screen ? `${window.screen.width}x${window.screen.height}` : '',
         timezone: typeof Intl !== 'undefined' && Intl.DateTimeFormat ? Intl.DateTimeFormat().resolvedOptions().timeZone : '',
       };
-      fetch('/api/track/whatsapp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      }).catch(() => {});
+      const url = '/api/track/whatsapp';
+      const bodyStr = JSON.stringify(payload);
+      if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+        const blob = new Blob([bodyStr], { type: 'application/json' });
+        navigator.sendBeacon(url, blob);
+      } else {
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: bodyStr,
+          keepalive: true,
+        }).catch(() => {});
+      }
     };
     el.addEventListener('click', handleClick);
     return () => el.removeEventListener('click', handleClick);

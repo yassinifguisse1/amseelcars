@@ -3,15 +3,60 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const TRACK_EMAIL_TO = [
-  ...new Set([
-    'noreply@amseelcars.com',
-    process.env.WHATSAPP_TRACK_EMAIL || 'khalilakirar@gmail.com',
-    'talhaouiimed@gmail.com',
-  ].filter(Boolean)),
-];
+/**
+ * Recipients for tracking emails. Set WHATSAPP_TRACK_EMAILS in your environment
+ * (comma- or semicolon-separated list). Deploys must set this; no default emails.
+ */
+function getTrackEmailTo(): string[] {
+  const raw = process.env.WHATSAPP_TRACK_EMAILS ?? '';
+  const list = raw
+    .split(/[,;]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return [...new Set(list)];
+}
 
-const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/ehlcvnj7ligjg07pjmn6ftc6lqs620uh';
+const MAKE_WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL?.trim() || '';
+if (!MAKE_WEBHOOK_URL) {
+  throw new Error(
+    'MAKE_WEBHOOK_URL is required. Set it in your environment. Deploys must configure this for tracking webhooks. Rotate any previously exposed webhook URL in Make.com.'
+  );
+}
+
+const WEBHOOK_TIMEOUT_MS = 15000;
+const WEBHOOK_MAX_RETRIES = 3;
+
+/**
+ * Sends payload to the Make webhook with timeout and retries. Throws on failure
+ * or non-2xx after all retries so callers can await and handle errors.
+ */
+async function sendToWebhook(payload: object): Promise<void> {
+  const body = JSON.stringify(payload);
+  let lastError: Error | null = null;
+  let lastStatus: number | null = null;
+  for (let attempt = 1; attempt <= WEBHOOK_MAX_RETRIES; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+      const res = await fetch(MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      if (res.ok) return;
+      lastStatus = res.status;
+      if (attempt < WEBHOOK_MAX_RETRIES) await new Promise((r) => setTimeout(r, 1000 * attempt));
+    } catch (e) {
+      lastError = e instanceof Error ? e : new Error(String(e));
+      if (attempt === WEBHOOK_MAX_RETRIES) throw lastError;
+      await new Promise((r) => setTimeout(r, 1000 * attempt));
+    }
+  }
+  const statusMsg = lastStatus != null ? ` status ${lastStatus}` : '';
+  throw new Error(`Webhook failed after ${WEBHOOK_MAX_RETRIES} attempts${statusMsg}${lastError ? `: ${lastError.message}` : ''}`);
+}
 
 function getClientIp(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for');
@@ -40,36 +85,197 @@ const locationLabels: Record<string, string> = {
   'agence': 'Agence',
 };
 
+const ALLOWED_KEYS = new Set([
+  'path', 'source', 'carSlug', 'carName', 'fullUrl', 'userAgent', 'language', 'referrer',
+  'screen', 'timezone', 'event', 'fullName', 'email', 'phone', 'pickupDate', 'returnDate',
+  'pickupLocation', 'returnLocation', 'rentalDays', 'totalPrice', 'ctaLabel',
+]);
+
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_PER_IP = 30;
+const rateLimitMap = new Map<string, { count: number; windowStart: number }>();
+
+const MAX_PATH_LEN = 500;
+const MAX_STRING_LEN = 2000;
+const MAX_EMAIL_LEN = 254;
+const MAX_PHONE_LEN = 30;
+const BASIC_EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const SAFE_PATH_REGEX = /^\/[a-zA-Z0-9/_.?-]*$/;
+
+function toStr(v: unknown, maxLen: number): string {
+  const s = typeof v === 'string' ? v.trim() : '';
+  return s.slice(0, maxLen);
+}
+
+function sanitizePath(v: unknown): string {
+  const s = toStr(v, MAX_PATH_LEN);
+  if (!s) return '';
+  const safe = SAFE_PATH_REGEX.test(s) ? s : '/' + s.replace(/[^a-zA-Z0-9/_.?-]/g, '');
+  return safe.startsWith('/') ? safe : '/' + safe;
+}
+
+function sanitizeEmail(v: unknown): string {
+  const s = toStr(v, MAX_EMAIL_LEN).toLowerCase();
+  if (!s) return '';
+  return BASIC_EMAIL_REGEX.test(s) ? s : '';
+}
+
+function sanitizePhone(v: unknown): string {
+  const s = toStr(v, MAX_PHONE_LEN);
+  return s.replace(/[^\d\s+]/g, '').slice(0, MAX_PHONE_LEN);
+}
+
+function sanitizeUrl(v: unknown): string {
+  const s = toStr(v, MAX_STRING_LEN);
+  if (!s) return '';
+  return s.startsWith('http://') || s.startsWith('https://') ? s : '';
+}
+
+interface ValidatedBody {
+  path: string;
+  source: string;
+  carSlug: string;
+  carName: string;
+  fullUrl: string;
+  userAgent: string;
+  language: string;
+  referrer: string;
+  screen: string;
+  timezone: string;
+  event: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  pickupDate: string;
+  returnDate: string;
+  pickupLocation: string;
+  returnLocation: string;
+  rentalDays: number | undefined;
+  totalPrice: number | undefined;
+  ctaLabel: string;
+}
+
+function parseAndValidateBody(raw: unknown): { ok: true; data: ValidatedBody } | { ok: false; status: number; error: string } {
+  if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) {
+    return { ok: false, status: 400, error: 'Invalid JSON body' };
+  }
+  const body = raw as Record<string, unknown>;
+  const keys = Object.keys(body);
+  const unknownKeys = keys.filter((k) => !ALLOWED_KEYS.has(k));
+  if (unknownKeys.length > 0) {
+    return { ok: false, status: 400, error: `Unknown fields: ${unknownKeys.join(', ')}` };
+  }
+
+  const path = sanitizePath(body.path);
+  if (!path) {
+    return { ok: false, status: 400, error: 'path is required and must be a valid path' };
+  }
+
+  const event = toStr(body.event, 50) || 'whatsapp';
+  const allowedEvents = ['whatsapp', 'reserver', 'booking-submit', 'blog-cta'];
+  if (!allowedEvents.includes(event)) {
+    return { ok: false, status: 400, error: `event must be one of: ${allowedEvents.join(', ')}` };
+  }
+
+  const rentalDays = body.rentalDays !== undefined && body.rentalDays !== null
+    ? (typeof body.rentalDays === 'number' && Number.isFinite(body.rentalDays) ? body.rentalDays : undefined)
+    : undefined;
+  const totalPrice = body.totalPrice !== undefined && body.totalPrice !== null
+    ? (typeof body.totalPrice === 'number' && Number.isFinite(body.totalPrice) ? body.totalPrice : undefined)
+    : undefined;
+
+  const data: ValidatedBody = {
+    path,
+    source: toStr(body.source, 100),
+    carSlug: toStr(body.carSlug, 200),
+    carName: toStr(body.carName, 200),
+    fullUrl: sanitizeUrl(body.fullUrl),
+    userAgent: toStr(body.userAgent, 500),
+    language: toStr(body.language, 20),
+    referrer: sanitizeUrl(body.referrer),
+    screen: toStr(body.screen, 50),
+    timezone: toStr(body.timezone, 80),
+    event,
+    fullName: toStr(body.fullName, 200),
+    email: sanitizeEmail(body.email),
+    phone: sanitizePhone(toStr(body.phone, MAX_PHONE_LEN)),
+    pickupDate: toStr(body.pickupDate, 50),
+    returnDate: toStr(body.returnDate, 50),
+    pickupLocation: toStr(body.pickupLocation, 50),
+    returnLocation: toStr(body.returnLocation, 50),
+    rentalDays,
+    totalPrice,
+    ctaLabel: toStr(body.ctaLabel, 200),
+  };
+  return { ok: true, data };
+}
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry) {
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return true;
+  }
+  if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return true;
+  }
+  entry.count += 1;
+  if (entry.count > RATE_LIMIT_MAX_PER_IP) return false;
+  return true;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json() as Record<string, unknown>;
+    const clientIp = getClientIp(request);
+    if (clientIp !== '–' && !checkRateLimit(clientIp)) {
+      return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    }
+
+    let raw: unknown;
+    try {
+      raw = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+    }
+
+    const parsed = parseAndValidateBody(raw);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: parsed.status });
+    }
+    const body = parsed.data;
     const {
-      path = '',
-      source = '',
-      carSlug = '',
-      carName = '',
-      fullUrl = '',
-      userAgent = '',
-      language = '',
-      referrer = '',
-      screen = '',
-      timezone = '',
-      event = 'whatsapp',
-      // Booking form (when event is booking-submit)
-      fullName = '',
-      email = '',
-      phone = '',
-      pickupDate = '',
-      returnDate = '',
-      pickupLocation = '',
-      returnLocation = '',
+      path,
+      source,
+      carSlug,
+      carName,
+      fullUrl,
+      userAgent,
+      language,
+      referrer,
+      screen,
+      timezone,
+      event,
+      fullName,
+      email,
+      phone,
+      pickupDate,
+      returnDate,
+      pickupLocation,
+      returnLocation,
       rentalDays,
       totalPrice,
-      ctaLabel = '',
+      ctaLabel,
     } = body;
 
-    if (!path || typeof path !== 'string') {
-      return NextResponse.json({ error: 'path is required' }, { status: 400 });
+    const trackEmailTo = getTrackEmailTo();
+    if (trackEmailTo.length === 0) {
+      console.error('[track/whatsapp] WHATSAPP_TRACK_EMAILS is not set or empty. Set it in your environment (comma- or semicolon-separated).');
+      return NextResponse.json(
+        { error: 'Tracking emails not configured' },
+        { status: 500 }
+      );
     }
 
     const eventConfig: Record<string, { subjectPrefix: string; title: string; footerNote: string }> = {
@@ -131,7 +337,6 @@ export async function POST(request: NextRequest) {
               : source || '–';
     const carDisplay = carName || carSlug || (event === 'blog-cta' && ctaLabel ? ctaLabel : '–');
 
-    const clientIp = getClientIp(request);
     const ua = String(userAgent || '');
     const visitorRows = [
       ['URL complète', fullUrl || '–'],
@@ -207,7 +412,7 @@ export async function POST(request: NextRequest) {
 
     const { error } = await resend.emails.send({
       from: 'Amseel Cars <noreply@amseelcars.com>',
-      to: TRACK_EMAIL_TO,
+      to: trackEmailTo,
       subject,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; background: #f1f5f9;">
@@ -232,9 +437,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
 
-    // Forward full payload to Make.com webhook including server-side visitor data (IP, labels)
-    const webhookPayload = {
-      ...body,
+    // Build webhook payload explicitly: no spread of body. Only non-PII common fields; add minimal booking only for booking-submit.
+    const webhookPayload: Record<string, unknown> = {
+      path: body.path,
+      event: body.event,
       clientIp,
       eventLabel,
       sourceLabel,
@@ -242,11 +448,24 @@ export async function POST(request: NextRequest) {
       dateStr,
       timeStr,
     };
-    fetch(MAKE_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(webhookPayload),
-    }).catch((err) => console.error('[track/whatsapp] Make webhook error:', err));
+    if (event === 'booking-submit') {
+      const booking: { fullName?: string; email?: string; phone?: string } = {};
+      if (body.fullName) booking.fullName = body.fullName;
+      if (body.email) booking.email = body.email;
+      if (body.phone) booking.phone = body.phone;
+      if (Object.keys(booking).length > 0) {
+        webhookPayload.booking = booking;
+      }
+    }
+    try {
+      await sendToWebhook(webhookPayload);
+    } catch (err) {
+      console.error('[track/whatsapp] Make webhook error:', err);
+      return NextResponse.json(
+        { error: 'Webhook delivery failed' },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
