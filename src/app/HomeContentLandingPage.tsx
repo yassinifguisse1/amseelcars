@@ -10,6 +10,15 @@ import Example from "@/components/CarDashboardMap/Example";
 import Footer from "@/components/Footer/Footer";
 import SplitHeadline from "@/components/test/SplitHeadline";
 import Reviews from "@/components/Reviews/Reviews";
+import {
+  HomeSeoTrustBar,
+  HomeSeoAirportBlock,
+  HomeSeoVehicleTypesBlock,
+  HomeSeoLocalDiscoveryBlock,
+  HomeSeoLocationNapBlock,
+  HomeSeoBookingCtaBlock,
+  HomeSeoFaqBlock,
+} from "@/components/home-seo/home-seo";
 import { reviews } from "@/data/reviews";
 import { useLoading } from "@/contexts/LoadingContext";
 import Speedometer from "@/components/Preloader/Speedometer";
@@ -62,7 +71,7 @@ function SpeedometerPreloader() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
         >
-          <h1 className="text-2xl md:text-4xl font-bold mb-2">AMSEEL CARS</h1>
+          <h2 className="text-2xl md:text-4xl font-bold mb-2">AMSEEL CARS</h2>
           <p className="text-sm md:text-base text-gray-400 mb-4">Expérience de location de voitures haut de gamme.</p>
          
         </motion.div>
@@ -74,13 +83,9 @@ function SpeedometerPreloader() {
 // Inner component that uses the loading context
 export function HomeContentLandingPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false);
   const { loadingState} = useLoading();
 
   useEffect(() => {
-    // Ensure client-side hydration
-    setIsClient(true);
-    
     // Clean up any lingering scroll conflicts from other pages
     if (typeof window !== 'undefined') {
       // Reset scroll behavior to default
@@ -137,8 +142,7 @@ export function HomeContentLandingPage() {
         {isLoading && <SpeedometerPreloader />}
       </AnimatePresence>
       
-      {isClient && (
-        <motion.div
+      <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoading ? 0 : 1 }}
           transition={{ 
@@ -148,14 +152,36 @@ export function HomeContentLandingPage() {
           }}
         >
           <Cardrive />
+          {/* SEO: trust strip — after hero, before BMW/Kia showcase */}
+          <HomeSeoTrustBar />
           <BMWCarScroll />
+          {/* Blend BMW gray into aéroport cream (avoids a sharp “white” seam when scrolling) */}
+          <div
+            className="h-[min(8vh,88px)] shrink-0 bg-gradient-to-b from-gray-200 to-[#f7f5f2]"
+            aria-hidden
+          />
+          {/* SEO: airport / aéroport — after “Votre Trajet Idéal”, before black storytelling */}
+          <HomeSeoAirportBlock />
           <SplitHeadline />
           <Brands />
-          <Reviews reviews={reviews} useApi={true} />
-          <Example/>
-          <Footer/>
+          {/* SEO: vehicle categories — after Nos Marques, before reviews */}
+          <HomeSeoVehicleTypesBlock />
+          <Reviews
+            reviews={reviews}
+            useApi={true}
+            introParagraph="Nos clients apprécient la qualité de notre service, la rapidité de la remise des véhicules et la transparence de nos conditions de location à Agadir."
+          />
+          {/* SEO: destinations — after reviews, before map dashboard */}
+          <HomeSeoLocalDiscoveryBlock />
+          <Example />
+          {/* SEO: NAP + location copy — below map-in-dashboard */}
+          <HomeSeoLocationNapBlock />
+          {/* SEO: conversion — before FAQ */}
+          <HomeSeoBookingCtaBlock />
+          {/* SEO: FAQ — before footer */}
+          <HomeSeoFaqBlock />
+          <Footer />
         </motion.div>
-      )} 
     </div>
   );
 }

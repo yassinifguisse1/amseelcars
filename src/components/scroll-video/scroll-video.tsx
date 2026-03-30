@@ -1125,18 +1125,76 @@
 // ------------------------------------------------------------------------------------------------
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useLoading } from "@/contexts/LoadingContext";
 
+const HERO_TITLE = "Location voiture Agadir - AMSEEL CARS";
+const HERO_INTRO =
+  "AMSEEL CARS vous propose un service fiable de location de voiture à Agadir avec livraison à l’aéroport d’Agadir Al Massira, à votre hôtel ou en centre-ville. Découvrez nos voitures économiques, automatiques, SUV et modèles premium avec réservation simple, assistance 24/7 et tarifs clairs.";
+
+function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
+  return (
+    <section
+      className="relative z-10 bg-black px-4 pb-10 pt-6 md:px-6 md:pb-14 md:pt-8 lg:pb-16 lg:pt-10"
+      aria-label="Présentation — location voiture Agadir"
+    >
+      <div className="mx-auto w-full max-w-4xl text-center">
+        <h1 className="text-balance text-2xl font-bold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.45rem]">
+          {HERO_TITLE}
+        </h1>
+        <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-white/92 drop-shadow md:text-base md:leading-relaxed">
+          {HERO_INTRO}
+        </p>
+        <div className="mt-8 flex justify-center md:mt-10">
+          <Link
+            href="/cars"
+            className="inline-flex rounded-full no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            <motion.span
+              className={`group relative inline-flex rounded-full border-2 border-white bg-white font-bold text-black shadow-2xl backdrop-blur-sm transition-colors duration-300 ease-out hover:border-[#CB1939] hover:bg-[#CB1939] hover:text-white ${
+                isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg"
+              }`}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 28px rgba(203, 25, 57, 0.55)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
+                Voir nos voitures
+                <motion.span
+                  className="inline-block"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  aria-hidden
+                >
+                  →
+                </motion.span>
+              </span>
+              {/* Subtle ring on hover (overlays use pointer-events-none) */}
+              <span
+                className="pointer-events-none absolute inset-0 rounded-full border-2 border-white opacity-0 transition-all duration-500 group-hover:scale-110 group-hover:opacity-40"
+                aria-hidden
+              />
+            </motion.span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const Cardrive = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
@@ -1167,117 +1225,59 @@ const Cardrive = () => {
     setMinimumTimeElapsed(true);
   }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
 
-  // Always call hooks - but use conditional target
-  const { scrollYProgress } = useScroll({
-    target: isClient ? containerRef : undefined,
-    offset: ["start start", "end end"],
-  });
-
-  const buttonY = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.4, 1],
-    ["30vh", "28vh", "12vh", "8vh"]
-  );
-  const buttonOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.15, 1],
-    [0, 0, 1, 1]
-  );
-  const buttonScale = useTransform(
-    scrollYProgress,
-    [0.1, 0.2, 0.25],
-    [0.4, 1, 1]
-  );
-
-  // Don't render until client-side to avoid hydration mismatch
+  /* SSR: video-sized band + crawlable copy below (no text over video) */
   if (!isClient) {
-    return <div className="w-full h-[300svh] bg-black"></div>;
+    return (
+      <>
+        <section className="relative bg-black">
+          <div className="relative h-[100svh] min-h-[520px] w-full bg-black">
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[min(28vh,12rem)] bg-gradient-to-t from-black via-black/25 to-transparent"
+              aria-hidden
+            />
+          </div>
+        </section>
+        <HeroCopyBand isMobile={false} />
+      </>
+    );
   }
 
   return (
-    <motion.section
-      ref={containerRef}
-      className="relative bg-black"
-      style={{ height: isMobile ? "250svh" : "300svh" }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-    >
-      <div className="sticky top-0 h-[100svh] w-full flex items-center justify-center bg-black">
-        {/* Simple video like HeroVideo */}
-        <video 
-          className="absolute inset-0 w-full h-full object-cover" 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          preload="metadata"
-          key={isMobile ? 'mobile' : 'desktop'} // Force re-render when mobile state changes
-        >
-          <source 
-            src={isMobile ? "/video/mobile-video-amseel-car.mp4" : "/video/desktop-video-amseel-car.mp4"} 
-            type="video/mp4" 
+    <>
+      <motion.section
+        className="relative bg-black"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <div className="relative h-[100svh] min-h-[520px] w-full overflow-hidden bg-black">
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            key={isMobile ? "mobile" : "desktop"}
+          >
+            <source
+              src={
+                isMobile
+                  ? "/video/mobile-video-amseel-car.mp4"
+                  : "/video/desktop-video-amseel-car.mp4"
+              }
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[min(28vh,12rem)] bg-gradient-to-t from-black via-black/25 to-transparent"
+            aria-hidden
           />
-          Your browser does not support the video tag.
-        </video>
-
-        {/* Explore cars button */}
-        <motion.div
-          className="absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
-          style={{
-            y: buttonY,
-            opacity: buttonOpacity,
-            scale: buttonScale,
-          }}
-        >
-          <Link href="/cars">
-            <motion.button
-              className={`relative rounded-full border-2 border-white bg-white px-8 py-4 text-lg font-bold text-black shadow-2xl transition-all duration-300 ease-out hover:bg-transparent hover:text-white backdrop-blur-sm ${
-                isMobile ? "px-6 py-3 text-base" : ""
-              }`}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
-                Nos voitures
-                <motion.span
-                  className="inline-block"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  →
-                </motion.span>
-              </span>
-
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-100 to-white opacity-0"
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-white opacity-0"
-                whileHover={{
-                  opacity: [0, 1, 0],
-                  scale: [1, 1.2, 1.4],
-                }}
-                transition={{ duration: 0.6 }}
-              />
-            </motion.button>
-          </Link>
-        </motion.div>
-      </div>
-    </motion.section>
+        </div>
+      </motion.section>
+      <HeroCopyBand isMobile={isMobile} />
+    </>
   );
 };
 

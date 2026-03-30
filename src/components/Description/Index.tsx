@@ -36,6 +36,18 @@ export default function Index() {
               <p className="z-10 text-white  ">À propos de nous</p>
             </Rounded>
         </div>
+
+        {/* SEO: supporting local copy before “Nos Marques” — keeps narrative layout intact */}
+        <p
+          className={`${styles.seoIntroSerif} mt-10 max-w-3xl text-center leading-[1.3] text-white break-words md:mx-auto`}
+        >
+          <span className="block whitespace-nowrap text-[#CB1939] text-[30px] font-bold tracking-[-0.02em] md:text-[40px] lg:text-[46px]">
+            AMSEEL CARS
+          </span>
+          <span className="block mt-3 text-[22px] font-normal leading-[1.35] tracking-[-0.02em] md:text-[30px] md:leading-[1.3] md:tracking-[-0.015em] lg:text-[34px] lg:leading-[1.25] lg:tracking-[-0.01em]">
+            accompagne vos besoins de location de voiture à Agadir avec une flotte récente, des conditions claires, une assistance 24/7 et des solutions adaptées aux séjours touristiques comme aux déplacements professionnels.
+          </span>
+        </p>
       </div>
     </div>
   );

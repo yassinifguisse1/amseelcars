@@ -23,20 +23,26 @@ export interface Review {
 interface ReviewsProps {
   reviews?: Review[]; // Optional - if not provided, fetch from API
   useApi?: boolean; // Toggle between API and manual (default: true)
+  /** SEO: short crawlable intro above review cards */
+  introParagraph?: string;
 }
 
-export default function Reviews({ reviews: manualReviews, useApi = false }: ReviewsProps) {
+export default function Reviews({
+  reviews: manualReviews,
+  useApi = false,
+  introParagraph,
+}: ReviewsProps) {
   // Fetch reviews from API if enabled
   const { reviews: apiReviews, loading: apiLoading } = useGoogleReviews();
   
-  // Use API reviews if enabled, otherwise use manual reviews
-  // When useApi=true, only show API reviews (no fallback to manual)
-  const reviews = useApi 
-    ? apiReviews 
-    : (manualReviews || []);
+  const fallbackReviews = manualReviews || [];
+
+  // Use API reviews if enabled, but fall back to manual reviews when API is empty.
+  // This prevents the whole section from disappearing if `/api/reviews` fails or returns [].
+  const reviews = useApi ? (apiReviews.length > 0 ? apiReviews : fallbackReviews) : fallbackReviews;
   
-  // Show loading state when using API
-  const isLoading = useApi && apiLoading;
+  // Show loading state when using API and we don't have any reviews yet.
+  const isLoading = useApi && apiLoading && apiReviews.length === 0;
   
   // Calculate average rating and count (only if reviews exist)
   const averageRating = reviews.length > 0 
@@ -101,6 +107,9 @@ export default function Reviews({ reviews: manualReviews, useApi = false }: Revi
         <div className={styles.container}>
           <div className={styles.header}>
             <h2 className={styles.title}>Ce que nos clients disent</h2>
+            {introParagraph && (
+              <p className={styles.introLead}>{introParagraph}</p>
+            )}
             <p>Chargement des avis...</p>
           </div>
         </div>
@@ -124,6 +133,9 @@ export default function Reviews({ reviews: manualReviews, useApi = false }: Revi
           transition={{ duration: 0.6 }}
         >
           <h2 className={styles.title}>Ce que nos clients disent</h2>
+          {introParagraph && (
+            <p className={styles.introLead}>{introParagraph}</p>
+          )}
           <div className={styles.ratingSummary}>
             <div className={styles.stars}>
               {[...Array(5)].map((_, i) => (
