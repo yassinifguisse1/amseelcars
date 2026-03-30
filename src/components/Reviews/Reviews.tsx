@@ -42,7 +42,11 @@ export default function Reviews({
   const reviews = useApi ? (apiReviews.length > 0 ? apiReviews : fallbackReviews) : fallbackReviews;
   
   // Show loading state when using API and we don't have any reviews yet.
-  const isLoading = useApi && apiLoading && apiReviews.length === 0;
+  const isLoading =
+    useApi &&
+    apiLoading &&
+    apiReviews.length === 0 &&
+    fallbackReviews.length === 0;
   
   // Calculate average rating and count (only if reviews exist)
   const averageRating = reviews.length > 0 

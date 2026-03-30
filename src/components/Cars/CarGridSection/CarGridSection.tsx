@@ -194,7 +194,7 @@ const CarGridSection = ({
         {/* Car Grid */}
         {filteredCars.length > 0 ? (
           <div className={styles.carGrid}>
-            {filteredCars.map((car) => {
+            {filteredCars.map((car, index) => {
               const pricePerDay = car.pricing?.shortTerm || car.pricePerDay
               const priceInCurrency = convertCarPrice(pricePerDay, currency)
               const longTermPrice = car.pricing?.longTerm 
@@ -202,7 +202,7 @@ const CarGridSection = ({
                 : undefined
 
               return (
-                <article key={car.id} className={styles.carCard}>
+                <article key={car.slug || car.id} className={styles.carCard}>
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}

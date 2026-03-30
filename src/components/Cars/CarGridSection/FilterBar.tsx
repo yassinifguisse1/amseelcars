@@ -29,8 +29,12 @@ export default function FilterBar({
 }: FilterBarProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const handleFilterChange = (key: keyof FilterState, value: string | 'MAD' | 'EUR' | 'USD') => {
-    const newFilters = { ...filters, [key]: value, currency }
+  const handleFilterChange = <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
+    const newFilters: FilterState = {
+      ...filters,
+      [key]: value,
+      currency: key === 'currency' ? (value as FilterState['currency']) : filters.currency,
+    }
     onFilterChange(newFilters)
   }
 

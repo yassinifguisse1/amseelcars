@@ -67,7 +67,7 @@ export default function Footer() {
                             </Link>
                         </Rounded>
                         <Rounded>
-                            <Link href="https://wa.me/212662500181/?text=Bonjour, je souhaite louer une voiture. ">
+                            <Link href="https://wa.me/212662500181/?text=Bonjour, je souhaite louer une voiture." target="_blank" rel="noopener noreferrer">
                             <p>+212 662 500 181 · WhatsApp</p>
                             </Link>
                         </Rounded>

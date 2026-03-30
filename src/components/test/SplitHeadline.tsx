@@ -69,8 +69,8 @@ export default function SplitHeadline() {
             "
           >
          
-            <span  className="split-left inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Nous sommes</span>
-            <span  className="split-right inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Votre prochain trajet.</span>
+            <span className="split-left inline-block text-[20px] sm:text-[28px] md:text-[35px] lg:text-[50px]">Nous sommes</span>
+            <span className="split-right inline-block text-[20px] sm:text-[28px] md:text-[35px] lg:text-[50px]">Votre prochain trajet.</span>
           </h2>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">

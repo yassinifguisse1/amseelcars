@@ -135,6 +135,17 @@
                 &:hover{
                     color: #fff;
                 }
+                &:focus{
+                    color: #fff;
+                    outline: 2px solid #fff;
+                    outline-offset: 2px;
+                }
+                &:focus-visible{
+                    color: #fff;
+                    outline: 2px solid #fff;
+                    outline-offset: 2px;
+                    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+                }
             }
         }
         .footerColLinks{
