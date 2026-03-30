@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Rounded from '../../common/RoundedButton';
+import { HomeSeoMainIntroOverlay } from "@/components/home-seo/home-seo";
 
 
 declare global {
@@ -391,10 +392,25 @@ export default function BMWCarScroll() {
   const backgroundOpacity2 = useTransform(scrollYProgress, [0.45, 0.6], [0, 1]); // KIA to Touareg (red to blue)
   const backgroundOpacity3 = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]); // Touareg to Golf 8 (blue to red)
 
-
+  /**
+   * Scroll beat (scrollYProgress 0→1 on the tall BMW section):
+   * - mainSeoOpacity → “Location de voiture…” (HomeSeoMainIntroOverlay)
+   * - Final CTA → “Votre Trajet Idéal”
+   * Golf exits on x over [0, 0.9] → tail still visible ~0.78–0.88. Start SEO fade early (~0.80)
+   * so there is no empty gap between Golf and this copy (overlap with tail exit).
+   */
+  const mainSeoOpacity = useTransform(
+    scrollYProgress,
+    [0.8, 0.852, 0.926, 0.942],
+    [0, 1, 1, 0]
+  );
 
       return (
-    <section ref={containerRef} style={{ height: "500vh" }}>
+    <section
+      ref={containerRef}
+      className="bg-gradient-to-b from-gray-100 to-gray-200"
+      style={{ height: "920vh" }}
+    >
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden ">
         
         {/* Loading indicator */}
@@ -1100,8 +1116,8 @@ export default function BMWCarScroll() {
               top: isShortLandscape ? '51vh' : '',
               left: '50%',
               transform: 'translateX(-50%)',
-              opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [1, 1, 1, 0]),
-              y: useTransform(scrollYProgress, [0.75, 0.8, 0.95, 1], [0, 0, 0, 50]),
+              opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.862, 0.88], [1, 1, 1, 0]),
+              y: useTransform(scrollYProgress, [0.75, 0.8, 0.862, 0.88], [0, 0, 0, 50]),
               willChange: 'transform, opacity'
             }}
           >
@@ -1159,29 +1175,28 @@ export default function BMWCarScroll() {
 
         </motion.div>
        
-        {/* Final Call-to-Action Section - Appears after Golf 8 */}
+        {/* SEO: “location de voiture à Agadir…” — only between end of Golf UI and Votre Trajet Idéal */}
+        <HomeSeoMainIntroOverlay opacity={mainSeoOpacity} />
+
+        {/* Final CTA — fade on this wrapper only (nested motion opacity × parent = wrong dimming / “jump”).
+            No translateY: keeps copy locked to same optical center as the SEO beat above. */}
         <motion.div
-          className="absolute inset-0  flex flex-col items-center justify-center z-0"
+          className="pointer-events-none absolute inset-0 z-[30] flex min-h-0 flex-col items-center justify-center px-3 sm:px-4"
           style={{
-            opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
-            y: useTransform(scrollYProgress, [0.75, 0.8, 1], [50, 0, 0])
+            /* Fade in after SEO beat ends (~0.942); plateau to end of sticky section */
+            opacity: useTransform(scrollYProgress, [0.942, 0.948, 1], [0, 1, 1]),
           }}
         >
-          <div className="text-center space-y-6 sm:space-y-8 px-3 sm:px-4 max-w-[90rem] mx-auto flex flex-col items-center justify-center">
-            {/* Main Heading */}
-            <motion.h2 
-              className="font-bold text-gray-800 leading-tight [text-wrap:balance]
+          {/* Outer is pointer-events-none so opacity-0 does not block car “Réservez” buttons; inner re-enables hits for this CTA only. */}
+          <div className="pointer-events-auto mx-auto flex max-w-[90rem] flex-col items-center justify-center space-y-6 text-center sm:space-y-8">
+            <h2
+              className="font-bold leading-tight text-gray-800 [text-wrap:balance]
                          text-[clamp(28px,7vw,56px)] md:text-[clamp(36px,6vw,72px)] lg:text-[clamp(44px,5vw,90px)]"
-              style={{
-                // pointerEvents: ctaInteractivity.final ? "auto" : "none",
-                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1]),
-                y: useTransform(scrollYProgress, [0.75, 0.8, 1], [30, 0, 0])
-              }}
             >
               Votre Trajet Idéal
               <br />
-              <span className="text-red-600 z-0">Vous attend</span>
-            </motion.h2>
+              <span className="text-red-600">Vous attend</span>
+            </h2>
             <Rounded
               backgroundColor="#D32F2F"
               onClick={() => handleNavigation("/cars")}
@@ -1197,32 +1212,19 @@ export default function BMWCarScroll() {
 
    
 
-            {/* Scroll Indicator */}
-            <motion.div 
-              className="pt-8"
-              style={{
-                opacity: useTransform(scrollYProgress, [0.75, 0.8, 1], [0, 1, 1])
-              }}
-            >
-              <div className="flex flex-col items-center border-gray-300">
-                <div className="text-xs sm:text-sm mb-2">Faites défiler pour explorer plus</div>
-                <div className="border-2 border-gray-300 rounded-full flex justify-center
-                                w-[clamp(16px,3vw,24px)] h-[clamp(28px,5.5vw,40px)]">
-                  <motion.div 
-                    className="bg-gray-300 rounded-full mt-2
-                               w-[clamp(3px,0.6vw,4px)] h-[clamp(10px,2vw,14px)]"
-                    animate={{
-                      y: [0, 12, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                </div>
+            {/* Scroll hint — visibility follows parent opacity only */}
+            <div className="flex flex-col items-center border-gray-300 pt-8">
+              <div className="mb-2 text-xs sm:text-sm">Faites défiler pour explorer plus</div>
+              <div
+                className="flex h-[clamp(28px,5.5vw,40px)] w-[clamp(16px,3vw,24px)] justify-center rounded-full border-2 border-gray-300"
+              >
+                <motion.div
+                  className="mt-2 h-[clamp(10px,2vw,14px)] w-[clamp(3px,0.6vw,4px)] rounded-full bg-gray-300"
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                />
               </div>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
 

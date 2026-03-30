@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import CarGridSection from '@/components/Cars/CarGridSection'
 import Footer from '@/components/Footer/Footer'
 import ParallexCards from '@/components/Cars/ParallexCards/ParallexCards'
@@ -33,7 +34,17 @@ export default function CarsPage() {
       />
     <div>
       <HeroVideo/>
-      <CarGridSection />
+      <Suspense fallback={
+        <div 
+          className="min-h-[min(60vh,28rem)] bg-neutral-950 flex items-center justify-center"
+          role="status"
+          aria-label="Loading cars"
+        >
+          <span className="sr-only">Loading cars...</span>
+        </div>
+      }>
+        <CarGridSection />
+      </Suspense>
       <ParallexCards />
       <Footer />
     </div>

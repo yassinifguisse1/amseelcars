@@ -109,7 +109,7 @@ a, p  {
   /* font-size: 14px; */
   font-weight: 500;
   font-style: normal;
-  line-height: 100%;
+  /* Do not set line-height on p — 100% collapses multi-line copy; Tailwind leading-* then has no effect. */
   /* letter-spacing: 0.05em;
   font-family: "Saans TRIAL", sans-serif;
   -webkit-font-smoothing: antialiased;

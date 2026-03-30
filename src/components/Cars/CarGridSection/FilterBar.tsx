@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Search, X, Filter } from 'lucide-react'
 import styles from './FilterBar.module.scss'
 
@@ -14,6 +14,7 @@ export interface FilterState {
 
 interface FilterBarProps {
   brands: string[]
+  filters: FilterState
   onFilterChange: (filters: FilterState) => void
   currency: 'MAD' | 'EUR' | 'USD'
   onCurrencyChange: (currency: 'MAD' | 'EUR' | 'USD') => void
@@ -21,31 +22,25 @@ interface FilterBarProps {
 
 export default function FilterBar({ 
   brands, 
+  filters,
   onFilterChange,
   currency,
   onCurrencyChange 
 }: FilterBarProps) {
-  const [filters, setFilters] = useState<FilterState>({
-    brand: '',
-    name: '',
-    minPrice: '',
-    maxPrice: '',
-    currency: currency
-  })
-
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const handleFilterChange = (key: keyof FilterState, value: string | 'MAD' | 'EUR' | 'USD') => {
-    const newFilters = { ...filters, [key]: value, currency: currency }
-    setFilters(newFilters)
+  const handleFilterChange = <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
+    const newFilters: FilterState = {
+      ...filters,
+      [key]: value,
+      currency: key === 'currency' ? (value as FilterState['currency']) : filters.currency,
+    }
     onFilterChange(newFilters)
   }
 
   const handleCurrencyChange = (newCurrency: 'MAD' | 'EUR' | 'USD') => {
-    const newFilters = { ...filters, currency: newCurrency }
-    setFilters(newFilters)
     onCurrencyChange(newCurrency)
-    onFilterChange(newFilters)
+    onFilterChange({ ...filters, currency: newCurrency })
   }
 
   const clearFilters = () => {
@@ -56,16 +51,8 @@ export default function FilterBar({
       maxPrice: '',
       currency: currency
     }
-    setFilters(clearedFilters)
     onFilterChange(clearedFilters)
   }
-
-  // Sync currency when prop changes
-  useEffect(() => {
-    if (filters.currency !== currency) {
-      setFilters(prev => ({ ...prev, currency: currency }))
-    }
-  }, [currency])
 
   const hasActiveFilters = filters.brand || filters.name || filters.minPrice || filters.maxPrice
 

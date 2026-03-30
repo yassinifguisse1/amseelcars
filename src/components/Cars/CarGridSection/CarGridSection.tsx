@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
@@ -23,6 +24,8 @@ const CarGridSection = ({
   subtitle = "Choisissez parmi notre vaste collection de véhicules de luxe"
  
 }: CarGridSectionProps) => {
+  const searchParams = useSearchParams()
+
   // Booking dialog state
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
   const [selectedCar, setSelectedCar] = useState<{
@@ -50,6 +53,15 @@ const CarGridSection = ({
     const uniqueBrands = Array.from(new Set(allCars.map(car => car.brand)))
     return uniqueBrands.sort()
   }, [allCars])
+
+  useEffect(() => {
+    const raw = searchParams.get('brand')
+    if (!raw) return
+    const brand = decodeURIComponent(raw)
+    if (brands.includes(brand)) {
+      setFilters((prev) => (prev.brand === brand ? prev : { ...prev, brand }))
+    }
+  }, [searchParams, brands])
 
   // Filter cars based on filter state
   const filteredCars = useMemo(() => {
@@ -166,6 +178,7 @@ const CarGridSection = ({
         {/* Filter Bar */}
         <FilterBar
           brands={brands}
+          filters={filters}
           onFilterChange={handleFilterChange}
           currency={currency}
           onCurrencyChange={handleCurrencyChange}
@@ -181,7 +194,7 @@ const CarGridSection = ({
         {/* Car Grid */}
         {filteredCars.length > 0 ? (
           <div className={styles.carGrid}>
-            {filteredCars.map((car) => {
+            {filteredCars.map((car, index) => {
               const pricePerDay = car.pricing?.shortTerm || car.pricePerDay
               const priceInCurrency = convertCarPrice(pricePerDay, currency)
               const longTermPrice = car.pricing?.longTerm 
@@ -189,7 +202,7 @@ const CarGridSection = ({
                 : undefined
 
               return (
-                <article key={car.id} className={styles.carCard}>
+                <article key={car.slug || car.id} className={styles.carCard}>
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}

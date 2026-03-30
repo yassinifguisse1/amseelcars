@@ -93,16 +93,109 @@
         .nav{
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: clamp(10px, 2vw, 20px);
             margin-top: clamp(32px, 8vh, 100px);
             margin-left: clamp(16px, 6vw, 200px);
             margin-right: clamp(16px, 6vw, 200px);
+        }
+        .footerColumns{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(2rem, 5vw, 3.5rem);
+            margin-top: clamp(40px, 8vh, 100px);
+            margin-left: clamp(16px, 6vw, 200px);
+            margin-right: clamp(16px, 6vw, 200px);
+            max-width: 96rem;
+            width: 100%;
+            text-align: left;
+            @media (min-width: 768px) {
+                grid-template-columns: 1fr 1fr;
+                align-items: start;
+            }
+            @media (min-width: 1024px) {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        /* Match first column “AMSEEL CARS” (sans-serif, same size as column body) — overrides global h3 serif */
+        .footerColTitle{
+            margin: 0 0 0.75rem;
+            padding: 0;
+            font-size: 1em;
+            font-weight: 500;
+            letter-spacing: normal;
+            text-transform: none;
+            line-height: inherit;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            a{
+                color: inherit;
+                font-weight: inherit;
+                text-decoration: none;
+                &:hover{
+                    color: #fff;
+                }
+                &:focus{
+                    color: #fff;
+                    outline: 2px solid #fff;
+                    outline-offset: 2px;
+                }
+                &:focus-visible{
+                    color: #fff;
+                    outline: 2px solid #fff;
+                    outline-offset: 2px;
+                    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+                }
+            }
+        }
+        .footerColLinks{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.65rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: rgb(156, 163, 175);
+            text-align: left;
+            a{
+                color: inherit;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                &:hover{
+                    color: white;
+                }
+            }
+        }
+        /* Liens rapides: keep uppercase nav style; same left edge as column title */
+        .footerColCenter .footerColLinks a{
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
         }
         .info{
             display: flex;
             justify-content: space-between;
             margin-top: clamp(64px, 12vh, 200px);
             padding: clamp(12px, 2vw, 20px);
+            /* Bottom-right social row: high-contrast white, larger tap targets */
+            .infoSocials{
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: clamp(14px, 2.2vw, 22px);
+                a{
+                    color: #fff;
+                    p{
+                        color: #fff;
+                        font-size: clamp(1rem, 1.4vw, 1.2rem);
+                        font-weight: 500;
+                        padding: 6px 2px;
+                    }
+                }
+            }
             div{
                 display: flex;
                 gap: 10px;
@@ -154,9 +247,6 @@
                     right: clamp(16px, 6vw, 80px);
                     bottom: calc(-1 * clamp(40px, 7vw, 80px));
                 }
-            }
-            .nav {
-                justify-content: center;
             }
             .info {
                 flex-direction: column;

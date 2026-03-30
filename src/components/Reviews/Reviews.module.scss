@@ -24,6 +24,15 @@
   line-height: 1.2;
 }
 
+.introLead {
+  max-width: 42rem;
+  margin: -0.5rem auto 1.5rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.65;
+  color: #4b5563;
+  font-weight: 400;
+}
+
 .ratingSummary {
   display: flex;
   align-items: center;
