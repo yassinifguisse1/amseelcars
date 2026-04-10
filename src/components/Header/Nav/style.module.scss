@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 100px 40px 50px 40px;
+  padding: 88px 32px 44px 32px;
   height: 100%;
   // width: 20%;
   box-sizing: border-box;
   // background-color: aqua;
   .body {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     flex-direction: column;
     // .linkContainer{
     //     perspective: 120px;
@@ -18,7 +18,9 @@
     a {
       text-decoration: none;
       color: black;
-      font-size: 46px;
+      font-size: clamp(1.375rem, 3.8vw, 1.875rem); /* ~22–30px */
+      line-height: 1.15;
+      font-weight: 600;
     }
   }
   .footer {
@@ -29,6 +31,8 @@
     a {
       width: 50%;
       margin-top: 5px;
+      font-size: 0.9375rem;
+      line-height: 1.35;
     }
   }
 }
