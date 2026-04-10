@@ -25,6 +25,14 @@ interface CarRentalCardProps {
   currency?: 'MAD' | 'EUR' | 'USD' // Currency for price display
   onBook: () => void
   onWhatsapp: () => void
+  /** Prefer LCP on dense grids (e.g. first row on /cars). */
+  imagePriority?: boolean
+  /** Descriptive alt for Google Images; prefer gallery primary `alt` from car data. */
+  imageAlt?: string
+  /** Tooltip (`title` on img); often a short excerpt, not identical to alt. */
+  imageTitle?: string
+  /** Optional visible caption under the photo (e.g. trimmed description). */
+  imageCaption?: string
 }
 
 export function CarRentalCard({
@@ -41,15 +49,25 @@ export function CarRentalCard({
   currency = 'MAD',
   onBook,
   onWhatsapp,
+  imagePriority = false,
+  imageAlt,
+  imageTitle,
+  imageCaption,
 }: CarRentalCardProps) {
+  const resolvedAlt =
+    imageAlt?.trim() || `${carName} — location de voiture à Agadir, AmseelCars`
+  const resolvedTitle = (imageTitle?.trim() || resolvedAlt).slice(0, 200)
+
   const cardContent = (
     <div className="flex cursor-pointer flex-col items-stretch rounded-xl sm:rounded-2xl border bg-card p-3 sm:p-4 shadow-lg transition-all duration-300 hover:shadow-xl">
         {/* Car Image */}
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg sm:rounded-xl">
           <Image
             src={carImage || "/placeholder.svg"}
-            alt={carName}
+            alt={resolvedAlt}
+            title={resolvedTitle}
             fill
+            priority={imagePriority}
             className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
             sizes="(max-width: 480px) 260px, (max-width: 768px) 300px, (max-width: 1024px) 340px, 380px"
           />
@@ -58,6 +76,11 @@ export function CarRentalCard({
             <span>{rating}</span>
           </div>
         </div>
+        {imageCaption ? (
+          <p className="mt-2 line-clamp-2 text-xs leading-snug text-muted-foreground px-0.5">
+            {imageCaption}
+          </p>
+        ) : null}
 
         {/* Car Information */}
         <div className="mt-3 sm:mt-4 flex-1 space-y-2 sm:space-y-3">

@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
+import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/lib/carImageAlt'
 import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
@@ -206,6 +207,10 @@ const CarGridSection = ({
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}
+                    imageAlt={carListingImageAlt(car)}
+                    imageTitle={carListingImageTitle(car)}
+                    imageCaption={carListingCaption(car)}
+                    imagePriority={index < 3}
                     pricePerDay={priceInCurrency}
                     pricing={car.pricing ? {
                       shortTerm: priceInCurrency,

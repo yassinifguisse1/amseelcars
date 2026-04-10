@@ -5,11 +5,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Star, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag } from 'lucide-react'
+import { ArrowLeft, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { MenuStyleButton } from '@/components/Header/Button'
 import { convertCarPrice, formatCarPrice } from '@/lib/currency'
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
+import type { Car } from '@/data/cars'
+import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 
 interface CarDetailClientProps {
   car: {
@@ -19,8 +21,7 @@ interface CarDetailClientProps {
     description: string
     brand: string
     model: string
-    category: string
-    rating: number
+    category: Car['category']
     location: string
     pricePerDay: number
     pricing?: {
@@ -35,6 +36,8 @@ interface CarDetailClientProps {
     images: Array<{
       src: string
       alt: string
+      title?: string
+      caption?: string
     }>
     features: Array<{
       icon: string
@@ -196,7 +199,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
               <Image
                 src={car.images[selectedImageIndex]?.src || car.carImage}
-                alt={car.images[selectedImageIndex]?.alt || car.carName}
+                alt={carDetailImageAlt(car, selectedImageIndex)}
+                title={carDetailImageTitle(car, selectedImageIndex)}
                 width={600}
                 height={450}
                 className="h-full w-full object-cover"
@@ -219,7 +223,8 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                   >
                     <Image
                       src={image.src}
-                      alt={image.alt}
+                      alt={carDetailImageAlt(car, index)}
+                      title={carDetailImageTitle(car, index)}
                       width={200}
                       height={150}
                       className="h-full w-full object-cover"
@@ -238,10 +243,6 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
                 <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium uppercase">
                   {car.category}
                 </span>
-                <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span className="font-medium">{car.rating}</span>
-                </div>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">

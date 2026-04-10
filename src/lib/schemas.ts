@@ -6,6 +6,17 @@
 const siteUrl = 'https://www.amseelcars.com';
 const siteName = 'AmseelCars';
 
+/** E.164; national (Morocco): 0662500181 */
+const businessTelephone = '+212662500181';
+
+const businessPostalAddress = {
+  streetAddress: 'Immeuble Sinwan, RDC',
+  addressLocality: 'Agadir',
+  addressRegion: 'Souss-Massa',
+  postalCode: '80000',
+  addressCountry: 'MA',
+} as const;
+
 /**
  * Organization schema - used sitewide
  */
@@ -49,22 +60,69 @@ export function generateWebSiteSchema() {
  * LocalBusiness (AutoRental) schema - used on homepage and contact page
  */
 export function generateLocalBusinessSchema() {
+  const businessMapsUrl =
+    'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent(
+      `${businessPostalAddress.streetAddress}, ${businessPostalAddress.postalCode} ${businessPostalAddress.addressLocality}, Morocco`
+    );
+
   return {
     '@context': 'https://schema.org',
     '@type': 'AutoRental',
     '@id': `${siteUrl}#business`,
     name: siteName,
     url: siteUrl,
-    telephone: '+212662500181',
+    image: `${siteUrl}/og/amseel-car-logo.png`,
+    logo: `${siteUrl}/og/amseel-car-logo.png`,
+    telephone: businessTelephone,
     email: 'info@amseelcars.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Agadir',
-      addressLocality: 'Agadir',
-      addressRegion: 'Souss-Massa',
-      addressCountry: 'MA',
+      ...businessPostalAddress,
     },
-    openingHours: 'Mo-Su 08:00-22:00',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 30.40085,
+      longitude: -9.57758,
+    },
+    hasMap: businessMapsUrl,
+    priceRange: '$$',
+    currenciesAccepted: 'MAD',
+    paymentAccepted: ['Cash', 'Credit Card'],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        telephone: businessTelephone,
+        email: 'info@amseelcars.com',
+        availableLanguage: ['fr', 'en', 'ar'],
+        areaServed: ['MA'],
+      },
+      {
+        '@type': 'ContactPoint',
+        contactType: 'WhatsApp',
+        telephone: businessTelephone,
+        url: 'https://wa.me/212662500181',
+        availableLanguage: ['fr', 'en', 'ar'],
+        areaServed: ['MA'],
+      },
+    ],
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday',
+        ],
+        opens: '00:00',
+        closes: '23:59',
+      },
+    ],
     areaServed: [
       {
         '@type': 'City',
@@ -75,10 +133,20 @@ export function generateLocalBusinessSchema() {
         name: 'Aéroport Agadir–Al Massira',
       },
       {
+        '@type': 'City',
+        name: 'Taghazout',
+      },
+      {
         '@type': 'Country',
         name: 'Maroc',
       },
     ],
+    sameAs: [
+      'https://www.facebook.com/amseelcars/',
+      'https://www.instagram.com/amseelcars/',
+      'https://wa.me/212662500181',
+    ],
+    parentOrganization: { '@id': `${siteUrl}#org` },
   };
 }
 
@@ -104,6 +172,7 @@ export function generateBlogPostingSchema(article: {
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    url: articleUrl,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': articleUrl,
@@ -146,6 +215,105 @@ export function generateBreadcrumbSchema(items: Array<{ name: string; url: strin
 }
 
 /**
+ * Single JSON-LD @graph for local SEO / AEO landing pages: WebPage + BreadcrumbList + FAQPage (+ optional Service).
+ * Links to sitewide #website, #org, and #business @ids from layout/homepage for entity consistency.
+ */
+export function generateLocalSeoLandingGraphSchema(input: {
+  path: string;
+  name: string;
+  description: string;
+  inLanguage: string;
+  breadcrumbItems: Array<{ name: string; url: string }>;
+  faqs: Array<{ question: string; answer: string }>;
+  service?: { name: string; description: string };
+  /** Absolute or root-relative OG/social image for primaryImageOfPage */
+  primaryImagePath?: string;
+  /** Override default areaServed on Service (e.g. Taghazout-focused page) */
+  serviceAreaServed?: Array<Record<string, unknown>>;
+}) {
+  const path = input.path.startsWith('/') ? input.path : `/${input.path}`;
+  const pageUrl = `${siteUrl}${path}`;
+
+  const rawImage = input.primaryImagePath ?? '/og/og-default.jpg';
+  const imagePath = rawImage.startsWith('http')
+    ? rawImage
+    : `${siteUrl}${rawImage.startsWith('/') ? rawImage : `/${rawImage}`}`;
+
+  const faqMainEntity = input.faqs.map((faq) => ({
+    '@type': 'Question' as const,
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer' as const,
+      text: `<p>${faq.answer}</p>`,
+    },
+  }));
+
+  const about: Array<{ '@id': string }> = [{ '@id': `${siteUrl}#business` }];
+  if (input.service) {
+    about.push({ '@id': `${pageUrl}#service` });
+  }
+
+  const graph: Record<string, unknown>[] = [
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: input.name,
+      description: input.description,
+      inLanguage: input.inLanguage,
+      isPartOf: { '@id': `${siteUrl}#website` },
+      about,
+      publisher: { '@id': `${siteUrl}#org` },
+      mainEntity: { '@id': `${pageUrl}#faq` },
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: imagePath,
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: input.breadcrumbItems.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`,
+      })),
+    },
+  ];
+
+  if (input.service) {
+    const defaultAreaServed = [
+      { '@type': 'City', name: 'Agadir' },
+      { '@type': 'Airport', name: 'Agadir–Al Massira Airport' },
+      { '@type': 'Country', name: 'Morocco' },
+    ];
+    graph.push({
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: input.service.name,
+      description: input.service.description,
+      url: pageUrl,
+      serviceType: 'Car rental',
+      provider: { '@id': `${siteUrl}#business` },
+      areaServed: input.serviceAreaServed ?? defaultAreaServed,
+    });
+  }
+
+  graph.push({
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    mainEntity: faqMainEntity,
+  });
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
+  };
+}
+
+/**
  * Product (Car) schema - used on car detail pages
  */
 export function generateCarProductSchema(car: {
@@ -155,7 +323,6 @@ export function generateCarProductSchema(car: {
   description: string;
   pricePerDay: number;
   images: Array<{ src: string }>;
-  rating: number;
   slug: string;
   category: string;
   year: number;
@@ -201,13 +368,6 @@ export function generateCarProductSchema(car: {
         unitText: 'per day',
       },
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: car.rating.toString(),
-      ratingCount: '100', // Update with real review count if available
-      bestRating: '5',
-      worstRating: '1',
-    },
   };
 }
 
@@ -232,14 +392,10 @@ export function generateReviewSchema(review: {
       '@id': `${siteUrl}#business`,
       name: siteName,
       image: `${siteUrl}/og/amseel-car-logo.png`,
-      telephone: '+212662500181',
+      telephone: businessTelephone,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'Haut founty rdc imm sinwan',
-        addressLocality: 'Agadir',
-        addressRegion: 'Souss-Massa',
-        postalCode: '80000',
-        addressCountry: 'MA',
+        ...businessPostalAddress,
       },
     },
     reviewRating: {

@@ -98,6 +98,10 @@ export default function Footer() {
                     <h3 className={styles.footerColTitle}>Liens rapides</h3>
                     <nav className={styles.footerColLinks} aria-label="Liens rapides">
                       <Link href="/cars">Flotte</Link>
+                      <Link href="/location-voiture-agadir">Location voiture Agadir (FR)</Link>
+                      <Link href="/agadir-car-rental">Car rental Agadir (EN)</Link>
+                      <Link href="/agadir-airport-car-rental">Agadir airport (EN)</Link>
+                      <Link href="/taghazout-car-rental">Taghazout (EN)</Link>
                       <Link href="/about">À propos</Link>
                       <Link href="/contact">Contact</Link>
                     </nav>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
+import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/lib/carImageAlt'
 import { getAllCars } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
@@ -478,6 +479,9 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}
+                    imageAlt={carListingImageAlt(car)}
+                    imageTitle={carListingImageTitle(car)}
+                    imageCaption={carListingCaption(car)}
                     pricePerDay={car.pricePerDay}
                     seats={car.seats}
                     fuelType={car.fuelType}
@@ -500,6 +504,9 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}
+                    imageAlt={carListingImageAlt(car)}
+                    imageTitle={carListingImageTitle(car)}
+                    imageCaption={carListingCaption(car)}
                     pricePerDay={car.pricePerDay}
                     seats={car.seats}
                     fuelType={car.fuelType}
@@ -524,6 +531,9 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     <CarRentalCard
                       carName={car.carName}
                       carImage={car.carImage}
+                      imageAlt={carListingImageAlt(car)}
+                      imageTitle={carListingImageTitle(car)}
+                      imageCaption={carListingCaption(car)}
                       pricePerDay={car.pricePerDay}
                       seats={car.seats}
                       fuelType={car.fuelType}
@@ -546,6 +556,9 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     <CarRentalCard
                       carName={car.carName}
                       carImage={car.carImage}
+                      imageAlt={carListingImageAlt(car)}
+                      imageTitle={carListingImageTitle(car)}
+                      imageCaption={carListingCaption(car)}
                       pricePerDay={car.pricePerDay}
                       seats={car.seats}
                       fuelType={car.fuelType}

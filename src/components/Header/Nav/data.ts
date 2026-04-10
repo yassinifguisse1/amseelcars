@@ -9,6 +9,10 @@ export const links: LinkData[] = [
         href: "/"
     },
     {
+        title: "Location voiture Agadir",
+        href: "/location-voiture-agadir"
+    },
+    {
         title: "À propos",
         href: "/about"
     },

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { BlogArticle } from '@/data/blog';
+import { blogArticleImageAlt, blogArticleImageTitle } from '@/lib/blogImageAlt';
 import Image from 'next/image';
 import styles from "./ArticleHero.module.scss";
 
@@ -12,6 +13,8 @@ interface ArticleHeroProps {
 
 export default function ArticleHero({ article }: ArticleHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const imageAlt = blogArticleImageAlt(article);
+  const imageTitle = blogArticleImageTitle(article) ?? imageAlt;
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -30,7 +33,8 @@ export default function ArticleHero({ article }: ArticleHeroProps) {
       <div className={styles.imageContainer}>
         <Image
           src={article.image}
-          alt={article.title}
+          alt={imageAlt}
+          title={imageTitle}
           fill
           className={styles.image}
           priority
@@ -77,7 +81,7 @@ export default function ArticleHero({ article }: ArticleHeroProps) {
               <div className={styles.avatar}>
                 <Image
                   src={article.author.avatar}
-                  alt={article.author.name}
+                  alt={`Portrait de ${article.author.name}, auteur AmseelCars`}
                   width={40}
                   height={40}
                   className={styles.avatarImage}

@@ -258,10 +258,10 @@ export default function BMWCarScroll() {
   //   '/images/bmw-body.webp',
   //   '/images/wheel-rear.webp',
   //   '/images/wheel-front.webp',
-  //   '/images/kia body.webp',
+  //   '/images/kia-body.webp',
   //   '/images/left wheel kia.webp',
   //   '/images/right wheel kia.webp',
-  //   '/images/t-roc body.webp',
+  //   '/images/t-roc-body.webp',
   //   '/images/t-roc wheel left.webp',
   //   '/images/t-roc wheel right.webp',
   //   '/images/golf8-body.webp',
@@ -677,7 +677,7 @@ export default function BMWCarScroll() {
       // Add visual indicator for testing
       // backgroundColor: isShortLandscape ? '#ef4444' : 'transparent',
       // opacity:
-      //   isImageLoaded('/images/kia body.webp') &&
+      //   isImageLoaded('/images/kia-body.webp') &&
       //   isImageLoaded('/images/left wheel kia.webp') &&
       //   isImageLoaded('/images/right wheel kia.webp')
       //     ? 1 : 0,
@@ -688,7 +688,7 @@ export default function BMWCarScroll() {
 
     {/* Car body */}
     <Image
-      src="/images/kia body.webp"
+      src="/images/kia-body.webp"
       alt="KIA body"
       width={1440}
       height={800}
@@ -878,7 +878,7 @@ export default function BMWCarScroll() {
                 width: isShortLandscape 
           ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
           : 'clamp(280px, 85vw, 1120px)',
-                // opacity: isImageLoaded('/images/t-roc body.webp') && 
+                // opacity: isImageLoaded('/images/t-roc-body.webp') && 
                 //          isImageLoaded('/images/t-roc wheel left.webp') && 
                 //        isImageLoaded('/images/t-roc wheel right.webp') ? 1 : 0,
               willChange: 'transform',
@@ -886,7 +886,7 @@ export default function BMWCarScroll() {
           >
             {/* Touareg Car body */}
             <Image
-              src="/images/t-roc body.webp"
+              src="/images/t-roc-body.webp"
               alt="Touareg body"
               width={1440}
               height={800}

@@ -35,39 +35,14 @@ export const metadata: Metadata = {
   keywords: [
     "location voiture Agadir",
     "location de voiture Agadir",
-    "location de voiture à Agadir",
     "location voiture Agadir aéroport",
     "location voiture Agadir pas cher",
-    "location voiture sans caution Agadir",
-    "car rental Agadir",
-    "louer voiture aéroport Agadir",
-    "AmseelCars",
-    "SUV location Agadir",
-    "location voiture pas cher Maroc",
     "car rental Agadir",
     "Agadir airport car hire",
     "SUV rental Agadir",
-    "unlimited mileage car rental Agadir",
-    "location voiture Agadir aéroport",
-    "location voiture Agadir pas cher",
-    "location voiture sans caution Agadir",
-    "car rental Agadir",
-    "louer voiture aéroport Agadir",
+    "location voiture Maroc",
+    "Taghazout car rental",
     "AmseelCars",
-    "SUV location Agadir",
-    "location voiture pas cher Maroc",
-    "car rental Agadir",
-    "Agadir airport car hire",
-    "SUV rental Agadir",
-    "unlimited mileage car rental Agadir",
-    "location voiture Agadir aéroport",
-    "location voiture Agadir pas cher",
-    "location voiture sans caution Agadir",
-    "car rental Agadir",
-    "louer voiture aéroport Agadir",
-    "AmseelCars",
-    "SUV location Agadir",
-
   ],
   authors: [{ name: "AmseelCars" }],
   creator: "AmseelCars",
@@ -88,17 +63,6 @@ export const metadata: Metadata = {
         alt: "AmseelCars – Location de voitures à Agadir",
       },
     ],
-  },
-
- 
-
-  alternates: {
-    canonical: "/",
-    languages: {
-      "fr-MA": "/",
-      // add more if you ever localize:
-      // "en": "/en",
-    },
   },
 
   robots: {
@@ -188,11 +152,6 @@ export default function RootLayout({
     <ClerkProvider>
 
     <html lang="fr" suppressHydrationWarning data-scroll-behavior="smooth">
-
-        {/* Block wheel images from search engines */}
-        <meta name="robots" content="noimageindex" />
-        <meta name="googlebot" content="noimageindex" />
-     
       <body className={clsx(fontVariables, "antialiased")} suppressHydrationWarning>
         <LenisScrollProvider />
         <Header />

@@ -8,10 +8,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, type MotionValue } from "framer-motion";
-import { ChevronDown, Phone, MessageCircle, Mail } from "lucide-react";
+import { Phone, MessageCircle, Mail } from "lucide-react";
 import { generateFAQSchema } from "@/lib/faqSchema";
+import { cn } from "@/lib/utils";
 
 /* =============================================================================
    SEO BLOCK: Trust bar (after hero, before BMW/Kia showcase)
@@ -271,15 +272,18 @@ export function HomeSeoLocalDiscoveryBlock() {
               key={d.name}
               className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/40"
             >
-              <div className="relative aspect-[4/3] w-full">
+              <Link
+                href={d.href}
+                className="relative block aspect-[4/3] w-full overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-[#CB1939] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
+              >
                 <Image
                   src={d.image}
-                  alt={d.name}
+                  alt={`${d.name} — guide pratique sur le blog AmseelCars Agadir`}
                   fill
                   className="object-cover transition duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-              </div>
+              </Link>
               <div className="flex flex-1 flex-col p-6 md:p-7">
                 <h3 className="text-xl font-semibold text-white md:text-[1.35rem]">{d.name}</h3>
                 <p className="mt-3 flex-1 text-base leading-relaxed text-white/72 md:text-[1.05rem]">{d.text}</p>
@@ -437,30 +441,103 @@ const homeFaqPageSchema = generateFAQSchema(
   faqItems.map((item) => ({ question: item.q, answer: item.a }))
 );
 
-function FaqAccordionColumn({ items }: { items: typeof faqItems }) {
+/** Full answer stays in the DOM; line-clamp + toggle keeps the section scannable (AEO-friendly). */
+function FaqAnswerText({ text, answerId }: { text: string; answerId: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const [showToggle, setShowToggle] = useState(false);
+  const pRef = useRef<HTMLParagraphElement>(null);
+
+  useLayoutEffect(() => {
+    const el = pRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      if (expanded) {
+        setShowToggle(true);
+        return;
+      }
+      setShowToggle(el.scrollHeight > el.clientHeight + 2);
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [text, expanded]);
+
   return (
-    <div className="space-y-3">
-      {items.map((item) => (
-        <details
-          key={item.q}
-          className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm open:shadow-md"
+    <div>
+      <p
+        ref={pRef}
+        id={answerId}
+        className={cn(
+          "text-pretty text-[0.9375rem] leading-[1.65] text-neutral-600 sm:text-base sm:leading-[1.7]",
+          !expanded && "line-clamp-4 sm:line-clamp-5"
+        )}
+      >
+        {text}
+      </p>
+      {showToggle ? (
+        <button
+          type="button"
+          className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-[#CB1939] underline decoration-[#CB1939]/30 underline-offset-4 transition hover:decoration-[#CB1939] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#CB1939]"
+          aria-expanded={expanded}
+          aria-controls={answerId}
+          onClick={() => setExpanded((v) => !v)}
         >
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium text-neutral-900 md:px-6 md:py-[1.125rem] md:text-lg [&::-webkit-details-marker]:hidden">
-            {item.q}
-            <ChevronDown className="h-5 w-5 shrink-0 text-[#CB1939] transition group-open:rotate-180 md:h-6 md:w-6" aria-hidden />
-          </summary>
-          <div className="border-t border-neutral-100 px-5 pb-4 pt-3 text-base leading-relaxed text-neutral-600 md:px-6 md:text-[1.05rem] md:leading-[1.7]">
-            {item.a}
-          </div>
-        </details>
+          {expanded ? "Réduire" : "Lire la suite"}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+function HomeFaqCard({
+  item,
+  index,
+}: {
+  item: (typeof faqItems)[number];
+  index: number;
+}) {
+  const answerId = `home-faq-reponse-${index}`;
+  return (
+    <article className="relative overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-[box-shadow,border-color] hover:border-neutral-300/90 hover:shadow-md">
+      <div
+        className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#CB1939]"
+        aria-hidden
+      />
+      <div className="pl-4 pr-4 py-4 sm:pl-5 sm:pr-5 sm:py-5">
+        <h3 className="text-balance text-[0.9375rem] font-semibold leading-snug tracking-tight text-neutral-900 sm:text-base md:text-[1.0625rem] md:leading-snug">
+          {item.q}
+        </h3>
+        <div className="mt-2.5 sm:mt-3">
+          <FaqAnswerText text={item.a} answerId={answerId} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function FaqColumn({
+  items,
+  startIndex,
+}: {
+  items: typeof faqItems;
+  startIndex: number;
+}) {
+  return (
+    <div className="flex flex-col gap-4 sm:gap-5">
+      {items.map((item, i) => (
+        <HomeFaqCard key={item.q} item={item} index={startIndex + i} />
       ))}
     </div>
   );
 }
 
 export function HomeSeoFaqBlock() {
-  const faqLeft = faqItems.slice(0, 5);
-  const faqRight = faqItems.slice(5, 10);
+  const faqCol1 = faqItems.slice(0, 4);
+  const faqCol2 = faqItems.slice(4, 7);
+  const faqCol3 = faqItems.slice(7, 10);
 
   return (
     <>
@@ -474,17 +551,35 @@ export function HomeSeoFaqBlock() {
           }}
         />
       )}
-    <section className="border-t border-neutral-200 bg-[#fafafa] px-4 py-16 md:py-20">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="text-balance text-center text-[1.35rem] font-semibold text-neutral-900 sm:text-2xl md:text-3xl">
-          Questions fréquentes sur la location de voiture à Agadir
-        </h2>
-        <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-x-10 lg:gap-x-14">
-          <FaqAccordionColumn items={faqLeft} />
-          <FaqAccordionColumn items={faqRight} />
+      <section
+        className="border-t border-neutral-200 bg-gradient-to-b from-neutral-100/80 to-[#fafafa] px-4 py-14 sm:px-5 sm:py-16 md:py-20"
+        aria-labelledby="home-faq-heading"
+      >
+        <div className="mx-auto max-w-7xl">
+          <header className="mx-auto max-w-2xl text-center lg:max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#CB1939] sm:text-[0.8125rem]">
+              FAQ
+            </p>
+            <h2
+              id="home-faq-heading"
+              className="mt-2 text-balance text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl md:leading-tight"
+            >
+              Questions fréquentes sur la location de voiture à Agadir
+            </h2>
+            <p className="mt-3 text-pretty text-sm leading-relaxed text-neutral-600 sm:text-base sm:leading-relaxed">
+              Réponses détaillées pour préparer votre location. Les textes longs
+              s’affichent en extrait&nbsp;: utilisez «&nbsp;Lire la suite&nbsp;» pour tout
+              afficher.
+            </p>
+          </header>
+
+          <div className="mt-9 grid grid-cols-1 gap-8 sm:mt-10 md:mt-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-0 xl:gap-x-8">
+            <FaqColumn items={faqCol1} startIndex={0} />
+            <FaqColumn items={faqCol2} startIndex={4} />
+            <FaqColumn items={faqCol3} startIndex={7} />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 }
