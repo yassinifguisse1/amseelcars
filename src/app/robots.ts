@@ -7,6 +7,12 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: [
+          // Home animation assets (block image indexing for these files)
+          '/images/touareg-body.png',
+          '/images/bmw-body.webp',
+          '/images/kia-body.webp',
+          '/images/t-roc-body.webp',
+          '/images/golf8-body.webp',
           '/images/wheel-*.webp',
           '/images/*wheel*.webp',
           '/images/left wheel*.webp',

@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp';
+import { track } from '@vercel/analytics/react';
 import styles from './BookingDialog.module.css';
 
 // Form validation schema
@@ -121,28 +122,6 @@ export default function BookingDialog({
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
-    fetch('/api/track/whatsapp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...getWhatsAppTrackBody({
-          path: typeof window !== 'undefined' ? window.location.pathname : '/',
-          source: 'booking-form',
-          carName,
-          event: 'booking-submit',
-        }),
-        fullName: data.fullName,
-        email: data.email,
-        phone: data.phone,
-        pickupDate: data.pickupDate,
-        returnDate: data.returnDate,
-        pickupLocation: data.pickupLocation,
-        returnLocation: data.returnLocation,
-        rentalDays: days,
-        totalPrice: total,
-      }),
-    }).catch(() => {});
-
     try {
       const response = await fetch('/api/booking', {
         method: 'POST',
@@ -159,6 +138,35 @@ export default function BookingDialog({
       });
 
       if (response.ok) {
+        const path = typeof window !== 'undefined' ? window.location.pathname : '/';
+        const trackBody = {
+          ...getWhatsAppTrackBody({
+            path,
+            source: 'booking-form',
+            carName,
+            event: 'booking-confirmed',
+          }),
+          fullName: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          pickupDate: data.pickupDate,
+          returnDate: data.returnDate,
+          pickupLocation: data.pickupLocation,
+          returnLocation: data.returnLocation,
+          rentalDays: days,
+          totalPrice: total,
+        };
+        fetch('/api/track/whatsapp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(trackBody),
+        }).catch(() => {});
+        track('Booking Confirmed', {
+          car: carName,
+          path,
+          days,
+          total,
+        });
         setSubmitStatus('success');
         reset();
         // Auto close after 3 seconds only when in modal mode
@@ -226,6 +234,9 @@ export default function BookingDialog({
                 ) : (
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
                     {/* Rental Dates - first */}
+                    <p className="text-sm text-gray-600 -mt-1 mb-2">
+                      Retrait possible à l’aéroport Al Massira, en centre-ville, à Taghazout ou à l’agence. Nous vous confirmons la disponibilité et les conditions par email ou WhatsApp.
+                    </p>
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <Calendar className="h-5 w-5" />

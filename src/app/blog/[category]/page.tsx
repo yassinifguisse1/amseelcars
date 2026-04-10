@@ -58,10 +58,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: `Découvrez tous nos articles sur ${category.toLowerCase()}.`,
     },
     robots: {
-      index: false,
+      index: true,
       follow: true,
       googleBot: {
-        index: false,
+        index: true,
         follow: true,
         'max-snippet': -1,
         'max-image-preview': 'large',

@@ -1,4 +1,4 @@
-export type TrackEvent = 'whatsapp' | 'reserver' | 'booking-submit'
+export type TrackEvent = 'whatsapp' | 'reserver' | 'booking-submit' | 'booking-confirmed'
 
 /**
  * Builds the request body for click tracking (WhatsApp, Réserver maintenant, Envoyer la réservation), including visitor details when run in the browser.

@@ -2,6 +2,10 @@ export interface CarImage {
   src: string
   alt: string
   isPrimary?: boolean
+  /** Browser tooltip; falls back to alt if omitted */
+  title?: string
+  /** Visible caption on the detail gallery (optional); falls back to car description on primary shot */
+  caption?: string
 }
 
 export interface CarFeature {

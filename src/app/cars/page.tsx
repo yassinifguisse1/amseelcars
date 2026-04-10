@@ -1,8 +1,17 @@
 import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import CarGridSection from '@/components/Cars/CarGridSection'
 import Footer from '@/components/Footer/Footer'
-import ParallexCards from '@/components/Cars/ParallexCards/ParallexCards'
 import HeroVideo from '@/components/Cars/HeroVedio/HeroVideo'
+
+const ParallexCards = dynamic(
+  () => import('@/components/Cars/ParallexCards/ParallexCards'),
+  {
+    loading: () => (
+      <div className="min-h-[min(80vh,40rem)] w-full bg-neutral-950" aria-hidden />
+    ),
+  }
+)
 import Script from 'next/script'
 import { Metadata } from 'next';
 import { generateBreadcrumbSchema } from '@/lib/schemas';

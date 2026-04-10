@@ -70,7 +70,7 @@ function SpeedometerPreloader() {
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
 
-export function HomeContent() {
+export function ContactContent() {
   // Use the existing revealed hook for consistency
   const [isLoading, setIsLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
@@ -88,18 +88,15 @@ export function HomeContent() {
       const progressInterval = setInterval(() => {
         progress += 10;
         if (progress <= 100) {
-          // Simulate frame loading progress
           const totalFrames = 100;
           const loadedFrames = Math.round((progress / 100) * totalFrames);
           updateFramesProgress(loadedFrames, totalFrames);
-          setWordsComplete(true);
-          setMinimumTimeElapsed(true);
         } else {
           clearInterval(progressInterval);
         }
       }, 200); // Update every 200ms
 
-      // Complete loading after 2 seconds
+      // Once: mark words + minimum time and frames loaded (interval only drives progress)
       const completionTimer = setTimeout(() => {
         clearInterval(progressInterval);
         setFramesLoaded(true);
@@ -115,10 +112,8 @@ export function HomeContent() {
   }, [isClient, updateFramesProgress, setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
 
   useEffect(() => {
-    console.log('Loading state changed:', loadingState);
     // Only finish loading when frames are complete
     if (loadingState.isComplete && isClient) {
-      console.log('All loading complete, hiding preloader...');
       const timer = setTimeout(() => {
         setIsLoading(false);
         document.body.style.cursor = "default";

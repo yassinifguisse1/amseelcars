@@ -1244,12 +1244,7 @@ const Cardrive = () => {
 
   return (
     <>
-      <motion.section
-        className="relative bg-black"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      >
+      <section className="relative bg-black">
         <div className="relative h-[100svh] min-h-[520px] w-full overflow-hidden bg-black">
           <video
             className="absolute inset-0 h-full w-full object-cover"
@@ -1258,6 +1253,8 @@ const Cardrive = () => {
             loop
             playsInline
             preload="metadata"
+            poster="/og/amseel-car-logo.png"
+            fetchPriority="high"
             key={isMobile ? "mobile" : "desktop"}
           >
             <source
@@ -1275,7 +1272,7 @@ const Cardrive = () => {
             aria-hidden
           />
         </div>
-      </motion.section>
+      </section>
       <HeroCopyBand isMobile={isMobile} />
     </>
   );

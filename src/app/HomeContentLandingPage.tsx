@@ -1,12 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 
 // import Landing from '@/components/Landing';
 import { AnimatePresence, motion } from "framer-motion";
 import Cardrive from "@/components/scroll-video/scroll-video";
 import Brands from "@/components/Brands/Brands";
-import BMWCarScroll from "@/components/CarsMoving/BMWCar";
-import Example from "@/components/CarDashboardMap/Example";
+
+const BMWCarScroll = dynamic(() => import("@/components/CarsMoving/BMWCar"), {
+  loading: () => (
+    <div className="min-h-[min(70vh,36rem)] w-full bg-gray-200" aria-hidden />
+  ),
+});
+
+const MapExample = dynamic(() => import("@/components/CarDashboardMap/Example"), {
+  loading: () => (
+    <div className="min-h-[min(70vh,32rem)] w-full bg-[#f7f5f2]" aria-hidden />
+  ),
+});
 import Footer from "@/components/Footer/Footer";
 import SplitHeadline from "@/components/test/SplitHeadline";
 import Reviews from "@/components/Reviews/Reviews";
@@ -104,22 +115,16 @@ export function HomeContentLandingPage() {
 
 
   useEffect(() => {
-    console.log('Loading state changed:', loadingState);
-    // Only finish loading when frames are complete
-    if (loadingState.isComplete ) {
-      console.log('All loading complete, hiding preloader...');
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-        document.body.style.cursor = "default";
-        // Smooth scroll to top with easing
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }, 1500); // Longer delay for smoother speedometer transition
+    if (!loadingState.isComplete) return;
 
-      return () => clearTimeout(timer);
-    }
+    // Short exit: long delays block LCP (hero video / H1 stay hidden behind the preloader).
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      document.body.style.cursor = "default";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 320);
+
+    return () => clearTimeout(timer);
   }, [loadingState]);
 
   // Cleanup when component unmounts (navigating away)
@@ -173,7 +178,7 @@ export function HomeContentLandingPage() {
           />
           {/* SEO: destinations — after reviews, before map dashboard */}
           <HomeSeoLocalDiscoveryBlock />
-          <Example />
+          <MapExample />
           {/* SEO: NAP + location copy — below map-in-dashboard */}
           <HomeSeoLocationNapBlock />
           {/* SEO: conversion — before FAQ */}

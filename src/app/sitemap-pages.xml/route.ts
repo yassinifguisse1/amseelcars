@@ -12,6 +12,10 @@ export async function GET() {
     { url: '/cars', lastmod: now },
     { url: '/contact', lastmod: now },
     { url: '/blog', lastmod: now },
+    { url: '/location-voiture-agadir', lastmod: now },
+    { url: '/agadir-car-rental', lastmod: now },
+    { url: '/agadir-airport-car-rental', lastmod: now },
+    { url: '/taghazout-car-rental', lastmod: now },
   ]
 
   // Dynamic car pages

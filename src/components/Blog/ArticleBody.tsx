@@ -5,6 +5,7 @@ import { useScroll, useTransform } from "framer-motion";
 import { BlogArticle } from '@/data/blog';
 import styles from "./ArticleBody.module.scss";
 import TableOfContents, { processContentWithIds } from "./TableOfContents";
+import { enhanceArticleBodyImages } from "@/lib/articleContentImages";
 
 interface ArticleBodyProps {
   article: BlogArticle;
@@ -113,6 +114,9 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                        wrappedFaqSection + 
                        processedContent.substring(faqEndIndex);
   }
+
+  // Sync CRM cover alt / figcaption / data-alt into <img alt> for Google Image + a11y
+  processedContent = enhanceArticleBodyImages(processedContent, article);
 
   return (
     <motion.section 

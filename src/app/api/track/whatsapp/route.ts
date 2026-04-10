@@ -172,7 +172,7 @@ function parseAndValidateBody(raw: unknown): { ok: true; data: ValidatedBody } |
   }
 
   const event = toStr(body.event, 50) || 'whatsapp';
-  const allowedEvents = ['whatsapp', 'reserver', 'booking-submit', 'blog-cta'];
+  const allowedEvents = ['whatsapp', 'reserver', 'booking-submit', 'booking-confirmed', 'blog-cta'];
   if (!allowedEvents.includes(event)) {
     return { ok: false, status: 400, error: `event must be one of: ${allowedEvents.join(', ')}` };
   }
@@ -294,6 +294,11 @@ export async function POST(request: NextRequest) {
         title: 'Clic sur Envoyer la réservation',
         footerNote: "lorsqu'un visiteur a cliqué sur « ENVOYER LA RÉSERVATION »",
       },
+      'booking-confirmed': {
+        subjectPrefix: 'Réservation envoyée (API OK)',
+        title: 'Demande de réservation enregistrée',
+        footerNote: "lorsqu'une demande de réservation a été acceptée par l'API (email client envoyé)",
+      },
       'blog-cta': {
         subjectPrefix: 'Clic CTA blog',
         title: 'Clic sur CTA blog',
@@ -308,9 +313,11 @@ export async function POST(request: NextRequest) {
           ? 'Réserver maintenant'
           : event === 'booking-submit'
             ? 'Envoyer la réservation'
-            : event === 'blog-cta'
-              ? 'CTA blog'
-              : event || '–';
+            : event === 'booking-confirmed'
+              ? 'Réservation confirmée (serveur)'
+              : event === 'blog-cta'
+                ? 'CTA blog'
+                : event || '–';
 
     const now = new Date();
     const dateStr = now.toLocaleDateString('fr-FR', {
@@ -354,7 +361,7 @@ export async function POST(request: NextRequest) {
       .join('');
 
     const hasBookingForm =
-      event === 'booking-submit' &&
+      (event === 'booking-submit' || event === 'booking-confirmed') &&
       (fullName || email || phone || pickupDate || returnDate || pickupLocation || returnLocation);
     const formatLoc = (key: string) => locationLabels[key] || key || '–';
     const bookingRowsList = hasBookingForm
@@ -450,7 +457,7 @@ export async function POST(request: NextRequest) {
       dateStr,
       timeStr,
     };
-    if (event === 'booking-submit') {
+    if (event === 'booking-submit' || event === 'booking-confirmed') {
       const booking: { fullName?: string; email?: string; phone?: string } = {};
       if (body.fullName) booking.fullName = body.fullName;
       if (body.email) booking.email = body.email;

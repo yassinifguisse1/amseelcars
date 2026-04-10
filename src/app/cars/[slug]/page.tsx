@@ -28,7 +28,7 @@ const metadata: Metadata = {
     description: 'The requested car could not be found.',
   },
   alternates: {
-    canonical: '/cars/[slug]',
+    canonical: '/cars',
   },
   icons: {
     icon: '/favicon.ico',
@@ -58,13 +58,19 @@ export async function generateMetadata({ params }: CarDetailPageProps): Promise<
   const pageTitle = car.richContent?.seoTitle || car.richContent?.h1Title || `${car.carName} - Luxury Car Rental | Amseel Cars`
   const metaDescription = car.richContent?.seoMetaDescription || car.description
   
+  const canonicalPath = `/cars/${slug}`
+
   return {
     title: pageTitle,
     description: metaDescription,
     keywords: [car.brand, car.model, car.category, 'luxury car rental', 'Morocco', 'location voiture', 'Agadir'],
+    alternates: {
+      canonical: canonicalPath,
+    },
     openGraph: {
       title: pageTitle,
       description: metaDescription,
+      url: canonicalPath,
       images: [
         {
           url: car.carImage,
@@ -105,7 +111,6 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
     description: car.description,
     pricePerDay: car.pricePerDay,
     images: car.images,
-    rating: car.rating,
     slug: car.slug,
     category: car.category,
     year: car.year,

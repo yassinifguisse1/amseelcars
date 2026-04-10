@@ -1,8 +1,21 @@
+import type { Metadata } from "next";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import { HomeContentLandingPage } from "./HomeContentLandingPage";
 import Script from "next/script";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema, generateReviewSchema, generateAggregateRatingSchema } from "@/lib/schemas";
 import { reviews } from "@/data/reviews";
+
+/** Homepage only: avoid inheriting `/` as canonical on every route from root layout. */
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    languages: {
+      "fr-MA": "/",
+      en: "/agadir-car-rental",
+      "x-default": "/",
+    },
+  },
+};
 
 export default function Home() {
   const localBusinessSchema = generateLocalBusinessSchema();

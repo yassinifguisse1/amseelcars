@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogArticle, categoryToSlug } from '@/data/blog';
+import { blogArticleImageAlt, blogArticleImageTitle } from '@/lib/blogImageAlt';
 import styles from "./ArticleCard.module.scss";
 
 interface ArticleCardProps {
@@ -11,6 +12,9 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article, variant }: ArticleCardProps) {
+  const imageAlt = blogArticleImageAlt(article);
+  const imageTitle = blogArticleImageTitle(article) ?? imageAlt;
+
   const cardVariants = {
     hover: {
       y: -10,
@@ -46,7 +50,8 @@ export default function ArticleCard({ article, variant }: ArticleCardProps) {
           >
             <Image
               src={article.image}
-              alt={article.title}
+              alt={imageAlt}
+              title={imageTitle}
               fill
               className={styles.image}
               sizes={variant === "featured" ? "100vw" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
