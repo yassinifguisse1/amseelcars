@@ -1,425 +1,354 @@
-"use client"
-import React, { useState, useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Mail, Phone, User, MessageSquare, Send, CheckCircle } from 'lucide-react'
+"use client";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger)
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Mail, Phone, User, MessageSquare, Send, CheckCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-// TypeScript interfaces for form data
+gsap.registerPlugin(ScrollTrigger);
+
 interface FormData {
-  name: string
-  email: string
-  phone: string
-  message: string
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
 }
 
 interface FormErrors {
-  name?: string
-  email?: string
-  message?: string
+  name?: string;
+  email?: string;
+  message?: string;
 }
 
-const ContactForm: React.FC = () => {
-  // Form state management
+const ACCENT = "#EC1C25";
+
+export default function ContactForm() {
+  const t = useTranslations("contactPage.form");
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  })
-  
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Refs for GSAP animations
-  const formRef = useRef<HTMLFormElement>(null)
-  const fieldsRef = useRef<HTMLDivElement[]>([])
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const formRef = useRef<HTMLFormElement>(null);
+  const fieldsRef = useRef<HTMLDivElement[]>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Add field ref to array
   const addFieldRef = (el: HTMLDivElement | null) => {
     if (el && !fieldsRef.current.includes(el)) {
-      fieldsRef.current.push(el)
+      fieldsRef.current.push(el);
     }
-  }
+  };
 
-  // GSAP animations setup
+  const validateForm = useCallback((): boolean => {
+    const newErrors: FormErrors = {};
+    if (!formData.name.trim()) newErrors.name = t("errNameRequired");
+    if (!formData.email.trim()) newErrors.email = t("errEmailRequired");
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = t("errEmailInvalid");
+    if (!formData.message.trim()) newErrors.message = t("errMessageRequired");
+    else if (formData.message.trim().length < 10)
+      newErrors.message = t("errMessageMin");
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }, [formData, t]);
+
   useEffect(() => {
-    const form = formRef.current
-    const fields = fieldsRef.current
-    const button = buttonRef.current
+    const form = formRef.current;
+    const fields = fieldsRef.current;
+    const button = buttonRef.current;
+    if (!form || !fields.length || !button) return;
 
-    if (!form || !fields.length || !button) return
+    gsap.set([...fields, button], { opacity: 0, y: 28, scale: 0.97 });
 
-    // Initial setup - hide elements
-    gsap.set([...fields, button], { 
-      opacity: 0, 
-      y: 30,
-      scale: 0.95 
-    })
-
-    // Create timeline for form entrance
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: form,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
-      }
-    })
+        start: "top 82%",
+        end: "bottom 12%",
+        toggleActions: "play none none reverse",
+      },
+    });
 
-    // Animate form fields with stagger
     tl.to(fields, {
       opacity: 1,
       y: 0,
       scale: 1,
-      duration: 0.8,
-      stagger: 0.1,
-      ease: 'power3.out'
-    })
-    .to(button, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.6,
-      ease: 'back.out(1.7)'
-    }, '-=0.3')
+      duration: 0.75,
+      stagger: 0.09,
+      ease: "power3.out",
+    }).to(
+      button,
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.55,
+        ease: "back.out(1.5)",
+      },
+      "-=0.25",
+    );
 
-    // Add hover animations for input fields
-    fields.forEach(field => {
-      const input = field.querySelector('input, textarea')
-      if (input) {
-        // Focus animations
-        input.addEventListener('focus', () => {
-          gsap.to(field, {
-            scale: 1.02,
-            duration: 0.3,
-            ease: 'power2.out'
-          })
-          gsap.to(field.querySelector('.field-icon'), {
-            scale: 1.1,
-            color: '#3b82f6',
-            duration: 0.3
-          })
-        })
-
-        input.addEventListener('blur', () => {
-          gsap.to(field, {
+    fields.forEach((field) => {
+      const input = field.querySelector("input, textarea");
+      if (!input) return;
+      const onFocus = () => {
+        gsap.to(field, { scale: 1.015, duration: 0.25, ease: "power2.out" });
+        const icon = field.querySelector(".field-icon");
+        if (icon)
+          gsap.to(icon, {
+            scale: 1.08,
+            color: ACCENT,
+            duration: 0.25,
+          });
+      };
+      const onBlur = () => {
+        gsap.to(field, { scale: 1, duration: 0.25, ease: "power2.out" });
+        const icon = field.querySelector(".field-icon");
+        if (icon)
+          gsap.to(icon, {
             scale: 1,
-            duration: 0.3,
-            ease: 'power2.out'
-          })
-          gsap.to(field.querySelector('.field-icon'), {
-            scale: 1,
-            color: '#6b7280',
-            duration: 0.3
-          })
-        })
-      }
-    })
+            color: "#9ca3af",
+            duration: 0.25,
+          });
+      };
+      input.addEventListener("focus", onFocus);
+      input.addEventListener("blur", onBlur);
+    });
 
-    // Cleanup
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach((tr) => tr.kill());
+    };
+  }, []);
 
-  // Form validation
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required'
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required'
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email'
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required'
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters'
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  // Handle input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-
-    // Clear error when user starts typing
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormErrors]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: undefined
-      }))
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
-  }
+  };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
+    e.preventDefault();
     if (!validateForm()) {
-      // Shake animation for errors
       gsap.to(formRef.current, {
-        keyframes: {
-          x: [-10, 10, -10, 10, 0]
-        },
-        duration: 0.5,
-        ease: 'power2.inOut'
-      })
-      return
+        keyframes: { x: [-8, 8, -8, 8, 0] },
+        duration: 0.45,
+        ease: "power2.inOut",
+      });
+      return;
     }
 
-    setIsSubmitting(true)
-
+    setIsSubmitting(true);
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
+      const result = await response.json();
+      if (!response.ok)
+        throw new Error(result.error || "Failed to send message");
 
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message')
-      }
-      
-      console.log('Form submitted successfully:', result)
-      
-      setIsSubmitted(true)
-      
-      // Success animation
+      setIsSubmitted(true);
       if (buttonRef.current) {
         gsap.to(buttonRef.current, {
-          scale: 1.1,
-          duration: 0.2,
+          scale: 1.06,
+          duration: 0.18,
           yoyo: true,
           repeat: 1,
-          ease: 'power2.inOut'
-        })
+          ease: "power2.inOut",
+        });
       }
-
-      // Reset form after delay
       setTimeout(() => {
-        setFormData({ name: '', email: '', phone: '', message: '' })
-        setIsSubmitted(false)
-      }, 3000)
-
-    } catch (error) {
-      console.error('Form submission error:', error)
-      
-      // Show error message to user
-      setErrors({ 
-        message: 'Erreur lors de l\'envoi du message. Veuillez réessayer.' 
-      })
-      
-      // Shake animation for error
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setIsSubmitted(false);
+      }, 3200);
+    } catch {
+      setErrors({ message: t("errSendFailed") });
       gsap.to(formRef.current, {
-        keyframes: {
-          x: [-10, 10, -10, 10, 0]
-        },
-        duration: 0.5,
-        ease: 'power2.inOut'
-      })
+        keyframes: { x: [-8, 8, -8, 8, 0] },
+        duration: 0.45,
+        ease: "power2.inOut",
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
+
+  const ring =
+    "focus:outline-none focus:ring-2 focus:ring-[#EC1C25]/60 focus:border-transparent";
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <form 
+    <div className="mx-auto w-full max-w-xl">
+      <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className="space-y-6 bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
+        className="space-y-6 rounded-3xl border border-white/[0.08] bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-8 shadow-[0_0_0_1px_rgba(255,255,255,0.04)_inset,0_32px_64px_rgba(0,0,0,0.35)] backdrop-blur-xl md:p-10"
         noValidate
       >
-        {/* Form Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Contactez-nous
+        <div className="mb-2 text-center">
+          <h2 className="font-[family-name:var(--font-heading)] mb-3 text-3xl font-bold tracking-tight text-white md:text-4xl">
+            {t("title")}
           </h2>
-          <p className="text-gray-300 text-lg">
-            Prêt(e) à vivre l’ultime expérience de location de voitures de luxe ?
-            Envoyez-nous un message et nous vous répondrons dans les 24 heures.
+          <p className="text-base leading-relaxed text-neutral-400">
+            {t("intro")}
           </p>
         </div>
 
-        {/* Name Field */}
         <div ref={addFieldRef} className="relative">
-          <label 
-            htmlFor="name" 
-            className="block text-sm font-medium text-gray-300 mb-2"
+          <label
+            htmlFor="name"
+            className="mb-2 block text-sm font-medium text-neutral-300"
           >
-            Nom et Prénom *
+            {t("nameLabel")} *
           </label>
           <div className="relative">
-            <User className="field-icon absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-colors duration-300" />
+            <User className="field-icon pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ${
-                errors.name ? 'border-red-500' : 'border-white/20'
+              className={`w-full rounded-xl border bg-black/30 py-4 pl-12 pr-4 text-white placeholder:text-neutral-500 ${ring} ${
+                errors.name ? "border-red-500/80" : "border-white/15"
               }`}
-              placeholder="Entrez votre nom et prénom"
-              aria-describedby={errors.name ? 'name-error' : undefined}
-              required
+              placeholder={t("namePlaceholder")}
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "name-error" : undefined}
             />
           </div>
           {errors.name && (
-            <p id="name-error" className="mt-2 text-sm text-red-400" role="alert">
+            <p id="name-error" className="mt-2 text-sm text-red-400/90" role="alert">
               {errors.name}
             </p>
           )}
         </div>
 
-        {/* Email Field */}
         <div ref={addFieldRef} className="relative">
-          <label 
-            htmlFor="email" 
-            className="block text-sm font-medium text-gray-300 mb-2"
+          <label
+            htmlFor="email"
+            className="mb-2 block text-sm font-medium text-neutral-300"
           >
-            Adresse Email *
+            {t("emailLabel")} *
           </label>
           <div className="relative">
-            <Mail className="field-icon absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-colors duration-300" />
+            <Mail className="field-icon pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full pl-12 pr-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ${
-                errors.email ? 'border-red-500' : 'border-white/20'
+              className={`w-full rounded-xl border bg-black/30 py-4 pl-12 pr-4 text-white placeholder:text-neutral-500 ${ring} ${
+                errors.email ? "border-red-500/80" : "border-white/15"
               }`}
-              placeholder="votre.email@exemple.com"
-              aria-describedby={errors.email ? 'email-error' : undefined}
-              required
+              placeholder={t("emailPlaceholder")}
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
             />
           </div>
           {errors.email && (
-            <p id="email-error" className="mt-2 text-sm text-red-400" role="alert">
+            <p id="email-error" className="mt-2 text-sm text-red-400/90" role="alert">
               {errors.email}
             </p>
           )}
         </div>
 
-        {/* Phone Field */}
         <div ref={addFieldRef} className="relative">
-          <label 
-            htmlFor="phone" 
-            className="block text-sm font-medium text-gray-300 mb-2"
+          <label
+            htmlFor="phone"
+            className="mb-2 block text-sm font-medium text-neutral-300"
           >
-            Numéro de Téléphone (Optionnel)
+            {t("phoneLabel")}
           </label>
           <div className="relative">
-            <Phone className="field-icon absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 transition-colors duration-300" />
+            <Phone className="field-icon pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
             <input
               type="tel"
               id="phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-              placeholder="+212 (555) 123-4567"
+              className={`w-full rounded-xl border border-white/15 bg-black/30 py-4 pl-12 pr-4 text-white placeholder:text-neutral-500 ${ring}`}
+              placeholder={t("phonePlaceholder")}
             />
           </div>
         </div>
 
-        {/* Message Field */}
         <div ref={addFieldRef} className="relative">
-          <label 
-            htmlFor="message" 
-            className="block text-sm font-medium text-gray-300 mb-2"
+          <label
+            htmlFor="message"
+            className="mb-2 block text-sm font-medium text-neutral-300"
           >
-            Message (Optionnel)
+            {t("messageLabel")} *
           </label>
           <div className="relative">
-            <MessageSquare className="field-icon absolute left-4 top-4 w-5 h-5 text-gray-400 transition-colors duration-300" />
+            <MessageSquare className="field-icon pointer-events-none absolute left-4 top-4 h-5 w-5 text-gray-400" />
             <textarea
               id="message"
               name="message"
               value={formData.message}
               onChange={handleChange}
               rows={5}
-              className={`w-full pl-12 pr-4 py-4 bg-white/10 border rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none ${
-                errors.message ? 'border-red-500' : 'border-white/20'
+              className={`w-full resize-none rounded-xl border bg-black/30 py-4 pl-12 pr-4 text-white placeholder:text-neutral-500 ${ring} ${
+                errors.message ? "border-red-500/80" : "border-white/15"
               }`}
-              placeholder="Dites-nous vos besoins de location, vos dates préférées, ou toutes vos exigences spéciales..."
-              aria-describedby={errors.message ? 'message-error' : undefined}
-              required
+              placeholder={t("messagePlaceholder")}
+              aria-invalid={!!errors.message}
+              aria-describedby={errors.message ? "message-error" : undefined}
             />
           </div>
           {errors.message && (
-            <p id="message-error" className="mt-2 text-sm text-red-400" role="alert">
+            <p id="message-error" className="mt-2 text-sm text-red-400/90" role="alert">
               {errors.message}
             </p>
           )}
         </div>
 
-        {/* Submit Button */}
         <button
           ref={buttonRef}
           type="submit"
           disabled={isSubmitting || isSubmitted}
-          className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center space-x-3 ${
+          className={`flex w-full items-center justify-center gap-3 rounded-xl py-4 text-lg font-semibold transition-all duration-300 ${
             isSubmitted
-              ? 'bg-green-600 hover:bg-green-700 text-white'
-              : 'bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 hover:from-[#CB1939]/90 hover:to-[#CB1939]/70 text-white'
-          } ${
-            isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-[#CB1939]/25'
-          }`}
-          aria-describedby="submit-status"
+              ? "bg-emerald-600 text-white"
+              : "bg-gradient-to-r from-[#EC1C25] to-[#c41520] text-white shadow-lg shadow-[#EC1C25]/20 hover:shadow-xl hover:shadow-[#EC1C25]/25"
+          } ${isSubmitting ? "cursor-not-allowed opacity-75" : ""}`}
         >
           {isSubmitting ? (
             <>
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              <span>Envoi du Message...</span>
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+              <span>{t("submitting")}</span>
             </>
           ) : isSubmitted ? (
             <>
-              <CheckCircle className="w-5 h-5" />
-              <span>Message Envoyé!</span>
+              <CheckCircle className="h-5 w-5" />
+              <span>{t("sent")}</span>
             </>
           ) : (
             <>
-              <Send className="w-5 h-5" />
-              <span>Envoyer Message</span>
+              <Send className="h-5 w-5" />
+              <span>{t("submit")}</span>
             </>
           )}
         </button>
 
-        {/* Status Message */}
         {isSubmitted && (
-          <div className="text-center">
-            <p className="text-green-400 text-sm" id="submit-status">
-              Merci! Nous vous répondrons dans les 24 heures.
-            </p>
-          </div>
+          <p className="text-center text-sm text-emerald-400/90" id="submit-status">
+            {t("successNote")}
+          </p>
         )}
       </form>
     </div>
-  )
+  );
 }
-
-export default ContactForm

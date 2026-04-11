@@ -1,44 +1,49 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { addDays, parse, startOfToday } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp';
 import { track } from '@vercel/analytics/react';
 import styles from './BookingDialog.module.css';
+import { BookingFormDateField } from './BookingFormDateField';
 
-// Form validation schema
-const bookingSchema = z.object({
-  fullName: z.string().min(2, 'Nom complet doit être au moins de 2 caractères'),
-  email: z.string().email('Veuillez entrer une adresse email valide'),
-  phone: z.string().min(10, 'Numéro de téléphone doit être au moins de 10 chiffres'),
-  pickupDate: z.string().min(1, 'Veuillez sélectionner une date de récupération'),
-  returnDate: z.string().min(1, 'Veuillez sélectionner une date de retour'),
-  pickupLocation: z.string().min(1, 'Veuillez sélectionner le lieu de récupération'),
-  returnLocation: z.string().min(1, 'Veuillez sélectionner le lieu de retour'),
-}).refine((data) => {
-  const pickup = new Date(data.pickupDate);
-  const returnDate = new Date(data.returnDate);
-  return returnDate > pickup;
-}, {
-  message: "Date de retour doit être après la date de récupération",
-  path: ["returnDate"],
-});
+type BookingFormData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  pickupDate: string;
+  returnDate: string;
+  pickupLocation: string;
+  returnLocation: string;
+};
 
-type BookingFormData = z.infer<typeof bookingSchema>;
-
-// Location options
-const locationOptions = [
-  { value: '', label: 'Sélectionnez un lieu' },
-  { value: 'agadir-centre', label: 'Agadir Centre' },
-  { value: 'aeroport-al-massira', label: 'Aéroport Al Massira' },
-  { value: 'taghazout', label: 'Taghazout' },
-  { value: 'agence', label: 'Agence' }
-];
+function buildBookingSchema(t: (key: string) => string) {
+  return z
+    .object({
+      fullName: z.string().min(2, t('errFullName')),
+      email: z.string().email(t('errEmail')),
+      phone: z.string().min(10, t('errPhone')),
+      pickupDate: z.string().min(1, t('errPickupDate')),
+      returnDate: z.string().min(1, t('errReturnDate')),
+      pickupLocation: z.string().min(1, t('errPickupLoc')),
+      returnLocation: z.string().min(1, t('errReturnLoc')),
+    })
+    .refine(
+      (data) => {
+        const pickup = new Date(data.pickupDate);
+        const returnDate = new Date(data.returnDate);
+        return returnDate > pickup;
+      },
+      { message: t('errReturnAfterPickup'), path: ['returnDate'] }
+    );
+}
 
 interface BookingDialogProps {
   isOpen?: boolean;
@@ -80,12 +85,27 @@ export default function BookingDialog({
   inline = false,
   extraActions,
 }: BookingDialogProps) {
+  const locale = useLocale();
+  const t = useTranslations('booking');
+  const bookingSchema = useMemo(() => buildBookingSchema((k) => t(k as Parameters<typeof t>[0])), [t]);
+  const locationOptions = useMemo(
+    () => [
+      { value: '', label: t('locSelect') },
+      { value: 'agadir-centre', label: t('locAgadirCentre') },
+      { value: 'aeroport-al-massira', label: t('locAirport') },
+      { value: 'taghazout', label: t('locTaghazout') },
+      { value: 'agence', label: t('locAgency') },
+    ],
+    [t]
+  );
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const contentRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
@@ -117,6 +137,13 @@ export default function BookingDialog({
   };
 
   const { days, total } = calculateRentalDetails();
+
+  const pickupDisabled = { before: startOfToday() };
+  const returnDisabled = watchedPickupDate
+    ? {
+        before: addDays(parse(watchedPickupDate, 'yyyy-MM-dd', new Date()), 1),
+      }
+    : { before: startOfToday() };
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
@@ -228,50 +255,72 @@ export default function BookingDialog({
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Réservation confirmée!</h3>
-                    <p className="text-gray-600">Nous avons reçu votre demande de réservation et nous vous contacterons sous peu.</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{t('successTitle')}</h3>
+                    <p className="text-gray-600">{t('successBody')}</p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+                  <form key={locale} onSubmit={handleSubmit(onSubmit)} className="space-y-2">
                     {/* Rental Dates - first */}
                     <p className="text-sm text-gray-600 -mt-1 mb-2">
-                      Retrait possible à l’aéroport Al Massira, en centre-ville, à Taghazout ou à l’agence. Nous vous confirmons la disponibilité et les conditions par email ou WhatsApp.
+                      {t('introBlurb')}
                     </p>
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <Calendar className="h-5 w-5" />
-                        Dates de location
+                        {t('sectionDates')}
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Date de récupération *
+                          <label
+                            htmlFor="booking-pickup-date"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            {t('pickupDate')}
                           </label>
-                          <input
-                            {...register('pickupDate')}
-                            type="date"
-                            min={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          <Controller
+                            name="pickupDate"
+                            control={control}
+                            render={({ field }) => (
+                              <BookingFormDateField
+                                id="booking-pickup-date"
+                                value={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                                disabled={pickupDisabled}
+                                placeholder={t('datePlaceholder')}
+                                openCalendarAria={t('calendarOpenAria')}
+                                locale={locale}
+                                error={errors.pickupDate?.message}
+                              />
+                            )}
                           />
-                          {errors.pickupDate && (
-                            <p className="text-red-500 text-sm mt-1">{errors.pickupDate.message}</p>
-                          )}
                         </div>
 
                         <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Date de retour *
+                          <label
+                            htmlFor="booking-return-date"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            {t('returnDate')}
                           </label>
-                          <input
-                            {...register('returnDate')}
-                            type="date"
-                            min={watchedPickupDate || new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          <Controller
+                            name="returnDate"
+                            control={control}
+                            render={({ field }) => (
+                              <BookingFormDateField
+                                id="booking-return-date"
+                                value={field.value}
+                                onChange={field.onChange}
+                                onBlur={field.onBlur}
+                                disabled={returnDisabled}
+                                placeholder={t('datePlaceholder')}
+                                openCalendarAria={t('calendarOpenAria')}
+                                locale={locale}
+                                error={errors.returnDate?.message}
+                              />
+                            )}
                           />
-                          {errors.returnDate && (
-                            <p className="text-red-500 text-sm mt-1">{errors.returnDate.message}</p>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -280,13 +329,13 @@ export default function BookingDialog({
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <MapPin className="h-5 w-5" />
-                        Lieux de récupération et de retour
+                        {t('sectionLocations')}
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Lieu de récupération *
+                            {t('pickupLocation')}
                           </label>
                           <select
                             {...register('pickupLocation')}
@@ -305,7 +354,7 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Lieu de retour *
+                            {t('returnLocation')}
                           </label>
                           <select
                             {...register('returnLocation')}
@@ -328,7 +377,7 @@ export default function BookingDialog({
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                         <User className="h-5 w-5" />
-                        Informations personnelles
+                        {t('sectionPersonal')}
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -349,13 +398,13 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Adresse email *
+                            {t('email')}
                           </label>
                           <input
                             {...register('email')}
                             type="email"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="votre@email.com"
+                            placeholder={t('placeholderEmail')}
                           />
                           {errors.email && (
                             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -364,13 +413,13 @@ export default function BookingDialog({
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Numéro de téléphone *
+                            {t('phone')}
                           </label>
                           <input
                             {...register('phone')}
                             type="tel"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="+212 6XX XXX XXX"
+                            placeholder={t('placeholderPhone')}
                           />
                           {errors.phone && (
                             <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
@@ -405,7 +454,7 @@ export default function BookingDialog({
                     {submitStatus === 'error' && (
                       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                         <p className="text-red-600 text-sm">
-                          Il y a eu une erreur lors de la réservation. Veuillez réessayer ou contactez-nous directement.
+                          {t('errorSubmit')}
                         </p>
                       </div>
                     )}
@@ -420,7 +469,7 @@ export default function BookingDialog({
                           disabled={isSubmitting}
                           className="flex-1"
                         >
-                          Annuler
+                          {t('cancel')}
                         </Button>
                       )}
                       <Button
@@ -431,10 +480,10 @@ export default function BookingDialog({
                         {isSubmitting ? (
                           <div className="flex items-center gap-2">
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Envoi...
+                            {t('submitting')}
                           </div>
                         ) : (
-                          'Envoyer la réservation'
+                          t('submit')
                         )}
                       </Button>
                     </div>
@@ -461,11 +510,11 @@ export default function BookingDialog({
         <div className="relative rounded-2xl overflow-hidden border-2 border-primary/25 bg-card shadow-xl ring-2 ring-primary/10">
           {/* Accent corner badge */}
           <div className="absolute top-0 right-0 z-10 bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-bl-xl shadow-md">
-            Réservation
+            {t('inlineBadge')}
           </div>
           <div className="bg-[#EC1C25] p-5 md:p-7 text-white relative">
             <div className="pr-24">
-              <h2 className="text-xl md:text-2xl font-bold drop-shadow-sm">Réservez cette voiture</h2>
+              <h2 className="text-xl md:text-2xl font-bold drop-shadow-sm">{t('inlineTitle')}</h2>
               <p className="text-white/95 text-sm md:text-base mt-0.5">{carName}</p>
             </div>
           </div>
@@ -525,7 +574,7 @@ export default function BookingDialog({
                     <CreditCard className="h-8 w-8" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold">Réservez votre voiture</h2>
+                    <h2 className="text-2xl font-bold">{t('modalTitle')}</h2>
                     <p className="text-blue-100">{carName}</p>
                   </div>
                 </div>

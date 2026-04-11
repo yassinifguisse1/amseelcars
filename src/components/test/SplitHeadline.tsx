@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Index from "../Description/Index";
@@ -8,6 +9,7 @@ import Index from "../Description/Index";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SplitHeadline() {
+  const t = useTranslations("home.splitHeadline");
   const root = useRef<HTMLDivElement>(null);
 //   const leftChunk = useRef<HTMLSpanElement>(null);
 //   const rightChunk = useRef<HTMLSpanElement>(null);
@@ -69,8 +71,8 @@ export default function SplitHeadline() {
             "
           >
          
-            <span className="split-left inline-block text-[20px] sm:text-[28px] md:text-[35px] lg:text-[50px]">Nous sommes</span>
-            <span className="split-right inline-block text-[20px] sm:text-[28px] md:text-[35px] lg:text-[50px]">Votre prochain trajet.</span>
+            <span className="split-left inline-block text-[20px] sm:text-[28px] md:text-[35px] lg:text-[50px]">{t("line1Left")}</span>
+            <span className="split-right inline-block text-[20px] sm:text-[28px] md:text-[35px] lg:text-[50px]">{t("line1Right")}</span>
           </h2>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
@@ -85,9 +87,9 @@ export default function SplitHeadline() {
             "
           >
           
-          <span className="split-lefts inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px] ">De l’aéroport</span>
+          <span className="split-lefts inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px] ">{t("line2Left")}</span>
 
-            <span className="split-rights inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">A n’importe où.</span>
+            <span className="split-rights inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line2Right")}</span>
           </h2>
         </div>
         <div className="; top-[12vh], w-full  flex flex-col items-center justify-center">
@@ -102,8 +104,8 @@ export default function SplitHeadline() {
             "
           >
             
-            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Réservez en</span>
-            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Quelques minutes</span>
+            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line3Left")}</span>
+            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line3Right")}</span>
 
           </h2>
         </div>
@@ -119,8 +121,8 @@ export default function SplitHeadline() {
             "
           >
            
-            <span className="split-leftc inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Choisissez</span>
-            <span className="split-rightc inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Une voiture</span>
+            <span className="split-leftc inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line4Left")}</span>
+            <span className="split-rightc inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line4Right")}</span>
 
           </h2>
         </div>
@@ -136,8 +138,8 @@ export default function SplitHeadline() {
             "
           >
 
-            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Commencez</span>
-            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">Le voyage.</span>
+            <span className="split-left inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line5Left")}</span>
+            <span className="split-right inline-block text-[20px] sm:-[28px] md:text-[35px]  lg:text-[50px]">{t("line5Right")}</span>
 
           </h2>
         </div>

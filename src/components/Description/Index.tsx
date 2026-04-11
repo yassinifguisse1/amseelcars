@@ -1,24 +1,18 @@
 "use client";
 import styles from "./style.module.scss";
 import { useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import Rounded from "../../common/RoundedButton";
 import Paragraph from "../Paragraph/Character";
 
-const HEADING_TEXT = "AMSEEL CARS";
-const DESCRIPTION_TEXT =
-  "accompagne vos besoins de location de voiture à Agadir avec une flotte récente, des conditions claires, une assistance 24/7 et des solutions adaptées aux séjours touristiques comme aux déplacements professionnels.";
-
 export default function Index() {
+  const t = useTranslations("home.story");
   const router = useRouter();
   const description = useRef<HTMLDivElement>(null);
 
-  const bullets = [
-    "Aucun frais caché, aucune condition déroutante : tarifs clairs et véhicules fiables.",
-    "Des citadines aux SUV spacieux : chaque trajet bénéficie d’une couverture complète et d’une assistance 24h/24 et 7j/7.",
-    "Louer une voiture n’a jamais été aussi simple."
-  ];
-  
+  const bullets = t.raw("bullets") as string[];
+
   const handleAboutClick = () => {
     router.push("/about");
   };
@@ -34,11 +28,11 @@ export default function Index() {
          
           <Rounded
               backgroundColor="#D32F2F"
-              aria-label="About us"
+              aria-label={t("aboutAriaLabel")}
               onClick={handleAboutClick}
              
             >
-              <p className="z-10 text-white  ">À propos de nous</p>
+              <p className="z-10 text-white  ">{t("aboutCta")}</p>
             </Rounded>
         </div>
 
@@ -47,10 +41,10 @@ export default function Index() {
           className={`${styles.seoIntroSerif} mt-10 max-w-3xl text-center leading-[1.3] text-white break-words md:mx-auto`}
         >
           <span className="block whitespace-nowrap text-[#CB1939] text-[30px] font-bold tracking-[-0.02em] md:text-[40px] lg:text-[46px]">
-            {HEADING_TEXT}
+            {t("heading")}
           </span>
           <span className="block mt-3 text-[22px] font-normal leading-[1.35] tracking-[-0.02em] md:text-[30px] md:leading-[1.3] md:tracking-[-0.015em] lg:text-[34px] lg:leading-[1.25] lg:tracking-[-0.01em]">
-            {DESCRIPTION_TEXT}
+            {t("description")}
           </span>
         </p>
       </div>

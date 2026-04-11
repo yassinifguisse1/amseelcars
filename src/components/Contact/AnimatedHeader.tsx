@@ -1,195 +1,214 @@
-"use client"
-import React, { useRef, useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Car, Sparkles } from 'lucide-react'
+"use client";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger)
+import React, { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Car, Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-const AnimatedHeader: React.FC = () => {
-  // Refs for GSAP animations
-  const headerRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const subtitleRef = useRef<HTMLParagraphElement>(null)
-  const decorRef = useRef<HTMLDivElement>(null)
-  const sparklesRef = useRef<HTMLDivElement[]>([])
+gsap.registerPlugin(ScrollTrigger);
 
-  // Add sparkle ref to array
+const ACCENT = "#EC1C25";
+
+export default function AnimatedHeader() {
+  const t = useTranslations("contactPage.hero");
+  const headerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const decorRef = useRef<HTMLDivElement>(null);
+  const sparklesRef = useRef<HTMLDivElement[]>([]);
+
   const addSparkleRef = (el: HTMLDivElement | null) => {
     if (el && !sparklesRef.current.includes(el)) {
-      sparklesRef.current.push(el)
+      sparklesRef.current.push(el);
     }
-  }
+  };
 
-  // GSAP animations setup
   useEffect(() => {
-    const header = headerRef.current
-    const title = titleRef.current
-    const subtitle = subtitleRef.current
-    const decor = decorRef.current
-    const sparkles = sparklesRef.current
+    const header = headerRef.current;
+    const title = titleRef.current;
+    const subtitle = subtitleRef.current;
+    const decor = decorRef.current;
+    const sparkles = sparklesRef.current;
 
-    if (!header || !title || !subtitle) return
+    if (!header || !title || !subtitle) return;
 
-    // Initial setup - hide elements
-    gsap.set([title, subtitle], { opacity: 0, y: 50, scale: 0.9 })
-    if (decor) gsap.set(decor, { opacity: 0, scale: 0, rotation: -45 })
-    gsap.set(sparkles, { opacity: 0, scale: 0, rotation: 0 })
+    gsap.set([title, subtitle], { opacity: 0, y: 50, scale: 0.96 });
+    if (decor) gsap.set(decor, { opacity: 0, scale: 0, rotation: -12 });
+    gsap.set(sparkles, { opacity: 0, scale: 0 });
 
-    // Create entrance timeline
-    const tl = gsap.timeline({ delay: 0.2 })
-
-    // Animate title with split text effect
+    const tl = gsap.timeline({ delay: 0.15 });
     tl.to(title, {
       opacity: 1,
       y: 0,
       scale: 1,
       duration: 1,
-      ease: 'power3.out'
+      ease: "power3.out",
     })
-    .to(subtitle, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.8,
-      ease: 'power3.out'
-    }, '-=0.5')
+      .to(
+        subtitle,
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.85,
+          ease: "power3.out",
+        },
+        "-=0.55",
+      );
 
-    // Animate decorative elements
     if (decor) {
-      tl.to(decor, {
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration: 0.8,
-        ease: 'back.out(1.7)'
-      }, '-=0.6')
+      tl.to(
+        decor,
+        {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          duration: 0.75,
+          ease: "back.out(1.6)",
+        },
+        "-=0.5",
+      );
     }
 
-    // Animate sparkles with stagger
     if (sparkles.length) {
-      tl.to(sparkles, {
-        opacity: 1,
-        scale: 1,
-        rotation: 360,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'back.out(1.7)'
-      }, '-=0.4')
-
-      // Continuous sparkle animation
+      tl.to(
+        sparkles,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: "back.out(1.5)",
+        },
+        "-=0.35",
+      );
       sparkles.forEach((sparkle, index) => {
         gsap.to(sparkle, {
           rotation: 360,
-          duration: 3 + index * 0.5,
+          duration: 4 + index * 0.4,
           repeat: -1,
-          ease: 'none'
-        })
-
-        // Floating animation
+          ease: "none",
+        });
         gsap.to(sparkle, {
-          y: -10,
-          duration: 2 + index * 0.3,
+          y: -8,
+          duration: 2.2 + index * 0.25,
           yoyo: true,
           repeat: -1,
-          ease: 'power2.inOut'
-        })
-      })
+          ease: "sine.inOut",
+        });
+      });
     }
 
-    // Parallax effect on scroll
     ScrollTrigger.create({
       trigger: header,
-      start: 'top top',
-      end: 'bottom top',
+      start: "top top",
+      end: "bottom top",
       scrub: 1,
       onUpdate: (self) => {
-        const progress = self.progress
+        const p = self.progress;
         gsap.to(title, {
-          y: progress * -50,
-          opacity: 1 - progress * 0.5,
-          duration: 0.3
-        })
+          y: p * -40,
+          opacity: 1 - p * 0.45,
+          duration: 0.2,
+        });
         gsap.to(subtitle, {
-          y: progress * -30,
-          opacity: 1 - progress * 0.7,
-          duration: 0.3
-        })
-      }
-    })
+          y: p * -24,
+          opacity: 1 - p * 0.65,
+          duration: 0.2,
+        });
+      },
+    });
 
-    // Cleanup
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [])
+      ScrollTrigger.getAll().forEach((tr) => tr.kill());
+    };
+  }, []);
 
   return (
-    <div 
+    <div
       ref={headerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#CB1939]/20 via-black to-[#CB1939]/10"
+      className="relative min-h-[88vh] flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Background Pattern */}
-      {/* <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, #3b82f6 0%, transparent 50%),
-                           radial-gradient(circle at 75% 75%, #8b5cf6 0%, transparent 50%)`
-        }} />
-      </div> */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.45]"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 50% at 50% -20%, ${ACCENT}33, transparent 55%),
+            radial-gradient(circle at 15% 40%, ${ACCENT}18, transparent 42%),
+            radial-gradient(circle at 88% 65%, rgba(251, 191, 36, 0.08), transparent 40%)
+          `,
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)`,
+          backgroundSize: "72px 72px",
+        }}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black" />
 
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Floating sparkles */}
-        <div ref={addSparkleRef} className="absolute top-1/4 left-1/4 text-blue-400/30">
-          <Sparkles className="w-6 h-6" />
+        <div
+          ref={addSparkleRef}
+          className="absolute top-[22%] left-[18%] text-[#EC1C25]/35"
+        >
+          <Sparkles className="h-6 w-6" strokeWidth={1.25} />
         </div>
-        <div ref={addSparkleRef} className="absolute top-1/3 right-1/4 text-purple-400/30">
-          <Sparkles className="w-4 h-4" />
+        <div
+          ref={addSparkleRef}
+          className="absolute top-[28%] right-[20%] text-amber-200/25"
+        >
+          <Sparkles className="h-4 w-4" strokeWidth={1.25} />
         </div>
-        <div ref={addSparkleRef} className="absolute bottom-1/3 left-1/3 text-blue-400/20">
-          <Sparkles className="w-8 h-8" />
+        <div
+          ref={addSparkleRef}
+          className="absolute bottom-[32%] left-[28%] text-[#EC1C25]/25"
+        >
+          <Sparkles className="h-8 w-8" strokeWidth={1} />
         </div>
-        <div ref={addSparkleRef} className="absolute bottom-1/4 right-1/3 text-purple-400/20">
-          <Sparkles className="w-5 h-5" />
+        <div
+          ref={addSparkleRef}
+          className="absolute bottom-[26%] right-[24%] text-amber-100/20"
+        >
+          <Sparkles className="h-5 w-5" strokeWidth={1.25} />
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        {/* Decorative Car Icon */}
-        <div ref={decorRef} className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#CB1939]/20 to-[#CB1939]/30 rounded-full mb-8 backdrop-blur-sm border border-white/10">
-          <Car className="w-10 h-10 text-[#CB1939]" />
+      <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
+        <p className="font-[family-name:var(--font-heading)] mb-6 text-[0.65rem] font-semibold uppercase tracking-[0.38em] text-white/45 md:text-xs">
+          {t("kicker")}
+        </p>
+
+        <div
+          ref={decorRef}
+          className="mx-auto mb-10 flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_0_0_1px_rgba(255,255,255,0.06)_inset,0_24px_48px_rgba(236,28,37,0.12)] backdrop-blur-md"
+        >
+          <Car className="h-10 w-10 text-[#EC1C25]" strokeWidth={1.25} />
         </div>
 
-        {/* Main Title */}
-        <h1 
+        <h1
           ref={titleRef}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
+          className="font-[family-name:var(--font-heading)] mb-8 text-5xl font-bold leading-[1.05] text-white md:text-7xl lg:text-8xl"
         >
-          Contactez
-          <span className="bg-gradient-to-r from-[#CB1939] to-[#CB1939]/80 bg-clip-text text-transparent ml-4">
-          -nous
+          {t("titleStart")}
+          <span className="bg-gradient-to-r from-[#EC1C25] to-[#ff5a62] bg-clip-text pl-2 text-transparent md:pl-3">
+            {t("titleAccent")}
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p 
+        <p
           ref={subtitleRef}
-          className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+          className="mx-auto max-w-2xl text-lg leading-relaxed text-neutral-300 md:text-xl md:leading-relaxed"
         >
-          Prêt(e) à vivre l’ultime expérience de location de voitures de luxe ?
-          <br className="hidden md:block" />
-          Contactez notre équipe d’experts et faisons de votre voyage un moment inoubliable.
+          {t("subtitle")}
         </p>
-
-     
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#CB1939]/50 to-transparent pointer-events-none" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#EC1C25]/40 to-transparent" />
     </div>
-  )
+  );
 }
-
-export default AnimatedHeader

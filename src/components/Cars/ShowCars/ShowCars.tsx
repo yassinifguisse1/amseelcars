@@ -5,11 +5,13 @@ import Image from 'next/image'
 import './style.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const ShowCars = () => {
+  const t = useTranslations('aboutPage')
   const mainRef = useRef<HTMLElement>(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [imageLoadCount, setImageLoadCount] = useState(0)
@@ -131,10 +133,10 @@ const ShowCars = () => {
         <div className="row" key={i}>
             
           <div className="card card-left">
-          <Link href={`/cars`}>
+          <Link href="/cars">
             <Image 
               src={`/images/img-${2 * i - 1}.webp`} 
-              alt={`Car image ${2 * i - 1}`}
+              alt={t('showCarsImageAlt', { n: 2 * i - 1 })}
               width={600}
               height={600}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -148,10 +150,10 @@ const ShowCars = () => {
          
           
           <div className="card card-right ">
-          <Link href={`/cars`}>
+          <Link href="/cars">
             <Image 
               src={`/images/img-${2 * i}.webp`} 
-              alt={`Car image ${2 * i}`}
+              alt={t('showCarsImageAlt', { n: 2 * i })}
               width={600}
               height={600}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -177,9 +179,9 @@ const ShowCars = () => {
             {!isLoaded && (
               <div className="loading-indicator">
                 <div className="spinner"></div>
-                <p>Loading car images...</p>
+                <p>{t('showCarsLoading')}</p>
                 <p className="text-sm text-gray-500">
-                  {imageLoadCount}/{totalImages} images loaded
+                  {t('showCarsProgress', { loaded: imageLoadCount, total: totalImages })}
                 </p>
               </div>
             )}

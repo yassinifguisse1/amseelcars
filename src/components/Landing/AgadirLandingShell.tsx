@@ -209,7 +209,11 @@ export function AgadirLandingShell({
               {cars.map((car) => {
                 const title = (car.imageTitle?.trim() || car.imageAlt).slice(0, 200)
                 return (
-                <Link key={car.slug} href={`/cars/${car.slug}`} className={styles.carCard}>
+                <Link
+                  key={car.slug}
+                  href={`${fleetHref.replace(/\/$/, '')}/${car.slug}`}
+                  className={styles.carCard}
+                >
                   <div className={styles.carImageWrap}>
                     <Image
                       src={car.image}

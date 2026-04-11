@@ -16,11 +16,14 @@ function getTrackEmailTo(): string[] {
   return [...new Set(list)];
 }
 
-const MAKE_WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL?.trim() || '';
-if (!MAKE_WEBHOOK_URL) {
-  throw new Error(
-    'MAKE_WEBHOOK_URL is required. Set it in your environment. Deploys must configure this for tracking webhooks. Rotate any previously exposed webhook URL in Make.com.'
-  );
+function getMakeWebhookUrl(): string {
+  const url = process.env.MAKE_WEBHOOK_URL?.trim() || '';
+  if (!url) {
+    throw new Error(
+      'MAKE_WEBHOOK_URL is required. Set it in your environment. Deploys must configure this for tracking webhooks. Rotate any previously exposed webhook URL in Make.com.'
+    );
+  }
+  return url;
 }
 
 const WEBHOOK_TIMEOUT_MS = 15000;
@@ -31,6 +34,7 @@ const WEBHOOK_MAX_RETRIES = 3;
  * or non-2xx after all retries so callers can await and handle errors.
  */
 async function sendToWebhook(payload: object): Promise<void> {
+  const webhookUrl = getMakeWebhookUrl();
   const body = JSON.stringify(payload);
   let lastError: Error | null = null;
   let lastStatus: number | null = null;
@@ -38,7 +42,7 @@ async function sendToWebhook(payload: object): Promise<void> {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
-      const res = await fetch(MAKE_WEBHOOK_URL, {
+      const res = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body,

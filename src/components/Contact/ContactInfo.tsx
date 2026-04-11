@@ -1,278 +1,269 @@
-"use client"
-import React, { useRef, useEffect, useState, useCallback } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api'
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Facebook, 
+"use client";
+
+import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
   Instagram,
   Car,
   Shield,
   Star,
-  Users
-} from 'lucide-react'
+  Users,
+} from "lucide-react";
+import { useTranslations } from "next-intl";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
-// Google Maps configuration
-const mapContainerStyle = {
-  width: '100%',
-  height: '400px'
-}
-
-const center = {
-  lat: 30.4007408, // Amseel Cars location in Agadir
-  lng: -9.577593
-}
-
+const mapContainerStyle = { width: "100%", height: "400px" };
+const center = { lat: 30.4007408, lng: -9.577593 };
 const mapOptions = {
-  mapTypeId: 'terrain',
+  mapTypeId: "terrain" as const,
   disableDefaultUI: false,
   zoomControl: true,
   streetViewControl: true,
   fullscreenControl: true,
   mapTypeControl: true,
-  mapTypeControlOptions: {
-    style: 1, // HORIZONTAL_BAR
-    position: 3 // TOP_RIGHT
-  }
-}
+  mapTypeControlOptions: { style: 1 as const, position: 3 as const },
+};
 
 interface ContactDetail {
-  icon: React.ReactNode
-  title: string
-  info: string[]
-  link?: string
+  icon: React.ReactNode;
+  title: string;
+  info: string[];
+  link?: string;
 }
 
 interface SocialLink {
-  icon: React.ReactNode
-  name: string
-  url: string
-  color: string
+  icon: React.ReactNode;
+  name: string;
+  url: string;
+  color: string;
 }
 
-const ContactInfo: React.FC = () => {
-  // Refs for GSAP animations
-  const containerRef = useRef<HTMLDivElement>(null)
-  const cardsRef = useRef<HTMLDivElement[]>([])
-  const socialRef = useRef<HTMLDivElement>(null)
-  const statsRef = useRef<HTMLDivElement>(null)
-  const mapRef = useRef<HTMLDivElement>(null)
+export default function ContactInfo() {
+  const t = useTranslations("contactPage.info");
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapError, setMapError] = useState(false);
+  const [showInfoWindow, setShowInfoWindow] = useState(false);
 
-  // Google Maps state
-  const [mapLoaded, setMapLoaded] = useState(false)
-  const [mapError, setMapError] = useState(false)
-  const [showInfoWindow, setShowInfoWindow] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const socialRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
 
-  // Add card ref to array
   const addCardRef = (el: HTMLDivElement | null) => {
     if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el)
+      cardsRef.current.push(el);
     }
-  }
+  };
 
-  // Google Maps callbacks
   const onMapLoad = useCallback(() => {
-    setMapLoaded(true)
-    setMapError(false)
-  }, [])
+    setMapLoaded(true);
+    setMapError(false);
+  }, []);
 
   const onMapError = useCallback(() => {
-    setMapError(true)
-    setMapLoaded(false)
-  }, [])
+    setMapError(true);
+    setMapLoaded(false);
+  }, []);
 
+  const contactDetails: ContactDetail[] = useMemo(
+    () => [
+      {
+        icon: <Phone className="h-6 w-6" strokeWidth={1.5} />,
+        title: t("cardWhatsapp"),
+        info: [t("phoneValue")],
+        link: "https://wa.me/212662500181",
+      },
+      {
+        icon: <Mail className="h-6 w-6" strokeWidth={1.5} />,
+        title: t("cardEmail"),
+        info: [t("emailValue")],
+        link: `mailto:${t("emailValue")}`,
+      },
+      {
+        icon: <MapPin className="h-6 w-6" strokeWidth={1.5} />,
+        title: t("cardAddress"),
+        info: [t("addressValue")],
+        link: "https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D",
+      },
+    ],
+    [t],
+  );
 
-  const onMarkerClick = useCallback(() => {
-    setShowInfoWindow(true)
-  }, [])
+  const socialLinks: SocialLink[] = useMemo(
+    () => [
+      {
+        icon: <Facebook className="h-5 w-5" />,
+        name: "Facebook",
+        url: "https://www.facebook.com/amseelcars/",
+        color: "#1877f2",
+      },
+      {
+        icon: <Instagram className="h-5 w-5" />,
+        name: "Instagram",
+        url: "https://www.instagram.com/amseelcars/",
+        color: "#e4405f",
+      },
+    ],
+    [],
+  );
 
-  const onInfoWindowClose = useCallback(() => {
-    setShowInfoWindow(false)
-  }, [])
+  const stats = useMemo(
+    () => [
+      {
+        icon: <Car className="h-8 w-8" strokeWidth={1.25} />,
+        value: "30+",
+        label: t("statLuxury"),
+      },
+      {
+        icon: <Users className="h-8 w-8" strokeWidth={1.25} />,
+        value: "1000+",
+        label: t("statClients"),
+      },
+      {
+        icon: <Star className="h-8 w-8" strokeWidth={1.25} />,
+        value: "4.9",
+        label: t("statRating"),
+      },
+      {
+        icon: <Shield className="h-8 w-8" strokeWidth={1.25} />,
+        value: "24/7",
+        label: t("statSupport"),
+      },
+    ],
+    [t],
+  );
 
-  // Contact details data
-  const contactDetails: ContactDetail[] = [
-    {
-      icon: <Phone className="w-6 h-6" />,
-      title: "Whatsapp",
-      info: ["+212 662 500 181"],
-      link: "https://wa.me/212662500181"
-    },
-    {
-      icon: <Mail className="w-6 h-6" />,
-      title: "Email",
-      info: ["amseelcars5@gmail.com"],
-      link: "mailto:amseelcars5@gmail.com"
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "Adresse",
-      info: ["Haut founty rdc imm sinwan, Agadir 80000, Maroc"],
-      link: "https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
-    }
-  ]
-
-  // Social media links
-  const socialLinks: SocialLink[] = [
-    {
-      icon: <Facebook className="w-5 h-5" />,
-      name: "Facebook",
-      url: "https://www.facebook.com/amseelcars/",
-      color: "#1877f2"
-    },
-    {
-      icon: <Instagram className="w-5 h-5" />,
-      name: "Instagram",
-      url: "https://www.instagram.com/amseelcars/",
-      color: "#e4405f"
-    },
-   
-   
-   
-  ]
-
-  // Stats data
-  const stats = [
-    { icon: <Car className="w-8 h-8" />, value: "30+", label: "Voitures de luxe" },
-    { icon: <Users className="w-8 h-8" />, value: "1000+", label: "Clients Satisfaits" },
-    { icon: <Star className="w-8 h-8" />, value: "4.9", label: "Note Moyenne" },
-    { icon: <Shield className="w-8 h-8" />, value: "24/7", label: "Assistance" }
-  ]
-
-  // GSAP animations setup
   useEffect(() => {
-    const container = containerRef.current
-    const cards = cardsRef.current
-    const social = socialRef.current
-    const statsContainer = statsRef.current
+    const container = containerRef.current;
+    const cards = cardsRef.current;
+    const social = socialRef.current;
+    const statsContainer = statsRef.current;
+    if (!container || !cards.length) return;
 
-    if (!container || !cards.length) return
+    gsap.set(cards, { opacity: 0, x: 40, scale: 0.96 });
+    if (social) gsap.set(social.children, { opacity: 0, y: 24, scale: 0.94 });
+    if (statsContainer)
+      gsap.set(statsContainer.children, { opacity: 0, y: 32, scale: 0.95 });
 
-    // Initial setup - hide elements
-    gsap.set(cards, { opacity: 0, x: 50, scale: 0.9 })
-    if (social) gsap.set(social.children, { opacity: 0, y: 30, scale: 0.8 })
-    if (statsContainer) gsap.set(statsContainer.children, { opacity: 0, y: 40, scale: 0.9 })
-
-    // Create timeline for contact info entrance
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
-      }
-    })
+        start: "top 82%",
+        end: "bottom 12%",
+        toggleActions: "play none none reverse",
+      },
+    });
 
-    // Animate contact cards
     tl.to(cards, {
       opacity: 1,
       x: 0,
       scale: 1,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power3.out'
-    })
+      duration: 0.75,
+      stagger: 0.12,
+      ease: "power3.out",
+    });
 
-    // Animate social links
     if (social) {
-      tl.to(social.children, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'back.out(1.7)'
-      }, '-=0.4')
-    }
-
-    // Animate stats
-    if (statsContainer) {
-      tl.to(statsContainer.children, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power3.out'
-      }, '-=0.3')
-    }
-
-    // Add hover animations for cards
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          scale: 1.05,
-          y: -5,
-          duration: 0.3,
-          ease: 'power2.out'
-        })
-      })
-
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          scale: 1,
+      tl.to(
+        social.children,
+        {
+          opacity: 1,
           y: 0,
-          duration: 0.3,
-          ease: 'power2.out'
-        })
-      })
-    })
-
-    // Cleanup
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+          scale: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: "back.out(1.4)",
+        },
+        "-=0.35",
+      );
     }
-  }, [])
+
+    if (statsContainer) {
+      tl.to(
+        statsContainer.children,
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.65,
+          stagger: 0.08,
+          ease: "power3.out",
+        },
+        "-=0.28",
+      );
+    }
+
+    cards.forEach((card) => {
+      const enter = () => {
+        gsap.to(card, { scale: 1.02, y: -4, duration: 0.28, ease: "power2.out" });
+      };
+      const leave = () => {
+        gsap.to(card, { scale: 1, y: 0, duration: 0.28, ease: "power2.out" });
+      };
+      card.addEventListener("mouseenter", enter);
+      card.addEventListener("mouseleave", leave);
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((tr) => tr.kill());
+    };
+  }, []);
+
+  const cardClass =
+    "group cursor-pointer rounded-2xl border border-white/[0.08] bg-gradient-to-br from-white/[0.06] to-white/[0.02] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.04)_inset] transition-colors hover:border-[#EC1C25]/25";
 
   return (
-    <div ref={containerRef} className="w-full max-w-2xl mx-auto space-y-8">
-      {/* Contact Details */}
+    <div ref={containerRef} className="mx-auto w-full max-w-xl space-y-10">
       <div className="space-y-6">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Informations de Contact
+        <div className="mb-2 text-center lg:text-left">
+          <p className="font-[family-name:var(--font-heading)] mb-2 text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-[#EC1C25]/80">
+            Amseel Cars
+          </p>
+          <h2 className="font-[family-name:var(--font-heading)] mb-3 text-3xl font-bold text-white md:text-4xl">
+            {t("sectionTitle")}
           </h2>
-          <p className="text-gray-300 text-lg">
-            Plusieurs façons de nous contacter. Nous sommes là pour vous aider à trouver votre trajet parfait.
+          <p className="text-lg leading-relaxed text-neutral-400">
+            {t("sectionLead")}
           </p>
         </div>
 
-        {/* Contact Cards */}
-        <div className="grid gap-6">
+        <div className="grid gap-4">
           {contactDetails.map((detail, index) => (
             <div
               key={index}
               ref={addCardRef}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group cursor-pointer"
-              onClick={() => detail.link && window.open(detail.link, '_blank')}
+              className={cardClass}
+              onClick={() => detail.link && window.open(detail.link, "_blank")}
               role={detail.link ? "button" : "article"}
               tabIndex={detail.link ? 0 : -1}
               onKeyDown={(e) => {
-                if (detail.link && (e.key === 'Enter' || e.key === ' ')) {
-                  e.preventDefault()
-                  window.open(detail.link, '_blank')
+                if (detail.link && (e.key === "Enter" || e.key === " ")) {
+                  e.preventDefault();
+                  window.open(detail.link, "_blank");
                 }
               }}
             >
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-3 bg-gradient-to-br from-[#CB1939]/20 to-[#CB1939]/30 rounded-lg group-hover:from-[#CB1939]/30 group-hover:to-[#CB1939]/40 transition-all duration-300">
-                  <div className="text-[#CB1939] group-hover:text-[#CB1939]/80 transition-colors duration-300">
-                    {detail.icon}
-                  </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 rounded-xl border border-[#EC1C25]/20 bg-[#EC1C25]/10 p-3 transition-colors group-hover:border-[#EC1C25]/35 group-hover:bg-[#EC1C25]/15">
+                  <div className="text-[#EC1C25]">{detail.icon}</div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors duration-300">
+                <div className="min-w-0 flex-1">
+                  <h3 className="mb-2 text-xl font-semibold text-white transition-colors group-hover:text-[#ffb4b8]">
                     {detail.title}
                   </h3>
                   <div className="space-y-1">
                     {detail.info.map((info, infoIndex) => (
-                      <p key={infoIndex} className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                      <p
+                        key={infoIndex}
+                        className="text-neutral-300 transition-colors group-hover:text-neutral-200"
+                      >
                         {info}
                       </p>
                     ))}
@@ -284,56 +275,59 @@ const ContactInfo: React.FC = () => {
         </div>
       </div>
 
-      {/* Social Media Links */}
-      <div className="text-center">
-        <h3 className="text-2xl font-bold text-white mb-6">Suivez-nous</h3>
-        <div ref={socialRef} className="flex justify-center space-x-4">
+      <div>
+        <h3 className="mb-5 text-center font-[family-name:var(--font-heading)] text-xl font-bold text-white lg:text-left">
+          {t("followTitle")}
+        </h3>
+        <div ref={socialRef} className="flex justify-center gap-4 lg:justify-start">
           {socialLinks.map((social, index) => (
             <a
               key={index}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300"
-              aria-label={`Follow us on ${social.name}`}
+              className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-colors hover:border-white/20"
+              aria-label={t("socialFollowAria", { name: social.name })}
               onMouseEnter={(e) => {
                 gsap.to(e.currentTarget, {
-                  scale: 1.1,
-                  backgroundColor: `${social.color}20`,
-                  duration: 0.3
-                })
+                  scale: 1.06,
+                  backgroundColor: `${social.color}22`,
+                  duration: 0.25,
+                });
               }}
               onMouseLeave={(e) => {
                 gsap.to(e.currentTarget, {
                   scale: 1,
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  duration: 0.3
-                })
+                  backgroundColor: "rgba(255, 255, 255, 0.04)",
+                  duration: 0.25,
+                });
               }}
             >
-              <div className="text-gray-400 group-hover:text-white transition-colors duration-300">
+              <span className="text-neutral-400 transition-colors hover:text-white">
                 {social.icon}
-              </div>
+              </span>
             </a>
           ))}
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="bg-gradient-to-r from-[#CB1939]/10 to-[#CB1939]/20 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-        <h3 className="text-2xl font-bold text-white text-center mb-8">Pourquoi choisir Amseel Cars?</h3>
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="rounded-3xl border border-[#EC1C25]/15 bg-gradient-to-br from-[#EC1C25]/10 to-transparent p-8 backdrop-blur-sm">
+        <h3 className="mb-8 text-center font-[family-name:var(--font-heading)] text-2xl font-bold text-white">
+          {t("whyTitle")}
+        </h3>
+        <div
+          ref={statsRef}
+          className="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-4"
+        >
           {stats.map((stat, index) => (
-            <div key={index} className="text-center group">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#CB1939]/20 to-[#CB1939]/30 rounded-full mb-4 group-hover:from-[#CB1939]/30 group-hover:to-[#CB1939]/40 transition-all duration-300">
-                <div className="text-[#CB1939] group-hover:text-[#CB1939]/80 transition-colors duration-300">
-                  {stat.icon}
-                </div>
+            <div key={index} className="group text-center">
+              <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#EC1C25]/20 bg-[#EC1C25]/10 transition-colors group-hover:border-[#EC1C25]/35">
+                <span className="text-[#EC1C25]">{stat.icon}</span>
               </div>
-              <div className="text-2xl md:text-3xl font-bold text-white mb-2">
+              <div className="mb-1 text-2xl font-bold text-white md:text-3xl">
                 {stat.value}
               </div>
-              <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+              <div className="text-xs font-medium uppercase tracking-wide text-neutral-400 md:text-sm md:normal-case md:tracking-normal">
                 {stat.label}
               </div>
             </div>
@@ -341,55 +335,55 @@ const ContactInfo: React.FC = () => {
         </div>
       </div>
 
-      {/* Google Maps */}
-      <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-        <h3 className="text-xl font-bold text-white mb-4">Nous trouver</h3>
-        <div ref={mapRef} className="relative">
+      <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-6 backdrop-blur-md">
+        <h3 className="mb-4 font-[family-name:var(--font-heading)] text-xl font-bold text-white">
+          {t("mapTitle")}
+        </h3>
+        <div className="relative">
           {!process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
-            <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
-              <div className="text-center">
-                <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-400">Google Maps API key non configuré</p>
-                <p className="text-sm text-gray-500 mt-2">Please add NEXT_PUBLIC_GOOGLE_MAPS_API_KEY to your .env.local file</p>
-                <p className="text-sm text-gray-500 mt-2">Haut founty rdc imm sinwan, Agadir 80000, Morocco</p>
+            <div className="flex aspect-video items-center justify-center rounded-2xl border border-white/10 bg-neutral-900/80">
+              <div className="px-4 text-center">
+                <MapPin className="mx-auto mb-3 h-12 w-12 text-neutral-500" />
+                <p className="text-neutral-400">{t("mapNoKey")}</p>
+                <p className="mt-2 text-sm text-neutral-500">{t("mapNoKeyHint")}</p>
+                <p className="mt-3 text-sm text-neutral-400">{t("mapFallbackAddress")}</p>
               </div>
             </div>
           ) : mapError ? (
-            <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
-              <div className="text-center">
-                <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-400">Map échoué à charger</p>
-                <p className="text-sm text-gray-500 mt-2">Haut founty rdc imm sinwan, Agadir 80000, Morocco</p>
-                <button 
-                  onClick={() => {
-                    setMapError(false)
-                    setMapLoaded(false)
-                  }}
-                  className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Réessayer
-                </button>
-              </div>
+            <div className="flex aspect-video flex-col items-center justify-center rounded-2xl border border-white/10 bg-neutral-900/80">
+              <MapPin className="mb-3 h-12 w-12 text-neutral-500" />
+              <p className="text-neutral-400">{t("mapError")}</p>
+              <p className="mt-2 text-sm text-neutral-500">{t("mapFallbackAddress")}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setMapError(false);
+                  setMapLoaded(false);
+                }}
+                className="mt-4 rounded-xl bg-[#EC1C25] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#c41520]"
+              >
+                {t("mapRetry")}
+              </button>
             </div>
           ) : (
-            <div className="relative">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10">
               {!mapLoaded && (
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10 z-10">
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-neutral-900/90">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
-                    <p className="text-gray-400">Chargement de la map...</p>
+                    <div className="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-2 border-[#EC1C25]/30 border-t-[#EC1C25]" />
+                    <p className="text-sm text-neutral-400">{t("mapLoading")}</p>
                   </div>
                 </div>
               )}
               <LoadScript
-                googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}
+                googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
                 onLoad={onMapLoad}
                 onError={onMapError}
                 loadingElement={
-                  <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg flex items-center justify-center border border-white/10">
+                  <div className="flex aspect-video items-center justify-center bg-neutral-900">
                     <div className="text-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-4"></div>
-                      <p className="text-gray-400">Chargement de Google Maps...</p>
+                      <div className="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-2 border-[#EC1C25]/30 border-t-[#EC1C25]" />
+                      <p className="text-sm text-neutral-400">{t("mapLoadGoogle")}</p>
                     </div>
                   </div>
                 }
@@ -401,30 +395,25 @@ const ContactInfo: React.FC = () => {
                   options={mapOptions}
                   onLoad={onMapLoad}
                 >
-                  <Marker
-                    position={center}
-                    onClick={onMarkerClick}
-                  />
+                  <Marker position={center} onClick={() => setShowInfoWindow(true)} />
                   {showInfoWindow && (
                     <InfoWindow
                       position={center}
-                      onCloseClick={onInfoWindowClose}
+                      onCloseClick={() => setShowInfoWindow(false)}
                     >
-                      <div className="p-2">
-                        <h4 className="font-bold text-gray-800 mb-2">Amseel Cars</h4>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Haut founty rdc imm sinwan
-                        </p>
-                        <p className="text-sm text-gray-600 mb-2">
-                          Agadir 80000, Morocco
-                        </p>
+                      <div className="p-1">
+                        <h4 className="mb-1 font-bold text-neutral-900">
+                          {t("mapInfoBusiness")}
+                        </h4>
+                        <p className="text-sm text-neutral-700">{t("mapInfoLine1")}</p>
+                        <p className="mb-2 text-sm text-neutral-700">{t("mapInfoLine2")}</p>
                         <a
                           href="https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                          className="text-sm font-medium text-[#EC1C25] hover:underline"
                         >
-                          Voir sur Google Maps →
+                          {t("mapOpenInMaps")}
                         </a>
                       </div>
                     </InfoWindow>
@@ -436,7 +425,5 @@ const ContactInfo: React.FC = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default ContactInfo

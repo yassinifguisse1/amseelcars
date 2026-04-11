@@ -1,6 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
+import { useLocale } from 'next-intl'
+import type { AppLocale } from '@/i18n/routing'
+import { carForLocale } from '@/lib/carLocale'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
@@ -15,6 +18,8 @@ interface HorizontalCarSectionProps {
 }
 
 const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps = {}) => {
+  const localeUi = useLocale()
+  const l: AppLocale = localeUi === 'en' ? 'en' : 'fr'
   const sectionRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const cardsRow1Ref = useRef<HTMLDivElement>(null)
@@ -474,50 +479,56 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
           // Grid layout for short height screens (no animations)
           <div className={`${styles.gridContainer} `} data-height-category={heightCategory}>
             <div className={`${styles.gridLayout} ${styles[`grid-${heightCategory}`]}`}>
-              {allCars.map((car) => (
+              {allCars.map((car) => {
+                const displayCar = carForLocale(car, l)
+                return (
                 <div key={car.id} className={`${styles.gridCard}`}>
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}
-                    imageAlt={carListingImageAlt(car)}
-                    imageTitle={carListingImageTitle(car)}
-                    imageCaption={carListingCaption(car)}
+                    imageAlt={carListingImageAlt(displayCar, l)}
+                    imageTitle={carListingImageTitle(displayCar, l)}
+                    imageCaption={carListingCaption(displayCar, l)}
                     pricePerDay={car.pricePerDay}
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
                     rating={car.rating}
-                    slug={car.slug}
+                    slug={displayCar.slug}
                     onBook={() => handleBookCar(car.carName)}
                     onWhatsapp={() => handleWhatsapp(car.carName)}
                   />
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         ) : isSingleRow ? (
           // Single row layout for normal height single row screens (with animations)
           <div className={`${styles.rowContainer} ${styles.singleRowLayout}`} data-height-category={heightCategory}>
             <div ref={cardsRow1Ref} className={styles.cardsContainer}>
-              {allCarsSingleRow?.map((car) => (
+              {allCarsSingleRow?.map((car) => {
+                const displayCar = carForLocale(car, l)
+                return (
                 <div key={car.id} className={styles.cardWrapper}>
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}
-                    imageAlt={carListingImageAlt(car)}
-                    imageTitle={carListingImageTitle(car)}
-                    imageCaption={carListingCaption(car)}
+                    imageAlt={carListingImageAlt(displayCar, l)}
+                    imageTitle={carListingImageTitle(displayCar, l)}
+                    imageCaption={carListingCaption(displayCar, l)}
                     pricePerDay={car.pricePerDay}
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
                     rating={car.rating}
-                    slug={car.slug}
+                    slug={displayCar.slug}
                     onBook={() => handleBookCar(car.carName)}
                     onWhatsapp={() => handleWhatsapp(car.carName)}
                   />
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         ) : (
@@ -526,50 +537,56 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
             {/* First row - scrolls right to left */}
             <div className={`${styles.rowContainer} ${styles.twoRowLayout}`} data-height-category={heightCategory}>
               <div ref={cardsRow1Ref} className={styles.cardsContainer}>
-                {carsRow1.map((car) => (
+                {carsRow1.map((car) => {
+                  const displayCar = carForLocale(car, l)
+                  return (
                   <div key={car.id} className={styles.cardWrapper}>
                     <CarRentalCard
                       carName={car.carName}
                       carImage={car.carImage}
-                      imageAlt={carListingImageAlt(car)}
-                      imageTitle={carListingImageTitle(car)}
-                      imageCaption={carListingCaption(car)}
+                      imageAlt={carListingImageAlt(displayCar, l)}
+                      imageTitle={carListingImageTitle(displayCar, l)}
+                      imageCaption={carListingCaption(displayCar, l)}
                       pricePerDay={car.pricePerDay}
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
                       rating={car.rating}
-                      slug={car.slug}
+                      slug={displayCar.slug}
                       onBook={() => handleBookCar(car.carName)}
                       onWhatsapp={() => handleWhatsapp(car.carName)}
                     />
                   </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
             {/* Second row - scrolls left to right */}
             <div className={`${styles.rowContainer} ${styles.twoRowLayout}`} data-height-category={heightCategory}>
               <div ref={cardsRow2Ref} className={`${styles.cardsContainer} ${styles.cardsContainerReverse}`}>
-                {carsRow2.map((car) => (
+                {carsRow2.map((car) => {
+                  const displayCar = carForLocale(car, l)
+                  return (
                   <div key={car.id} className={styles.cardWrapper}>
                     <CarRentalCard
                       carName={car.carName}
                       carImage={car.carImage}
-                      imageAlt={carListingImageAlt(car)}
-                      imageTitle={carListingImageTitle(car)}
-                      imageCaption={carListingCaption(car)}
+                      imageAlt={carListingImageAlt(displayCar, l)}
+                      imageTitle={carListingImageTitle(displayCar, l)}
+                      imageCaption={carListingCaption(displayCar, l)}
                       pricePerDay={car.pricePerDay}
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
                       rating={car.rating}
-                      slug={car.slug}
+                      slug={displayCar.slug}
                       onBook={() => handleBookCar(car.carName)}
                       onWhatsapp={() => handleWhatsapp(car.carName)}
                     />
                   </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           </>

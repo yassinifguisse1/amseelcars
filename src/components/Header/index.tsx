@@ -63,6 +63,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Button from "./Button";
+import { HeaderLocaleSelect } from "./LocaleSelect";
 import styles from "./style.module.scss";
 import Nav from "./Nav";
 
@@ -86,30 +87,34 @@ export default function Index() {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <div className={styles.header} >
+    <div className={styles.header}>
       <motion.div
+        id="site-menu"
         className={styles.menu}
         variants={menuVariants}
         animate={isActive ? "open" : "closed"}
         initial="closed"
-        style={{ 
+        style={{
           transformOrigin: "top right",
-          pointerEvents: isActive ? "auto" : "none", // Critical: disable clicks when closed
-          // zIndex: isActive ? 1001 : -1 // Move behind content when closed
+          pointerEvents: isActive ? "auto" : "none",
         }}
-
       >
-        <AnimatePresence>{isActive && <Nav 
-        closeMenu={() => setIsActive(false)}/>}
+        <AnimatePresence>
+          {isActive && <Nav closeMenu={() => setIsActive(false)} />}
         </AnimatePresence>
       </motion.div>
 
-      <Button
-        isActive={isActive}
-        toggleMenu={() => setIsActive((v) => !v)}
-        aria-expanded={isActive}
-        aria-controls="site-menu"
-      />
+      <div className={styles.bar}>
+        {!isActive ? <HeaderLocaleSelect /> : null}
+        <div className={styles.menuButtonWrap}>
+          <Button
+            isActive={isActive}
+            toggleMenu={() => setIsActive((v) => !v)}
+            aria-expanded={isActive}
+            aria-controls="site-menu"
+          />
+        </div>
+      </div>
     </div>
   );
 }

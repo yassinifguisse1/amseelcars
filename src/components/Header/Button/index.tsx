@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import styles from "./style.module.scss";
 
 interface ButtonProps {
@@ -7,7 +8,9 @@ interface ButtonProps {
 }
 
 export default function Button({ isActive, toggleMenu }: ButtonProps) {
-   const handleClick = (e: React.MouseEvent) => {
+  const t = useTranslations("nav");
+
+  const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Stop event bubbling
     toggleMenu();
   };
@@ -24,14 +27,14 @@ export default function Button({ isActive, toggleMenu }: ButtonProps) {
          onClick={handleClick} // Use the new handler
           style={{ pointerEvents: 'auto' }} // Ensure clicks work
         >
-          <PerspectiveText label="Menu" />
+          <PerspectiveText label={t("menu")} />
         </div>
         <div
           className={styles.el}
           onClick={handleClick} // Use the new handler
           style={{ pointerEvents: 'auto' }} // Ensure clicks work
         >
-          <PerspectiveText label="Close" />
+          <PerspectiveText label={t("close")} />
         </div>
       </motion.div>
     </div>

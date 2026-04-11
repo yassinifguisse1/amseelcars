@@ -7,6 +7,14 @@
   // width: 20%;
   box-sizing: border-box;
   // background-color: aqua;
+  .localeRow {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: flex-start;
+  }
+
   .body {
     display: flex;
     gap: 6px;

@@ -1,10 +1,12 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
 
 /**
  * Hero video: defer loading until the section is near the viewport to improve LCP/INP on /cars.
  */
 const HeroVideo = () => {
+  const t = useTranslations('carsPage.hero')
   const [isMobile, setIsMobile] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
@@ -46,7 +48,7 @@ const HeroVideo = () => {
       <section ref={sectionRef} className="hero w-full">
         <div
           className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
-          style={{ backgroundImage: 'url(/og/amseel-car-logo.png)' }}
+          style={{ backgroundImage: 'url(/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp)' }}
           aria-hidden
         />
       </section>
@@ -63,7 +65,7 @@ const HeroVideo = () => {
           loop
           playsInline
           preload="metadata"
-          poster="/og/amseel-car-logo.png"
+          poster="/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"
           fetchPriority="low"
           key={isMobile ? 'mobile' : 'desktop'}
         >
@@ -71,14 +73,14 @@ const HeroVideo = () => {
             src={isMobile ? '/video/Mobile-video.mp4' : '/video/HeroVideo.mp4'}
             type="video/mp4"
           />
-          Your browser does not support the video tag.
+          {t('videoNotSupported')}
         </video>
       ) : (
         <div
           className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
-          style={{ backgroundImage: 'url(/og/amseel-car-logo.png)' }}
+          style={{ backgroundImage: 'url(/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp)' }}
           role="img"
-          aria-label="AmseelCars fleet preview"
+          aria-label={t('posterAria')}
         />
       )}
     </section>

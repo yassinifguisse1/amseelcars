@@ -1,3 +1,6 @@
+import { resolveCanonicalFrenchCarSlug } from '@/lib/carSlugLocale'
+import { CAR_CANONICAL_SLUGS } from '@/data/carCanonicalSlugs.generated'
+
 export interface CarImage {
   src: string
   alt: string
@@ -394,7 +397,7 @@ export const cars: Car[] = [
      transmission: "Automatique",
      rating: 4.7,
     
-     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien — idéal pour Marrakech et ses environs.",
+     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien — idéal pour Agadir et ses environs.",
   richContent: {
     h1Title: "Location T-Roc à Agadir – SUV compact confortable | Amsel Cars",
     seoTitle: "T-Roc en location à Agadir | Amsel Cars",
@@ -3805,7 +3808,9 @@ export function getAllCars(): Car[] {
 }
 
 export function getCarBySlug(slug: string): Car | undefined {
-  return cars.find(car => car.slug === slug)
+  const canonical = resolveCanonicalFrenchCarSlug(slug, CAR_CANONICAL_SLUGS)
+  if (!canonical) return undefined
+  return cars.find((car) => car.slug === canonical)
 }
 
 export function getAllCarSlugs(): string[] {

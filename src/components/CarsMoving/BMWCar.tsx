@@ -2,6 +2,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useLocale } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
+import type { AppLocale } from "@/i18n/routing";
+import { carSlugForLocale } from "@/lib/carSlugLocale";
 import Rounded from '../../common/RoundedButton';
 import { HomeSeoMainIntroOverlay } from "@/components/home-seo/home-seo";
 
@@ -101,6 +105,8 @@ function useShortLandscape() {
 
 
 export default function BMWCarScroll() {
+  const router = useRouter();
+  const locale = useLocale() as AppLocale;
   const containerRef = useRef<HTMLDivElement>(null);
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -314,21 +320,25 @@ export default function BMWCarScroll() {
   // Helper function to check if image is loaded
   // const isImageLoaded = useCallback((src: string) => loadedImages.has(src), [loadedImages]);
 
-  // Custom navigation handler to prevent multiple rapid clicks
-  const handleNavigation = useCallback((href: string) => {
+  const goToCarDetail = useCallback(
+    (canonicalFrSlug: string) => {
+      if (isNavigating) return;
+      setIsNavigating(true);
+      router.push({
+        pathname: "/cars/[slug]",
+        params: { slug: carSlugForLocale(canonicalFrSlug, locale) },
+      });
+      setTimeout(() => setIsNavigating(false), 2000);
+    },
+    [isNavigating, router, locale],
+  );
+
+  const goToFleet = useCallback(() => {
     if (isNavigating) return;
-    
     setIsNavigating(true);
-    
-    // Use window.location for faster navigation
-    window.location.href = href;
-    
-    // Reset after a delay
-    setTimeout(() => {
-      
-      setIsNavigating(false);
-    }, 2000);
-  }, [isNavigating ]);
+    router.push("/cars");
+    setTimeout(() => setIsNavigating(false), 2000);
+  }, [isNavigating, router]);
 
   // Responsive start offsets to keep consistent spacing across devices
   const bmwStartVW = useBreakpointValue({ base: 12, md: 16, lg: 20 });
@@ -585,7 +595,7 @@ export default function BMWCarScroll() {
                 >
                   <Rounded 
                     backgroundColor="#D32F2F" 
-                    onClick={() => handleNavigation("/cars/location-voiture-agadir-bmw-x3-pack-m")}
+                    onClick={() => goToCarDetail("location-voiture-agadir-bmw-x3-pack-m")}
                     style={{ 
                       pointerEvents: isNavigating ? 'none' : 'auto',
                       opacity: isNavigating ? 0.7 : 1,
@@ -762,7 +772,7 @@ export default function BMWCarScroll() {
         <div className="flex justify-center pointer-events-auto">
           <Rounded
             backgroundColor="#D32F2F"
-            onClick={() => handleNavigation('/cars/location-voiture-agadir-kia-sportage-vert')}
+            onClick={() => goToCarDetail("location-voiture-agadir-kia-sportage-vert")}
             style={{ 
               pointerEvents: isNavigating ? 'none' : 'auto',
               opacity: isNavigating ? 0.7 : 1,
@@ -973,7 +983,7 @@ export default function BMWCarScroll() {
                 <div className="flex items-center justify-center pointer-events-auto">
                   <Rounded 
                     backgroundColor="#D32F2F" 
-                    onClick={() => handleNavigation("/cars/location-voiture-agadir-t-roc")}
+                    onClick={() => goToCarDetail("location-voiture-agadir-t-roc")}
                     style={{ 
                       pointerEvents: isNavigating ? 'none' : 'auto',
                       opacity: isNavigating ? 0.7 : 1,
@@ -1151,7 +1161,7 @@ export default function BMWCarScroll() {
               >
                 <Rounded 
                   backgroundColor="#D32F2F" 
-                  onClick={() => handleNavigation("/cars/location-voiture-agadir-golf-8")}
+                  onClick={() => goToCarDetail("location-voiture-agadir-golf-8")}
                   style={{ 
                     pointerEvents: isNavigating ? 'none' : 'auto',
                     opacity: isNavigating ? 0.7 : 1,
@@ -1199,7 +1209,7 @@ export default function BMWCarScroll() {
             </h2>
             <Rounded
               backgroundColor="#D32F2F"
-              onClick={() => handleNavigation("/cars")}
+              onClick={() => goToFleet()}
               aria-label="Réservez maintenant"
               style={{ 
                 pointerEvents: isNavigating ? 'none' : 'auto',

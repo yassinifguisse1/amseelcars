@@ -1,12 +1,12 @@
 // app/layout.tsx
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import Script from "next/script";
 import "./globals.css";
 import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
 import { playfair, anticDidone } from "@/lib/fonts";
 import { clsx } from "clsx";
 import { Analytics } from "@vercel/analytics/next";
-import Header from "@/components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     locale: "fr_MA",
     images: [
       {
-        url: "/og/amseel-car-logo.png", // put a 1200x630 image in /public/og/og-default.jpg
+        url: "/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp", // put a 1200x630 image in /public/og/og-default.jpg
         width: 1200,
         height: 630,
         alt: "AmseelCars – Location de voitures à Agadir",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     title: "AmseelCars — Location de voitures à Agadir",
     description:
       "Location de voitures à Agadir au meilleur prix. Large flotte (citadines, SUV, premium).",
-    images: ["/og/amseel-car-logo.png"], // ← same image
+    images: ["/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"], // ← same image
   },
 
   icons: {
@@ -109,9 +109,13 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const headerStore = await headers();
+  const intlLocale = headerStore.get("x-next-intl-locale");
+  const htmlLang = intlLocale === "en" ? "en" : "fr";
+
   const fontVariables = clsx(playfair.variable, anticDidone.variable);
 
   // JSON-LD (Organization + WebSite) - Sitewide
@@ -123,7 +127,7 @@ export default function RootLayout({
         "@id": `${siteUrl}#org`,
     name: siteName,
     url: siteUrl,
-        logo: `${siteUrl}/og/amseel-car-logo.png`,
+        logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     sameAs: [
       "https://www.facebook.com/amseelcars/",
       "https://www.instagram.com/amseelcars/",
@@ -151,10 +155,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
 
-    <html lang="fr" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang={htmlLang} suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={clsx(fontVariables, "antialiased")} suppressHydrationWarning>
         <LenisScrollProvider />
-        <Header />
         <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs

@@ -26,7 +26,7 @@ export function generateOrganizationSchema() {
     '@id': `${siteUrl}#org`,
     name: siteName,
     url: siteUrl,
-    logo: `${siteUrl}/og/amseel-car-logo.png`,
+    logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     sameAs: [
       'https://www.facebook.com/amseelcars/',
       'https://www.instagram.com/amseelcars/',
@@ -72,8 +72,8 @@ export function generateLocalBusinessSchema() {
     '@id': `${siteUrl}#business`,
     name: siteName,
     url: siteUrl,
-    image: `${siteUrl}/og/amseel-car-logo.png`,
-    logo: `${siteUrl}/og/amseel-car-logo.png`,
+    image: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
+    logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     telephone: businessTelephone,
     email: 'info@amseelcars.com',
     address: {
@@ -189,7 +189,7 @@ export function generateBlogPostingSchema(article: {
       name: siteName,
       logo: {
         '@type': 'ImageObject',
-        url: `${siteUrl}/og/amseel-car-logo.png`,
+        url: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
       },
     },
     datePublished: article.publishedAt,
@@ -316,21 +316,26 @@ export function generateLocalSeoLandingGraphSchema(input: {
 /**
  * Product (Car) schema - used on car detail pages
  */
-export function generateCarProductSchema(car: {
-  carName: string;
-  brand: string;
-  model: string;
-  description: string;
-  pricePerDay: number;
-  images: Array<{ src: string }>;
-  slug: string;
-  category: string;
-  year: number;
-  fuelType: string;
-  transmission: string;
-  seats: number;
-}) {
-  const carUrl = `${siteUrl}/cars/${car.slug}`;
+export function generateCarProductSchema(
+  car: {
+    carName: string;
+    brand: string;
+    model: string;
+    description: string;
+    pricePerDay: number;
+    images: Array<{ src: string }>;
+    slug: string;
+    category: string;
+    year: number;
+    fuelType: string;
+    transmission: string;
+    seats: number;
+  },
+  options?: { productPageUrl?: string; stableId?: string },
+) {
+  const carUrl =
+    options?.productPageUrl ?? `${siteUrl}/cars/${car.slug}`;
+  const stableId = options?.stableId ?? car.slug;
   const images = car.images.map((img) =>
     img.src.startsWith('http') ? img.src : `${siteUrl}${img.src}`
   );
@@ -348,7 +353,7 @@ export function generateCarProductSchema(car: {
     },
     category: car.category,
     additionalType: 'https://schema.org/Car',
-    vehicleIdentificationNumber: car.slug, // Using slug as identifier
+    vehicleIdentificationNumber: stableId,
     vehicleModelDate: car.year.toString(),
     numberOfDoors: '5', // Default, update if you track this
     numberOfAirbags: '6', // Default, update if you track this
@@ -391,7 +396,7 @@ export function generateReviewSchema(review: {
       '@type': 'AutoRental',
       '@id': `${siteUrl}#business`,
       name: siteName,
-      image: `${siteUrl}/og/amseel-car-logo.png`,
+      image: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
       telephone: businessTelephone,
       address: {
         '@type': 'PostalAddress',

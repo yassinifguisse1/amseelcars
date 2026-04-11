@@ -1,9 +1,11 @@
 "use client"
 
-import Link from "next/link"
+import NextLink from "next/link"
+import { Link } from "@/i18n/navigation"
+import { useTranslations } from "next-intl"
 import { CometCard } from "@/components/ui/comet-card"
 import { Button } from "@/components/ui/button"
-import { Car, Users, Fuel, Settings, Tag } from "lucide-react"
+import { Car, Users, Fuel, Settings } from "lucide-react"
 import Image from "next/image"
 import { getWhatsAppTrackBody } from "@/lib/trackWhatsApp"
 
@@ -54,8 +56,9 @@ export function CarRentalCard({
   imageTitle,
   imageCaption,
 }: CarRentalCardProps) {
+  const t = useTranslations("carsPage.card")
   const resolvedAlt =
-    imageAlt?.trim() || `${carName} — location de voiture à Agadir, AmseelCars`
+    imageAlt?.trim() || t("altFallback", { carName })
   const resolvedTitle = (imageTitle?.trim() || resolvedAlt).slice(0, 200)
 
   const cardContent = (
@@ -92,11 +95,16 @@ export function CarRentalCard({
                   <div className="flex items-center gap-1">
                     <p className="text-lg sm:text-xl font-bold text-primary">{pricing.shortTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} /</p>
                     {/* <Tag className="h-3 w-3 text-green-600" /> */}
-                  <p className="text-xs text-muted-foreground"> 1-4 jours</p>
+                  <p className="text-xs text-muted-foreground">
+                    {" "}
+                    {t("daysShort")}
+                  </p>
                   </div>
                   <div className="flex items-center gap-1 mt-1">
                     <p className="text-sm font-semibold text-green-600">{pricing.longTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
-                    <span className="text-xs bg-green-100 text-green-700 px-1 rounded">5+ jours</span>
+                    <span className="text-xs bg-green-100 text-green-700 px-1 rounded">
+                      {t("daysLong")}
+                    </span>
                   </div>
                 </div>
               ) : (
@@ -112,7 +120,7 @@ export function CarRentalCard({
           <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Users className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-              <span className="truncate">{seats} Sièges</span>
+              <span className="truncate">{t("seats", { count: seats })}</span>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Fuel className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
@@ -124,7 +132,7 @@ export function CarRentalCard({
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Car className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-              <span className="truncate">Premium</span>
+              <span className="truncate">{t("premium")}</span>
             </div>
           </div>
         </div>
@@ -152,7 +160,7 @@ export function CarRentalCard({
           className="mt-3 sm:mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base"
           size="default"
         >
-          Réserver maintenant
+          {t("bookNow")}
         </Button>
         <Button
           onClick={(e) => {
@@ -163,18 +171,32 @@ export function CarRentalCard({
           className="mt-3 sm:mt-4 w-full bg-green-600 text-white hover:bg-green-700 text-sm sm:text-base"
           size="default"
         >
-          WhatsApp
+          {t("whatsapp")}
         </Button>
       </div>
   )
 
-  // Determine the link URL (include currency so detail page shows same currency as list)
-  const linkUrl = href || (slug ? `/cars/${slug}?currency=${currency}` : null)
-
-  if (linkUrl) {
+  if (href) {
     return (
       <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
-        <Link href={linkUrl} className="block">
+        <NextLink href={href} className="block">
+          {cardContent}
+        </NextLink>
+      </CometCard>
+    )
+  }
+
+  if (slug) {
+    return (
+      <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
+        <Link
+          href={{
+            pathname: "/cars/[slug]",
+            params: { slug },
+            query: { currency },
+          }}
+          className="block"
+        >
           {cardContent}
         </Link>
       </CometCard>
