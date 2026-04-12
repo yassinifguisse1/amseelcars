@@ -11,6 +11,8 @@ export interface FilterState {
   minPrice: string
   maxPrice: string
   currency: 'MAD' | 'EUR' | 'USD'
+  /** Fleet category slug from URL (?category=) — not shown in filter UI */
+  category: string
 }
 
 interface FilterBarProps {
@@ -52,12 +54,18 @@ export default function FilterBar({
       name: '',
       minPrice: '',
       maxPrice: '',
-      currency: currency
+      currency: currency,
+      category: '',
     }
     onFilterChange(clearedFilters)
   }
 
-  const hasActiveFilters = filters.brand || filters.name || filters.minPrice || filters.maxPrice
+  const hasActiveFilters =
+    filters.brand ||
+    filters.name ||
+    filters.minPrice ||
+    filters.maxPrice ||
+    filters.category
 
   return (
     <div className={styles.filterBar}>

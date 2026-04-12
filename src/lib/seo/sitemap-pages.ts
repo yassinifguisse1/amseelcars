@@ -1,6 +1,7 @@
 import { getPathname } from "@/i18n/navigation";
 import { getAllCarSlugs } from "@/data/cars";
 import { frenchCarSlugToEnglishSlug } from "@/lib/carSlugLocale";
+import { getFleetBrandSlugsSorted } from "@/lib/brandSlug";
 
 const baseUrl = "https://www.amseelcars.com";
 
@@ -51,6 +52,24 @@ export function buildPagesSitemapXml(lastmod: string): string {
   for (const href of STATIC_HREFS) {
     const frPath = getPathname({ locale: "fr", href });
     const enPath = getPathname({ locale: "en", href });
+    for (const path of [frPath, enPath]) {
+      const loc = escapeXml(`${baseUrl}${path}`);
+      urlBlocks.push(`  <url>
+    <loc>${loc}</loc>${alternateLinksXml(frPath, enPath)}
+    <lastmod>${lastmod}</lastmod>
+  </url>`);
+    }
+  }
+
+  const brandSlugs = getFleetBrandSlugsSorted();
+  for (const brandSlug of brandSlugs) {
+    const frHref = {
+      pathname: "/cars/brand/[brandSlug]" as const,
+      params: { brandSlug },
+    };
+    const enHref = frHref;
+    const frPath = getPathname({ locale: "fr", href: frHref });
+    const enPath = getPathname({ locale: "en", href: enHref });
     for (const path of [frPath, enPath]) {
       const loc = escapeXml(`${baseUrl}${path}`);
       urlBlocks.push(`  <url>

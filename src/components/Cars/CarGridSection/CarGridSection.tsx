@@ -14,6 +14,16 @@ import { convertCarPrice, formatCarPrice } from '@/lib/currency'
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
 import styles from './CarGridSection.module.scss'
 
+const FLEET_CATEGORIES: Car['category'][] = [
+  'luxury',
+  'sports',
+  'suv',
+  'electric',
+  'premium',
+  'economy',
+  'crossover',
+]
+
 interface CarGridSectionProps {
   className?: string
   showTitle?: boolean
@@ -48,7 +58,8 @@ const CarGridSection = ({
     name: '',
     minPrice: '',
     maxPrice: '',
-    currency: 'EUR'
+    currency: 'EUR',
+    category: '',
   })
 
   const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('EUR')
@@ -71,11 +82,26 @@ const CarGridSection = ({
     }
   }, [searchParams, brands])
 
+  useEffect(() => {
+    const raw = searchParams.get('category')
+    if (!raw) return
+    const cat = decodeURIComponent(raw).toLowerCase()
+    if (FLEET_CATEGORIES.includes(cat as Car['category'])) {
+      setFilters((prev) =>
+        prev.category === cat ? prev : { ...prev, category: cat as Car['category'] },
+      )
+    }
+  }, [searchParams])
+
   // Filter cars based on filter state
   const filteredCars = useMemo(() => {
     return allCars.filter((car: Car) => {
       // Brand filter
       if (filters.brand && car.brand !== filters.brand) {
+        return false
+      }
+
+      if (filters.category && car.category !== filters.category) {
         return false
       }
 
@@ -258,7 +284,8 @@ const CarGridSection = ({
                   name: '',
                   minPrice: '',
                   maxPrice: '',
-                  currency: currency
+                  currency: currency,
+                  category: '',
                 })
               }}
             >
