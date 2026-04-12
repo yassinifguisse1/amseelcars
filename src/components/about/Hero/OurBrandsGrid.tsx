@@ -2,7 +2,10 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import type { AppLocale } from '@/i18n/routing'
+import { carSlugForLocale } from '@/lib/carSlugLocale'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -32,7 +35,15 @@ interface BrandTileProps {
   onClick?: (brand: Brand) => void
 }
 
+function carsSlugFromHref(href?: string): string | null {
+  if (!href?.startsWith('/cars/')) return null
+  const slug = href.slice('/cars/'.length)
+  return slug || null
+}
+
 function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
+  const t = useTranslations('aboutPage')
+  const locale = useLocale() as AppLocale
   const [isPreviewVisible, setIsPreviewVisible] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -72,14 +83,14 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={`${brand.name} preview`}
+      aria-label={t('brandTileAria', { name: brand.name })}
       aria-pressed={isPreviewVisible}
     >
       {/* Logo */}
       <div className={` w-32 h-32 md:w-36 md:h-36 absolute inset-0 flex items-center justify-center mx-auto my-auto transition-opacity duration-200  motion-reduce:transition-none ${showPreview ? 'opacity-0' : 'opacity-100'}`}>
         <Image
           src={brand.logo}
-          alt={`${brand.name} logo`}
+          alt={t('brandLogoAlt', { name: brand.name })}
           width={200}
           height={200}
           className="w-full h-full object-contain "
@@ -92,7 +103,7 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
       <div className={`absolute inset-0 transition-all duration-300 ease-out motion-reduce:transition-none ${showPreview ? 'opacity-100 scale-100' : 'opacity-0 scale-105 motion-reduce:scale-100'}`}>
         <Image
           src={brand.preview}
-          alt={`${brand.name} car`}
+          alt={t('brandCarAlt', { name: brand.name })}
           fill
           className="object-cover transition-all duration-300 ease-out motion-reduce:transition-none"
           loading="lazy"
@@ -107,7 +118,7 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
       <div className={`w-32 h-32 md:w-36 md:h-36 absolute inset-0 flex items-center justify-center mx-auto my-auto text-white font-medium text-sm transition-opacity duration-300 motion-reduce:transition-none ${showPreview ? 'opacity-100' : 'opacity-0'}`}>
       <Image
           src={brand.logo}
-          alt={`${brand.name} logo`}
+          alt={t('brandLogoAlt', { name: brand.name })}
           width={200}
           height={200}
           className="w-full h-full object-contain "
@@ -118,10 +129,17 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
     </div>
   )
 
-  // Wrap in Link if href is provided
   if (brand.href) {
+    const frSlug = carsSlugFromHref(brand.href)
+    const href =
+      frSlug != null
+        ? ({
+            pathname: '/cars/[slug]',
+            params: { slug: carSlugForLocale(frSlug, locale) },
+          } as const)
+        : '/cars'
     return (
-      <Link href={brand.href} className="block">
+      <Link href={href} className="block">
         {tileContent}
       </Link>
     )

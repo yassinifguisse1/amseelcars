@@ -1,11 +1,16 @@
+"use client";
+
 import React, { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useTranslations } from 'next-intl'
 import styles from './TextHover.module.scss'
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TextHover = () => {
+  const t = useTranslations('aboutPage')
+
   useEffect(() => {
     const textElements = gsap.utils.toArray(`.${styles.text}`) as Element[];
     const scrollTriggers: ScrollTrigger[] = [];
@@ -21,13 +26,12 @@ const TextHover = () => {
           scrub: true,
         },
       });
-      
+
       if (animation.scrollTrigger) {
         scrollTriggers.push(animation.scrollTrigger);
       }
     });
 
-    // Cleanup function
     return () => {
       scrollTriggers.forEach(trigger => trigger.kill());
     };
@@ -35,12 +39,9 @@ const TextHover = () => {
 
   return (
     <div className="flex flex-col justify-center items-start ">
-      <h1 className={styles.text}>LOUEZ & PARTEZ<span>AMSEEL CAR</span></h1>
-      <h1 className={styles.text}>RETRAIT RAPIDE<span>AÉROPORT & VILLE</span></h1>
-      <h1 className={styles.text}>RÉSERVATION<span>EN 2 MINUTES</span></h1>
-
-
-     
+      <h1 className={styles.text}>{t('textHoverLine1')}<span>{t('textHoverLine1Span')}</span></h1>
+      <h1 className={styles.text}>{t('textHoverLine2')}<span>{t('textHoverLine2Span')}</span></h1>
+      <h1 className={styles.text}>{t('textHoverLine3')}<span>{t('textHoverLine3Span')}</span></h1>
     </div>
   )
 }

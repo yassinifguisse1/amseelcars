@@ -1,42 +1,39 @@
-export interface LinkData {
-    title: string;
-    href: string;
+/**
+ * Main nav uses next-intl internal pathnames (see `src/i18n/routing.ts`).
+ * Visible labels come from messages (nav namespace) via `messageKey`.
+ */
+export interface MainNavItem {
+  messageKey: "home" | "agadirRental" | "about" | "cars" | "blog" | "contact";
+  href:
+    | "/"
+    | "/location-voiture-agadir"
+    | "/about"
+    | "/cars"
+    | "/blog"
+    | "/contact";
 }
 
-export const links: LinkData[] = [
-    {
-        title: "Accueil",
-        href: "/"
-    },
-    {
-        title: "Location voiture Agadir",
-        href: "/location-voiture-agadir"
-    },
-    {
-        title: "À propos",
-        href: "/about"
-    },
-    {
-        title: "Voitures",
-        href: "/cars"
-    },
-    {
-        title: "Blog",
-        href: "/blog"
-    },
-    {
-        title: "Contactez-nous",
-        href: "/contact"
-    }
-]
+export const mainNavItems: MainNavItem[] = [
+  { messageKey: "home", href: "/" },
+  { messageKey: "agadirRental", href: "/location-voiture-agadir" },
+  { messageKey: "about", href: "/about" },
+  { messageKey: "cars", href: "/cars" },
+  { messageKey: "blog", href: "/blog" },
+  { messageKey: "contact", href: "/contact" },
+];
 
-export const footerLinks: LinkData[] = [
-    {
-        title: "Facebook",
-        href: "https://www.facebook.com/amseelcars/"
-    },
-    {
-        title: "Instagram",
-        href: "https://www.instagram.com/amseelcars/"
-    }
-]
+export interface SocialNavItem {
+  messageKey: "socialFacebook" | "socialInstagram";
+  href: string;
+}
+
+export const socialNavItems: SocialNavItem[] = [
+  {
+    messageKey: "socialFacebook",
+    href: "https://www.facebook.com/amseelcars/",
+  },
+  {
+    messageKey: "socialInstagram",
+    href: "https://www.instagram.com/amseelcars/",
+  },
+];

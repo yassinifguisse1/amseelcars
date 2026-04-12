@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Search, X, Filter } from 'lucide-react'
 import styles from './FilterBar.module.scss'
 
@@ -27,6 +28,8 @@ export default function FilterBar({
   currency,
   onCurrencyChange 
 }: FilterBarProps) {
+  const t = useTranslations('carsPage.filters')
+  const tCars = useTranslations('carsPage')
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleFilterChange = <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
@@ -62,10 +65,10 @@ export default function FilterBar({
         <button
           className={styles.toggleButton}
           onClick={() => setIsExpanded(!isExpanded)}
-          aria-label="Toggle filters"
+          aria-label={t('toggleAria')}
         >
           <Filter className={styles.filterIcon} />
-          <span>Filtres</span>
+          <span>{t('title')}</span>
           {hasActiveFilters && <span className={styles.badge}>{Object.values(filters).filter(v => v && v !== currency).length}</span>}
         </button>
         
@@ -96,7 +99,7 @@ export default function FilterBar({
           {/* Brand Filter */}
           <div className={styles.filterGroup}>
             <label htmlFor="brand-filter" className={styles.label}>
-              Marque
+              {t('brand')}
             </label>
             <select
               id="brand-filter"
@@ -104,7 +107,7 @@ export default function FilterBar({
               value={filters.brand}
               onChange={(e) => handleFilterChange('brand', e.target.value)}
             >
-              <option value="">Toutes les marques</option>
+              <option value="">{t('allBrands')}</option>
               {brands.map((brand) => (
                 <option key={brand} value={brand}>
                   {brand}
@@ -116,7 +119,7 @@ export default function FilterBar({
           {/* Name Search */}
           <div className={styles.filterGroup}>
             <label htmlFor="name-filter" className={styles.label}>
-              Nom du véhicule
+              {t('vehicleName')}
             </label>
             <div className={styles.searchWrapper}>
               <Search className={styles.searchIcon} />
@@ -124,7 +127,7 @@ export default function FilterBar({
                 id="name-filter"
                 type="text"
                 className={styles.input}
-                placeholder="Rechercher un véhicule..."
+                placeholder={t('searchPlaceholder')}
                 value={filters.name}
                 onChange={(e) => handleFilterChange('name', e.target.value)}
               />
@@ -132,7 +135,7 @@ export default function FilterBar({
                 <button
                   className={styles.clearButton}
                   onClick={() => handleFilterChange('name', '')}
-                  aria-label="Clear search"
+                  aria-label={t('clearSearchAria')}
                 >
                   <X className={styles.clearIcon} />
                 </button>
@@ -142,12 +145,12 @@ export default function FilterBar({
 
           {/* Price Range */}
           <div className={styles.filterGroup}>
-            <label className={styles.label}>Prix par jour ({currency})</label>
+            <label className={styles.label}>{t('pricePerDay', { currency })}</label>
             <div className={styles.priceRange}>
               <input
                 type="number"
                 className={styles.input}
-                placeholder="Min"
+                placeholder={t('min')}
                 value={filters.minPrice}
                 onChange={(e) => handleFilterChange('minPrice', e.target.value)}
                 min="0"
@@ -156,7 +159,7 @@ export default function FilterBar({
               <input
                 type="number"
                 className={styles.input}
-                placeholder="Max"
+                placeholder={t('max')}
                 value={filters.maxPrice}
                 onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
                 min="0"
@@ -171,7 +174,7 @@ export default function FilterBar({
               onClick={clearFilters}
             >
               <X className={styles.clearIcon} />
-              Réinitialiser les filtres
+              {tCars('resetFilters')}
             </button>
           )}
         </div>

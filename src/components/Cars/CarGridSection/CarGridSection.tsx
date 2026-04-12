@@ -2,12 +2,15 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
+import type { AppLocale } from '@/i18n/routing'
+import { carForLocale } from '@/lib/carLocale'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/lib/carImageAlt'
 import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
-import { convertCarPrice } from '@/lib/currency'
+import { convertCarPrice, formatCarPrice } from '@/lib/currency'
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
 import styles from './CarGridSection.module.scss'
 
@@ -21,11 +24,15 @@ interface CarGridSectionProps {
 const CarGridSection = ({ 
   className = '', 
   showTitle = true,
-  title = "Notre flotte haut de gamme",
-  subtitle = "Choisissez parmi notre vaste collection de véhicules de luxe"
- 
+  title,
+  subtitle,
 }: CarGridSectionProps) => {
+  const t = useTranslations('carsPage')
+  const localeUi = useLocale()
+  const l: AppLocale = localeUi === 'en' ? 'en' : 'fr'
   const searchParams = useSearchParams()
+  const displayTitle = title ?? t('gridTitle')
+  const displaySubtitle = subtitle ?? t('gridSubtitle')
 
   // Booking dialog state
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false)
@@ -118,12 +125,14 @@ const CarGridSection = ({
   const handleWhatsapp = (carName: string) => {
     const car = allCars.find(c => c.carName === carName)
     if (car) {
+      const path =
+        typeof window !== 'undefined' ? window.location.pathname : '/cars'
       fetch('/api/track/whatsapp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
           getWhatsAppTrackBody({
-            path: '/cars',
+            path,
             source: 'car-listing',
             carSlug: car.slug,
             carName: car.carName,
@@ -133,7 +142,12 @@ const CarGridSection = ({
       }).catch(() => {})
       const price = car.pricing?.shortTerm || car.pricePerDay
       const priceInCurrency = convertCarPrice(price, currency)
-      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${priceInCurrency.toFixed(currency === 'MAD' ? 0 : 2)} ${currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.`
+      const priceStr = formatCarPrice(priceInCurrency, currency)
+      const message = t('waInquiry', {
+        carName: car.carName,
+        price: priceStr,
+        currency,
+      })
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
@@ -171,8 +185,10 @@ const CarGridSection = ({
         {/* Section Header */}
         {showTitle && (
           <header className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{title}</h2>
-            {subtitle && <p className={styles.sectionSubtitle}>{subtitle}</p>}
+            <h2 className={styles.sectionTitle}>{displayTitle}</h2>
+            {displaySubtitle ? (
+              <p className={styles.sectionSubtitle}>{displaySubtitle}</p>
+            ) : null}
           </header>
         )}
 
@@ -188,7 +204,7 @@ const CarGridSection = ({
         {/* Results Count */}
         {filteredCars.length !== allCars.length && (
           <div className={styles.resultsCount}>
-            {filteredCars.length} véhicule{filteredCars.length > 1 ? 's' : ''} trouvé{filteredCars.length > 1 ? 's' : ''}
+            {t('resultsCount', { count: filteredCars.length })}
           </div>
         )}
 
@@ -196,6 +212,7 @@ const CarGridSection = ({
         {filteredCars.length > 0 ? (
           <div className={styles.carGrid}>
             {filteredCars.map((car, index) => {
+              const displayCar = carForLocale(car, l)
               const pricePerDay = car.pricing?.shortTerm || car.pricePerDay
               const priceInCurrency = convertCarPrice(pricePerDay, currency)
               const longTermPrice = car.pricing?.longTerm 
@@ -207,9 +224,9 @@ const CarGridSection = ({
                   <CarRentalCard
                     carName={car.carName}
                     carImage={car.carImage}
-                    imageAlt={carListingImageAlt(car)}
-                    imageTitle={carListingImageTitle(car)}
-                    imageCaption={carListingCaption(car)}
+                    imageAlt={carListingImageAlt(displayCar, l)}
+                    imageTitle={carListingImageTitle(displayCar, l)}
+                    imageCaption={carListingCaption(displayCar, l)}
                     imagePriority={index < 3}
                     pricePerDay={priceInCurrency}
                     pricing={car.pricing ? {
@@ -221,7 +238,7 @@ const CarGridSection = ({
                     fuelType={car.fuelType}
                     transmission={car.transmission}
                     rating={car.rating}
-                    slug={car.slug}
+                    slug={displayCar.slug}
                     currency={currency}
                     onBook={() => handleBookCar(car.carName)}
                     onWhatsapp={() => handleWhatsapp(car.carName)}
@@ -232,7 +249,7 @@ const CarGridSection = ({
           </div>
         ) : (
           <div className={styles.noResults}>
-            <p>Aucun véhicule ne correspond à vos critères de recherche.</p>
+            <p>{t('noResults')}</p>
             <button 
               className={styles.resetButton}
               onClick={() => {
@@ -245,7 +262,7 @@ const CarGridSection = ({
                 })
               }}
             >
-              Réinitialiser les filtres
+              {t('resetFilters')}
             </button>
           </div>
         )}

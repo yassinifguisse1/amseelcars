@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 import path from "path";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   async redirects() {
@@ -10,6 +13,16 @@ const nextConfig: NextConfig = {
         destination: "https://www.amseelcars.com/:path*",
         permanent: true,
       },
+      // English entry slug (see src/i18n/routing.ts — localePrefix: "never", EN home is /home).
+      { source: "/en", destination: "/home", permanent: true },
+      // FR listing path rename: /vehicules is not used for EN; safe 301 to canonical /voitures.
+      { source: "/vehicules", destination: "/voitures", permanent: true },
+      {
+        source: "/vehicules/:path*",
+        destination: "/voitures/:path*",
+        permanent: true,
+      },
+      // Note: do not 301 /cars → /voitures — /cars is the English canonical URL (pair with /voitures via hreflang).
     ];
   },
   images: {
@@ -80,4 +93,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

@@ -1126,27 +1126,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
+import { Link } from "@/i18n/navigation";
 import { useLoading } from "@/contexts/LoadingContext";
 
-const HERO_TITLE = "Location voiture Agadir - AMSEEL CARS";
-const HERO_INTRO =
-  "AMSEEL CARS vous propose un service fiable de location de voiture à Agadir avec livraison à l’aéroport d’Agadir Al Massira, à votre hôtel ou en centre-ville. Découvrez nos voitures économiques, automatiques, SUV et modèles premium avec réservation simple, assistance 24/7 et tarifs clairs.";
-
 function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
+  const t = useTranslations("home.hero");
   return (
     <section
       className="relative z-10 bg-black px-4 pb-10 pt-6 md:px-6 md:pb-14 md:pt-8 lg:pb-16 lg:pt-10"
-      aria-label="Présentation — location voiture Agadir"
+      aria-label={t("ariaLabel")}
     >
       <div className="mx-auto w-full max-w-4xl text-center">
         <h1 className="text-balance text-2xl font-bold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.45rem]">
-          {HERO_TITLE}
+          {t("title")}
         </h1>
         <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-white/92 drop-shadow md:text-base md:leading-relaxed">
-          {HERO_INTRO}
+          {t("intro")}
         </p>
         <div className="mt-8 flex justify-center md:mt-10">
           <Link
@@ -1167,7 +1165,7 @@ function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
-                Voir nos voitures
+                {t("fleetCta")}
                 <motion.span
                   className="inline-block"
                   animate={{ x: [0, 5, 0] }}
@@ -1253,7 +1251,7 @@ const Cardrive = () => {
             loop
             playsInline
             preload="metadata"
-            poster="/og/amseel-car-logo.png"
+            poster="/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"
             fetchPriority="high"
             key={isMobile ? "mobile" : "desktop"}
           >
