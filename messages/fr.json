@@ -186,6 +186,84 @@
         }
       ]
     },
+    "browseServices": {
+      "kicker": "Location de voiture",
+      "title": "Trouvez votre location à Agadir",
+      "subtitle": "Retrait en ville, à l’aéroport Al Massira ou sur le littoral — chaque modèle a sa page dédiée (photos, équipements, réservation), optimisée pour la recherche et les assistants.",
+      "panels": {
+        "locationsHeading": "Zones & livraison",
+        "vehicleTypesHeading": "Par catégorie de véhicule",
+        "brandsHeading": "Par marque",
+        "locationsCopy": "Aéroport, centre-ville, Taghazout ou villas côtières — choisissez la zone de remise.",
+        "vehicleTypesCopy": "Filtrez la flotte selon le style de conduite ou le budget voulu.",
+        "brandsCopy": "Chaque marque dispose d'une page optimisée pour la recherche et les assistants."
+      },
+      "brandLinkLabel": "Location {brand} à Agadir",
+      "locations": [
+        {
+          "label": "Agadir — ville & région",
+          "href": "/location-voiture-agadir"
+        },
+        {
+          "label": "Aéroport Al Massira (Agadir)",
+          "href": "/agadir-airport-car-rental"
+        },
+        {
+          "label": "Taghazout & littoral",
+          "href": "/taghazout-car-rental"
+        },
+        {
+          "label": "Toute la flotte — tous les modèles",
+          "href": "/cars"
+        },
+        {
+          "label": "Autres villes au Maroc — devis",
+          "href": "/contact"
+        }
+      ],
+      "vehicleTypes": [
+        {
+          "label": "Citadines & économiques",
+          "category": "economy"
+        },
+        {
+          "label": "SUV",
+          "category": "suv"
+        },
+        {
+          "label": "Luxe",
+          "category": "luxury"
+        },
+        {
+          "label": "Premium",
+          "category": "premium"
+        },
+        {
+          "label": "Crossovers & familiales",
+          "category": "crossover"
+        }
+      ],
+      "primaryCta": "Parler à notre équipe",
+      "secondaryCta": "Voir la flotte",
+      "brandSpotlightLabel": "Marque à l'honneur",
+      "brandSpotlightCopy": "Nous mettons en avant les marques selon la disponibilité de livraison et la demande voyageurs.",
+      "brandSpotlightCta": "Voir la marque mise en avant",
+      "stats": [
+        {
+          "value": "45+",
+          "label": "voitures prêtes à Agadir"
+        },
+        {
+          "value": "2h",
+          "label": "délai moyen de livraison"
+        },
+        {
+          "value": "24/7",
+          "label": "assistance"
+        }
+      ],
+      "brandSpotlightHelper": "Mise à jour selon la disponibilité et la demande."
+    },
     "location": {
       "title": "Où trouver AMSEEL CARS à Agadir ?",
       "body": "Notre agence est située à Haut Founty, dans l’Immeuble Sinwan, RDC, à Agadir. Nous proposons également la remise de véhicules à l’aéroport d’Agadir Al Massira, à l’hôtel ou en centre-ville selon vos besoins.",
@@ -484,7 +562,115 @@
     "carNotFound": {
       "title": "Voiture introuvable",
       "description": "Le véhicule demandé est introuvable."
+    },
+    "brandHub": {
+      "title": "Location {brand} à Agadir — modèles & flotte | AmseelCars",
+      "description": "Louez {brand} à Agadir : découvrez les modèles disponibles, les équipements et réservez par WhatsApp. Remise aéroport ou en ville.",
+      "notFoundTitle": "Marque introuvable",
+      "notFoundDescription": "Cette page marque n’est pas disponible."
     }
+  },
+  "brandHubPage": {
+    "breadcrumbAria": "Fil d’Ariane",
+    "heroKicker": "Focus marque",
+    "h1": "Location {brand} à Agadir",
+    "intro": "Découvrez tous les modèles {brand} que nous proposons actuellement à Agadir. Ouvrez une fiche véhicule pour les photos, les équipements et les options de réservation.",
+    "heroSupporting": "Chaque {brand} importée est inspectée chaque semaine pour rester prête face au climat côtier et aux longs trajets marocains.",
+    "fleetHeading": "Modèles {brand} disponibles",
+    "fleetEyebrow": "Collection en direct",
+    "collectionIntro": "Comparez les équipements, délais de livraison et tarifs pour chaque {brand} déjà préparée à Agadir.",
+    "fleetHelper": "{count, plural, one {# modèle est prêt maintenant.} other {# modèles sont prêts maintenant.}}",
+    "segmentsEyebrow": "Segments {brand}",
+    "viewCar": "Voir",
+    "ctaFleet": "Voir toute la flotte",
+    "ctaContact": "Nous contacter",
+    "primaryCta": "Demander une {brand}",
+    "secondaryCta": "Voir toutes les voitures",
+    "ctaHelper": "Réponse en moins d’une heure par WhatsApp ou téléphone.",
+    "metrics": {
+      "models": {
+        "label": "Modèles en ligne",
+        "helper": "Annonces {brand} mises à jour avec les tarifs du moment.",
+        "value": "{count, plural, one {# modèle} other {# modèles}}"
+      },
+      "rating": {
+        "label": "Note moyenne",
+        "helper": "Dernières livraisons en {year}",
+        "value": "{rating} / 5"
+      },
+      "segments": {
+        "label": "Segments",
+        "helper": "{count, plural, one {Un seul segment validé pour les routes d’Agadir.} other {Plusieurs segments prêts pour le littoral et l’arrière-pays.}}",
+        "value": "{count, plural, one {# segment} other {# segments}}"
+      },
+      "rate": {
+        "label": "Tarif dès",
+        "helper": "Tarif journalier court séjour vérifié cette semaine.",
+        "value": "{price} / jour"
+      }
+    },
+    "categoryLabels": {
+      "luxury": "Luxe",
+      "sports": "Sport",
+      "suv": "SUV",
+      "electric": "Électrique",
+      "premium": "Premium",
+      "economy": "Économique",
+      "crossover": "Crossover & famille"
+    },
+    "card": {
+      "seats": "Places",
+      "transmission": "Boîte",
+      "fuel": "Carburant",
+      "fromPrice": "À partir de {price}/jour",
+      "deliveryLabel": "Livraison 24/7"
+    },
+    "insightsFallbackHeading": "Pourquoi louer une {brand} chez AMSEEL CARS",
+    "insights": {
+      "eyebrow": "Points qualité",
+      "heading": "Locations {brand} calibrées pour le Maroc",
+      "sidebarTitle": "Conciergerie {brand}",
+      "sidebarBody": "Donnez votre vol ou hôtel et nous préparons la {brand} avec un agent bilingue.",
+      "sidebarCta": "Planifier la livraison",
+      "items": [
+        {
+          "title": "{brand} prête pour l’aéroport",
+          "body": "Deux créneaux couvrent l’aéroport d’Agadir Al Massira, Taghazout et le centre-ville le même jour."
+        },
+        {
+          "title": "Préparation premium avant chaque {brand}",
+          "body": "Lavage compatible céramique et traitement à l’ozone gardent l’habitacle impeccable malgré l’air marin."
+        },
+        {
+          "title": "Kilométrage souple pour la côte",
+          "body": "Les locations {brand} incluent un kilométrage généreux pour rouler vers Essaouira ou Paradise Valley sereinement."
+        }
+      ]
+    },
+    "fuelMixLabel": "Motorisations disponibles : {fuels}",
+    "newestModelLabel": "{year} déjà livré",
+    "supportingDelivery": "Livraison aéroport, hôtel ou riad à Agadir en moins de 2 h.",
+    "faqEyebrow": "À savoir",
+    "faq": {
+      "heading": "Questions sur la location {brand} à Agadir",
+      "note": "Réponses courtes : contactez-nous pour un dossier {brand} précis.",
+      "ctaLabel": "Parler à un spécialiste {brand}",
+      "items": [
+        {
+          "question": "Puis-je recevoir une {brand} à l’aéroport d’Agadir ?",
+          "answer": "Oui. Donnez votre numéro de vol et nous pré-positionnons la {brand} à Agadir Al Massira avec les documents prêts."
+        },
+        {
+          "question": "Quels documents pour louer une {brand} ?",
+          "answer": "Passeport ou CIN, permis valide et moyen de paiement. Envoyez les scans pour accélérer la remise."
+        },
+        {
+          "question": "Puis-je sortir d’Agadir avec une {brand} ?",
+          "answer": "Bien sûr. Indiquez l’itinéraire (Essaouira, Marrakech, intérieur) afin d’ajuster kilométrage, assurance et timing."
+        }
+      ]
+    },
+    "itemListName": "Locations {brand} disponibles à Agadir"
   },
   "notFound": {
     "documentTitle": "Page non trouvée - AmseelCars",

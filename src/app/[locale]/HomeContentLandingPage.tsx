@@ -31,6 +31,7 @@ import {
   HomeSeoBookingCtaBlock,
   HomeSeoFaqBlock,
 } from "@/components/home-seo/home-seo";
+import { HomeBrowseServicesSection } from "@/components/home-seo/HomeBrowseServicesSection";
 import { reviews } from "@/data/reviews";
 import { useLoading } from "@/contexts/LoadingContext";
 import Speedometer from "@/components/Preloader/Speedometer";
@@ -181,6 +182,8 @@ export function HomeContentLandingPage() {
           />
           {/* SEO: destinations — after reviews, before map dashboard */}
           <HomeSeoLocalDiscoveryBlock />
+          {/* SEO / AEO: internal links to brand hubs, fleet categories, landings */}
+          <HomeBrowseServicesSection />
           <MapExample />
           {/* SEO: NAP + location copy — below map-in-dashboard */}
           <HomeSeoLocationNapBlock />

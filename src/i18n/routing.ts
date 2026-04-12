@@ -48,6 +48,10 @@ export const routing = defineRouting({
       fr: "/voitures/[slug]",
       en: "/cars/[slug]",
     },
+    "/cars/brand/[brandSlug]": {
+      fr: "/voitures/marque/[brandSlug]",
+      en: "/cars/brand/[brandSlug]",
+    },
     "/location-voiture-agadir": {
       fr: "/location-voiture-agadir",
       en: "/agadir-car-rental",
