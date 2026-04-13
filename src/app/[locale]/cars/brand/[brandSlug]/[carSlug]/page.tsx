@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Script from "next/script";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { getAllCars, getCarBySlug } from "@/data/cars";
 import { carForLocale } from "@/lib/carLocale";
 import CarDetailClient from "../../../[slug]/CarDetailClient";
@@ -17,8 +17,15 @@ import type { AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 
 type Props = {
-  params: Promise<{ brandSlug: string; carSlug: string }>;
+  params: Promise<{ locale: string; brandSlug: string; carSlug: string }>;
 };
+
+/**
+ * This route lives under a root layout that reads request headers for `<html lang>`.
+ * Force dynamic rendering here to avoid production-only static prerender crashes
+ * (`digest: DYNAMIC_SERVER_USAGE`) on brand-scoped car pages.
+ */
+export const dynamic = "force-dynamic";
 
 /**
  * Next sometimes invokes this before parent segments are filled; `brandSlug` can be missing.
@@ -41,8 +48,7 @@ export function generateStaticParams({
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { brandSlug, carSlug } = await params;
-  const locale = await getLocale();
+  const { locale, brandSlug, carSlug } = await params;
   const l: AppLocale = locale === "en" ? "en" : "fr";
   const carRaw = getCarBySlug(carSlug);
 
@@ -123,14 +129,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CarBrandScopedDetailPage({ params }: Props) {
-  const { brandSlug, carSlug } = await params;
+  const { locale, brandSlug, carSlug } = await params;
   const carRaw = getCarBySlug(carSlug);
 
   if (!carRaw || brandToSlug(carRaw.brand) !== brandSlug.toLowerCase()) {
     notFound();
   }
 
-  const locale = await getLocale();
   const l: AppLocale = locale === "en" ? "en" : "fr";
   const car = carForLocale(carRaw, l);
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
