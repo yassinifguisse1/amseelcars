@@ -19,7 +19,7 @@ export default function robots(): MetadataRoute.Robots {
           '/images/right wheel*.webp',
           '/images/*wheel left*.webp',
           '/images/*wheel right*.webp',
-          
+          'M'
         ],
       },
     ],

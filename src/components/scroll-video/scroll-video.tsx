@@ -1132,6 +1132,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useLoading } from "@/contexts/LoadingContext";
 
+const LANDING_VIDEO_POSTER = "/images/Hero.jpg";
+
 function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
   const t = useTranslations("home.hero");
   return (
@@ -1251,7 +1253,7 @@ const Cardrive = () => {
             loop
             playsInline
             preload="metadata"
-            poster="/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"
+            poster={LANDING_VIDEO_POSTER}
             fetchPriority="high"
             key={isMobile ? "mobile" : "desktop"}
           >

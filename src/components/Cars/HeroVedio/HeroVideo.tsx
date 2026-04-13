@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 
+const HERO_VIDEO_POSTER = '/images/Hero.jpg'
+
 /**
  * Hero video: defer loading until the section is near the viewport to improve LCP/INP on /cars.
  */
@@ -48,7 +50,7 @@ const HeroVideo = () => {
       <section ref={sectionRef} className="hero w-full">
         <div
           className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
-          style={{ backgroundImage: 'url(/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp)' }}
+          style={{ backgroundImage: `url(${HERO_VIDEO_POSTER})` }}
           aria-hidden
         />
       </section>
@@ -65,7 +67,7 @@ const HeroVideo = () => {
           loop
           playsInline
           preload="metadata"
-          poster="/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"
+          poster={HERO_VIDEO_POSTER}
           fetchPriority="low"
           key={isMobile ? 'mobile' : 'desktop'}
         >
@@ -78,7 +80,7 @@ const HeroVideo = () => {
       ) : (
         <div
           className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
-          style={{ backgroundImage: 'url(/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp)' }}
+          style={{ backgroundImage: `url(${HERO_VIDEO_POSTER})` }}
           role="img"
           aria-label={t('posterAria')}
         />
