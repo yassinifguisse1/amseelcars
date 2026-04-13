@@ -1,36 +1,21 @@
 import { defineRouting } from "next-intl/routing";
 
 /**
- * i18n routing: French (default) + English, no locale prefix in URLs.
+ * i18n routing: French + English with explicit locale prefixes in URLs.
  *
- * **Default language: French (`defaultLocale: "fr"`).** Locale follows the
- * visible pathname for locale-specific URLs (`/about` vs `/a-propos`, …) plus
- * `NEXT_LOCALE` when paths are shared (`/contact`). `localeDetection` must be
- * `true` so the cookie is read; `Accept-Language` is stripped in middleware so
- * the browser language does not override `/` or ambiguous routes.
- *
- * English homepage: `/home` (not `/en`). French keeps `/` for SEO equity.
- * If you switch EN home to `/en`, update `pathnames['/']` and add a redirect
- * from `/home` for any indexed URLs.
- *
- * Internal pathname keys match the target `app/[locale]/…` segments once pages
- * are moved under `[locale]` (middleware rewrites localized URLs to these).
+ * Canonical roots:
+ * - French: `/fr`
+ * - English: `/en`
  */
 export const routing = defineRouting({
   locales: ["fr", "en"],
   defaultLocale: "fr",
-  /**
-   * Required so `NEXT_LOCALE` is honored. Pathname-specific locales (`/about` =
-   * en) are injected in middleware; `Accept-Language` is removed there so
-   * `/` and shared paths still default to French unless the user switched
-   * language (cookie).
-   */
   localeDetection: true,
-  localePrefix: "never",
+  localePrefix: "always",
   pathnames: {
     "/": {
       fr: "/",
-      en: "/home",
+      en: "/",
     },
     "/about": {
       fr: "/a-propos",
@@ -51,6 +36,10 @@ export const routing = defineRouting({
     "/cars/brand/[brandSlug]": {
       fr: "/voitures/marque/[brandSlug]",
       en: "/cars/brand/[brandSlug]",
+    },
+    "/cars/brand/[brandSlug]/[carSlug]": {
+      fr: "/voitures/marque/[brandSlug]/[carSlug]",
+      en: "/cars/brand/[brandSlug]/[carSlug]",
     },
     "/location-voiture-agadir": {
       fr: "/location-voiture-agadir",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
-import { generateBreadcrumbSchema } from "@/lib/schemas";
+import { generateAboutPageSchema, generateBreadcrumbSchema } from "@/lib/schemas";
 import { AboutPageClient } from "./AboutPageClient";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import type { AppLocale } from "@/i18n/routing";
@@ -33,6 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AboutPage() {
   const locale = await getLocale();
   const l: AppLocale = locale === "en" ? "en" : "fr";
+  const tSeo = await getTranslations({ locale: l, namespace: "seo" });
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
   const homePath = getPathname({ locale: l, href: "/" });
   const aboutPath = getPathname({ locale: l, href: "/about" });
@@ -40,9 +41,20 @@ export default async function AboutPage() {
     { name: tNav("home"), url: homePath },
     { name: tNav("about"), url: aboutPath },
   ]);
+  const aboutPageSchema = generateAboutPageSchema({
+    path: aboutPath,
+    title: tSeo("about.title"),
+    description: tSeo("about.description"),
+    inLanguage: l === "en" ? "en-US" : "fr-MA",
+  });
 
   return (
     <>
+      <Script
+        id="ld-json-about-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
       {/* Breadcrumb Schema */}
       <Script
         id="ld-json-breadcrumb-about"

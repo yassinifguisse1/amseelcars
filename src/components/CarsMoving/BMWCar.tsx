@@ -2,10 +2,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import type { AppLocale } from "@/i18n/routing";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
+import { brandToSlug } from "@/lib/brandSlug";
 import Rounded from '../../common/RoundedButton';
 import { HomeSeoMainIntroOverlay } from "@/components/home-seo/home-seo";
 
@@ -107,6 +108,7 @@ function useShortLandscape() {
 export default function BMWCarScroll() {
   const router = useRouter();
   const locale = useLocale() as AppLocale;
+  const t = useTranslations("bmwScroll");
   const containerRef = useRef<HTMLDivElement>(null);
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -321,12 +323,15 @@ export default function BMWCarScroll() {
   // const isImageLoaded = useCallback((src: string) => loadedImages.has(src), [loadedImages]);
 
   const goToCarDetail = useCallback(
-    (canonicalFrSlug: string) => {
+    (canonicalFrSlug: string, brand: string) => {
       if (isNavigating) return;
       setIsNavigating(true);
       router.push({
-        pathname: "/cars/[slug]",
-        params: { slug: carSlugForLocale(canonicalFrSlug, locale) },
+        pathname: "/cars/brand/[brandSlug]/[carSlug]",
+        params: {
+          brandSlug: brandToSlug(brand),
+          carSlug: carSlugForLocale(canonicalFrSlug, locale),
+        },
       });
       setTimeout(() => setIsNavigating(false), 2000);
     },
@@ -405,7 +410,7 @@ export default function BMWCarScroll() {
   /**
    * Scroll beat (scrollYProgress 0→1 on the tall BMW section):
    * - mainSeoOpacity → “Location de voiture…” (HomeSeoMainIntroOverlay)
-   * - Final CTA → “Votre Trajet Idéal”
+   * - Final CTA → “Your ideal trip”
    * Golf exits on x over [0, 0.9] → tail still visible ~0.78–0.88. Start SEO fade early (~0.80)
    * so there is no empty gap between Golf and this copy (overlap with tail exit).
    */
@@ -595,14 +600,14 @@ export default function BMWCarScroll() {
                 >
                   <Rounded 
                     backgroundColor="#D32F2F" 
-                    onClick={() => goToCarDetail("location-voiture-agadir-bmw-x3-pack-m")}
+                    onClick={() => goToCarDetail("location-voiture-agadir-bmw-x3-pack-m", "BMW")}
                     style={{ 
                       pointerEvents: isNavigating ? 'none' : 'auto',
                       opacity: isNavigating ? 0.7 : 1,
                       cursor: isNavigating ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    <p>{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
+                    <p>{isNavigating ? t("loading") : t("bookNow")}</p>
                   </Rounded>
                 </div>
       </div>
@@ -772,14 +777,14 @@ export default function BMWCarScroll() {
         <div className="flex justify-center pointer-events-auto">
           <Rounded
             backgroundColor="#D32F2F"
-            onClick={() => goToCarDetail("location-voiture-agadir-kia-sportage-vert")}
+            onClick={() => goToCarDetail("location-voiture-agadir-kia-sportage-vert", "Kia")}
             style={{ 
               pointerEvents: isNavigating ? 'none' : 'auto',
               opacity: isNavigating ? 0.7 : 1,
               cursor: isNavigating ? 'not-allowed' : 'pointer'
             }}
           >
-            <p>Réservez maintenant</p>
+            <p>{t("bookNow")}</p>
           </Rounded>
         </div>
       </div>
@@ -983,14 +988,14 @@ export default function BMWCarScroll() {
                 <div className="flex items-center justify-center pointer-events-auto">
                   <Rounded 
                     backgroundColor="#D32F2F" 
-                    onClick={() => goToCarDetail("location-voiture-agadir-t-roc")}
+                    onClick={() => goToCarDetail("location-voiture-agadir-t-roc", "Volkswagen")}
                     style={{ 
                       pointerEvents: isNavigating ? 'none' : 'auto',
                       opacity: isNavigating ? 0.7 : 1,
                       cursor: isNavigating ? 'not-allowed' : 'pointer'
                     }}
                   >
-                    <p>{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
+                    <p>{isNavigating ? t("loading") : t("bookNow")}</p>
                   </Rounded>
                 </div>
               </div>
@@ -1161,14 +1166,14 @@ export default function BMWCarScroll() {
               >
                 <Rounded 
                   backgroundColor="#D32F2F" 
-                  onClick={() => goToCarDetail("location-voiture-agadir-golf-8")}
+                  onClick={() => goToCarDetail("location-voiture-agadir-golf-8", "Volkswagen")}
                   style={{ 
                     pointerEvents: isNavigating ? 'none' : 'auto',
                     opacity: isNavigating ? 0.7 : 1,
                     cursor: isNavigating ? 'not-allowed' : 'pointer'
                   }}
                 >
-                  <p>{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
+                  <p>{isNavigating ? t("loading") : t("bookNow")}</p>
                 </Rounded>
               </div>
             </div>
@@ -1185,7 +1190,7 @@ export default function BMWCarScroll() {
 
         </motion.div>
        
-        {/* SEO: “location de voiture à Agadir…” — only between end of Golf UI and Votre Trajet Idéal */}
+        {/* SEO: “location de voiture à Agadir…” — only between end of Golf UI and the final CTA */}
         <HomeSeoMainIntroOverlay opacity={mainSeoOpacity} />
 
         {/* Final CTA — fade on this wrapper only (nested motion opacity × parent = wrong dimming / “jump”).
@@ -1203,28 +1208,28 @@ export default function BMWCarScroll() {
               className="font-bold leading-tight text-gray-800 [text-wrap:balance]
                          text-[clamp(28px,7vw,56px)] md:text-[clamp(36px,6vw,72px)] lg:text-[clamp(44px,5vw,90px)]"
             >
-              Votre Trajet Idéal
+              {t("idealTrip")}
               <br />
-              <span className="text-red-600">Vous attend</span>
+              <span className="text-red-600">{t("awaits")}</span>
             </h2>
             <Rounded
               backgroundColor="#D32F2F"
               onClick={() => goToFleet()}
-              aria-label="Réservez maintenant"
+              aria-label={t("bookNow")}
               style={{ 
                 pointerEvents: isNavigating ? 'none' : 'auto',
                 opacity: isNavigating ? 0.7 : 1,
                 cursor: isNavigating ? 'not-allowed' : 'pointer'
               }}
             >
-              <p className="z-10 text-black">{isNavigating ? 'Loading...' : 'Réservez maintenant'}</p>
+              <p className="z-10 text-black">{isNavigating ? t("loading") : t("bookNow")}</p>
             </Rounded>
 
    
 
             {/* Scroll hint — visibility follows parent opacity only */}
             <div className="flex flex-col items-center border-gray-300 pt-8">
-              <div className="mb-2 text-xs sm:text-sm">Faites défiler pour explorer plus</div>
+              <div className="mb-2 text-xs sm:text-sm">{t("scrollHint")}</div>
               <div
                 className="flex h-[clamp(28px,5.5vw,40px)] w-[clamp(16px,3vw,24px)] justify-center rounded-full border-2 border-gray-300"
               >

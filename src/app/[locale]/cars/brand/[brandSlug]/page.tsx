@@ -12,6 +12,7 @@ import {
   getFleetBrandNamesSorted,
   resolveBrandFromSlug,
 } from "@/lib/brandSlug";
+import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { generateBreadcrumbSchema } from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import type { AppLocale } from "@/i18n/routing";
@@ -197,7 +198,7 @@ export default async function CarBrandHubPage({ params }: Props) {
           const slug = carSlugForLocale(car.slug, l);
           const carPath = getPathname({
             locale: l,
-            href: { pathname: "/cars/[slug]", params: { slug } },
+            href: carBrandScopedHref(car.brand, slug),
           });
           return {
             "@type": "ListItem",
@@ -273,7 +274,7 @@ export default async function CarBrandHubPage({ params }: Props) {
                 {t("heroSupporting", { brand })}
               </p>
               {chipCategories.length ? (
-                <div className="mt-8 flex flex-wrap gap-2" aria-label={t("segmentsEyebrow")}>
+                <div className="mt-8 flex flex-wrap gap-2" aria-label={t("segmentsEyebrow", { brand })}>
                   {chipCategories.map((chip) => (
                     <span
                       key={chip.id}
@@ -345,11 +346,10 @@ export default async function CarBrandHubPage({ params }: Props) {
               const slug = carSlugForLocale(car.slug, l);
               const price = car.pricing?.shortTerm ?? car.pricePerDay;
               const formattedPrice = currencyFormatter.format(price);
-
               return (
                 <li key={car.slug}>
                   <Link
-                    href={{ pathname: "/cars/[slug]", params: { slug } }}
+                    href={carBrandScopedHref(car.brand, slug)}
                     className="group flex h-full flex-col rounded-[1.75rem] border border-neutral-200 bg-white/80 p-4 shadow-[0_20px_45px_-35px_rgba(0,0,0,0.7)] transition hover:-translate-y-1 hover:border-neutral-300"
                   >
                     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[1.25rem] bg-neutral-100">

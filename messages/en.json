@@ -654,7 +654,6 @@
     "faq": {
       "heading": "{brand} rental questions, answered",
       "note": "Short answers with direct steps — contact us if you need a custom setup for {brand}.",
-      "ctaLabel": "Chat with a {brand} specialist",
       "items": [
         {
           "question": "Can I get a {brand} delivered to Agadir airport?",
@@ -671,6 +670,18 @@
       ]
     },
     "itemListName": "Current {brand} rentals in Agadir"
+  },
+  "bmwScroll": {
+    "loading": "Loading...",
+    "bookNow": "Book now",
+    "idealTrip": "Your ideal trip",
+    "awaits": "awaits you",
+    "scrollHint": "Scroll to explore more"
+  },
+  "reviews": {
+    "title": "What our customers say",
+    "loading": "Loading reviews...",
+    "publishedOn": "Published on {publisher}"
   },
   "notFound": {
     "documentTitle": "Page not found - AmseelCars",

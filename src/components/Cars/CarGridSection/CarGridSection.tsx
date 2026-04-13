@@ -265,6 +265,7 @@ const CarGridSection = ({
                     transmission={car.transmission}
                     rating={car.rating}
                     slug={displayCar.slug}
+                    brand={car.brand}
                     currency={currency}
                     onBook={() => handleBookCar(car.carName)}
                     onWhatsapp={() => handleWhatsapp(car.carName)}

@@ -495,6 +495,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     transmission={car.transmission}
                     rating={car.rating}
                     slug={displayCar.slug}
+                    brand={car.brand}
                     onBook={() => handleBookCar(car.carName)}
                     onWhatsapp={() => handleWhatsapp(car.carName)}
                   />
@@ -523,6 +524,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     transmission={car.transmission}
                     rating={car.rating}
                     slug={displayCar.slug}
+                    brand={car.brand}
                     onBook={() => handleBookCar(car.carName)}
                     onWhatsapp={() => handleWhatsapp(car.carName)}
                   />
@@ -553,6 +555,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       transmission={car.transmission}
                       rating={car.rating}
                       slug={displayCar.slug}
+                      brand={car.brand}
                       onBook={() => handleBookCar(car.carName)}
                       onWhatsapp={() => handleWhatsapp(car.carName)}
                     />
@@ -581,6 +584,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       transmission={car.transmission}
                       rating={car.rating}
                       slug={displayCar.slug}
+                      brand={car.brand}
                       onBook={() => handleBookCar(car.carName)}
                       onWhatsapp={() => handleWhatsapp(car.carName)}
                     />

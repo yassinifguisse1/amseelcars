@@ -13,8 +13,8 @@ const nextConfig: NextConfig = {
         destination: "https://www.amseelcars.com/:path*",
         permanent: true,
       },
-      // English entry slug (see src/i18n/routing.ts — localePrefix: "never", EN home is /home).
-      { source: "/en", destination: "/home", permanent: true },
+      // Legacy EN home URL -> canonical prefixed locale root.
+      { source: "/home", destination: "/en", permanent: true },
       // FR listing path rename: /vehicules is not used for EN; safe 301 to canonical /voitures.
       { source: "/vehicules", destination: "/voitures", permanent: true },
       {

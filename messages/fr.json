@@ -654,7 +654,6 @@
     "faq": {
       "heading": "Questions sur la location {brand} à Agadir",
       "note": "Réponses courtes : contactez-nous pour un dossier {brand} précis.",
-      "ctaLabel": "Parler à un spécialiste {brand}",
       "items": [
         {
           "question": "Puis-je recevoir une {brand} à l’aéroport d’Agadir ?",
@@ -671,6 +670,18 @@
       ]
     },
     "itemListName": "Locations {brand} disponibles à Agadir"
+  },
+  "bmwScroll": {
+    "loading": "Chargement...",
+    "bookNow": "Réservez maintenant",
+    "idealTrip": "Votre Trajet Idéal",
+    "awaits": "Vous attend",
+    "scrollHint": "Faites défiler pour explorer plus"
+  },
+  "reviews": {
+    "title": "Ce que nos clients disent",
+    "loading": "Chargement des avis...",
+    "publishedOn": "Publié sur {publisher}"
   },
   "notFound": {
     "documentTitle": "Page non trouvée - AmseelCars",

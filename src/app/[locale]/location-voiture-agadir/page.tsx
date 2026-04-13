@@ -13,8 +13,9 @@ import {
   carListingImageAlt,
   carListingImageTitle,
 } from "@/lib/carImageAlt";
-import { AgadirLandingShell } from "@/components/Landing/AgadirLandingShell";
-import styles from "@/components/Landing/agadir-landing.module.css";
+import { carBrandScopedHref } from "@/lib/carPublicHref";
+import { carSlugForLocale } from "@/lib/carSlugLocale";
+import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
 
 const siteUrl = "https://www.amseelcars.com";
 
@@ -51,12 +52,12 @@ const faqsEn = [
   {
     question: "Can I pick up the car at Agadir Al Massira Airport?",
     answer:
-      "Yes. We can arrange pickup and drop-off at Agadir–Al Massira Airport, or in Agadir city. Share your flight time and we’ll coordinate the handover.",
+      "Yes. We can arrange pickup and drop-off at Agadir Al Massira Airport, or in Agadir city. Share your flight time and we’ll coordinate the handover.",
   },
   {
     question: "What documents do I need to rent a car in Morocco?",
     answer:
-      "Typically a valid driving licence and an ID/passport. Requirements can vary depending on the vehicle—message us and we’ll confirm quickly.",
+      "Typically a valid driving licence and an ID/passport. Requirements can vary depending on the vehicle; message us and we’ll confirm quickly.",
   },
   {
     question: "Can I book through WhatsApp?",
@@ -82,23 +83,23 @@ export async function generateMetadata({
 
   if (locale === "en") {
     return {
-      title: "Agadir Car Rental — Airport pickup & city delivery",
+      title: "Agadir Car Rental - Airport pickup & city delivery",
       description:
-        "Rent a car in Agadir with pickup at Agadir–Al Massira Airport or in the city. Economy, SUV & premium cars. Fast booking via WhatsApp.",
+        "Rent a car in Agadir with pickup at Agadir Al Massira Airport (AGA) or in the city. Economy, SUV & premium cars. Fast booking via WhatsApp.",
       alternates: localizedAlternates("en", "/location-voiture-agadir"),
       openGraph: {
         type: "website",
         url: `${siteUrl}${path}`,
         siteName: "AmseelCars",
         locale: "en_US",
-        title: "Agadir Car Rental — Airport pickup & city delivery",
+        title: "Agadir Car Rental - Airport pickup & city delivery",
         description:
-          "Pickup at Agadir–Al Massira Airport or in the city. Economy, SUV & premium cars. Fast booking via WhatsApp.",
+          "Pickup at Agadir Al Massira Airport (AGA) or in the city. Economy, SUV & premium cars. Fast booking via WhatsApp.",
         images: [{ url: "/og/og-default.jpg" }],
       },
       twitter: {
         card: "summary_large_image",
-        title: "Agadir Car Rental — Airport pickup & city delivery",
+        title: "Agadir Car Rental - Airport pickup & city delivery",
         description:
           "Pickup at the airport or in Agadir city. Economy, SUV & premium cars.",
         images: ["/og/og-default.jpg"],
@@ -118,7 +119,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: "Location de voiture à Agadir — Aéroport & centre-ville",
+    title: "Location de voiture à Agadir  Aéroport & centre-ville",
     description:
       "Louez une voiture à Agadir au meilleur prix. Retrait à l’aéroport d’Agadir–Al Massira ou en ville, flotte citadines/SUV/premium, réservation simple par WhatsApp.",
     alternates: localizedAlternates("fr", "/location-voiture-agadir"),
@@ -127,16 +128,16 @@ export async function generateMetadata({
       url: `${siteUrl}${path}`,
       siteName: "AmseelCars",
       locale: "fr_MA",
-      title: "Location de voiture à Agadir — Aéroport & centre-ville",
+      title: "Location de voiture à Agadir  Aéroport & centre-ville",
       description:
-        "Retrait à l’aéroport d’Agadir–Al Massira ou en ville. Citadines, SUV et premium. Réservation rapide par WhatsApp.",
+        "Retrait à l’aéroport d’Agadir Al Massira ou en ville. Citadines, SUV et premium. Réservation rapide par WhatsApp.",
       images: [{ url: "/og/og-default.jpg" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Location de voiture à Agadir — Aéroport & centre-ville",
+      title: "Location de voiture à Agadir  Aéroport & centre-ville",
       description:
-        "Retrait à l’aéroport d’Agadir–Al Massira ou en ville. Citadines, SUV et premium.",
+        "Retrait à l’aéroport d’Agadir Al Massira ou en ville. Citadines, SUV et premium.",
       images: ["/og/og-default.jpg"],
     },
     robots: {
@@ -161,15 +162,26 @@ export default async function LocationVoitureAgadirPage() {
   const faqs = isEn ? faqsEn : faqsFr;
   const path = isEn ? "/agadir-car-rental" : "/location-voiture-agadir";
   const name = isEn
-    ? "Agadir Car Rental — Airport pickup & city delivery"
-    : "Location de voiture à Agadir — Aéroport & centre-ville";
+    ? "Agadir Car Rental  Airport pickup & city delivery"
+    : "Location de voiture à Agadir  Aéroport & centre-ville";
   const description = isEn
-    ? "Rent a car in Agadir with pickup at Agadir–Al Massira Airport or in the city. Economy, SUV & premium cars. Fast booking via WhatsApp."
-    : "Louez une voiture à Agadir au meilleur prix. Retrait à l’aéroport d’Agadir–Al Massira ou en ville, flotte citadines/SUV/premium, réservation simple par WhatsApp.";
+    ? "Rent a car in Agadir with pickup at Agadir Al Massira Airport or in the city. Economy, SUV & premium cars. Fast booking via WhatsApp."
+    : "Louez une voiture à Agadir au meilleur prix. Retrait à l’aéroport d’Agadir Al Massira ou en ville, flotte citadines/SUV/premium, réservation simple par WhatsApp.";
   const inLanguage = isEn ? "en-US" : "fr-MA";
   const breadcrumbName = isEn ? "Agadir Car Rental" : "Location de voiture à Agadir";
-  const carsPath = isEn ? "/cars" : "/voitures";
-  const contactPath = "/contact";
+  const carsPath = getPathname({ locale: l, href: "/cars" });
+  const fleetHref = carsPath;
+  const relatedPages = isEn
+    ? [
+        { label: "Agadir airport rental", href: getPathname({ locale: l, href: "/agadir-airport-car-rental" }) },
+        { label: "Taghazout & coast", href: getPathname({ locale: l, href: "/taghazout-car-rental" }) },
+        { label: "Contact", href: getPathname({ locale: l, href: "/contact" }) },
+      ]
+    : [
+        { label: "Location aéroport Agadir", href: getPathname({ locale: l, href: "/agadir-airport-car-rental" }) },
+        { label: "Taghazout & côte", href: getPathname({ locale: l, href: "/taghazout-car-rental" }) },
+        { label: "Contact", href: getPathname({ locale: l, href: "/contact" }) },
+      ];
 
   const structuredData = generateLocalSeoLandingGraphSchema({
     path,
@@ -177,7 +189,7 @@ export default async function LocationVoitureAgadirPage() {
     description,
     inLanguage,
     breadcrumbItems: [
-      { name: "Home", url: isEn ? "/home" : "/" },
+      { name: "Home", url: "/" },
       { name: "Cars", url: carsPath },
       { name: breadcrumbName, url: path },
     ],
@@ -200,29 +212,34 @@ export default async function LocationVoitureAgadirPage() {
     .filter(Boolean)
     .map((car) => {
       const c = carForLocale(car!, l);
+      const localizedSlug = carSlugForLocale(car!.slug, l);
+      const href = getPathname({
+        locale: l,
+        href: carBrandScopedHref(car!.brand, localizedSlug),
+      });
       return {
-        slug: c.slug,
         name: c.carName,
         image: c.carImage,
         imageAlt: carListingImageAlt(c, l),
         imageTitle: carListingImageTitle(c, l),
         imageCaption: carListingCaption(c, l),
+        href,
+        badge: `${car!.brand} ${car!.model}`,
       };
     });
 
-  if (isEn) {
-    return (
-      <>
-        <Script
-          id="ld-json-agadir-landing-en"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+  return (
+    <>
+      <Script
+        id={`ld-json-agadir-landing-${isEn ? "en" : "fr"}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
-        <AgadirLandingShell
-          variant="city"
-          fleetHref={carsPath}
-          langSlot={
+      <DestinationAeoLanding
+        variant="default"
+        languageSwitcher={
+          isEn ? (
             <>
               <Link href="/location-voiture-agadir" locale="fr">
                 FR
@@ -230,144 +247,132 @@ export default async function LocationVoitureAgadirPage() {
               <span aria-hidden>·</span>
               <span>EN</span>
             </>
-          }
-          heroTitle={
+          ) : (
             <>
-              <span className={styles.heroTitleAccent}>Agadir</span>
-              <span className={styles.heroHeadlineRest}> car rental</span>
+              <span>FR</span>
+              <span aria-hidden>·</span>
+              <Link href="/location-voiture-agadir" locale="en">
+                EN
+              </Link>
             </>
-          }
-          heroLead="Book in minutes: pickup at Agadir–Al Massira Airport or in the city, from daily drivers to premium SUVs—with quick answers on WhatsApp."
-          ctas={[
-            { href: carsPath, label: "Browse fleet", variant: "primary" },
-            { href: contactPath, label: "Get a quote", variant: "secondary" },
-            {
-              href: "https://wa.me/212662500181",
-              label: "WhatsApp",
-              variant: "whatsapp",
-            },
-          ]}
-          stats={[
-            { value: "Airport", label: "Al Massira pickup" },
-            { value: "City", label: "Downtown handover" },
-            { value: "Flexible", label: "Rental lengths" },
-          ]}
-          featuresKicker="Why AmseelCars"
-          featuresTitle="Built around how you travel"
-          featuresLead="From landing to checkout, we align pickup location, vehicle type, and messaging so you can focus on the coast—not paperwork."
-          features={[
-            {
-              icon: "pin",
-              title: "Pickup that fits your plan",
-              description:
-                "Airport, hotel, or neighbourhood handover—timed around your arrival and schedule.",
-            },
-            {
-              icon: "fleet",
-              title: "The right car for the road",
-              description:
-                "Economy for city hops, SUVs for comfort, premium options when you want extra space and refinement.",
-            },
-            {
-              icon: "bolt",
-              title: "Fast, human replies",
-              description:
-                "Share dates, location, and preferred model—we confirm availability and next steps without back-and-forth friction.",
-            },
-          ]}
-          carsKicker="Featured"
-          carsTitle="Popular picks in Agadir"
-          carsLead="Jump straight into a few frequently booked models—or explore the full fleet."
-          cars={cars}
-          fleetLinkLabel="See all cars"
-          carDetailHint="View details"
-          faqTitle="FAQ — renting a car in Agadir"
-          faqs={faqs}
-        />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <Script
-        id="ld-json-agadir-landing-fr"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
-
-      <AgadirLandingShell
-        variant="city"
-        fleetHref={carsPath}
-        statsAsideLabel="En bref"
-        langSlot={
-          <>
-            <span>FR</span>
-            <span aria-hidden>·</span>
-            <Link href="/location-voiture-agadir" locale="en">
-              EN
-            </Link>
-          </>
+          )
         }
-        heroTitle={
-          <>
-            <span className={styles.heroTitleAccent}>Agadir</span>
-            <span className={styles.heroHeadlineRest}>
-              {" "}
-              — location de voiture
-            </span>
-          </>
+        hero={{
+          eyebrow: isEn ? "Morocco Coast Collection" : "Collection Côte d'Agadir",
+          title: isEn ? (
+            <>
+              Agadir <span className="text-black/50">car rental</span>
+            </>
+          ) : (
+            <>
+              Agadir <span className="text-black/50">- location de voiture</span>
+            </>
+          ),
+          lead: isEn
+            ? "Airport or city delivery in under an hour. One WhatsApp thread coordinates paperwork, driver requests, and arrival timing."
+            : "Livraison aéroport ou centre-ville sous une heure. Un seul fil WhatsApp gère les formalités, préférences chauffeur et horaires d'arrivée.",
+          meta: "",
+        }}
+        quickAnswer={
+          isEn
+            ? "AmseelCars rents cars in Agadir with pickup at Agadir Al Massira Airport (AGA) or in the city center, economy to premium fleet, and booking via WhatsApp +212 662-500181."
+            : "AmseelCars propose la location de voiture à Agadir avec retrait à l’aéroport Agadir Al Massira (AGA) ou en centre ville, flotte citadines à premium, réservation par WhatsApp +212 662-500181."
         }
-        heroLead="Réservez en quelques messages : retrait à l’aéroport Al Massira ou en centre-ville, flotte du quotidien au premium, accompagnement WhatsApp."
-        ctas={[
-          { href: carsPath, label: "Voir la flotte", variant: "primary" },
-          {
-            href: contactPath,
-            label: "Demander un devis",
-            variant: "secondary",
-          },
-          {
-            href: "https://wa.me/212662500181",
-            label: "WhatsApp",
-            variant: "whatsapp",
-          },
-        ]}
-        stats={[
-          { value: "Al Massira", label: "Retrait aéroport" },
-          { value: "Ville", label: "Remise en centre-ville" },
-          { value: "Sur mesure", label: "Durées flexibles" },
-        ]}
-        featuresKicker="Pourquoi AmseelCars"
-        featuresTitle="Une location pensée pour Agadir"
-        featuresLead="Du vol à la route : nous adaptons le retrait, le véhicule et le suivi à votre séjour sur la côte."
-        features={[
-          {
-            icon: "pin",
-            title: "Retrait où vous êtes",
-            description:
-              "Aéroport Agadir–Al Massira, hôtel ou quartier : on synchronise la remise des clés sur votre horaire.",
-          },
-          {
-            icon: "fleet",
-            title: "Flotte pour chaque trajet",
-            description:
-              "Citadine pour la ville, SUV pour la route, berlines premium pour voyager confortablement.",
-          },
-          {
-            icon: "bolt",
-            title: "Réponse rapide",
-            description:
-              "Dates, lieu, modèle : nous confirmons la disponibilité et les prochaines étapes sans friction.",
-          },
-        ]}
-        carsKicker="Sélection"
-        carsTitle="Modèles souvent réservés à Agadir"
-        carsLead="Accédez directement à des véhicules populaires, ou parcourez toute la flotte."
+        keyFactsTitle={isEn ? "At a glance" : "En bref"}
+        keyFacts={
+          isEn
+            ? [
+                { term: "Who", value: "AmseelCars   car rental operator in Agadir, Morocco." },
+                { term: "Pickup", value: "Al Massira Airport (AGA) or Agadir city handover." },
+                { term: "How to book", value: "WhatsApp +212 662-500181 or email contact@amseelcars.com." },
+                { term: "Fleet", value: "Economy, SUV, and premium vehicles (typically under 24 months)." },
+              ]
+            : [
+                { term: "Qui", value: "AmseelCars loueur de voitures à Agadir, Maroc." },
+                { term: "Retrait", value: "Aéroport Al Massira (AGA) ou remise en centre-ville." },
+                { term: "Réservation", value: "WhatsApp +212 662-500181 ou contact@amseelcars.com." },
+                { term: "Flotte", value: "Citadines, SUV et premium (souvent moins de 24 mois)." },
+              ]
+        }
+        relatedPagesLabel={isEn ? "Related pages" : "Pages liées"}
+        relatedPages={relatedPages}
+        operationsSection={
+          isEn
+            ? {
+                kicker: "Operational clarity",
+                title: "Built for confident trips",
+                lead: "Red-and-black scheduling rituals keep handovers tight; whether you land at AGA or stay beachside.",
+              }
+            : {
+                kicker: "Clarté opérationnelle",
+                title: "Pensé pour des trajets sereins",
+                lead: "Une logistique rouge/noire pour des remises précises, que vous arriviez à l’AGA ou en bord de mer.",
+              }
+        }
+        aiPanel={
+          isEn
+            ? { badge: "AI-ready facts", title: "What assistants can cite" }
+            : { badge: "Faits exploitables IA", title: "Ce que les assistants peuvent citer" }
+        }
+        serviceChips={isEn ? ["Airport", "City", "WhatsApp concierge"] : ["Aéroport", "Centre-ville", "Conciergerie WhatsApp"]}
+        stats={
+          isEn
+            ? [
+                { label: "Pickup coverage", value: "12km", helper: "From Al Massira to beach hotels" },
+                { label: "Fleet mix", value: "SUV / premium", helper: "Curated for coastal drives" },
+                { label: "Response", value: "< 15 min", helper: "WhatsApp average" },
+              ]
+            : [
+                { label: "Zone retrait", value: "12 km", helper: "D'Al Massira aux hôtels plage" },
+                { label: "Flotte", value: "SUV / premium", helper: "Pensée pour la côte" },
+                { label: "Réponse", value: "< 15 min", helper: "Moyenne WhatsApp" },
+              ]
+        }
+        aiHighlights={
+          isEn
+            ? [
+                { title: "Pickup options", body: "Airport gates A/B, hotel lobby handover, or garage rendezvous for long-stay guests." },
+                { title: "Vehicles", body: "Citadine, SUV, and premium sedans all under 24 months with bilingual briefing cards." },
+                { title: "Contact", body: "WhatsApp +212 662-500181  answers in 15 minutes, French + English." },
+              ]
+            : [
+                { title: "Points de remise", body: "Portes A/B de l'aéroport, lobby hôtel ou garage pour séjours longs." },
+                { title: "Véhicules", body: "Citadines, SUV, berlines premium (<24 mois) avec fiches bilingues." },
+                { title: "Contact", body: "WhatsApp +212 662-500181  avec réponse sous 15 min FR + EN." },
+              ]
+        }
+        features={
+          isEn
+            ? [
+                { title: "Mission brief", description: "We send an arrival checklist with driver contact, plate number, and fuel policy." },
+                { title: "Delivery grid", description: "Red/black time blocks keep drop-offs precise even when flights shift." },
+                { title: "Concierge-ready", description: "Hotel staff get PDF/WhatsApp summaries they can forward instantly." },
+              ]
+            : [
+                { title: "Brief d'arrivée", description: "Envoi d'une check-list avec contact chauffeur, immatriculation et carburant." },
+                { title: "Grille de livraison", description: "Plages horaires rouge/noir pour rester précis même si le vol change." },
+                { title: "Conciergerie prête", description: "Le staff hôtel reçoit un PDF/WhatsApp à relayer immédiatement." },
+              ]
+        }
+        carsSection={{
+          kicker: isEn ? "Featured cars" : "Sélection",
+          title: isEn ? "Popular Agadir requests" : "Demandes populaires à Agadir",
+          lead: isEn
+            ? "Open the detailed card for pricing, delivery photos, and AI-ready copy."
+            : "Ouvrez la fiche pour tarifs, photos de remise et descriptifs IA-ready.",
+        }}
         cars={cars}
-        fleetLinkLabel="Voir toute la flotte"
-        carDetailHint="Voir la fiche"
-        faqTitle="Questions fréquentes — location à Agadir"
         faqs={faqs}
+        faqKicker={isEn ? "FAQ" : "FAQ"}
+        faqTitle={isEn ? "Agadir car rental  common questions" : "Location à Agadir  questions fréquentes"}
+        fleetCtaLabel={isEn ? "Browse full fleet" : "Voir toute la flotte"}
+        carOpenHint={isEn ? "Open car briefing →" : "Ouvrir la fiche →"}
+        ctas={{
+          primary: { label: isEn ? "Book via WhatsApp" : "Réserver sur WhatsApp", href: "https://wa.me/212662500181", variant: "primary", external: true },
+          secondary: { label: isEn ? "View entire fleet" : "Voir toute la flotte", href: carsPath, variant: "secondary" },
+          tertiary: { label: isEn ? "Email concierge" : "Conciergerie email", href: "mailto:contact@amseelcars.com", variant: "ghost", external: true },
+        }}
+        fleetHref={fleetHref}
       />
     </>
   );

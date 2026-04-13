@@ -3,7 +3,11 @@ import { LoadingProvider } from "@/contexts/LoadingContext";
 import { ContactContent } from "./ContactContent";
 import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
-import { generateLocalBusinessSchema, generateBreadcrumbSchema } from "@/lib/schemas";
+import {
+  generateContactPageSchema,
+  generateLocalBusinessSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import type { AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
@@ -34,11 +38,18 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Contact() {
   const locale = await getLocale();
   const l: AppLocale = locale === "en" ? "en" : "fr";
+  const tSeo = await getTranslations({ locale: l, namespace: "seo" });
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
   const tFooter = await getTranslations({ locale: l, namespace: "footer" });
   const homePath = getPathname({ locale: l, href: "/" });
   const contactPath = getPathname({ locale: l, href: "/contact" });
   const localBusinessSchema = generateLocalBusinessSchema();
+  const contactPageSchema = generateContactPageSchema({
+    path: contactPath,
+    title: tSeo("contact.title"),
+    description: tSeo("contact.description"),
+    inLanguage: l === "en" ? "en-US" : "fr-MA",
+  });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: tNav("home"), url: homePath },
     { name: tFooter("contact"), url: contactPath },
@@ -46,6 +57,11 @@ export default async function Contact() {
 
   return (
     <>
+      <Script
+        id="ld-json-contact-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
       {/* LocalBusiness Schema for Contact Page */}
       <Script
         id="ld-json-local-business-contact"

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Car, Users, Fuel, Settings } from "lucide-react"
 import Image from "next/image"
 import { getWhatsAppTrackBody } from "@/lib/trackWhatsApp"
+import { carBrandScopedHref } from "@/lib/carPublicHref"
 
 interface CarRentalCardProps {
   carName: string
@@ -23,6 +24,8 @@ interface CarRentalCardProps {
   transmission: string
   rating: number
   slug?: string // Optional slug for routing
+  /** With `slug`, builds brand-scoped car URL (`/cars/brand/...`) for SEO */
+  brand?: string
   href?: string // Optional custom href
   currency?: 'MAD' | 'EUR' | 'USD' // Currency for price display
   onBook: () => void
@@ -47,6 +50,7 @@ export function CarRentalCard({
   transmission,
   rating,
   slug,
+  brand,
   href,
   currency = 'MAD',
   onBook,
@@ -187,16 +191,20 @@ export function CarRentalCard({
   }
 
   if (slug) {
-    return (
-      <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
-        <Link
-          href={{
-            pathname: "/cars/[slug]",
+    const detailHref =
+      brand != null && brand.length > 0
+        ? {
+            ...carBrandScopedHref(brand, slug),
+            query: { currency },
+          }
+        : {
+            pathname: "/cars/[slug]" as const,
             params: { slug },
             query: { currency },
-          }}
-          className="block"
-        >
+          };
+    return (
+      <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
+        <Link href={detailHref} className="block">
           {cardContent}
         </Link>
       </CometCard>

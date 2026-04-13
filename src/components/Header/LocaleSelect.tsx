@@ -72,13 +72,31 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
       if (next === locale) return;
 
       const slug = params.slug;
-      const onCarDetail =
+      const carSlug = params.carSlug;
+      const brandSlugParam = params.brandSlug;
+      const onCarBrandDetail =
+        typeof carSlug === "string" &&
+        carSlug.length > 0 &&
+        typeof brandSlugParam === "string" &&
+        brandSlugParam.length > 0 &&
+        (pathname.includes("/brand/") || pathname.includes("/marque/"));
+      const onCarDetailFlat =
         typeof slug === "string" &&
         slug.length > 0 &&
-        (pathname.startsWith("/cars/") || pathname.startsWith("/voitures/"));
+        (pathname.startsWith("/cars/") || pathname.startsWith("/voitures/")) &&
+        !onCarBrandDetail;
 
       let target: string;
-      if (onCarDetail) {
+      if (onCarBrandDetail) {
+        const nextCarSlug = resolveCarDetailSlugForLocale(carSlug, next);
+        target = getPathname({
+          href: {
+            pathname: "/cars/brand/[brandSlug]/[carSlug]",
+            params: { brandSlug: brandSlugParam, carSlug: nextCarSlug },
+          },
+          locale: next,
+        });
+      } else if (onCarDetailFlat) {
         const nextSlug = resolveCarDetailSlugForLocale(slug, next);
         target = getPathname({
           href: { pathname: "/cars/[slug]", params: { slug: nextSlug } },

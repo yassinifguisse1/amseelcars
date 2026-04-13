@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useGoogleReviews } from "@/hooks/useGoogleReviews";
+import { useLocale, useTranslations } from "next-intl";
 import styles from "./Reviews.module.scss";
 
 export interface Review {
@@ -32,6 +33,8 @@ export default function Reviews({
   useApi = false,
   introParagraph,
 }: ReviewsProps) {
+  const t = useTranslations("reviews");
+  const locale = useLocale();
   // Fetch reviews from API if enabled
   const { reviews: apiReviews, loading: apiLoading } = useGoogleReviews();
   
@@ -73,7 +76,7 @@ export default function Reviews({
           <div>
             <h3 className={styles.authorName}>{review.author.name}</h3>
             <time className={styles.reviewDate} dateTime={review.datePublished}>
-              {new Date(review.datePublished).toLocaleDateString('fr-FR', {
+              {new Date(review.datePublished).toLocaleDateString(locale === "en" ? "en-US" : "fr-FR", {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -94,7 +97,7 @@ export default function Reviews({
       </div>
       {review.publisher && (
         <div className={styles.publisher}>
-          Publié sur {review.publisher.name}
+          {t("publishedOn", { publisher: review.publisher.name })}
         </div>
       )}
       <div className={styles.reviewBody}>
@@ -110,11 +113,11 @@ export default function Reviews({
       <section className={styles.reviewsSection}>
         <div className={styles.container}>
           <div className={styles.header}>
-            <h2 className={styles.title}>Ce que nos clients disent</h2>
+            <h2 className={styles.title}>{t("title")}</h2>
             {introParagraph && (
               <p className={styles.introLead}>{introParagraph}</p>
             )}
-            <p>Chargement des avis...</p>
+            <p>{t("loading")}</p>
           </div>
         </div>
       </section>
@@ -136,7 +139,7 @@ export default function Reviews({
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className={styles.title}>Ce que nos clients disent</h2>
+          <h2 className={styles.title}>{t("title")}</h2>
           {introParagraph && (
             <p className={styles.introLead}>{introParagraph}</p>
           )}

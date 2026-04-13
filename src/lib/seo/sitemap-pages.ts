@@ -1,7 +1,7 @@
 import { getPathname } from "@/i18n/navigation";
-import { getAllCarSlugs } from "@/data/cars";
+import { getAllCars } from "@/data/cars";
 import { frenchCarSlugToEnglishSlug } from "@/lib/carSlugLocale";
-import { getFleetBrandSlugsSorted } from "@/lib/brandSlug";
+import { brandToSlug, getFleetBrandSlugsSorted } from "@/lib/brandSlug";
 
 const baseUrl = "https://www.amseelcars.com";
 
@@ -79,11 +79,18 @@ export function buildPagesSitemapXml(lastmod: string): string {
     }
   }
 
-  const slugs = getAllCarSlugs();
-  for (const frSlug of slugs) {
+  for (const car of getAllCars()) {
+    const brandSlug = brandToSlug(car.brand);
+    const frSlug = car.slug;
     const enSlug = frenchCarSlugToEnglishSlug(frSlug);
-    const frHref = { pathname: "/cars/[slug]" as const, params: { slug: frSlug } };
-    const enHref = { pathname: "/cars/[slug]" as const, params: { slug: enSlug } };
+    const frHref = {
+      pathname: "/cars/brand/[brandSlug]/[carSlug]" as const,
+      params: { brandSlug, carSlug: frSlug },
+    };
+    const enHref = {
+      pathname: "/cars/brand/[brandSlug]/[carSlug]" as const,
+      params: { brandSlug, carSlug: enSlug },
+    };
     const frPath = getPathname({ locale: "fr", href: frHref });
     const enPath = getPathname({ locale: "en", href: enHref });
     for (const path of [frPath, enPath]) {

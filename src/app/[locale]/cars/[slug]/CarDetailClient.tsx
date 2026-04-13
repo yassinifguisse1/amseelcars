@@ -16,6 +16,8 @@ import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 
 interface CarDetailClientProps {
+  /** Optional brand hub crumb: Home / Fleet / Brand / Model */
+  brandHub?: { label: string; brandSlug: string };
   car: {
     slug?: string
     carName: string
@@ -84,7 +86,7 @@ function isValidCurrency(v: string | null): v is ValidCurrency {
  * @param car - Detailed car data used to populate images, pricing (including short/long term discounts), specs, features, location, and rich content shown on the page
  * @returns The React element for the car detail client component
  */
-export default function CarDetailClient({ car }: CarDetailClientProps) {
+export default function CarDetailClient({ car, brandHub }: CarDetailClientProps) {
   const localeUi = useLocale()
   const l: AppLocale = localeUi === 'en' ? 'en' : 'fr'
   const tNav = useTranslations('nav')
@@ -178,6 +180,20 @@ export default function CarDetailClient({ car }: CarDetailClientProps) {
             <Link href="/cars" className="text-muted-foreground hover:text-foreground">
               {tNav('cars')}
             </Link>
+            {brandHub ? (
+              <>
+                <span className="text-muted-foreground">/</span>
+                <Link
+                  href={{
+                    pathname: "/cars/brand/[brandSlug]",
+                    params: { brandSlug: brandHub.brandSlug },
+                  }}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  {brandHub.label}
+                </Link>
+              </>
+            ) : null}
             <span className="text-muted-foreground">/</span>
             <span className="text-foreground font-medium">{car.carName}</span>
           </div>

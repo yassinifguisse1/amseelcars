@@ -88,36 +88,29 @@ export function generateLocalBusinessSchema() {
     hasMap: businessMapsUrl,
     priceRange: '$$',
     currenciesAccepted: 'MAD',
-    paymentAccepted: ['Cash', 'Credit Card'],
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        contactType: 'customer service',
-        telephone: businessTelephone,
-        email: 'info@amseelcars.com',
-        availableLanguage: ['fr', 'en', 'ar'],
-        areaServed: ['MA'],
-      },
-      {
-        '@type': 'ContactPoint',
-        contactType: 'WhatsApp',
-        telephone: businessTelephone,
-        url: 'https://wa.me/212662500181',
-        availableLanguage: ['fr', 'en', 'ar'],
-        areaServed: ['MA'],
-      },
-    ],
+    paymentAccepted: 'Cash, Credit Card',
+    // Some validators are picky with arrays here; keep one ContactPoint and
+    // expose WhatsApp via `sameAs` (and the URL on this contact point).
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      telephone: businessTelephone,
+      email: 'info@amseelcars.com',
+      url: 'https://wa.me/212662500181',
+      availableLanguage: ['fr', 'en',],
+      areaServed: 'MA',
+    },
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: [
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday',
-          'Sunday',
+          'https://schema.org/Monday',
+          'https://schema.org/Tuesday',
+          'https://schema.org/Wednesday',
+          'https://schema.org/Thursday',
+          'https://schema.org/Friday',
+          'https://schema.org/Saturday',
+          'https://schema.org/Sunday',
         ],
         opens: '00:00',
         closes: '23:59',
@@ -138,7 +131,7 @@ export function generateLocalBusinessSchema() {
       },
       {
         '@type': 'Country',
-        name: 'Maroc',
+        name: 'Morocco',
       },
     ],
     sameAs: [
@@ -171,7 +164,8 @@ export function generateBlogPostingSchema(article: {
   
   return {
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    // Put Article first so generic schema testers detect "Article" explicitly.
+    '@type': ['Article', 'BlogPosting'],
     url: articleUrl,
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -195,6 +189,60 @@ export function generateBlogPostingSchema(article: {
     datePublished: article.publishedAt,
     dateModified: article.publishedAt, // Update if you track modifications
     articleSection: article.category,
+  };
+}
+
+/**
+ * AboutPage schema - used on /about
+ */
+export function generateAboutPageSchema(input: {
+  path: string;
+  title: string;
+  description: string;
+  inLanguage: string;
+}) {
+  const path = input.path.startsWith('/') ? input.path : `/${input.path}`;
+  const pageUrl = `${siteUrl}${path}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    '@id': `${pageUrl}#about-page`,
+    url: pageUrl,
+    name: input.title,
+    description: input.description,
+    inLanguage: input.inLanguage,
+    isPartOf: { '@id': `${siteUrl}#website` },
+    about: { '@id': `${siteUrl}#business` },
+    publisher: { '@id': `${siteUrl}#org` },
+    mainEntity: { '@id': `${siteUrl}#business` },
+  };
+}
+
+/**
+ * ContactPage schema - used on /contact
+ */
+export function generateContactPageSchema(input: {
+  path: string;
+  title: string;
+  description: string;
+  inLanguage: string;
+}) {
+  const path = input.path.startsWith('/') ? input.path : `/${input.path}`;
+  const pageUrl = `${siteUrl}${path}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    '@id': `${pageUrl}#contact-page`,
+    url: pageUrl,
+    name: input.title,
+    description: input.description,
+    inLanguage: input.inLanguage,
+    isPartOf: { '@id': `${siteUrl}#website` },
+    about: { '@id': `${siteUrl}#business` },
+    publisher: { '@id': `${siteUrl}#org` },
+    mainEntity: { '@id': `${siteUrl}#business` },
   };
 }
 
@@ -295,15 +343,23 @@ export function generateLocalSeoLandingGraphSchema(input: {
       name: input.service.name,
       description: input.service.description,
       url: pageUrl,
+      inLanguage: input.inLanguage,
       serviceType: 'Car rental',
       provider: { '@id': `${siteUrl}#business` },
       areaServed: input.serviceAreaServed ?? defaultAreaServed,
+      isPartOf: { '@id': `${siteUrl}#website` },
+      mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
     });
   }
 
   graph.push({
     '@type': 'FAQPage',
     '@id': `${pageUrl}#faq`,
+    inLanguage: input.inLanguage,
+    isPartOf: { '@id': `${siteUrl}#website` },
+    about,
+    publisher: { '@id': `${siteUrl}#org` },
+    mainEntityOfPage: { '@id': `${pageUrl}#webpage` },
     mainEntity: faqMainEntity,
   });
 
@@ -342,7 +398,8 @@ export function generateCarProductSchema(
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    // Product for commerce + Car for vehicle-specific properties (doors, fuel, transmission, etc.).
+    '@type': ['Product', 'Car'],
     '@id': `${carUrl}#product`,
     name: car.carName,
     description: car.description,
@@ -352,13 +409,11 @@ export function generateCarProductSchema(
       name: car.brand,
     },
     category: car.category,
-    additionalType: 'https://schema.org/Car',
     vehicleIdentificationNumber: stableId,
     vehicleModelDate: car.year.toString(),
     numberOfDoors: '5', // Default, update if you track this
-    numberOfAirbags: '6', // Default, update if you track this
     fuelType: car.fuelType,
-    transmission: car.transmission,
+    vehicleTransmission: car.transmission,
     seatingCapacity: car.seats,
     offers: {
       '@type': 'Offer',
@@ -392,17 +447,8 @@ export function generateReviewSchema(review: {
     '@context': 'https://schema.org',
     '@type': 'Review',
     '@id': `${siteUrl}#review-${review.id}`,
-    itemReviewed: {
-      '@type': 'AutoRental',
-      '@id': `${siteUrl}#business`,
-      name: siteName,
-      image: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
-      telephone: businessTelephone,
-      address: {
-        '@type': 'PostalAddress',
-        ...businessPostalAddress,
-      },
-    },
+    // Reference the stable LocalBusiness entity to avoid duplicating fields.
+    itemReviewed: { '@id': `${siteUrl}#business` },
     reviewRating: {
       '@type': 'Rating',
       ratingValue: review.rating.toString(),
@@ -436,11 +482,12 @@ export function generateAggregateRatingSchema(reviews: Array<{ rating: number }>
 
   return {
     '@type': 'AggregateRating',
-    ratingValue: ratingValue.toFixed(1),
-    ratingCount: ratingCount.toString(),
-    reviewCount: ratingCount.toString(),
-    bestRating: '5',
-    worstRating: '1',
+    // Some validators expect this even when nested under LocalBusiness.
+    itemReviewed: { '@id': `${siteUrl}#business` },
+    ratingValue: Number(ratingValue.toFixed(1)),
+    ratingCount,
+    reviewCount: ratingCount,
+    bestRating: 5,
+    worstRating: 1,
   };
 }
-

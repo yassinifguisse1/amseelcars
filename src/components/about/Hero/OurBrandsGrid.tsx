@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import type { AppLocale } from '@/i18n/routing'
 import { carSlugForLocale } from '@/lib/carSlugLocale'
+import { brandToSlug } from '@/lib/brandSlug'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -134,8 +135,11 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
     const href =
       frSlug != null
         ? ({
-            pathname: '/cars/[slug]',
-            params: { slug: carSlugForLocale(frSlug, locale) },
+            pathname: '/cars/brand/[brandSlug]/[carSlug]',
+            params: {
+              brandSlug: brandToSlug(brand.name),
+              carSlug: carSlugForLocale(frSlug, locale),
+            },
           } as const)
         : '/cars'
     return (

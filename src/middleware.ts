@@ -1,7 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
-import { NextRequest, NextResponse } from "next/server";
-import { inferLocaleFromPathname } from "./i18n/infer-locale-from-pathname";
+import { NextResponse } from "next/server";
 import { routing } from "./i18n/routing";
 
 const handleI18nRouting = createMiddleware(routing);
@@ -15,34 +14,6 @@ const isAdminRoute = createRouteMatcher([
   "/admin(.*)",
   "/api/admin(.*)",
 ]);
-
-/**
- * next-intl resolves locale before matching localized pathnames. With
- * `localePrefix: "never"` and only the default locale, `/about` was treated as
- * French and redirected to `/a-propos`. We set `NEXT_LOCALE` from the pathname
- * when it uniquely identifies a locale, and strip `Accept-Language` so the
- * browser does not override French on `/` or ambiguous paths.
- */
-function intlRequestWithHints(req: NextRequest, pathname: string): NextRequest {
-  const inferred = inferLocaleFromPathname(pathname);
-  const headers = new Headers(req.headers);
-  headers.delete("accept-language");
-
-  if (inferred) {
-    const raw = req.headers.get("cookie") ?? "";
-    const withoutNextLocale = raw
-      .split(";")
-      .map((c) => c.trim())
-      .filter((c) => c.length > 0 && !c.startsWith("NEXT_LOCALE="))
-      .join("; ");
-    const nextCookie = withoutNextLocale
-      ? `${withoutNextLocale}; NEXT_LOCALE=${inferred}`
-      : `NEXT_LOCALE=${inferred}`;
-    headers.set("cookie", nextCookie);
-  }
-
-  return new NextRequest(req.url, { headers });
-}
 
 function shouldSkipI18n(pathname: string) {
   return (
@@ -58,6 +29,11 @@ function shouldSkipI18n(pathname: string) {
 
 export default clerkMiddleware(async (auth, req) => {
   const { pathname } = req.nextUrl;
+
+  // Backward compatibility for legacy EN home URL.
+  if (pathname === "/home") {
+    return NextResponse.redirect(new URL("/en", req.url), 308);
+  }
 
   // Static media under /public/video — must not run next-intl (rewrites break the path → 404).
   if (pathname.startsWith("/video/")) {
@@ -117,7 +93,7 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next();
   }
 
-  return handleI18nRouting(intlRequestWithHints(req, pathname));
+  return handleI18nRouting(req);
 });
 
 export const config = {
