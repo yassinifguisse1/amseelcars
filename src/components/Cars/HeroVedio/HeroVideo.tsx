@@ -2,8 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 
-const HERO_VIDEO_POSTER = '/images/Hero.jpg'
-
 /**
  * Hero video: defer loading until the section is near the viewport to improve LCP/INP on /cars.
  */
@@ -12,7 +10,9 @@ const HeroVideo = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
+  const [isVideoReady, setIsVideoReady] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     setIsClient(true)
@@ -45,42 +45,59 @@ const HeroVideo = () => {
     return () => observer.disconnect()
   }, [isClient])
 
-  if (!isClient) {
-    return (
-      <section ref={sectionRef} className="hero w-full">
-        <div
-          className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
-          style={{ backgroundImage: `url(${HERO_VIDEO_POSTER})` }}
-          aria-hidden
-        />
-      </section>
-    )
+  useEffect(() => {
+    setIsVideoReady(false)
+  }, [isMobile, shouldLoadVideo])
+
+    if (!isClient) {
+      return (
+        <section ref={sectionRef} className="hero w-full">
+          <div
+            className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
+            style={{ backgroundImage: 'linear-gradient(135deg, #090909, #1a1a1a)' }}
+            aria-hidden
+          />
+        </section>
+      )
   }
 
   return (
-    <section ref={sectionRef} className="hero">
+    <section ref={sectionRef} className="hero relative">
       {shouldLoadVideo ? (
-        <video
-          className="hero-video w-full h-[80svh] object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={HERO_VIDEO_POSTER}
-          fetchPriority="low"
-          key={isMobile ? 'mobile' : 'desktop'}
-        >
-          <source
-            src={isMobile ? '/video/Mobile-video.mp4' : '/video/HeroVideo.mp4'}
-            type="video/mp4"
-          />
-          {t('videoNotSupported')}
-        </video>
+        <>
+          <video
+            ref={videoRef}
+            className="hero-video w-full h-[80svh] object-cover"
+            muted
+            loop
+            playsInline
+            preload="auto"
+            fetchPriority="low"
+            key={isMobile ? 'mobile' : 'desktop'}
+            onLoadedData={() => {
+              setIsVideoReady(true)
+              window.setTimeout(() => {
+                void videoRef.current?.play()
+              }, 140)
+            }}
+          >
+            <source
+              src={isMobile ? '/video/Mobile-video.mp4' : '/video/HeroVideo.mp4'}
+              type="video/mp4"
+            />
+            {t('videoNotSupported')}
+          </video>
+          {!isVideoReady ? (
+            <div
+              className="pointer-events-none absolute inset-0 hero-video w-full h-[80svh] bg-black"
+              aria-hidden
+            />
+          ) : null}
+        </>
       ) : (
         <div
           className="hero-video w-full h-[80svh] bg-black bg-cover bg-center"
-          style={{ backgroundImage: `url(${HERO_VIDEO_POSTER})` }}
+          style={{ backgroundImage: 'linear-gradient(135deg, #090909, #1a1a1a)' }}
           role="img"
           aria-label={t('posterAria')}
         />

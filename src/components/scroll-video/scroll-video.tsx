@@ -1126,13 +1126,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { useLoading } from "@/contexts/LoadingContext";
-
-const LANDING_VIDEO_POSTER = "/images/Hero.jpg";
 
 function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
   const t = useTranslations("home.hero");
@@ -1197,6 +1195,8 @@ function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
 const Cardrive = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const {
     setFramesLoaded,
@@ -1225,6 +1225,10 @@ const Cardrive = () => {
     setMinimumTimeElapsed(true);
   }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
 
+  useEffect(() => {
+    setIsVideoReady(false);
+  }, [isMobile, isClient]);
+
   /* SSR: video-sized band + crawlable copy below (no text over video) */
   if (!isClient) {
     return (
@@ -1247,15 +1251,20 @@ const Cardrive = () => {
       <section className="relative bg-black">
         <div className="relative h-[100svh] min-h-[520px] w-full overflow-hidden bg-black">
           <video
+            ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover"
-            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
-            poster={LANDING_VIDEO_POSTER}
+            preload="auto"
             fetchPriority="high"
             key={isMobile ? "mobile" : "desktop"}
+            onLoadedData={() => {
+              setIsVideoReady(true);
+              window.setTimeout(() => {
+                void videoRef.current?.play();
+              }, 140);
+            }}
           >
             <source
               src={
@@ -1267,6 +1276,9 @@ const Cardrive = () => {
             />
             Your browser does not support the video tag.
           </video>
+          {!isVideoReady ? (
+            <div className="absolute inset-0 bg-black" aria-hidden />
+          ) : null}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[min(28vh,12rem)] bg-gradient-to-t from-black via-black/25 to-transparent"
             aria-hidden
