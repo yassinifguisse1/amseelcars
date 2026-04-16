@@ -2,6 +2,8 @@ import { z } from 'zod';
 
 export const articleSchema = z.object({
   slug: z.string().min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
+  locale: z.enum(['fr', 'en']).default('fr'),
+  translationGroup: z.string().trim().optional().default(''),
   title: z.string().min(1, 'Title is required'),
   content: z.string().min(1, 'Content is required'),
   category: z.string().min(1, 'Category is required'),

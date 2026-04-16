@@ -82,9 +82,15 @@ export function useArticle(slug: string | null) {
 }
 
 // Hook to fetch related articles
-export function useRelatedArticles(slug: string | null, limit: number = 3) {
+export function useRelatedArticles(
+  slug: string | null,
+  limit: number = 3,
+  locale: BlogArticle["locale"] = "fr",
+) {
   const { data, error, isLoading, mutate } = useSWR<BlogArticle[]>(
-    slug ? `/api/articles/related?slug=${encodeURIComponent(slug)}&limit=${limit}` : null,
+    slug
+      ? `/api/articles/related?slug=${encodeURIComponent(slug)}&limit=${limit}&locale=${encodeURIComponent(locale)}`
+      : null,
     fetcher,
     {
       revalidateOnFocus: true,

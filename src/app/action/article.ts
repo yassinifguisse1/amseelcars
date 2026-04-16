@@ -5,6 +5,8 @@ import { BlogArticle } from '@/data/blog';
 function transformArticle(article: {
   id: string;
   slug: string;
+  locale: string;
+  translationGroup: string | null;
   title: string;
   content: string;
   category: string;
@@ -24,6 +26,8 @@ function transformArticle(article: {
   return {
     id: article.id,
     slug: article.slug,
+    locale: article.locale === "en" ? "en" : "fr",
+    translationGroup: article.translationGroup ?? undefined,
     title: article.title,
     content: article.content,
     category: article.category,
@@ -42,8 +46,9 @@ function transformArticle(article: {
   };
 }
 
-export async function getArticles(): Promise<BlogArticle[]> {
+export async function getArticles(locale: BlogArticle["locale"] = "fr"): Promise<BlogArticle[]> {
   const articles = await prisma.blogArticle.findMany({
+    where: { locale },
     orderBy: { publishedAt: 'desc' },
   });
   return articles.map(transformArticle);

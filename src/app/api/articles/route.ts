@@ -27,6 +27,8 @@ function createNoCacheResponse(data: unknown, status: number = 200) {
 function transformArticle(article: {
   id: string;
   slug: string;
+  locale: string;
+  translationGroup: string | null;
   title: string;
   content: string;
   category: string;
@@ -46,6 +48,8 @@ function transformArticle(article: {
   return {
     id: article.id,
     slug: article.slug,
+    locale: article.locale === "en" ? "en" : "fr",
+    translationGroup: article.translationGroup ?? undefined,
     title: article.title,
     content: article.content,
     category: article.category,
@@ -71,12 +75,14 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
     const featured = searchParams.get('featured');
     const slug = searchParams.get('slug');
+    const localeParam = searchParams.get('locale');
+    const locale: "fr" | "en" = localeParam === "en" ? "en" : "fr";
     const limit = searchParams.get('limit');
 
     // Get single article by slug
     if (slug) {
-      const article = await prisma.blogArticle.findUnique({
-        where: { slug },
+      const article = await prisma.blogArticle.findFirst({
+        where: { slug, locale },
       });
       
       if (!article) {
@@ -93,7 +99,8 @@ export async function GET(request: NextRequest) {
     const where: {
       category?: string;
       featured?: boolean;
-    } = {};
+      locale: "fr" | "en";
+    } = { locale };
     if (category) {
       where.category = category;
     }

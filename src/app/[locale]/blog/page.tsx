@@ -65,7 +65,7 @@ export default async function BlogPage() {
     { name: "Home", url: homePath },
     { name: "Blog", url: blogPath },
   ]);
-  const articles = await getArticles();
+  const articles = await getArticles(l);
 
 
   return (

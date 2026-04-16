@@ -19,8 +19,8 @@ async function migrateArticles() {
   for (const article of blogArticles) {
     try {
       // Check if article already exists
-      const existing = await prisma.blogArticle.findUnique({
-        where: { slug: article.slug },
+      const existing = await prisma.blogArticle.findFirst({
+        where: { slug: article.slug, locale: 'fr' },
       });
       
       if (existing) {
@@ -32,6 +32,8 @@ async function migrateArticles() {
       // Transform article data to match database schema
       const articleData = {
         slug: article.slug,
+        locale: 'fr',
+        translationGroup: article.slug,
         title: article.title,
         content: article.content,
         category: article.category,

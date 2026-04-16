@@ -3,6 +3,8 @@ import { useEffect, useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { BlogArticle } from '@/data/blog';
 import { useRelatedArticles } from '@/hooks/useArticles';
+import { useLocale } from "next-intl";
+import type { AppLocale } from "@/i18n/routing";
 import Footer from "@/components/Footer/Footer";
 
 import ArticleHero from "@/components/Blog/ArticleHero";
@@ -15,6 +17,7 @@ interface ArticleContentProps {
 }
 
 export function ArticleContent({ article }: ArticleContentProps) {
+  const locale = useLocale() as AppLocale;
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -68,7 +71,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
         <ArticleHero article={article} />
         <ArticleBody article={article} />
         <Suspense fallback={<div className="py-12 text-center">Chargement des articles similaires...</div>}>
-          <RelatedArticlesWrapper articleSlug={article.slug} />
+          <RelatedArticlesWrapper articleSlug={article.slug} locale={locale === "en" ? "en" : "fr"} />
         </Suspense>
         <Footer />
       </motion.div>
@@ -77,8 +80,8 @@ export function ArticleContent({ article }: ArticleContentProps) {
 }
 
 // Wrapper component for related articles with Suspense
-function RelatedArticlesWrapper({ articleSlug }: { articleSlug: string }) {
-  const { articles: relatedArticles, isLoading } = useRelatedArticles(articleSlug, 3);
+function RelatedArticlesWrapper({ articleSlug, locale }: { articleSlug: string; locale: "fr" | "en" }) {
+  const { articles: relatedArticles, isLoading } = useRelatedArticles(articleSlug, 3, locale);
   
   if (isLoading) {
     return <div className="py-12 text-center">Chargement des articles similaires...</div>;

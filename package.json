@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "migrate:articles": "tsx scripts/migrate-articles.ts",
+    "backfill:blog-locale": "tsx scripts/backfill-blog-locale.ts",
     "generate:car-products": "tsx scripts/generate-car-products.ts"
   },
   "dependencies": {

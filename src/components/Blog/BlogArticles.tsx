@@ -8,6 +8,8 @@ import { useArticles, useFeaturedArticles, useCategories } from '@/hooks/useArti
 import { BlogArticlesSkeleton } from './BlogArticlesSkeleton';
 import styles from "./BlogArticles.module.scss";
 import ArticleCard from "./ArticleCard";
+import { useLocale } from "next-intl";
+import type { AppLocale } from "@/i18n/routing";
 
 interface BlogArticlesProps {
   articles?: BlogArticle[];
@@ -98,6 +100,8 @@ function BlogArticlesContent({
   showFilter: boolean;
   categories?: string[];
 }) {
+  const locale = useLocale() as AppLocale;
+
   // Use SWR hooks to fetch data
   const { articles: fetchedArticles, isLoading: articlesLoading } = useArticles();
   const { articles: featuredArticles, isLoading: featuredLoading } = useFeaturedArticles();
@@ -135,12 +139,16 @@ function BlogArticlesContent({
         viewport={{ once: true }}
       >
         <h2 className={styles.title}>
-          {selectedCategory ? `${selectedCategory}` : "Articles Récents"}
+          {selectedCategory ? `${selectedCategory}` : locale === "en" ? "Recent Articles" : "Articles Récents"}
         </h2>
         <p className={styles.subtitle}>
           {selectedCategory 
-            ? `Découvrez tous nos articles sur ${selectedCategory.toLowerCase()}`
-            : "Découvrez nos derniers conseils et actualités pour optimiser votre expérience de location"
+            ? locale === "en"
+              ? `Explore all our articles about ${selectedCategory.toLowerCase()}`
+              : `Découvrez tous nos articles sur ${selectedCategory.toLowerCase()}`
+            : locale === "en"
+              ? "Discover our latest tips and updates to improve your car rental experience in Agadir"
+              : "Découvrez nos derniers conseils et actualités pour optimiser votre expérience de location"
           }
         </p>
         
@@ -156,7 +164,7 @@ function BlogArticlesContent({
               className={`${styles.categoryButton} ${!selectedCategory ? styles.active : ''}`}
               onClick={() => setSelectedCategory(null)}
             >
-              Tous
+              {locale === "en" ? "All" : "Tous"}
             </button>
             {categories.map((category) => (
               <Link

@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: `Découvrez tous nos articles sur ${category.toLowerCase()}.`,
       url: `https://www.amseelcars.com${path}`,
       siteName: 'AmseelCars',
-      locale: 'fr_MA',
+      locale: l === 'en' ? 'en_US' : 'fr_MA',
     },
     twitter: {
       card: 'summary_large_image',
@@ -89,7 +89,9 @@ export default async function CategoryPage({ params }: PageProps) {
     notFound();
   }
 
-  const articles = await getArticlesByCategory(category);
+  const locale = await getLocale();
+  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const articles = await getArticlesByCategory(category, l);
 
   return (
     <LoadingProvider>

@@ -9,7 +9,7 @@ export async function GET() {
   const urls = articles
     .map((article) => {
       const lastmod = new Date(article.publishedAt).toISOString().split('T')[0]
-      const url = `${baseUrl}/blog/${categoryToSlug(article.category)}/${article.slug}`
+      const url = `${baseUrl}/${article.locale}/blog/${categoryToSlug(article.category)}/${article.slug}`
       return `  <url>
     <loc>${url}</loc>
     <lastmod>${lastmod}</lastmod>

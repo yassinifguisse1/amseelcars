@@ -2,7 +2,12 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { getLocale } from 'next-intl/server';
-import { getArticleByCategoryAndSlug, getAllArticles, categoryToSlug } from '@/data/blog';
+import {
+  getArticleByCategoryAndSlug,
+  getArticleByTranslationGroup,
+  getAllArticles,
+  categoryToSlug,
+} from '@/data/blog';
 import { localizedAlternates } from '@/lib/seo/localized-alternates';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
@@ -26,17 +31,28 @@ interface PageProps {
 // Generate static params for all articles with their categories
 export async function generateStaticParams() {
   const articles = await getAllArticles();
-  
-  return articles.map((article) => ({
-    category: categoryToSlug(article.category),
-    slug: article.slug,
-  }));
+
+  // Deduplicate (category, slug) pairs across locales.
+  const seen = new Set<string>();
+  const params: Array<{ category: string; slug: string }> = [];
+
+  for (const article of articles) {
+    const category = categoryToSlug(article.category);
+    const key = `${category}|${article.slug}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    params.push({ category, slug: article.slug });
+  }
+
+  return params;
 }
 
 // Generate metadata for each article (SEO optimized)
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category: categorySlug, slug } = await params;
-  const article = await getArticleByCategoryAndSlug(categorySlug, slug);
+  const locale = await getLocale();
+  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const article = await getArticleByCategoryAndSlug(categorySlug, slug, l);
   
   if (!article) {
     return {
@@ -45,13 +61,48 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
   const href = {
     pathname: "/blog/[category]/[slug]" as const,
     params: { category: categorySlug, slug },
   };
   const path = getPathname({ locale: l, href });
+  let alternates = localizedAlternates(l, href);
+
+  if (article.translationGroup) {
+    const otherLocale: AppLocale = l === "fr" ? "en" : "fr";
+    const translatedArticle = await getArticleByTranslationGroup(
+      article.translationGroup,
+      otherLocale,
+    );
+
+    if (translatedArticle) {
+      const currentPath = getPathname({
+        locale: l,
+        href: {
+          pathname: "/blog/[category]/[slug]",
+          params: { category: categoryToSlug(article.category), slug: article.slug },
+        },
+      });
+      const translatedPath = getPathname({
+        locale: otherLocale,
+        href: {
+          pathname: "/blog/[category]/[slug]",
+          params: {
+            category: categoryToSlug(translatedArticle.category),
+            slug: translatedArticle.slug,
+          },
+        },
+      });
+
+      alternates = {
+        canonical: currentPath,
+        languages:
+          l === "fr"
+            ? { fr: currentPath, en: translatedPath, "x-default": currentPath }
+            : { fr: translatedPath, en: currentPath, "x-default": translatedPath },
+      };
+    }
+  }
 
   return {
     title: article.seo.metaTitle,
@@ -60,13 +111,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     authors: [{ name: article.author.name }],
     creator: article.author.name,
     publisher: 'AmseelCars',
-    alternates: localizedAlternates(l, href),
+    alternates,
     openGraph: {
       type: 'article',
       title: article.title,
       url: `https://www.amseelcars.com${path}`,
       siteName: 'AmseelCars',
-      locale: 'fr_MA',
+      locale: l === 'en' ? 'en_US' : 'fr_MA',
       images: [
         {
           url: article.image,
@@ -122,7 +173,7 @@ export default async function ArticlePage({ params }: PageProps) {
   // Debug logging (remove in production)
   console.log('Route params:', { categorySlug, slug });
   
-  const article = await getArticleByCategoryAndSlug(categorySlug, slug);
+  const article = await getArticleByCategoryAndSlug(categorySlug, slug, l);
   
   if (!article) {
     console.log('Article not found for:', { categorySlug, slug });

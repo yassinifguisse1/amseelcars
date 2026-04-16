@@ -50,7 +50,15 @@ export default function AdminPage() {
   const [jsonMode, setJsonMode] = useState(false);
   const [jsonInput, setJsonInput] = useState('');
   const [activeTab, setActiveTab] = useState<'create' | 'list' | 'pages'>('create');
-  const [articles, setArticles] = useState<Array<{ id: string; slug: string; category: string }>>([]);
+  const [articles, setArticles] = useState<
+    Array<{
+      id: string;
+      slug: string;
+      category: string;
+      locale: "fr" | "en";
+      translationGroup?: string;
+    }>
+  >([]);
   const [articlesLoading, setArticlesLoading] = useState(false);
   const [articlesError, setArticlesError] = useState<string | null>(null);
   const [deletingArticleId, setDeletingArticleId] = useState<string | null>(null);
@@ -60,7 +68,7 @@ export default function AdminPage() {
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [loadingArticle, setLoadingArticle] = useState(false);
   const [lastSuccessOperation, setLastSuccessOperation] = useState<'create' | 'update' | 'delete' | null>(null);
-  
+
   // Page management states
   const [pages, setPages] = useState<Array<{ id: string; slug: string; title: string; published: boolean }>>([]);
   const [pagesLoading, setPagesLoading] = useState(false);
@@ -130,14 +138,16 @@ export default function AdminPage() {
       }
       const data = await response.json();
       const article = data.article;
-      
+
       if (!article) {
         throw new Error('Article not found');
       }
-      
+
       // Transform article data to form format
       const formData: ArticleFormData = {
         slug: article.slug,
+        locale: article.locale ?? "fr",
+        translationGroup: article.translationGroup ?? "",
         title: article.title,
         content: article.content,
         category: article.category,
@@ -154,7 +164,7 @@ export default function AdminPage() {
         author: article.author,
         seo: article.seo,
       };
-      
+
       setEditingArticleId(articleId);
       form.reset(formData);
       setActiveTab('create');
@@ -200,7 +210,7 @@ export default function AdminPage() {
       // Remove article from list
       setArticles(articles.filter(article => article.id !== articleId));
       setDeleteConfirm(null);
-      
+
       // Show success message
       setLastSuccessOperation('delete');
       setSubmitSuccess(true);
@@ -253,7 +263,7 @@ export default function AdminPage() {
       const url = editingPageId
         ? `/api/admin/pages?id=${editingPageId}`
         : '/api/admin/pages';
-      
+
       const method = editingPageId ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -272,7 +282,7 @@ export default function AdminPage() {
 
       setSubmitSuccess(true);
       setLastSuccessOperation(editingPageId ? 'update' : 'create');
-      
+
       // Reset form
       setPageFormData({
         slug: '',
@@ -291,10 +301,10 @@ export default function AdminPage() {
         },
       });
       setEditingPageId(null);
-      
+
       // Refresh pages list
       await fetchPages();
-      
+
       console.log('[Admin] Page saved successfully:', data.page.slug);
     } catch (error: unknown) {
       console.error('Error saving page:', error);
@@ -419,7 +429,7 @@ export default function AdminPage() {
         const role = user?.publicMetadata?.role as string | undefined;
         const admin = role === 'admin';
         setIsAdmin(admin);
-        
+
         if (!admin) {
           // Redirect to unauthorized page after a brief delay
           setTimeout(() => {
@@ -452,6 +462,8 @@ export default function AdminPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(articleSchema) as any,
     defaultValues: {
+      locale: 'fr',
+      translationGroup: '',
       slug: '',
       title: '',
       content: '',
@@ -486,15 +498,15 @@ export default function AdminPage() {
     setSubmitSuccess(false);
 
     try {
-      const url = editingArticleId 
+      const url = editingArticleId
         ? `/api/admin/articles?id=${editingArticleId}`
         : '/api/admin/articles';
       const method = editingArticleId ? 'PUT' : 'POST';
 
-      console.log(`[Admin] ${method} request to ${url}`, { 
+      console.log(`[Admin] ${method} request to ${url}`, {
         articleId: editingArticleId,
         slug: data.slug,
-        title: data.title 
+        title: data.title
       });
 
       const response = await fetch(url, {
@@ -530,7 +542,7 @@ export default function AdminPage() {
       }
 
       console.log('[Admin] Success:', result.message || 'Article saved successfully');
-      
+
       // VERIFY: For updates, log the response to confirm data
       if (editingArticleId && result.article) {
         console.log('[Admin] Update response verified:', {
@@ -543,20 +555,20 @@ export default function AdminPage() {
       const wasEditing = !!editingArticleId;
       setLastSuccessOperation(wasEditing ? 'update' : 'create');
       setSubmitSuccess(true);
-      
+
       // Clear form and editing state
       form.reset();
       setEditingArticleId(null);
-      
+
       // IMPORTANT: Always refresh articles list after update/create
       // This ensures the UI reflects the latest data, especially in production
       await fetchArticles();
-      
+
       // If we were editing, switch to list view to see the update
       if (wasEditing) {
         setActiveTab('list');
       }
-      
+
       // Redirect to article list or show success message
       setTimeout(() => {
         if (activeTab === 'create') {
@@ -567,7 +579,7 @@ export default function AdminPage() {
       }, 1500);
     } catch (error: unknown) {
       console.error('[Admin] Error submitting form:', error);
-      
+
       // Handle network errors
       if (error instanceof TypeError && error.message.includes('fetch')) {
         setSubmitError('Network error: Unable to connect to server. Please check your connection and try again.');
@@ -606,12 +618,12 @@ export default function AdminPage() {
 
       setSubmitSuccess(true);
       setJsonInput('');
-      
+
       // Refresh articles list if on list tab
       if (activeTab === 'list') {
         fetchArticles();
       }
-      
+
       setTimeout(() => {
         if (activeTab === 'create') {
           setActiveTab('list');
@@ -699,11 +711,10 @@ export default function AdminPage() {
                 cancelEdit();
               }
             }}
-            className={`rounded-b-none border-b-2 ${
-              activeTab === 'create'
+            className={`rounded-b-none border-b-2 ${activeTab === 'create'
                 ? 'border-primary text-primary'
                 : 'border-transparent'
-            }`}
+              }`}
             size="sm"
           >
             {editingArticleId ? (
@@ -724,11 +735,10 @@ export default function AdminPage() {
               setActiveTab('list');
               cancelEdit();
             }}
-            className={`rounded-b-none border-b-2 ${
-              activeTab === 'list'
+            className={`rounded-b-none border-b-2 ${activeTab === 'list'
                 ? 'border-primary text-primary'
                 : 'border-transparent'
-            }`}
+              }`}
             size="sm"
           >
             <List className="mr-2 h-4 w-4" />
@@ -741,11 +751,10 @@ export default function AdminPage() {
               cancelEdit();
               cancelPageEdit();
             }}
-            className={`rounded-b-none border-b-2 ${
-              activeTab === 'pages'
+            className={`rounded-b-none border-b-2 ${activeTab === 'pages'
                 ? 'border-primary text-primary'
                 : 'border-transparent'
-            }`}
+              }`}
             size="sm"
           >
             <Plus className="mr-2 h-4 w-4" />
@@ -794,10 +803,10 @@ export default function AdminPage() {
                 {lastSuccessOperation === 'delete'
                   ? activeTab === 'pages' ? 'Page deleted successfully!' : 'Article deleted successfully!'
                   : lastSuccessOperation === 'update'
-                  ? activeTab === 'pages' ? 'Page updated successfully!' : 'Article updated successfully! Redirecting...'
-                  : lastSuccessOperation === 'create'
-                  ? activeTab === 'pages' ? 'Page created successfully!' : 'Article created successfully! Redirecting...'
-                  : 'Operation completed successfully!'}
+                    ? activeTab === 'pages' ? 'Page updated successfully!' : 'Article updated successfully! Redirecting...'
+                    : lastSuccessOperation === 'create'
+                      ? activeTab === 'pages' ? 'Page created successfully!' : 'Article created successfully! Redirecting...'
+                      : 'Operation completed successfully!'}
               </p>
             </CardContent>
           </Card>
@@ -820,7 +829,7 @@ export default function AdminPage() {
               <CardHeader>
                 <CardTitle>{editingPageId ? 'Edit Page' : 'Add New Page'}</CardTitle>
                 <CardDescription>
-                  {editingPageId 
+                  {editingPageId
                     ? 'Update the page details below.'
                     : 'Create a new page for your website.'}
                 </CardDescription>
@@ -926,8 +935,8 @@ export default function AdminPage() {
                           <Input
                             id="page-metaTitle"
                             value={pageFormData.seo.metaTitle}
-                            onChange={(e) => setPageFormData({ 
-                              ...pageFormData, 
+                            onChange={(e) => setPageFormData({
+                              ...pageFormData,
                               seo: { ...pageFormData.seo, metaTitle: e.target.value }
                             })}
                             placeholder="SEO Title"
@@ -939,8 +948,8 @@ export default function AdminPage() {
                           <Textarea
                             id="page-metaDescription"
                             value={pageFormData.seo.metaDescription}
-                            onChange={(e) => setPageFormData({ 
-                              ...pageFormData, 
+                            onChange={(e) => setPageFormData({
+                              ...pageFormData,
                               seo: { ...pageFormData.seo, metaDescription: e.target.value }
                             })}
                             placeholder="SEO Description"
@@ -952,8 +961,8 @@ export default function AdminPage() {
                           <Input
                             id="page-canonical"
                             value={pageFormData.seo.canonical}
-                            onChange={(e) => setPageFormData({ 
-                              ...pageFormData, 
+                            onChange={(e) => setPageFormData({
+                              ...pageFormData,
                               seo: { ...pageFormData.seo, canonical: e.target.value }
                             })}
                             placeholder="/page-slug"
@@ -1000,8 +1009,8 @@ export default function AdminPage() {
                   {pagesLoading
                     ? 'Loading pages...'
                     : pages.length > 0
-                    ? `Total: ${pages.length} page${pages.length > 1 ? 's' : ''}`
-                    : 'No pages found'}
+                      ? `Total: ${pages.length} page${pages.length > 1 ? 's' : ''}`
+                      : 'No pages found'}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1042,11 +1051,10 @@ export default function AdminPage() {
                               /{page.slug}
                             </code>
                           </div>
-                          <span className={`text-xs px-2 py-1 rounded ${
-                            page.published 
-                              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+                          <span className={`text-xs px-2 py-1 rounded ${page.published
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                               : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
-                          }`}>
+                            }`}>
                             {page.published ? 'Published' : 'Draft'}
                           </span>
                           {deletePageConfirm === page.id && (
@@ -1114,8 +1122,8 @@ export default function AdminPage() {
                 {articlesLoading
                   ? 'Loading articles...'
                   : articles.length > 0
-                  ? `Total: ${articles.length} article${articles.length > 1 ? 's' : ''}`
-                  : 'No articles found'}
+                    ? `Total: ${articles.length} article${articles.length > 1 ? 's' : ''}`
+                    : 'No articles found'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1166,6 +1174,11 @@ export default function AdminPage() {
                             <code className="text-sm font-mono bg-muted px-2 py-1 rounded">
                               {article.slug}
                             </code>
+                            {article.translationGroup && (
+                              <span className="text-xs text-muted-foreground">
+                                key: {article.translationGroup}
+                              </span>
+                            )}
                             {deleteConfirm === article.id && (
                               <span className="text-xs text-red-600 dark:text-red-400 font-medium">
                                 Click delete again to confirm
@@ -1179,7 +1192,7 @@ export default function AdminPage() {
                               onClick={() => {
                                 // Navigate to article page using category from article
                                 const categorySlug = categoryToSlug(article.category);
-                                router.push(`/blog/${categorySlug}/${article.slug}`);
+                                router.push(`/${article.locale}/blog/${categorySlug}/${article.slug}`);
                               }}
                             >
                               View
@@ -1285,9 +1298,9 @@ export default function AdminPage() {
                   className="h-[400px] font-mono text-sm overflow-y-scroll overflow-x-scroll resize-none"
                 />
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> The <code className="bg-muted px-1 py-0.5 rounded">indexable</code> field controls search engine indexing. 
-                  Set to <code className="bg-muted px-1 py-0.5 rounded">true</code> to allow indexing (default), 
-                  or <code className="bg-muted px-1 py-0.5 rounded">false</code> to prevent indexing. 
+                  <strong>Note:</strong> The <code className="bg-muted px-1 py-0.5 rounded">indexable</code> field controls search engine indexing.
+                  Set to <code className="bg-muted px-1 py-0.5 rounded">true</code> to allow indexing (default),
+                  or <code className="bg-muted px-1 py-0.5 rounded">false</code> to prevent indexing.
                   If omitted, it defaults to <code className="bg-muted px-1 py-0.5 rounded">true</code>.
                 </p>
               </div>
@@ -1313,7 +1326,7 @@ export default function AdminPage() {
             <CardHeader>
               <CardTitle>{editingArticleId ? 'Edit Article' : 'Create New Article'}</CardTitle>
               <CardDescription>
-                {editingArticleId 
+                {editingArticleId
                   ? 'Update the article details below.'
                   : 'Fill out the form below to create a new blog article.'}
               </CardDescription>
@@ -1321,10 +1334,49 @@ export default function AdminPage() {
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="locale"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Language *</FormLabel>
+                        <FormControl>
+                          <div className="inline-flex w-full rounded-lg border bg-muted/30 p-1">
+                            <button
+                              type="button"
+                              onClick={() => field.onChange("fr")}
+                              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${field.value === "fr"
+                                  ? "bg-background text-foreground shadow-sm"
+                                  : "text-muted-foreground hover:text-foreground"
+                                }`}
+                              aria-pressed={field.value === "fr"}
+                            >
+                              Francais
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => field.onChange("en")}
+                              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${field.value === "en"
+                                  ? "bg-background text-foreground shadow-sm"
+                                  : "text-muted-foreground hover:text-foreground"
+                                }`}
+                              aria-pressed={field.value === "en"}
+                            >
+                              English
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          Choose which language version of the blog article you are writing.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   {/* Basic Information */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Basic Information</h3>
-                    
+
                     <FormField
                       control={form.control}
                       name="slug"
@@ -1351,6 +1403,28 @@ export default function AdminPage() {
                           <FormControl>
                             <Input placeholder="Article Title" {...field} />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+
+                    <FormField
+                      control={form.control}
+                      name="translationGroup"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Translation Key</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="same-key-for-fr-and-en-versions"
+                              {...field}
+                              value={field.value ?? ""}
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            Use the same key in FR and EN articles to link translated versions with different slugs.
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -1433,7 +1507,7 @@ export default function AdminPage() {
                   {/* Content */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Content</h3>
-                    
+
                     <FormField
                       control={form.control}
                       name="content"
@@ -1474,7 +1548,7 @@ export default function AdminPage() {
                   {/* Media */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Media</h3>
-                    
+
                     <FormField
                       control={form.control}
                       name="image"
@@ -1528,7 +1602,7 @@ export default function AdminPage() {
                   {/* SEO */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">SEO</h3>
-                    
+
                     <FormField
                       control={form.control}
                       name="seo.metaTitle"
@@ -1606,7 +1680,7 @@ export default function AdminPage() {
                   {/* Tags & Featured */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Tags & Settings</h3>
-                    
+
                     <FormField
                       control={form.control}
                       name="tags"
@@ -1711,7 +1785,7 @@ export default function AdminPage() {
             </CardContent>
           </Card>
         )}
-    </div>
+      </div>
     </div>
   );
 }

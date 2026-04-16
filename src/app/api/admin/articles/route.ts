@@ -55,6 +55,8 @@ export async function POST(request: NextRequest) {
     // Parse and validate request body first (before database calls)
     const body = await request.json();
     const validatedData = articleSchema.parse(body);
+    const translationGroup =
+      validatedData.translationGroup?.trim() || crypto.randomUUID();
 
     // Helper function for retrying database operations
     const retryDbOperation = async <T>(
@@ -90,9 +92,10 @@ export async function POST(request: NextRequest) {
 
     // Check if slug already exists with retry
     const existingArticle = await retryDbOperation(
-      () => prisma.blogArticle.findUnique({
-        where: { slug: validatedData.slug },
-      }),
+      () =>
+        prisma.blogArticle.findFirst({
+          where: { slug: validatedData.slug, locale: validatedData.locale },
+        }),
       'check slug existence'
     );
 
@@ -108,6 +111,8 @@ export async function POST(request: NextRequest) {
       () => prisma.blogArticle.create({
         data: {
           slug: validatedData.slug,
+          locale: validatedData.locale,
+          translationGroup,
           title: validatedData.title,
           content: validatedData.content,
           category: validatedData.category,
@@ -195,6 +200,8 @@ export async function GET(request: NextRequest) {
         article: {
           id: article.id,
           slug: article.slug,
+          locale: article.locale,
+          translationGroup: article.translationGroup ?? '',
           title: article.title,
           content: article.content,
           category: article.category,
@@ -228,6 +235,8 @@ export async function GET(request: NextRequest) {
               id: true,
               slug: true,
               category: true,
+              locale: true,
+              translationGroup: true,
             },
             orderBy: { publishedAt: 'desc' },
           });
@@ -487,12 +496,24 @@ export async function PUT(request: NextRequest) {
       );
     }
 
+    const translationGroup =
+      validatedData.translationGroup?.trim() ||
+      existingArticle.translationGroup ||
+      crypto.randomUUID();
+
     // Check if slug is being changed and if new slug already exists
-    if (validatedData.slug !== existingArticle.slug) {
+    if (
+      validatedData.slug !== existingArticle.slug ||
+      validatedData.locale !== existingArticle.locale
+    ) {
       const slugExists = await retryDbOperation(
-        () => prisma.blogArticle.findUnique({
-          where: { slug: validatedData.slug },
-        }),
+        () =>
+          prisma.blogArticle.findFirst({
+            where: {
+              slug: validatedData.slug,
+              locale: validatedData.locale,
+            },
+          }),
         'check slug uniqueness'
       );
 
@@ -516,6 +537,8 @@ export async function PUT(request: NextRequest) {
         where: { id: articleId },
         data: {
           slug: validatedData.slug,
+          locale: validatedData.locale,
+          translationGroup,
           title: validatedData.title,
           content: validatedData.content,
           category: validatedData.category,
