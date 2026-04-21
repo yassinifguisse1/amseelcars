@@ -3396,118 +3396,74 @@ export const cars: Car[] = [
      fuelType: "Diesel",
      transmission: "Automatique",
      rating: 4.7,
-     description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
-  richContent: {
-    h1Title: "Citroën C3 2024 : la citadine diesel automatique idéale à louer à Agadir | Amsel Cars",
-    seoTitle: "Location Citroen C3 2024 à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez la Citroen C3 2024 à Agadir : diesel BlueHDi, boîte automatique, 5 places, faible consommation et connectivité Apple CarPlay/Android Auto.",
-    sections: [
-      {
-        h2: "Citroën C3 2024 en location à Agadir : pratique, économique et agréable",
-        paragraphs: [
-          "Si vous cherchez une voiture simple, économique et agréable à conduire au quotidien, la Citroën C3 2024 est un choix très apprécié en location à Agadir.",
-          "Compacte et facile à prendre en main, elle convient aussi bien aux trajets en ville qu'aux sorties vers Taghazout, Imouzzer ou les plages autour d'Agadir.",
-          "C'est une citadine polyvalente : stationnement facile, conduite douce, bonne visibilité et confort rassurant pour un séjour \"sans prise de tête\"."
-        ]
-      },
-      {
-        h2: "Motorisation diesel 1.5 BlueHDi : efficiente et adaptée aux longs trajets",
-        paragraphs: [
-          "L'un des grands atouts de la Citroën C3 2024, c'est sa motorisation diesel 1.5L BlueHDi, appréciée pour son compromis entre souplesse et consommation maîtrisée.",
-          "Avec environ 102 ch, elle reste suffisamment dynamique pour une citadine : insertions sur voie rapide, dépassements et conduite routière confortable.",
-          "Côté consommation, elle affiche une efficience intéressante autour de 4,4 à 4,5 L/100 km (WLTP), pratique si vous roulez beaucoup pendant votre séjour."
-        ]
-      },
-      {
-        h2: "Boîte automatique : confort maximal en ville",
-        paragraphs: [
-          "En location, la boîte automatique est un vrai plus : conduite plus fluide, démarrages simples et moins de fatigue dans la circulation.",
-          "À Agadir, où le trafic varie selon les heures et la saison, l'automatique apporte une tranquillité immédiate : vous vous concentrez sur la route et la navigation.",
-          "C'est une configuration idéale pour les conducteurs habitués à l'automatique comme pour ceux qui recherchent une prise en main rapide et rassurante."
-        ]
-      },
-      {
-        h2: "Confort à bord et 5 places : un format intelligent",
-        paragraphs: [
-          "La Citroën C3 2024 reste une citadine, mais elle offre un espace intérieur correct avec 5 places, pratique pour une petite famille ou un petit groupe.",
-          "À l'avant, l'assise est confortable et la position de conduite convient à la majorité des profils.",
-          "C'est un excellent compromis à Agadir : assez compacte pour la ville, mais suffisamment habitable pour des trajets plus longs."
-        ]
-      },
-      {
-        h2: "Connectivité : Apple CarPlay et Android Auto",
-        paragraphs: [
-          "La Citroën C3 2024 propose une connectivité moderne avec Apple CarPlay et Android Auto (selon finition).",
-          "Vous connectez votre smartphone pour la navigation (Google Maps/Waze), la musique et les appels mains libres.",
-          "En voyage, c'est un vrai confort : itinéraires plus simples, déplacements plus fluides et conduite plus sereine."
-        ]
-      },
-      {
-        h2: "Sécurité et aides à la conduite : plus de sérénité",
-        paragraphs: [
-          "La C3 2024 peut intégrer des aides à la conduite utiles (selon finition) comme le freinage d'urgence et le maintien de voie.",
-          "Ces équipements apportent un supplément de confort et de sécurité, notamment sur voie rapide ou lors des trajets plus longs.",
-          "Ils ne remplacent pas la vigilance du conducteur, mais participent à une expérience de conduite plus rassurante."
-        ]
-      },
-      {
-        h2: "Performances adaptées aux routes du Maroc",
-        paragraphs: [
-          "La Citroën C3 2024 n'est pas une voiture sportive, mais elle est largement suffisante pour un usage polyvalent à Agadir et dans la région.",
-          "Avec une vitesse maximale annoncée autour de 188 km/h et un 0–100 km/h d'environ 10,2 s, elle garde de la marge pour rouler sereinement sur route.",
-          "La traction avant offre une conduite stable et prévisible, idéale pour la ville, les routes côtières et les trajets interurbains."
-        ]
-      },
-      {
-        h2: "Pourquoi louer une Citroën C3 2024 à Agadir ?",
-        paragraphs: [
-          "Louer une Citroën C3 2024, c'est choisir l'équilibre : économie, confort, connectivité et facilité de conduite.",
-          "Le diesel apporte une autonomie intéressante si vous prévoyez plusieurs excursions et de nombreux kilomètres.",
-          "C'est une option pertinente pour se déplacer entre l'aéroport, le centre-ville, la Marina, la corniche, les plages et les environs."
-        ]
-      },
-      {
-        h2: "Conclusion",
-        paragraphs: [
-          "La Citroën C3 2024 est une valeur sûre en location à Agadir : diesel 1.5 BlueHDi, boîte automatique, 5 places, faible consommation et connectivité moderne.",
-          "Confortable, pratique et rassurante, elle répond parfaitement aux besoins d'un séjour touristique ou professionnel.",
-          "Contactez Amsel Cars pour réserver votre Citroën C3 2024 à Agadir et profiter d'une expérience simple et économique."
-        ]
-      }
-    ],
-    faqs: [
-      {
-        question: "Quel est le prix de location d'une Citroën C3 ?",
-        answer: "Le tarif dépend de la saison, de la durée, de la caution, du kilométrage et des options (assurances, livraison). Le mieux est de demander un devis selon vos dates."
-      },
-      {
-        question: "Le prix de Citroën C3 au Maroc ?",
-        answer: "Le prix varie selon la version, l'année, la motorisation et l'état (neuf/occasion). Les concessions et le marché de l'occasion affichent des écarts importants selon l'offre."
-      },
-      {
-        question: "Quel est le tarif d'une location de voiture au Maroc ?",
-        answer: "Les tarifs varient selon la ville, la période (haute/basse saison), la catégorie du véhicule et les conditions (assurance, caution, kilométrage)."
-      },
-      {
-        question: "Quels sont les points négatifs de la Citroën C3 ?",
-        answer: "Les points souvent cités concernent l'espace/coffre limités par rapport à des modèles plus grands, des performances modestes selon motorisation, et un niveau d'insonorisation variable selon versions."
-      }
-    ]
-  },
+      description: "Dacia Logan 2026 diesel manuelle : berline spacieuse, économique et fiable. Idéale pour Agadir, l'aéroport et les excursions avec un bon volume de coffre.",
+   richContent: {
+   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | Amsel Cars",
+   seoTitle: "Location Dacia Logan 2026 à Agadir | Amsel Cars",
+   seoMetaDescription: "Louez la Dacia Logan 2026 à Agadir : diesel, boîte manuelle, 5 places, grand coffre et budget maîtrisé.",
+   sections: [
+     {
+       h2: "Dacia Logan 2026 en location à Agadir",
+       paragraphs: [
+         "La Dacia Logan 2026 est un excellent choix si vous recherchez une voiture simple, fiable et économique.",
+         "Son format berline offre plus d'espace de coffre qu'une citadine classique, pratique pour les transferts aéroport et les séjours avec bagages."
+       ]
+     },
+     {
+       h2: "Diesel + boîte manuelle : maîtrise et autonomie",
+       paragraphs: [
+         "La motorisation diesel convient très bien aux longs trajets et aux kilométrages plus élevés pendant votre séjour.",
+         "La boîte manuelle est idéale pour les conducteurs qui préfèrent une conduite directe et un meilleur contrôle."
+       ]
+     },
+     {
+       h2: "Confort, 5 places et usage polyvalent",
+       paragraphs: [
+         "Avec 5 places et un habitacle pratique, la Logan convient aux couples, petites familles et déplacements professionnels.",
+         "Elle reste agréable en ville tout en étant efficace sur route pour les sorties autour d'Agadir."
+       ]
+     },
+     {
+       h2: "Pourquoi louer une Dacia Logan à Agadir ?",
+       paragraphs: [
+         "Parce qu'elle combine budget, espace et sobriété en carburant.",
+         "Une solution pertinente pour l'aéroport, le centre-ville, la corniche et les excursions."
+       ]
+     }
+   ],
+   faqs: [
+     {
+       question: "Quel est le prix de location d'une Dacia Logan ?",
+       answer: "Le tarif dépend de la saison, de la durée et des options. Contactez-nous avec vos dates pour un devis précis."
+     },
+     {
+       question: "La Dacia Logan est-elle adaptée aux longs trajets ?",
+       answer: "Oui, son moteur diesel et son confort en font une bonne option pour les trajets interurbains."
+     },
+     {
+       question: "Boîte manuelle ou automatique pour Agadir ?",
+       answer: "La manuelle convient très bien si vous êtes habitué à ce type de conduite et souhaitez garder un bon contrôle."
+     },
+     {
+       question: "La Logan est-elle adaptée aux familles ?",
+       answer: "Oui, pour une petite famille, grâce aux 5 places et au coffre généreux."
+     }
+   ]
+   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
-       { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie" },
-       { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
+        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+        { icon: "🛡️", name: "Sécurité", value: "ABS, airbags, aides essentielles (selon finition)" },
+        { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.5L BlueHDi (4 cylindres, diesel)",
-       horsepower: "102 ch",
-       acceleration: "0–100 km/h en 10,2 s",
-       topSpeed: "188 km/h",
-       fuelEfficiency: "4,4–4,5 l/100 km (WLTP)",
+        engine: "1.5L diesel (selon version)",
+        horsepower: "environ 95–100 ch",
+        acceleration: "0–100 km/h (selon version)",
+        topSpeed: "vitesse max (selon version)",
+        fuelEfficiency: "consommation maîtrisée (selon cycle)",
        drivetrain: "Traction (roues avant)"
      },
      category: 'economy',
@@ -3538,119 +3494,75 @@ export const cars: Car[] = [
        seats: 5,
        fuelType: "Diesel",
        transmission: "manuelle",
-       rating: 4.7,
-       description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
-    richContent: {
-      h1Title: "Citroën C3 2024 : la citadine diesel automatique idéale à louer à Agadir | Amsel Cars",
-      seoTitle: "Location Citroen C3 2024 à Agadir | Amsel Cars",
-      seoMetaDescription: "Louez la Citroen C3 2024 à Agadir : diesel BlueHDi, boîte automatique, 5 places, faible consommation et connectivité Apple CarPlay/Android Auto.",
-      sections: [
-        {
-          h2: "Citroën C3 2024 en location à Agadir : pratique, économique et agréable",
-          paragraphs: [
-            "Si vous cherchez une voiture simple, économique et agréable à conduire au quotidien, la Citroën C3 2024 est un choix très apprécié en location à Agadir.",
-            "Compacte et facile à prendre en main, elle convient aussi bien aux trajets en ville qu'aux sorties vers Taghazout, Imouzzer ou les plages autour d'Agadir.",
-            "C'est une citadine polyvalente : stationnement facile, conduite douce, bonne visibilité et confort rassurant pour un séjour \"sans prise de tête\"."
-          ]
-        },
-        {
-          h2: "Motorisation diesel 1.5 BlueHDi : efficiente et adaptée aux longs trajets",
-          paragraphs: [
-            "L'un des grands atouts de la Citroën C3 2024, c'est sa motorisation diesel 1.5L BlueHDi, appréciée pour son compromis entre souplesse et consommation maîtrisée.",
-            "Avec environ 102 ch, elle reste suffisamment dynamique pour une citadine : insertions sur voie rapide, dépassements et conduite routière confortable.",
-            "Côté consommation, elle affiche une efficience intéressante autour de 4,4 à 4,5 L/100 km (WLTP), pratique si vous roulez beaucoup pendant votre séjour."
-          ]
-        },
-        {
-          h2: "Boîte automatique : confort maximal en ville",
-          paragraphs: [
-            "En location, la boîte automatique est un vrai plus : conduite plus fluide, démarrages simples et moins de fatigue dans la circulation.",
-            "À Agadir, où le trafic varie selon les heures et la saison, l'automatique apporte une tranquillité immédiate : vous vous concentrez sur la route et la navigation.",
-            "C'est une configuration idéale pour les conducteurs habitués à l'automatique comme pour ceux qui recherchent une prise en main rapide et rassurante."
-          ]
-        },
-        {
-          h2: "Confort à bord et 5 places : un format intelligent",
-          paragraphs: [
-            "La Citroën C3 2024 reste une citadine, mais elle offre un espace intérieur correct avec 5 places, pratique pour une petite famille ou un petit groupe.",
-            "À l'avant, l'assise est confortable et la position de conduite convient à la majorité des profils.",
-            "C'est un excellent compromis à Agadir : assez compacte pour la ville, mais suffisamment habitable pour des trajets plus longs."
-          ]
-        },
-        {
-          h2: "Connectivité : Apple CarPlay et Android Auto",
-          paragraphs: [
-            "La Citroën C3 2024 propose une connectivité moderne avec Apple CarPlay et Android Auto (selon finition).",
-            "Vous connectez votre smartphone pour la navigation (Google Maps/Waze), la musique et les appels mains libres.",
-            "En voyage, c'est un vrai confort : itinéraires plus simples, déplacements plus fluides et conduite plus sereine."
-          ]
-        },
-        {
-          h2: "Sécurité et aides à la conduite : plus de sérénité",
-          paragraphs: [
-            "La C3 2024 peut intégrer des aides à la conduite utiles (selon finition) comme le freinage d'urgence et le maintien de voie.",
-            "Ces équipements apportent un supplément de confort et de sécurité, notamment sur voie rapide ou lors des trajets plus longs.",
-            "Ils ne remplacent pas la vigilance du conducteur, mais participent à une expérience de conduite plus rassurante."
-          ]
-        },
-        {
-          h2: "Performances adaptées aux routes du Maroc",
-          paragraphs: [
-            "La Citroën C3 2024 n'est pas une voiture sportive, mais elle est largement suffisante pour un usage polyvalent à Agadir et dans la région.",
-            "Avec une vitesse maximale annoncée autour de 188 km/h et un 0–100 km/h d'environ 10,2 s, elle garde de la marge pour rouler sereinement sur route.",
-            "La traction avant offre une conduite stable et prévisible, idéale pour la ville, les routes côtières et les trajets interurbains."
-          ]
-        },
-        {
-          h2: "Pourquoi louer une Citroën C3 2024 à Agadir ?",
-          paragraphs: [
-            "Louer une Citroën C3 2024, c'est choisir l'équilibre : économie, confort, connectivité et facilité de conduite.",
-            "Le diesel apporte une autonomie intéressante si vous prévoyez plusieurs excursions et de nombreux kilomètres.",
-            "C'est une option pertinente pour se déplacer entre l'aéroport, le centre-ville, la Marina, la corniche, les plages et les environs."
-          ]
-        },
-        {
-          h2: "Conclusion",
-          paragraphs: [
-            "La Citroën C3 2024 est une valeur sûre en location à Agadir : diesel 1.5 BlueHDi, boîte automatique, 5 places, faible consommation et connectivité moderne.",
-            "Confortable, pratique et rassurante, elle répond parfaitement aux besoins d'un séjour touristique ou professionnel.",
-            "Contactez Amsel Cars pour réserver votre Citroën C3 2024 à Agadir et profiter d'une expérience simple et économique."
-          ]
-        }
-      ],
-      faqs: [
-        {
-          question: "Quel est le prix de location d'une Citroën C3 ?",
-          answer: "Le tarif dépend de la saison, de la durée, de la caution, du kilométrage et des options (assurances, livraison). Le mieux est de demander un devis selon vos dates."
-        },
-        {
-          question: "Le prix de Citroën C3 au Maroc ?",
-          answer: "Le prix varie selon la version, l'année, la motorisation et l'état (neuf/occasion). Les concessions et le marché de l'occasion affichent des écarts importants selon l'offre."
-        },
-        {
-          question: "Quel est le tarif d'une location de voiture au Maroc ?",
-          answer: "Les tarifs varient selon la ville, la période (haute/basse saison), la catégorie du véhicule et les conditions (assurance, caution, kilométrage)."
-        },
-        {
-          question: "Quels sont les points négatifs de la Citroën C3 ?",
-          answer: "Les points souvent cités concernent l'espace/coffre limités par rapport à des modèles plus grands, des performances modestes selon motorisation, et un niveau d'insonorisation variable selon versions."
-        }
-      ]
-    },
+      rating: 4.7,
+      description: "Dacia Logan 2026 diesel manuelle : berline spacieuse, économique et fiable. Idéale pour Agadir, l'aéroport et les excursions avec un bon volume de coffre.",
+   richContent: {
+   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | Amsel Cars",
+   seoTitle: "Location Dacia Logan 2026 à Agadir | Amsel Cars",
+   seoMetaDescription: "Louez la Dacia Logan 2026 à Agadir : diesel, boîte manuelle, 5 places, grand coffre et budget maîtrisé.",
+   sections: [
+     {
+       h2: "Dacia Logan 2026 en location à Agadir",
+       paragraphs: [
+         "La Dacia Logan 2026 est un excellent choix si vous recherchez une voiture simple, fiable et économique.",
+         "Son format berline offre plus d'espace de coffre qu'une citadine classique, pratique pour les transferts aéroport et les séjours avec bagages."
+       ]
+     },
+     {
+       h2: "Diesel + boîte manuelle : maîtrise et autonomie",
+       paragraphs: [
+         "La motorisation diesel convient très bien aux longs trajets et aux kilométrages plus élevés pendant votre séjour.",
+         "La boîte manuelle est idéale pour les conducteurs qui préfèrent une conduite directe et un meilleur contrôle."
+       ]
+     },
+     {
+       h2: "Confort, 5 places et usage polyvalent",
+       paragraphs: [
+         "Avec 5 places et un habitacle pratique, la Logan convient aux couples, petites familles et déplacements professionnels.",
+         "Elle reste agréable en ville tout en étant efficace sur route pour les sorties autour d'Agadir."
+       ]
+     },
+     {
+       h2: "Pourquoi louer une Dacia Logan à Agadir ?",
+       paragraphs: [
+         "Parce qu'elle combine budget, espace et sobriété en carburant.",
+         "Une solution pertinente pour l'aéroport, le centre-ville, la corniche et les excursions."
+       ]
+     }
+   ],
+   faqs: [
+     {
+       question: "Quel est le prix de location d'une Dacia Logan ?",
+       answer: "Le tarif dépend de la saison, de la durée et des options. Contactez-nous avec vos dates pour un devis précis."
+     },
+     {
+       question: "La Dacia Logan est-elle adaptée aux longs trajets ?",
+       answer: "Oui, son moteur diesel et son confort en font une bonne option pour les trajets interurbains."
+     },
+     {
+       question: "Boîte manuelle ou automatique pour Agadir ?",
+       answer: "La manuelle convient très bien si vous êtes habitué à ce type de conduite et souhaitez garder un bon contrôle."
+     },
+     {
+       question: "La Logan est-elle adaptée aux familles ?",
+       answer: "Oui, pour une petite famille, grâce aux 5 places et au coffre généreux."
+     }
+   ]
+   },
        features: [
          { icon: "🚗", name: "Sièges", value: "5" },
          { icon: "⛽", name: "Carburant", value: "Diesel" },
-         { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
-         { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie" },
-         { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
+        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+        { icon: "🛡️", name: "Sécurité", value: "ABS, airbags, aides essentielles (selon finition)" },
+        { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
          { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
        ],
        specs: {
-         engine: "1.5L BlueHDi (4 cylindres, diesel)",
-         horsepower: "102 ch",
-         acceleration: "0–100 km/h en 10,2 s",
-         topSpeed: "188 km/h",
-         fuelEfficiency: "4,4–4,5 l/100 km (WLTP)",
+        engine: "1.5L diesel (selon version)",
+        horsepower: "environ 95–100 ch",
+        acceleration: "0–100 km/h (selon version)",
+        topSpeed: "vitesse max (selon version)",
+        fuelEfficiency: "consommation maîtrisée (selon cycle)",
          drivetrain: "Traction (roues avant)"
        },
        category: 'economy',
@@ -3666,12 +3578,12 @@ export const cars: Car[] = [
          year: 2026,
          carImage: "/images/Clio 5-auto-2026-Essence-img01.png",
          images: [
-           { src: "/images/Clio 5-auto-2026-Essence-img01.png", alt: "Citroën C3 - vue avant", isPrimary: true },
-           { src: "/images/Clio 5-auto-2026-Essence-img02.png", alt: "Citroën C3 - intérieur" },
-           { src: "/images/Clio-5-auto-2026-Essence-img03.png", alt: "Citroën C3 - vue latérale" },
-           { src: "/images/Clio-5-auto-2026-Essence-img04.png", alt: "Citroën C3 - vue latérale" },
-           { src: "/images/Clio 5 auto 2026 Essence img05.png", alt: "Citroën C3 - vue latérale" },
-           { src: "/images/Clio 5 auto 2026 Essence img06.png", alt: "Citroën C3 - vue latérale" },
+          { src: "/images/Clio 5-auto-2026-Essence-img01.png", alt: "Renault Clio 5 - vue avant", isPrimary: true },
+          { src: "/images/Clio 5-auto-2026-Essence-img02.png", alt: "Renault Clio 5 - intérieur" },
+          { src: "/images/Clio-5-auto-2026-Essence-img03.png", alt: "Renault Clio 5 - vue latérale" },
+          { src: "/images/Clio-5-auto-2026-Essence-img04.png", alt: "Renault Clio 5 - vue latérale" },
+          { src: "/images/Clio 5 auto 2026 Essence img05.png", alt: "Renault Clio 5 - vue arrière" },
+          { src: "/images/Clio 5 auto 2026 Essence img06.png", alt: "Renault Clio 5 - vue latérale" },
          ],
          pricePerDay: 350,
          pricing: {
@@ -3683,118 +3595,74 @@ export const cars: Car[] = [
          fuelType: "Essence",
          transmission: "Automatique",
          rating: 4.7,
-         description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
-      richContent: {
-        h1Title: "Citroën C3 2024 : la citadine diesel automatique idéale à louer à Agadir | Amsel Cars",
-        seoTitle: "Location Citroen C3 2024 à Agadir | Amsel Cars",
-        seoMetaDescription: "Louez la Citroen C3 2024 à Agadir : diesel BlueHDi, boîte automatique, 5 places, faible consommation et connectivité Apple CarPlay/Android Auto.",
-        sections: [
-          {
-            h2: "Citroën C3 2024 en location à Agadir : pratique, économique et agréable",
-            paragraphs: [
-              "Si vous cherchez une voiture simple, économique et agréable à conduire au quotidien, la Citroën C3 2024 est un choix très apprécié en location à Agadir.",
-              "Compacte et facile à prendre en main, elle convient aussi bien aux trajets en ville qu'aux sorties vers Taghazout, Imouzzer ou les plages autour d'Agadir.",
-              "C'est une citadine polyvalente : stationnement facile, conduite douce, bonne visibilité et confort rassurant pour un séjour \"sans prise de tête\"."
-            ]
-          },
-          {
-            h2: "Motorisation diesel 1.5 BlueHDi : efficiente et adaptée aux longs trajets",
-            paragraphs: [
-              "L'un des grands atouts de la Citroën C3 2024, c'est sa motorisation diesel 1.5L BlueHDi, appréciée pour son compromis entre souplesse et consommation maîtrisée.",
-              "Avec environ 102 ch, elle reste suffisamment dynamique pour une citadine : insertions sur voie rapide, dépassements et conduite routière confortable.",
-              "Côté consommation, elle affiche une efficience intéressante autour de 4,4 à 4,5 L/100 km (WLTP), pratique si vous roulez beaucoup pendant votre séjour."
-            ]
-          },
-          {
-            h2: "Boîte automatique : confort maximal en ville",
-            paragraphs: [
-              "En location, la boîte automatique est un vrai plus : conduite plus fluide, démarrages simples et moins de fatigue dans la circulation.",
-              "À Agadir, où le trafic varie selon les heures et la saison, l'automatique apporte une tranquillité immédiate : vous vous concentrez sur la route et la navigation.",
-              "C'est une configuration idéale pour les conducteurs habitués à l'automatique comme pour ceux qui recherchent une prise en main rapide et rassurante."
-            ]
-          },
-          {
-            h2: "Confort à bord et 5 places : un format intelligent",
-            paragraphs: [
-              "La Citroën C3 2024 reste une citadine, mais elle offre un espace intérieur correct avec 5 places, pratique pour une petite famille ou un petit groupe.",
-              "À l'avant, l'assise est confortable et la position de conduite convient à la majorité des profils.",
-              "C'est un excellent compromis à Agadir : assez compacte pour la ville, mais suffisamment habitable pour des trajets plus longs."
-            ]
-          },
-          {
-            h2: "Connectivité : Apple CarPlay et Android Auto",
-            paragraphs: [
-              "La Citroën C3 2024 propose une connectivité moderne avec Apple CarPlay et Android Auto (selon finition).",
-              "Vous connectez votre smartphone pour la navigation (Google Maps/Waze), la musique et les appels mains libres.",
-              "En voyage, c'est un vrai confort : itinéraires plus simples, déplacements plus fluides et conduite plus sereine."
-            ]
-          },
-          {
-            h2: "Sécurité et aides à la conduite : plus de sérénité",
-            paragraphs: [
-              "La C3 2024 peut intégrer des aides à la conduite utiles (selon finition) comme le freinage d'urgence et le maintien de voie.",
-              "Ces équipements apportent un supplément de confort et de sécurité, notamment sur voie rapide ou lors des trajets plus longs.",
-              "Ils ne remplacent pas la vigilance du conducteur, mais participent à une expérience de conduite plus rassurante."
-            ]
-          },
-          {
-            h2: "Performances adaptées aux routes du Maroc",
-            paragraphs: [
-              "La Citroën C3 2024 n'est pas une voiture sportive, mais elle est largement suffisante pour un usage polyvalent à Agadir et dans la région.",
-              "Avec une vitesse maximale annoncée autour de 188 km/h et un 0–100 km/h d'environ 10,2 s, elle garde de la marge pour rouler sereinement sur route.",
-              "La traction avant offre une conduite stable et prévisible, idéale pour la ville, les routes côtières et les trajets interurbains."
-            ]
-          },
-          {
-            h2: "Pourquoi louer une Citroën C3 2024 à Agadir ?",
-            paragraphs: [
-              "Louer une Citroën C3 2024, c'est choisir l'équilibre : économie, confort, connectivité et facilité de conduite.",
-              "Le diesel apporte une autonomie intéressante si vous prévoyez plusieurs excursions et de nombreux kilomètres.",
-              "C'est une option pertinente pour se déplacer entre l'aéroport, le centre-ville, la Marina, la corniche, les plages et les environs."
-            ]
-          },
-          {
-            h2: "Conclusion",
-            paragraphs: [
-              "La Citroën C3 2024 est une valeur sûre en location à Agadir : diesel 1.5 BlueHDi, boîte automatique, 5 places, faible consommation et connectivité moderne.",
-              "Confortable, pratique et rassurante, elle répond parfaitement aux besoins d'un séjour touristique ou professionnel.",
-              "Contactez Amsel Cars pour réserver votre Citroën C3 2024 à Agadir et profiter d'une expérience simple et économique."
-            ]
-          }
-        ],
-        faqs: [
-          {
-            question: "Quel est le prix de location d'une Citroën C3 ?",
-            answer: "Le tarif dépend de la saison, de la durée, de la caution, du kilométrage et des options (assurances, livraison). Le mieux est de demander un devis selon vos dates."
-          },
-          {
-            question: "Le prix de Citroën C3 au Maroc ?",
-            answer: "Le prix varie selon la version, l'année, la motorisation et l'état (neuf/occasion). Les concessions et le marché de l'occasion affichent des écarts importants selon l'offre."
-          },
-          {
-            question: "Quel est le tarif d'une location de voiture au Maroc ?",
-            answer: "Les tarifs varient selon la ville, la période (haute/basse saison), la catégorie du véhicule et les conditions (assurance, caution, kilométrage)."
-          },
-          {
-            question: "Quels sont les points négatifs de la Citroën C3 ?",
-            answer: "Les points souvent cités concernent l'espace/coffre limités par rapport à des modèles plus grands, des performances modestes selon motorisation, et un niveau d'insonorisation variable selon versions."
-          }
-        ]
-      },
+        description: "Renault Clio 5 automatique essence : citadine moderne, facile à conduire, 5 places, climatisation et connectivité Apple CarPlay / Android Auto selon finition.",
+     richContent: {
+       h1Title: "Renault Clio 5 automatique : location à Agadir | Amsel Cars",
+       seoTitle: "Location Renault Clio 5 à Agadir | Amsel Cars",
+       seoMetaDescription: "Louez la Renault Clio 5 à Agadir : automatique essence, 5 places, confortable en ville comme sur route.",
+       sections: [
+         {
+           h2: "Renault Clio 5 en location à Agadir",
+           paragraphs: [
+             "La Renault Clio 5 est un excellent compromis entre confort, design moderne et facilité de conduite.",
+             "Compacte pour la ville et agréable sur route, elle convient parfaitement à un séjour à Agadir."
+           ]
+         },
+         {
+           h2: "Boîte automatique essence : conduite sereine",
+           paragraphs: [
+             "La boîte automatique réduit la fatigue dans la circulation et facilite les trajets quotidiens.",
+             "La motorisation essence est bien adaptée aux trajets urbains et côtiers."
+           ]
+         },
+         {
+           h2: "Confort, connectivité et usage polyvalent",
+           paragraphs: [
+             "Ses 5 places, son habitacle pratique et sa connectivité smartphone en font une voiture très polyvalente.",
+             "Idéale pour la corniche, la marina, l'aéroport et les excursions proches comme Taghazout."
+           ]
+         },
+         {
+           h2: "Pourquoi louer une Clio 5 à Agadir ?",
+           paragraphs: [
+             "Parce qu'elle combine confort automatique, format citadin et équipements modernes.",
+             "Une solution fiable pour les vacances comme pour les déplacements professionnels."
+           ]
+         }
+       ],
+       faqs: [
+         {
+           question: "Quel est le prix de location d'une Renault Clio 5 ?",
+           answer: "Le tarif varie selon la saison, la durée et les options. Contactez-nous pour un devis selon vos dates."
+         },
+         {
+           question: "La Clio 5 est-elle adaptée à Agadir ?",
+           answer: "Oui, son gabarit est idéal en ville et sa boîte automatique la rend très confortable au quotidien."
+         },
+         {
+           question: "Essence ou diesel pour un court séjour ?",
+           answer: "Pour un usage mixte ville/côte sur quelques jours, l'essence automatique est une option simple et efficace."
+         },
+         {
+           question: "La Clio 5 convient-elle à une petite famille ?",
+           answer: "Oui, avec ses 5 places et son confort général, elle convient bien aux petits groupes."
+         }
+       ]
+     },
          features: [
            { icon: "🚗", name: "Sièges", value: "5" },
-           { icon: "⛽", name: "Carburant", value: "Diesel" },
+          { icon: "⛽", name: "Carburant", value: "Essence" },
            { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
-           { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie" },
+          { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie (selon finition)" },
            { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
            { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
          ],
          specs: {
-           engine: "1.5L BlueHDi (4 cylindres, diesel)",
-           horsepower: "102 ch",
-           acceleration: "0–100 km/h en 10,2 s",
-           topSpeed: "188 km/h",
-           fuelEfficiency: "4,4–4,5 l/100 km (WLTP)",
+          engine: "1.0L essence turbo (selon version)",
+          horsepower: "environ 90–100 ch",
+          acceleration: "0–100 km/h (selon version)",
+          topSpeed: "vitesse max (selon version)",
+          fuelEfficiency: "consommation urbaine/interurbaine maîtrisée",
            drivetrain: "Traction (roues avant)"
          },
          category: 'economy',
