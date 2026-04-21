@@ -12,6 +12,7 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import MyStatsig from "./my-statsig";
+import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/schemas";
 
 
 const siteUrl = "https://www.amseelcars.com";
@@ -96,6 +97,12 @@ export const metadata: Metadata = {
   },
 
   category: "vehicles",
+  other: {
+    "geo.region": "MA-SUS",
+    "geo.placename": "Agadir",
+    "geo.position": "30.40085;-9.57758",
+    ICBM: "30.40085, -9.57758",
+  },
 };
 
 export const viewport: Viewport = {
@@ -122,33 +129,8 @@ export default async function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "Organization",
-        "@id": `${siteUrl}#org`,
-    name: siteName,
-    url: siteUrl,
-        logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
-    sameAs: [
-      "https://www.facebook.com/amseelcars/",
-      "https://www.instagram.com/amseelcars/",
-      "https://wa.me/212662500181",
-    ],
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${siteUrl}#website`,
-        url: siteUrl,
-        name: siteName,
-        publisher: { "@id": `${siteUrl}#org` },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${siteUrl}/search?q={search_term_string}`,
-          },
-          "query-input": "required name=search_term_string",
-    },
-      },
+      generateOrganizationSchema(),
+      generateWebSiteSchema(),
     ],
   };
 

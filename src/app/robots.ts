@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/llms.txt', '/llms-ctx.txt'],
         disallow: [
           // Home animation assets (block image indexing for these files)
           '/images/touareg-body.png',
@@ -18,8 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           '/images/left wheel*.webp',
           '/images/right wheel*.webp',
           '/images/*wheel left*.webp',
-          '/images/*wheel right*.webp',
-          'M'
+          '/images/*wheel right*.webp'
         ],
       },
     ],

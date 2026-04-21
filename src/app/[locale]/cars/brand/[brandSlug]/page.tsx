@@ -209,6 +209,52 @@ export default async function CarBrandHubPage({ params }: Props) {
         }),
       }
     : null;
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t("h1", { brand }),
+    description: t("intro", { brand }),
+    url: new URL(brandPath, BASE_URL).toString(),
+    isPartOf: { "@id": "https://www.amseelcars.com#website" },
+    mainEntity: itemListSchema
+      ? { "@id": `https://www.amseelcars.com${brandPath}#itemlist` }
+      : undefined,
+  };
+  const brandServiceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `https://www.amseelcars.com${brandPath}#service`,
+    name: l === "en" ? `${brand} car rental in Agadir` : `Location ${brand} a Agadir`,
+    description:
+      l === "en"
+        ? `Rent ${brand} models in Agadir with airport or city pickup and WhatsApp booking support.`
+        : `Louez des modeles ${brand} a Agadir avec retrait aeroport ou centre-ville et reservation WhatsApp.`,
+    provider: { "@id": "https://www.amseelcars.com#business" },
+    areaServed: [
+      { "@type": "City", name: "Agadir" },
+      { "@type": "Airport", name: "Agadir-Al Massira Airport" },
+      { "@type": "Country", name: "Morocco" },
+    ],
+    url: new URL(brandPath, BASE_URL).toString(),
+    inLanguage: l === "en" ? "en-US" : "fr-MA",
+  };
+  const quickAnswer = l === "en"
+    ? `${brand} rentals in Agadir are available across multiple models with clear daily pricing, airport/city pickup, and fast WhatsApp booking.`
+    : `La location ${brand} a Agadir est disponible sur plusieurs modeles avec prix journalier clair, retrait aeroport/ville et reservation rapide par WhatsApp.`;
+  const keyFacts = [
+    {
+      label: l === "en" ? "Models available" : "Modeles disponibles",
+      value: `${cars.length}`,
+    },
+    {
+      label: l === "en" ? "Lowest daily rate" : "Tarif journalier mini",
+      value: currencyFormatter.format(lowestDailyRate),
+    },
+    {
+      label: l === "en" ? "Fuel mix" : "Mix carburant",
+      value: fuelMix.length ? fuelMix.join(", ") : (l === "en" ? "Mixed" : "Mixte"),
+    },
+  ];
 
   return (
     <>
@@ -228,9 +274,24 @@ export default async function CarBrandHubPage({ params }: Props) {
         <Script
           id={`ld-json-itemlist-brand-${brandToSlug(brand)}`}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              ...itemListSchema,
+              "@id": `https://www.amseelcars.com${brandPath}#itemlist`,
+            }),
+          }}
         />
       ) : null}
+      <Script
+        id={`ld-json-collection-brand-${brandToSlug(brand)}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+      />
+      <Script
+        id={`ld-json-service-brand-${brandToSlug(brand)}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(brandServiceSchema) }}
+      />
 
       <section
         className="relative isolate overflow-hidden bg-[#f9f9f9] pb-16 pt-10 text-neutral-900 md:pb-24 md:pt-16"
@@ -273,6 +334,20 @@ export default async function CarBrandHubPage({ params }: Props) {
               <p className="mt-4 text-sm text-neutral-600 md:text-base">
                 {t("heroSupporting", { brand })}
               </p>
+              <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b11226]">
+                  {l === "en" ? "Quick answer" : "Reponse rapide"}
+                </p>
+                <p className="mt-2 text-sm text-neutral-700">{quickAnswer}</p>
+                <dl className="mt-4 grid gap-2 sm:grid-cols-3">
+                  {keyFacts.map((fact) => (
+                    <div key={fact.label} className="rounded-lg border border-neutral-100 bg-neutral-50 p-2.5">
+                      <dt className="text-[11px] uppercase tracking-[0.15em] text-neutral-500">{fact.label}</dt>
+                      <dd className="mt-0.5 text-sm font-semibold text-neutral-900">{fact.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
               {chipCategories.length ? (
                 <div className="mt-8 flex flex-wrap gap-2" aria-label={t("segmentsEyebrow", { brand })}>
                   {chipCategories.map((chip) => (

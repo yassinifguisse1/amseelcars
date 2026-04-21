@@ -5,6 +5,7 @@ import { getLocale } from 'next-intl/server';
 import HomeContent from "./HomeContent";
 import { generateBreadcrumbSchema } from '@/lib/schemas';
 import { getArticles } from "@/app/action/article";
+import { categoryToSlug } from "@/data/blog";
 import { localizedAlternates } from '@/lib/seo/localized-alternates';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
@@ -59,6 +60,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function BlogPage() {
   const locale = await getLocale();
   const l: AppLocale = locale === "en" ? "en" : "fr";
+  const isEn = l === "en";
   const homePath = getPathname({ locale: l, href: "/" });
   const blogPath = getPathname({ locale: l, href: "/blog" });
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -66,6 +68,29 @@ export default async function BlogPage() {
     { name: "Blog", url: blogPath },
   ]);
   const articles = await getArticles(l);
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `https://www.amseelcars.com${blogPath}#collection`,
+    url: `https://www.amseelcars.com${blogPath}`,
+    name: isEn ? "AmseelCars blog" : "Blog AmseelCars",
+    description: isEn
+      ? "Guides and updates about car rental in Agadir and Morocco."
+      : "Guides et actualites sur la location de voiture a Agadir et au Maroc.",
+    inLanguage: isEn ? "en-US" : "fr-MA",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: articles.slice(0, 20).map((article, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://www.amseelcars.com/${article.locale}/blog/${categoryToSlug(article.category)}/${article.slug}`,
+        name: article.title,
+      })),
+    },
+  };
+  const quickAnswer = isEn
+    ? "Use this blog to compare car classes, airport pickup options, and practical driving advice before booking in Agadir."
+    : "Ce blog vous aide a comparer les categories de voitures, les options de retrait aeroport et les conseils pratiques avant reservation a Agadir.";
 
 
   return (
@@ -76,7 +101,20 @@ export default async function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      <Script
+        id="ld-json-collection-blog"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
+      />
       <LoadingProvider>
+        <section className="mx-auto max-w-6xl px-4 pb-4 pt-6">
+          <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b11226]">
+              {isEn ? "Quick answer" : "Reponse rapide"}
+            </p>
+            <p className="mt-2 text-sm text-neutral-700">{quickAnswer}</p>
+          </div>
+        </section>
         <HomeContent articles={articles} />
       </LoadingProvider>
     </>

@@ -22,6 +22,8 @@ function shouldSkipI18n(pathname: string) {
     pathname.startsWith("/sign-in") ||
     pathname.startsWith("/admin") ||
     pathname.startsWith("/unauthorized") ||
+    pathname === "/llms.txt" ||
+    pathname === "/llms-ctx.txt" ||
     pathname === "/robots.txt" ||
     pathname.startsWith("/sitemap")
   );
@@ -99,7 +101,7 @@ export default clerkMiddleware(async (auth, req) => {
 export const config = {
   matcher: [
     // Exclude common static assets so i18n middleware does not rewrite them (e.g. .mp4 was missing → /video/*.mp4 404).
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|mp4|webm|mov|m4v|ogv|ogg)).*)",
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|txt|docx?|xlsx?|zip|webmanifest|mp4|webm|mov|m4v|ogv|ogg)).*)",
     "/images/:path*",
     "/video/:path*",
     "/(api|trpc)(.*)",
