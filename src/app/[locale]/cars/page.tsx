@@ -159,7 +159,7 @@ export default async function CarsPage() {
       />
     <div>
       <HeroVideo/>
-      <section className="mx-auto max-w-6xl px-4 py-8 md:py-10">
+      <section className="mx-auto max-w-6xl px-4 py-8 md:py-10 hidden">
         <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b11226]">
             {isEn ? "Quick answer" : "Reponse rapide"}

@@ -107,7 +107,7 @@ export default async function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageSchema) }}
       />
       <LoadingProvider>
-        <section className="mx-auto max-w-6xl px-4 pb-4 pt-6">
+        <section className="mx-auto max-w-6xl px-4 pb-4 pt-6 hidden">
           <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b11226]">
               {isEn ? "Quick answer" : "Reponse rapide"}
