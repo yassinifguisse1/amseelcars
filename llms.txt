@@ -1,0 +1,45 @@
+# Amseel Cars Rental Platform
+
+> Next.js 15 car rental website for Agadir with bilingual routing (fr/en), SEO/AEO landing pages, blog CMS, and Clerk-protected admin APIs backed by MongoDB/Prisma.
+
+Use this file to quickly locate core docs, data sources, i18n routing, admin workflows, and scripts that generate localized content.
+
+## Documentation
+
+- [Main README](README.md): Project overview, stack, local setup, and deployment basics.
+- [Admin Setup](ADMIN_SETUP.md): Clerk role setup and admin route protection flow.
+- [Booking Setup](BOOKING_SETUP.md): Booking form email setup (Resend) and required env vars.
+- [Google Reviews Setup](GOOGLE_REVIEWS_SETUP.md): Places API integration and review pipeline details.
+- [Pages Feature Summary](PAGES_FEATURE_SUMMARY.md): Admin-managed Pages architecture and API behavior.
+
+## Core Architecture
+
+- [Prisma Schema](prisma/schema.prisma): MongoDB models for blog articles and pages.
+- [Middleware](src/middleware.ts): Clerk auth checks + next-intl routing and route exceptions.
+- [i18n Routing](src/i18n/routing.ts): Locale map, path translations, and canonical route definitions.
+- [Package Scripts](package.json): Build/dev commands and data migration/generation scripts.
+
+## Content Data and Localization
+
+- [Car Inventory Source](src/data/cars.ts): Canonical French car catalog and rich content source.
+- [Car English Overrides](src/data/carEnglishContent.ts): English copy overrides keyed by car slug.
+- [Blog Data Access](src/data/blog.ts): Localized blog read/query helpers and translation-group lookups.
+
+## Admin and API Surfaces
+
+- [Admin Dashboard](src/app/admin/page.tsx): Article/page management UI and localization controls.
+- [Admin Articles API](src/app/api/admin/articles/route.ts): CRUD for localized blog articles.
+- [Admin Pages API](src/app/api/admin/pages/route.ts): CRUD for CMS pages.
+- [Localized Blog Page](src/app/[locale]/blog/page.tsx): Locale-aware blog listing and metadata generation.
+
+## Scripts and Data Operations
+
+- [Generate Car Product Messages](scripts/generate-car-products.ts): Builds `messages/car-products.fr.json` and `messages/car-products.en.json` from source data.
+- [Legacy Article Migration](scripts/migrate-articles.ts): Initial backup-to-database article migration utility.
+- [Blog Locale Backfill](scripts/backfill-blog-locale.ts): Backfills `locale` and `translationGroup` for existing blog records.
+
+## Optional
+
+- [MongoDB Troubleshooting](MONGODB_TROUBLESHOOTING.md): Connection and Atlas troubleshooting notes.
+- [Vercel MongoDB DNS Fix](VERCEL_MONGODB_DNS_FIX.md): DNS/SRV-specific production fix guidance.
+- [DNS Fix Summary](DNS_FIX_SUMMARY.md): Operational notes for DNS-related deployment issues.

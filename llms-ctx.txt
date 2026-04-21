@@ -1,0 +1,159 @@
+# Amseel Cars Rental Platform - LLM Context
+
+> Consolidated context for AI assistants working in this repository. Use this file for fast orientation before reading deeper implementation files.
+
+## 1) Project Snapshot
+
+- Project: `rental-cars`
+- Type: Next.js 15 App Router application for car rental in Agadir
+- Locales: French (`fr`) and English (`en`)
+- Key business areas:
+  - Car catalog and detail pages
+  - Local SEO/AEO landing pages
+  - Blog (localized content)
+  - Admin CMS (articles + pages)
+  - Booking/contact integrations
+
+## 2) Stack and Runtime
+
+- Framework: `next@15`
+- UI: React 18, Tailwind, SCSS, Framer Motion, GSAP
+- Auth: Clerk
+- Data: MongoDB + Prisma
+- i18n: `next-intl`
+- Email: Resend (booking flow)
+- Optional external integrations:
+  - Google Maps / Places (reviews + map)
+
+## 3) Routing and i18n Rules
+
+Primary route config: `src/i18n/routing.ts`
+
+- Locale prefix is always present.
+- Canonical roots:
+  - FR: `/fr/...`
+  - EN: `/en/...`
+- Example localized route patterns:
+  - Cars list: FR `/voitures`, EN `/cars`
+  - Blog: `/blog`, `/blog/[category]`, `/blog/[category]/[slug]`
+  - Destination pages have FR/EN localized slugs.
+
+Middleware: `src/middleware.ts`
+
+- Uses Clerk middleware + next-intl middleware composition.
+- Protects admin routes:
+  - `/admin/*`
+  - `/api/admin/*`
+- Skips i18n routing for API and selected static paths.
+
+## 4) Data Model (Prisma, MongoDB)
+
+Schema file: `prisma/schema.prisma`
+
+Main models:
+
+1. `BlogArticle`
+- Core fields: `slug`, `locale`, `translationGroup`, `title`, `content`, `seo`, `author`, etc.
+- Localization:
+  - `locale` default `fr`
+  - `translationGroup` links FR and EN versions of same article
+- Uniqueness:
+  - unique compound index on `(slug, locale)`
+
+2. `Page`
+- Generic CMS pages managed from admin panel.
+
+## 5) Blog Localization Workflow
+
+Relevant files:
+- `src/data/blog.ts`
+- `src/app/[locale]/blog/page.tsx`
+- `src/app/[locale]/blog/[category]/[slug]/page.tsx`
+- `src/app/api/admin/articles/route.ts`
+- `src/app/admin/page.tsx`
+
+Behavior:
+
+- Blog queries are locale-aware (`fr` or `en`).
+- Two translated posts can have different slugs but same `translationGroup`.
+- Metadata alternates can resolve true translated counterpart via `translationGroup`.
+- Admin form includes language selector and translation key.
+
+## 6) Admin Surfaces
+
+UI:
+- `src/app/admin/page.tsx`
+  - Manage blog articles
+  - Manage generic pages
+  - Includes language + translation key controls for blog entries
+
+APIs:
+- `src/app/api/admin/articles/route.ts`
+  - CRUD for localized articles
+  - Slug uniqueness checked per locale
+- `src/app/api/admin/pages/route.ts`
+  - CRUD for generic pages
+
+## 7) Car Content Source of Truth
+
+Canonical source:
+- `src/data/cars.ts` (French/base catalog + rich content)
+
+English override source:
+- `src/data/carEnglishContent.ts`
+
+Generated files:
+- `messages/car-products.fr.json`
+- `messages/car-products.en.json`
+- `src/data/carCanonicalSlugs.generated.ts`
+
+Generator script:
+- `scripts/generate-car-products.ts`
+
+Rule:
+- Do not hand-edit generated car product JSON unless intentional temporary override.
+- Prefer editing source data then regenerate.
+
+## 8) Useful Scripts
+
+From `package.json`:
+
+- `pnpm dev` - run local app
+- `pnpm build` - production build
+- `pnpm lint` - lint checks
+- `pnpm run generate:car-products` - regenerate localized car product message files
+- `pnpm run migrate:articles` - migrate backup blog articles
+- `pnpm run backfill:blog-locale` - backfill existing blog records with `locale` and `translationGroup`
+
+## 9) Environment Variables (Common)
+
+Core:
+- `DATABASE_URL` (MongoDB)
+
+Booking/Email:
+- `RESEND_API_KEY`
+- `BOOKING_EMAIL`
+
+Maps/Reviews:
+- `GOOGLE_MAPS_API_KEY` (server-side)
+- `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` (client-side maps)
+
+## 10) Operational Notes
+
+- Some docs discuss MongoDB DNS/SRV issues in serverless environments.
+- If blog list is empty after localization rollout, run locale backfill script.
+- If car product content looks wrong in generated JSON, check `src/data/cars.ts` first, then regenerate.
+
+## 11) Recommended Read Order For Assistants
+
+1. `llms.txt`
+2. `README.md`
+3. `src/i18n/routing.ts`
+4. `src/middleware.ts`
+5. `prisma/schema.prisma`
+6. `src/data/blog.ts`
+7. `src/app/api/admin/articles/route.ts`
+8. `src/app/admin/page.tsx`
+9. `src/data/cars.ts`
+10. `scripts/generate-car-products.ts`
+
