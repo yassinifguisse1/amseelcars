@@ -1,10 +1,25 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import path from "path";
+import { routing } from "./src/i18n/routing";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return {
+      beforeFiles: routing.locales.flatMap((locale) => [
+        {
+          source: `/sitemap-pages-${locale}.xml`,
+          destination: `/sitemaps-data/pages/${locale}`,
+        },
+        {
+          source: `/sitemap-blog-${locale}.xml`,
+          destination: `/sitemaps-data/blog/${locale}`,
+        },
+      ]),
+    };
+  },
   async redirects() {
     return [
       {
@@ -23,6 +38,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // Note: do not 301 /cars → /voitures — /cars is the English canonical URL (pair with /voitures via hreflang).
+      // Legacy monolithic sitemaps → index (per-locale lives at sitemap-pages-{locale}.xml).
+      {
+        source: "/sitemap-pages.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+      {
+        source: "/sitemap-blog.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
     ];
   },
   images: {

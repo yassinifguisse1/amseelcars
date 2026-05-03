@@ -39,6 +39,19 @@ function blogPathToFrenchCanonical(pathname: string) {
   return null;
 }
 
+function isLocalePrefixedSitemap(pathname: string) {
+  for (const loc of routing.locales) {
+    if (
+      pathname === `/${loc}/sitemap.xml` ||
+      pathname === `/${loc}/sitemap-pages.xml` ||
+      pathname === `/${loc}/sitemap-blog.xml`
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
 function shouldSkipI18n(pathname: string) {
   return (
     pathname.startsWith("/api") ||
@@ -49,7 +62,9 @@ function shouldSkipI18n(pathname: string) {
     pathname === "/llms.txt" ||
     pathname === "/llms-ctx.txt" ||
     pathname === "/robots.txt" ||
-    pathname.startsWith("/sitemap")
+    pathname.startsWith("/sitemap") ||
+    pathname.startsWith("/sitemaps-data") ||
+    isLocalePrefixedSitemap(pathname)
   );
 }
 
