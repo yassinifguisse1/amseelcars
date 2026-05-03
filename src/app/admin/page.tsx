@@ -1192,7 +1192,7 @@ export default function AdminPage() {
                               onClick={() => {
                                 // Navigate to article page using category from article
                                 const categorySlug = categoryToSlug(article.category);
-                                router.push(`/${article.locale}/blog/${categorySlug}/${article.slug}`);
+                                router.push(`/fr/blog/${categorySlug}/${article.slug}`);
                               }}
                             >
                               View

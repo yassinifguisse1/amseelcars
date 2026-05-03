@@ -11,10 +11,13 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const base = (await import(`../../messages/${locale}.json`)).default;
   const carProducts = (await import(`../../messages/car-products.${locale}.json`))
     .default;
+  const destinationLandings = (
+    await import(`../../messages/destination-landings.${locale}.json`)
+  ).default;
 
   return {
     locale,
-    messages: { ...base, carProducts },
+    messages: { ...base, carProducts, ...destinationLandings },
     timeZone: "Africa/Casablanca",
   };
 });

@@ -53,3 +53,49 @@ export function FlagGb({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function FlagEs({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 3 2"
+      width={22}
+      height={15}
+      aria-hidden
+    >
+      <rect width="3" height="2" fill="#AA151B" />
+      <rect y="0.5" width="3" height="1" fill="#F1BF00" />
+    </svg>
+  );
+}
+
+export function FlagDe({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 3 2"
+      width={22}
+      height={15}
+      aria-hidden
+    >
+      <rect width="3" height="0.6667" fill="#000" />
+      <rect y="0.6667" width="3" height="0.6667" fill="#DD0000" />
+      <rect y="1.3334" width="3" height="0.6666" fill="#FFCE00" />
+    </svg>
+  );
+}
+
+export function FlagPl({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 3 2"
+      width={22}
+      height={15}
+      aria-hidden
+    >
+      <rect width="3" height="1" fill="#fff" />
+      <rect y="1" width="3" height="1" fill="#DC143C" />
+    </svg>
+  );
+}

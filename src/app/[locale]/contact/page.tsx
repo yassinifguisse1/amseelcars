@@ -11,12 +11,13 @@ import {
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import type { AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
+import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
 
 const siteUrl = "https://www.amseelcars.com";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const path = getPathname({ locale: l, href: "/contact" });
   const t = await getTranslations({ locale: l, namespace: "seo" });
   const title = t("contact.title");
@@ -37,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Contact() {
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const tSeo = await getTranslations({ locale: l, namespace: "seo" });
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
   const tFooter = await getTranslations({ locale: l, namespace: "footer" });
@@ -48,7 +49,7 @@ export default async function Contact() {
     path: contactPath,
     title: tSeo("contact.title"),
     description: tSeo("contact.description"),
-    inLanguage: l === "en" ? "en-US" : "fr-MA",
+    inLanguage: localeToLanguageTag(l),
   });
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: tNav("home"), url: homePath },

@@ -224,6 +224,7 @@ export function HomeSeoLocalDiscoveryBlock() {
                   pathname: "/blog/[category]/[slug]",
                   params: { category: d.category, slug: d.slug },
                 }}
+                locale="fr"
                 className="relative block aspect-[4/3] w-full overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-[#CB1939] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
               >
                 <Image
@@ -242,6 +243,7 @@ export function HomeSeoLocalDiscoveryBlock() {
                     pathname: "/blog/[category]/[slug]",
                     params: { category: d.category, slug: d.slug },
                   }}
+                  locale="fr"
                   className="mt-5 inline-flex text-base font-medium text-[#CB1939] hover:underline"
                 >
                   {t("readMore")}

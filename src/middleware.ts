@@ -15,6 +15,30 @@ const isAdminRoute = createRouteMatcher([
   "/api/admin(.*)",
 ]);
 
+function isPublicBlogPathname(pathname: string) {
+  return pathname === "/blog" || pathname.startsWith("/blog/");
+}
+
+function blogPathToFrenchCanonical(pathname: string) {
+  if (isPublicBlogPathname(pathname)) {
+    return `/fr${pathname}`;
+  }
+
+  for (const locale of routing.locales) {
+    if (locale === "fr") continue;
+
+    const localizedBlogRoot = `/${locale}/blog`;
+    if (pathname === localizedBlogRoot) {
+      return "/fr/blog";
+    }
+    if (pathname.startsWith(`${localizedBlogRoot}/`)) {
+      return pathname.replace(localizedBlogRoot, "/fr/blog");
+    }
+  }
+
+  return null;
+}
+
 function shouldSkipI18n(pathname: string) {
   return (
     pathname.startsWith("/api") ||
@@ -35,6 +59,13 @@ export default clerkMiddleware(async (auth, req) => {
   // Backward compatibility for legacy EN home URL.
   if (pathname === "/home") {
     return NextResponse.redirect(new URL("/en", req.url), 308);
+  }
+
+  const frenchBlogPath = blogPathToFrenchCanonical(pathname);
+  if (frenchBlogPath) {
+    const url = req.nextUrl.clone();
+    url.pathname = frenchBlogPath;
+    return NextResponse.redirect(url, 301);
   }
 
   // Static media under /public/video — must not run next-intl (rewrites break the path → 404).

@@ -42,7 +42,7 @@ export default function ArticleCard({ article, variant }: ArticleCardProps) {
       whileHover="hover"
       layout
     >
-      <Link href={`/blog/${categoryToSlug(article.category)}/${article.slug}`} className={styles.link}>
+      <Link href={`/fr/blog/${categoryToSlug(article.category)}/${article.slug}`} className={styles.link}>
         <div className={styles.imageContainer}>
           <motion.div 
             className={styles.imageWrapper}

@@ -479,7 +479,7 @@ export default function BMWCarScroll() {
     <div className="relative h-auto w-[clamp(180px,50vw,640px)] sm:w-[clamp(220px,45vw,700px)] md:w-[clamp(260px,40vw,760px)]">
       <Image
         src="/images/x3-bm.webp"
-        alt="BMW X3 M Logo"
+        alt={t("cars.bmw.logoAlt")}
         width={1400}
         height={350}
         sizes="(max-width: 640px) 60vw, (max-width: 1024px) 45vw, 35vw"
@@ -512,7 +512,7 @@ export default function BMWCarScroll() {
     {/* BMW Car body (keeps aspect, no CLS) */}
     <Image
       src="/images/bmw-body.webp"
-      alt="BMW X3 body"
+      alt={t("cars.bmw.bodyAlt")}
       width={1440}
       height={800}
       sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
@@ -586,12 +586,12 @@ export default function BMWCarScroll() {
                   style={{
                     fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
                   }}
-                  >BMW X3 M</h3>
+                  >{t("cars.bmw.name")}</h3>
                   <p className="text-xs sm:text-sm md:text-lg"
                   style={{
                     fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
                   }}
-                  >SUV premium conçu pour la performance.</p>
+                  >{t("cars.bmw.description")}</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto"
                 style={{
@@ -665,7 +665,7 @@ export default function BMWCarScroll() {
             <div className="relative w-[clamp(350px,50vw,840px)] sm:w-[clamp(420px,45vw,700px)] md:w-[clamp(560px,40vw,900px)]">
                 <Image
                   src="/images/Kia-sportage-logo.webp"
-                  alt="KIA Logo"
+                  alt={t("cars.kia.logoAlt")}
                   width={900}
                   height={300}
                   className="opacity-100 pointer-events-none select-none"
@@ -704,7 +704,7 @@ export default function BMWCarScroll() {
     {/* Car body */}
     <Image
       src="/images/kia-body.webp"
-      alt="KIA body"
+      alt={t("cars.kia.bodyAlt")}
       width={1440}
       height={800}
       sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
@@ -764,14 +764,14 @@ export default function BMWCarScroll() {
               fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
             }}
           >
-            KIA Sportage
+            {t("cars.kia.name")}
           </h3>
           <p 
             style={{
               fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
             }}
           >
-            Le design dynamique rencontre une technologie avancée.
+            {t("cars.kia.description")}
           </p>
         </div>
         <div className="flex justify-center pointer-events-auto">
@@ -869,7 +869,7 @@ export default function BMWCarScroll() {
               
             <Image
               src="/images/t roc logo-0014.webp"
-              alt="Touareg Logo"
+              alt={t("cars.troc.logoAlt")}
               width={800}
               height={200}
               className="opacity-100 drop-shadow-2xl"
@@ -902,7 +902,7 @@ export default function BMWCarScroll() {
             {/* Touareg Car body */}
             <Image
               src="/images/t-roc-body.webp"
-              alt="Touareg body"
+              alt={t("cars.troc.bodyAlt")}
               width={1440}
               height={800}
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
@@ -978,12 +978,12 @@ export default function BMWCarScroll() {
             style={{
               fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
             }}
-          >T-Roc</h3>
+          >{t("cars.troc.name")}</h3>
                   <p 
             style={{
               fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
             }}
-          >Compact SUV conçu pour la performance.</p>
+          >{t("cars.troc.description")}</p>
                 </div>
                 <div className="flex items-center justify-center pointer-events-auto">
                   <Rounded 
@@ -1039,7 +1039,7 @@ export default function BMWCarScroll() {
             >
             <Image
               src="/images/GOLF 8 LOGO PNG.webp"
-              alt="Golf 8 Logo"
+              alt={t("cars.golf.logoAlt")}
               width={800}
               height={200}
               className="opacity-100 drop-shadow-2xl"
@@ -1070,7 +1070,7 @@ export default function BMWCarScroll() {
             {/* Golf 8 Car body */}
             <Image
               src="/images/golf8-body.webp"
-              alt="Golf 8 body"
+              alt={t("cars.golf.bodyAlt")}
               width={1440}
               height={800}
               sizes="(max-width: 640px) 85vw, (max-width: 1024px) 70vw, 60vw"
@@ -1151,12 +1151,12 @@ export default function BMWCarScroll() {
             style={{
               fontSize: isShortLandscape ? '1.125rem' : 'clamp(0.875rem, 4vw, 1.5rem)'
             }}
-          >VW Golf 8</h3>
+          >{t("cars.golf.name")}</h3>
                 <p 
             style={{
               fontSize: isShortLandscape ? '0.875rem' : 'clamp(0.75rem, 3vw, 1.125rem)'
             }}
-          >L’excellence compacte alliée à une innovation moderne.</p>
+          >{t("cars.golf.description")}</p>
               </div>
               
               <div className="flex items-center justify-center pointer-events-auto"

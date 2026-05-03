@@ -1,15 +1,19 @@
 import { NextResponse } from 'next/server'
 import { getAllArticles, categoryToSlug } from '@/data/blog'
+import { absoluteBlogUrl, blogArticlePath } from '@/lib/seo/blog-paths'
 
 export async function GET() {
-  const baseUrl = 'https://www.amseelcars.com'
-  const articles = await getAllArticles()
+  const articles = (await getAllArticles()).filter(
+    (article) => article.locale === 'fr',
+  )
 
   // Generate blog post URLs
   const urls = articles
     .map((article) => {
       const lastmod = new Date(article.publishedAt).toISOString().split('T')[0]
-      const url = `${baseUrl}/${article.locale}/blog/${categoryToSlug(article.category)}/${article.slug}`
+      const url = absoluteBlogUrl(
+        blogArticlePath(categoryToSlug(article.category), article.slug),
+      )
       return `  <url>
     <loc>${url}</loc>
     <lastmod>${lastmod}</lastmod>
@@ -28,4 +32,3 @@ ${urls}
     },
   })
 }
-

@@ -21,14 +21,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const mapContainerStyle = { width: "100%", height: "400px" };
 const center = { lat: 30.4007408, lng: -9.577593 };
-const mapOptions = {
-  mapTypeId: "terrain" as const,
+
+/** Plain literals only — `google` is not available until after LoadScript runs. */
+const mapOptions: google.maps.MapOptions = {
+  mapTypeId: "terrain",
   disableDefaultUI: false,
   zoomControl: true,
   streetViewControl: true,
   fullscreenControl: true,
   mapTypeControl: true,
-  mapTypeControlOptions: { style: 1 as const, position: 3 as const },
 };
 
 interface ContactDetail {

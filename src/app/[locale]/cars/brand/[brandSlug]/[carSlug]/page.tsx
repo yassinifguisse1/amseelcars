@@ -14,6 +14,7 @@ import {
 import { frenchCarSlugToEnglishSlug, carSlugForLocale } from "@/lib/carSlugLocale";
 import { brandToSlug } from "@/lib/brandSlug";
 import type { AppLocale } from "@/i18n/routing";
+import { toAppLocale } from "@/i18n/locale-utils";
 import { getPathname } from "@/i18n/navigation";
 
 type Props = {
@@ -40,7 +41,7 @@ export function generateStaticParams({
   if (brandSlug == null || brandSlug === "") {
     return [];
   }
-  const l: AppLocale = params?.locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(params?.locale);
   const b = brandSlug.toLowerCase();
   return getAllCars()
     .filter((car) => brandToSlug(car.brand) === b)
@@ -49,7 +50,7 @@ export function generateStaticParams({
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, brandSlug, carSlug } = await params;
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const carRaw = getCarBySlug(carSlug);
 
   if (!carRaw || brandToSlug(carRaw.brand) !== brandSlug.toLowerCase()) {
@@ -74,11 +75,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const localized = carForLocale(carRaw, l);
   const frSlug = carRaw.slug;
   const enSlug = frenchCarSlugToEnglishSlug(frSlug);
+  const tSeo = await getTranslations({ locale: l, namespace: "seo" });
+  const keywordExtras = (tSeo.raw("carDetail.keywordExtras") as string[]) ?? [];
 
   const pageTitle =
     localized.richContent?.seoTitle ||
     localized.richContent?.h1Title ||
-    `${carRaw.carName} - Luxury Car Rental | Amseel Cars`;
+    tSeo("carDetail.defaultTitle", { carName: carRaw.carName });
   const metaDescription =
     localized.richContent?.seoMetaDescription || localized.description;
 
@@ -96,15 +99,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: pageTitle,
     description: metaDescription,
-    keywords: [
-      carRaw.brand,
-      carRaw.model,
-      carRaw.category,
-      "luxury car rental",
-      "Morocco",
-      "location voiture",
-      "Agadir",
-    ],
+    keywords: [carRaw.brand, carRaw.model, carRaw.category, ...keywordExtras],
     alternates: localizedCarBrandScopedAlternates(l, carRaw.brand, frSlug, enSlug),
     openGraph: {
       title: pageTitle,
@@ -136,7 +131,7 @@ export default async function CarBrandScopedDetailPage({ params }: Props) {
     notFound();
   }
 
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const car = carForLocale(carRaw, l);
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
   const homePath = getPathname({ locale: l, href: "/" });

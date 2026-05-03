@@ -96,6 +96,7 @@ export default function NotFound() {
               <span className="text-gray-600">•</span>
               <Link
                 href="/blog"
+                locale="fr"
                 className="text-gray-400 hover:text-white transition-colors"
               >
                 {tNav('blog')}

@@ -6,9 +6,14 @@ import HomeContent from "./HomeContent";
 import { generateBreadcrumbSchema } from '@/lib/schemas';
 import { getArticles } from "@/app/action/article";
 import { categoryToSlug } from "@/data/blog";
-import { localizedAlternates } from '@/lib/seo/localized-alternates';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
+import {
+  absoluteBlogUrl,
+  blogArticlePath,
+  blogIndexPath,
+  frenchBlogAlternates,
+} from "@/lib/seo/blog-paths";
 
 
 // Force dynamic rendering - prevent Next.js from caching this route
@@ -31,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: localizedAlternates(l, "/blog"),
+    alternates: frenchBlogAlternates(blogIndexPath()),
     robots: {
       index: true,
       follow: true,
@@ -62,7 +67,7 @@ export default async function BlogPage() {
   const l: AppLocale = locale === "en" ? "en" : "fr";
   const isEn = l === "en";
   const homePath = getPathname({ locale: l, href: "/" });
-  const blogPath = getPathname({ locale: l, href: "/blog" });
+  const blogPath = blogIndexPath();
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: homePath },
     { name: "Blog", url: blogPath },
@@ -83,7 +88,9 @@ export default async function BlogPage() {
       itemListElement: articles.slice(0, 20).map((article, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://www.amseelcars.com/${article.locale}/blog/${categoryToSlug(article.category)}/${article.slug}`,
+        url: absoluteBlogUrl(
+          blogArticlePath(categoryToSlug(article.category), article.slug),
+        ),
         name: article.title,
       })),
     },

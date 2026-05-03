@@ -186,7 +186,7 @@ export default function Footer() {
           </div>
           <div>
             <h3 className={styles.footerColTitle}>
-              <Link href="/blog">{t("blogColumnTitle")}</Link>
+              <Link href="/blog" locale="fr">{t("blogColumnTitle")}</Link>
             </h3>
             <nav
               className={styles.footerColLinks}
@@ -196,6 +196,7 @@ export default function Footer() {
                 <Link
                   key={`${params.category}/${params.slug}`}
                   href={{ pathname: "/blog/[category]/[slug]", params }}
+                  locale="fr"
                 >
                   {t(labelKey)}
                 </Link>

@@ -1,29 +1,37 @@
 import type { Metadata } from "next";
 import { getPathname } from "@/i18n/navigation";
-import type { AppLocale } from "@/i18n/routing";
+import { routing, type AppLocale } from "@/i18n/routing";
 import { brandToSlug } from "@/lib/brandSlug";
 
 type PathnameArg = Parameters<typeof getPathname>[0]["href"];
+type Languages = NonNullable<NonNullable<Metadata["alternates"]>["languages"]>;
+
+function localizedPathMap(href: PathnameArg): Record<AppLocale, string> {
+  return Object.fromEntries(
+    routing.locales.map((locale) => [
+      locale,
+      getPathname({ locale, href }),
+    ]),
+  ) as Record<AppLocale, string>;
+}
 
 /**
- * Self-referencing canonical for the active locale plus hreflang cluster (fr / en / x-default).
+ * Self-referencing canonical for the active locale plus hreflang cluster.
  * Paths are pathname-only; `metadataBase` in the root layout resolves absolute URLs.
  */
 export function localizedAlternates(
   locale: AppLocale,
   href: PathnameArg,
 ): NonNullable<Metadata["alternates"]> {
-  const frPath = getPathname({ locale: "fr", href });
-  const enPath = getPathname({ locale: "en", href });
-  const canonical = locale === "fr" ? frPath : enPath;
+  const paths = localizedPathMap(href);
+  const canonical = paths[locale];
 
   return {
     canonical,
     languages: {
-      fr: frPath,
-      en: enPath,
-      "x-default": frPath,
-    },
+      ...paths,
+      "x-default": paths.fr,
+    } satisfies Languages,
   };
 }
 
@@ -38,17 +46,20 @@ export function localizedCarAlternates(
   frSlug: string,
   enSlug: string,
 ): NonNullable<Metadata["alternates"]> {
-  const frPath = getPathname({ locale: "fr", href: carDetailHref(frSlug) });
-  const enPath = getPathname({ locale: "en", href: carDetailHref(enSlug) });
-  const canonical = locale === "fr" ? frPath : enPath;
+  const paths = Object.fromEntries(
+    routing.locales.map((entry) => {
+      const slug = entry === "fr" ? frSlug : enSlug;
+      return [entry, getPathname({ locale: entry, href: carDetailHref(slug) })];
+    }),
+  ) as Record<AppLocale, string>;
+  const canonical = paths[locale];
 
   return {
     canonical,
     languages: {
-      fr: frPath,
-      en: enPath,
-      "x-default": frPath,
-    },
+      ...paths,
+      "x-default": paths.fr,
+    } satisfies Languages,
   };
 }
 
@@ -68,22 +79,25 @@ export function localizedCarBrandScopedAlternates(
   enCarSlug: string,
 ): NonNullable<Metadata["alternates"]> {
   const brandSlug = brandToSlug(brand);
-  const frPath = getPathname({
-    locale: "fr",
-    href: carBrandScopedHref(brandSlug, frCarSlug),
-  });
-  const enPath = getPathname({
-    locale: "en",
-    href: carBrandScopedHref(brandSlug, enCarSlug),
-  });
-  const canonical = locale === "fr" ? frPath : enPath;
+  const paths = Object.fromEntries(
+    routing.locales.map((entry) => {
+      const carSlug = entry === "fr" ? frCarSlug : enCarSlug;
+      return [
+        entry,
+        getPathname({
+          locale: entry,
+          href: carBrandScopedHref(brandSlug, carSlug),
+        }),
+      ];
+    }),
+  ) as Record<AppLocale, string>;
+  const canonical = paths[locale];
 
   return {
     canonical,
     languages: {
-      fr: frPath,
-      en: enPath,
-      "x-default": frPath,
-    },
+      ...paths,
+      "x-default": paths.fr,
+    } satisfies Languages,
   };
 }

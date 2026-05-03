@@ -16,6 +16,7 @@ import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { generateBreadcrumbSchema } from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import type { AppLocale } from "@/i18n/routing";
+import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
 import Footer from "@/components/Footer/Footer";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://amseelcars.com";
@@ -53,7 +54,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brandSlug } = await params;
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const brands = getFleetBrandNamesSorted();
   const brand = resolveBrandFromSlug(brandSlug, brands);
   const t = await getTranslations({ locale: l, namespace: "seo.brandHub" });
@@ -85,7 +86,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CarBrandHubPage({ params }: Props) {
   const { brandSlug } = await params;
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const brands = getFleetBrandNamesSorted();
   const brand = resolveBrandFromSlug(brandSlug, brands);
 
@@ -114,7 +115,7 @@ export default async function CarBrandHubPage({ params }: Props) {
     { name: brand, url: brandPath },
   ]);
 
-  const currencyFormatter = new Intl.NumberFormat(l === "fr" ? "fr-FR" : "en-US", {
+  const currencyFormatter = new Intl.NumberFormat(localeToLanguageTag(l), {
     style: "currency",
     currency: "MAD",
     maximumFractionDigits: 0,
@@ -224,11 +225,8 @@ export default async function CarBrandHubPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `https://www.amseelcars.com${brandPath}#service`,
-    name: l === "en" ? `${brand} car rental in Agadir` : `Location ${brand} a Agadir`,
-    description:
-      l === "en"
-        ? `Rent ${brand} models in Agadir with airport or city pickup and WhatsApp booking support.`
-        : `Louez des modeles ${brand} a Agadir avec retrait aeroport ou centre-ville et reservation WhatsApp.`,
+    name: t("serviceName", { brand }),
+    description: t("serviceDescription", { brand }),
     provider: { "@id": "https://www.amseelcars.com#business" },
     areaServed: [
       { "@type": "City", name: "Agadir" },
@@ -236,23 +234,21 @@ export default async function CarBrandHubPage({ params }: Props) {
       { "@type": "Country", name: "Morocco" },
     ],
     url: new URL(brandPath, BASE_URL).toString(),
-    inLanguage: l === "en" ? "en-US" : "fr-MA",
+    inLanguage: localeToLanguageTag(l),
   };
-  const quickAnswer = l === "en"
-    ? `${brand} rentals in Agadir are available across multiple models with clear daily pricing, airport/city pickup, and fast WhatsApp booking.`
-    : `La location ${brand} a Agadir est disponible sur plusieurs modeles avec prix journalier clair, retrait aeroport/ville et reservation rapide par WhatsApp.`;
+  const quickAnswer = t("quickAnswerBody", { brand });
   const keyFacts = [
     {
-      label: l === "en" ? "Models available" : "Modeles disponibles",
+      label: t("factsModelsLabel"),
       value: `${cars.length}`,
     },
     {
-      label: l === "en" ? "Lowest daily rate" : "Tarif journalier mini",
+      label: t("factsRateLabel"),
       value: currencyFormatter.format(lowestDailyRate),
     },
     {
-      label: l === "en" ? "Fuel mix" : "Mix carburant",
-      value: fuelMix.length ? fuelMix.join(", ") : (l === "en" ? "Mixed" : "Mixte"),
+      label: t("factsFuelLabel"),
+      value: fuelMix.length ? fuelMix.join(", ") : t("mixedFuelFallback"),
     },
   ];
 
@@ -336,7 +332,7 @@ export default async function CarBrandHubPage({ params }: Props) {
               </p>
               <div className="mt-6 rounded-2xl border border-neutral-200 bg-white p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b11226]">
-                  {l === "en" ? "Quick answer" : "Reponse rapide"}
+                  {t("quickAnswerLabel")}
                 </p>
                 <p className="mt-2 text-sm text-neutral-700">{quickAnswer}</p>
                 <dl className="mt-4 grid gap-2 sm:grid-cols-3">

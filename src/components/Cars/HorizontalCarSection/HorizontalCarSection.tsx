@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocale } from 'next-intl'
 import type { AppLocale } from '@/i18n/routing'
+import { toAppLocale } from '@/i18n/locale-utils'
 import { carForLocale } from '@/lib/carLocale'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -19,7 +20,7 @@ interface HorizontalCarSectionProps {
 
 const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps = {}) => {
   const localeUi = useLocale()
-  const l: AppLocale = localeUi === 'en' ? 'en' : 'fr'
+  const l: AppLocale = toAppLocale(localeUi)
   const sectionRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const cardsRow1Ref = useRef<HTMLDivElement>(null)

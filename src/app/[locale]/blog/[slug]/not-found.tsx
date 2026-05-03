@@ -23,7 +23,7 @@ export default function NotFound() {
         </p>
         <div className="space-y-4">
           <Link 
-            href="/blog"
+            href="/fr/blog"
             className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
           >
             Retour au blog
@@ -41,6 +41,5 @@ export default function NotFound() {
     </div>
   );
 }
-
 
 

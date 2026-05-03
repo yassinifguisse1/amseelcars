@@ -6,8 +6,22 @@ import Script from "next/script";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema, generateReviewSchema, generateAggregateRatingSchema } from "@/lib/schemas";
 import { reviews } from "@/data/reviews";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
-import type { AppLocale } from "@/i18n/routing";
+import { routing, type AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
+
+const OG_LOCALE_BY_LOCALE: Record<AppLocale, string> = {
+  fr: "fr_MA",
+  en: "en_US",
+  es: "es_ES",
+  de: "de_DE",
+  pl: "pl_PL",
+};
+
+function resolveAppLocale(locale: string): AppLocale {
+  return routing.locales.includes(locale as AppLocale)
+    ? (locale as AppLocale)
+    : routing.defaultLocale;
+}
 
 /** Homepage only: avoid inheriting `/` as canonical on every route from root layout. */
 export async function generateMetadata({
@@ -16,11 +30,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l = resolveAppLocale(locale);
   const tMeta = await getTranslations({ locale: l, namespace: "home" });
   const title = tMeta("meta.title");
   const description = tMeta("meta.description");
-  const ogLocale = l === "en" ? "en_US" : "fr_MA";
+  const ogLocale = OG_LOCALE_BY_LOCALE[l];
 
   return {
     title,
@@ -44,7 +58,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l = resolveAppLocale(locale);
   const homePath = getPathname({ locale: l, href: "/" });
   const tHome = await getTranslations({ locale: l, namespace: "home" });
   const localBusinessSchema = generateLocalBusinessSchema();

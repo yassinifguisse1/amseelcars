@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import type { AppLocale } from '@/i18n/routing'
+import { toAppLocale } from '@/i18n/locale-utils'
 import { carForLocale } from '@/lib/carLocale'
 import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/lib/carImageAlt'
@@ -39,7 +40,7 @@ const CarGridSection = ({
 }: CarGridSectionProps) => {
   const t = useTranslations('carsPage')
   const localeUi = useLocale()
-  const l: AppLocale = localeUi === 'en' ? 'en' : 'fr'
+  const l: AppLocale = toAppLocale(localeUi)
   const searchParams = useSearchParams()
   const displayTitle = title ?? t('gridTitle')
   const displaySubtitle = subtitle ?? t('gridSubtitle')

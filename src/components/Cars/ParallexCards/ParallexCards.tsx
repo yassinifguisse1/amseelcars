@@ -1,8 +1,9 @@
 'use client';
 // import styles from './page.module.scss'
-import { projects, type Project } from '@/data/projects';
+import { parallaxProjectAssets, type Project } from '@/data/projects';
 import { useScroll } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Card from './Cards/Cards';
@@ -29,9 +30,23 @@ const darkenColor = (hex: string, amount: number): string => {
   return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`
 }
 
+type ParallaxCopyItem = { title: string; description: string };
+
 export default function ParallexCards() {
   const container = useRef<HTMLElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
+  const tParallax = useTranslations('parallaxProjects');
+  const copyItems = tParallax.raw('items') as ParallaxCopyItem[];
+
+  const projects: Project[] = useMemo(
+    () =>
+      parallaxProjectAssets.map((asset, i) => ({
+        ...asset,
+        title: copyItems[i]?.title ?? '',
+        description: copyItems[i]?.description ?? '',
+      })),
+    [copyItems],
+  );
   
   const { scrollYProgress } = useScroll({
     target: container,
@@ -51,11 +66,11 @@ export default function ParallexCards() {
       )
 
       cardElements.forEach((cardElement, index) => {
-        const project = projects[index]
-        if (!project) return
+        const asset = parallaxProjectAssets[index]
+        if (!asset) return
 
         const animateBackground = () => {
-          const darkColor = darkenColor(project.color, 0.3)
+          const darkColor = darkenColor(asset.color, 0.3)
           gsap.to(backgroundRef.current, {
             backgroundColor: darkColor,
             duration: 0.8,
@@ -90,9 +105,9 @@ export default function ParallexCards() {
       <div 
         ref={backgroundRef}
         className="fixed inset-0 h-full w-full -z-10 transition-colors duration-300 "
-        style={{ 
-        
-          backgroundColor: darkenColor(projects[0]?.color || '#BBACAF', 0.3) }}
+        style={{
+          backgroundColor: darkenColor(parallaxProjectAssets[0]?.color || '#BBACAF', 0.3),
+        }}
       />
       
       {

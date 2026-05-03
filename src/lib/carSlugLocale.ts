@@ -28,7 +28,7 @@ export function frenchCarSlugToEnglishSlug(frSlug: string): string {
 }
 
 export function carSlugForLocale(canonicalFrSlug: string, locale: AppLocale): string {
-  return locale === 'en' ? frenchCarSlugToEnglishSlug(canonicalFrSlug) : canonicalFrSlug
+  return locale === 'fr' ? canonicalFrSlug : frenchCarSlugToEnglishSlug(canonicalFrSlug)
 }
 
 /**

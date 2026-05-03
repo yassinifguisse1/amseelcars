@@ -1,0 +1,929 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "agadirRental": "Mietwagen Agadir",
+    "about": "Uber uns",
+    "cars": "Autos",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "menu": "Menu",
+    "close": "Schliessen",
+    "socialFacebook": "Facebook",
+    "socialInstagram": "Instagram",
+    "language": "Sprache",
+    "languageSelectAria": "Sprache der Website auswahlen",
+    "langFr": "Franzosisch",
+    "langEn": "Englisch",
+    "langEs": "Spanisch",
+    "langDe": "Deutsch",
+    "langPl": "Polnisch",
+    "backToCars": "Zuruck zu den Autos"
+  },
+  "footer": {
+    "logoAlt": "Amseel Cars Logo",
+    "titleLine1": "Finden wir",
+    "titleLine2": "dein Auto",
+    "tagline": "AMSEEL CARS ist deine Autovermietung in Agadir fur Fahrten in der Stadt, zum Flughafen und durch die ganze Region.",
+    "whatsappPrefill": "Hallo, ich mochte ein Auto mieten.",
+    "whatsappLine": "+212 662 500 181 · WhatsApp",
+    "companyBlockTitle": "AMSEEL CARS",
+    "address": "Immeuble Sinwan, Erdgeschoss, Haut Founty, 80000 Agadir, Marokko",
+    "phoneWhatsappLabel": "Telefon / WhatsApp:",
+    "emailLabel": "E-Mail:",
+    "hoursLine": "Zeiten: nach Termin und entsprechend deinen Lieferbedurfnissen; kontaktiere uns zur Planung.",
+    "asideAria": "Kontaktdaten und Links von AMSEEL CARS",
+    "quickLinksTitle": "Schnelllinks",
+    "quickLinksNavAria": "Schnelllinks",
+    "fleet": "Flotte",
+    "agadirRental": "Mietwagen Agadir",
+    "airport": "Flughafen Agadir",
+    "taghazout": "Taghazout",
+    "about": "Uber uns",
+    "contact": "Kontakt",
+    "brandsColumnTitle": "Mietwagen Agadir",
+    "brandsNavAria": "Mietwagen nach Marke in Agadir",
+    "brandLink": "{brand} Mietwagen Agadir",
+    "blogColumnTitle": "Blog",
+    "blogNavAria": "Blogartikel",
+    "blogLocationAgadir": "Mietwagen Agadir Guide",
+    "blogJetSki": "Jetski in Agadir",
+    "blogSurfSpots": "Surfspots in Agadir",
+    "blogActivities": "Aktivitaten in Agadir",
+    "blogGolf8": "Golf 8 mieten",
+    "blogClio5": "Clio 5 mieten",
+    "blogTouareg": "Touareg 2025 mieten",
+    "copyrightEdition": "{year} © Edition",
+    "developedBy": "WEBSITE ENTWICKELT VON",
+    "developerLinkLabel": "ITA GROUPE",
+    "socialNavAria": "Soziale Medien",
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "tiktok": "TikTok",
+    "pinterest": "Pinterest"
+  },
+  "home": {
+    "meta": {
+      "title": "AmseelCars - Mietwagen in Agadir",
+      "description": "Mietwagen in Agadir zu wettbewerbsfahigen Preisen. Grosse Flotte (Economy, SUVs, Premium), Abholung am Flughafen oder in der Stadt, einfache Buchung per WhatsApp. Klare Versicherungs- und Kilometerbedingungen."
+    },
+    "breadcrumb": "Startseite",
+    "hero": {
+      "title": "Mietwagen Agadir - AMSEEL CARS",
+      "intro": "AMSEEL CARS bietet zuverlassige Mietwagen in Agadir mit Lieferung zum Flughafen Agadir Al Massira, zu deinem Hotel oder in die Innenstadt. Entdecke unsere Economy-, Automatik-, SUV- und Premium-Modelle mit einfacher Buchung, 24/7-Support und klaren Preisen.",
+      "ariaLabel": "Uberblick - Mietwagen Agadir",
+      "fleetCta": "Unsere Autos ansehen"
+    },
+    "preloader": {
+      "title": "AMSEEL CARS",
+      "tagline": "Premium-Erlebnis fur Mietwagen."
+    },
+    "reviewsIntro": "Unsere Kunden schatzen die Servicequalitat, die schnelle Fahrzeugubergabe und die transparenten Mietbedingungen in Agadir.",
+    "splitHeadline": {
+      "line1Left": "Wir sind",
+      "line1Right": "Deine nachste Fahrt.",
+      "line2Left": "Vom Flughafen",
+      "line2Right": "Uberallhin.",
+      "line3Left": "Buche in",
+      "line3Right": "Wenigen Minuten",
+      "line4Left": "Wahle",
+      "line4Right": "Dein Auto",
+      "line5Left": "Starte",
+      "line5Right": "Die Reise."
+    },
+    "story": {
+      "heading": "AMSEEL CARS",
+      "description": "unterstutzt deine Mietwagenbedurfnisse in Agadir mit einer modernen Flotte, klaren Bedingungen, 24/7-Hilfe und Optionen fur Urlaub und Geschaftsreisen.",
+      "bullets": [
+        "Keine versteckten Gebuhren oder verwirrenden Bedingungen: klare Preise und zuverlassige Fahrzeuge.",
+        "Vom Stadtauto bis zum geraumigen SUV: jede Fahrt umfasst volle Abdeckung und 24/7-Hilfe.",
+        "Ein Auto zu mieten war noch nie so einfach."
+      ],
+      "aboutCta": "Uber uns",
+      "aboutAriaLabel": "Uber uns"
+    },
+    "trustBar": {
+      "ariaLabel": "Leistungsversprechen von AMSEEL CARS",
+      "items": [
+        "Flughafen- / Hotellieferung",
+        "24/7-Hilfe",
+        "Klare Preise",
+        "Aktuelle Fahrzeuge"
+      ]
+    },
+    "mainIntro": {
+      "headline": "Miete ein <accent>Auto</accent> in Agadir zum <accent>besten Preis</accent>",
+      "body": "Suchst du eine einfache, schnelle und professionelle Autovermietung in Agadir? AMSEEL CARS bietet eine Flotte aktueller Fahrzeuge fur jeden Bedarf: Urlaub, Geschaftsreise, Langzeitaufenthalt oder kurze Stadtfahrten. Unser Mietwagenservice in Agadir ist auf reibungslose Buchung, schnelle Ubergabe und transparente Bedingungen ausgelegt.",
+      "bullets": [
+        "Economy-Stadtautos",
+        "Automatikfahrzeuge",
+        "SUVs und Familienautos",
+        "Premium-Modelle"
+      ]
+    },
+    "airport": {
+      "title": "Mietwagen am Flughafen Agadir - schnelle Abholung bei Ankunft",
+      "body": "Sobald du am Flughafen Agadir Al Massira landest, kann unser Team dir dein Auto schnell ubergeben, damit dein Aufenthalt ohne lange Wartezeit beginnt. Wir bieten flexible Mietwagen am Flughafen Agadir mit 24/7-Support, punktlicher Lieferung und Abholung passend zu deinem Zeitplan. Unser Team hilft dir auch bei einer klaren, einfachen <kw>Mietwagen Agadir</kw> Erfahrung auf Deutsch.",
+      "bullets": [
+        "Lieferung am Flughafen Agadir Al Massira",
+        "Schnelle Fahrzeugubergabe",
+        "Einfache Buchung per WhatsApp oder online",
+        "Service fur Touristen und Geschaftskunden"
+      ]
+    },
+    "vehicleTypes": {
+      "title": "Welchen Autotyp solltest du in Agadir mieten?",
+      "subtitle": "Economy, Automatik, SUV oder Premium: wahle die Kategorie, die zu Budget, Komfort und Fahrten rund um Agadir passt.",
+      "fleetCta": "Flotte ansehen ->",
+      "cards": [
+        {
+          "title": "Economy-Autos",
+          "text": "Ideal fur kleine Budgets, Stadtfahrten und kurze Aufenthalte."
+        },
+        {
+          "title": "Automatikautos",
+          "text": "Einfacheres, entspannteres Fahren in Agadir, ideal fur stressfreie Automatik-Mietwagen."
+        },
+        {
+          "title": "SUVs und Familienautos",
+          "text": "Geeignet fur Familien, Gruppen und langere regionale Fahrten, einschliesslich komfortabler SUV-Miete in Agadir."
+        },
+        {
+          "title": "Premium-Autos",
+          "text": "Fur Gaste, die mehr Komfort, Auftreten und Ausstattung wunschen."
+        }
+      ]
+    },
+    "destinations": {
+      "title": "Erkunde Agadir und die Region in deinem Tempo",
+      "subtitle": "Mit einem Mietwagen in Agadir erreichst du Taghazout, Imi Ouaddar, die Strandpromenade, die Innenstadt und die umliegenden Landschaften ohne Abhangigkeit von Taxis oder offentlichen Verkehrsmitteln. Viele Reisende suchen bei Ankunft in Al Massira auch nach “Mietwagen Flughafen Agadir”.",
+      "readMore": "Mehr lesen",
+      "imageAlt": "{name} - praktischer Guide im AmseelCars Agadir Blog",
+      "items": [
+        {
+          "name": "Taghazout",
+          "text": "Surfdorf und Strande, perfekt fur einen Tagesausflug ab Agadir.",
+          "category": "actualites",
+          "slug": "taghazout",
+          "image": "https://utfs.io/f/2R5jJoZnKO1rytDex7eBHguTY1Uf3pGkcKrb4Lvx9XOIdAN2"
+        },
+        {
+          "name": "Dania Land Agadir",
+          "text": "Familienausfluge und Freizeit nahe dem Stadtzentrum.",
+          "category": "guide-pratique",
+          "slug": "danialand-agadir",
+          "image": "https://utfs.io/f/2R5jJoZnKO1rs7zY81iJbvremktOKRNPQE1MGfYju7U46Xig"
+        },
+        {
+          "name": "Strandpromenade Agadir",
+          "text": "Spaziergange am Meer, Cafes und Blick auf den Ozean.",
+          "category": "guide-pratique",
+          "slug": "visiter-agadir",
+          "image": "https://utfs.io/f/2R5jJoZnKO1r4oEQ72bp2hsXlNHW3wfi0jbM7ZBrAxCyT8ma"
+        },
+        {
+          "name": "Imi Ouaddar",
+          "text": "Ruhige Bucht und Kustenlandschaft sudlich von Agadir.",
+          "category": "guide-pratique",
+          "slug": "imi-ouaddar",
+          "image": "https://utfs.io/f/2R5jJoZnKO1rt7EOSi43vWVgQ52HhZM1CExTcG4RYDUp0kaL"
+        }
+      ]
+    },
+    "browseServices": {
+      "kicker": "Mietwagen",
+      "title": "Mietwagen in Agadir entdecken",
+      "subtitle": "Abholung in der Stadt, am Flughafen Al Massira oder an der Kuste; offne danach jede Modellseite fur Fotos, Daten und Buchung. Jedes Fahrzeug hat eine eigene URL fur Suchmaschinen und Assistenten.",
+      "panels": {
+        "locationsHeading": "Wo wir liefern und arbeiten",
+        "vehicleTypesHeading": "Nach Fahrzeugkategorie suchen",
+        "brandsHeading": "Nach Marke suchen",
+        "locationsCopy": "Flughafen, Innenstadt, Taghazout oder Kustenvillen: wahle, wo wir dein Auto ubergeben.",
+        "vehicleTypesCopy": "Filtere die Flotte nach Fahrstil oder Budget, das du in Agadir brauchst.",
+        "brandsCopy": "Jede Markenseite hat eine SEO-fertige URL, damit Assistenten sie einfach zitieren konnen."
+      },
+      "brandLinkLabel": "{brand} Mietwagen in Agadir",
+      "locations": [
+        {
+          "label": "Agadir - Stadt und Region",
+          "href": "/location-voiture-agadir"
+        },
+        {
+          "label": "Flughafen Agadir Al Massira",
+          "href": "/agadir-airport-car-rental"
+        },
+        {
+          "label": "Taghazout und Kustentrips",
+          "href": "/taghazout-car-rental"
+        },
+        {
+          "label": "Gesamte Flotte - alle Modelle",
+          "href": "/cars"
+        },
+        {
+          "label": "Marokko - Angebot anfragen",
+          "href": "/contact"
+        }
+      ],
+      "vehicleTypes": [
+        {
+          "label": "Economy- und Stadtautos",
+          "category": "economy"
+        },
+        {
+          "label": "SUVs",
+          "category": "suv"
+        },
+        {
+          "label": "Luxus",
+          "category": "luxury"
+        },
+        {
+          "label": "Premium",
+          "category": "premium"
+        },
+        {
+          "label": "Crossovers und Familie",
+          "category": "crossover"
+        }
+      ],
+      "primaryCta": "Mit unserem Team sprechen",
+      "secondaryCta": "Flotte ansehen",
+      "brandSpotlightLabel": "Marke im Fokus",
+      "brandSpotlightCopy": "Wir wechseln hervorgehobene Marken nach Lieferverfugbarkeit und Reisedaten zur Nachfrage.",
+      "brandSpotlightCta": "Hervorgehobene Marke ansehen",
+      "stats": [
+        {
+          "value": "45+",
+          "label": "Autos bereit in Agadir"
+        },
+        {
+          "value": "2h",
+          "label": "durchschnittliches Lieferfenster"
+        },
+        {
+          "value": "24/7",
+          "label": "Hilfe"
+        }
+      ],
+      "brandSpotlightHelper": "Aktualisiert mit aktueller Verfugbarkeit und Nachfrage."
+    },
+    "location": {
+      "title": "Wo du AMSEEL CARS in Agadir findest",
+      "body": "Unser Buro befindet sich in Haut Founty, Immeuble Sinwan, Erdgeschoss, Agadir. Wir liefern Fahrzeuge auch nach Absprache zum Flughafen Agadir Al Massira, zu deinem Hotel oder in die Innenstadt.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, Erdgeschoss, Haut Founty, 80000 Agadir, Marokko",
+      "whatsappLabel": "WhatsApp"
+    },
+    "bookingCta": {
+      "title": "Buche jetzt deinen Mietwagen in Agadir",
+      "body": "Kontaktiere unser Team, um dein Fahrzeug schnell zu reservieren. Ob Economy, Automatik, SUV oder Premium, wir passen die Buchung an deine Daten und dein Budget an. Je nach Fahrzeug und Mietbedingungen kann AMSEEL CARS manchen Kunden flexiblere Optionen anbieten.",
+      "bookNow": "Jetzt buchen",
+      "whatsapp": "WhatsApp",
+      "call": "Anrufen",
+      "whatsappPrefillReserve": "Hallo, ich mochte ein Auto buchen."
+    },
+    "faq": {
+      "kicker": "FAQ",
+      "title": "Haufige Fragen zu Mietwagen in Agadir",
+      "subtitle": "Ausfuhrliche Antworten zur Planung deiner Miete. Lange Antworten zeigen zuerst einen Auszug; nutze “Mehr lesen”, um sie zu erweitern.",
+      "readMore": "Mehr lesen",
+      "readLess": "Weniger anzeigen",
+      "items": [
+        {
+          "q": "Wie wahle ich eine Autovermietung in Agadir aus?",
+          "a": "Eine gute Autovermietung in Agadir bietet klare Bedingungen, aktuelle Fahrzeuge, vertrauenswurdige Kundenbewertungen, schnellen Support und praktische Lieferung. Vergleiche Flottenqualitat, Preistransparenz, einfache Buchung sowie Ubergabe am Flughafen oder Hotel. Amseel Cars ist eine gute Option, wenn du unkomplizierte Buchung, 24/7-Hilfe und gut gepflegte Fahrzeuge willst."
+        },
+        {
+          "q": "Wie viel kostet ein Mietwagen in Agadir?",
+          "a": "Die Preise hangen vom Modell, der Saison, der Mietdauer und dem Ubergabeort ab. Economy-Autos starten meist zu zuganglichen Preisen, wahrend SUVs, Automatik- und Premium-Modelle mehr kosten. Prufe immer, was enthalten ist, etwa Hilfe, Lieferoptionen und Mietbedingungen, um Uberraschungen zu vermeiden."
+        },
+        {
+          "q": "Welche Website ist die beste fur Mietwagen in Marokko?",
+          "a": "Die beste Website zeigt Fahrzeuge, Preise, Mietbedingungen und Kontaktdaten klar an. Sie sollte die Buchung einfach machen, echte Agenturinformationen teilen und zeigen, dass Support verfugbar ist. Fur Agadir ist eine klare, schnelle und leicht nutzbare Website oft der beste Weg, Autos zu vergleichen und sicher zu buchen."
+        },
+        {
+          "q": "Was ist der Durchschnittspreis fur Mietwagen in Marokko?",
+          "a": "Durchschnittspreise variieren nach Stadt, Reisesaison, Fahrzeugkategorie und Mietdauer. Stadtautos sind meist am gunstigsten; SUVs, Automatik- und Premium-Autos kosten mehr. Fur eine realistische Einschatzung beachte enthaltene Leistungen, Abholort und allgemeine Mietbedingungen."
+        },
+        {
+          "q": "Welche Autovermietung ist am zuverlassigsten?",
+          "a": "Zuverlassige Vermieter veroffentlichen transparente Bedingungen, pflegen ihre Flotte, antworten schnell und haben konstantes Kundenfeedback. Vertrauen entsteht durch Servicequalitat, Punktlichkeit, Fahrzeugzustand und Support vor sowie wahrend der Miete. In Agadir solltest du eine Agentur wahlen, die leicht erreichbar ist und ihre Regeln klar erklart."
+        },
+        {
+          "q": "Welche Fragen sollte ich vor der Miete stellen?",
+          "a": "Frage nach dem Gesamtpreis, was enthalten ist, Regeln fur Abholung und Ruckgabe, erforderlichen Dokumenten, Hilfeoptionen und verfugbaren Extras. Bestatige auch Kilometerlimits, Tankregelung, Lieferzeiten und Modellverfugbarkeit. Diese Fragen reduzieren Stress und Missverstandnisse bei der Ubergabe."
+        },
+        {
+          "q": "Welche Tipps sind gut fur Mietwagen in Marokko?",
+          "a": "Buche im Voraus, vergleiche Fahrzeugtypen fur deine Route und lies die Mietbedingungen aufmerksam. Wahle eine Agentur, die gut erreichbar ist, prufe das Auto bei der Abholung und bestatige Liefer- oder Ruckgabedetails. Fur Agadir sollte das Auto zu Stadtverkehr, Strassenbedingungen und Reisedauer passen."
+        },
+        {
+          "q": "Welche Voraussetzungen gelten fur die Automiete?",
+          "a": "Die Anforderungen variieren je nach Agentur und Fahrzeug, umfassen aber meist einen gultigen Fuhrerschein, Ausweis oder Reisepass und Buchungsdetails. Manche Agenturen fragen je nach Dauer, Fahrzeugtyp oder Fahrerprofil nach weiteren Informationen. Bestatige die genauen Anforderungen vor der Buchung, damit die Dokumente bereit sind."
+        },
+        {
+          "q": "Ist es sicher, in Marokko ein Auto zu mieten?",
+          "a": "Ja, Mieten kann praktisch und sicher sein, wenn du eine seriose Agentur wahlst, die Bedingungen verstehst und vorsichtig fahrst. Viele Reisende nutzen ein Auto, um Agadir und die Region ohne offentliche Verkehrsmittel zu erkunden. Buche bei einem Anbieter mit klaren Regeln, gepflegten Autos und erreichbarer Hilfe."
+        },
+        {
+          "q": "Welche guten Fragen stellt man beim Autoverleih?",
+          "a": "Frage nach Endpreis, erforderlichen Dokumenten, Abhol- und Ruckgabeprozess, Ruckgabebedingungen, enthaltener Hilfe und Services. Frage auch nach Lieferung zum Flughafen oder Hotel, welches Auto zu deinem Aufenthalt passt und wie die Buchung funktioniert. Einfache Checks helfen, ein klareres und besser passendes Angebot zu wahlen."
+        }
+      ]
+    }
+  },
+  "carsPage": {
+    "loadingAria": "Flotte wird geladen",
+    "loadingSrOnly": "Fahrzeuge werden geladen…",
+    "gridTitle": "Unsere Premiumflotte",
+    "gridSubtitle": "Wählen Sie aus unserer großen Fahrzeugauswahl",
+    "resultsCount": "{count, plural, =1 {# Fahrzeug gefunden} other {# Fahrzeuge gefunden}}",
+    "noResults": "Kein Fahrzeug entspricht Ihren Suchkriterien.",
+    "resetFilters": "Filter zurücksetzen",
+    "waInquiry": "Hallo, ich möchte den {carName} für {price} {currency}/Tag mieten. Können Sie die Verfügbarkeit bestätigen und die Buchung erklären? Danke.",
+    "hero": {
+      "posterAria": "Vorschau der AmseelCars-Flotte",
+      "videoNotSupported": "Ihr Browser unterstützt das Video-Tag nicht."
+    },
+    "filters": {
+      "toggleAria": "Filter anzeigen oder ausblenden",
+      "title": "Filter",
+      "brand": "Marke",
+      "allBrands": "Alle Marken",
+      "vehicleName": "Fahrzeugname",
+      "searchPlaceholder": "Fahrzeug suchen…",
+      "clearSearchAria": "Suche löschen",
+      "pricePerDay": "Preis pro Tag ({currency})",
+      "min": "Min.",
+      "max": "Max."
+    },
+    "card": {
+      "altFallback": "{carName} — Mietwagen in Agadir, AmseelCars",
+      "daysShort": "1–4 Tage",
+      "daysLong": "5+ Tage",
+      "seats": "{count} Sitze",
+      "premium": "Premium",
+      "bookNow": "Jetzt buchen",
+      "whatsapp": "WhatsApp"
+    },
+    "schema": {
+      "itemListName": "Mietwagenflotte in Agadir",
+      "moneyPageName": "Mietwagenflotte in Agadir",
+      "moneyPageDescription": "Durchsuchen Sie Economy-, SUV- und Premium-Mietwagen in Agadir mit Abholung am Flughafen oder in der Stadt.",
+      "faqPriceQuestion": "Wie viel kostet ein Mietwagen in Agadir?",
+      "faqPriceAnswer": "Der Preis hängt von Kategorie, Reisedaten und Mietdauer ab. Economy-Modelle starten meist günstiger, während SUVs und Premiumfahrzeuge mehr kosten.",
+      "faqPickupQuestion": "Kann ich den Wagen am Flughafen Agadir abholen?",
+      "faqPickupAnswer": "Ja, Abholung und Rückgabe können je nach Verfügbarkeit am Flughafen Agadir Al Massira oder in der Stadt Agadir organisiert werden.",
+      "serviceName": "Mietwagenflotte in Agadir",
+      "serviceDescription": "Mietwagenservice in Agadir mit Economy-, SUV- und Premium-Kategorien sowie Abholung am Flughafen."
+    },
+    "quickAnswer": {
+      "label": "Kurzantwort",
+      "body": "AmseelCars bietet Mietwagen in Agadir in den Kategorien Economy, SUV und Premium, mit Abholung am Flughafen (AGA) oder in der Stadt und Buchung per WhatsApp.",
+      "fleetSizeLabel": "Flottengröße",
+      "fleetSizeValue": "{count}+ Modelle",
+      "pickupPointsLabel": "Abholpunkte",
+      "pickupPointsValue": "Stadt Agadir + Flughafen AGA",
+      "categoriesLabel": "Kategorien",
+      "categoriesValue": "Economy, SUV, Premium"
+    }
+  },
+  "carDetail": {
+    "priceShortTerm": "(1–4 Tage)",
+    "priceLongTerm": "(5+ Tage)",
+    "priceTagline": "Bestpreisgarantie • Kostenlose Stornierung",
+    "perDay": "/ Tag",
+    "seats": "{count} Sitze",
+    "capacity": "Kapazität",
+    "fuelTypeLabel": "Kraftstoffart",
+    "transmissionLabel": "Getriebe",
+    "modelYear": "Modelljahr",
+    "featuresHeading": "Ausstattung und Komfort",
+    "specsHeading": "Technische Daten",
+    "specEngine": "Motor",
+    "specPower": "Leistung",
+    "specAcceleration": "Beschleunigung",
+    "specTopSpeed": "Höchstgeschwindigkeit",
+    "specFuelEfficiency": "Kraftstoffverbrauch",
+    "specDrivetrain": "Antrieb",
+    "availabilityTitle": "Zur Miete verfügbar",
+    "availabilityBody": "Dieses Fahrzeug ist derzeit verfügbar und bereit für Ihre nächste Fahrt.",
+    "defaultAboutTitle": "Über dieses Auto",
+    "faqHeading": "Häufige Fragen",
+    "stickyReserve": "Buchen",
+    "waButton": "WhatsApp",
+    "waInquiry": "Hallo, ich möchte den {carName} für {price} {currency}/Tag mieten. Können Sie die Verfügbarkeit bestätigen und die Buchung erklären? Danke.",
+    "categories": {
+      "luxury": "Luxus",
+      "sports": "Sport",
+      "suv": "SUV",
+      "electric": "Elektrisch",
+      "premium": "Premium",
+      "economy": "Economy",
+      "crossover": "Crossover"
+    }
+  },
+  "booking": {
+    "introBlurb": "Abholung am Flughafen Al Massira, in der Innenstadt von Agadir, in Taghazout oder in unserem Büro möglich. Verfügbarkeit und Konditionen bestätigen wir per E-Mail oder WhatsApp.",
+    "sectionDates": "Mietdaten",
+    "sectionLocations": "Abhol- und Rückgabeorte",
+    "sectionPersonal": "Ihre Angaben",
+    "pickupDate": "Abholdatum *",
+    "returnDate": "Rückgabedatum *",
+    "datePlaceholder": "Datum wählen",
+    "calendarOpenAria": "Kalender öffnen",
+    "pickupLocation": "Abholort *",
+    "returnLocation": "Rückgabeort *",
+    "fullName": "Vollständiger Name *",
+    "email": "E-Mail-Adresse *",
+    "phone": "Telefonnummer *",
+    "placeholderName": "Geben Sie Ihren vollständigen Namen ein",
+    "placeholderEmail": "sie@beispiel.de",
+    "placeholderPhone": "+212 6XX XXX XXX",
+    "locSelect": "Ort auswählen",
+    "locAgadirCentre": "Agadir Innenstadt",
+    "locAirport": "Flughafen Al Massira",
+    "locTaghazout": "Taghazout",
+    "locAgency": "Büro",
+    "successTitle": "Buchungsanfrage gesendet!",
+    "successBody": "Wir haben Ihre Anfrage erhalten und melden uns in Kürze.",
+    "errorSubmit": "Etwas ist schiefgegangen. Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt.",
+    "cancel": "Abbrechen",
+    "submit": "Buchungsanfrage senden",
+    "submitting": "Wird gesendet…",
+    "inlineBadge": "Buchung",
+    "inlineTitle": "Dieses Auto buchen",
+    "modalTitle": "Ihren Mietwagen buchen",
+    "errFullName": "Der vollständige Name muss mindestens 2 Zeichen haben",
+    "errEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "errPhone": "Die Telefonnummer muss mindestens 10 Ziffern haben",
+    "errPickupDate": "Bitte wählen Sie ein Abholdatum",
+    "errReturnDate": "Bitte wählen Sie ein Rückgabedatum",
+    "errPickupLoc": "Bitte wählen Sie einen Abholort",
+    "errReturnLoc": "Bitte wählen Sie einen Rückgabeort",
+    "errReturnAfterPickup": "Das Rückgabedatum muss nach dem Abholdatum liegen"
+  },
+  "contactPage": {
+    "hero": {
+      "kicker": "Concierge & Buchungen",
+      "titleStart": "Nehmen Sie",
+      "titleAccent": " Kontakt auf",
+      "subtitle": "Eine schnelle, persönliche Antwort: Wir stimmen Ihre Miete auf Agadir, den Flughafen oder die Küste ab, mit derselben Sorgfalt wie bei unserer Flotte."
+    },
+    "preloader": {
+      "brandTitle": "AMSEEL CARS",
+      "tagline": "Die Straße, veredelt — Luxus-Mietwagen in Agadir."
+    },
+    "form": {
+      "title": "Nachricht senden",
+      "intro": "Teilen Sie Daten, Wunschmodell und Abholort mit — wir melden uns kurzfristig.",
+      "nameLabel": "Vollständiger Name",
+      "namePlaceholder": "Ihr Name",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "sie@beispiel.de",
+      "phoneLabel": "Telefon (optional)",
+      "phonePlaceholder": "+212 …",
+      "messageLabel": "Ihre Nachricht",
+      "messagePlaceholder": "Daten, Fahrzeug, Übergabeort, Fragen…",
+      "submit": "Nachricht senden",
+      "submitting": "Wird gesendet…",
+      "sent": "Nachricht gesendet",
+      "successNote": "Danke — wir antworten innerhalb von 24 Stunden.",
+      "errNameRequired": "Name ist erforderlich",
+      "errEmailRequired": "E-Mail ist erforderlich",
+      "errEmailInvalid": "Bitte geben Sie eine gültige E-Mail ein",
+      "errMessageRequired": "Nachricht ist erforderlich",
+      "errMessageMin": "Mindestens 10 Zeichen",
+      "errSendFailed": "Senden fehlgeschlagen. Versuchen Sie es erneut oder schreiben Sie uns auf WhatsApp."
+    },
+    "info": {
+      "sectionTitle": "Direkt erreichen",
+      "sectionLead": "Wählen Sie den bevorzugten Kanal — wir sind täglich da, um Ihre Miete mit Ihren Plänen abzustimmen.",
+      "cardWhatsapp": "WhatsApp",
+      "cardEmail": "E-Mail",
+      "cardAddress": "Adresse",
+      "phoneValue": "+212 662 500 181",
+      "emailValue": "amseelcars5@gmail.com",
+      "addressValue": "Sinwan-Gebäude, Erdgeschoss, Haut Founty, 80000 Agadir, Marokko",
+      "followTitle": "Folgen Sie uns",
+      "whyTitle": "Warum Amseel Cars",
+      "statLuxury": "Premiumflotte",
+      "statClients": "Betreute Gäste",
+      "statRating": "Kundenerlebnis",
+      "statSupport": "Da, wenn Sie uns brauchen",
+      "mapTitle": "Standort finden",
+      "mapLoading": "Karte wird geladen…",
+      "mapLoadGoogle": "Google Maps wird geladen…",
+      "mapNoKey": "Karte nicht verfügbar (API-Schlüssel)",
+      "mapNoKeyHint": "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY zu .env.local hinzufügen",
+      "mapFallbackAddress": "Sinwan-Gebäude, Haut Founty, Agadir",
+      "mapError": "Die Karte konnte nicht geladen werden",
+      "mapRetry": "Erneut versuchen",
+      "mapInfoBusiness": "Amseel Cars",
+      "mapInfoLine1": "Sinwan-Gebäude, Erdgeschoss",
+      "mapInfoLine2": "80000 Agadir, Marokko",
+      "mapOpenInMaps": "In Google Maps öffnen",
+      "socialFollowAria": "Folgen auf {name}"
+    },
+    "cta": {
+      "title": "Bereit loszufahren?",
+      "lead": "WhatsApp ist am schnellsten für Verfügbarkeit, Preise und Abholung — wir antworten in Echtzeit.",
+      "whatsappCta": "WhatsApp — +212 662 500 181",
+      "emailCta": "E-Mail senden"
+    }
+  },
+  "aboutPage": {
+    "videoNoSupport": "Ihr Browser unterstützt das Video-Tag nicht.",
+    "introImageAlt": "Detail eines Premium-Fahrzeuginnenraums — Amseel Cars",
+    "introTitle": "Über Amseel Cars",
+    "introP1": "Bei Amseel Cars bringen wir Sie nicht nur von A nach B — wir gestalten Erlebnisse. Aus Leidenschaft für automobile Exzellenz bewegen wir uns im Premiumsegment und setzen neue Maßstäbe für luxuriöse Autovermietung.",
+    "introP2": "Wir stehen nicht für gewöhnliche Fahrten. Wir stehen für Reisen, die von Anfang bis Ende in Erinnerung bleiben. Deshalb haben wir eine außergewöhnliche Flotte aufgebaut, tausende zufriedene Kunden betreut und Partnerschaften mit Premium-Marken in Marokko geschlossen.",
+    "introP3": "Amseel Cars verbindet Luxus mit Zuverlässigkeit: herausragende Fahrzeuge, professioneller Service und unvergessliche Erlebnisse. Wir erfüllen Erwartungen nicht nur — wir übertreffen sie jedes Mal.",
+    "introP4": "Wir bringen automobile Exzellenz nach Agadir und darüber hinaus. Jedes Fahrzeug und jeder Servicepunkt wird sorgfältig gepflegt, denn „gut genug“ reicht uns nicht. Bei Amseel Cars bewegen wir nicht nur Menschen — wir schaffen Erinnerungen.",
+    "fleetImageAlt": "Premiumflotte — Amseel Cars",
+    "fleetTitle": "Premium-Flottenerlebnis",
+    "fleetP1": "Erleben Sie neu interpretierten Luxus mit unserer handverlesenen Premiumflotte. Jedes Fahrzeug steht für starke Technik, moderne Technologie und zeitloses Design.",
+    "fleetP2": "Vom Flughafentransfer bis zum besonderen Anlass wird jedes Fahrzeug sorgfältig gepflegt, damit die Fahrt genauso eindrucksvoll ist wie das Ziel.",
+    "fleetP3": "Unser Anspruch geht über das Auto hinaus: professionelle Fahrer, reibungslose Buchung und 24/7-Support für eine entspannte Miete.",
+    "brandWordAmseel": "Amseel",
+    "brandWordCars": "Cars",
+    "headerInfo": "Amseel Cars: schnelle Buchung, Abholung am Flughafen oder in der Stadt, transparente Preise und 24/7-Support für Reisen in ganz Marokko.",
+    "brandsHeading": "(Unsere",
+    "brandsHeading2": " Marken)",
+    "brandTileAria": "{name} — Vorschau",
+    "brandLogoAlt": "{name} Logo",
+    "brandCarAlt": "{name} Fahrzeug",
+    "splitLine1Left": "ENTDECKEN",
+    "splitLine1Right": "AGADIR.",
+    "splitLine2": "AMSEEL CARS",
+    "splitLine3Left": "WÄHLEN SIE",
+    "splitLine3Right": "IHRE MARKE",
+    "splitLine4Left": "KURZ- ODER",
+    "splitLine4Right": "LANGZEIT",
+    "textHoverLine1": "MIETEN & LOS",
+    "textHoverLine1Span": "AMSEEL CAR",
+    "textHoverLine2": "SCHNELLE ABHOLUNG",
+    "textHoverLine2Span": "FLUGHAFEN & STADT",
+    "textHoverLine3": "BUCHUNG",
+    "textHoverLine3Span": "IN 2 MINUTEN",
+    "showCarsLoading": "Fahrzeugbilder werden geladen…",
+    "showCarsProgress": "{loaded} / {total} Bilder geladen",
+    "showCarsImageAlt": "Mietwagen — Bild {n}"
+  },
+  "seo": {
+    "cars": {
+      "title": "Mietwagenflotte in Agadir — Preise & Verfügbarkeit",
+      "description": "Durchsuchen Sie unsere Flotte: Economy-, SUV- und Premiumfahrzeuge. Abholung und Rückgabe am Flughafen Agadir oder in der Stadt. Schnelle Buchung per WhatsApp."
+    },
+    "about": {
+      "title": "Über AmseelCars",
+      "description": "Erfahren Sie mehr über AmseelCars, Ihr Mietwagen-Team in Agadir. Zuverlässiger Service, Abholung am Flughafen oder in der Stadt und einfache Buchung."
+    },
+    "contact": {
+      "title": "Kontakt — AmseelCars Agadir",
+      "description": "Premium-Mietwagen-Concierge in Agadir: WhatsApp, E-Mail oder Formular. Abholung am Flughafen Al Massira oder in der Stadt — schnell und persönlich."
+    },
+    "carNotFound": {
+      "title": "Auto nicht gefunden",
+      "description": "Das gewünschte Fahrzeug konnte nicht gefunden werden."
+    },
+    "brandHub": {
+      "title": "{brand} mieten in Agadir — Flotte & Modelle | AmseelCars",
+      "description": "Mieten Sie {brand} in Agadir: verfügbare Modelle, Daten und Buchung per WhatsApp. Übergabe am Flughafen oder in der Stadt.",
+      "notFoundTitle": "Marke nicht gefunden",
+      "notFoundDescription": "Diese Markenseite ist nicht verfügbar."
+    },
+    "carDetail": {
+      "defaultTitle": "{carName} — Premium-Mietwagen | AmseelCars",
+      "keywordExtras": [
+        "Mietwagen Agadir",
+        "Marokko",
+        "Premium-SUV"
+      ]
+    }
+  },
+  "locationAgadirPage": {
+    "meta": {
+      "title": "Mietwagen in Agadir - Flughafenabholung & Stadtübergabe",
+      "description": "Miete ein Auto in Agadir mit Abholung am Flughafen Agadir Al Massira (AGA) oder in der Stadt. Economy, SUV und Premium. Schnelle Buchung per WhatsApp.",
+      "ogTitle": "Mietwagen in Agadir - Flughafenabholung & Stadtübergabe",
+      "ogDescription": "Abholung am Flughafen Agadir Al Massira (AGA) oder in der Stadt. Economy, SUV und Premium. Schnelle Buchung per WhatsApp.",
+      "twitterTitle": "Mietwagen in Agadir - Flughafenabholung & Stadtübergabe",
+      "twitterDescription": "Abholung am Flughafen oder in Agadir-Stadt. Economy, SUV und Premium."
+    },
+    "schema": {
+      "name": "Mietwagen in Agadir - Flughafenabholung & Stadtübergabe",
+      "description": "Miete ein Auto in Agadir mit Abholung am Flughafen Agadir Al Massira oder in der Stadt. Economy, SUV und Premium. Schnelle Buchung per WhatsApp.",
+      "breadcrumbName": "Mietwagen Agadir",
+      "serviceName": "Mietwagen Agadir",
+      "serviceDescription": "Autovermietung in Agadir mit Abholung am Flughafen oder in der Stadt, WhatsApp-Buchung und Fahrzeugen von Economy bis Premium."
+    },
+    "hero": {
+      "eyebrow": "Marokko Küstenkollektion",
+      "title": "Agadir <muted>Mietwagen</muted>",
+      "lead": "Lieferung am Flughafen oder in der Stadt in unter einer Stunde. Ein WhatsApp-Chat koordiniert Unterlagen, Fahrerwünsche und Ankunftszeit.",
+      "meta": "Übergabe am Flughafen, in der Stadt, im Hotel und an der Küste."
+    },
+    "quickAnswer": "AmseelCars vermietet Autos in Agadir mit Abholung am Flughafen Agadir Al Massira (AGA) oder im Stadtzentrum, einer Flotte von Economy bis Premium und Buchung per WhatsApp +212 662-500181.",
+    "keyFacts": {
+      "title": "Auf einen Blick",
+      "items": [
+        {
+          "term": "Wer",
+          "value": "AmseelCars, Autovermietung in Agadir, Marokko."
+        },
+        {
+          "term": "Abholung",
+          "value": "Flughafen Al Massira (AGA) oder Übergabe in Agadir-Stadt."
+        },
+        {
+          "term": "Buchung",
+          "value": "WhatsApp +212 662-500181 oder E-Mail contact@amseelcars.com."
+        },
+        {
+          "term": "Flotte",
+          "value": "Economy-, SUV- und Premiumfahrzeuge, meist unter 24 Monate alt."
+        }
+      ]
+    },
+    "relatedPages": {
+      "label": "Verwandte Seiten",
+      "airport": "Mietwagen Flughafen Agadir",
+      "taghazout": "Taghazout und Küste",
+      "contact": "Kontakt"
+    },
+    "operations": {
+      "kicker": "Operative Klarheit",
+      "title": "Für sichere Reiseabläufe gebaut",
+      "lead": "Eine rot-schwarze Übergabelogik hält Termine präzise, egal ob du am AGA landest oder am Strand wohnst."
+    },
+    "aiPanel": {
+      "badge": "KI-bereite Fakten",
+      "title": "Was Assistenten zitieren können"
+    },
+    "serviceChips": [
+      "Flughafen",
+      "Stadt",
+      "WhatsApp-Concierge"
+    ],
+    "stats": [
+      {
+        "label": "Abholbereich",
+        "value": "12 km",
+        "helper": "Von Al Massira bis zu Strandhotels"
+      },
+      {
+        "label": "Flottenmix",
+        "value": "SUV / Premium",
+        "helper": "Für Küstenfahrten kuratiert"
+      },
+      {
+        "label": "Antwort",
+        "value": "< 15 Min.",
+        "helper": "WhatsApp-Durchschnitt"
+      }
+    ],
+    "aiHighlights": [
+      {
+        "title": "Abholoptionen",
+        "body": "Flughafentore A/B, Übergabe in der Hotellobby oder Garagen-Treffpunkt für Langzeitgäste."
+      },
+      {
+        "title": "Fahrzeuge",
+        "body": "Stadtwagen, SUVs und Premium-Limousinen unter 24 Monaten mit zweisprachigen Übergabekarten."
+      },
+      {
+        "title": "Kontakt",
+        "body": "WhatsApp +212 662-500181 antwortet in 15 Minuten, auf Französisch und Englisch."
+      }
+    ],
+    "features": [
+      {
+        "title": "Ankunftsbriefing",
+        "description": "Wir senden eine Checkliste mit Fahrerkontakt, Kennzeichen und Kraftstoffregelung."
+      },
+      {
+        "title": "Lieferplan",
+        "description": "Rote und schwarze Zeitfenster halten Übergaben präzise, auch wenn sich Flüge verschieben."
+      },
+      {
+        "title": "Concierge-bereit",
+        "description": "Hotelteams erhalten PDF- oder WhatsApp-Zusammenfassungen zur direkten Weiterleitung."
+      }
+    ],
+    "carsSection": {
+      "kicker": "Ausgewählte Autos",
+      "title": "Beliebte Anfragen in Agadir",
+      "lead": "Öffne die Fahrzeugkarte für Preise, Übergabefotos und KI-freundliche Informationen.",
+      "cardImageAlt": "{name} Mietwagen in Agadir mit AmseelCars",
+      "cardImageTitle": "{name} in Agadir mieten - Abholung am Flughafen und in der Stadt",
+      "cardCaption": "Preise, Fotos und Übergabedetails vor der Abholung bereit."
+    },
+    "faqKicker": "FAQ",
+    "faqTitle": "Mietwagen in Agadir - häufige Fragen",
+    "fleetCtaLabel": "Gesamte Flotte ansehen",
+    "carOpenHint": "Fahrzeugbriefing öffnen",
+    "ctas": {
+      "primary": "Per WhatsApp buchen",
+      "secondary": "Gesamte Flotte ansehen",
+      "tertiary": "Concierge per E-Mail"
+    },
+    "faqs": [
+      {
+        "question": "Wie viel kostet ein Mietwagen in Agadir?",
+        "answer": "Der Preis hängt von Fahrzeugkategorie, Mietdauer und Saison ab. AmseelCars bietet Economy-, SUV- und Premiumoptionen mit klaren Preisen und schneller Buchung per WhatsApp."
+      },
+      {
+        "question": "Kann ich das Auto am Flughafen Agadir Al Massira abholen?",
+        "answer": "Ja. Wir können Abholung und Rückgabe am Flughafen Agadir Al Massira oder in Agadir-Stadt organisieren. Teile uns deine Flugzeit mit, und wir koordinieren die Übergabe."
+      },
+      {
+        "question": "Welche Dokumente brauche ich, um in Marokko ein Auto zu mieten?",
+        "answer": "Normalerweise brauchst du einen gültigen Führerschein und einen Ausweis oder Reisepass. Anforderungen können je nach Fahrzeug variieren; schreib uns, und wir bestätigen es schnell."
+      },
+      {
+        "question": "Kann ich über WhatsApp buchen?",
+        "answer": "Ja. Sende deine Daten, den Abholort (Flughafen oder Stadt) und dein Wunschauto. Wir antworten mit Verfügbarkeit und den nächsten Schritten."
+      }
+    ]
+  },
+  "brandHubPage": {
+    "breadcrumbAria": "Breadcrumb",
+    "heroKicker": "Marke im Fokus",
+    "h1": "{brand} mieten in Agadir",
+    "intro": "Entdecken Sie alle {brand}-Modelle, die wir aktuell in Agadir vermieten. Öffnen Sie eine Fahrzeugseite für Fotos, Ausstattung und Buchungsoptionen.",
+    "heroSupporting": "Jeder {brand} wird wöchentlich geprüft, damit er für Marokkos Küstenklima und längere Fahrten bereit bleibt.",
+    "fleetHeading": "Verfügbare {brand}-Modelle",
+    "fleetEyebrow": "Live-Kollektion",
+    "collectionIntro": "Vergleichen Sie Ausstattung, Lieferfenster und Preise für jeden in Agadir vorbereiteten {brand}.",
+    "fleetHelper": "{count, plural, one {# Modell ist jetzt bereit.} other {# Modelle sind jetzt bereit.}}",
+    "segmentsEyebrow": "{brand}-Segmente",
+    "viewCar": "Ansehen",
+    "ctaFleet": "Gesamte Flotte ansehen",
+    "ctaContact": "Kontakt",
+    "primaryCta": "{brand}-Lieferung anfragen",
+    "secondaryCta": "Alle Autos ansehen",
+    "ctaHelper": "Wir antworten in unter 1 Stunde per WhatsApp oder Telefon.",
+    "metrics": {
+      "models": {
+        "label": "Live-Modelle",
+        "helper": "{brand}-Angebote mit aktuellen Preisen.",
+        "value": "{count, plural, one {# Modell} other {# Modelle}}"
+      },
+      "rating": {
+        "label": "Ø Bewertung",
+        "helper": "Neueste Übergaben in {year}",
+        "value": "{rating} / 5"
+      },
+      "segments": {
+        "label": "Segmente",
+        "helper": "{count, plural, one {Ein Segment für Agadirs Straßen abgestimmt.} other {Mehrere Segmente für Küste und Inland bereit.}}",
+        "value": "{count, plural, one {# Segment} other {# Segmente}}"
+      },
+      "rate": {
+        "label": "Ab Preis",
+        "helper": "Tagespreis für Kurzzeitmiete diese Woche geprüft.",
+        "value": "{price} / Tag"
+      }
+    },
+    "categoryLabels": {
+      "luxury": "Luxus",
+      "sports": "Sportwagen",
+      "suv": "SUVs",
+      "electric": "Elektrisch",
+      "premium": "Premium",
+      "economy": "Economy",
+      "crossover": "Crossover & Familie"
+    },
+    "card": {
+      "seats": "Sitze",
+      "transmission": "Getriebe",
+      "fuel": "Kraftstoff",
+      "fromPrice": "Ab {price}/Tag",
+      "deliveryLabel": "24/7-Lieferung"
+    },
+    "insightsFallbackHeading": "Warum einen {brand} bei AMSEEL CARS mieten",
+    "insights": {
+      "eyebrow": "Qualitätshinweise",
+      "heading": "{brand}-Mieten für Marokko kuratiert",
+      "sidebarTitle": "{brand} Concierge",
+      "sidebarBody": "Teilen Sie Flug oder Hotel, und wir stellen den {brand} mit einem zweisprachigen Übergabespezialisten bereit.",
+      "sidebarCta": "Lieferung planen",
+      "items": [
+        {
+          "title": "{brand} bereit für Flughafenankünfte",
+          "body": "Flexible Lieferfenster decken Agadir Al Massira, Taghazout und Innenstadt am selben Tag ab."
+        },
+        {
+          "title": "Pflege vor jedem {brand}",
+          "body": "Schonende Wäsche und Innenraumhygiene halten die Kabine trotz Küstenfeuchtigkeit sauber."
+        },
+        {
+          "title": "Flexible Kilometer für Küstenfahrten",
+          "body": "{brand}-Mieten enthalten großzügige Kilometer für Essaouira oder Paradise Valley ohne Stress."
+        }
+      ]
+    },
+    "fuelMixLabel": "Verfügbare Antriebe: {fuels}",
+    "newestModelLabel": "{year}-Modelle bereits vor Ort",
+    "supportingDelivery": "Lieferung zum Flughafen, Hotel oder Riad in Agadir in unter 2 Stunden.",
+    "faqEyebrow": "Wichtig zu wissen",
+    "faq": {
+      "heading": "Fragen zur {brand}-Miete",
+      "note": "Kurze Antworten mit klaren Schritten — kontaktieren Sie uns für eine individuelle {brand}-Konfiguration.",
+      "items": [
+        {
+          "question": "Kann ich einen {brand} zum Flughafen Agadir liefern lassen?",
+          "answer": "Ja. Teilen Sie Ihre Flugnummer mit und wir stellen den {brand} am Flughafen Agadir Al Massira mit vorbereiteten Unterlagen bereit."
+        },
+        {
+          "question": "Welche Dokumente brauche ich für einen {brand}?",
+          "answer": "Reisepass oder Ausweis, gültiger Führerschein und Zahlungsmittel. Vorab gesendete Scans verkürzen die Übergabe."
+        },
+        {
+          "question": "Darf ich mit einem {brand} außerhalb von Agadir fahren?",
+          "answer": "Ja. Teilen Sie die Route mit (Essaouira, Marrakesch, Inland), damit wir Kilometer, Versicherung und Timing anpassen können."
+        }
+      ]
+    },
+    "itemListName": "Aktuelle {brand}-Mieten in Agadir",
+    "serviceName": "{brand} mieten in Agadir",
+    "serviceDescription": "Mieten Sie {brand}-Modelle in Agadir mit Abholung am Flughafen oder in der Stadt und Buchungshilfe per WhatsApp.",
+    "quickAnswerLabel": "Kurzantwort",
+    "quickAnswerBody": "{brand}-Mieten in Agadir sind in mehreren Modellen mit klaren Tagespreisen, Flughafen-/Stadtabholung und schneller WhatsApp-Buchung verfügbar.",
+    "factsModelsLabel": "Verfügbare Modelle",
+    "factsRateLabel": "Niedrigster Tagespreis",
+    "factsFuelLabel": "Antriebe",
+    "mixedFuelFallback": "Gemischt"
+  },
+  "bmwScroll": {
+    "loading": "Laden...",
+    "bookNow": "Jetzt buchen",
+    "idealTrip": "Deine ideale Reise",
+    "awaits": "wartet auf dich",
+    "scrollHint": "Scrolle, um mehr zu entdecken",
+    "cars": {
+      "bmw": {
+        "name": "BMW X3 M",
+        "description": "Premium-SUV, entwickelt fuer Performance.",
+        "logoAlt": "BMW X3 M Logo",
+        "bodyAlt": "BMW X3 Karosserie"
+      },
+      "kia": {
+        "name": "KIA Sportage",
+        "description": "Dynamisches Design trifft auf fortschrittliche Technologie.",
+        "logoAlt": "KIA Sportage Logo",
+        "bodyAlt": "KIA Sportage Karosserie"
+      },
+      "troc": {
+        "name": "T-Roc",
+        "description": "Kompakt-SUV, entwickelt fuer Performance.",
+        "logoAlt": "Volkswagen T-Roc Logo",
+        "bodyAlt": "Volkswagen T-Roc Karosserie"
+      },
+      "golf": {
+        "name": "VW Golf 8",
+        "description": "Kompakte Exzellenz kombiniert mit moderner Innovation.",
+        "logoAlt": "Volkswagen Golf 8 Logo",
+        "bodyAlt": "Volkswagen Golf 8 Karosserie"
+      }
+    }
+  },
+  "parallaxProjects": {
+    "items": [
+      {
+        "title": "Geschäftsreisen-Mietwagen",
+        "description": "Hochwertige, zuverlässige Fahrzeuge mit flexiblen Konditionen für Teams, Events und Executive-Reisen."
+      },
+      {
+        "title": "Lieferung & Abholung vor Ort",
+        "description": "Wir bringen das Auto zu Ihnen—Hotel, Flughafen, Büro oder Zuhause—und holen es nach der Miete wieder ab."
+      },
+      {
+        "title": "Große Fahrzeugpalette",
+        "description": "Vom kompakten Stadtauto bis SUV und Luxusmodellen: das passende Fahrzeug für jede Fahrt."
+      },
+      {
+        "title": "Flexible Rückgabe überall",
+        "description": "Geben Sie das Fahrzeug an einem anderen Ort zurück—unser Team übernimmt die Abholung."
+      },
+      {
+        "title": "Herausragender Kundenservice",
+        "description": "Unser freundliches Team ist rund um die Uhr für Sie da—von der Buchung bis zur Rückgabe."
+      }
+    ]
+  },
+  "reviews": {
+    "title": "Was unsere Kunden sagen",
+    "loading": "Bewertungen werden geladen...",
+    "publishedOn": "Veroffentlicht auf {publisher}"
+  },
+  "notFound": {
+    "documentTitle": "Seite nicht gefunden - AmseelCars",
+    "heading": "Seite nicht gefunden",
+    "body": "Entschuldigung, die gesuchte Seite existiert nicht oder wurde verschoben. Gehe zur Startseite zuruck oder sieh dir unsere verfugbaren Autos an.",
+    "backHome": "Zur Startseite",
+    "viewCars": "Unsere Autos ansehen",
+    "usefulLinks": "Nutzliche Links:"
+  }
+}

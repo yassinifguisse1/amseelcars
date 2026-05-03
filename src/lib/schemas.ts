@@ -155,7 +155,7 @@ export function generateBlogPostingSchema(article: {
   slug: string; // Full path like "guide-pratique/location-de-voiture-a-agadir"
   category: string;
 }) {
-  const articleUrl = `${siteUrl}/blog/${article.slug}`;
+  const articleUrl = `${siteUrl}/fr/blog/${article.slug}`;
   const imageUrl = article.image.startsWith('http') 
     ? article.image 
     : article.image.startsWith('/') 

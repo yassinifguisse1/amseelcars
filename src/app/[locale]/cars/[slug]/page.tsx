@@ -5,6 +5,7 @@ import { getAllCarSlugs, getCarBySlug } from "@/data/cars";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { brandToSlug } from "@/lib/brandSlug";
 import type { AppLocale } from "@/i18n/routing";
+import { toAppLocale } from "@/i18n/locale-utils";
 
 /**
  * Legacy `/cars/[slug]` and `/voitures/[slug]` URLs: permanent redirect to
@@ -19,7 +20,7 @@ export function generateStaticParams({
 }: {
   params: { locale?: string };
 }): { slug: string }[] {
-  const l: AppLocale = params.locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(params.locale);
   return getAllCarSlugs().map((fr) => ({ slug: carSlugForLocale(fr, l) }));
 }
 
@@ -30,7 +31,7 @@ export default async function LegacyCarSlugRedirect({ params }: LegacyCarSlugPag
     notFound();
   }
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const path = getPathname({
     locale: l,
     href: {

@@ -10,7 +10,8 @@
     "lint": "next lint",
     "migrate:articles": "tsx scripts/migrate-articles.ts",
     "backfill:blog-locale": "tsx scripts/backfill-blog-locale.ts",
-    "generate:car-products": "tsx scripts/generate-car-products.ts"
+    "generate:car-products": "tsx scripts/generate-car-products.ts",
+    "bootstrap:car-products-locales": "tsx scripts/bootstrap-car-products-locales.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.35.2",
@@ -75,6 +76,7 @@
     "@types/react-dom": "^18",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
+    "google-translate-api-x": "^10.7.2",
     "prisma": "^6.19.0",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^4.1.11",

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Link, useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import type { AppLocale } from '@/i18n/routing'
+import { toAppLocale } from '@/i18n/locale-utils'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag } from 'lucide-react'
@@ -88,7 +89,7 @@ function isValidCurrency(v: string | null): v is ValidCurrency {
  */
 export default function CarDetailClient({ car, brandHub }: CarDetailClientProps) {
   const localeUi = useLocale()
-  const l: AppLocale = localeUi === 'en' ? 'en' : 'fr'
+  const l: AppLocale = toAppLocale(localeUi)
   const tNav = useTranslations('nav')
   const t = useTranslations('carDetail')
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)

@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { getLocale } from 'next-intl/server';
 import { getCategoryFromSlug, getArticlesByCategory, getAllCategories, categoryToSlug } from '@/data/blog';
-import { localizedAlternates } from '@/lib/seo/localized-alternates';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
 import { generateBreadcrumbSchema } from '@/lib/schemas';
@@ -11,6 +10,13 @@ import { LoadingProvider } from '@/contexts/LoadingContext';
 import BlogArticles from '@/components/Blog/BlogArticles';
 import BlogHero from '@/components/Blog/BlogHero';
 import Footer from '@/components/Footer/Footer';
+import {
+  absoluteBlogUrl,
+  blogArticlePath,
+  blogCategoryPath,
+  blogIndexPath,
+  frenchBlogAlternates,
+} from '@/lib/seo/blog-paths';
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -46,16 +52,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const locale = await getLocale();
   const l: AppLocale = locale === "en" ? "en" : "fr";
-  const href = {
-    pathname: "/blog/[category]" as const,
-    params: { category: categorySlug },
-  };
-  const path = getPathname({ locale: l, href });
+  const path = blogCategoryPath(categorySlug);
 
   return {
     title: `${category} - AmseelCars Blog`,
     description: `Découvrez tous nos articles sur ${category.toLowerCase()}. Conseils, guides et actualités pour la location de voiture à Agadir.`,
-    alternates: localizedAlternates(l, href),
+    alternates: frenchBlogAlternates(path),
     openGraph: {
       type: 'website',
       title: `${category} - AmseelCars Blog`,
@@ -96,11 +98,8 @@ export default async function CategoryPage({ params }: PageProps) {
   const isEn = l === "en";
   const articles = await getArticlesByCategory(category, l);
   const homePath = getPathname({ locale: l, href: "/" });
-  const blogPath = getPathname({ locale: l, href: "/blog" });
-  const categoryPath = getPathname({
-    locale: l,
-    href: { pathname: "/blog/[category]", params: { category: categorySlug } },
-  });
+  const blogPath = blogIndexPath();
+  const categoryPath = blogCategoryPath(categorySlug);
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: isEn ? "Home" : "Accueil", url: homePath },
     { name: "Blog", url: blogPath },
@@ -121,7 +120,9 @@ export default async function CategoryPage({ params }: PageProps) {
       itemListElement: articles.slice(0, 20).map((article, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        url: `https://www.amseelcars.com/${article.locale}/blog/${categoryToSlug(article.category)}/${article.slug}`,
+        url: absoluteBlogUrl(
+          blogArticlePath(categoryToSlug(article.category), article.slug),
+        ),
         name: article.title,
       })),
     },
@@ -160,4 +161,3 @@ export default async function CategoryPage({ params }: PageProps) {
     </>
   );
 }
-

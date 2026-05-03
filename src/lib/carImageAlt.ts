@@ -21,6 +21,44 @@ const CATEGORY_EN: Record<Car['category'], string> = {
   crossover: 'compact SUV',
 }
 
+const CATEGORY_ES: Record<Car['category'], string> = {
+  luxury: 'premium',
+  sports: 'deportivo',
+  suv: 'SUV',
+  electric: 'eléctrico',
+  premium: 'premium',
+  economy: 'compacto',
+  crossover: 'SUV compacto',
+}
+
+const CATEGORY_DE: Record<Car['category'], string> = {
+  luxury: 'Premium',
+  sports: 'Sport',
+  suv: 'SUV',
+  electric: 'Elektro',
+  premium: 'Premium',
+  economy: 'Kompakt',
+  crossover: 'Kompakt-SUV',
+}
+
+const CATEGORY_PL: Record<Car['category'], string> = {
+  luxury: 'premium',
+  sports: 'sportowy',
+  suv: 'SUV',
+  electric: 'elektryczny',
+  premium: 'premium',
+  economy: 'kompakt',
+  crossover: 'kompaktowy SUV',
+}
+
+const CATEGORY_BY_LOCALE: Record<AppLocale, Record<Car['category'], string>> = {
+  fr: CATEGORY_FR,
+  en: CATEGORY_EN,
+  es: CATEGORY_ES,
+  de: CATEGORY_DE,
+  pl: CATEGORY_PL,
+}
+
 /** Alt: stay concise for screen readers & SERP (≈125–160 chars). */
 const MAX_ALT = 158
 /** Title tooltips: similar cap so UI stays predictable. */
@@ -43,6 +81,41 @@ const DETAIL_FALLBACK_SCENES_EN = [
   'dashboard',
   'other angle',
 ] as const
+
+const DETAIL_FALLBACK_SCENES_ES = [
+  'vista frontal',
+  'vista lateral',
+  'vista trasera',
+  'interior',
+  'salpicadero',
+  'otro ángulo',
+] as const
+
+const DETAIL_FALLBACK_SCENES_DE = [
+  'Frontansicht',
+  'Seitenansicht',
+  'Heckansicht',
+  'Innenraum',
+  'Armaturenbrett',
+  'weitere Perspektive',
+] as const
+
+const DETAIL_FALLBACK_SCENES_PL = [
+  'widok z przodu',
+  'widok z boku',
+  'widok z tyłu',
+  'wnętrze',
+  'kokpit',
+  'inny kąt',
+] as const
+
+const DETAIL_SCENES: Record<AppLocale, readonly string[]> = {
+  fr: DETAIL_FALLBACK_SCENES_FR,
+  en: DETAIL_FALLBACK_SCENES_EN,
+  es: DETAIL_FALLBACK_SCENES_ES,
+  de: DETAIL_FALLBACK_SCENES_DE,
+  pl: DETAIL_FALLBACK_SCENES_PL,
+}
 
 function detailFallbackSceneIndex(index: number): number {
   return Math.max(0, Math.min(index, DETAIL_FALLBACK_SCENES_FR.length - 1))
@@ -67,17 +140,13 @@ function hasBusinessName(s: string): boolean {
 }
 
 function categoryWord(category: Car['category'], locale: AppLocale): string {
-  if (locale === 'en') {
-    return CATEGORY_EN[category] ?? category
-  }
-  return CATEGORY_FR[category] ?? category
+  return CATEGORY_BY_LOCALE[locale][category] ?? CATEGORY_FR[category] ?? category
 }
 
 function detailFallbackScene(index: number, locale: AppLocale): string {
   const i = detailFallbackSceneIndex(index)
-  return locale === 'en'
-    ? DETAIL_FALLBACK_SCENES_EN[i]!
-    : DETAIL_FALLBACK_SCENES_FR[i]!
+  const scenes = DETAIL_SCENES[locale] ?? DETAIL_SCENES.fr
+  return scenes[i] ?? scenes[0]!
 }
 
 /**
@@ -102,9 +171,18 @@ function buildListingAltBody(
   const core = vehicleCore(car)
 
   if (!rawPrimaryAlt) {
-    return locale === 'en'
-      ? `${core} (${cat}) — main view, car rental`
-      : `${core} (${cat}) — vue principale, location voiture`
+    switch (locale) {
+      case 'en':
+        return `${core} (${cat}) — main view, car rental`
+      case 'es':
+        return `${core} (${cat}) — vista principal, alquiler de coches`
+      case 'de':
+        return `${core} (${cat}) — Hauptansicht, Mietwagen`
+      case 'pl':
+        return `${core} (${cat}) — widok główny, wynajem samochodów`
+      default:
+        return `${core} (${cat}) — vue principale, location voiture`
+    }
   }
 
   const scene = extractSceneDescription(rawPrimaryAlt)
@@ -121,7 +199,22 @@ function appendLocalAndBrand(
 ): string {
   let out = body
   if (!hasLocalContext(out)) {
-    out = locale === 'en' ? `${out} · Agadir, Morocco` : `${out} · Agadir, Maroc`
+    switch (locale) {
+      case 'en':
+        out = `${out} · Agadir, Morocco`
+        break
+      case 'es':
+        out = `${out} · Agadir, Marruecos`
+        break
+      case 'de':
+        out = `${out} · Agadir, Marokko`
+        break
+      case 'pl':
+        out = `${out} · Agadir, Maroko`
+        break
+      default:
+        out = `${out} · Agadir, Maroc`
+    }
   }
   if (opts.includeBrand && !hasBusinessName(out)) {
     out = `${out} · AmseelCars`
@@ -152,14 +245,42 @@ export function carListingImageTitle(
   const cat = categoryWord(car.category, locale)
   const core = vehicleCore(car)
   const excerpt = truncateMeta(car.description, 82)
-  const line =
-    excerpt && locale === 'en'
-      ? `${car.carName} for rent in Agadir (${cat}) — ${excerpt}`
-      : excerpt
-        ? `${car.carName} à louer à Agadir (${cat}) — ${excerpt}`
-        : locale === 'en'
-          ? `${core} — car rental Agadir, Morocco — ${cat} — AmseelCars`
-          : `${core} — location voiture Agadir, Maroc — ${cat} — AmseelCars`
+  let line: string
+  if (excerpt) {
+    switch (locale) {
+      case 'en':
+        line = `${car.carName} for rent in Agadir (${cat}) — ${excerpt}`
+        break
+      case 'es':
+        line = `${car.carName} en alquiler en Agadir (${cat}) — ${excerpt}`
+        break
+      case 'de':
+        line = `${car.carName} mieten in Agadir (${cat}) — ${excerpt}`
+        break
+      case 'pl':
+        line = `${car.carName} do wynajęcia w Agadirze (${cat}) — ${excerpt}`
+        break
+      default:
+        line = `${car.carName} à louer à Agadir (${cat}) — ${excerpt}`
+    }
+  } else {
+    switch (locale) {
+      case 'en':
+        line = `${core} — car rental Agadir, Morocco — ${cat} — AmseelCars`
+        break
+      case 'es':
+        line = `${core} — alquiler coches Agadir, Marruecos — ${cat} — AmseelCars`
+        break
+      case 'de':
+        line = `${core} — Mietwagen Agadir, Marokko — ${cat} — AmseelCars`
+        break
+      case 'pl':
+        line = `${core} — wynajem Agadir, Maroko — ${cat} — AmseelCars`
+        break
+      default:
+        line = `${core} — location voiture Agadir, Maroc — ${cat} — AmseelCars`
+    }
+  }
   return truncateMeta(line, MAX_TITLE)
 }
 
@@ -196,8 +317,23 @@ export function carDetailImageAlt(
     scene = extracted.length >= 4 ? extracted : raw
   }
 
-  const rental =
-    locale === 'en' ? `${scene}, car rental` : `${scene}, location voiture`
+  let rental: string
+  switch (locale) {
+    case 'en':
+      rental = `${scene}, car rental`
+      break
+    case 'es':
+      rental = `${scene}, alquiler de coches`
+      break
+    case 'de':
+      rental = `${scene}, Mietwagen`
+      break
+    case 'pl':
+      rental = `${scene}, wynajem samochodów`
+      break
+    default:
+      rental = `${scene}, location voiture`
+  }
   let body = `${core} (${cat}) — ${rental}`
   body = appendLocalAndBrand(body, { includeBrand: index === 0 }, locale)
   return truncateMeta(body, MAX_ALT)
@@ -225,10 +361,23 @@ export function carDetailImageTitle(
     : detailFallbackScene(index, locale)
 
   const shortScene = scene.length > 72 ? `${scene.slice(0, 69)}…` : scene
-  const mid =
-    locale === 'en'
-      ? `Rent in Agadir | AmseelCars`
-      : `Louer à Agadir | AmseelCars`
+  let mid: string
+  switch (locale) {
+    case 'en':
+      mid = `Rent in Agadir | AmseelCars`
+      break
+    case 'es':
+      mid = `Alquiler en Agadir | AmseelCars`
+      break
+    case 'de':
+      mid = `Mieten in Agadir | AmseelCars`
+      break
+    case 'pl':
+      mid = `Wynajem w Agadirze | AmseelCars`
+      break
+    default:
+      mid = `Louer à Agadir | AmseelCars`
+  }
   const line = `${core} · ${shortScene} · ${mid} · ${cat}`
   return truncateMeta(line, MAX_TITLE)
 }

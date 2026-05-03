@@ -14,17 +14,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FlagFr, FlagGb } from "./LocaleFlagIcons";
+import { FlagDe, FlagEs, FlagFr, FlagGb, FlagPl } from "./LocaleFlagIcons";
 
 type AppLocale = (typeof routing.locales)[number];
 
 const LOCALE_ENTRIES: {
   code: AppLocale;
   Flag: typeof FlagFr;
-  labelKey: "langFr" | "langEn";
+  labelKey: "langFr" | "langEn" | "langEs" | "langDe" | "langPl";
 }[] = [
   { code: "fr", Flag: FlagFr, labelKey: "langFr" },
   { code: "en", Flag: FlagGb, labelKey: "langEn" },
+  { code: "es", Flag: FlagEs, labelKey: "langEs" },
+  { code: "de", Flag: FlagDe, labelKey: "langDe" },
+  { code: "pl", Flag: FlagPl, labelKey: "langPl" },
 ];
 
 function routeParamsWithoutLocale(

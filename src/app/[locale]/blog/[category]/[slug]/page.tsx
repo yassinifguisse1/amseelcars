@@ -4,17 +4,22 @@ import Script from 'next/script';
 import { getLocale } from 'next-intl/server';
 import {
   getArticleByCategoryAndSlug,
-  getArticleByTranslationGroup,
   getAllArticles,
   categoryToSlug,
 } from '@/data/blog';
-import { localizedAlternates } from '@/lib/seo/localized-alternates';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
 import { generateBlogPostingSchema, generateBreadcrumbSchema } from '@/lib/schemas';
+import {
+  absoluteBlogUrl,
+  blogArticlePath,
+  blogCategoryPath,
+  blogIndexPath,
+  frenchBlogAlternates,
+} from '@/lib/seo/blog-paths';
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -61,48 +66,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const href = {
-    pathname: "/blog/[category]/[slug]" as const,
-    params: { category: categorySlug, slug },
-  };
-  const path = getPathname({ locale: l, href });
-  let alternates = localizedAlternates(l, href);
-
-  if (article.translationGroup) {
-    const otherLocale: AppLocale = l === "fr" ? "en" : "fr";
-    const translatedArticle = await getArticleByTranslationGroup(
-      article.translationGroup,
-      otherLocale,
-    );
-
-    if (translatedArticle) {
-      const currentPath = getPathname({
-        locale: l,
-        href: {
-          pathname: "/blog/[category]/[slug]",
-          params: { category: categoryToSlug(article.category), slug: article.slug },
-        },
-      });
-      const translatedPath = getPathname({
-        locale: otherLocale,
-        href: {
-          pathname: "/blog/[category]/[slug]",
-          params: {
-            category: categoryToSlug(translatedArticle.category),
-            slug: translatedArticle.slug,
-          },
-        },
-      });
-
-      alternates = {
-        canonical: currentPath,
-        languages:
-          l === "fr"
-            ? { fr: currentPath, en: translatedPath, "x-default": currentPath }
-            : { fr: translatedPath, en: currentPath, "x-default": translatedPath },
-      };
-    }
-  }
+  const path = blogArticlePath(categoryToSlug(article.category), article.slug);
+  const alternates = frenchBlogAlternates(path);
 
   return {
     title: article.seo.metaTitle,
@@ -115,9 +80,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       type: 'article',
       title: article.title,
-      url: `https://www.amseelcars.com${path}`,
+      url: absoluteBlogUrl(path),
       siteName: 'AmseelCars',
-      locale: l === 'en' ? 'en_US' : 'fr_MA',
+      locale: 'fr_MA',
       images: [
         {
           url: article.image,
@@ -157,18 +122,8 @@ export default async function ArticlePage({ params }: PageProps) {
   const locale = await getLocale();
   const l: AppLocale = locale === "en" ? "en" : "fr";
   const homePath = getPathname({ locale: l, href: "/" });
-  const blogPath = getPathname({ locale: l, href: "/blog" });
-  const categoryPath = getPathname({
-    locale: l,
-    href: { pathname: "/blog/[category]", params: { category: categorySlug } },
-  });
-  const articlePath = getPathname({
-    locale: l,
-    href: {
-      pathname: "/blog/[category]/[slug]",
-      params: { category: categorySlug, slug },
-    },
-  });
+  const blogPath = blogIndexPath();
+  const categoryPath = blogCategoryPath(categorySlug);
   
   // Debug logging (remove in production)
   console.log('Route params:', { categorySlug, slug });
@@ -179,6 +134,8 @@ export default async function ArticlePage({ params }: PageProps) {
     console.log('Article not found for:', { categorySlug, slug });
     notFound();
   }
+
+  const articlePath = blogArticlePath(categoryToSlug(article.category), article.slug);
 
   // Extract FAQs and generate schema
   const faqs = extractFAQs(article.content);
@@ -234,4 +191,3 @@ export default async function ArticlePage({ params }: PageProps) {
     </>
   );
 }
-

@@ -1,4 +1,5 @@
 import { routing } from "./routing";
+import type { AppLocale } from "./routing";
 
 /**
  * Turn a pathname template (with [param] segments) into a regex, aligned with
@@ -34,7 +35,7 @@ function normalizePathname(pathname: string): string {
  * language. For shared paths (`/contact`, `/blog/...`), return `null` and let
  * cookie / default decide.
  */
-export function inferLocaleFromPathname(pathname: string): "fr" | "en" | null {
+export function inferLocaleFromPathname(pathname: string): AppLocale | null {
   const decoded = normalizePathname(pathname);
   const pathnames = routing.pathnames as Record<
     string,
@@ -61,10 +62,10 @@ export function inferLocaleFromPathname(pathname: string): "fr" | "en" | null {
             ? localizedPath.slice(0, -1)
             : localizedPath;
         if (n === p) {
-          return locale as "fr" | "en";
+          return locale as AppLocale;
         }
       } else if (templateToRegex(localizedPath).test(decoded)) {
-        return locale as "fr" | "en";
+        return locale as AppLocale;
       }
     }
   }

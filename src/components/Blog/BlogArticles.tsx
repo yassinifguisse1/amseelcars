@@ -169,7 +169,7 @@ function BlogArticlesContent({
             {categories.map((category) => (
               <Link
                 key={category}
-                href={`/blog/${categoryToSlug(category)}`}
+                href={`/fr/blog/${categoryToSlug(category)}`}
                 className={`${styles.categoryButton} ${selectedCategory === category ? styles.active : ''}`}
                 onClick={(e) => {
                   e.preventDefault();
