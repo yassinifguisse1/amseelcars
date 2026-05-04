@@ -45,6 +45,8 @@ function transformMediaAsset(asset: {
   id: string;
   url: string;
   fileName: string | null;
+  folderId: string | null;
+  folderName: string | null;
   metadata: unknown;
   createdAt: Date;
   updatedAt: Date;
@@ -53,6 +55,8 @@ function transformMediaAsset(asset: {
     id: asset.id,
     url: asset.url,
     fileName: asset.fileName ?? '',
+    folderId: asset.folderId ?? '',
+    folderName: asset.folderName ?? '',
     metadata: asset.metadata as MediaMetadataByLocale,
     createdAt: asset.createdAt.toISOString(),
     updatedAt: asset.updatedAt.toISOString(),
@@ -110,8 +114,32 @@ function normalizeMediaAssetBody(body: unknown) {
   return mediaAssetSchema.parse({
     url: draft.url,
     fileName: draft.fileName,
+    folderId: draft.folderId,
     metadata,
   });
+}
+
+function isMongoObjectId(value: string) {
+  return /^[a-f\d]{24}$/i.test(value);
+}
+
+async function getFolderName(folderId: string) {
+  if (!folderId) return '';
+
+  if (!isMongoObjectId(folderId)) {
+    throw new Error('Selected media folder is invalid.');
+  }
+
+  const folder = await prisma.blogMediaFolder.findUnique({
+    where: { id: folderId },
+    select: { name: true },
+  });
+
+  if (!folder) {
+    throw new Error('Selected media folder was not found. Refresh folders and try again.');
+  }
+
+  return folder.name;
 }
 
 export async function GET(request: NextRequest) {
@@ -130,7 +158,10 @@ export async function GET(request: NextRequest) {
       return createNoCacheResponse({ asset: transformMediaAsset(asset) });
     }
 
+    const folderId = searchParams.get('folderId') ?? undefined;
+
     const assets = await prisma.blogMediaAsset.findMany({
+      ...(folderId ? { where: { folderId } } : {}),
       orderBy: { createdAt: 'desc' },
     });
 
@@ -154,11 +185,14 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const validatedData = normalizeMediaAssetBody(body);
+    const folderName = await getFolderName(validatedData.folderId);
 
     const asset = await prisma.blogMediaAsset.create({
       data: {
         url: validatedData.url,
         fileName: validatedData.fileName || null,
+        folderId: validatedData.folderId || null,
+        folderName: folderName || null,
         metadata: validatedData.metadata,
         createdBy: authResult.userId,
       },
@@ -176,6 +210,10 @@ export async function POST(request: NextRequest) {
     }
 
     if (error instanceof Error && error.message.includes('Fill image metadata')) {
+      return createNoCacheResponse({ error: error.message }, 400);
+    }
+
+    if (error instanceof Error && error.message.startsWith('Selected media folder')) {
       return createNoCacheResponse({ error: error.message }, 400);
     }
 
@@ -200,12 +238,15 @@ export async function PUT(request: NextRequest) {
 
     const body = await request.json();
     const validatedData = normalizeMediaAssetBody(body);
+    const folderName = await getFolderName(validatedData.folderId);
 
     const asset = await prisma.blogMediaAsset.update({
       where: { id },
       data: {
         url: validatedData.url,
         fileName: validatedData.fileName || null,
+        folderId: validatedData.folderId || null,
+        folderName: folderName || null,
         metadata: validatedData.metadata,
       },
     });
@@ -222,6 +263,10 @@ export async function PUT(request: NextRequest) {
     }
 
     if (error instanceof Error && error.message.includes('Fill image metadata')) {
+      return createNoCacheResponse({ error: error.message }, 400);
+    }
+
+    if (error instanceof Error && error.message.startsWith('Selected media folder')) {
       return createNoCacheResponse({ error: error.message }, 400);
     }
 

@@ -24,12 +24,14 @@ export const mediaMetadataByLocaleSchema = z.object(
 export const mediaAssetSchema = z.object({
   url: z.string().min(1, 'Image URL is required'),
   fileName: z.string().trim().optional().default(''),
+  folderId: z.string().trim().optional().default(''),
   metadata: mediaMetadataByLocaleSchema,
 });
 
 export const mediaAssetDraftSchema = z.object({
   url: z.string().min(1, 'Image URL is required'),
   fileName: z.string().trim().optional().default(''),
+  folderId: z.string().trim().optional().default(''),
   sourceLocale: z.enum(articleLocales).optional().default('fr'),
   metadata: z.object(
     Object.fromEntries(
@@ -38,16 +40,39 @@ export const mediaAssetDraftSchema = z.object({
   ),
 });
 
+export const mediaFolderSchema = z.object({
+  name: z.string().trim().min(1, 'Folder name is required'),
+  slug: z.string().trim().optional().default(''),
+  description: z.string().trim().optional().default(''),
+  articleSlug: z.string().trim().optional().default(''),
+  translationGroup: z.string().trim().optional().default(''),
+});
+
 export type MediaMetadata = z.infer<typeof mediaMetadataSchema>;
 export type MediaMetadataDraft = z.infer<typeof mediaMetadataDraftSchema>;
 export type MediaMetadataByLocale = z.infer<typeof mediaMetadataByLocaleSchema>;
 export type MediaAssetFormData = z.infer<typeof mediaAssetSchema>;
+export type MediaFolderFormData = z.infer<typeof mediaFolderSchema>;
 
 export interface BlogMediaAsset {
   id: string;
   url: string;
   fileName: string;
+  folderId: string;
+  folderName: string;
   metadata: MediaMetadataByLocale;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface BlogMediaFolder {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  articleSlug: string;
+  translationGroup: string;
+  assetCount: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -64,4 +89,14 @@ export function createEmptyMediaMetadata(): MediaMetadataByLocale {
       },
     ]),
   ) as MediaMetadataByLocale;
+}
+
+export function createEmptyMediaFolder(): MediaFolderFormData {
+  return {
+    name: '',
+    slug: '',
+    description: '',
+    articleSlug: '',
+    translationGroup: '',
+  };
 }

@@ -51,13 +51,32 @@ model BlogMediaAsset {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   url         String
   fileName    String?
+  folderId    String?  @db.ObjectId
+  folderName  String?
   metadata    Json     // { fr|en|es|de|pl: { metaTitle, altText, caption, description } }
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   createdBy   String   // Clerk user ID
 
+  @@index([folderId])
   @@index([createdAt])
   @@map("blog_media_assets")
+}
+
+model BlogMediaFolder {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String   @unique
+  description String?
+  articleSlug String?
+  translationGroup String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String   // Clerk user ID
+
+  @@index([articleSlug])
+  @@index([translationGroup])
+  @@map("blog_media_folders")
 }
 
 model Page {

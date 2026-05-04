@@ -36,8 +36,11 @@ import {
 } from '@/lib/validations/article';
 import {
   createEmptyMediaMetadata,
+  createEmptyMediaFolder,
   type BlogMediaAsset,
+  type BlogMediaFolder,
   type MediaAssetFormData,
+  type MediaFolderFormData,
   type MediaMetadata,
   type MediaMetadataByLocale,
 } from '@/lib/validations/media';
@@ -50,6 +53,8 @@ import {
   Eye,
   FileJson,
   FileText,
+  Folder,
+  FolderPlus,
   Heading2,
   Heading3,
   Globe2,
@@ -97,6 +102,7 @@ function createMediaFormData(): MediaAssetFormData {
   return {
     url: '',
     fileName: '',
+    folderId: '',
     metadata: createEmptyMediaMetadata(),
   };
 }
@@ -155,8 +161,26 @@ function normalizeMediaFormData(
   return {
     url: data.url.trim(),
     fileName: data.fileName.trim(),
+    folderId: data.folderId.trim(),
     sourceLocale,
     metadata,
+  };
+}
+
+function createArticleFolderDraft(article: {
+  slug: string;
+  title: string;
+  translationGroup?: string;
+}): MediaFolderFormData {
+  const articleSlug = article.slug.trim();
+  const fallbackName = article.title.trim() || articleSlug;
+
+  return {
+    name: fallbackName ? `${fallbackName} images` : '',
+    slug: articleSlug ? `${articleSlug}-images` : '',
+    description: articleSlug ? `Images used in article: ${articleSlug}` : '',
+    articleSlug,
+    translationGroup: article.translationGroup?.trim() ?? '',
   };
 }
 
@@ -184,6 +208,19 @@ function createMediaFigureHtml(asset: BlogMediaAsset, locale: ArticleLocale): st
   <img src="${escapeHtmlAttribute(asset.url)}" alt="${escapeHtmlAttribute(metadata.altText)}" title="${escapeHtmlAttribute(metadata.metaTitle)}" data-caption="${escapeHtmlAttribute(metadata.caption)}" data-description="${escapeHtmlAttribute(metadata.description)}" />
   <figcaption>${escapeHtmlText(metadata.caption)}</figcaption>
 </figure>`;
+}
+
+function formatSuccessMessage(
+  operation: 'create' | 'update' | 'delete' | null,
+  target: 'article' | 'page' | 'media asset' | 'media folder',
+) {
+  if (!operation) return 'Operation completed successfully!';
+
+  const label = target.charAt(0).toUpperCase() + target.slice(1);
+  const action = operation === 'create' ? 'created' : operation === 'update' ? 'updated' : 'deleted';
+  const suffix = target === 'article' && operation !== 'delete' ? ' Redirecting...' : '';
+
+  return `${label} ${action} successfully!${suffix}`;
 }
 
 export default function AdminPage() {
@@ -214,6 +251,7 @@ export default function AdminPage() {
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [loadingArticle, setLoadingArticle] = useState(false);
   const [lastSuccessOperation, setLastSuccessOperation] = useState<'create' | 'update' | 'delete' | null>(null);
+  const [lastSuccessTarget, setLastSuccessTarget] = useState<'article' | 'page' | 'media asset' | 'media folder'>('article');
 
   // Page management states
   const [pages, setPages] = useState<Array<{ id: string; slug: string; title: string; published: boolean }>>([]);
@@ -247,6 +285,14 @@ export default function AdminPage() {
   const [deleteMediaConfirm, setDeleteMediaConfirm] = useState<string | null>(null);
   const [mediaMetadataLocale, setMediaMetadataLocale] = useState<ArticleLocale>('fr');
   const [contentEditorMode, setContentEditorMode] = useState<'write' | 'preview'>('write');
+  const [mediaFolders, setMediaFolders] = useState<BlogMediaFolder[]>([]);
+  const [foldersLoading, setFoldersLoading] = useState(false);
+  const [foldersError, setFoldersError] = useState<string | null>(null);
+  const [folderFormData, setFolderFormData] = useState<MediaFolderFormData>(() => createEmptyMediaFolder());
+  const [editingFolderId, setEditingFolderId] = useState<string | null>(null);
+  const [deletingFolderId, setDeletingFolderId] = useState<string | null>(null);
+  const [deleteFolderConfirm, setDeleteFolderConfirm] = useState<string | null>(null);
+  const [selectedFolderId, setSelectedFolderId] = useState<string>('all');
 
   // Fetch articles list (only slugs)
   const fetchArticles = async () => {
@@ -369,6 +415,7 @@ export default function AdminPage() {
       setDeleteConfirm(null);
 
       // Show success message
+      setLastSuccessTarget('article');
       setLastSuccessOperation('delete');
       setSubmitSuccess(true);
       setTimeout(() => {
@@ -438,6 +485,7 @@ export default function AdminPage() {
       }
 
       setSubmitSuccess(true);
+      setLastSuccessTarget('page');
       setLastSuccessOperation(editingPageId ? 'update' : 'create');
 
       // Reset form
@@ -497,6 +545,7 @@ export default function AdminPage() {
       setPages((prevPages) => prevPages.filter((p) => p.id !== pageId));
       setDeletePageConfirm(null);
       setSubmitSuccess(true);
+      setLastSuccessTarget('page');
       setLastSuccessOperation('delete');
 
       console.log('[Admin] Page deleted successfully');
@@ -596,12 +645,135 @@ export default function AdminPage() {
     }
   };
 
+  const fetchMediaFolders = async () => {
+    setFoldersLoading(true);
+    setFoldersError(null);
+    try {
+      const response = await fetch('/api/admin/media/folders', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+        },
+      });
+      const data = await readJsonResponse(response);
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch media folders');
+      }
+      setMediaFolders(data.folders || []);
+    } catch (error: unknown) {
+      console.error('Error fetching media folders:', error);
+      setFoldersError(error instanceof Error ? error.message : 'Failed to fetch media folders');
+    } finally {
+      setFoldersLoading(false);
+    }
+  };
+
   const resetMediaForm = () => {
     setMediaFormData(createMediaFormData());
     setEditingMediaId(null);
     setDeleteMediaConfirm(null);
     setMediaError(null);
     setMediaMetadataLocale('fr');
+  };
+
+  const resetFolderForm = () => {
+    setFolderFormData(createEmptyMediaFolder());
+    setEditingFolderId(null);
+    setDeleteFolderConfirm(null);
+    setFoldersError(null);
+  };
+
+  const handleFolderSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+    try {
+      const url = editingFolderId
+        ? `/api/admin/media/folders?id=${editingFolderId}`
+        : '/api/admin/media/folders';
+      const method = editingFolderId ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(folderFormData),
+      });
+      const data = await readJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to save media folder');
+      }
+
+      setSubmitSuccess(true);
+      setLastSuccessTarget('media folder');
+      setLastSuccessOperation(editingFolderId ? 'update' : 'create');
+      setSelectedFolderId(data.folder?.id ?? selectedFolderId);
+      resetFolderForm();
+      await fetchMediaFolders();
+    } catch (error: unknown) {
+      console.error('Error saving media folder:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to save media folder');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const editMediaFolder = (folder: BlogMediaFolder) => {
+    setEditingFolderId(folder.id);
+    setFolderFormData({
+      name: folder.name,
+      slug: folder.slug,
+      description: folder.description,
+      articleSlug: folder.articleSlug,
+      translationGroup: folder.translationGroup,
+    });
+    setActiveTab('media');
+    setFoldersError(null);
+  };
+
+  const handleDeleteMediaFolder = async (folderId: string) => {
+    if (deleteFolderConfirm !== folderId) {
+      setDeleteFolderConfirm(folderId);
+      return;
+    }
+
+    setDeletingFolderId(folderId);
+    setFoldersError(null);
+    try {
+      const response = await fetch(`/api/admin/media/folders?id=${folderId}`, {
+        method: 'DELETE',
+      });
+      const data = await readJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to delete media folder');
+      }
+
+      setMediaFolders((current) => current.filter((folder) => folder.id !== folderId));
+      setMediaAssets((current) =>
+        current.map((asset) =>
+          asset.folderId === folderId ? { ...asset, folderId: '', folderName: '' } : asset,
+        ),
+      );
+      setDeleteFolderConfirm(null);
+      if (editingFolderId === folderId) {
+        resetFolderForm();
+      }
+      if (selectedFolderId === folderId) {
+        setSelectedFolderId('all');
+      }
+      setSubmitSuccess(true);
+      setLastSuccessTarget('media folder');
+      setLastSuccessOperation('delete');
+    } catch (error: unknown) {
+      console.error('Error deleting media folder:', error);
+      setFoldersError(error instanceof Error ? error.message : 'Failed to delete media folder');
+    } finally {
+      setDeletingFolderId(null);
+    }
   };
 
   const updateMediaMetadata = (
@@ -647,9 +819,11 @@ export default function AdminPage() {
       }
 
       setSubmitSuccess(true);
+      setLastSuccessTarget('media asset');
       setLastSuccessOperation(editingMediaId ? 'update' : 'create');
       resetMediaForm();
       await fetchMediaAssets();
+      await fetchMediaFolders();
     } catch (error: unknown) {
       console.error('Error saving media asset:', error);
       setSubmitError(error instanceof Error ? error.message : 'Failed to save media asset');
@@ -663,6 +837,7 @@ export default function AdminPage() {
     setMediaFormData({
       url: asset.url,
       fileName: asset.fileName,
+      folderId: asset.folderId,
       metadata: asset.metadata,
     });
     setActiveTab('media');
@@ -693,7 +868,9 @@ export default function AdminPage() {
         resetMediaForm();
       }
       setSubmitSuccess(true);
+      setLastSuccessTarget('media asset');
       setLastSuccessOperation('delete');
+      await fetchMediaFolders();
     } catch (error: unknown) {
       console.error('Error deleting media asset:', error);
       setMediaError(error instanceof Error ? error.message : 'Failed to delete media asset');
@@ -742,6 +919,7 @@ export default function AdminPage() {
     }
     if ((activeTab === 'media' || activeTab === 'create') && isAdmin) {
       fetchMediaAssets();
+      fetchMediaFolders();
     }
     if (activeTab === 'pages' && isAdmin) {
       fetchPages();
@@ -845,6 +1023,7 @@ export default function AdminPage() {
       }
 
       const wasEditing = !!editingArticleId;
+      setLastSuccessTarget('article');
       setLastSuccessOperation(wasEditing ? 'update' : 'create');
       setSubmitSuccess(true);
 
@@ -909,6 +1088,8 @@ export default function AdminPage() {
       }
 
       setSubmitSuccess(true);
+      setLastSuccessTarget('article');
+      setLastSuccessOperation('create');
       setJsonInput('');
 
       // Refresh articles list if on list tab
@@ -974,6 +1155,28 @@ export default function AdminPage() {
     locale,
     count: articles.filter((article) => article.locale === locale).length,
   }));
+  const selectedFolder =
+    selectedFolderId === 'all'
+      ? null
+      : mediaFolders.find((folder) => folder.id === selectedFolderId) ?? null;
+  const filteredMediaAssets =
+    selectedFolderId === 'all'
+      ? mediaAssets
+      : selectedFolderId === 'unfiled'
+        ? mediaAssets.filter((asset) => !asset.folderId)
+        : mediaAssets.filter((asset) => asset.folderId === selectedFolderId);
+  const unfiledMediaCount = mediaAssets.filter((asset) => !asset.folderId).length;
+  const selectedFolderLabel =
+    selectedFolderId === 'all'
+      ? 'All folders'
+      : selectedFolderId === 'unfiled'
+        ? 'Unfiled images'
+        : selectedFolder?.name ?? 'Selected folder';
+  const articleFolderDraft = createArticleFolderDraft({
+    slug: watchedSlug,
+    title: watchedTitle,
+    translationGroup: form.watch('translationGroup'),
+  });
 
   const appendContentSnippet = (snippet: string) => {
     const current = form.getValues('content')?.trim();
@@ -1168,13 +1371,7 @@ export default function AdminPage() {
           <Card className="mb-6 border-green-500 bg-green-50 dark:bg-green-950">
             <CardContent className="pt-6">
               <p className="text-green-700 dark:text-green-300">
-                {lastSuccessOperation === 'delete'
-                  ? activeTab === 'pages' ? 'Page deleted successfully!' : activeTab === 'media' ? 'Media asset deleted successfully!' : 'Article deleted successfully!'
-                  : lastSuccessOperation === 'update'
-                    ? activeTab === 'pages' ? 'Page updated successfully!' : activeTab === 'media' ? 'Media asset updated successfully!' : 'Article updated successfully! Redirecting...'
-                    : lastSuccessOperation === 'create'
-                      ? activeTab === 'pages' ? 'Page created successfully!' : activeTab === 'media' ? 'Media asset created successfully!' : 'Article created successfully! Redirecting...'
-                      : 'Operation completed successfully!'}
+                {formatSuccessMessage(lastSuccessOperation, lastSuccessTarget)}
               </p>
             </CardContent>
           </Card>
@@ -1192,6 +1389,7 @@ export default function AdminPage() {
         {/* Media Tab */}
         {activeTab === 'media' ? (
           <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
+            <div className="space-y-6">
             <Card className="border-slate-200 bg-white shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -1221,6 +1419,31 @@ export default function AdminPage() {
                       onChange={(event) => setMediaFormData((current) => ({ ...current, fileName: event.target.value }))}
                       placeholder="agadir-airport-car-rental-cover.webp"
                     />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Folder</Label>
+                    <Select
+                      value={mediaFormData.folderId || 'unfiled'}
+                      onValueChange={(value) =>
+                        setMediaFormData((current) => ({
+                          ...current,
+                          folderId: value === 'unfiled' ? '' : value,
+                        }))
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Choose a folder" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="unfiled">Unfiled images</SelectItem>
+                        {mediaFolders.map((folder) => (
+                          <SelectItem key={folder.id} value={folder.id}>
+                            {folder.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
@@ -1319,6 +1542,91 @@ export default function AdminPage() {
 
             <Card className="border-slate-200 bg-white shadow-sm">
               <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FolderPlus className="h-5 w-5 text-[#b11226]" />
+                  {editingFolderId ? 'Edit Folder' : 'Folder Management'}
+                </CardTitle>
+                <CardDescription>
+                  Create one folder per article and keep its images together.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleFolderSubmit} className="space-y-4">
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="space-y-2 sm:col-span-2">
+                      <Label htmlFor="folder-name">Folder Name *</Label>
+                      <Input
+                        id="folder-name"
+                        value={folderFormData.name}
+                        onChange={(event) => setFolderFormData((current) => ({ ...current, name: event.target.value }))}
+                        placeholder="article-slug images"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="folder-slug">Folder Slug</Label>
+                      <Input
+                        id="folder-slug"
+                        value={folderFormData.slug}
+                        onChange={(event) => setFolderFormData((current) => ({ ...current, slug: event.target.value }))}
+                        placeholder="article-slug-images"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="folder-article-slug">Article Slug</Label>
+                      <Input
+                        id="folder-article-slug"
+                        value={folderFormData.articleSlug}
+                        onChange={(event) => setFolderFormData((current) => ({ ...current, articleSlug: event.target.value }))}
+                        placeholder="article-slug"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="folder-description">Description</Label>
+                    <Textarea
+                      id="folder-description"
+                      value={folderFormData.description}
+                      onChange={(event) => setFolderFormData((current) => ({ ...current, description: event.target.value }))}
+                      placeholder="Internal note for this article image folder"
+                      className="min-h-[82px]"
+                    />
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setFolderFormData(articleFolderDraft)}
+                      disabled={!articleFolderDraft.name}
+                    >
+                      <Folder className="h-4 w-4" />
+                      Use Current Article
+                    </Button>
+                    {editingFolderId && (
+                      <Button type="button" variant="outline" onClick={resetFolderForm}>
+                        Cancel
+                      </Button>
+                    )}
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting || !folderFormData.name.trim()}
+                      className="bg-slate-950 text-white hover:bg-slate-800"
+                    >
+                      {editingFolderId ? 'Update Folder' : 'Create Folder'}
+                    </Button>
+                  </div>
+                </form>
+
+                {foldersError && (
+                  <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                    {foldersError}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+            </div>
+
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader>
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div>
                     <CardTitle className="flex items-center gap-2">
@@ -1326,16 +1634,102 @@ export default function AdminPage() {
                       Media Library
                     </CardTitle>
                     <CardDescription>
-                      {mediaAssets.length} image{mediaAssets.length === 1 ? '' : 's'} ready for article content.
+                      {filteredMediaAssets.length} of {mediaAssets.length} image{mediaAssets.length === 1 ? '' : 's'} shown.
+                      {selectedFolder ? ` Folder: ${selectedFolder.name}` : ''}
                     </CardDescription>
                   </div>
-                  <Button variant="outline" size="sm" onClick={fetchMediaAssets} disabled={mediaLoading}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      fetchMediaAssets();
+                      fetchMediaFolders();
+                    }}
+                    disabled={mediaLoading || foldersLoading}
+                  >
                     {mediaLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <List className="h-4 w-4" />}
                     Refresh
                   </Button>
                 </div>
               </CardHeader>
               <CardContent>
+                <div className="mb-5 space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedFolderId('all')}
+                      className={`rounded-xl border px-3 py-2 text-sm font-medium transition-all ${
+                        selectedFolderId === 'all'
+                          ? 'border-slate-950 bg-slate-950 text-white'
+                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                      }`}
+                    >
+                      All ({mediaAssets.length})
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedFolderId('unfiled')}
+                      className={`rounded-xl border px-3 py-2 text-sm font-medium transition-all ${
+                        selectedFolderId === 'unfiled'
+                          ? 'border-slate-950 bg-slate-950 text-white'
+                          : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                      }`}
+                    >
+                      Unfiled ({unfiledMediaCount})
+                    </button>
+                    {mediaFolders.map((folder) => (
+                      <div
+                        key={folder.id}
+                        className={`flex items-center overflow-hidden rounded-xl border ${
+                          selectedFolderId === folder.id
+                            ? 'border-slate-950 bg-slate-950 text-white'
+                            : 'border-slate-200 bg-white text-slate-700'
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setSelectedFolderId(folder.id)}
+                          className="flex items-center gap-2 px-3 py-2 text-sm font-medium"
+                        >
+                          <Folder className="h-4 w-4" />
+                          {folder.name} ({folder.assetCount})
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => editMediaFolder(folder)}
+                          className={`border-l px-2 py-2 ${
+                            selectedFolderId === folder.id ? 'border-white/15 hover:bg-white/10' : 'border-slate-200 hover:bg-slate-50'
+                          }`}
+                          aria-label={`Edit ${folder.name}`}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteMediaFolder(folder.id)}
+                          disabled={deletingFolderId === folder.id}
+                          className={`border-l px-2 py-2 ${
+                            selectedFolderId === folder.id
+                              ? 'border-white/15 hover:bg-white/10'
+                              : 'border-slate-200 text-red-600 hover:bg-red-50'
+                          }`}
+                          aria-label={`Delete ${folder.name}`}
+                        >
+                          {deletingFolderId === folder.id ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : deleteFolderConfirm === folder.id ? (
+                            <CheckCircle2 className="h-4 w-4" />
+                          ) : (
+                            <Trash2 className="h-4 w-4" />
+                          )}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                  {foldersLoading && (
+                    <p className="text-xs text-slate-500">Refreshing folders...</p>
+                  )}
+                </div>
                 {mediaLoading ? (
                   <div className="flex items-center justify-center py-16">
                     <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
@@ -1344,14 +1738,14 @@ export default function AdminPage() {
                   <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                     {mediaError}
                   </div>
-                ) : mediaAssets.length === 0 ? (
+                ) : filteredMediaAssets.length === 0 ? (
                   <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center">
                     <ImageIcon className="mx-auto h-10 w-10 text-slate-300" />
-                    <p className="mt-3 text-sm text-slate-500">No media images yet.</p>
+                    <p className="mt-3 text-sm text-slate-500">No media images in this folder.</p>
                   </div>
                 ) : (
                   <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                    {mediaAssets.map((asset) => {
+                    {filteredMediaAssets.map((asset) => {
                       const metadata = asset.metadata[mediaMetadataLocale] ?? asset.metadata.fr;
                       return (
                         <div key={asset.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
@@ -1371,6 +1765,9 @@ export default function AdminPage() {
                                 {metadata.metaTitle || asset.fileName || 'Untitled image'}
                               </p>
                               <p className="line-clamp-2 text-xs text-slate-500">{metadata.caption}</p>
+                              <p className="mt-1 inline-flex rounded-full bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-600">
+                                {asset.folderName || 'Unfiled'}
+                              </p>
                             </div>
                             <div className="flex flex-wrap gap-2">
                               <Button type="button" variant="outline" size="sm" onClick={() => editMediaAsset(asset)}>
@@ -2189,12 +2586,30 @@ export default function AdminPage() {
                       <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                         <div>
                           <p className="text-sm font-semibold text-slate-900">Insert Media</p>
-                          <p className="text-xs text-slate-500">Uses {selectedLanguage.shortLabel} metadata from the media library.</p>
+                          <p className="text-xs text-slate-500">
+                            Uses {selectedLanguage.shortLabel} metadata from {selectedFolderLabel.toLowerCase()}.
+                          </p>
                         </div>
-                        <Button type="button" variant="outline" size="sm" onClick={() => setActiveTab('media')}>
-                          <ImagePlus className="h-4 w-4" />
-                          Add Media
-                        </Button>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                          <Select value={selectedFolderId} onValueChange={setSelectedFolderId}>
+                            <SelectTrigger className="w-full sm:w-[220px]">
+                              <SelectValue placeholder="Choose folder" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="all">All folders</SelectItem>
+                              <SelectItem value="unfiled">Unfiled images</SelectItem>
+                              {mediaFolders.map((folder) => (
+                                <SelectItem key={folder.id} value={folder.id}>
+                                  {folder.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <Button type="button" variant="outline" size="sm" onClick={() => setActiveTab('media')}>
+                            <ImagePlus className="h-4 w-4" />
+                            Add Media
+                          </Button>
+                        </div>
                       </div>
 
                       {mediaLoading ? (
@@ -2205,9 +2620,13 @@ export default function AdminPage() {
                         <div className="rounded-xl border border-dashed border-slate-200 bg-white p-4 text-sm text-slate-500">
                           No media images yet. Add images in the Media tab.
                         </div>
+                      ) : filteredMediaAssets.length === 0 ? (
+                        <div className="rounded-xl border border-dashed border-slate-200 bg-white p-4 text-sm text-slate-500">
+                          No images in {selectedFolderLabel.toLowerCase()}.
+                        </div>
                       ) : (
                         <div className="grid max-h-[520px] gap-3 overflow-y-auto pr-1 md:grid-cols-2 xl:grid-cols-3">
-                          {mediaAssets.map((asset) => {
+                          {filteredMediaAssets.map((asset) => {
                             const metadata = asset.metadata[watchedLocale] ?? asset.metadata.fr;
                             return (
                               <div key={asset.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
@@ -2224,6 +2643,9 @@ export default function AdminPage() {
                                 <div className="space-y-2 p-3">
                                   <p className="line-clamp-1 text-xs font-semibold text-slate-900">
                                     {metadata.metaTitle || asset.fileName || 'Untitled image'}
+                                  </p>
+                                  <p className="line-clamp-1 text-[11px] font-medium text-slate-500">
+                                    {asset.folderName || 'Unfiled'}
                                   </p>
                                   <div className="grid grid-cols-2 gap-2">
                                     <Button type="button" variant="outline" size="sm" onClick={() => handleUseMediaAsCover(asset)}>
