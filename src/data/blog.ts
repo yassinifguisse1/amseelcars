@@ -1,9 +1,10 @@
 import { prisma } from '@/lib/prisma';
+import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 
 export interface BlogArticle {
   id: string; // Changed from number to string (MongoDB ObjectId)
   slug: string;
-  locale: "fr" | "en";
+  locale: ArticleLocale;
   translationGroup?: string;
   title: string;
   content: string;
@@ -12,8 +13,10 @@ export interface BlogArticle {
   date: string;
   publishedAt: string;
   image: string;
+  imageMetaTitle: string;
   altText: string;
   caption: string;
+  imageDescription: string;
   description: string;
   featured: boolean;
   indexable?: boolean;
@@ -44,8 +47,10 @@ function transformArticle(article: {
   date: string;
   publishedAt: Date;
   image: string;
+  imageMetaTitle: string | null;
   altText: string;
   caption: string;
+  imageDescription: string | null;
   description: string;
   featured: boolean;
   indexable: boolean | null;
@@ -56,8 +61,7 @@ function transformArticle(article: {
   return {
     id: article.id,
     slug: article.slug,
-    // Prisma stores `locale` as a plain string, coerce to our app union.
-    locale: article.locale === "en" ? "en" : "fr",
+    locale: isArticleLocale(article.locale) ? article.locale : "fr",
     translationGroup: article.translationGroup ?? undefined,
     title: article.title,
     content: article.content,
@@ -66,8 +70,10 @@ function transformArticle(article: {
     date: article.date,
     publishedAt: article.publishedAt.toISOString(),
     image: article.image,
+    imageMetaTitle: article.imageMetaTitle ?? '',
     altText: article.altText,
     caption: article.caption,
+    imageDescription: article.imageDescription ?? '',
     description: article.description,
     featured: article.featured,
     indexable: article.indexable ?? true,
@@ -212,9 +218,12 @@ export function categoryToSlug(category: string): string {
     .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
 }
 
-export async function getCategoryFromSlug(categorySlug: string): Promise<string | undefined> {
+export async function getCategoryFromSlug(
+  categorySlug: string,
+  locale?: BlogArticle["locale"],
+): Promise<string | undefined> {
   try {
-    const allCategories = await getAllCategories();
+    const allCategories = await getAllCategories(locale);
     return allCategories.find(cat => categoryToSlug(cat) === categorySlug);
   } catch (error) {
     console.error('Error getting category from slug:', error);
@@ -222,10 +231,11 @@ export async function getCategoryFromSlug(categorySlug: string): Promise<string 
   }
 }
 
-export async function getAllCategories(): Promise<string[]> {
+export async function getAllCategories(locale?: BlogArticle["locale"]): Promise<string[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
       select: { category: true },
+      ...(locale ? { where: { locale } } : {}),
       distinct: ['category'],
     });
     return articles.map(a => a.category);

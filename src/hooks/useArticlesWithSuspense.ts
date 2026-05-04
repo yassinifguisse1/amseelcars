@@ -1,4 +1,5 @@
 import { BlogArticle } from '@/data/blog';
+import type { ArticleLocale } from '@/lib/validations/article';
 
 // Helper to create a suspense-compatible hook
 // This throws a promise when loading, which Suspense can catch
@@ -24,23 +25,31 @@ const fetcher = async (url: string) => {
 };
 
 // Suspense-compatible hooks
-export function useArticlesWithSuspense(category?: string): BlogArticle[] {
-  const url = category 
-    ? `/api/articles?category=${encodeURIComponent(category)}`
-    : '/api/articles';
+export function useArticlesWithSuspense(category?: string, locale: ArticleLocale = "fr"): BlogArticle[] {
+  const params = new URLSearchParams({ locale });
+  if (category) {
+    params.set('category', category);
+  }
+  const url = `/api/articles?${params.toString()}`;
   return useSuspenseSWR<BlogArticle[]>(url, fetcher);
 }
 
-export function useFeaturedArticlesWithSuspense(): BlogArticle[] {
-  return useSuspenseSWR<BlogArticle[]>('/api/articles?featured=true', fetcher);
+export function useFeaturedArticlesWithSuspense(locale: ArticleLocale = "fr"): BlogArticle[] {
+  const params = new URLSearchParams({ featured: "true", locale });
+  return useSuspenseSWR<BlogArticle[]>(`/api/articles?${params.toString()}`, fetcher);
 }
 
-export function useCategoriesWithSuspense(): string[] {
-  return useSuspenseSWR<string[]>('/api/articles/categories', fetcher);
+export function useCategoriesWithSuspense(locale: ArticleLocale = "fr"): string[] {
+  const params = new URLSearchParams({ locale });
+  return useSuspenseSWR<string[]>(`/api/articles/categories?${params.toString()}`, fetcher);
 }
 
-export function useRelatedArticlesWithSuspense(slug: string, limit: number = 3): BlogArticle[] {
-  const url = `/api/articles/related?slug=${encodeURIComponent(slug)}&limit=${limit}`;
+export function useRelatedArticlesWithSuspense(
+  slug: string,
+  limit: number = 3,
+  locale: ArticleLocale = "fr",
+): BlogArticle[] {
+  const params = new URLSearchParams({ slug, limit: String(limit), locale });
+  const url = `/api/articles/related?${params.toString()}`;
   return useSuspenseSWR<BlogArticle[]>(url, fetcher);
 }
-

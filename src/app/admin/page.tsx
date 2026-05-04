@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { SignOutButton, useUser } from '@clerk/nextjs';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
@@ -27,11 +28,50 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { articleSchema, type ArticleFormData } from '@/lib/validations/article';
+import {
+  articleLocales,
+  articleSchema,
+  type ArticleFormData,
+  type ArticleLocale,
+} from '@/lib/validations/article';
+import {
+  createEmptyMediaMetadata,
+  type BlogMediaAsset,
+  type MediaAssetFormData,
+  type MediaMetadata,
+  type MediaMetadataByLocale,
+} from '@/lib/validations/media';
 import { categoryToSlug } from '@/data/blog';
-import { Loader2, LogOut, Plus, FileJson, List, Trash2, Edit, X } from 'lucide-react';
+import {
+  CalendarDays,
+  CheckCircle2,
+  Code2,
+  Edit,
+  Eye,
+  FileJson,
+  FileText,
+  Heading2,
+  Heading3,
+  Globe2,
+  ImageIcon,
+  ImagePlus,
+  Languages,
+  LayoutDashboard,
+  Link2,
+  List,
+  ListPlus,
+  Loader2,
+  LogOut,
+  Monitor,
+  Plus,
+  Quote,
+  Search,
+  Settings2,
+  Tags,
+  Trash2,
+  X,
+} from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
-import { useEffect } from 'react';
 
 const categories = [
   'Guide Pratique',
@@ -39,6 +79,112 @@ const categories = [
   'Conseils',
   'Avis',
 ];
+
+const languageOptions: Array<{
+  value: ArticleLocale;
+  shortLabel: string;
+  label: string;
+  helper: string;
+}> = [
+  { value: "fr", shortLabel: "FR", label: "Français", helper: "Version principale" },
+  { value: "en", shortLabel: "EN", label: "English", helper: "English draft" },
+  { value: "es", shortLabel: "ES", label: "Español", helper: "Spanish draft" },
+  { value: "de", shortLabel: "DE", label: "Deutsch", helper: "German draft" },
+  { value: "pl", shortLabel: "PL", label: "Polski", helper: "Polish draft" },
+];
+
+function createMediaFormData(): MediaAssetFormData {
+  return {
+    url: '',
+    fileName: '',
+    metadata: createEmptyMediaMetadata(),
+  };
+}
+
+async function readJsonResponse(response: Response) {
+  const contentType = response.headers.get('content-type');
+  if (contentType?.includes('application/json')) {
+    return response.json();
+  }
+
+  const text = await response.text();
+  return {
+    error: text ? `Server returned ${response.status}: ${text.slice(0, 180)}` : response.statusText,
+  };
+}
+
+function trimMediaMetadata(metadata: MediaMetadata): MediaMetadata {
+  return {
+    metaTitle: metadata.metaTitle.trim(),
+    altText: metadata.altText.trim(),
+    caption: metadata.caption.trim(),
+    description: metadata.description.trim(),
+  };
+}
+
+function hasCompleteMediaMetadata(metadata: MediaMetadata) {
+  return (
+    metadata.metaTitle.trim().length > 0 &&
+    metadata.altText.trim().length > 0 &&
+    metadata.caption.trim().length > 0 &&
+    metadata.description.trim().length > 0
+  );
+}
+
+function normalizeMediaFormData(
+  data: MediaAssetFormData,
+  sourceLocale: ArticleLocale,
+): MediaAssetFormData & { sourceLocale: ArticleLocale } {
+  const trimmedMetadata = Object.fromEntries(
+    articleLocales.map((locale) => [locale, trimMediaMetadata(data.metadata[locale])]),
+  ) as MediaMetadataByLocale;
+
+  const fallbackMetadata = hasCompleteMediaMetadata(trimmedMetadata[sourceLocale])
+    ? trimmedMetadata[sourceLocale]
+    : articleLocales.map((locale) => trimmedMetadata[locale]).find(hasCompleteMediaMetadata);
+
+  const metadata = fallbackMetadata
+    ? (Object.fromEntries(
+        articleLocales.map((locale) => [
+          locale,
+          hasCompleteMediaMetadata(trimmedMetadata[locale]) ? trimmedMetadata[locale] : fallbackMetadata,
+        ]),
+      ) as MediaMetadataByLocale)
+    : trimmedMetadata;
+
+  return {
+    url: data.url.trim(),
+    fileName: data.fileName.trim(),
+    sourceLocale,
+    metadata,
+  };
+}
+
+function escapeHtmlAttribute(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function escapeHtmlText(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .trim();
+}
+
+function createMediaFigureHtml(asset: BlogMediaAsset, locale: ArticleLocale): string {
+  const metadata = asset.metadata[locale] ?? asset.metadata.fr;
+
+  return `<figure class="article-media" data-media-id="${escapeHtmlAttribute(asset.id)}">
+  <img src="${escapeHtmlAttribute(asset.url)}" alt="${escapeHtmlAttribute(metadata.altText)}" title="${escapeHtmlAttribute(metadata.metaTitle)}" data-caption="${escapeHtmlAttribute(metadata.caption)}" data-description="${escapeHtmlAttribute(metadata.description)}" />
+  <figcaption>${escapeHtmlText(metadata.caption)}</figcaption>
+</figure>`;
+}
 
 export default function AdminPage() {
   const { user } = useUser();
@@ -49,13 +195,13 @@ export default function AdminPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [jsonMode, setJsonMode] = useState(false);
   const [jsonInput, setJsonInput] = useState('');
-  const [activeTab, setActiveTab] = useState<'create' | 'list' | 'pages'>('create');
+  const [activeTab, setActiveTab] = useState<'create' | 'list' | 'media' | 'pages'>('create');
   const [articles, setArticles] = useState<
     Array<{
       id: string;
       slug: string;
       category: string;
-      locale: "fr" | "en";
+      locale: ArticleLocale;
       translationGroup?: string;
     }>
   >([]);
@@ -92,6 +238,15 @@ export default function AdminPage() {
   const [editingPageId, setEditingPageId] = useState<string | null>(null);
   const [deletingPageId, setDeletingPageId] = useState<string | null>(null);
   const [deletePageConfirm, setDeletePageConfirm] = useState<string | null>(null);
+  const [mediaAssets, setMediaAssets] = useState<BlogMediaAsset[]>([]);
+  const [mediaLoading, setMediaLoading] = useState(false);
+  const [mediaError, setMediaError] = useState<string | null>(null);
+  const [mediaFormData, setMediaFormData] = useState<MediaAssetFormData>(() => createMediaFormData());
+  const [editingMediaId, setEditingMediaId] = useState<string | null>(null);
+  const [deletingMediaId, setDeletingMediaId] = useState<string | null>(null);
+  const [deleteMediaConfirm, setDeleteMediaConfirm] = useState<string | null>(null);
+  const [mediaMetadataLocale, setMediaMetadataLocale] = useState<ArticleLocale>('fr');
+  const [contentEditorMode, setContentEditorMode] = useState<'write' | 'preview'>('write');
 
   // Fetch articles list (only slugs)
   const fetchArticles = async () => {
@@ -155,8 +310,10 @@ export default function AdminPage() {
         date: article.date,
         publishedAt: article.publishedAt,
         image: article.image,
+        imageMetaTitle: article.imageMetaTitle || '',
         altText: article.altText,
         caption: article.caption || '',
+        imageDescription: article.imageDescription || '',
         description: article.description,
         featured: article.featured,
         indexable: article.indexable ?? true,
@@ -415,6 +572,136 @@ export default function AdminPage() {
     setSubmitError(null);
   };
 
+  const fetchMediaAssets = async () => {
+    setMediaLoading(true);
+    setMediaError(null);
+    try {
+      const response = await fetch('/api/admin/media', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch media assets');
+      }
+      const data = await readJsonResponse(response);
+      setMediaAssets(data.assets || []);
+    } catch (error: unknown) {
+      console.error('Error fetching media assets:', error);
+      setMediaError(error instanceof Error ? error.message : 'Failed to fetch media assets');
+    } finally {
+      setMediaLoading(false);
+    }
+  };
+
+  const resetMediaForm = () => {
+    setMediaFormData(createMediaFormData());
+    setEditingMediaId(null);
+    setDeleteMediaConfirm(null);
+    setMediaError(null);
+    setMediaMetadataLocale('fr');
+  };
+
+  const updateMediaMetadata = (
+    locale: ArticleLocale,
+    field: keyof MediaMetadataByLocale[ArticleLocale],
+    value: string,
+  ) => {
+    setMediaFormData((current) => ({
+      ...current,
+      metadata: {
+        ...current.metadata,
+        [locale]: {
+          ...current.metadata[locale],
+          [field]: value,
+        },
+      },
+    }));
+  };
+
+  const handleMediaSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
+
+    try {
+      const url = editingMediaId
+        ? `/api/admin/media?id=${editingMediaId}`
+        : '/api/admin/media';
+      const method = editingMediaId ? 'PUT' : 'POST';
+
+      const payload = normalizeMediaFormData(mediaFormData, mediaMetadataLocale);
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await readJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to save media asset');
+      }
+
+      setSubmitSuccess(true);
+      setLastSuccessOperation(editingMediaId ? 'update' : 'create');
+      resetMediaForm();
+      await fetchMediaAssets();
+    } catch (error: unknown) {
+      console.error('Error saving media asset:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to save media asset');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const editMediaAsset = (asset: BlogMediaAsset) => {
+    setEditingMediaId(asset.id);
+    setMediaFormData({
+      url: asset.url,
+      fileName: asset.fileName,
+      metadata: asset.metadata,
+    });
+    setActiveTab('media');
+    setSubmitError(null);
+  };
+
+  const handleDeleteMediaAsset = async (assetId: string) => {
+    if (deleteMediaConfirm !== assetId) {
+      setDeleteMediaConfirm(assetId);
+      return;
+    }
+
+    setDeletingMediaId(assetId);
+    setMediaError(null);
+    try {
+      const response = await fetch(`/api/admin/media?id=${assetId}`, {
+        method: 'DELETE',
+      });
+      const data = await readJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to delete media asset');
+      }
+
+      setMediaAssets((current) => current.filter((asset) => asset.id !== assetId));
+      setDeleteMediaConfirm(null);
+      if (editingMediaId === assetId) {
+        resetMediaForm();
+      }
+      setSubmitSuccess(true);
+      setLastSuccessOperation('delete');
+    } catch (error: unknown) {
+      console.error('Error deleting media asset:', error);
+      setMediaError(error instanceof Error ? error.message : 'Failed to delete media asset');
+    } finally {
+      setDeletingMediaId(null);
+    }
+  };
+
   // Check admin role on mount
   useEffect(() => {
     const checkAdminRole = async () => {
@@ -450,8 +737,11 @@ export default function AdminPage() {
   }, [user, userId, router]);
 
   useEffect(() => {
-    if (activeTab === 'list' && isAdmin) {
+    if ((activeTab === 'list' || activeTab === 'create') && isAdmin) {
       fetchArticles();
+    }
+    if ((activeTab === 'media' || activeTab === 'create') && isAdmin) {
+      fetchMediaAssets();
     }
     if (activeTab === 'pages' && isAdmin) {
       fetchPages();
@@ -472,8 +762,10 @@ export default function AdminPage() {
       date: '',
       publishedAt: new Date().toISOString(),
       image: '',
+      imageMetaTitle: '',
       altText: '',
       caption: '',
+      imageDescription: '',
       description: '',
       featured: false,
       indexable: true,
@@ -641,6 +933,72 @@ export default function AdminPage() {
     }
   };
 
+  const watchedLocale = form.watch("locale");
+  const watchedTitle = form.watch("title");
+  const watchedSlug = form.watch("slug");
+  const watchedCategory = form.watch("category");
+  const watchedImage = form.watch("image");
+  const watchedImageMetaTitle = form.watch("imageMetaTitle");
+  const watchedAltText = form.watch("altText");
+  const watchedCaption = form.watch("caption");
+  const watchedImageDescription = form.watch("imageDescription");
+  const watchedDescription = form.watch("description");
+  const watchedContent = form.watch("content");
+  const watchedSeo = form.watch("seo");
+  const selectedLanguage =
+    languageOptions.find((language) => language.value === watchedLocale) ?? languageOptions[0];
+  const articlePreviewPath =
+    watchedSlug && watchedCategory
+      ? `/${watchedLocale}/blog/${categoryToSlug(watchedCategory)}/${watchedSlug}`
+      : null;
+  const publishChecklist = [
+    { label: "Title", complete: watchedTitle.trim().length > 0, icon: FileText },
+    { label: "Slug", complete: watchedSlug.trim().length > 0, icon: Link2 },
+    { label: "Category", complete: watchedCategory.trim().length > 0, icon: Tags },
+    { label: "Cover", complete: watchedImage.trim().length > 0, icon: ImageIcon },
+    {
+      label: "Image metadata",
+      complete:
+        watchedImageMetaTitle.trim().length > 0 &&
+        watchedAltText.trim().length > 0 &&
+        watchedCaption.trim().length > 0 &&
+        watchedImageDescription.trim().length > 0,
+      icon: ImageIcon,
+    },
+    { label: "Summary", complete: watchedDescription.trim().length > 0, icon: Search },
+    { label: "Article body", complete: watchedContent.trim().length > 0, icon: Edit },
+    { label: "SEO", complete: !!watchedSeo?.metaTitle && !!watchedSeo?.metaDescription, icon: Globe2 },
+  ];
+  const completedChecklistItems = publishChecklist.filter((item) => item.complete).length;
+  const languageCounts = articleLocales.map((locale) => ({
+    locale,
+    count: articles.filter((article) => article.locale === locale).length,
+  }));
+
+  const appendContentSnippet = (snippet: string) => {
+    const current = form.getValues('content')?.trim();
+    const nextContent = current ? `${current}\n\n${snippet}` : snippet;
+    form.setValue('content', nextContent, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+    setContentEditorMode('write');
+  };
+
+  const insertMediaIntoArticle = (asset: BlogMediaAsset) => {
+    appendContentSnippet(createMediaFigureHtml(asset, watchedLocale));
+  };
+
+  const handleUseMediaAsCover = (asset: BlogMediaAsset) => {
+    const metadata = asset.metadata[watchedLocale] ?? asset.metadata.fr;
+    form.setValue('image', asset.url, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    form.setValue('imageMetaTitle', metadata.metaTitle, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    form.setValue('altText', metadata.altText, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    form.setValue('caption', metadata.caption, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+    form.setValue('imageDescription', metadata.description, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+  };
+
   // Show loading state while checking role
   if (isCheckingRole) {
     return (
@@ -683,117 +1041,127 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="mx-auto max-w-4xl">
-        {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold">Admin Panel</h1>
-            <p className="text-muted-foreground">
-              Welcome, {user?.firstName || user?.emailAddresses[0]?.emailAddress}
-            </p>
+    <div className="min-h-screen bg-[#f4f7f8] bg-[linear-gradient(90deg,rgba(17,24,39,0.045)_1px,transparent_1px),linear-gradient(rgba(17,24,39,0.045)_1px,transparent_1px)] bg-[size:28px_28px] p-4 text-slate-950 md:p-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <div className="border-b border-slate-200 bg-slate-950 px-5 py-5 text-white md:px-7">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white/75">
+                  <LayoutDashboard className="h-3.5 w-3.5" />
+                  Publishing Studio
+                </div>
+                <div>
+                  <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Admin Panel</h1>
+                  <p className="mt-1 max-w-2xl text-sm text-white/70">
+                    Localized article publishing for {user?.firstName || user?.emailAddresses[0]?.emailAddress}
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
+                <div className="rounded-xl border border-white/10 bg-white/10 px-4 py-3">
+                  <p className="text-xs uppercase text-white/50">Articles</p>
+                  <p className="text-xl font-semibold">{articles.length}</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-white/10 px-4 py-3">
+                  <p className="text-xs uppercase text-white/50">Languages</p>
+                  <p className="text-xl font-semibold">{articleLocales.length}</p>
+                </div>
+                <SignOutButton>
+                  <Button variant="outline" size="sm" className="border-white/20 bg-white text-slate-950 hover:bg-white/90 sm:ml-2">
+                    <LogOut className="h-4 w-4" />
+                    Sign Out
+                  </Button>
+                </SignOutButton>
+              </div>
+            </div>
           </div>
-          <SignOutButton>
-            <Button variant="outline" size="sm">
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
-            </Button>
-          </SignOutButton>
-        </div>
 
-        {/* Tabs */}
-        <div className="mb-6 flex gap-2 border-b">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setActiveTab('create');
-              if (!editingArticleId) {
-                cancelEdit();
-              }
-            }}
-            className={`rounded-b-none border-b-2 ${activeTab === 'create'
-                ? 'border-primary text-primary'
-                : 'border-transparent'
-              }`}
-            size="sm"
-          >
-            {editingArticleId ? (
-              <>
-                <Edit className="mr-2 h-4 w-4" />
-                Edit Article
-              </>
-            ) : (
-              <>
-                <Plus className="mr-2 h-4 w-4" />
-                Create Article
-              </>
+          <div className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between md:p-5">
+            <div className="grid gap-2 sm:grid-cols-4">
+              <Button
+                variant={activeTab === 'create' ? 'default' : 'outline'}
+                onClick={() => {
+                  setActiveTab('create');
+                  if (!editingArticleId) {
+                    cancelEdit();
+                  }
+                }}
+                className={activeTab === 'create' ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
+                size="sm"
+              >
+                {editingArticleId ? <Edit className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+                {editingArticleId ? 'Edit Article' : 'Create Article'}
+              </Button>
+              <Button
+                variant={activeTab === 'list' ? 'default' : 'outline'}
+                onClick={() => {
+                  setActiveTab('list');
+                  cancelEdit();
+                }}
+                className={activeTab === 'list' ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
+                size="sm"
+              >
+                <List className="h-4 w-4" />
+                Articles List
+              </Button>
+              <Button
+                variant={activeTab === 'media' ? 'default' : 'outline'}
+                onClick={() => {
+                  setActiveTab('media');
+                  cancelEdit();
+                }}
+                className={activeTab === 'media' ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
+                size="sm"
+              >
+                <ImagePlus className="h-4 w-4" />
+                Media
+              </Button>
+              <Button
+                variant={activeTab === 'pages' ? 'default' : 'outline'}
+                onClick={() => {
+                  setActiveTab('pages');
+                  cancelEdit();
+                  cancelPageEdit();
+                }}
+                className={activeTab === 'pages' ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
+                size="sm"
+              >
+                <FileText className="h-4 w-4" />
+                Pages
+              </Button>
+            </div>
+
+            {activeTab === 'create' && (
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant={!jsonMode ? 'default' : 'outline'}
+                  onClick={() => setJsonMode(false)}
+                  size="sm"
+                  className={!jsonMode ? 'bg-[#b11226] text-white hover:bg-[#941020]' : 'bg-white'}
+                >
+                  <Edit className="h-4 w-4" />
+                  Form Mode
+                </Button>
+                <Button
+                  variant={jsonMode ? 'default' : 'outline'}
+                  onClick={() => setJsonMode(true)}
+                  size="sm"
+                  className={jsonMode ? 'bg-[#b11226] text-white hover:bg-[#941020]' : 'bg-white'}
+                >
+                  <FileJson className="h-4 w-4" />
+                  JSON Mode
+                </Button>
+                {editingArticleId && (
+                  <Button variant="outline" onClick={cancelEdit} size="sm" className="bg-white">
+                    <X className="h-4 w-4" />
+                    Cancel Edit
+                  </Button>
+                )}
+              </div>
             )}
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setActiveTab('list');
-              cancelEdit();
-            }}
-            className={`rounded-b-none border-b-2 ${activeTab === 'list'
-                ? 'border-primary text-primary'
-                : 'border-transparent'
-              }`}
-            size="sm"
-          >
-            <List className="mr-2 h-4 w-4" />
-            Articles List
-          </Button>
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setActiveTab('pages');
-              cancelEdit();
-              cancelPageEdit();
-            }}
-            className={`rounded-b-none border-b-2 ${activeTab === 'pages'
-                ? 'border-primary text-primary'
-                : 'border-transparent'
-              }`}
-            size="sm"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Pages
-          </Button>
-          {editingArticleId && (
-            <Button
-              variant="ghost"
-              onClick={cancelEdit}
-              size="sm"
-              className="ml-auto"
-            >
-              <X className="mr-2 h-4 w-4" />
-              Cancel Edit
-            </Button>
-          )}
-        </div>
-
-        {/* Mode Toggle (only show in create tab) */}
-        {activeTab === 'create' && (
-          <div className="mb-6 flex gap-2">
-            <Button
-              variant={!jsonMode ? 'default' : 'outline'}
-              onClick={() => setJsonMode(false)}
-              size="sm"
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              Form Mode
-            </Button>
-            <Button
-              variant={jsonMode ? 'default' : 'outline'}
-              onClick={() => setJsonMode(true)}
-              size="sm"
-            >
-              <FileJson className="mr-2 h-4 w-4" />
-              JSON Mode
-            </Button>
           </div>
-        )}
+        </div>
 
         {/* Success Message */}
         {submitSuccess && (
@@ -801,11 +1169,11 @@ export default function AdminPage() {
             <CardContent className="pt-6">
               <p className="text-green-700 dark:text-green-300">
                 {lastSuccessOperation === 'delete'
-                  ? activeTab === 'pages' ? 'Page deleted successfully!' : 'Article deleted successfully!'
+                  ? activeTab === 'pages' ? 'Page deleted successfully!' : activeTab === 'media' ? 'Media asset deleted successfully!' : 'Article deleted successfully!'
                   : lastSuccessOperation === 'update'
-                    ? activeTab === 'pages' ? 'Page updated successfully!' : 'Article updated successfully! Redirecting...'
+                    ? activeTab === 'pages' ? 'Page updated successfully!' : activeTab === 'media' ? 'Media asset updated successfully!' : 'Article updated successfully! Redirecting...'
                     : lastSuccessOperation === 'create'
-                      ? activeTab === 'pages' ? 'Page created successfully!' : 'Article created successfully! Redirecting...'
+                      ? activeTab === 'pages' ? 'Page created successfully!' : activeTab === 'media' ? 'Media asset created successfully!' : 'Article created successfully! Redirecting...'
                       : 'Operation completed successfully!'}
               </p>
             </CardContent>
@@ -821,8 +1189,216 @@ export default function AdminPage() {
           </Card>
         )}
 
-        {/* Pages Tab */}
-        {activeTab === 'pages' ? (
+        {/* Media Tab */}
+        {activeTab === 'media' ? (
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,420px)_1fr]">
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ImagePlus className="h-5 w-5 text-[#b11226]" />
+                  {editingMediaId ? 'Edit Media Image' : 'Add Media Image'}
+                </CardTitle>
+                <CardDescription>
+                  Upload once, then fill image metadata for every article language.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleMediaSubmit} className="space-y-5">
+                  <div className="space-y-2">
+                    <Label>Image *</Label>
+                    <ImageUpload
+                      value={mediaFormData.url}
+                      onChange={(url) => setMediaFormData((current) => ({ ...current, url }))}
+                      onRemove={() => setMediaFormData((current) => ({ ...current, url: '' }))}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="media-file-name">File Name</Label>
+                    <Input
+                      id="media-file-name"
+                      value={mediaFormData.fileName}
+                      onChange={(event) => setMediaFormData((current) => ({ ...current, fileName: event.target.value }))}
+                      placeholder="agadir-airport-car-rental-cover.webp"
+                    />
+                  </div>
+
+                  <div className="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                    <div className="flex flex-wrap gap-2">
+                      {languageOptions.map((language) => {
+                        const metadata = mediaFormData.metadata[language.value];
+                        const complete = hasCompleteMediaMetadata(metadata);
+
+                        return (
+                          <button
+                            key={language.value}
+                            type="button"
+                            onClick={() => setMediaMetadataLocale(language.value)}
+                            className={`rounded-xl border px-3 py-2 text-left text-xs transition-all ${
+                              mediaMetadataLocale === language.value
+                                ? 'border-[#b11226] bg-[#b11226] text-white'
+                                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                            }`}
+                          >
+                            <span className="block font-semibold">{language.shortLabel}</span>
+                            <span className={mediaMetadataLocale === language.value ? 'text-white/70' : 'text-slate-500'}>
+                              {complete ? 'Ready' : 'Missing'}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <Label htmlFor="media-meta-title">Meta Title *</Label>
+                        <Input
+                          id="media-meta-title"
+                          value={mediaFormData.metadata[mediaMetadataLocale].metaTitle}
+                          onChange={(event) => updateMediaMetadata(mediaMetadataLocale, 'metaTitle', event.target.value)}
+                          placeholder="Localized image meta title"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="media-alt-text">Alt Text *</Label>
+                        <Input
+                          id="media-alt-text"
+                          value={mediaFormData.metadata[mediaMetadataLocale].altText}
+                          onChange={(event) => updateMediaMetadata(mediaMetadataLocale, 'altText', event.target.value)}
+                          placeholder="Localized accessibility description"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="media-caption">Caption *</Label>
+                        <Input
+                          id="media-caption"
+                          value={mediaFormData.metadata[mediaMetadataLocale].caption}
+                          onChange={(event) => updateMediaMetadata(mediaMetadataLocale, 'caption', event.target.value)}
+                          placeholder="Localized visible caption"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="media-description">Description *</Label>
+                        <Textarea
+                          id="media-description"
+                          value={mediaFormData.metadata[mediaMetadataLocale].description}
+                          onChange={(event) => updateMediaMetadata(mediaMetadataLocale, 'description', event.target.value)}
+                          placeholder="Localized richer image description"
+                          className="min-h-[100px]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    {editingMediaId && (
+                      <Button type="button" variant="outline" onClick={resetMediaForm} className="flex-1">
+                        Cancel
+                      </Button>
+                    )}
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className={`${editingMediaId ? 'flex-1' : 'w-full'} bg-[#b11226] text-white hover:bg-[#941020]`}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          Saving...
+                        </>
+                      ) : editingMediaId ? (
+                        'Update Media'
+                      ) : (
+                        'Save Media'
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader>
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <ImageIcon className="h-5 w-5 text-[#b11226]" />
+                      Media Library
+                    </CardTitle>
+                    <CardDescription>
+                      {mediaAssets.length} image{mediaAssets.length === 1 ? '' : 's'} ready for article content.
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={fetchMediaAssets} disabled={mediaLoading}>
+                    {mediaLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <List className="h-4 w-4" />}
+                    Refresh
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {mediaLoading ? (
+                  <div className="flex items-center justify-center py-16">
+                    <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+                  </div>
+                ) : mediaError ? (
+                  <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                    {mediaError}
+                  </div>
+                ) : mediaAssets.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-slate-200 p-10 text-center">
+                    <ImageIcon className="mx-auto h-10 w-10 text-slate-300" />
+                    <p className="mt-3 text-sm text-slate-500">No media images yet.</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    {mediaAssets.map((asset) => {
+                      const metadata = asset.metadata[mediaMetadataLocale] ?? asset.metadata.fr;
+                      return (
+                        <div key={asset.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                          <div className="relative aspect-video bg-slate-100">
+                            <Image
+                              src={asset.url}
+                              alt={metadata.altText || asset.fileName || 'Media image'}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                              unoptimized={asset.url.startsWith('http')}
+                            />
+                          </div>
+                          <div className="space-y-3 p-3">
+                            <div>
+                              <p className="line-clamp-1 text-sm font-semibold text-slate-900">
+                                {metadata.metaTitle || asset.fileName || 'Untitled image'}
+                              </p>
+                              <p className="line-clamp-2 text-xs text-slate-500">{metadata.caption}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              <Button type="button" variant="outline" size="sm" onClick={() => editMediaAsset(asset)}>
+                                <Edit className="h-4 w-4" />
+                                Edit
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleDeleteMediaAsset(asset.id)}
+                                disabled={deletingMediaId === asset.id}
+                                className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                              >
+                                {deletingMediaId === asset.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                                {deleteMediaConfirm === asset.id ? 'Confirm' : 'Delete'}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        ) : activeTab === 'pages' ? (
           <div className="space-y-6">
             {/* Page Form */}
             <Card>
@@ -1174,6 +1750,9 @@ export default function AdminPage() {
                             <code className="text-sm font-mono bg-muted px-2 py-1 rounded">
                               {article.slug}
                             </code>
+                            <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold uppercase text-slate-600">
+                              {article.locale}
+                            </span>
                             {article.translationGroup && (
                               <span className="text-xs text-muted-foreground">
                                 key: {article.translationGroup}
@@ -1192,7 +1771,7 @@ export default function AdminPage() {
                               onClick={() => {
                                 // Navigate to article page using category from article
                                 const categorySlug = categoryToSlug(article.category);
-                                router.push(`/fr/blog/${categorySlug}/${article.slug}`);
+                                router.push(`/${article.locale}/blog/${categorySlug}/${article.slug}`);
                               }}
                             >
                               View
@@ -1270,6 +1849,8 @@ export default function AdminPage() {
                   }}
                   placeholder={`{
   "slug": "example-article",
+  "locale": "fr",
+  "translationGroup": "example-article-group",
   "title": "Example Title",
   "content": "<p>Article content...</p>",
   "category": "Guide Pratique",
@@ -1277,8 +1858,10 @@ export default function AdminPage() {
   "date": "02 novembre 2025",
   "publishedAt": "2025-11-02T10:00:00Z",
   "image": "/images/blog/example.webp",
-  "altText": "Example image",
-  "caption": "Optional caption",
+  "imageMetaTitle": "Example image meta title",
+  "altText": "Descriptive alt text for the article image",
+  "caption": "Visible image caption",
+  "imageDescription": "Longer image description for media metadata",
   "description": "Article description",
   "featured": false,
   "indexable": true,
@@ -1298,6 +1881,9 @@ export default function AdminPage() {
                   className="h-[400px] font-mono text-sm overflow-y-scroll overflow-x-scroll resize-none"
                 />
                 <p className="text-sm text-muted-foreground">
+                  <strong>Locales:</strong> use <code className="bg-muted px-1 py-0.5 rounded">fr</code>, <code className="bg-muted px-1 py-0.5 rounded">en</code>, <code className="bg-muted px-1 py-0.5 rounded">es</code>, <code className="bg-muted px-1 py-0.5 rounded">de</code>, or <code className="bg-muted px-1 py-0.5 rounded">pl</code>.
+                  Reuse <code className="bg-muted px-1 py-0.5 rounded">translationGroup</code> across language versions.
+                  <br />
                   <strong>Note:</strong> The <code className="bg-muted px-1 py-0.5 rounded">indexable</code> field controls search engine indexing.
                   Set to <code className="bg-muted px-1 py-0.5 rounded">true</code> to allow indexing (default),
                   or <code className="bg-muted px-1 py-0.5 rounded">false</code> to prevent indexing.
@@ -1322,16 +1908,27 @@ export default function AdminPage() {
           </Card>
         ) : (
           /* Form Mode */
-          <Card>
-            <CardHeader>
-              <CardTitle>{editingArticleId ? 'Edit Article' : 'Create New Article'}</CardTitle>
-              <CardDescription>
-                {editingArticleId
-                  ? 'Update the article details below.'
-                  : 'Fill out the form below to create a new blog article.'}
-              </CardDescription>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <Card className="overflow-hidden border-slate-200 bg-white shadow-sm">
+            <CardHeader className="border-b border-slate-200 bg-white p-5 md:p-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <CardTitle className="text-2xl">
+                    {editingArticleId ? 'Edit Article' : 'Create New Article'}
+                  </CardTitle>
+                  <CardDescription className="mt-2">
+                    {selectedLanguage.label} article workspace
+                  </CardDescription>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase text-slate-500">Completion</p>
+                  <p className="mt-1 text-2xl font-semibold text-slate-950">
+                    {completedChecklistItems}/{publishChecklist.length}
+                  </p>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-5 md:p-6">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
@@ -1339,43 +1936,49 @@ export default function AdminPage() {
                     name="locale"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Language *</FormLabel>
+                        <FormLabel className="flex items-center gap-2 text-base">
+                          <Languages className="h-4 w-4 text-[#b11226]" />
+                          Article Language *
+                        </FormLabel>
                         <FormControl>
-                          <div className="inline-flex w-full rounded-lg border bg-muted/30 p-1">
-                            <button
-                              type="button"
-                              onClick={() => field.onChange("fr")}
-                              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${field.value === "fr"
-                                  ? "bg-background text-foreground shadow-sm"
-                                  : "text-muted-foreground hover:text-foreground"
-                                }`}
-                              aria-pressed={field.value === "fr"}
-                            >
-                              Francais
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => field.onChange("en")}
-                              className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors ${field.value === "en"
-                                  ? "bg-background text-foreground shadow-sm"
-                                  : "text-muted-foreground hover:text-foreground"
-                                }`}
-                              aria-pressed={field.value === "en"}
-                            >
-                              English
-                            </button>
+                          <div className="grid gap-2 sm:grid-cols-5">
+                            {languageOptions.map((language) => (
+                              <button
+                                key={language.value}
+                                type="button"
+                                onClick={() => field.onChange(language.value)}
+                                className={`rounded-xl border px-3 py-3 text-left transition-all ${field.value === language.value
+                                    ? "border-[#b11226] bg-[#b11226] text-white shadow-sm"
+                                    : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                                  }`}
+                                aria-pressed={field.value === language.value}
+                              >
+                                <span className="block text-sm font-semibold uppercase">
+                                  {language.shortLabel}
+                                </span>
+                                <span className="block text-sm font-medium">
+                                  {language.label}
+                                </span>
+                                <span className={`mt-1 block text-xs ${field.value === language.value ? "text-white/70" : "text-slate-500"}`}>
+                                  {language.helper}
+                                </span>
+                              </button>
+                            ))}
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Choose which language version of the blog article you are writing.
+                          One article per language. Reuse the translation key to connect the versions together.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   {/* Basic Information */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Basic Information</h3>
+                  <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                    <h3 className="flex items-center gap-2 text-lg font-semibold">
+                      <FileText className="h-4 w-4 text-[#b11226]" />
+                      Basic Information
+                    </h3>
 
                     <FormField
                       control={form.control}
@@ -1417,13 +2020,13 @@ export default function AdminPage() {
                           <FormLabel>Translation Key</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="same-key-for-fr-and-en-versions"
+                              placeholder="same-key-for-all-language-versions"
                               {...field}
                               value={field.value ?? ""}
                             />
                           </FormControl>
                           <FormDescription>
-                            Use the same key in FR and EN articles to link translated versions with different slugs.
+                            Use the same key for FR, EN, ES, DE, and PL versions with different slugs.
                           </FormDescription>
                           <FormMessage />
                         </FormItem>
@@ -1436,7 +2039,7 @@ export default function AdminPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Category *</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select a category" />
@@ -1505,26 +2108,138 @@ export default function AdminPage() {
                   </div>
 
                   {/* Content */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Content</h3>
+                  <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4">
+                    <h3 className="flex items-center gap-2 text-lg font-semibold">
+                      <Edit className="h-4 w-4 text-[#b11226]" />
+                      Content
+                    </h3>
 
                     <FormField
                       control={form.control}
                       name="content"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Content *</FormLabel>
+                          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <FormLabel>Article Content *</FormLabel>
+                            <div className="flex flex-wrap gap-2">
+                              <Button type="button" variant="outline" size="sm" onClick={() => appendContentSnippet('<h2>Section title</h2>')}>
+                                <Heading2 className="h-4 w-4" />
+                              </Button>
+                              <Button type="button" variant="outline" size="sm" onClick={() => appendContentSnippet('<h3>Subsection title</h3>')}>
+                                <Heading3 className="h-4 w-4" />
+                              </Button>
+                              <Button type="button" variant="outline" size="sm" onClick={() => appendContentSnippet('<p>Write a clear paragraph here.</p>')}>
+                                <FileText className="h-4 w-4" />
+                              </Button>
+                              <Button type="button" variant="outline" size="sm" onClick={() => appendContentSnippet('<ul>\n  <li>First point</li>\n  <li>Second point</li>\n</ul>')}>
+                                <ListPlus className="h-4 w-4" />
+                              </Button>
+                              <Button type="button" variant="outline" size="sm" onClick={() => appendContentSnippet('<blockquote>Important quote or takeaway.</blockquote>')}>
+                                <Quote className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                type="button"
+                                variant={contentEditorMode === 'write' ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => setContentEditorMode('write')}
+                                className={contentEditorMode === 'write' ? 'bg-slate-950 text-white hover:bg-slate-800' : ''}
+                              >
+                                <Code2 className="h-4 w-4" />
+                                Write
+                              </Button>
+                              <Button
+                                type="button"
+                                variant={contentEditorMode === 'preview' ? 'default' : 'outline'}
+                                size="sm"
+                                onClick={() => setContentEditorMode('preview')}
+                                className={contentEditorMode === 'preview' ? 'bg-slate-950 text-white hover:bg-slate-800' : ''}
+                              >
+                                <Monitor className="h-4 w-4" />
+                                Preview
+                              </Button>
+                            </div>
+                          </div>
                           <FormControl>
-                            <Textarea
-                              placeholder="Article content (HTML)"
-                              className="min-h-[200px]"
-                              {...field}
-                            />
+                            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                              {contentEditorMode === 'write' ? (
+                                <Textarea
+                                  placeholder="<p>Write article content here...</p>"
+                                  className="min-h-[320px] border-0 font-mono text-sm shadow-none focus-visible:ring-0"
+                                  {...field}
+                                />
+                              ) : (
+                                <div
+                                  className="prose max-w-none p-5 text-sm leading-7 prose-headings:text-slate-950 prose-p:text-slate-700 prose-img:rounded-xl"
+                                  dangerouslySetInnerHTML={{
+                                    __html: field.value || '<p class="text-slate-400">No content yet.</p>',
+                                  }}
+                                />
+                              )}
+                            </div>
                           </FormControl>
+                          <FormDescription>
+                            Use HTML for article layout. Media images from the library are inserted as figures with localized metadata.
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+
+                    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+                      <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                        <div>
+                          <p className="text-sm font-semibold text-slate-900">Insert Media</p>
+                          <p className="text-xs text-slate-500">Uses {selectedLanguage.shortLabel} metadata from the media library.</p>
+                        </div>
+                        <Button type="button" variant="outline" size="sm" onClick={() => setActiveTab('media')}>
+                          <ImagePlus className="h-4 w-4" />
+                          Add Media
+                        </Button>
+                      </div>
+
+                      {mediaLoading ? (
+                        <div className="flex items-center justify-center py-6">
+                          <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                        </div>
+                      ) : mediaAssets.length === 0 ? (
+                        <div className="rounded-xl border border-dashed border-slate-200 bg-white p-4 text-sm text-slate-500">
+                          No media images yet. Add images in the Media tab.
+                        </div>
+                      ) : (
+                        <div className="grid max-h-[520px] gap-3 overflow-y-auto pr-1 md:grid-cols-2 xl:grid-cols-3">
+                          {mediaAssets.map((asset) => {
+                            const metadata = asset.metadata[watchedLocale] ?? asset.metadata.fr;
+                            return (
+                              <div key={asset.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+                                <div className="relative aspect-video bg-slate-100">
+                                  <Image
+                                    src={asset.url}
+                                    alt={metadata.altText || asset.fileName || 'Media image'}
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 25vw"
+                                    unoptimized={asset.url.startsWith('http')}
+                                  />
+                                </div>
+                                <div className="space-y-2 p-3">
+                                  <p className="line-clamp-1 text-xs font-semibold text-slate-900">
+                                    {metadata.metaTitle || asset.fileName || 'Untitled image'}
+                                  </p>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    <Button type="button" variant="outline" size="sm" onClick={() => handleUseMediaAsCover(asset)}>
+                                      Cover
+                                    </Button>
+                                    <Button type="button" size="sm" className="bg-[#b11226] text-white hover:bg-[#941020]" onClick={() => insertMediaIntoArticle(asset)}>
+                                      Insert
+                                    </Button>
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
 
                     <FormField
                       control={form.control}
@@ -1546,8 +2261,11 @@ export default function AdminPage() {
                   </div>
 
                   {/* Media */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Media</h3>
+                  <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                    <h3 className="flex items-center gap-2 text-lg font-semibold">
+                      <ImageIcon className="h-4 w-4 text-[#b11226]" />
+                      Media
+                    </h3>
 
                     <FormField
                       control={form.control}
@@ -1570,6 +2288,42 @@ export default function AdminPage() {
                       )}
                     />
 
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <FormField
+                        control={form.control}
+                        name="imageMetaTitle"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Image Meta Title *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="SEO title for this image" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                              Localized title used for image title metadata.
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="caption"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Image Caption *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Visible caption for this image" {...field} />
+                            </FormControl>
+                            <FormDescription>
+                              Localized caption shown or reused by image helpers.
+                            </FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
                     <FormField
                       control={form.control}
                       name="altText"
@@ -1577,8 +2331,11 @@ export default function AdminPage() {
                         <FormItem>
                           <FormLabel>Alt Text *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Image alt text" {...field} />
+                            <Input placeholder="Describe the image for accessibility and Google Images" {...field} />
                           </FormControl>
+                          <FormDescription>
+                            Localized accessibility text. Do not copy the article headline.
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -1586,13 +2343,20 @@ export default function AdminPage() {
 
                     <FormField
                       control={form.control}
-                      name="caption"
+                      name="imageDescription"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Caption</FormLabel>
+                          <FormLabel>Image Description *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Image caption (optional)" {...field} />
+                            <Textarea
+                              placeholder="Localized media description for this image"
+                              className="min-h-[90px]"
+                              {...field}
+                            />
                           </FormControl>
+                          <FormDescription>
+                            Use this for richer image context in the selected language.
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -1600,8 +2364,11 @@ export default function AdminPage() {
                   </div>
 
                   {/* SEO */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">SEO</h3>
+                  <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4">
+                    <h3 className="flex items-center gap-2 text-lg font-semibold">
+                      <Search className="h-4 w-4 text-[#b11226]" />
+                      SEO
+                    </h3>
 
                     <FormField
                       control={form.control}
@@ -1678,8 +2445,11 @@ export default function AdminPage() {
                   </div>
 
                   {/* Tags & Featured */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Tags & Settings</h3>
+                  <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+                    <h3 className="flex items-center gap-2 text-lg font-semibold">
+                      <Settings2 className="h-4 w-4 text-[#b11226]" />
+                      Tags & Settings
+                    </h3>
 
                     <FormField
                       control={form.control}
@@ -1767,7 +2537,7 @@ export default function AdminPage() {
                     <Button
                       type="submit"
                       disabled={isSubmitting || loadingArticle}
-                      className={editingArticleId ? 'flex-1' : 'w-full'}
+                      className={`${editingArticleId ? 'flex-1' : 'w-full'} bg-[#b11226] text-white hover:bg-[#941020]`}
                       size="lg"
                     >
                       {isSubmitting ? (
@@ -1784,6 +2554,109 @@ export default function AdminPage() {
               </Form>
             </CardContent>
           </Card>
+          <aside className="space-y-4 lg:sticky lg:top-6 lg:self-start">
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="p-5">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <CheckCircle2 className="h-4 w-4 text-[#b11226]" />
+                  Publish Status
+                </CardTitle>
+                <CardDescription>
+                  {selectedLanguage.shortLabel} version
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3 p-5 pt-0">
+                {publishChecklist.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2"
+                    >
+                      <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
+                        <Icon className="h-4 w-4 text-slate-500" />
+                        {item.label}
+                      </div>
+                      <span className={`h-2.5 w-2.5 rounded-full ${item.complete ? "bg-emerald-500" : "bg-slate-300"}`} />
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="p-5">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Globe2 className="h-4 w-4 text-[#b11226]" />
+                  Language Coverage
+                </CardTitle>
+                <CardDescription>
+                  Articles currently loaded in this session
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 p-5 pt-0">
+                {languageCounts.map(({ locale, count }) => {
+                  const language = languageOptions.find((item) => item.value === locale);
+                  return (
+                    <div key={locale} className="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2">
+                      <span className="text-sm font-semibold uppercase text-slate-700">
+                        {language?.shortLabel ?? locale}
+                      </span>
+                      <span className="text-sm text-slate-500">
+                        {count} article{count === 1 ? "" : "s"}
+                      </span>
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="p-5">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Settings2 className="h-4 w-4 text-[#b11226]" />
+                  Publish Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 p-5 pt-0 text-sm">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="flex items-center gap-2 text-slate-500">
+                    <Languages className="h-4 w-4" />
+                    Language
+                  </span>
+                  <span className="font-semibold text-slate-900">{selectedLanguage.label}</span>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="flex items-center gap-2 text-slate-500">
+                    <CalendarDays className="h-4 w-4" />
+                    Date
+                  </span>
+                  <span className="font-semibold text-slate-900">{form.watch("date") || "Not set"}</span>
+                </div>
+                {articlePreviewPath ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="mt-2 w-full bg-white"
+                    onClick={() => router.push(articlePreviewPath)}
+                  >
+                    <Eye className="h-4 w-4" />
+                    Preview Path
+                  </Button>
+                ) : (
+                  <div className="rounded-xl border border-dashed border-slate-200 px-3 py-3 text-xs text-slate-500">
+                    Preview appears after category and slug are set.
+                  </div>
+                )}
+                {articlePreviewPath && (
+                  <code className="block break-all rounded-xl bg-slate-950 px-3 py-2 text-xs text-white">
+                    {articlePreviewPath}
+                  </code>
+                )}
+              </CardContent>
+            </Card>
+          </aside>
+          </div>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -36,8 +37,10 @@ function transformArticle(article: {
   date: string;
   publishedAt: Date;
   image: string;
+  imageMetaTitle: string | null;
   altText: string;
   caption: string;
+  imageDescription: string | null;
   description: string;
   featured: boolean;
   indexable: boolean | null;
@@ -48,7 +51,7 @@ function transformArticle(article: {
   return {
     id: article.id,
     slug: article.slug,
-    locale: article.locale === "en" ? "en" : "fr",
+    locale: isArticleLocale(article.locale) ? article.locale : "fr",
     translationGroup: article.translationGroup ?? undefined,
     title: article.title,
     content: article.content,
@@ -57,8 +60,10 @@ function transformArticle(article: {
     date: article.date,
     publishedAt: article.publishedAt.toISOString(),
     image: article.image,
+    imageMetaTitle: article.imageMetaTitle ?? '',
     altText: article.altText,
     caption: article.caption,
+    imageDescription: article.imageDescription ?? '',
     description: article.description,
     featured: article.featured,
     indexable: article.indexable ?? true,
@@ -75,8 +80,8 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category');
     const featured = searchParams.get('featured');
     const slug = searchParams.get('slug');
-    const localeParam = searchParams.get('locale');
-    const locale: "fr" | "en" = localeParam === "en" ? "en" : "fr";
+    const localeParam = searchParams.get('locale') ?? undefined;
+    const locale: ArticleLocale = isArticleLocale(localeParam) ? localeParam : "fr";
     const limit = searchParams.get('limit');
 
     // Get single article by slug
@@ -99,7 +104,7 @@ export async function GET(request: NextRequest) {
     const where: {
       category?: string;
       featured?: boolean;
-      locale: "fr" | "en";
+      locale: ArticleLocale;
     } = { locale };
     if (category) {
       where.category = category;
@@ -124,4 +129,3 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-

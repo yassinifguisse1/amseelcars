@@ -97,7 +97,7 @@ export function generateLocalBusinessSchema() {
       telephone: businessTelephone,
       email: 'info@amseelcars.com',
       url: 'https://wa.me/212662500181',
-      availableLanguage: ['fr', 'en',],
+      availableLanguage: ['fr', 'en', 'es', 'de', 'pl'],
       areaServed: 'MA',
     },
     openingHoursSpecification: [
@@ -150,12 +150,17 @@ export function generateBlogPostingSchema(article: {
   title: string;
   description: string;
   image: string;
+  imageMetaTitle?: string;
+  imageAltText?: string;
+  imageCaption?: string;
+  imageDescription?: string;
   author: { name: string };
   publishedAt: string;
   slug: string; // Full path like "guide-pratique/location-de-voiture-a-agadir"
   category: string;
+  locale?: string;
 }) {
-  const articleUrl = `${siteUrl}/fr/blog/${article.slug}`;
+  const articleUrl = `${siteUrl}/${article.locale ?? "fr"}/blog/${article.slug}`;
   const imageUrl = article.image.startsWith('http') 
     ? article.image 
     : article.image.startsWith('/') 
@@ -173,7 +178,16 @@ export function generateBlogPostingSchema(article: {
     },
     headline: article.title,
     description: article.description.substring(0, 160), // Max 160 chars
-    image: [imageUrl],
+    image: [
+      {
+        '@type': 'ImageObject',
+        url: imageUrl,
+        ...(article.imageMetaTitle ? { name: article.imageMetaTitle } : {}),
+        ...(article.imageCaption ? { caption: article.imageCaption } : {}),
+        ...(article.imageDescription ? { description: article.imageDescription } : {}),
+        ...(article.imageAltText ? { alternateName: article.imageAltText } : {}),
+      },
+    ],
     author: {
       '@type': 'Person',
       name: article.author.name,

@@ -1,8 +1,15 @@
 import { z } from 'zod';
 
+export const articleLocales = ['fr', 'en', 'es', 'de', 'pl'] as const;
+export type ArticleLocale = (typeof articleLocales)[number];
+
+export function isArticleLocale(locale: string | undefined): locale is ArticleLocale {
+  return !!locale && (articleLocales as readonly string[]).includes(locale);
+}
+
 export const articleSchema = z.object({
   slug: z.string().min(1, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must contain only lowercase letters, numbers, and hyphens'),
-  locale: z.enum(['fr', 'en']).default('fr'),
+  locale: z.enum(articleLocales).default('fr'),
   translationGroup: z.string().trim().optional().default(''),
   title: z.string().min(1, 'Title is required'),
   content: z.string().min(1, 'Content is required'),
@@ -11,8 +18,10 @@ export const articleSchema = z.object({
   date: z.string().min(1, 'Date is required'),
   publishedAt: z.string().datetime('Invalid date format'),
   image: z.string().min(1, 'Image URL is required'),
+  imageMetaTitle: z.string().min(1, 'Image meta title is required'),
   altText: z.string().min(1, 'Alt text is required'),
-  caption: z.string().optional(),
+  caption: z.string().min(1, 'Image caption is required'),
+  imageDescription: z.string().min(1, 'Image description is required'),
   description: z.string().min(1, 'Description is required'),
   featured: z.boolean(),
   indexable: z.boolean().default(true),
@@ -42,4 +51,3 @@ export const articleSchema = z.object({
 });
 
 export type ArticleFormData = z.infer<typeof articleSchema>;
-

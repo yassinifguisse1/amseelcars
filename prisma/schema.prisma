@@ -26,8 +26,10 @@ model BlogArticle {
   date        String
   publishedAt DateTime
   image       String
+  imageMetaTitle String?
   altText     String
   caption     String
+  imageDescription String?
   description String
   featured    Boolean  @default(false)
   indexable   Boolean  @default(true)
@@ -43,6 +45,19 @@ model BlogArticle {
   @@index([translationGroup])
   @@unique([slug, locale])
   @@map("blog_articles")
+}
+
+model BlogMediaAsset {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  url         String
+  fileName    String?
+  metadata    Json     // { fr|en|es|de|pl: { metaTitle, altText, caption, description } }
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String   // Clerk user ID
+
+  @@index([createdAt])
+  @@map("blog_media_assets")
 }
 
 model Page {

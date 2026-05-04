@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { BlogArticle } from '@/data/blog';
+import type { ArticleLocale } from '@/lib/validations/article';
 
 // Fetcher with cache-busting headers for production
 const fetcher = (url: string) => fetch(url, {
@@ -16,10 +17,12 @@ const fetcher = (url: string) => fetch(url, {
 });
 
 // Hook to fetch all articles
-export function useArticles(category?: string) {
-  const url = category 
-    ? `/api/articles?category=${encodeURIComponent(category)}`
-    : '/api/articles';
+export function useArticles(category?: string, locale: ArticleLocale = "fr") {
+  const params = new URLSearchParams({ locale });
+  if (category) {
+    params.set('category', category);
+  }
+  const url = `/api/articles?${params.toString()}`;
   
   const { data, error, isLoading, mutate } = useSWR<BlogArticle[]>(url, fetcher, {
     revalidateOnFocus: true, // Revalidate when window gets focus
@@ -38,9 +41,10 @@ export function useArticles(category?: string) {
 }
 
 // Hook to fetch featured articles
-export function useFeaturedArticles() {
+export function useFeaturedArticles(locale: ArticleLocale = "fr") {
+  const params = new URLSearchParams({ featured: "true", locale });
   const { data, error, isLoading, mutate } = useSWR<BlogArticle[]>(
-    '/api/articles?featured=true',
+    `/api/articles?${params.toString()}`,
     fetcher,
     {
       revalidateOnFocus: true,
@@ -60,9 +64,12 @@ export function useFeaturedArticles() {
 }
 
 // Hook to fetch single article by slug
-export function useArticle(slug: string | null) {
+export function useArticle(slug: string | null, locale: ArticleLocale = "fr") {
+  const params = slug
+    ? new URLSearchParams({ slug, locale })
+    : null;
   const { data, error, isLoading, mutate } = useSWR<BlogArticle>(
-    slug ? `/api/articles?slug=${encodeURIComponent(slug)}` : null,
+    params ? `/api/articles?${params.toString()}` : null,
     fetcher,
     {
       revalidateOnFocus: true,
@@ -110,9 +117,10 @@ export function useRelatedArticles(
 }
 
 // Hook to fetch all categories
-export function useCategories() {
+export function useCategories(locale: ArticleLocale = "fr") {
+  const params = new URLSearchParams({ locale });
   const { data, error, isLoading, mutate } = useSWR<string[]>(
-    '/api/articles/categories',
+    `/api/articles/categories?${params.toString()}`,
     fetcher,
     {
       revalidateOnFocus: true,
@@ -130,4 +138,3 @@ export function useCategories() {
     mutate,
   };
 }
-

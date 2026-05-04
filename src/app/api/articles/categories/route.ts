@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { isArticleLocale } from '@/lib/validations/article';
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -24,10 +25,14 @@ function createNoCacheResponse(data: unknown, status: number = 200) {
 }
 
 // GET /api/articles/categories - Get all categories
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const localeParam = searchParams.get('locale') ?? undefined;
+    const locale = isArticleLocale(localeParam) ? localeParam : "fr";
     const articles = await prisma.blogArticle.findMany({
       select: { category: true },
+      where: { locale },
       distinct: ['category'],
     });
     
@@ -41,4 +46,3 @@ export async function GET() {
     );
   }
 }
-

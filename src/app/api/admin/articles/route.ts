@@ -120,8 +120,10 @@ export async function POST(request: NextRequest) {
           date: validatedData.date,
           publishedAt: new Date(validatedData.publishedAt),
           image: validatedData.image,
+          imageMetaTitle: validatedData.imageMetaTitle,
           altText: validatedData.altText,
-          caption: validatedData.caption || '',
+          caption: validatedData.caption,
+          imageDescription: validatedData.imageDescription,
           description: validatedData.description,
           featured: validatedData.featured,
           indexable: validatedData.indexable ?? true,
@@ -209,8 +211,10 @@ export async function GET(request: NextRequest) {
           date: article.date,
           publishedAt: article.publishedAt.toISOString(),
           image: article.image,
+          imageMetaTitle: article.imageMetaTitle ?? '',
           altText: article.altText,
           caption: article.caption,
+          imageDescription: article.imageDescription ?? '',
           description: article.description,
           featured: article.featured,
           indexable: article.indexable ?? true,
@@ -546,8 +550,10 @@ export async function PUT(request: NextRequest) {
           date: validatedData.date,
           publishedAt: new Date(validatedData.publishedAt),
           image: validatedData.image,
+          imageMetaTitle: validatedData.imageMetaTitle,
           altText: validatedData.altText,
-          caption: validatedData.caption || '',
+          caption: validatedData.caption,
+          imageDescription: validatedData.imageDescription,
           description: validatedData.description,
           featured: validatedData.featured,
           indexable: validatedData.indexable ?? true,
@@ -612,4 +618,3 @@ export async function PUT(request: NextRequest) {
     );
   }
 }
-

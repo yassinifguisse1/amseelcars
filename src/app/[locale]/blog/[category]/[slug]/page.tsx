@@ -9,6 +9,7 @@ import {
 } from '@/data/blog';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
+import { localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
@@ -56,7 +57,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category: categorySlug, slug } = await params;
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const article = await getArticleByCategoryAndSlug(categorySlug, slug, l);
   
   if (!article) {
@@ -66,8 +67,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const path = blogArticlePath(categoryToSlug(article.category), article.slug);
-  const alternates = frenchBlogAlternates(path);
+  const path = blogArticlePath(categoryToSlug(article.category), article.slug, l);
+  const alternates = frenchBlogAlternates(path, l);
 
   return {
     title: article.seo.metaTitle,
@@ -82,7 +83,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: article.title,
       url: absoluteBlogUrl(path),
       siteName: 'AmseelCars',
-      locale: 'fr_MA',
+      locale: localeToOpenGraphLocale(l),
       images: [
         {
           url: article.image,
@@ -120,10 +121,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ArticlePage({ params }: PageProps) {
   const { category: categorySlug, slug } = await params;
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const homePath = getPathname({ locale: l, href: "/" });
-  const blogPath = blogIndexPath();
-  const categoryPath = blogCategoryPath(categorySlug);
+  const blogPath = blogIndexPath(l);
+  const categoryPath = blogCategoryPath(categorySlug, l);
   
   // Debug logging (remove in production)
   console.log('Route params:', { categorySlug, slug });
@@ -135,7 +136,7 @@ export default async function ArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  const articlePath = blogArticlePath(categoryToSlug(article.category), article.slug);
+  const articlePath = blogArticlePath(categoryToSlug(article.category), article.slug, l);
 
   // Extract FAQs and generate schema
   const faqs = extractFAQs(article.content);
@@ -146,10 +147,15 @@ export default async function ArticlePage({ params }: PageProps) {
     title: article.title,
     description: article.seo.metaDescription,
     image: article.image,
+    imageMetaTitle: article.imageMetaTitle,
+    imageAltText: article.altText,
+    imageCaption: article.caption,
+    imageDescription: article.imageDescription,
     author: article.author,
     publishedAt: article.publishedAt,
     slug: `${categoryToSlug(article.category)}/${article.slug}`,
     category: article.category,
+    locale: l,
   });
 
   // Generate Breadcrumb schema

@@ -7,8 +7,10 @@
   "date": "15 janvier 2025",
   "publishedAt": "2025-01-15T10:00:00Z",
   "image": "/images/blog/location de voiture à agadir.webp",
+  "imageMetaTitle": "Location de voiture à Agadir - image de couverture",
   "altText": "Test article image - Location de voiture à Agadir",
   "caption": "Image de test pour l'article JSON",
+  "imageDescription": "Image de couverture pour un article de test sur la location de voiture à Agadir.",
   "description": "Article de test créé via le mode JSON du panneau d'administration pour démontrer la fonctionnalité.",
   "featured": false,
   "indexable": true,
@@ -25,4 +27,3 @@
     "canonical": "/blog/test-article-json"
   }
 }
-

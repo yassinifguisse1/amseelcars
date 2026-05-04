@@ -80,12 +80,12 @@ function rebuildImgTag(
  * Improves `<img>` alt + title inside article HTML so CRM values are reflected on the site:
  * - `<figure>…<figcaption>…` fills empty `img` alt/title (caption used for both).
  * - `data-alt` / `data-alt-text` → `alt`; `data-title` / `data-caption` → `title` when missing.
- * - Same `src` as cover + empty alt → DB alt + title from caption/altText.
+ * - Same `src` as cover + empty alt → DB alt + title from image metadata.
  * - Any image with `alt` but no `title` gets `title` from `alt` (tooltip / your HTML convention).
  */
 export function enhanceArticleBodyImages(
   html: string,
-  article: Pick<BlogArticle, 'image' | 'altText' | 'caption' | 'description' | 'category'>
+  article: Pick<BlogArticle, 'image' | 'imageMetaTitle' | 'altText' | 'caption' | 'imageDescription' | 'description' | 'category'>
 ): string {
   let out = html
   const featured = article.image?.trim()

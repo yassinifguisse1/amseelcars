@@ -1,5 +1,6 @@
 import { prisma } from '../../lib/prisma';
 import { BlogArticle } from '@/data/blog';
+import { isArticleLocale } from '@/lib/validations/article';
 
 // Transform Prisma article to BlogArticle format
 function transformArticle(article: {
@@ -14,8 +15,10 @@ function transformArticle(article: {
   date: string;
   publishedAt: Date;
   image: string;
+  imageMetaTitle: string | null;
   altText: string;
   caption: string;
+  imageDescription: string | null;
   description: string;
   featured: boolean;
   indexable: boolean | null;
@@ -26,7 +29,7 @@ function transformArticle(article: {
   return {
     id: article.id,
     slug: article.slug,
-    locale: article.locale === "en" ? "en" : "fr",
+    locale: isArticleLocale(article.locale) ? article.locale : "fr",
     translationGroup: article.translationGroup ?? undefined,
     title: article.title,
     content: article.content,
@@ -35,8 +38,10 @@ function transformArticle(article: {
     date: article.date,
     publishedAt: article.publishedAt.toISOString(),
     image: article.image,
+    imageMetaTitle: article.imageMetaTitle ?? '',
     altText: article.altText,
     caption: article.caption,
+    imageDescription: article.imageDescription ?? '',
     description: article.description,
     featured: article.featured,
     indexable: article.indexable ?? true,

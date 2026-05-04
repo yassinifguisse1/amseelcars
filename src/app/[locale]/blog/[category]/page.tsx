@@ -5,6 +5,7 @@ import { getLocale } from 'next-intl/server';
 import { getCategoryFromSlug, getArticlesByCategory, getAllCategories, categoryToSlug } from '@/data/blog';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
+import { localeToLanguageTag, toAppLocale } from '@/i18n/locale-utils';
 import { generateBreadcrumbSchema } from '@/lib/schemas';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import BlogArticles from '@/components/Blog/BlogArticles';
@@ -41,7 +42,9 @@ export async function generateStaticParams() {
 // Generate metadata for category page
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category: categorySlug } = await params;
-  const category = await getCategoryFromSlug(categorySlug);
+  const locale = await getLocale();
+  const l: AppLocale = toAppLocale(locale);
+  const category = await getCategoryFromSlug(categorySlug, l);
   
   if (!category) {
     return {
@@ -49,15 +52,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: 'La catégorie demandée n\'a pas été trouvée.',
     };
   }
-
-  const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
-  const path = blogCategoryPath(categorySlug);
+  const path = blogCategoryPath(categorySlug, l);
 
   return {
     title: `${category} - AmseelCars Blog`,
     description: `Découvrez tous nos articles sur ${category.toLowerCase()}. Conseils, guides et actualités pour la location de voiture à Agadir.`,
-    alternates: frenchBlogAlternates(path),
+    alternates: frenchBlogAlternates(path, l),
     openGraph: {
       type: 'website',
       title: `${category} - AmseelCars Blog`,
@@ -87,19 +87,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CategoryPage({ params }: PageProps) {
   const { category: categorySlug } = await params;
-  const category = await getCategoryFromSlug(categorySlug);
+  const locale = await getLocale();
+  const l: AppLocale = toAppLocale(locale);
+  const category = await getCategoryFromSlug(categorySlug, l);
   
   if (!category) {
     notFound();
   }
 
-  const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
   const isEn = l === "en";
   const articles = await getArticlesByCategory(category, l);
   const homePath = getPathname({ locale: l, href: "/" });
-  const blogPath = blogIndexPath();
-  const categoryPath = blogCategoryPath(categorySlug);
+  const blogPath = blogIndexPath(l);
+  const categoryPath = blogCategoryPath(categorySlug, l);
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: isEn ? "Home" : "Accueil", url: homePath },
     { name: "Blog", url: blogPath },
@@ -114,14 +114,14 @@ export default async function CategoryPage({ params }: PageProps) {
     description: isEn
       ? `Articles about ${category.toLowerCase()} for car rental planning in Agadir.`
       : `Articles sur ${category.toLowerCase()} pour preparer votre location de voiture a Agadir.`,
-    inLanguage: isEn ? "en-US" : "fr-MA",
+    inLanguage: localeToLanguageTag(l),
     mainEntity: {
       "@type": "ItemList",
       itemListElement: articles.slice(0, 20).map((article, index) => ({
         "@type": "ListItem",
         position: index + 1,
         url: absoluteBlogUrl(
-          blogArticlePath(categoryToSlug(article.category), article.slug),
+          blogArticlePath(categoryToSlug(article.category), article.slug, l),
         ),
         name: article.title,
       })),

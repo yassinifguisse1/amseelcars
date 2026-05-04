@@ -8,6 +8,7 @@ import { getArticles } from "@/app/action/article";
 import { categoryToSlug } from "@/data/blog";
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
+import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
 import {
   absoluteBlogUrl,
   blogArticlePath,
@@ -23,7 +24,7 @@ export const fetchCache = 'force-no-store';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const title =
     l === "en"
       ? "AmseelCars blog — car rental tips & Agadir guides"
@@ -36,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: frenchBlogAlternates(blogIndexPath()),
+    alternates: frenchBlogAlternates(blogIndexPath(l), l),
     robots: {
       index: true,
       follow: true,
@@ -64,10 +65,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BlogPage() {
   const locale = await getLocale();
-  const l: AppLocale = locale === "en" ? "en" : "fr";
+  const l: AppLocale = toAppLocale(locale);
   const isEn = l === "en";
   const homePath = getPathname({ locale: l, href: "/" });
-  const blogPath = blogIndexPath();
+  const blogPath = blogIndexPath(l);
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: homePath },
     { name: "Blog", url: blogPath },
@@ -82,14 +83,14 @@ export default async function BlogPage() {
     description: isEn
       ? "Guides and updates about car rental in Agadir and Morocco."
       : "Guides et actualites sur la location de voiture a Agadir et au Maroc.",
-    inLanguage: isEn ? "en-US" : "fr-MA",
+    inLanguage: localeToLanguageTag(l),
     mainEntity: {
       "@type": "ItemList",
       itemListElement: articles.slice(0, 20).map((article, index) => ({
         "@type": "ListItem",
         position: index + 1,
         url: absoluteBlogUrl(
-          blogArticlePath(categoryToSlug(article.category), article.slug),
+          blogArticlePath(categoryToSlug(article.category), article.slug, l),
         ),
         name: article.title,
       })),

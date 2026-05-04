@@ -9,7 +9,7 @@ import { BlogArticlesSkeleton } from './BlogArticlesSkeleton';
 import styles from "./BlogArticles.module.scss";
 import ArticleCard from "./ArticleCard";
 import { useLocale } from "next-intl";
-import type { AppLocale } from "@/i18n/routing";
+import { isArticleLocale, type ArticleLocale } from "@/lib/validations/article";
 
 interface BlogArticlesProps {
   articles?: BlogArticle[];
@@ -100,12 +100,13 @@ function BlogArticlesContent({
   showFilter: boolean;
   categories?: string[];
 }) {
-  const locale = useLocale() as AppLocale;
+  const currentLocale = useLocale();
+  const locale: ArticleLocale = isArticleLocale(currentLocale) ? currentLocale : "fr";
 
   // Use SWR hooks to fetch data
-  const { articles: fetchedArticles, isLoading: articlesLoading } = useArticles();
-  const { articles: featuredArticles, isLoading: featuredLoading } = useFeaturedArticles();
-  const { categories: fetchedCategories, isLoading: categoriesLoading } = useCategories();
+  const { articles: fetchedArticles, isLoading: articlesLoading } = useArticles(undefined, locale);
+  const { articles: featuredArticles, isLoading: featuredLoading } = useFeaturedArticles(locale);
+  const { categories: fetchedCategories, isLoading: categoriesLoading } = useCategories(locale);
 
   // Show skeleton if loading
   if ((!providedArticles && articlesLoading) || (showFilter && featuredLoading) || (!providedCategories && categoriesLoading)) {
@@ -169,7 +170,7 @@ function BlogArticlesContent({
             {categories.map((category) => (
               <Link
                 key={category}
-                href={`/fr/blog/${categoryToSlug(category)}`}
+                href={`/${locale}/blog/${categoryToSlug(category)}`}
                 className={`${styles.categoryButton} ${selectedCategory === category ? styles.active : ''}`}
                 onClick={(e) => {
                   e.preventDefault();

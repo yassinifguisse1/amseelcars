@@ -15,6 +15,10 @@ const isAdminRoute = createRouteMatcher([
   "/api/admin(.*)",
 ]);
 
+const isAdminApiRoute = createRouteMatcher([
+  "/api/admin(.*)",
+]);
+
 function isPublicBlogPathname(pathname: string) {
   return pathname === "/blog" || pathname.startsWith("/blog/");
 }
@@ -121,6 +125,14 @@ export default clerkMiddleware(async (auth, req) => {
       return res;
     }
 
+    return NextResponse.next();
+  }
+
+  if (isAdminApiRoute(req)) {
+    const authObj = await auth();
+    if (!authObj.userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     return NextResponse.next();
   }
 

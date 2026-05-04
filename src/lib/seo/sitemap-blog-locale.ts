@@ -18,7 +18,7 @@ function isAppLocale(locale: string): locale is AppLocale {
 }
 
 /**
- * Blog hub + posts for `locale`. DB posts are FR/EN only; ES/DE/PL list the blog index only.
+ * Blog hub + posts for `locale`.
  */
 export async function buildBlogSitemapXmlForLocale(
   locale: string,
@@ -32,28 +32,26 @@ export async function buildBlogSitemapXmlForLocale(
 
   blocks.push(simpleUrl(getPathname({ locale: l, href: "/blog" }), lastmodDay));
 
-  if (l === "fr" || l === "en") {
-    const articles = (await getAllArticles()).filter(
-      (a) => a.indexable !== false && a.locale === l,
-    );
-    for (const article of articles) {
-      const day = new Date(article.publishedAt).toISOString().split("T")[0];
-      blocks.push(
-        simpleUrl(
-          getPathname({
-            locale: l,
-            href: {
-              pathname: "/blog/[category]/[slug]",
-              params: {
-                category: categoryToSlug(article.category),
-                slug: article.slug,
-              },
+  const articles = (await getAllArticles(l)).filter(
+    (a) => a.indexable !== false,
+  );
+  for (const article of articles) {
+    const day = new Date(article.publishedAt).toISOString().split("T")[0];
+    blocks.push(
+      simpleUrl(
+        getPathname({
+          locale: l,
+          href: {
+            pathname: "/blog/[category]/[slug]",
+            params: {
+              category: categoryToSlug(article.category),
+              slug: article.slug,
             },
-          }),
-          day,
-        ),
-      );
-    }
+          },
+        }),
+        day,
+      ),
+    );
   }
 
   return `<?xml version="1.0" encoding="UTF-8"?>
