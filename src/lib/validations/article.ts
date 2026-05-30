@@ -24,6 +24,7 @@ export const articleSchema = z.object({
   imageDescription: z.string().min(1, 'Image description is required'),
   description: z.string().min(1, 'Description is required'),
   featured: z.boolean(),
+  published: z.boolean().default(true),
   indexable: z.boolean().default(true),
   tags: z.array(z.string()).min(1, 'At least one tag is required'),
   author: z.object({

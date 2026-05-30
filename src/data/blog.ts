@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 
+const PUBLIC_ARTICLE_FILTER = { published: { not: false } } as const;
+
 export interface BlogArticle {
   id: string; // Changed from number to string (MongoDB ObjectId)
   slug: string;
@@ -19,6 +21,7 @@ export interface BlogArticle {
   imageDescription: string;
   description: string;
   featured: boolean;
+  published?: boolean;
   indexable?: boolean;
   tags: string[];
   author: {
@@ -53,6 +56,7 @@ function transformArticle(article: {
   imageDescription: string | null;
   description: string;
   featured: boolean;
+  published: boolean | null;
   indexable: boolean | null;
   tags: string[];
   author: unknown;
@@ -76,6 +80,7 @@ function transformArticle(article: {
     imageDescription: article.imageDescription ?? '',
     description: article.description,
     featured: article.featured,
+    published: article.published ?? true,
     indexable: article.indexable ?? true,
     tags: article.tags,
     author: article.author as BlogArticle['author'],
@@ -88,7 +93,7 @@ export async function getArticleBySlug(slug: string): Promise<BlogArticle | unde
   try {
     const locale: BlogArticle["locale"] = "fr";
     const article = await prisma.blogArticle.findFirst({
-      where: { slug, locale },
+      where: { slug, locale, ...PUBLIC_ARTICLE_FILTER },
     });
     return article ? transformArticle(article) : undefined;
   } catch (error) {
@@ -111,6 +116,7 @@ export async function getArticleByCategoryAndSlug(
         slug,
         category,
         locale,
+        ...PUBLIC_ARTICLE_FILTER,
       },
     });
     return article ? transformArticle(article) : undefined;
@@ -129,6 +135,7 @@ export async function getArticleByTranslationGroup(
       where: {
         translationGroup,
         locale,
+        ...PUBLIC_ARTICLE_FILTER,
       },
     });
     return article ? transformArticle(article) : undefined;
@@ -141,7 +148,7 @@ export async function getArticleByTranslationGroup(
 export async function getAllArticles(locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
-      ...(locale ? { where: { locale } } : {}),
+      where: { ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
       orderBy: { publishedAt: 'desc' },
     });
     return articles.map(transformArticle);
@@ -154,7 +161,7 @@ export async function getAllArticles(locale?: BlogArticle["locale"]): Promise<Bl
 export async function getFeaturedArticles(locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
-      where: { featured: true, ...(locale ? { locale } : {}) },
+      where: { featured: true, ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
       orderBy: { publishedAt: 'desc' },
     });
     return articles.map(transformArticle);
@@ -167,7 +174,7 @@ export async function getFeaturedArticles(locale?: BlogArticle["locale"]): Promi
 export async function getArticlesByCategory(category: string, locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
-      where: { category, ...(locale ? { locale } : {}) },
+      where: { category, ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
       orderBy: { publishedAt: 'desc' },
     });
     return articles.map(transformArticle);
@@ -184,7 +191,7 @@ export async function getRelatedArticles(
 ): Promise<BlogArticle[]> {
   try {
     const currentArticle = await prisma.blogArticle.findFirst({
-      where: { slug: currentSlug, locale },
+      where: { slug: currentSlug, locale, ...PUBLIC_ARTICLE_FILTER },
     });
     if (!currentArticle) return [];
 
@@ -192,6 +199,7 @@ export async function getRelatedArticles(
       where: {
         slug: { not: currentSlug },
         locale,
+        ...PUBLIC_ARTICLE_FILTER,
         OR: [
           { category: currentArticle.category },
           { tags: { hasSome: currentArticle.tags as string[] } },
@@ -235,7 +243,7 @@ export async function getAllCategories(locale?: BlogArticle["locale"]): Promise<
   try {
     const articles = await prisma.blogArticle.findMany({
       select: { category: true },
-      ...(locale ? { where: { locale } } : {}),
+      where: { ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
       distinct: ['category'],
     });
     return articles.map(a => a.category);

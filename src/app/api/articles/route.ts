@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 
+const PUBLIC_ARTICLE_FILTER = { published: { not: false } } as const;
+
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -43,6 +45,7 @@ function transformArticle(article: {
   imageDescription: string | null;
   description: string;
   featured: boolean;
+  published: boolean | null;
   indexable: boolean | null;
   tags: string[];
   author: unknown;
@@ -66,6 +69,7 @@ function transformArticle(article: {
     imageDescription: article.imageDescription ?? '',
     description: article.description,
     featured: article.featured,
+    published: article.published ?? true,
     indexable: article.indexable ?? true,
     tags: article.tags,
     author: article.author,
@@ -87,7 +91,7 @@ export async function GET(request: NextRequest) {
     // Get single article by slug
     if (slug) {
       const article = await prisma.blogArticle.findFirst({
-        where: { slug, locale },
+        where: { slug, locale, ...PUBLIC_ARTICLE_FILTER },
       });
       
       if (!article) {
@@ -105,7 +109,8 @@ export async function GET(request: NextRequest) {
       category?: string;
       featured?: boolean;
       locale: ArticleLocale;
-    } = { locale };
+      published: typeof PUBLIC_ARTICLE_FILTER.published;
+    } = { locale, ...PUBLIC_ARTICLE_FILTER };
     if (category) {
       where.category = category;
     }

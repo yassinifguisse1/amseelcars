@@ -58,6 +58,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'amseelcars.com/wp-content/uploads/' },
       { protocol: 'https', hostname: 'www.ignant.com' },
       { protocol: 'https', hostname: 'utfs.io' }, // Uploadthing CDN
+      { protocol: 'https', hostname: '**.ufs.sh' }, // UploadThing UFS CDN
     ]
   },
   // Turbopack configuration to handle Uploadthing

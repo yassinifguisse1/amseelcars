@@ -5,6 +5,7 @@ import { articleSchema } from '@/lib/validations/article';
 import { isAdmin } from '@/lib/auth';
 import { BlogArticle } from '@/data/blog';
 import { ZodError } from 'zod';
+import { notifySeoNexusArticlePublished } from '@/lib/seoNexusPublishCallback';
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -126,6 +127,7 @@ export async function POST(request: NextRequest) {
           imageDescription: validatedData.imageDescription,
           description: validatedData.description,
           featured: validatedData.featured,
+          published: validatedData.published ?? true,
           indexable: validatedData.indexable ?? true,
           tags: validatedData.tags,
           author: validatedData.author,
@@ -217,6 +219,7 @@ export async function GET(request: NextRequest) {
           imageDescription: article.imageDescription ?? '',
           description: article.description,
           featured: article.featured,
+          published: article.published ?? true,
           indexable: article.indexable ?? true,
           tags: article.tags,
           author: article.author as BlogArticle['author'],
@@ -241,6 +244,8 @@ export async function GET(request: NextRequest) {
               category: true,
               locale: true,
               translationGroup: true,
+              published: true,
+              importSource: true,
             },
             orderBy: { publishedAt: 'desc' },
           });
@@ -556,6 +561,7 @@ export async function PUT(request: NextRequest) {
           imageDescription: validatedData.imageDescription,
           description: validatedData.description,
           featured: validatedData.featured,
+          published: validatedData.published ?? true,
           indexable: validatedData.indexable ?? true,
           tags: validatedData.tags,
           author: validatedData.author,
@@ -564,6 +570,17 @@ export async function PUT(request: NextRequest) {
       }),
       'update article'
     );
+
+    if (!existingArticle.published && updatedArticle.published) {
+      try {
+        await notifySeoNexusArticlePublished(updatedArticle, request.nextUrl.origin);
+      } catch (error: unknown) {
+        console.warn(
+          '[PUT /api/admin/articles] Article was published, but the SEO Nexus callback failed:',
+          error instanceof Error ? error.message : error,
+        );
+      }
+    }
 
     const duration = Date.now() - startTime;
     console.log(`[PUT /api/admin/articles] Article updated successfully in ${duration}ms:`, {

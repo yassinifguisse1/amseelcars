@@ -240,6 +240,8 @@ export default function AdminPage() {
       category: string;
       locale: ArticleLocale;
       translationGroup?: string;
+      published?: boolean;
+      importSource?: string;
     }>
   >([]);
   const [articlesLoading, setArticlesLoading] = useState(false);
@@ -362,6 +364,7 @@ export default function AdminPage() {
         imageDescription: article.imageDescription || '',
         description: article.description,
         featured: article.featured,
+        published: article.published ?? true,
         indexable: article.indexable ?? true,
         tags: article.tags || [],
         author: article.author,
@@ -946,6 +949,7 @@ export default function AdminPage() {
       imageDescription: '',
       description: '',
       featured: false,
+      published: true,
       indexable: true,
       tags: [],
       author: {
@@ -2150,6 +2154,20 @@ export default function AdminPage() {
                             <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold uppercase text-slate-600">
                               {article.locale}
                             </span>
+                            <span
+                              className={`rounded-full border px-2 py-1 text-xs font-semibold ${
+                                article.published
+                                  ? 'border-green-200 bg-green-50 text-green-700'
+                                  : 'border-amber-200 bg-amber-50 text-amber-700'
+                              }`}
+                            >
+                              {article.published ? 'Published' : 'Draft'}
+                            </span>
+                            {article.importSource && (
+                              <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-700">
+                                Imported
+                              </span>
+                            )}
                             {article.translationGroup && (
                               <span className="text-xs text-muted-foreground">
                                 key: {article.translationGroup}
@@ -2170,6 +2188,7 @@ export default function AdminPage() {
                                 const categorySlug = categoryToSlug(article.category);
                                 router.push(`/${article.locale}/blog/${categorySlug}/${article.slug}`);
                               }}
+                              disabled={!article.published}
                             >
                               View
                             </Button>
@@ -2261,6 +2280,7 @@ export default function AdminPage() {
   "imageDescription": "Longer image description for media metadata",
   "description": "Article description",
   "featured": false,
+  "published": true,
   "indexable": true,
   "tags": ["tag1", "tag2"],
   "author": {
@@ -2281,7 +2301,8 @@ export default function AdminPage() {
                   <strong>Locales:</strong> use <code className="bg-muted px-1 py-0.5 rounded">fr</code>, <code className="bg-muted px-1 py-0.5 rounded">en</code>, <code className="bg-muted px-1 py-0.5 rounded">es</code>, <code className="bg-muted px-1 py-0.5 rounded">de</code>, or <code className="bg-muted px-1 py-0.5 rounded">pl</code>.
                   Reuse <code className="bg-muted px-1 py-0.5 rounded">translationGroup</code> across language versions.
                   <br />
-                  <strong>Note:</strong> The <code className="bg-muted px-1 py-0.5 rounded">indexable</code> field controls search engine indexing.
+                  <strong>Note:</strong> The <code className="bg-muted px-1 py-0.5 rounded">published</code> field controls public visibility.
+                  The <code className="bg-muted px-1 py-0.5 rounded">indexable</code> field controls search engine indexing.
                   Set to <code className="bg-muted px-1 py-0.5 rounded">true</code> to allow indexing (default),
                   or <code className="bg-muted px-1 py-0.5 rounded">false</code> to prevent indexing.
                   If omitted, it defaults to <code className="bg-muted px-1 py-0.5 rounded">true</code>.
@@ -2914,6 +2935,29 @@ export default function AdminPage() {
                             />
                           </FormControl>
                           <FormLabel className="!mt-0">Featured Article</FormLabel>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="published"
+                      render={({ field }) => (
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                          <FormControl>
+                            <input
+                              type="checkbox"
+                              checked={field.value}
+                              onChange={field.onChange}
+                              className="h-4 w-4 rounded border-gray-300"
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="!mt-0">Published</FormLabel>
+                            <FormDescription>
+                              Uncheck to keep this article hidden from public blog pages and sitemaps
+                            </FormDescription>
+                          </div>
                         </FormItem>
                       )}
                     />

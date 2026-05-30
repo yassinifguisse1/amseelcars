@@ -19,6 +19,10 @@ model BlogArticle {
   slug        String
   locale      String   @default("fr")
   translationGroup String?
+  externalId  String?
+  importSource String?
+  importedAt  DateTime?
+  publicationCallback Json?
   title       String
   content     String
   category    String
@@ -32,6 +36,7 @@ model BlogArticle {
   imageDescription String?
   description String
   featured    Boolean  @default(false)
+  published   Boolean  @default(true)
   indexable   Boolean  @default(true)
   tags        String[]
   author      Json     // { name, avatar, bio }
@@ -42,6 +47,8 @@ model BlogArticle {
   
   @@index([category])
   @@index([publishedAt])
+  @@index([published])
+  @@index([externalId, locale])
   @@index([translationGroup])
   @@unique([slug, locale])
   @@map("blog_articles")

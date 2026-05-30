@@ -10,6 +10,7 @@
     "lint": "next lint",
     "migrate:articles": "tsx scripts/migrate-articles.ts",
     "backfill:blog-locale": "tsx scripts/backfill-blog-locale.ts",
+    "backfill:article-published": "tsx scripts/backfill-article-published.ts",
     "generate:car-products": "tsx scripts/generate-car-products.ts",
     "bootstrap:car-products-locales": "tsx scripts/bootstrap-car-products-locales.ts"
   },
