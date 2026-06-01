@@ -28,18 +28,6 @@ function blogPathToFrenchCanonical(pathname: string) {
     return `/fr${pathname}`;
   }
 
-  for (const locale of routing.locales) {
-    if (locale === "fr") continue;
-
-    const localizedBlogRoot = `/${locale}/blog`;
-    if (pathname === localizedBlogRoot) {
-      return "/fr/blog";
-    }
-    if (pathname.startsWith(`${localizedBlogRoot}/`)) {
-      return pathname.replace(localizedBlogRoot, "/fr/blog");
-    }
-  }
-
   return null;
 }
 
@@ -84,7 +72,7 @@ export default clerkMiddleware(async (auth, req) => {
   if (frenchBlogPath) {
     const url = req.nextUrl.clone();
     url.pathname = frenchBlogPath;
-    return NextResponse.redirect(url, 301);
+    return NextResponse.redirect(url, 307);
   }
 
   // Static media under /public/video — must not run next-intl (rewrites break the path → 404).

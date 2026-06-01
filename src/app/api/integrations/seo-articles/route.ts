@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { Prisma } from '@prisma/client';
 import { UTApi } from 'uploadthing/server';
 import { ZodError } from 'zod';
 import { prisma } from '@/lib/prisma';
@@ -103,15 +104,20 @@ async function ensureMediaFolder(article: NormalizedSeoArticleImport, createdBy:
   });
 }
 
-function createMediaMetadata(image: SeoArticleImportImage): MediaMetadataByLocale {
-  const metadata = {
+function fallbackImageMetadata(image: SeoArticleImportImage) {
+  return {
     metaTitle: image.metaTitle || image.altText || 'Article image',
     altText: image.altText || image.metaTitle || 'Article image',
     caption: image.caption || image.altText || image.metaTitle || 'Article image',
     description: image.description || image.caption || image.altText || image.metaTitle || 'Article image',
   };
+}
 
-  return Object.fromEntries(articleLocales.map((entryLocale) => [entryLocale, metadata])) as MediaMetadataByLocale;
+function createMediaMetadata(image: SeoArticleImportImage): MediaMetadataByLocale {
+  const metadata = fallbackImageMetadata(image);
+  return Object.fromEntries(
+    articleLocales.map((entryLocale) => [entryLocale, metadata]),
+  ) as MediaMetadataByLocale;
 }
 
 function uniqueImages(article: NormalizedSeoArticleImport) {
@@ -180,15 +186,21 @@ async function saveMediaAssets(input: {
     input.uploadedImages.map(async (image) => {
       const existing = await prisma.blogMediaAsset.findFirst({
         where: { url: image.hostedUrl, folderId: folder.id },
-        select: { id: true },
+        select: { id: true, metadata: true },
       });
+      const metadata = existing
+        ? {
+            ...(existing.metadata as Record<string, unknown>),
+            [input.article.locale]: fallbackImageMetadata(image.metadata),
+          }
+        : createMediaMetadata(image.metadata);
 
       const data = {
         url: image.hostedUrl,
         fileName: image.fileName || null,
         folderId: folder.id,
         folderName: folder.name,
-        metadata: createMediaMetadata(image.metadata),
+        metadata: metadata as Prisma.InputJsonValue,
       };
 
       if (existing) {
@@ -230,6 +242,10 @@ export async function POST(request: NextRequest) {
         })
       : null;
 
+    if (existingImportedArticle?.translationGroup) {
+      normalizedArticle.translationGroup = existingImportedArticle.translationGroup;
+    }
+
     const slugConflict = await prisma.blogArticle.findFirst({
       where: {
         slug: normalizedArticle.slug,
@@ -237,20 +253,15 @@ export async function POST(request: NextRequest) {
       },
       select: { id: true, slug: true, locale: true },
     });
-
     if (slugConflict && slugConflict.id !== existingImportedArticle?.id) {
       return createNoCacheResponse(
         {
           error: 'Article slug already exists for this locale.',
-          slug: normalizedArticle.slug,
-          locale: normalizedArticle.locale,
+          slug: slugConflict.slug,
+          locale: slugConflict.locale,
         },
         409,
       );
-    }
-
-    if (existingImportedArticle?.translationGroup) {
-      normalizedArticle.translationGroup = existingImportedArticle.translationGroup;
     }
 
     const uploadedImages = await uploadArticleImages(normalizedArticle);
@@ -263,6 +274,7 @@ export async function POST(request: NextRequest) {
     }
 
     const rewrittenContent = rewriteImportedImageSources(normalizedArticle.content, uploadedImages);
+
     const mediaFolder = await saveMediaAssets({
       article: normalizedArticle,
       uploadedImages,
@@ -273,6 +285,7 @@ export async function POST(request: NextRequest) {
       slug: normalizedArticle.slug,
       locale: normalizedArticle.locale,
       translationGroup: normalizedArticle.translationGroup,
+      translationSourceLocale: normalizedArticle.locale,
       externalId: normalizedArticle.externalId || null,
       importSource: SEO_ARTICLE_IMPORT_SOURCE,
       importedAt: new Date(),
@@ -296,7 +309,6 @@ export async function POST(request: NextRequest) {
       author: normalizedArticle.author,
       seo: normalizedArticle.seo,
     };
-
     const article = existingImportedArticle
       ? await prisma.blogArticle.update({
           where: { id: existingImportedArticle.id },
@@ -312,8 +324,8 @@ export async function POST(request: NextRequest) {
     return createNoCacheResponse(
       {
         message: existingImportedArticle
-          ? 'Imported article draft updated successfully.'
-          : 'Imported article draft created successfully.',
+          ? 'Imported article source draft updated successfully.'
+          : 'Imported article source draft created successfully.',
         article: {
           id: article.id,
           slug: article.slug,

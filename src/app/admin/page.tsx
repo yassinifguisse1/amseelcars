@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, type FieldErrors, type FieldPath } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -70,6 +70,7 @@ import {
   Monitor,
   Plus,
   Quote,
+  RefreshCw,
   Search,
   Settings2,
   Tags,
@@ -97,6 +98,70 @@ const languageOptions: Array<{
   { value: "de", shortLabel: "DE", label: "Deutsch", helper: "German draft" },
   { value: "pl", shortLabel: "PL", label: "Polski", helper: "Polish draft" },
 ];
+
+type ArticleSummary = {
+  id: string;
+  slug: string;
+  category: string;
+  locale: ArticleLocale;
+  translationGroup?: string;
+  translationSourceLocale?: ArticleLocale;
+  published?: boolean;
+  importSource?: string;
+};
+
+type ArticleFamily = {
+  key: string;
+  translationGroup?: string;
+  articles: ArticleSummary[];
+  sourceLocale: ArticleLocale;
+  sourceArticle: ArticleSummary;
+  previewArticle?: ArticleSummary;
+  imported: boolean;
+};
+
+function groupArticleFamilies(articles: ArticleSummary[]): ArticleFamily[] {
+  const grouped = new Map<string, ArticleSummary[]>();
+
+  for (const article of articles) {
+    const key = article.translationGroup?.trim()
+      ? `group:${article.translationGroup}`
+      : `article:${article.id}`;
+    const familyArticles = grouped.get(key) ?? [];
+    familyArticles.push(article);
+    grouped.set(key, familyArticles);
+  }
+
+  return [...grouped.entries()].map(([key, familyArticles]) => {
+    const declaredSourceLocale = familyArticles.find((article) => article.translationSourceLocale)?.translationSourceLocale;
+    const sourceArticle =
+      familyArticles.find((article) => article.locale === declaredSourceLocale) ??
+      familyArticles.find((article) => article.locale === 'fr') ??
+      familyArticles[0];
+    const publishedArticles = familyArticles.filter((article) => article.published);
+    const previewArticle =
+      publishedArticles.find((article) => article.locale === sourceArticle.locale) ??
+      publishedArticles.find((article) => article.locale === 'fr') ??
+      publishedArticles[0];
+
+    return {
+      key,
+      translationGroup: sourceArticle.translationGroup,
+      articles: familyArticles,
+      sourceLocale: sourceArticle.locale,
+      sourceArticle,
+      previewArticle,
+      imported: familyArticles.some((article) => article.importSource === 'seo-article-platform'),
+    };
+  });
+}
+
+function familyLocaleStatus(family: ArticleFamily, locale: ArticleLocale) {
+  const article = family.articles.find((entry) => entry.locale === locale);
+  if (!article) return 'Missing';
+  if (locale === family.sourceLocale) return 'Source';
+  return article.published ? 'Published' : 'Draft';
+}
 
 function createMediaFormData(): MediaAssetFormData {
   return {
@@ -218,9 +283,27 @@ function formatSuccessMessage(
 
   const label = target.charAt(0).toUpperCase() + target.slice(1);
   const action = operation === 'create' ? 'created' : operation === 'update' ? 'updated' : 'deleted';
-  const suffix = target === 'article' && operation !== 'delete' ? ' Redirecting...' : '';
 
-  return `${label} ${action} successfully!${suffix}`;
+  return `${label} ${action} successfully!`;
+}
+
+function findFirstArticleFormError(
+  errors: FieldErrors<ArticleFormData>,
+  parentPath = '',
+): FieldPath<ArticleFormData> | null {
+  for (const [key, value] of Object.entries(errors)) {
+    if (!value) continue;
+    const path = parentPath ? `${parentPath}.${key}` : key;
+    if ('message' in value && value.message) {
+      return path as FieldPath<ArticleFormData>;
+    }
+    const nestedPath = findFirstArticleFormError(
+      value as FieldErrors<ArticleFormData>,
+      path,
+    );
+    if (nestedPath) return nestedPath;
+  }
+  return null;
 }
 
 export default function AdminPage() {
@@ -233,27 +316,23 @@ export default function AdminPage() {
   const [jsonMode, setJsonMode] = useState(false);
   const [jsonInput, setJsonInput] = useState('');
   const [activeTab, setActiveTab] = useState<'create' | 'list' | 'media' | 'pages'>('create');
-  const [articles, setArticles] = useState<
-    Array<{
-      id: string;
-      slug: string;
-      category: string;
-      locale: ArticleLocale;
-      translationGroup?: string;
-      published?: boolean;
-      importSource?: string;
-    }>
-  >([]);
+  const [articles, setArticles] = useState<ArticleSummary[]>([]);
   const [articlesLoading, setArticlesLoading] = useState(false);
   const [articlesError, setArticlesError] = useState<string | null>(null);
   const [deletingArticleId, setDeletingArticleId] = useState<string | null>(null);
+  const [deletingArticleFamilyKey, setDeletingArticleFamilyKey] = useState<string | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [isCheckingRole, setIsCheckingRole] = useState(true);
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
+  const [activeTranslationGroup, setActiveTranslationGroup] = useState<string | null>(null);
+  const [draftingFamilyLocale, setDraftingFamilyLocale] = useState<ArticleLocale | null>(null);
   const [loadingArticle, setLoadingArticle] = useState(false);
   const [lastSuccessOperation, setLastSuccessOperation] = useState<'create' | 'update' | 'delete' | null>(null);
   const [lastSuccessTarget, setLastSuccessTarget] = useState<'article' | 'page' | 'media asset' | 'media folder'>('article');
+  const [generatingTranslationLocales, setGeneratingTranslationLocales] = useState<ArticleLocale[]>([]);
+  const [translationError, setTranslationError] = useState<string | null>(null);
+  const [translationMessage, setTranslationMessage] = useState<string | null>(null);
 
   // Page management states
   const [pages, setPages] = useState<Array<{ id: string; slug: string; title: string; published: boolean }>>([]);
@@ -372,9 +451,12 @@ export default function AdminPage() {
       };
 
       setEditingArticleId(articleId);
+      setActiveTranslationGroup(article.translationGroup || null);
+      setDraftingFamilyLocale(null);
       form.reset(formData);
       setActiveTab('create');
       setJsonMode(false);
+      setContentEditorMode('write');
       console.log('[Admin] Article loaded for editing:', article.slug);
     } catch (error: unknown) {
       console.error('Error fetching article:', error);
@@ -387,18 +469,16 @@ export default function AdminPage() {
   // Cancel editing
   const cancelEdit = () => {
     setEditingArticleId(null);
+    setActiveTranslationGroup(null);
+    setDraftingFamilyLocale(null);
     form.reset();
     setSubmitError(null);
+    setTranslationError(null);
+    setTranslationMessage(null);
   };
 
-  // Delete article
+  // Delete one locale row from an article family.
   const handleDeleteArticle = async (articleId: string) => {
-    // Confirm deletion
-    if (deleteConfirm !== articleId) {
-      setDeleteConfirm(articleId);
-      return;
-    }
-
     setDeletingArticleId(articleId);
     setArticlesError(null);
 
@@ -413,11 +493,12 @@ export default function AdminPage() {
         throw new Error(data.error || 'Failed to delete article');
       }
 
-      // Remove article from list
-      setArticles(articles.filter(article => article.id !== articleId));
+      await fetchArticles();
       setDeleteConfirm(null);
+      if (editingArticleId === articleId) {
+        cancelEdit();
+      }
 
-      // Show success message
       setLastSuccessTarget('article');
       setLastSuccessOperation('delete');
       setSubmitSuccess(true);
@@ -430,6 +511,47 @@ export default function AdminPage() {
       setArticlesError(error instanceof Error ? error.message : 'Failed to delete article');
     } finally {
       setDeletingArticleId(null);
+    }
+  };
+
+  // Delete every locale row in a family. Shared media stays available for reuse.
+  const handleDeleteArticleFamily = async (family: ArticleFamily) => {
+    if (!family.translationGroup) {
+      await handleDeleteArticle(family.sourceArticle.id);
+      return;
+    }
+
+    setDeletingArticleFamilyKey(family.key);
+    setArticlesError(null);
+
+    try {
+      const response = await fetch(
+        `/api/admin/articles?translationGroup=${encodeURIComponent(family.translationGroup)}`,
+        { method: 'DELETE' },
+      );
+      const data = await readJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to delete article family');
+      }
+
+      await fetchArticles();
+      setDeleteConfirm(null);
+      if (activeTranslationGroup === family.translationGroup) {
+        cancelEdit();
+      }
+      setLastSuccessTarget('article');
+      setLastSuccessOperation('delete');
+      setSubmitSuccess(true);
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        setLastSuccessOperation(null);
+      }, 3000);
+    } catch (error: unknown) {
+      console.error('Error deleting article family:', error);
+      setArticlesError(error instanceof Error ? error.message : 'Failed to delete article family');
+    } finally {
+      setDeletingArticleFamilyKey(null);
     }
   };
 
@@ -1027,29 +1149,28 @@ export default function AdminPage() {
       }
 
       const wasEditing = !!editingArticleId;
+      const wasFamilyWorkspace = Boolean(activeTranslationGroup);
       setLastSuccessTarget('article');
       setLastSuccessOperation(wasEditing ? 'update' : 'create');
       setSubmitSuccess(true);
 
-      // Clear form and editing state
-      form.reset();
-      setEditingArticleId(null);
-
-      // IMPORTANT: Always refresh articles list after update/create
-      // This ensures the UI reflects the latest data, especially in production
       await fetchArticles();
 
-      // If we were editing, switch to list view to see the update
-      if (wasEditing) {
-        setActiveTab('list');
+      if (wasFamilyWorkspace && result.article?.id) {
+        await fetchArticleForEdit(result.article.id);
+        router.refresh();
+        return;
       }
 
-      // Redirect to article list or show success message
+      form.reset();
+      setEditingArticleId(null);
+      setActiveTranslationGroup(null);
+      setDraftingFamilyLocale(null);
+
       setTimeout(() => {
         if (activeTab === 'create') {
           setActiveTab('list');
         }
-        // Force Next.js to refresh cached data in production
         router.refresh();
       }, 1500);
     } catch (error: unknown) {
@@ -1065,6 +1186,29 @@ export default function AdminPage() {
       }
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const onInvalidArticleSubmit = (errors: FieldErrors<ArticleFormData>) => {
+    const firstErrorPath = findFirstArticleFormError(errors);
+    const firstError = firstErrorPath
+      ? firstErrorPath.split('.').reduce<unknown>((value, key) => {
+          if (!value || typeof value !== 'object') return undefined;
+          return (value as Record<string, unknown>)[key];
+        }, errors)
+      : undefined;
+    const message =
+      firstError &&
+      typeof firstError === 'object' &&
+      'message' in firstError &&
+      typeof firstError.message === 'string'
+        ? firstError.message
+        : 'Complete the required article fields before saving.';
+
+    setSubmitSuccess(false);
+    setSubmitError(`Article was not saved: ${message}`);
+    if (firstErrorPath) {
+      form.setFocus(firstErrorPath);
     }
   };
 
@@ -1155,6 +1299,7 @@ export default function AdminPage() {
     { label: "SEO", complete: !!watchedSeo?.metaTitle && !!watchedSeo?.metaDescription, icon: Globe2 },
   ];
   const completedChecklistItems = publishChecklist.filter((item) => item.complete).length;
+  const articleFamilies = groupArticleFamilies(articles);
   const languageCounts = articleLocales.map((locale) => ({
     locale,
     count: articles.filter((article) => article.locale === locale).length,
@@ -1181,6 +1326,27 @@ export default function AdminPage() {
     title: watchedTitle,
     translationGroup: form.watch('translationGroup'),
   });
+  const editingArticleSummary = articles.find((article) => article.id === editingArticleId);
+  const activeArticleFamily =
+    (activeTranslationGroup
+      ? articleFamilies.find((family) => family.translationGroup === activeTranslationGroup)
+      : undefined) ??
+    (editingArticleSummary
+      ? articleFamilies.find((family) => family.articles.some((article) => article.id === editingArticleSummary.id))
+      : undefined);
+  const translationGroupArticles = activeArticleFamily?.articles ?? [];
+  const translationSourceLocale =
+    activeArticleFamily?.sourceLocale ??
+    editingArticleSummary?.translationSourceLocale ??
+    editingArticleSummary?.locale ??
+    watchedLocale;
+  const canManageImportedTranslations =
+    Boolean(activeArticleFamily?.translationGroup) && activeArticleFamily?.imported === true;
+  const missingTranslationLocales = articleLocales.filter(
+    (locale) =>
+      locale !== translationSourceLocale &&
+      !translationGroupArticles.some((article) => article.locale === locale),
+  );
 
   const appendContentSnippet = (snippet: string) => {
     const current = form.getValues('content')?.trim();
@@ -1204,6 +1370,152 @@ export default function AdminPage() {
     form.setValue('altText', metadata.altText, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
     form.setValue('caption', metadata.caption, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
     form.setValue('imageDescription', metadata.description, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+  };
+
+  const handleOpenArticleLocale = async (article: ArticleSummary) => {
+    if (article.id === editingArticleId && !draftingFamilyLocale) return;
+    if (
+      form.formState.isDirty &&
+      !window.confirm('Discard unsaved changes and open another language version?')
+    ) {
+      return;
+    }
+
+    await fetchArticleForEdit(article.id);
+  };
+
+  const startManualFamilyLocaleDraft = (locale: ArticleLocale) => {
+    if (!activeArticleFamily?.translationGroup) return;
+    if (
+      form.formState.isDirty &&
+      !window.confirm('Discard unsaved changes and start a new language draft?')
+    ) {
+      return;
+    }
+
+    const current = form.getValues();
+    form.reset({
+      ...current,
+      locale,
+      translationGroup: activeArticleFamily.translationGroup,
+      slug: '',
+      title: '',
+      content: '',
+      readTime: '',
+      date: '',
+      description: '',
+      published: false,
+      tags: [],
+      seo: {
+        metaTitle: '',
+        metaDescription: '',
+        keywords: [],
+        canonical: '',
+      },
+    });
+    setEditingArticleId(null);
+    setDraftingFamilyLocale(locale);
+    setContentEditorMode('write');
+    setSubmitError(null);
+    setTranslationError(null);
+    setTranslationMessage(`${locale.toUpperCase()} draft started. Fill the localized fields and save when ready.`);
+  };
+
+  const requestArticleTranslation = async (targetLocale: ArticleLocale, overwrite: boolean) => {
+    const sourceArticleId = activeArticleFamily?.sourceArticle.id ?? editingArticleId;
+    if (!sourceArticleId) throw new Error('Open an imported article before generating translations.');
+
+    setGeneratingTranslationLocales((current) => [...new Set([...current, targetLocale])]);
+    try {
+      const response = await fetch('/api/admin/articles/translations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+        cache: 'no-store',
+        body: JSON.stringify({
+          sourceArticleId,
+          targetLocale,
+          overwrite,
+        }),
+      });
+      const result = await readJsonResponse(response);
+      if (!response.ok) {
+        throw new Error(result.error || result.message || `Failed to generate ${targetLocale.toUpperCase()} translation.`);
+      }
+      return result;
+    } finally {
+      setGeneratingTranslationLocales((current) => current.filter((locale) => locale !== targetLocale));
+    }
+  };
+
+  const handleGenerateTranslation = async (locale: ArticleLocale) => {
+    setTranslationError(null);
+    setTranslationMessage(null);
+    try {
+      await requestArticleTranslation(locale, false);
+      await refreshTranslationData();
+      setTranslationMessage(`${locale.toUpperCase()} translation created successfully.`);
+    } catch (error: unknown) {
+      setTranslationError(error instanceof Error ? error.message : 'Translation failed.');
+    }
+  };
+
+  const refreshTranslationData = async () => {
+    await Promise.all([fetchArticles(), fetchMediaAssets()]);
+  };
+
+  const handleGenerateMissingTranslations = async () => {
+    if (missingTranslationLocales.length === 0) return;
+
+    setTranslationError(null);
+    setTranslationMessage(null);
+    const failures: string[] = [];
+    let nextIndex = 0;
+
+    async function worker() {
+      while (nextIndex < missingTranslationLocales.length) {
+        const locale = missingTranslationLocales[nextIndex];
+        nextIndex += 1;
+        try {
+          await requestArticleTranslation(locale, false);
+        } catch (error: unknown) {
+          failures.push(
+            `${locale.toUpperCase()}: ${error instanceof Error ? error.message : 'Translation failed.'}`,
+          );
+        }
+      }
+    }
+
+    await Promise.all(
+      Array.from({ length: Math.min(2, missingTranslationLocales.length) }, () => worker()),
+    );
+    await refreshTranslationData();
+
+    if (failures.length > 0) {
+      setTranslationError(failures.join(' '));
+      return;
+    }
+    setTranslationMessage('Missing translations generated successfully. Review each draft before publishing.');
+  };
+
+  const handleRegenerateTranslation = async (targetLocale: ArticleLocale) => {
+    const confirmed = window.confirm(
+      `Regenerate the ${targetLocale.toUpperCase()} translation? This overwrites manual corrections in that locale.`,
+    );
+    if (!confirmed) return;
+
+    setTranslationError(null);
+    setTranslationMessage(null);
+    try {
+      await requestArticleTranslation(targetLocale, true);
+      await refreshTranslationData();
+      setTranslationMessage(`${targetLocale.toUpperCase()} translation regenerated successfully.`);
+    } catch (error: unknown) {
+      setTranslationError(error instanceof Error ? error.message : 'Translation failed.');
+    }
   };
 
   // Show loading state while checking role
@@ -1268,7 +1580,7 @@ export default function AdminPage() {
               <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center">
                 <div className="rounded-xl border border-white/10 bg-white/10 px-4 py-3">
                   <p className="text-xs uppercase text-white/50">Articles</p>
-                  <p className="text-xl font-semibold">{articles.length}</p>
+                  <p className="text-xl font-semibold">{articleFamilies.length}</p>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/10 px-4 py-3">
                   <p className="text-xs uppercase text-white/50">Languages</p>
@@ -2098,8 +2410,8 @@ export default function AdminPage() {
               <CardDescription>
                 {articlesLoading
                   ? 'Loading articles...'
-                  : articles.length > 0
-                    ? `Total: ${articles.length} article${articles.length > 1 ? 's' : ''}`
+                  : articleFamilies.length > 0
+                    ? `Total: ${articleFamilies.length} article famil${articleFamilies.length > 1 ? 'ies' : 'y'}`
                     : 'No articles found'}
               </CardDescription>
             </CardHeader>
@@ -2136,91 +2448,149 @@ export default function AdminPage() {
                 <div className="space-y-2">
                   <div className="rounded-lg border bg-muted/50 p-4">
                     <p className="text-sm font-medium mb-4">
-                      Total Articles: <span className="text-primary">{articles.length}</span>
+                      Total Article Families: <span className="text-primary">{articleFamilies.length}</span>
                     </p>
                     <div className="space-y-2 max-h-[600px] overflow-y-auto">
-                      {articles.map((article, index) => (
-                        <div
-                          key={article.id}
-                          className="flex items-center justify-between rounded-md border bg-background p-3 hover:bg-muted/50 transition-colors"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="text-sm text-muted-foreground w-8">
-                              #{index + 1}
-                            </span>
-                            <code className="text-sm font-mono bg-muted px-2 py-1 rounded">
-                              {article.slug}
-                            </code>
-                            <span className="rounded-full border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold uppercase text-slate-600">
-                              {article.locale}
-                            </span>
-                            <span
-                              className={`rounded-full border px-2 py-1 text-xs font-semibold ${
-                                article.published
-                                  ? 'border-green-200 bg-green-50 text-green-700'
-                                  : 'border-amber-200 bg-amber-50 text-amber-700'
-                              }`}
-                            >
-                              {article.published ? 'Published' : 'Draft'}
-                            </span>
-                            {article.importSource && (
-                              <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-700">
-                                Imported
-                              </span>
-                            )}
-                            {article.translationGroup && (
-                              <span className="text-xs text-muted-foreground">
-                                key: {article.translationGroup}
-                              </span>
-                            )}
-                            {deleteConfirm === article.id && (
-                              <span className="text-xs text-red-600 dark:text-red-400 font-medium">
-                                Click delete again to confirm
-                              </span>
+                      {articleFamilies.map((family, index) => {
+                        const familyBusy =
+                          deletingArticleFamilyKey === family.key ||
+                          family.articles.some((article) => article.id === deletingArticleId);
+
+                        return (
+                          <div key={family.key} className="rounded-xl border bg-background transition-colors hover:bg-muted/30">
+                            <div className="flex flex-col gap-3 p-3 lg:flex-row lg:items-center lg:justify-between">
+                              <div className="flex min-w-0 flex-1 items-start gap-3">
+                                <span className="w-8 shrink-0 pt-1 text-sm text-muted-foreground">
+                                  #{index + 1}
+                                </span>
+                                <div className="min-w-0 space-y-2">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <code className="rounded bg-muted px-2 py-1 text-sm font-mono">
+                                      {family.sourceArticle.slug}
+                                    </code>
+                                    {family.imported && (
+                                      <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-700">
+                                        Imported
+                                      </span>
+                                    )}
+                                    {family.translationGroup && (
+                                      <span className="break-all text-xs text-muted-foreground">
+                                        key: {family.translationGroup}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="flex flex-wrap gap-1.5">
+                                    {articleLocales.map((locale) => {
+                                      const status = familyLocaleStatus(family, locale);
+                                      return (
+                                        <span
+                                          key={locale}
+                                          className={`rounded-full border px-2 py-1 text-[11px] font-semibold uppercase ${
+                                            status === 'Source'
+                                              ? 'border-indigo-200 bg-indigo-50 text-indigo-700'
+                                              : status === 'Published'
+                                                ? 'border-green-200 bg-green-50 text-green-700'
+                                                : status === 'Draft'
+                                                  ? 'border-amber-200 bg-amber-50 text-amber-700'
+                                                  : 'border-slate-200 bg-slate-50 text-slate-400'
+                                          }`}
+                                        >
+                                          {locale} {status}
+                                        </span>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 self-end lg:self-auto">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    const article = family.previewArticle;
+                                    if (!article) return;
+                                    router.push(`/${article.locale}/blog/${categoryToSlug(article.category)}/${article.slug}`);
+                                  }}
+                                  disabled={!family.previewArticle}
+                                >
+                                  View
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => fetchArticleForEdit(family.sourceArticle.id)}
+                                  disabled={loadingArticle || familyBusy}
+                                  className="text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+                                >
+                                  {loadingArticle && editingArticleId === family.sourceArticle.id ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                  ) : (
+                                    <Edit className="h-4 w-4" />
+                                  )}
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => setDeleteConfirm((current) => current === family.key ? null : family.key)}
+                                  disabled={familyBusy || loadingArticle}
+                                  className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                                >
+                                  {familyBusy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                                </Button>
+                              </div>
+                            </div>
+                            {deleteConfirm === family.key && (
+                              <div className="border-t border-red-100 bg-red-50/70 p-3">
+                                <p className="text-sm font-medium text-red-800">
+                                  Delete one language version or remove the entire article family.
+                                </p>
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                  {family.articles.map((article) => {
+                                    const sourceWithTranslations =
+                                      family.imported &&
+                                      article.locale === family.sourceLocale &&
+                                      family.articles.length > 1;
+                                    return (
+                                      <Button
+                                        key={article.id}
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleDeleteArticle(article.id)}
+                                        disabled={familyBusy || sourceWithTranslations}
+                                        title={sourceWithTranslations ? 'Delete translations first, or delete the entire family.' : undefined}
+                                        className="border-red-200 bg-white text-red-700 hover:bg-red-100"
+                                      >
+                                        Delete {article.locale.toUpperCase()}
+                                      </Button>
+                                    );
+                                  })}
+                                  {family.translationGroup && (
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      onClick={() => handleDeleteArticleFamily(family)}
+                                      disabled={familyBusy}
+                                      className="bg-red-700 text-white hover:bg-red-800"
+                                    >
+                                      Delete entire family
+                                    </Button>
+                                  )}
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => setDeleteConfirm(null)}
+                                    disabled={familyBusy}
+                                  >
+                                    Cancel
+                                  </Button>
+                                </div>
+                              </div>
                             )}
                           </div>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => {
-                                // Navigate to article page using category from article
-                                const categorySlug = categoryToSlug(article.category);
-                                router.push(`/${article.locale}/blog/${categorySlug}/${article.slug}`);
-                              }}
-                              disabled={!article.published}
-                            >
-                              View
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => fetchArticleForEdit(article.id)}
-                              disabled={loadingArticle || deletingArticleId === article.id}
-                              className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950"
-                            >
-                              {loadingArticle && editingArticleId === article.id ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <Edit className="h-4 w-4" />
-                              )}
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleDeleteArticle(article.id)}
-                              disabled={deletingArticleId === article.id || loadingArticle}
-                              className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
-                            >
-                              {deletingArticleId === article.id ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
-                              ) : (
-                                <Trash2 className="h-4 w-4" />
-                              )}
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                   <Button
@@ -2348,7 +2718,7 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent className="p-5 md:p-6">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={form.handleSubmit(onSubmit, onInvalidArticleSubmit)} className="space-y-6">
                   <FormField
                     control={form.control}
                     name="locale"
@@ -2360,37 +2730,237 @@ export default function AdminPage() {
                         </FormLabel>
                         <FormControl>
                           <div className="grid gap-2 sm:grid-cols-5">
-                            {languageOptions.map((language) => (
-                              <button
-                                key={language.value}
-                                type="button"
-                                onClick={() => field.onChange(language.value)}
-                                className={`rounded-xl border px-3 py-3 text-left transition-all ${field.value === language.value
-                                    ? "border-[#b11226] bg-[#b11226] text-white shadow-sm"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                            {languageOptions.map((language) => {
+                              const familyArticle = activeArticleFamily?.articles.find(
+                                (article) => article.locale === language.value,
+                              );
+                              const isCurrent = field.value === language.value;
+                              const status = activeArticleFamily
+                                ? draftingFamilyLocale === language.value
+                                  ? 'Drafting'
+                                  : familyLocaleStatus(activeArticleFamily, language.value)
+                                : language.helper;
+                              const isGenerating = generatingTranslationLocales.includes(language.value);
+
+                              if (!activeArticleFamily) {
+                                return (
+                                  <button
+                                    key={language.value}
+                                    type="button"
+                                    onClick={() => field.onChange(language.value)}
+                                    className={`rounded-xl border px-3 py-3 text-left transition-all ${isCurrent
+                                        ? "border-[#b11226] bg-[#b11226] text-white shadow-sm"
+                                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+                                      }`}
+                                    aria-pressed={isCurrent}
+                                  >
+                                    <span className="block text-sm font-semibold uppercase">
+                                      {language.shortLabel}
+                                    </span>
+                                    <span className="block text-sm font-medium">
+                                      {language.label}
+                                    </span>
+                                    <span className={`mt-1 block text-xs ${isCurrent ? "text-white/70" : "text-slate-500"}`}>
+                                      {status}
+                                    </span>
+                                  </button>
+                                );
+                              }
+
+                              return (
+                                <div
+                                  key={language.value}
+                                  className={`rounded-xl border p-2 transition-all ${
+                                    isCurrent
+                                      ? 'border-[#b11226] bg-[#b11226] text-white shadow-sm'
+                                      : 'border-slate-200 bg-white text-slate-700'
                                   }`}
-                                aria-pressed={field.value === language.value}
-                              >
-                                <span className="block text-sm font-semibold uppercase">
-                                  {language.shortLabel}
-                                </span>
-                                <span className="block text-sm font-medium">
-                                  {language.label}
-                                </span>
-                                <span className={`mt-1 block text-xs ${field.value === language.value ? "text-white/70" : "text-slate-500"}`}>
-                                  {language.helper}
-                                </span>
-                              </button>
-                            ))}
+                                >
+                                  <button
+                                    type="button"
+                                    onClick={() => familyArticle && handleOpenArticleLocale(familyArticle)}
+                                    disabled={!familyArticle || loadingArticle}
+                                    className="w-full px-1 py-1 text-left disabled:cursor-default"
+                                    aria-pressed={isCurrent}
+                                  >
+                                    <span className="block text-sm font-semibold uppercase">
+                                      {language.shortLabel}
+                                    </span>
+                                    <span className="block text-sm font-medium">
+                                      {language.label}
+                                    </span>
+                                    <span className={`mt-1 block text-xs ${isCurrent ? 'text-white/70' : 'text-slate-500'}`}>
+                                      {status}
+                                    </span>
+                                  </button>
+                                  {!familyArticle && draftingFamilyLocale !== language.value && (
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => {
+                                        if (activeArticleFamily.imported) {
+                                          handleGenerateTranslation(language.value);
+                                        } else {
+                                          startManualFamilyLocaleDraft(language.value);
+                                        }
+                                      }}
+                                      disabled={isGenerating}
+                                      className="mt-2 w-full bg-white text-xs text-slate-700 hover:bg-slate-50"
+                                    >
+                                      {isGenerating ? (
+                                        <Loader2 className="h-3 w-3 animate-spin" />
+                                      ) : (
+                                        <Languages className="h-3 w-3" />
+                                      )}
+                                      {activeArticleFamily.imported ? 'Generate' : 'Create draft'}
+                                    </Button>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         </FormControl>
                         <FormDescription>
-                          One article per language. Reuse the translation key to connect the versions together.
+                          {activeArticleFamily
+                            ? 'Select an existing language to load its article row. Missing languages can be generated or started as drafts.'
+                            : 'One article per language. Reuse the translation key to connect the versions together.'}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                  {canManageImportedTranslations && (
+                    <div className="space-y-4 rounded-2xl border border-indigo-200 bg-indigo-50/60 p-4">
+                      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                        <div>
+                          <h3 className="flex items-center gap-2 text-lg font-semibold text-slate-950">
+                            <Languages className="h-4 w-4 text-indigo-600" />
+                            Translations
+                          </h3>
+                          <p className="mt-1 text-sm text-slate-600">
+                            Generate missing language drafts from the original {translationSourceLocale.toUpperCase()} SEO Nexus article.
+                            Review and publish each locale separately.
+                          </p>
+                        </div>
+                        <Button
+                          type="button"
+                          onClick={handleGenerateMissingTranslations}
+                          disabled={
+                            missingTranslationLocales.length === 0 ||
+                            generatingTranslationLocales.length > 0
+                          }
+                          className="bg-indigo-600 text-white hover:bg-indigo-700"
+                        >
+                          {generatingTranslationLocales.length > 0 ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Languages className="h-4 w-4" />
+                          )}
+                          {missingTranslationLocales.length > 0
+                            ? `Generate missing (${missingTranslationLocales.length})`
+                            : 'All translations created'}
+                        </Button>
+                      </div>
+
+                      <div className="grid gap-2 md:grid-cols-5">
+                        {articleLocales.map((locale) => {
+                          const language = languageOptions.find((option) => option.value === locale);
+                          const article = translationGroupArticles.find((entry) => entry.locale === locale);
+                          const isSource = locale === translationSourceLocale;
+                          const status = isSource
+                            ? 'Source'
+                            : !article
+                              ? 'Missing'
+                              : article.published
+                                ? 'Published'
+                                : 'Draft';
+                          const isGenerating = generatingTranslationLocales.includes(locale);
+
+                          return (
+                            <div key={locale} className="rounded-xl border border-indigo-100 bg-white p-3 shadow-sm">
+                              <div className="flex items-start justify-between gap-2">
+                                <div>
+                                  <p className="text-xs font-semibold uppercase text-slate-500">
+                                    {language?.shortLabel ?? locale}
+                                  </p>
+                                  <p className="text-sm font-medium text-slate-900">{language?.label ?? locale}</p>
+                                </div>
+                                <span
+                                  className={`rounded-full px-2 py-1 text-[10px] font-semibold uppercase ${
+                                    status === 'Published'
+                                      ? 'bg-green-100 text-green-700'
+                                      : status === 'Missing'
+                                        ? 'bg-slate-100 text-slate-600'
+                                        : status === 'Source'
+                                          ? 'bg-indigo-100 text-indigo-700'
+                                          : 'bg-amber-100 text-amber-700'
+                                  }`}
+                                >
+                                  {isGenerating ? 'Generating' : status}
+                                </span>
+                              </div>
+
+                              {!isSource && (
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                  {article ? (
+                                    <>
+                                      <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleOpenArticleLocale(article)}
+                                        disabled={isGenerating}
+                                      >
+                                        <Edit className="h-3 w-3" />
+                                        Edit
+                                      </Button>
+                                      <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleRegenerateTranslation(locale)}
+                                        disabled={isGenerating}
+                                      >
+                                        <RefreshCw className={`h-3 w-3 ${isGenerating ? 'animate-spin' : ''}`} />
+                                        Regenerate
+                                      </Button>
+                                    </>
+                                  ) : (
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => handleGenerateTranslation(locale)}
+                                      disabled={isGenerating}
+                                    >
+                                      {isGenerating ? (
+                                        <Loader2 className="h-3 w-3 animate-spin" />
+                                      ) : (
+                                        <Languages className="h-3 w-3" />
+                                      )}
+                                      Generate
+                                    </Button>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {translationMessage && (
+                        <p className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+                          {translationMessage}
+                        </p>
+                      )}
+                      {translationError && (
+                        <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                          {translationError}
+                        </p>
+                      )}
+                    </div>
+                  )}
                   {/* Basic Information */}
                   <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
                     <h3 className="flex items-center gap-2 text-lg font-semibold">
@@ -2457,20 +3027,21 @@ export default function AdminPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Category *</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a category" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {categories.map((cat) => (
-                                <SelectItem key={cat} value={cat}>
-                                  {cat}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <FormControl>
+                            <Input
+                              list="article-category-options"
+                              placeholder="Example: Guide Pratique or Patinaje"
+                              {...field}
+                            />
+                          </FormControl>
+                          <datalist id="article-category-options">
+                            {categories.map((category) => (
+                              <option key={category} value={category} />
+                            ))}
+                          </datalist>
+                          <FormDescription>
+                            Choose a suggestion or enter the localized category for this article.
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -2987,34 +3558,44 @@ export default function AdminPage() {
                   </div>
 
                   {/* Submit Button */}
-                  <div className="flex gap-2">
-                    {editingArticleId && (
+                  <div className="space-y-3">
+                    {submitError && (
+                      <p
+                        role="alert"
+                        className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+                      >
+                        {submitError}
+                      </p>
+                    )}
+                    <div className="flex gap-2">
+                      {editingArticleId && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={cancelEdit}
+                          disabled={isSubmitting}
+                          className="flex-1"
+                          size="lg"
+                        >
+                          Cancel
+                        </Button>
+                      )}
                       <Button
-                        type="button"
-                        variant="outline"
-                        onClick={cancelEdit}
-                        disabled={isSubmitting}
-                        className="flex-1"
+                        type="submit"
+                        disabled={isSubmitting || loadingArticle}
+                        className={`${editingArticleId ? 'flex-1' : 'w-full'} bg-[#b11226] text-white hover:bg-[#941020]`}
                         size="lg"
                       >
-                        Cancel
+                        {isSubmitting ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            {editingArticleId ? 'Updating Article...' : 'Creating Article...'}
+                          </>
+                        ) : (
+                          editingArticleId ? 'Update Article' : 'Create Article'
+                        )}
                       </Button>
-                    )}
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting || loadingArticle}
-                      className={`${editingArticleId ? 'flex-1' : 'w-full'} bg-[#b11226] text-white hover:bg-[#941020]`}
-                      size="lg"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          {editingArticleId ? 'Updating Article...' : 'Creating Article...'}
-                        </>
-                      ) : (
-                        editingArticleId ? 'Update Article' : 'Create Article'
-                      )}
-                    </Button>
+                    </div>
                   </div>
                 </form>
               </Form>
@@ -3057,7 +3638,7 @@ export default function AdminPage() {
                   Language Coverage
                 </CardTitle>
                 <CardDescription>
-                  Articles currently loaded in this session
+                  Locale-version rows currently loaded in this session
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2 p-5 pt-0">

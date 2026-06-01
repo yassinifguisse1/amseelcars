@@ -30,3 +30,25 @@ export function frenchBlogAlternates(path: string, locale: AppLocale = "fr"): Al
     },
   };
 }
+
+export function translatedBlogArticleAlternates(
+  articles: Array<{ locale: AppLocale; category: string; slug: string }>,
+  canonicalPath: string,
+  canonicalLocale: AppLocale,
+): Alternates {
+  const languages = Object.fromEntries(
+    articles.map((article) => [
+      article.locale,
+      blogArticlePath(article.category, article.slug, article.locale),
+    ]),
+  );
+  const fallback = languages.fr || languages[canonicalLocale] || canonicalPath;
+
+  return {
+    canonical: canonicalPath,
+    languages: {
+      ...languages,
+      "x-default": fallback,
+    },
+  };
+}

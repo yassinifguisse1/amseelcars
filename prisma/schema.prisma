@@ -22,6 +22,7 @@ model BlogArticle {
   externalId  String?
   importSource String?
   importedAt  DateTime?
+  translationSourceLocale String?
   publicationCallback Json?
   title       String
   content     String

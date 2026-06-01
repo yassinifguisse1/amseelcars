@@ -145,6 +145,23 @@ export async function getArticleByTranslationGroup(
   }
 }
 
+export async function getArticlesByTranslationGroup(
+  translationGroup: string,
+): Promise<BlogArticle[]> {
+  try {
+    const articles = await prisma.blogArticle.findMany({
+      where: {
+        translationGroup,
+        ...PUBLIC_ARTICLE_FILTER,
+      },
+    });
+    return articles.map(transformArticle);
+  } catch (error) {
+    console.error("Error fetching articles by translation group:", error);
+    return [];
+  }
+}
+
 export async function getAllArticles(locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({

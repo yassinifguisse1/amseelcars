@@ -1,13 +1,14 @@
 "use client";
 
-import { useCallback, type ReactNode } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { Check, ChevronDown, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { getPathname, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { resolveCarDetailSlugForLocale } from "@/lib/carSlugLocale";
+import { useArticleLocalePaths } from "@/contexts/ArticleLocalePathsContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,6 +42,11 @@ function routeParamsWithoutLocale(
   return out;
 }
 
+function bypassCachedArticleRedirect(path: string) {
+  const separator = path.includes("?") ? "&" : "?";
+  return `${path}${separator}_localeSwitch=v2`;
+}
+
 interface HeaderLocaleSelectProps {
   closeMenu?: () => void;
 }
@@ -66,17 +72,33 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
   const pathname = usePathname();
   const params = routeParamsWithoutLocale(useParams());
   const router = useRouter();
+  const articleLocalePaths = useArticleLocalePaths();
+  const [switchingLocale, setSwitchingLocale] = useState(false);
 
   const active = LOCALE_ENTRIES.find((e) => e.code === locale) ?? LOCALE_ENTRIES[0];
   const ActiveFlag = active.Flag;
 
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has("_localeSwitch")) return;
+    url.searchParams.delete("_localeSwitch");
+    window.history.replaceState(window.history.state, "", url);
+  }, [locale, pathname]);
+
   const applyLocale = useCallback(
-    (next: AppLocale) => {
-      if (next === locale) return;
+    async (next: AppLocale) => {
+      if (next === locale || switchingLocale) return;
 
       const slug = params.slug;
+      const category = params.category;
       const carSlug = params.carSlug;
       const brandSlugParam = params.brandSlug;
+      const onBlogArticle =
+        typeof slug === "string" &&
+        slug.length > 0 &&
+        typeof category === "string" &&
+        category.length > 0 &&
+        pathname.startsWith("/blog/");
       const onCarBrandDetail =
         typeof carSlug === "string" &&
         carSlug.length > 0 &&
@@ -90,7 +112,33 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
         !onCarBrandDetail;
 
       let target: string;
-      if (onCarBrandDetail) {
+      if (onBlogArticle) {
+        const cachedPath = articleLocalePaths?.[next];
+        if (cachedPath) {
+          target = cachedPath;
+        } else {
+          setSwitchingLocale(true);
+          const query = new URLSearchParams({
+            category,
+            slug,
+            sourceLocale: locale,
+            targetLocale: next,
+          });
+          try {
+            const response = await fetch(`/api/articles/translation-path?${query}`, {
+              cache: "no-store",
+            });
+            const data = response.ok
+              ? (await response.json()) as { path?: string }
+              : null;
+            target = data?.path || getPathname({ href: "/blog", locale: next });
+          } catch {
+            target = getPathname({ href: "/blog", locale: next });
+          } finally {
+            setSwitchingLocale(false);
+          }
+        }
+      } else if (onCarBrandDetail) {
         const nextCarSlug = resolveCarDetailSlugForLocale(carSlug, next);
         target = getPathname({
           href: {
@@ -120,10 +168,10 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
       // useRouter from @/i18n/navigation — that wrapper forces a /{locale}/…
       // prefix even when localePrefix is "never", which breaks some navigations.
       document.cookie = `NEXT_LOCALE=${next};path=/;SameSite=lax;max-age=31536000`;
-      router.replace(target);
+      router.replace(onBlogArticle ? bypassCachedArticleRedirect(target) : target);
       closeMenu?.();
     },
-    [locale, pathname, params, router, closeMenu],
+    [locale, pathname, params, router, closeMenu, articleLocalePaths, switchingLocale],
   );
 
   return (
@@ -145,10 +193,16 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
               "before:bg-gradient-to-br before:from-white/95 before:to-black/10 before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[mask-composite:xor] before:[-webkit-mask-composite:xor]",
             )}
             aria-label={t("languageSelectAria")}
+            aria-busy={switchingLocale}
+            disabled={switchingLocale}
           >
             <span className="relative z-[1] inline-flex items-center gap-2">
               <FlagWrap>
-                <ActiveFlag />
+                {switchingLocale ? (
+                  <Loader2 className="size-4 animate-spin text-neutral-600" aria-hidden />
+                ) : (
+                  <ActiveFlag />
+                )}
               </FlagWrap>
               <span className="whitespace-nowrap max-[380px]:text-xs">
                 {t(active.labelKey)}

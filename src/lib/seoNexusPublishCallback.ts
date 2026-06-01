@@ -12,6 +12,7 @@ interface ImportedArticleForCallback {
   locale: string;
   category: string;
   importSource: string | null;
+  translationSourceLocale: string | null;
   publicationCallback: unknown;
 }
 
@@ -53,6 +54,7 @@ export async function notifySeoNexusArticlePublished(
   siteOrigin: string,
 ) {
   if (article.importSource !== SEO_ARTICLE_IMPORT_SOURCE) return;
+  if (article.translationSourceLocale && article.translationSourceLocale !== article.locale) return;
   const callback = parsePublicationCallback(article.publicationCallback);
   if (!callback) return;
 

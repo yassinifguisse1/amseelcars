@@ -5,12 +5,15 @@ import { getLocale } from 'next-intl/server';
 import {
   getArticleByCategoryAndSlug,
   getAllArticles,
+  getArticlesByTranslationGroup,
   categoryToSlug,
 } from '@/data/blog';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
 import { localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
 import { LoadingProvider } from '@/contexts/LoadingContext';
+import { ArticleLocalePathsSync } from '@/contexts/ArticleLocalePathsContext';
+import { buildArticleLocalePaths } from '@/lib/blog/article-locale-paths';
 import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
 import { generateBlogPostingSchema, generateBreadcrumbSchema } from '@/lib/schemas';
@@ -19,7 +22,7 @@ import {
   blogArticlePath,
   blogCategoryPath,
   blogIndexPath,
-  frenchBlogAlternates,
+  translatedBlogArticleAlternates,
 } from '@/lib/seo/blog-paths';
 
 // Force dynamic rendering - prevent Next.js from caching this route
@@ -68,7 +71,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const path = blogArticlePath(categoryToSlug(article.category), article.slug, l);
-  const alternates = frenchBlogAlternates(path, l);
+  const translatedArticles = article.translationGroup
+    ? await getArticlesByTranslationGroup(article.translationGroup)
+    : [article];
+  const alternates = translatedBlogArticleAlternates(
+    translatedArticles.map((entry) => ({
+      locale: entry.locale,
+      category: categoryToSlug(entry.category),
+      slug: entry.slug,
+    })),
+    path,
+    l,
+  );
 
   return {
     title: article.seo.metaTitle,
@@ -126,17 +140,14 @@ export default async function ArticlePage({ params }: PageProps) {
   const blogPath = blogIndexPath(l);
   const categoryPath = blogCategoryPath(categorySlug, l);
   
-  // Debug logging (remove in production)
-  console.log('Route params:', { categorySlug, slug });
-  
   const article = await getArticleByCategoryAndSlug(categorySlug, slug, l);
-  
+
   if (!article) {
-    console.log('Article not found for:', { categorySlug, slug });
     notFound();
   }
 
   const articlePath = blogArticlePath(categoryToSlug(article.category), article.slug, l);
+  const articleLocalePaths = await buildArticleLocalePaths(article);
 
   // Extract FAQs and generate schema
   const faqs = extractFAQs(article.content);
@@ -192,6 +203,7 @@ export default async function ArticlePage({ params }: PageProps) {
       )}
       
       <LoadingProvider>
+        <ArticleLocalePathsSync paths={articleLocalePaths} />
         <ArticleContent article={article} />
       </LoadingProvider>
     </>

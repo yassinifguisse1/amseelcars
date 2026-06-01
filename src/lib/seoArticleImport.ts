@@ -429,6 +429,7 @@ function setOrAppendAttr(attrs: string, name: string, value: string, replaceExis
 export function rewriteImportedImageSources(
   html: string,
   replacements: Array<{ sourceUrl: string; hostedUrl: string; metadata: SeoArticleImportImage }>,
+  options: { replaceMetadata?: boolean } = {},
 ) {
   const bySource = new Map(
     replacements.map((replacement) => [normalizedImageUrlKey(replacement.sourceUrl), replacement]),
@@ -443,16 +444,16 @@ export function rewriteImportedImageSources(
 
     let nextAttrs = setOrAppendAttr(attrs, 'src', replacement.hostedUrl, true);
     if (replacement.metadata.altText) {
-      nextAttrs = setOrAppendAttr(nextAttrs, 'alt', replacement.metadata.altText);
+      nextAttrs = setOrAppendAttr(nextAttrs, 'alt', replacement.metadata.altText, options.replaceMetadata);
     }
     if (replacement.metadata.metaTitle) {
-      nextAttrs = setOrAppendAttr(nextAttrs, 'title', replacement.metadata.metaTitle);
+      nextAttrs = setOrAppendAttr(nextAttrs, 'title', replacement.metadata.metaTitle, options.replaceMetadata);
     }
     if (replacement.metadata.caption) {
-      nextAttrs = setOrAppendAttr(nextAttrs, 'data-caption', replacement.metadata.caption);
+      nextAttrs = setOrAppendAttr(nextAttrs, 'data-caption', replacement.metadata.caption, options.replaceMetadata);
     }
     if (replacement.metadata.description) {
-      nextAttrs = setOrAppendAttr(nextAttrs, 'data-description', replacement.metadata.description);
+      nextAttrs = setOrAppendAttr(nextAttrs, 'data-description', replacement.metadata.description, options.replaceMetadata);
     }
 
     return `<img ${nextAttrs}${full.trimEnd().endsWith('/>') ? ' /' : ''}>`;

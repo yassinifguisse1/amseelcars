@@ -206,6 +206,8 @@ export async function GET(request: NextRequest) {
           slug: article.slug,
           locale: article.locale,
           translationGroup: article.translationGroup ?? '',
+          translationSourceLocale: article.translationSourceLocale ?? '',
+          importSource: article.importSource ?? '',
           title: article.title,
           content: article.content,
           category: article.category,
@@ -244,6 +246,7 @@ export async function GET(request: NextRequest) {
               category: true,
               locale: true,
               translationGroup: true,
+              translationSourceLocale: true,
               published: true,
               importSource: true,
             },
@@ -364,20 +367,42 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // Get article ID from query parameters
+    // Get article ID or translation group from query parameters
     const { searchParams } = new URL(request.url);
     const articleId = searchParams.get('id');
+    const translationGroup = searchParams.get('translationGroup')?.trim();
 
-    if (!articleId) {
+    if (!articleId && !translationGroup) {
       return createNoCacheResponse(
-        { error: 'Article ID is required' },
+        { error: 'Article ID or translation group is required' },
         400
+      );
+    }
+
+    if (translationGroup) {
+      const deleted = await prisma.blogArticle.deleteMany({
+        where: { translationGroup },
+      });
+
+      if (deleted.count === 0) {
+        return createNoCacheResponse(
+          { error: 'Article family not found' },
+          404
+        );
+      }
+
+      return createNoCacheResponse(
+        {
+          message: 'Article family deleted successfully',
+          deletedFamily: { translationGroup, count: deleted.count },
+        },
+        200
       );
     }
 
     // Check if article exists
     const article = await prisma.blogArticle.findUnique({
-      where: { id: articleId },
+      where: { id: articleId! },
     });
 
     if (!article) {
@@ -387,9 +412,31 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    const isImportedSource =
+      article.importSource === 'seo-article-platform' &&
+      article.translationGroup &&
+      article.translationSourceLocale === article.locale;
+    if (isImportedSource) {
+      const siblingTranslations = await prisma.blogArticle.count({
+        where: {
+          translationGroup: article.translationGroup!,
+          id: { not: article.id },
+        },
+      });
+
+      if (siblingTranslations > 0) {
+        return createNoCacheResponse(
+          {
+            error: 'Delete translated locales first, or delete the entire article family.',
+          },
+          409
+        );
+      }
+    }
+
     // Delete the article
     await prisma.blogArticle.delete({
-      where: { id: articleId },
+      where: { id: articleId! },
     });
 
     return createNoCacheResponse(
