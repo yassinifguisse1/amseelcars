@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { categoryToSlug, getArticleByCategoryAndSlug } from '@/data/blog';
+import { categoryToSlug, getArticleByCategoryAndSlug, publicArticlesWhere } from '@/data/blog';
 import { isArticleLocale } from '@/lib/validations/article';
 import { blogArticlePath } from '@/lib/seo/blog-paths';
 import type { AppLocale } from '@/i18n/routing';
-
-const PUBLIC_ARTICLE_FILTER = { published: { not: false } } as const;
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -55,8 +53,7 @@ export async function GET(request: NextRequest) {
     const translatedArticle = await prisma.blogArticle.findFirst({
       where: {
         translationGroup: sourceArticle.translationGroup,
-        locale: targetLocaleParam,
-        ...PUBLIC_ARTICLE_FILTER,
+        ...publicArticlesWhere(targetLocaleParam),
       },
       select: {
         slug: true,

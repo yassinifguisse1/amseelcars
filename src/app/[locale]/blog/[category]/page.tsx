@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { getLocale } from 'next-intl/server';
-import { getCategoryFromSlug, getArticlesByCategory, getAllCategories, categoryToSlug } from '@/data/blog';
+import { getCategoryFromSlug, getArticlesByCategory, getAllCategories, categoryToSlug, getArticleBySlug } from '@/data/blog';
 import type { AppLocale } from '@/i18n/routing';
-import { getPathname } from '@/i18n/navigation';
+import { getPathname, redirect } from '@/i18n/navigation';
 import { localeToLanguageTag, toAppLocale } from '@/i18n/locale-utils';
 import { generateBreadcrumbSchema } from '@/lib/schemas';
 import { LoadingProvider } from '@/contexts/LoadingContext';
@@ -92,6 +92,19 @@ export default async function CategoryPage({ params }: PageProps) {
   const category = await getCategoryFromSlug(categorySlug, l);
   
   if (!category) {
+    const legacyArticle = await getArticleBySlug(categorySlug, l);
+    if (legacyArticle) {
+      redirect({
+        href: {
+          pathname: "/blog/[category]/[slug]",
+          params: {
+            category: categoryToSlug(legacyArticle.category),
+            slug: legacyArticle.slug,
+          },
+        },
+        locale: l,
+      });
+    }
     notFound();
   }
 

@@ -9,7 +9,7 @@ import {
   categoryToSlug,
 } from '@/data/blog';
 import type { AppLocale } from '@/i18n/routing';
-import { getPathname } from '@/i18n/navigation';
+import { getPathname, redirect } from '@/i18n/navigation';
 import { localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
 import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleLocalePathsSync } from '@/contexts/ArticleLocalePathsContext';
@@ -144,6 +144,17 @@ export default async function ArticlePage({ params }: PageProps) {
 
   if (!article) {
     notFound();
+  }
+
+  const canonicalCategorySlug = categoryToSlug(article.category);
+  if (categorySlug !== canonicalCategorySlug) {
+    redirect({
+      href: {
+        pathname: "/blog/[category]/[slug]",
+        params: { category: canonicalCategorySlug, slug: article.slug },
+      },
+      locale: l,
+    });
   }
 
   const articlePath = blogArticlePath(categoryToSlug(article.category), article.slug, l);

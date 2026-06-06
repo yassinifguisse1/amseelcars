@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { publicArticlesWhere } from '@/data/blog';
 import { isArticleLocale } from '@/lib/validations/article';
 
 // Force dynamic rendering - prevent Next.js from caching this route
@@ -32,7 +33,7 @@ export async function GET(request: NextRequest) {
     const locale = isArticleLocale(localeParam) ? localeParam : "fr";
     const articles = await prisma.blogArticle.findMany({
       select: { category: true },
-      where: { locale },
+      where: publicArticlesWhere(locale),
       distinct: ['category'],
     });
     

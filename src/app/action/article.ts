@@ -1,5 +1,5 @@
 import { prisma } from '../../lib/prisma';
-import { BlogArticle } from '@/data/blog';
+import { BlogArticle, publicArticlesWhere } from '@/data/blog';
 import { isArticleLocale } from '@/lib/validations/article';
 
 // Transform Prisma article to BlogArticle format
@@ -53,7 +53,7 @@ function transformArticle(article: {
 
 export async function getArticles(locale: BlogArticle["locale"] = "fr"): Promise<BlogArticle[]> {
   const articles = await prisma.blogArticle.findMany({
-    where: { locale },
+    where: publicArticlesWhere(locale),
     orderBy: { publishedAt: 'desc' },
   });
   return articles.map(transformArticle);

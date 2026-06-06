@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { publicArticlesWhere } from '@/data/blog';
 import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 
 // Force dynamic rendering - prevent Next.js from caching this route
@@ -91,7 +92,7 @@ export async function GET(request: NextRequest) {
 
     // Get current article
     const currentArticle = await prisma.blogArticle.findFirst({
-      where: { slug, locale },
+      where: { slug, ...publicArticlesWhere(locale) },
     });
 
     if (!currentArticle) {
@@ -102,7 +103,7 @@ export async function GET(request: NextRequest) {
     const articles = await prisma.blogArticle.findMany({
       where: {
         slug: { not: slug },
-        locale,
+        ...publicArticlesWhere(locale),
         OR: [
           { category: currentArticle.category },
           { tags: { hasSome: currentArticle.tags as string[] } },

@@ -303,7 +303,9 @@ export async function POST(request: NextRequest) {
       imageDescription: normalizedArticle.coverImage.description,
       description: normalizedArticle.description,
       featured: normalizedArticle.featured,
-      published: false,
+      published:
+        existingImportedArticle?.published ??
+        normalizedArticle.locale === 'fr',
       indexable: normalizedArticle.indexable,
       tags: normalizedArticle.tags,
       author: normalizedArticle.author,

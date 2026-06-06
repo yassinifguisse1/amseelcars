@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { publicArticlesWhere } from '@/data/blog';
 import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
-
-const PUBLIC_ARTICLE_FILTER = { published: { not: false } } as const;
 
 // Force dynamic rendering - prevent Next.js from caching this route
 export const dynamic = 'force-dynamic';
@@ -91,7 +90,7 @@ export async function GET(request: NextRequest) {
     // Get single article by slug
     if (slug) {
       const article = await prisma.blogArticle.findFirst({
-        where: { slug, locale, ...PUBLIC_ARTICLE_FILTER },
+        where: { slug, ...publicArticlesWhere(locale) },
       });
       
       if (!article) {
@@ -105,18 +104,11 @@ export async function GET(request: NextRequest) {
     }
 
     // Build where clause
-    const where: {
-      category?: string;
-      featured?: boolean;
-      locale: ArticleLocale;
-      published: typeof PUBLIC_ARTICLE_FILTER.published;
-    } = { locale, ...PUBLIC_ARTICLE_FILTER };
-    if (category) {
-      where.category = category;
-    }
-    if (featured === 'true') {
-      where.featured = true;
-    }
+    const where = {
+      ...publicArticlesWhere(locale),
+      ...(category ? { category } : {}),
+      ...(featured === 'true' ? { featured: true } : {}),
+    };
 
     // Get articles
     const articles = await prisma.blogArticle.findMany({

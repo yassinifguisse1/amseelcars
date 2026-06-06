@@ -1,7 +1,38 @@
 import { prisma } from '@/lib/prisma';
-import { isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
+import type { Prisma } from '@prisma/client';
+import { articleLocales, isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 
-const PUBLIC_ARTICLE_FILTER = { published: { not: false } } as const;
+/** Draft translations stay hidden on non-FR locales. */
+export const PUBLIC_ARTICLE_FILTER = { published: { not: false } };
+
+/** FR blog is canonical: all French originals are public (no translation/publish gate). */
+const FRENCH_LOCALE: Prisma.BlogArticleWhereInput = { locale: 'fr' };
+
+/** FR blog is canonical: show all French originals without requiring translations. */
+export function publicArticlesWhere(locale: ArticleLocale = 'fr'): Prisma.BlogArticleWhereInput {
+  if (locale === 'fr') {
+    return FRENCH_LOCALE;
+  }
+  return {
+    locale,
+    ...PUBLIC_ARTICLE_FILTER,
+  };
+}
+
+/** All locales visible on the public site (FR originals + published translations). */
+export function allPublicArticlesWhere(): Prisma.BlogArticleWhereInput {
+  return {
+    OR: [
+      FRENCH_LOCALE,
+      ...articleLocales
+        .filter((loc) => loc !== 'fr')
+        .map((loc) => ({
+          locale: loc,
+          ...PUBLIC_ARTICLE_FILTER,
+        })),
+    ],
+  };
+}
 
 export interface BlogArticle {
   id: string; // Changed from number to string (MongoDB ObjectId)
@@ -89,11 +120,13 @@ function transformArticle(article: {
 }
 
 // Utility functions - now async and fetch from database
-export async function getArticleBySlug(slug: string): Promise<BlogArticle | undefined> {
+export async function getArticleBySlug(
+  slug: string,
+  locale: BlogArticle["locale"] = "fr",
+): Promise<BlogArticle | undefined> {
   try {
-    const locale: BlogArticle["locale"] = "fr";
     const article = await prisma.blogArticle.findFirst({
-      where: { slug, locale, ...PUBLIC_ARTICLE_FILTER },
+      where: { slug, ...publicArticlesWhere(locale) },
     });
     return article ? transformArticle(article) : undefined;
   } catch (error) {
@@ -108,18 +141,23 @@ export async function getArticleByCategoryAndSlug(
   locale: BlogArticle["locale"] = "fr"
 ): Promise<BlogArticle | undefined> {
   try {
-    const category = await getCategoryFromSlug(categorySlug);
-    if (!category) return undefined;
-    
-    const article = await prisma.blogArticle.findFirst({
-      where: {
-        slug,
-        category,
-        locale,
-        ...PUBLIC_ARTICLE_FILTER,
-      },
+    const category = await getCategoryFromSlug(categorySlug, locale);
+    if (category) {
+      const article = await prisma.blogArticle.findFirst({
+        where: {
+          slug,
+          category,
+          ...publicArticlesWhere(locale),
+        },
+      });
+      if (article) return transformArticle(article);
+    }
+
+    // Fallback: slug-only lookup (legacy URLs or category slug mismatch).
+    const bySlug = await prisma.blogArticle.findFirst({
+      where: { slug, ...publicArticlesWhere(locale) },
     });
-    return article ? transformArticle(article) : undefined;
+    return bySlug ? transformArticle(bySlug) : undefined;
   } catch (error) {
     console.error('Error fetching article by category and slug:', error);
     return undefined;
@@ -134,8 +172,7 @@ export async function getArticleByTranslationGroup(
     const article = await prisma.blogArticle.findFirst({
       where: {
         translationGroup,
-        locale,
-        ...PUBLIC_ARTICLE_FILTER,
+        ...publicArticlesWhere(locale),
       },
     });
     return article ? transformArticle(article) : undefined;
@@ -151,8 +188,7 @@ export async function getArticlesByTranslationGroup(
   try {
     const articles = await prisma.blogArticle.findMany({
       where: {
-        translationGroup,
-        ...PUBLIC_ARTICLE_FILTER,
+        AND: [{ translationGroup }, allPublicArticlesWhere()],
       },
     });
     return articles.map(transformArticle);
@@ -165,7 +201,7 @@ export async function getArticlesByTranslationGroup(
 export async function getAllArticles(locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
-      where: { ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
+      where: locale ? publicArticlesWhere(locale) : allPublicArticlesWhere(),
       orderBy: { publishedAt: 'desc' },
     });
     return articles.map(transformArticle);
@@ -178,7 +214,10 @@ export async function getAllArticles(locale?: BlogArticle["locale"]): Promise<Bl
 export async function getFeaturedArticles(locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
-      where: { featured: true, ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
+      where: {
+        featured: true,
+        ...(locale ? publicArticlesWhere(locale) : allPublicArticlesWhere()),
+      },
       orderBy: { publishedAt: 'desc' },
     });
     return articles.map(transformArticle);
@@ -191,7 +230,10 @@ export async function getFeaturedArticles(locale?: BlogArticle["locale"]): Promi
 export async function getArticlesByCategory(category: string, locale?: BlogArticle["locale"]): Promise<BlogArticle[]> {
   try {
     const articles = await prisma.blogArticle.findMany({
-      where: { category, ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
+      where: {
+        category,
+        ...(locale ? publicArticlesWhere(locale) : allPublicArticlesWhere()),
+      },
       orderBy: { publishedAt: 'desc' },
     });
     return articles.map(transformArticle);
@@ -208,15 +250,14 @@ export async function getRelatedArticles(
 ): Promise<BlogArticle[]> {
   try {
     const currentArticle = await prisma.blogArticle.findFirst({
-      where: { slug: currentSlug, locale, ...PUBLIC_ARTICLE_FILTER },
+      where: { slug: currentSlug, ...publicArticlesWhere(locale) },
     });
     if (!currentArticle) return [];
 
     const articles = await prisma.blogArticle.findMany({
       where: {
         slug: { not: currentSlug },
-        locale,
-        ...PUBLIC_ARTICLE_FILTER,
+        ...publicArticlesWhere(locale),
         OR: [
           { category: currentArticle.category },
           { tags: { hasSome: currentArticle.tags as string[] } },
@@ -260,7 +301,7 @@ export async function getAllCategories(locale?: BlogArticle["locale"]): Promise<
   try {
     const articles = await prisma.blogArticle.findMany({
       select: { category: true },
-      where: { ...PUBLIC_ARTICLE_FILTER, ...(locale ? { locale } : {}) },
+      where: locale ? publicArticlesWhere(locale) : allPublicArticlesWhere(),
       distinct: ['category'],
     });
     return articles.map(a => a.category);
