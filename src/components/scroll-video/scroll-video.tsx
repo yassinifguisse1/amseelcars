@@ -1126,11 +1126,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { useLoading } from "@/contexts/LoadingContext";
+
+const MOBILE_HERO_VIDEO_SRC = "/video/mobile-video-amseel-car.mp4";
+const DESKTOP_HERO_VIDEO_SRC = "/video/desktop-video-amseel-car.mp4";
+
+async function playHeroVideo(video: HTMLVideoElement) {
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+
+  try {
+    await video.play();
+  } catch {
+    /* iOS may block until visible; caller retries when hero is shown */
+  }
+}
 
 function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
   const t = useTranslations("home.hero");
@@ -1192,11 +1209,17 @@ function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
   );
 }
 
-const Cardrive = () => {
+type CardriveProps = {
+  /** False while preloader covers the page — iOS won't autoplay hidden video. */
+  isActive?: boolean;
+};
+
+const Cardrive = ({ isActive = true }: CardriveProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoSrc = isMobile ? MOBILE_HERO_VIDEO_SRC : DESKTOP_HERO_VIDEO_SRC;
 
   const {
     setFramesLoaded,
@@ -1204,18 +1227,18 @@ const Cardrive = () => {
     setMinimumTimeElapsed,
   } = useLoading();
 
-  useEffect(() => {
-    // Set client-side flag
+  useLayoutEffect(() => {
     setIsClient(true);
-    
+    setIsMobile(window.matchMedia("(max-width: 767px)").matches);
+  }, []);
+
+  useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.matchMedia("(max-width: 767px)").matches);
     };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
+
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Set loading states immediately
@@ -1226,8 +1249,59 @@ const Cardrive = () => {
   }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
 
   useEffect(() => {
+    if (!isClient) return;
+
     setIsVideoReady(false);
-  }, [isMobile, isClient]);
+    const video = videoRef.current;
+    if (!video) return;
+
+    const markReady = () => {
+      setIsVideoReady(true);
+    };
+
+    const onReady = () => {
+      markReady();
+      if (isActive) {
+        void playHeroVideo(video);
+      }
+    };
+
+    video.addEventListener("loadeddata", onReady);
+    video.addEventListener("canplay", onReady);
+    video.addEventListener("loadedmetadata", onReady);
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      onReady();
+    } else {
+      video.load();
+    }
+
+    const fallbackTimer = window.setTimeout(markReady, 3500);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      video.removeEventListener("loadeddata", onReady);
+      video.removeEventListener("canplay", onReady);
+      video.removeEventListener("loadedmetadata", onReady);
+    };
+  }, [isClient, isMobile, videoSrc, isActive]);
+
+  useEffect(() => {
+    if (!isClient || !isActive) return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    void playHeroVideo(video);
+    const retryTimers = [
+      window.setTimeout(() => void playHeroVideo(video), 350),
+      window.setTimeout(() => void playHeroVideo(video), 900),
+    ];
+
+    return () => {
+      retryTimers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [isClient, isActive, isMobile, videoSrc]);
 
   /* SSR: video-sized band + crawlable copy below (no text over video) */
   if (!isClient) {
@@ -1253,27 +1327,15 @@ const Cardrive = () => {
           <video
             ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover"
+            src={videoSrc}
             muted
+            autoPlay
             loop
             playsInline
             preload="auto"
             fetchPriority="high"
-            key={isMobile ? "mobile" : "desktop"}
-            onLoadedData={() => {
-              setIsVideoReady(true);
-              window.setTimeout(() => {
-                void videoRef.current?.play();
-              }, 140);
-            }}
+            key={videoSrc}
           >
-            <source
-              src={
-                isMobile
-                  ? "/video/mobile-video-amseel-car.mp4"
-                  : "/video/desktop-video-amseel-car.mp4"
-              }
-              type="video/mp4"
-            />
             Your browser does not support the video tag.
           </video>
           {!isVideoReady ? (

@@ -160,7 +160,7 @@ export function HomeContentLandingPage() {
             delay: isLoading ? 0 : 0.3
           }}
         >
-          <Cardrive />
+          <Cardrive isActive={!isLoading} />
           {/* SEO: trust strip — after hero, before BMW/Kia showcase */}
           <HomeSeoTrustBar />
           <BMWCarScroll />
