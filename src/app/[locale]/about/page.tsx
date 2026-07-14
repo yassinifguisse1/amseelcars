@@ -4,11 +4,10 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { generateAboutPageSchema, generateBreadcrumbSchema } from "@/lib/schemas";
 import { AboutPageClient } from "./AboutPageClient";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
+import { buildPageMetadata } from "@/lib/seo/site-meta";
 import type { AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
-import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
-
-const siteUrl = "https://www.amseelcars.com";
+import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -18,17 +17,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = t("about.title");
   const description = t("about.description");
 
-  return {
+  return buildPageMetadata({
     title,
     description,
+    path,
+    localeOg: localeToOpenGraphLocale(l),
     alternates: localizedAlternates(l, "/about"),
-    openGraph: {
-      type: "website",
-      url: `${siteUrl}${path}`,
-      title: `${title} | AmseelCars`,
-      description,
-    },
-  };
+    imageAlt: title,
+  });
 }
 
 export default async function AboutPage() {
@@ -56,7 +52,6 @@ export default async function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
       />
-      {/* Breadcrumb Schema */}
       <Script
         id="ld-json-breadcrumb-about"
         type="application/ld+json"

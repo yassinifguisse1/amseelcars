@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import Script from "next/script";
@@ -7,31 +6,21 @@ import { LenisScrollProvider } from "./providers/lenis-scroll-trigger";
 import { playfair, anticDidone } from "@/lib/fonts";
 import { clsx } from "clsx";
 import { Analytics } from "@vercel/analytics/next";
-import { ClerkProvider } from "@clerk/nextjs";
-import { ourFileRouter } from "./api/uploadthing/core";
-import { extractRouterConfig } from "uploadthing/server";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-import MyStatsig from "./my-statsig";
 import { generateOrganizationSchema, generateWebSiteSchema } from "@/lib/schemas";
+import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo/site-meta";
 
-
-const siteUrl = "https://www.amseelcars.com";
-const siteName = "AmseelCars";
-const siteTitle = "AmseelCars — Location de voitures à Agadir";
+const siteTitle = "Location voiture Agadir | AmseelCars";
 const siteDescription =
-  "Location de voitures à Agadir au meilleur prix. Large flotte (citadines, SUV, premium), retrait à l’aéroport ou en ville, réservation facile par WhatsApp. Assurance & kilométrage clairs.";
-
-
+  "Location de voiture à Agadir au meilleur prix. Citadines, SUV et premium, retrait aéroport Al Massira ou centre-ville, réservation WhatsApp. Assurance et kilométrage clairs.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  // Title template across the site
+  metadataBase: new URL(SITE_URL),
   title: {
     default: siteTitle,
-    template: `%s | ${siteName}`,
+    template: `%s | ${SITE_NAME}`,
   },
   description: siteDescription,
-  applicationName: siteName,
+  applicationName: SITE_NAME,
   generator: "Next.js",
   keywords: [
     "location voiture Agadir",
@@ -45,23 +34,23 @@ export const metadata: Metadata = {
     "Taghazout car rental",
     "AmseelCars",
   ],
-  authors: [{ name: "AmseelCars" }],
-  creator: "AmseelCars",
-  publisher: "AmseelCars",
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
 
   openGraph: {
     type: "website",
-    url: siteUrl,
-    siteName,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     title: siteTitle,
     description: siteDescription,
     locale: "fr_MA",
     images: [
       {
-        url: "/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp", // put a 1200x630 image in /public/og/og-default.jpg
+        url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "AmseelCars – Location de voitures à Agadir",
+        alt: "AmseelCars location voiture Agadir",
       },
     ],
   },
@@ -69,22 +58,20 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    
     googleBot: {
       index: true,
       follow: true,
       "max-snippet": -1,
       "max-image-preview": "large",
       "max-video-preview": -1,
-      
     },
   },
   twitter: {
     card: "summary_large_image",
-    title: "AmseelCars — Location de voitures à Agadir",
+    title: siteTitle,
     description:
-      "Location de voitures à Agadir au meilleur prix. Large flotte (citadines, SUV, premium).",
-    images: ["/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"], // ← same image
+      "Location voiture Agadir: citadines, SUV, premium. Retrait aéroport ou ville. Réservation WhatsApp.",
+    images: [DEFAULT_OG_IMAGE],
   },
 
   icons: {
@@ -108,7 +95,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  viewportFit: "cover", // better on iOS
+  viewportFit: "cover",
   colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
@@ -125,37 +112,17 @@ export default async function RootLayout({
 
   const fontVariables = clsx(playfair.variable, anticDidone.variable);
 
-  // JSON-LD (Organization + WebSite) - Sitewide
   const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": [
-      generateOrganizationSchema(),
-      generateWebSiteSchema(),
-    ],
+    "@graph": [generateOrganizationSchema(), generateWebSiteSchema()],
   };
 
   return (
-    <ClerkProvider>
-
     <html lang={htmlLang} suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={clsx(fontVariables, "antialiased")} suppressHydrationWarning>
         <LenisScrollProvider />
-        <NextSSRPlugin
-          /**
-           * The `extractRouterConfig` will extract **only** the route configs
-           * from the router to prevent additional information from being
-           * leaked to the client. The data passed to the client is the same
-           * as if you were to fetch `/api/uploadthing` directly.
-           */
-          routerConfig={extractRouterConfig(ourFileRouter)}
-        />
-        <MyStatsig>
-          {children}
-        </MyStatsig>
-
+        {children}
         <Analytics />
-
-        {/* Structured Data */}
         <Script
           id="ld-json-business"
           type="application/ld+json"
@@ -163,6 +130,5 @@ export default async function RootLayout({
         />
       </body>
     </html>
-    </ClerkProvider>
   );
 }

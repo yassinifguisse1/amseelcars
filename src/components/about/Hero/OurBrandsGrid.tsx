@@ -100,17 +100,19 @@ function BrandTile({ brand, onHover, onClick }: BrandTileProps) {
         />
       </div>
 
-      {/* Car Preview */}
-      <div className={`absolute inset-0 transition-all duration-300 ease-out motion-reduce:transition-none ${showPreview ? 'opacity-100 scale-100' : 'opacity-0 scale-105 motion-reduce:scale-100'}`}>
-        <Image
-          src={brand.preview}
-          alt={t('brandCarAlt', { name: brand.name })}
-          fill
-          className="object-cover transition-all duration-300 ease-out motion-reduce:transition-none"
-          loading="lazy"
-          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 20vw"
-        />
-      </div>
+      {/* Car Preview — mount only when needed so broken/unused src never paints alt text */}
+      {showPreview ? (
+        <div className="absolute inset-0 opacity-100 scale-100 transition-all duration-300 ease-out motion-reduce:transition-none">
+          <Image
+            src={brand.preview}
+            alt={t('brandCarAlt', { name: brand.name })}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 20vw"
+            priority={false}
+          />
+        </div>
+      ) : null}
 
       {/* Overlay gradient for better text visibility on car image */}
       <div className={` absolute inset-0  to-transparent transition-opacity duration-300 motion-reduce:transition-none ${showPreview ? 'opacity-100' : 'opacity-0'}`} />

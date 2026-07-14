@@ -45,14 +45,7 @@ export function generateWebSiteSchema() {
     url: siteUrl,
     name: siteName,
     publisher: { '@id': `${siteUrl}#org` },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    inLanguage: ['fr', 'en', 'es', 'de', 'pl'],
   };
 }
 
@@ -123,7 +116,7 @@ export function generateLocalBusinessSchema() {
       },
       {
         '@type': 'Airport',
-        name: 'Aéroport Agadir–Al Massira',
+        name: 'Aéroport Agadir-Al Massira',
       },
       {
         '@type': 'City',
@@ -296,7 +289,7 @@ export function generateLocalSeoLandingGraphSchema(input: {
   const path = input.path.startsWith('/') ? input.path : `/${input.path}`;
   const pageUrl = `${siteUrl}${path}`;
 
-  const rawImage = input.primaryImagePath ?? '/og/og-default.jpg';
+  const rawImage = input.primaryImagePath ?? '/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp';
   const imagePath = rawImage.startsWith('http')
     ? rawImage
     : `${siteUrl}${rawImage.startsWith('/') ? rawImage : `/${rawImage}`}`;
@@ -348,7 +341,7 @@ export function generateLocalSeoLandingGraphSchema(input: {
   if (input.service) {
     const defaultAreaServed = [
       { '@type': 'City', name: 'Agadir' },
-      { '@type': 'Airport', name: 'Agadir–Al Massira Airport' },
+      { '@type': 'Airport', name: 'Agadir-Al Massira Airport' },
       { '@type': 'Country', name: 'Morocco' },
     ];
     graph.push({

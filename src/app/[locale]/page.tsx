@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { LoadingProvider } from "@/contexts/LoadingContext";
 import { HomeContentLandingPage } from "./HomeContentLandingPage";
 import Script from "next/script";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema, generateReviewSchema, generateAggregateRatingSchema } from "@/lib/schemas";
 import { reviews } from "@/data/reviews";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
+import { buildPageMetadata } from "@/lib/seo/site-meta";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
-
-const OG_LOCALE_BY_LOCALE: Record<AppLocale, string> = {
-  fr: "fr_MA",
-  en: "en_US",
-  es: "es_ES",
-  de: "de_DE",
-  pl: "pl_PL",
-};
+import { localeToOpenGraphLocale } from "@/i18n/locale-utils";
 
 function resolveAppLocale(locale: string): AppLocale {
   return routing.locales.includes(locale as AppLocale)
@@ -34,22 +27,16 @@ export async function generateMetadata({
   const tMeta = await getTranslations({ locale: l, namespace: "home" });
   const title = tMeta("meta.title");
   const description = tMeta("meta.description");
-  const ogLocale = OG_LOCALE_BY_LOCALE[l];
+  const path = getPathname({ locale: l, href: "/" });
 
-  return {
+  return buildPageMetadata({
     title,
     description,
+    path,
+    localeOg: localeToOpenGraphLocale(l),
     alternates: localizedAlternates(l, "/"),
-    openGraph: {
-      title,
-      description,
-      locale: ogLocale,
-    },
-    twitter: {
-      title,
-      description,
-    },
-  };
+    imageAlt: title,
+  });
 }
 
 export default async function Home({
@@ -98,9 +85,7 @@ export default async function Home({
         />
       ))}
       
-    <LoadingProvider>
-      <HomeContentLandingPage />
-    </LoadingProvider>
+    <HomeContentLandingPage />
     
     </>
   );

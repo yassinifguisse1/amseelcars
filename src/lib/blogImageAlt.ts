@@ -25,7 +25,7 @@ export function blogArticleImageAlt(
     return desc.length > 160 ? `${desc.slice(0, 159)}…` : desc
   }
 
-  return `Illustration — ${article.category} — blog AmseelCars, location de voiture à Agadir`
+  return `Illustration | ${article.category} | blog AmseelCars | location voiture Agadir`
 }
 
 /**

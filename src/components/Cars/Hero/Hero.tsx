@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
+import dynamic from 'next/dynamic'
 import './style.css'
 import TextHover from './TextHover'
 import OurBrandsGrid from '@/components/about/Hero/OurBrandsGrid'
@@ -11,6 +12,15 @@ import { sampleBrands } from '@/data/brands'
 import SplitingText from '@/components/about/SplitingText/SplitingText'
 import SplitContentSection from '@/components/about/SplitContentSection/SplitContentSection'
 import { useTranslations } from 'next-intl'
+
+const BMWCarScroll = dynamic(() => import('@/components/CarsMoving/BMWCar'), {
+  ssr: false,
+})
+
+const BrandHeroVideo = dynamic(
+  () => import('@/components/scroll-video/scroll-video'),
+  { ssr: false },
+)
 
 const Hero = () => {
   const t = useTranslations('aboutPage')
@@ -128,18 +138,12 @@ const Hero = () => {
 
   return (
     <div>
-        <section className="hero">
-            <video
-                className="hero-video"
-                autoPlay
-                muted
-                loop
-                playsInline
-            >
-                <source src="/video/cardri.mp4" type="video/mp4" />
-                {t('videoNoSupport')}
-            </video>
-        </section>
+        {/* Brand dark silhouette hero — moved from home */}
+        <BrandHeroVideo showCopyBand={false} manageLoading={false} isActive />
+
+        {/* 4-car drive-by — directly after hero video */}
+        <BMWCarScroll variant="about" />
+
         <SplitContentSection
                 image={{
                     src: "/images/amseelcars-logo-apropos.jpg",

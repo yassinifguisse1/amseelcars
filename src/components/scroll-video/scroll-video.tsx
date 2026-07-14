@@ -1130,7 +1130,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
-import { useLoading } from "@/contexts/LoadingContext";
+import { useLoadingOptional } from "@/contexts/LoadingContext";
 
 const MOBILE_HERO_VIDEO_SRC = "/video/mobile-video-amseel-car.mp4";
 const DESKTOP_HERO_VIDEO_SRC = "/video/desktop-video-amseel-car.mp4";
@@ -1157,8 +1157,14 @@ function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
       aria-label={t("ariaLabel")}
     >
       <div className="mx-auto w-full max-w-4xl text-center">
-        <h1 className="text-balance text-2xl font-bold tracking-tight text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.45rem]">
-          {t("title")}
+        <h1 className="mx-auto max-w-4xl text-center font-[family-name:var(--font-heading)] text-3xl font-semibold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-[3.15rem]">
+          {t.rich("title", {
+            brand: (chunks) => (
+              <span className="mt-2 block text-[0.92em] font-bold tracking-[0.12em] text-white">
+                {chunks}
+              </span>
+            ),
+          })}
         </h1>
         <p className="mx-auto mt-4 max-w-3xl text-pretty text-sm leading-relaxed text-white/92 drop-shadow md:text-base md:leading-relaxed">
           {t("intro")}
@@ -1196,7 +1202,6 @@ function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
                   →
                 </motion.span>
               </span>
-              {/* Subtle ring on hover (overlays use pointer-events-none) */}
               <span
                 className="pointer-events-none absolute inset-0 rounded-full border-2 border-white opacity-0 transition-all duration-500 group-hover:scale-110 group-hover:opacity-40"
                 aria-hidden
@@ -1209,23 +1214,40 @@ function HeroCopyBand({ isMobile }: { isMobile: boolean }) {
   );
 }
 
+/** SEO H1 + CTA band (no video) — used on the home page after the brand video moved to About. */
+export function HomeHeroCopyBand() {
+  const [isMobile, setIsMobile] = useState(false);
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return <HeroCopyBand isMobile={isMobile} />;
+}
+
 type CardriveProps = {
   /** False while preloader covers the page — iOS won't autoplay hidden video. */
   isActive?: boolean;
+  /** Include the SEO H1 copy band under the video (home historically). */
+  showCopyBand?: boolean;
+  /** Drive LoadingContext preloader completion (home). Disable on About. */
+  manageLoading?: boolean;
 };
 
-const Cardrive = ({ isActive = true }: CardriveProps) => {
+const Cardrive = ({
+  isActive = true,
+  showCopyBand = true,
+  manageLoading = true,
+}: CardriveProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoSrc = isMobile ? MOBILE_HERO_VIDEO_SRC : DESKTOP_HERO_VIDEO_SRC;
 
-  const {
-    setFramesLoaded,
-    setWordsComplete,
-    setMinimumTimeElapsed,
-  } = useLoading();
+  const loading = useLoadingOptional();
 
   useLayoutEffect(() => {
     setIsClient(true);
@@ -1243,10 +1265,11 @@ const Cardrive = ({ isActive = true }: CardriveProps) => {
 
   // Set loading states immediately
   useEffect(() => {
-    setFramesLoaded(true);
-    setWordsComplete(true);
-    setMinimumTimeElapsed(true);
-  }, [setFramesLoaded, setWordsComplete, setMinimumTimeElapsed]);
+    if (!manageLoading || !loading) return;
+    loading.setFramesLoaded(true);
+    loading.setWordsComplete(true);
+    loading.setMinimumTimeElapsed(true);
+  }, [manageLoading, loading]);
 
   useEffect(() => {
     if (!isClient) return;
@@ -1303,7 +1326,7 @@ const Cardrive = ({ isActive = true }: CardriveProps) => {
     };
   }, [isClient, isActive, isMobile, videoSrc]);
 
-  /* SSR: video-sized band + crawlable copy below (no text over video) */
+  /* SSR: video-sized band + optional crawlable copy below */
   if (!isClient) {
     return (
       <>
@@ -1315,7 +1338,7 @@ const Cardrive = ({ isActive = true }: CardriveProps) => {
             />
           </div>
         </section>
-        <HeroCopyBand isMobile={false} />
+        {showCopyBand ? <HeroCopyBand isMobile={false} /> : null}
       </>
     );
   }
@@ -1347,7 +1370,7 @@ const Cardrive = ({ isActive = true }: CardriveProps) => {
           />
         </div>
       </section>
-      <HeroCopyBand isMobile={isMobile} />
+      {showCopyBand ? <HeroCopyBand isMobile={isMobile} /> : null}
     </>
   );
 };

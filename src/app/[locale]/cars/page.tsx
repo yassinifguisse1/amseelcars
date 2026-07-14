@@ -21,9 +21,10 @@ import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { generateBreadcrumbSchema, generateLocalSeoLandingGraphSchema } from '@/lib/schemas';
 import { localizedAlternates } from '@/lib/seo/localized-alternates';
+import { buildPageMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/site-meta';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
-import { localeToLanguageTag, toAppLocale } from '@/i18n/locale-utils';
+import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -33,17 +34,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = t("cars.title");
   const description = t("cars.description");
 
-  return {
+  return buildPageMetadata({
     title,
     description,
+    path,
+    localeOg: localeToOpenGraphLocale(l),
     alternates: localizedAlternates(l, "/cars"),
-    openGraph: {
-      images: ["/og/og-default.jpg"],
-      url: `https://www.amseelcars.com${path}`,
-      title,
-      description,
-    },
-  };
+    imageAlt: title,
+  });
 }
 
 
@@ -99,7 +97,7 @@ export default async function CarsPage() {
       name: tCars("schema.serviceName"),
       description: tCars("schema.serviceDescription"),
     },
-    primaryImagePath: "/og/og-default.jpg",
+    primaryImagePath: DEFAULT_OG_IMAGE,
   });
   const quickAnswer = tCars("quickAnswer.body");
   const keyFacts = [

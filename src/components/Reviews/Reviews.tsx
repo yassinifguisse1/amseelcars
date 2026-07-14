@@ -74,7 +74,7 @@ export default function Reviews({
             />
           )}
           <div>
-            <h3 className={styles.authorName}>{review.author.name}</h3>
+            <p className={styles.authorName}>{review.author.name}</p>
             <time className={styles.reviewDate} dateTime={review.datePublished}>
               {new Date(review.datePublished).toLocaleDateString(locale === "en" ? "en-US" : "fr-FR", {
                 year: 'numeric',

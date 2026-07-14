@@ -41,12 +41,13 @@ export function HomeSeoTrustBar() {
 }
 
 /* =============================================================================
-   SEO BLOCK: Main intro — used inside BMW scroll (before “Votre Trajet Idéal”)
+   SEO BLOCK: Main intro — overlay (BMW scroll) + static home section
    ============================================================================= */
 interface HomeSeoMainIntroOverlayProps {
   opacity: MotionValue<number>;
 }
 
+/** Scroll-scrubbed overlay used inside BMWCarScroll (home historically; unused if BMW removed). */
 export function HomeSeoMainIntroOverlay({ opacity }: HomeSeoMainIntroOverlayProps) {
   const t = useTranslations("home.mainIntro");
   const [seoInteractive, setSeoInteractive] = useState(false);
@@ -68,29 +69,68 @@ export function HomeSeoMainIntroOverlay({ opacity }: HomeSeoMainIntroOverlayProp
           seoInteractive ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
-        <h2
-          className="font-bold leading-[1.12] text-gray-800 [text-wrap:balance]
-                     text-[clamp(26px,6.5vw,54px)] md:text-[clamp(32px,5.8vw,64px)] lg:text-[clamp(36px,5.2vw,76px)]"
-        >
-          {t.rich("headline", {
-            accent: (chunks) => <span className="text-red-600">{chunks}</span>,
-          })}
-        </h2>
-        <p className="mx-auto mt-5 max-w-[48rem] text-pretty text-[1.05rem] leading-[1.9] text-gray-600 sm:mt-6 sm:text-lg sm:leading-[2] md:max-w-[54rem] md:mt-7 md:text-xl md:leading-[2.15]">
-          {t("body")}
-        </p>
-        <ul className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-3 text-base font-medium text-red-600 sm:mt-11 sm:gap-x-9 sm:text-lg md:text-[1.125rem]">
-          {bullets.map((b) => (
-            <li key={b} className="flex items-center gap-2.5">
-              <span className="select-none text-xl font-light leading-none text-red-600 sm:text-2xl" aria-hidden>
-                —
-              </span>
-              <span>{b}</span>
-            </li>
-          ))}
-        </ul>
+        <MainIntroCopy t={t} bullets={bullets} />
       </div>
     </motion.div>
+  );
+}
+
+/**
+ * SEO BLOCK: Main intro (static section on the home page after the trust bar).
+ */
+export function HomeSeoMainIntroBlock() {
+  const t = useTranslations("home.mainIntro");
+  const bullets = t.raw("bullets") as string[];
+  return (
+    <motion.section
+      className="bg-gradient-to-b from-gray-100 to-gray-200 py-16 md:py-24 lg:py-28"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      aria-labelledby="home-seo-main-intro"
+    >
+      <div className="mx-auto w-full max-w-[min(100%,58rem)] px-4 text-center sm:max-w-[64rem] md:max-w-[72rem] md:px-8">
+        <MainIntroCopy t={t} bullets={bullets} headingId="home-seo-main-intro" />
+      </div>
+    </motion.section>
+  );
+}
+
+function MainIntroCopy({
+  t,
+  bullets,
+  headingId,
+}: {
+  t: ReturnType<typeof useTranslations>;
+  bullets: string[];
+  headingId?: string;
+}) {
+  return (
+    <>
+      <h2
+        id={headingId}
+        className="font-bold leading-[1.12] text-gray-800 [text-wrap:balance]
+                   text-[clamp(26px,6.5vw,54px)] md:text-[clamp(32px,5.8vw,64px)] lg:text-[clamp(36px,5.2vw,76px)]"
+      >
+        {t.rich("headline", {
+          accent: (chunks) => <span className="text-red-600">{chunks}</span>,
+        })}
+      </h2>
+      <p className="mx-auto mt-5 max-w-[48rem] text-pretty text-[1.05rem] leading-[1.9] text-gray-600 sm:mt-6 sm:text-lg sm:leading-[2] md:max-w-[54rem] md:mt-7 md:text-xl md:leading-[2.15]">
+        {t("body")}
+      </p>
+      <ul className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-3 text-base font-medium text-red-600 sm:mt-11 sm:gap-x-9 sm:text-lg md:text-[1.125rem]">
+        {bullets.map((b) => (
+          <li key={b} className="flex items-center gap-2.5">
+            <span className="select-none text-xl font-light leading-none text-red-600 sm:text-2xl" aria-hidden>
+              -
+            </span>
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

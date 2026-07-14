@@ -15,11 +15,12 @@ import {
 import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { generateBreadcrumbSchema } from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
+import { buildPageMetadata, SITE_URL } from "@/lib/seo/site-meta";
 import type { AppLocale } from "@/i18n/routing";
-import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
+import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
 import Footer from "@/components/Footer/Footer";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://amseelcars.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL;
 
 type Props = { params: Promise<{ brandSlug: string }> };
 
@@ -61,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!brand) {
     return {
-      title: t("notFoundTitle"),
+      title: { absolute: t("notFoundTitle") },
       description: t("notFoundDescription"),
       robots: { index: false, follow: false },
     };
@@ -71,16 +72,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     pathname: "/cars/brand/[brandSlug]" as const,
     params: { brandSlug: brandToSlug(brand) },
   };
+  const path = getPathname({ locale: l, href });
+  const title = t("title", { brand });
+  const description = t("description", { brand });
 
-  return {
-    title: t("title", { brand }),
-    description: t("description", { brand }),
+  return buildPageMetadata({
+    title,
+    description,
+    path,
+    localeOg: localeToOpenGraphLocale(l),
     alternates: localizedAlternates(l, href),
-    openGraph: {
-      title: t("title", { brand }),
-      description: t("description", { brand }),
-    },
-  };
+    imageAlt: title,
+  });
 }
 
 export default async function CarBrandHubPage({ params }: Props) {

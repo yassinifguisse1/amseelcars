@@ -6,6 +6,43 @@ import { routing } from "./src/i18n/routing";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  compress: true,
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [{ key: "X-DNS-Prefetch-Control", value: "on" }],
+      },
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/video/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/og/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: routing.locales.flatMap((locale) => [
@@ -52,14 +89,22 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'upload.wikimedia.org' },
-      { protocol: 'https', hostname: 'amseelcars.com/wp-content/uploads/' },
+      { protocol: 'https', hostname: 'amseelcars.com' },
+      { protocol: 'https', hostname: 'www.amseelcars.com' },
       { protocol: 'https', hostname: 'www.ignant.com' },
-      { protocol: 'https', hostname: 'utfs.io' }, // Uploadthing CDN
-      { protocol: 'https', hostname: '**.ufs.sh' }, // UploadThing UFS CDN
+      { protocol: 'https', hostname: 'utfs.io' },
+      { protocol: 'https', hostname: '**.ufs.sh' },
     ]
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "framer-motion"],
   },
   // Turbopack configuration to handle Uploadthing
   // Using 'turbopack' (not 'experimental.turbo') for Next.js 15+

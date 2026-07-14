@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { AppLocale } from "@/i18n/routing";
+import { routing, type AppLocale } from "@/i18n/routing";
 
 const SITE_URL = "https://www.amseelcars.com";
 
@@ -21,6 +21,25 @@ export function absoluteBlogUrl(path: string) {
   return `${SITE_URL}${path}`;
 }
 
+/** Full hreflang cluster for blog index / category URLs that share the same slug shape. */
+export function localizedBlogPathAlternates(
+  locale: AppLocale,
+  pathForLocale: (l: AppLocale) => string,
+): Alternates {
+  const paths = Object.fromEntries(
+    routing.locales.map((l) => [l, pathForLocale(l)]),
+  ) as Record<AppLocale, string>;
+
+  return {
+    canonical: paths[locale],
+    languages: {
+      ...paths,
+      "x-default": paths.fr,
+    },
+  };
+}
+
+/** Legacy single-locale alternates (prefer localizedBlogPathAlternates). */
 export function frenchBlogAlternates(path: string, locale: AppLocale = "fr"): Alternates {
   return {
     canonical: path,

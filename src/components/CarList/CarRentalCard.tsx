@@ -105,8 +105,8 @@ export function CarRentalCard({
                   </p>
                   </div>
                   <div className="flex items-center gap-1 mt-1">
-                    <p className="text-sm font-semibold text-green-600">{pricing.longTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
-                    <span className="text-xs bg-green-100 text-green-700 px-1 rounded">
+                    <p className="text-sm font-semibold text-green-800">{pricing.longTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
+                    <span className="text-xs bg-green-100 text-green-800 px-1 rounded">
                       {t("daysLong")}
                     </span>
                   </div>

@@ -1,19 +1,20 @@
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import Script from 'next/script';
 import { Metadata } from 'next';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import HomeContent from "./HomeContent";
 import { generateBreadcrumbSchema } from '@/lib/schemas';
 import { getArticles } from "@/app/action/article";
 import { categoryToSlug } from "@/data/blog";
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
-import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
+import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
+import { buildPageMetadata } from "@/lib/seo/site-meta";
 import {
   absoluteBlogUrl,
   blogArticlePath,
   blogIndexPath,
-  frenchBlogAlternates,
+  localizedBlogPathAlternates,
 } from "@/lib/seo/blog-paths";
 
 
@@ -25,42 +26,19 @@ export const fetchCache = 'force-no-store';
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
   const l: AppLocale = toAppLocale(locale);
-  const title =
-    l === "en"
-      ? "AmseelCars blog — car rental tips & Agadir guides"
-      : "Blog AmseelCars - Conseils & Actualités Location Voiture Agadir";
-  const description =
-    l === "en"
-      ? "Practical guides and updates on car rental in Agadir, Morocco—fleet tips, airport pickup, and travel on the coast."
-      : "Découvrez nos conseils pour la location de voiture à Agadir, actualités du secteur automobile et guides pratiques pour vos déplacements au Maroc.";
+  const t = await getTranslations({ locale: l, namespace: "seo.blog" });
+  const title = t("indexTitle");
+  const description = t("indexDescription");
+  const path = blogIndexPath(l);
 
-  return {
+  return buildPageMetadata({
     title,
     description,
-    alternates: frenchBlogAlternates(blogIndexPath(l), l),
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-snippet": -1,
-        "max-image-preview": "large",
-        "max-video-preview": -1,
-      },
-    },
-    openGraph: {
-      images: ["/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"],
-      title,
-      description,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: ["/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp"],
-    },
-  };
+    path,
+    localeOg: localeToOpenGraphLocale(l),
+    alternates: localizedBlogPathAlternates(l, blogIndexPath),
+    imageAlt: title,
+  });
 }
 
 export default async function BlogPage() {

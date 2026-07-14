@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import {
   getArticleByCategoryAndSlug,
   getAllArticles,
@@ -11,12 +11,12 @@ import {
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname, redirect } from '@/i18n/navigation';
 import { localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
-import { LoadingProvider } from '@/contexts/LoadingContext';
 import { ArticleLocalePathsSync } from '@/contexts/ArticleLocalePathsContext';
 import { buildArticleLocalePaths } from '@/lib/blog/article-locale-paths';
 import { ArticleContent } from '../../[slug]/ArticleContent';
 import { extractFAQs, generateFAQSchema } from '@/lib/faqSchema';
 import { generateBlogPostingSchema, generateBreadcrumbSchema } from '@/lib/schemas';
+import { absoluteTitle, SITE_NAME } from '@/lib/seo/site-meta';
 import {
   absoluteBlogUrl,
   blogArticlePath,
@@ -61,12 +61,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { category: categorySlug, slug } = await params;
   const locale = await getLocale();
   const l: AppLocale = toAppLocale(locale);
+  const tBlog = await getTranslations({ locale: l, namespace: "seo.blog" });
   const article = await getArticleByCategoryAndSlug(categorySlug, slug, l);
   
   if (!article) {
     return {
-      title: 'Article non trouvé - AmseelCars Blog',
-      description: 'L\'article demandé n\'a pas été trouvé.',
+      title: absoluteTitle(tBlog("articleNotFoundTitle")),
+      description: tBlog("articleNotFoundDescription"),
+      robots: { index: false, follow: false },
     };
   }
 
@@ -83,20 +85,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     path,
     l,
   );
+  const pageTitle = article.seo.metaTitle;
+  const pageDescription = article.seo.metaDescription;
 
   return {
-    title: article.seo.metaTitle,
-    description: article.seo.metaDescription,
+    title: absoluteTitle(pageTitle),
+    description: pageDescription,
     keywords: article.seo.keywords,
     authors: [{ name: article.author.name }],
     creator: article.author.name,
-    publisher: 'AmseelCars',
+    publisher: SITE_NAME,
     alternates,
     openGraph: {
       type: 'article',
       title: article.title,
+      description: pageDescription,
       url: absoluteBlogUrl(path),
-      siteName: 'AmseelCars',
+      siteName: SITE_NAME,
       locale: localeToOpenGraphLocale(l),
       images: [
         {
@@ -114,6 +119,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: 'summary_large_image',
       title: article.title,
+      description: pageDescription,
       images: [article.image],
       creator: '@amseelcars',
     },
@@ -213,10 +219,8 @@ export default async function ArticlePage({ params }: PageProps) {
         />
       )}
       
-      <LoadingProvider>
-        <ArticleLocalePathsSync paths={articleLocalePaths} />
+      <ArticleLocalePathsSync paths={articleLocalePaths} />
         <ArticleContent article={article} />
-      </LoadingProvider>
     </>
   );
 }

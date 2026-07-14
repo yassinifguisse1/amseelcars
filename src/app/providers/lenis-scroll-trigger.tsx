@@ -2,37 +2,52 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
-/** Defer smooth scroll so first paint / LCP is less contended with rAF + ScrollTrigger work. */
-const LENIS_DEFER_MS = 220;
+/** Defer smooth scroll so LCP / TBT stay free of Lenis + GSAP ScrollTrigger. */
+const LENIS_DEFER_MS = 2800;
 
 export function LenisScrollProvider() {
   useEffect(() => {
     let disposed = false;
-    let lenis: Lenis | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let lenis: any = null;
     let rafId = 0;
     let onScroll: (() => void) | null = null;
     let onRefresh: (() => void) | null = null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let ScrollTrigger: any = null;
 
-    const timer = window.setTimeout(() => {
+    const start = async () => {
       if (disposed) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      // Native scroll on phones is better for PageSpeed + UX.
+      if (window.matchMedia("(pointer: coarse)").matches && window.innerWidth < 900) {
+        return;
+      }
+
+      const [{ default: Lenis }, gsapMod, stMod] = await Promise.all([
+        import("lenis"),
+        import("gsap"),
+        import("gsap/ScrollTrigger"),
+      ]);
+
+      if (disposed) return;
+
+      const gsap = gsapMod.gsap ?? gsapMod.default;
+      ScrollTrigger = stMod.ScrollTrigger;
+      gsap.registerPlugin(ScrollTrigger);
 
       lenis = new Lenis({ smoothWheel: true });
 
-      function raf(time: number) {
+      const raf = (time: number) => {
         if (!lenis || disposed) return;
         lenis.raf(time);
         rafId = requestAnimationFrame(raf);
-      }
+      };
       rafId = requestAnimationFrame(raf);
 
       ScrollTrigger.scrollerProxy(document.body, {
-        scrollTop(value) {
+        scrollTop(value?: number) {
           if (!lenis) return 0;
           if (value != null) lenis.scrollTo(value, { immediate: true });
           return lenis.scroll;
@@ -48,16 +63,30 @@ export function LenisScrollProvider() {
       onRefresh = () => lenis?.resize();
       ScrollTrigger.addEventListener("refresh", onRefresh);
       ScrollTrigger.refresh();
-    }, LENIS_DEFER_MS);
+    };
+
+    const schedule = () => {
+      window.setTimeout(() => {
+        void start();
+      }, LENIS_DEFER_MS);
+    };
+
+    if (document.readyState === "complete") {
+      schedule();
+    } else {
+      window.addEventListener("load", schedule, { once: true });
+    }
 
     return () => {
       disposed = true;
-      clearTimeout(timer);
+      window.removeEventListener("load", schedule);
       cancelAnimationFrame(rafId);
       if (lenis && onScroll) lenis.off("scroll", onScroll);
-      if (onRefresh) ScrollTrigger.removeEventListener("refresh", onRefresh);
+      if (onRefresh && ScrollTrigger) {
+        ScrollTrigger.removeEventListener("refresh", onRefresh);
+      }
       lenis?.destroy();
-      ScrollTrigger.killAll();
+      ScrollTrigger?.killAll();
     };
   }, []);
 

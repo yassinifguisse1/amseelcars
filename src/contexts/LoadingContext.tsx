@@ -115,3 +115,6 @@ export const useLoading = () => {
   }
   return context;
 };
+
+/** Safe when no provider (preloader removed from most pages). */
+export const useLoadingOptional = () => useContext(LoadingContext);

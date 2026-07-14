@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
 
 const handleI18nRouting = createMiddleware(routing);
@@ -17,6 +17,14 @@ const isAdminRoute = createRouteMatcher([
 
 const isAdminApiRoute = createRouteMatcher([
   "/api/admin(.*)",
+]);
+
+/** Clerk only on auth/admin — wrapping all traffic breaks next-intl pathname rewrites. */
+const isClerkRoute = createRouteMatcher([
+  "/admin(.*)",
+  "/api/admin(.*)",
+  "/sign-in(.*)",
+  "/unauthorized(.*)",
 ]);
 
 function isPublicBlogPathname(pathname: string) {
@@ -60,10 +68,48 @@ function shouldSkipI18n(pathname: string) {
   );
 }
 
-export default clerkMiddleware(async (auth, req) => {
+function markNoIndexImages(req: NextRequest): NextResponse | null {
+  const { pathname } = req.nextUrl;
+  if (!pathname.startsWith("/images/")) return null;
+
+  const rawSegment = pathname.slice("/images/".length);
+  let filename: string;
+  try {
+    filename = decodeURIComponent(rawSegment).toLowerCase();
+  } catch (e) {
+    if (e instanceof URIError) {
+      console.warn(
+        "[middleware] Malformed percent-encoding in image path:",
+        pathname,
+      );
+      filename = rawSegment.toLowerCase();
+    } else {
+      throw e;
+    }
+  }
+
+  const isWheelAsset = filename.includes("wheel");
+  const isLogoAsset = filename.includes("logo");
+  const isShadowAsset = filename.includes("shadow");
+  const isHomeBodyAsset =
+    filename === "touareg-body.png" ||
+    filename === "bmw-body.webp" ||
+    filename === "kia-body.webp" ||
+    filename === "t-roc-body.webp" ||
+    filename === "golf8-body.webp";
+
+  if (isWheelAsset || isHomeBodyAsset || isLogoAsset || isShadowAsset) {
+    const res = NextResponse.next();
+    res.headers.set("X-Robots-Tag", "noindex");
+    return res;
+  }
+
+  return NextResponse.next();
+}
+
+function handlePublicRequest(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Backward compatibility for legacy EN home URL.
   if (pathname === "/home") {
     return NextResponse.redirect(new URL("/en", req.url), 308);
   }
@@ -80,42 +126,17 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.next();
   }
 
-  if (pathname.startsWith("/images/")) {
-    const rawSegment = pathname.slice("/images/".length);
-    let filename: string;
-    try {
-      filename = decodeURIComponent(rawSegment).toLowerCase();
-    } catch (e) {
-      if (e instanceof URIError) {
-        console.warn(
-          "[middleware] Malformed percent-encoding in image path:",
-          pathname,
-        );
-        filename = rawSegment.toLowerCase();
-      } else {
-        throw e;
-      }
-    }
+  const imageRes = markNoIndexImages(req);
+  if (imageRes) return imageRes;
 
-    const isWheelAsset = filename.includes("wheel");
-    const isLogoAsset = filename.includes("logo");
-    const isShadowAsset = filename.includes("shadow");
-    const isHomeBodyAsset =
-      filename === "touareg-body.png" ||
-      filename === "bmw-body.webp" ||
-      filename === "kia-body.webp" ||
-      filename === "t-roc-body.webp" ||
-      filename === "golf8-body.webp";
-
-    if (isWheelAsset || isHomeBodyAsset || isLogoAsset || isShadowAsset) {
-      const res = NextResponse.next();
-      res.headers.set("X-Robots-Tag", "noindex");
-      return res;
-    }
-
+  if (shouldSkipI18n(pathname)) {
     return NextResponse.next();
   }
 
+  return handleI18nRouting(req);
+}
+
+const handleClerkRequest = clerkMiddleware(async (auth, req) => {
   if (isAdminApiRoute(req)) {
     const authObj = await auth();
     if (!authObj.userId) {
@@ -130,19 +151,20 @@ export default clerkMiddleware(async (auth, req) => {
 
   if (isAdminRoute(req)) {
     const authObj = await auth();
-    const { userId } = authObj;
-
-    if (!userId) {
+    if (!authObj.userId) {
       return NextResponse.redirect(new URL("/sign-in", req.url));
     }
   }
 
-  if (shouldSkipI18n(pathname)) {
-    return NextResponse.next();
-  }
-
-  return handleI18nRouting(req);
+  return NextResponse.next();
 });
+
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  if (isClerkRoute(req)) {
+    return handleClerkRequest(req, event);
+  }
+  return handlePublicRequest(req);
+}
 
 export const config = {
   matcher: [

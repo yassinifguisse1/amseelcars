@@ -106,16 +106,16 @@ export const cars: Car[] = [
      fuelType: "diesel",
      transmission: "Automatique",
      rating: 4.8,
-     description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel  48V, la transmission intégrale xDrive, l'iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto — parfait pour la ville comme pour les longs trajets.",
+     description: "Vivez le confort et les performances du BMW X3 Pack M (2025). Ce SUV premium reçoit le diesel  48V, la transmission intégrale xDrive, l'iDrive 9 avec écran incurvé, ainsi que la compatibilité Apple CarPlay/Android Auto, parfait pour la ville comme pour les longs trajets.",
      richContent: {
-    h1Title: "Location BMW X3 à Agadir – SUV premium Pack M 2025 | Amsel Cars",
-    seoTitle: "BMW X3 Pack M 2025 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une BMW X3 Pack M 2025 à Agadir avec Amsel Cars : SUV premium, boîte auto, confort et technologies. Réservation rapide.",
+    h1Title: "Location BMW X3 Agadir | SUV premium Pack M 2025 | AmseelCars",
+    seoTitle: "BMW X3 Pack M 2025 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une BMW X3 Pack M 2025 à Agadir avec AmseelCars : SUV premium, boîte auto, confort et technologies. Réservation rapide.",
     sections: [
       {
         h2: "Présentation du BMW X3 Pack M 2025",
         paragraphs: [
-          "Si vous recherchez un SUV premium qui combine élégance, confort et performances, le BMW X3 Pack M 2025 est un excellent choix. Chez Amsel Cars, nous vous proposons ce modèle récent en location voiture à Agadir, idéal pour profiter de la ville, de la corniche, des plages et des routes panoramiques de la région.",
+          "Si vous recherchez un SUV premium qui combine élégance, confort et performances, le BMW X3 Pack M 2025 est un excellent choix. Chez AmseelCars, nous vous proposons ce modèle récent en location voiture à Agadir, idéal pour profiter de la ville, de la corniche, des plages et des routes panoramiques de la région.",
           "Reconnu pour sa qualité de finition, son plaisir de conduite et sa polyvalence, le BMW X3 convient aussi bien pour un séjour touristique que pour un déplacement professionnel à Agadir."
         ]
       },
@@ -167,9 +167,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une BMW X3 à Agadir avec Amsel Cars",
+        h2: "Louer une BMW X3 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous mettons à disposition des véhicules récents et bien entretenus pour répondre aux attentes des clients locaux et des touristes. Notre service de location voiture à Agadir est simple, rapide et transparent.",
+          "Chez AmseelCars, nous mettons à disposition des véhicules récents et bien entretenus pour répondre aux attentes des clients locaux et des touristes. Notre service de location voiture à Agadir est simple, rapide et transparent.",
           "Nous vous accompagnons pour choisir le véhicule le plus adapté à votre besoin, que ce soit pour une courte durée ou un séjour plus long.",
           "Le BMW X3 Pack M 2025 est disponible selon les dates et la disponibilité. Notre objectif est de vous offrir une expérience fluide : voiture propre, prête à partir, et service client réactif."
         ]
@@ -178,14 +178,14 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "Le BMW X3 Pack M 2025 est un SUV premium complet : design sportif, confort élevé, technologies modernes et conduite agréable.",
-          "Pour une location voiture Agadir, c'est un choix idéal si vous recherchez une expérience de conduite haut de gamme pour explorer la ville et ses environs en toute sérénité. Contactez Amsel Cars pour réserver votre BMW X3 à Agadir et profiter pleinement de votre séjour."
+          "Pour une location voiture Agadir, c'est un choix idéal si vous recherchez une expérience de conduite haut de gamme pour explorer la ville et ses environs en toute sérénité. Contactez AmseelCars pour réserver votre BMW X3 à Agadir et profiter pleinement de votre séjour."
         ]
       }
     ],
     faqs: [
       {
         question: "Quel est le prix de la location d'un BMW X3 Pack M à Agadir ?",
-        answer: "Le prix de location du BMW X3 Pack M varie selon la durée, la saison et la disponibilité. Contactez Amsel Cars pour obtenir un tarif précis et des offres adaptées à votre séjour."
+        answer: "Le prix de location du BMW X3 Pack M varie selon la durée, la saison et la disponibilité. Contactez AmseelCars pour obtenir un tarif précis et des offres adaptées à votre séjour."
       },
       {
         question: "Le BMW X3 Pack M est-il adapté aux longs trajets ?",
@@ -197,11 +197,11 @@ export const cars: Car[] = [
       },
       {
         question: "La BMW X3 proposée est-elle équipée d'une boîte automatique ?",
-        answer: "Oui, le BMW X3 Pack M 2025 proposé à la location chez Amsel Cars est équipé d'une boîte automatique pour un maximum de confort de conduite."
+        answer: "Oui, le BMW X3 Pack M 2025 proposé à la location chez AmseelCars est équipé d'une boîte automatique pour un maximum de confort de conduite."
       },
       {
         question: "Puis-je réserver le BMW X3 Pack M à l'avance ?",
-        answer: "Oui, il est fortement recommandé de réserver à l'avance, surtout en haute saison. Vous pouvez contacter Amsel Cars pour vérifier la disponibilité et bloquer votre réservation."
+        answer: "Oui, il est fortement recommandé de réserver à l'avance, surtout en haute saison. Vous pouvez contacter AmseelCars pour vérifier la disponibilité et bloquer votre réservation."
       }
     ]
   },
@@ -219,7 +219,7 @@ export const cars: Car[] = [
        horsepower: "208 ch",
        acceleration: "0-100 km/h en 7,8 s",
        topSpeed: "215 km/h",
-       fuelEfficiency: "7,6–6,9 l/100 km WLTP",
+       fuelEfficiency: "7,6-6,9 l/100 km WLTP",
        drivetrain: "xDrive (4 roues motrices)"
      },
      category: 'luxury',
@@ -256,15 +256,15 @@ export const cars: Car[] = [
      rating: 4.9,
      description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch  48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
   richContent: {
-    h1Title: "Location Golf 8 à Agadir – Boîte auto, confort & technologie | Amsel Cars",
-    seoTitle: "Golf 8 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Golf 8 à Agadir avec Amsel Cars : compacte moderne, confortable, boîte auto, connectivité Apple CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location Golf 8 Agadir | Boîte auto, confort & technologie | AmseelCars",
+    seoTitle: "Golf 8 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Golf 8 à Agadir avec AmseelCars : compacte moderne, confortable, boîte auto, connectivité Apple CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Golf 8 en location à Agadir",
         paragraphs: [
           "La Golf 8 est l'une des compactes les plus appréciées au monde grâce à son équilibre entre confort, modernité et agrément de conduite. Que vous soyez à Agadir pour des vacances, un déplacement professionnel ou un séjour longue durée, elle s'adapte parfaitement à tous les trajets.",
-          "Chez Amsel Cars, nous proposons la Golf 8 en location voiture à Agadir pour vous offrir une expérience fiable, pratique et premium, sans complications. Sa tenue de route, sa technologie embarquée et sa consommation maîtrisée en font un choix idéal en ville comme pour explorer les environs."
+          "Chez AmseelCars, nous proposons la Golf 8 en location voiture à Agadir pour vous offrir une expérience fiable, pratique et premium, sans complications. Sa tenue de route, sa technologie embarquée et sa consommation maîtrisée en font un choix idéal en ville comme pour explorer les environs."
         ]
       },
       {
@@ -315,9 +315,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Golf 8 à Agadir avec Amsel Cars",
+        h2: "Louer une Golf 8 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, notre priorité est de proposer une expérience simple et professionnelle. Nous sélectionnons des véhicules fiables et bien entretenus, et nous vous accompagnons pour choisir la voiture la plus adaptée à votre séjour.",
+          "Chez AmseelCars, notre priorité est de proposer une expérience simple et professionnelle. Nous sélectionnons des véhicules fiables et bien entretenus, et nous vous accompagnons pour choisir la voiture la plus adaptée à votre séjour.",
           "En optant pour la Golf 8 en location voiture à Agadir, vous profitez d'un véhicule moderne, confortable et pratique, parfait pour rouler en toute sérénité. Notre agence met l'accent sur la disponibilité, la réactivité et la satisfaction client.",
           "La Golf 8 peut être réservée selon les dates et la disponibilité. Que vous soyez en vacances ou en déplacement, nous vous aidons à organiser votre location rapidement, avec un service clair et une voiture prête à partir."
         ]
@@ -326,7 +326,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Golf 8 est une compacte moderne et polyvalente, idéale pour circuler à Agadir et découvrir la région. Confortable, bien équipée, agréable à conduire et économique, elle répond parfaitement aux besoins d'une location voiture Agadir.",
-          "Contactez Amsel Cars pour réserver votre Golf 8 à Agadir et profiter d'un véhicule fiable et moderne pendant tout votre séjour."
+          "Contactez AmseelCars pour réserver votre Golf 8 à Agadir et profiter d'un véhicule fiable et moderne pendant tout votre séjour."
         ]
       }
     ],
@@ -360,9 +360,9 @@ export const cars: Car[] = [
      specs: {
        engine: "1.5L eTSI turbo essence  cylindres",
        horsepower: "150 ch",
-       acceleration: "0–100 km/h en 8,4 s",
+       acceleration: "0-100 km/h en 8,4 s",
        topSpeed: "224 km/h",
-       fuelEfficiency: "5,3–5,4 l/100 km (WLTP)",
+       fuelEfficiency: "5,3-5,4 l/100 km (WLTP)",
        drivetrain: "Traction (roues avant)"
      },
      category: 'luxury',
@@ -397,17 +397,17 @@ export const cars: Car[] = [
      transmission: "Automatique",
      rating: 4.7,
     
-     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien — idéal pour Agadir et ses environs.",
+     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien, idéal pour Agadir et ses environs.",
   richContent: {
-    h1Title: "Location T-Roc à Agadir – SUV compact confortable | Amsel Cars",
-    seoTitle: "T-Roc en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez un T-Roc à Agadir avec Amsel Cars : SUV compact moderne, confortable, climatisation et connectivité CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location T-Roc Agadir | SUV compact confortable | AmseelCars",
+    seoTitle: "T-Roc en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez un T-Roc à Agadir avec AmseelCars : SUV compact moderne, confortable, climatisation et connectivité CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation du T-Roc en location à Agadir",
         paragraphs: [
           "Le T-Roc est un SUV compact moderne qui combine style, confort et polyvalence. C'est un choix idéal si vous recherchez une voiture pratique pour la ville, tout en profitant d'une position de conduite surélevée et d'un excellent niveau de sécurité.",
-          "Chez Amsel Cars, nous proposons le T-Roc en location voiture à Agadir pour les voyageurs qui souhaitent un véhicule confortable, facile à conduire et adapté à tous types de trajets, que ce soit pour un séjour touristique, professionnel ou une escapade vers les plages et les environs."
+          "Chez AmseelCars, nous proposons le T-Roc en location voiture à Agadir pour les voyageurs qui souhaitent un véhicule confortable, facile à conduire et adapté à tous types de trajets, que ce soit pour un séjour touristique, professionnel ou une escapade vers les plages et les environs."
         ]
       },
       {
@@ -459,25 +459,25 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer un T-Roc à Agadir avec Amsel Cars",
+        h2: "Louer un T-Roc à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous sélectionnons des véhicules fiables, confortables et bien entretenus pour garantir une expérience de location agréable.",
+          "Chez AmseelCars, nous sélectionnons des véhicules fiables, confortables et bien entretenus pour garantir une expérience de location agréable.",
           "Le T-Roc fait partie des modèles les plus demandés, car il répond parfaitement aux besoins des clients à la recherche d'un SUV moderne et polyvalent.",
-          "Nous vous accompagnons avant et pendant la location, et selon la disponibilité, vous pouvez réserver rapidement votre T-Roc et le récupérer prêt à partir. Avec Amsel Cars, vous bénéficiez d'un service professionnel et d'une voiture parfaitement adaptée à vos trajets à Agadir et dans la région."
+          "Nous vous accompagnons avant et pendant la location, et selon la disponibilité, vous pouvez réserver rapidement votre T-Roc et le récupérer prêt à partir. Avec AmseelCars, vous bénéficiez d'un service professionnel et d'une voiture parfaitement adaptée à vos trajets à Agadir et dans la région."
         ]
       },
       {
         h2: "Conclusion",
         paragraphs: [
           "Le T-Roc est un SUV compact moderne, confortable et polyvalent. Il est parfaitement adapté à une location voiture Agadir grâce à sa conduite facile, son confort à bord, sa technologie pratique et son style premium.",
-          "Pour vos déplacements en ville ou vos excursions vers les plages et les environs, le T-Roc est un excellent choix. Contactez Amsel Cars pour réserver votre T-Roc à Agadir et profiter d'une expérience de conduite sereine pendant tout votre séjour."
+          "Pour vos déplacements en ville ou vos excursions vers les plages et les environs, le T-Roc est un excellent choix. Contactez AmseelCars pour réserver votre T-Roc à Agadir et profiter d'une expérience de conduite sereine pendant tout votre séjour."
         ]
       }
     ],
     faqs: [
       {
         question: "Quel est le prix de location d'un T-Roc à Agadir ?",
-        answer: "Le prix de location d'un T-Roc dépend de la durée, de la saison et de la disponibilité. Les tarifs varient généralement selon les jours de location et les options choisies. Contactez Amsel Cars pour obtenir un devis précis."
+        answer: "Le prix de location d'un T-Roc dépend de la durée, de la saison et de la disponibilité. Les tarifs varient généralement selon les jours de location et les options choisies. Contactez AmseelCars pour obtenir un devis précis."
       },
       {
         question: "Quel est le prix d'une Volkswagen T-Roc ?",
@@ -489,7 +489,7 @@ export const cars: Car[] = [
       },
       {
         question: "Quels sont les tarifs pour louer une voiture à Agadir ?",
-        answer: "Les tarifs de location voiture à Agadir varient selon le modèle, la durée, la saison et les conditions de location. Amsel Cars propose des solutions adaptées à tous les besoins, avec des prix transparents et un service professionnel."
+        answer: "Les tarifs de location voiture à Agadir varient selon le modèle, la durée, la saison et les conditions de location. AmseelCars propose des solutions adaptées à tous les besoins, avec des prix transparents et un service professionnel."
       }
     ]
   },
@@ -504,7 +504,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.5L TSI (ACT) 4 cylindres Diesel",
        horsepower: "150 ch",
-       acceleration: "0–100 km/h en 8,6 s",
+       acceleration: "0-100 km/h en 8,6 s",
        topSpeed: "205 km/h",
        fuelEfficiency: "6,2 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
@@ -535,15 +535,15 @@ export const cars: Car[] = [
      rating: 4.9,
      description: "La Renault Clio 5 (phase 2) en motorisation 1.5 Blue dCi 100 ch associe sobriété et agrément. Avec sa boîte manuelle à 6 rapports, ses aides à la conduite et la connectivité EASY LINK (Apple CarPlay/Android Auto), elle est parfaite pour la ville comme pour les trajets interurbains.",
   richContent: {
-    h1Title: "Location Clio 5 à Agadir – Économique & confortable | Amsel Cars",
-    seoTitle: "Clio 5 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Clio 5 à Agadir avec Amsel Cars : voiture moderne, économique, climatisation et connectivité Apple CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location Clio 5 Agadir | Économique & confortable | AmseelCars",
+    seoTitle: "Clio 5 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Clio 5 à Agadir avec AmseelCars : voiture moderne, économique, climatisation et connectivité Apple CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Clio 5 en location à Agadir",
         paragraphs: [
           "La Clio 5 est l'une des voitures les plus appréciées pour sa polyvalence, son confort et sa consommation maîtrisée. Elle convient aussi bien aux trajets urbains qu'aux déplacements plus longs, ce qui en fait un excellent choix pour un séjour au Maroc.",
-          "Chez Amsel Cars, nous proposons la Clio 5 en location voiture à Agadir pour les clients à la recherche d'un véhicule fiable, économique et agréable à conduire, que ce soit pour des vacances, un déplacement professionnel ou un séjour longue durée."
+          "Chez AmseelCars, nous proposons la Clio 5 en location voiture à Agadir pour les clients à la recherche d'un véhicule fiable, économique et agréable à conduire, que ce soit pour des vacances, un déplacement professionnel ou un séjour longue durée."
         ]
       },
       {
@@ -595,9 +595,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Location Clio 5 à Agadir avec Amsel Cars",
+        h2: "Location Clio 5 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons un service de location voiture à Agadir simple, rapide et professionnel. Nos véhicules sont sélectionnés pour leur fiabilité, leur confort et leur excellent état.",
+          "Chez AmseelCars, nous proposons un service de location voiture à Agadir simple, rapide et professionnel. Nos véhicules sont sélectionnés pour leur fiabilité, leur confort et leur excellent état.",
           "La Clio 5 fait partie des modèles les plus demandés, car elle correspond parfaitement aux attentes des clients à la recherche d'une voiture pratique et économique.",
           "Nous vous accompagnons pour réserver rapidement et choisir le véhicule le plus adapté à votre séjour. Selon la disponibilité, la Clio 5 peut être prête à partir immédiatement pour profiter pleinement d'Agadir et de ses alentours."
         ]
@@ -606,7 +606,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Clio 5 est une voiture moderne, confortable et économique, idéale pour circuler à Agadir et explorer la région.",
-          "Pour une location voiture Agadir, elle représente un excellent choix grâce à sa facilité de conduite, sa connectivité et sa consommation maîtrisée. Contactez Amsel Cars pour réserver votre Clio 5 à Agadir et profiter d'un véhicule fiable pendant tout votre séjour."
+          "Pour une location voiture Agadir, elle représente un excellent choix grâce à sa facilité de conduite, sa connectivité et sa consommation maîtrisée. Contactez AmseelCars pour réserver votre Clio 5 à Agadir et profiter d'un véhicule fiable pendant tout votre séjour."
         ]
       }
     ],
@@ -617,7 +617,7 @@ export const cars: Car[] = [
       },
       {
         question: "Quel est le prix de location d'une Renault Clio 5 à Agadir ?",
-        answer: "Le prix de location d'une Clio 5 dépend de la durée, de la saison et de la disponibilité. Les tarifs sont généralement parmi les plus économiques du marché. Contactez Amsel Cars pour obtenir un devis précis."
+        answer: "Le prix de location d'une Clio 5 dépend de la durée, de la saison et de la disponibilité. Les tarifs sont généralement parmi les plus économiques du marché. Contactez AmseelCars pour obtenir un devis précis."
       },
       {
         question: "Quel est le prix d'une Renault Clio 5 au Maroc ?",
@@ -638,9 +638,9 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (EASY LINK)" }
      ],
      specs: {
-       engine: "1.5L Blue dCi (diesel) – 4 cylindres",
+       engine: "1.5L Blue dCi (diesel) - 4 cylindres",
        horsepower: "101 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "174 km/h",
        fuelEfficiency: "4,1 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
@@ -674,15 +674,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "Pratique et économique, la Renault Clio 5 (phase 2) en 1.5 Blue dCi 100 ch avec boîte manuelle 6 rapports offre une faible consommation, des aides à la conduite complètes et la connectivité EASY LINK (Apple CarPlay/Android Auto). Parfaite pour circuler à Agadir comme pour les trajets interurbains.",
   richContent: {
-    h1Title: "Location Clio 5 blanche à Agadir – Économique & confortable | Amsel Cars",
-    seoTitle: "Clio 5 blanche en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Clio 5 blanche à Agadir avec Amsel Cars : voiture moderne, économique, climatisation et connectivité EASY LINK CarPlay/Android Auto.",
+    h1Title: "Location Clio 5 blanche Agadir | Économique & confortable | AmseelCars",
+    seoTitle: "Clio 5 blanche en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Clio 5 blanche à Agadir avec AmseelCars : voiture moderne, économique, climatisation et connectivité EASY LINK CarPlay/Android Auto.",
     sections: [
       {
         h2: "Présentation de la Clio 5 blanche en location à Agadir",
         paragraphs: [
           "La Clio 5 blanche est un excellent choix si vous recherchez une voiture moderne, économique et agréable à conduire pendant votre séjour à Agadir. Sa couleur blanche très appréciée renforce son image propre, élégante et premium, tout en conservant un excellent rapport praticité/confort.",
-          "Chez Amsel Cars, nous proposons la Clio 5 blanche en location voiture à Agadir pour faciliter vos déplacements en ville, vos sorties vers les plages et vos trajets interurbains, que ce soit pour des vacances, un déplacement professionnel ou un séjour longue durée."
+          "Chez AmseelCars, nous proposons la Clio 5 blanche en location voiture à Agadir pour faciliter vos déplacements en ville, vos sorties vers les plages et vos trajets interurbains, que ce soit pour des vacances, un déplacement professionnel ou un séjour longue durée."
         ]
       },
       {
@@ -734,9 +734,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Clio 5 blanche à Agadir avec Amsel Cars",
+        h2: "Louer une Clio 5 blanche à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une expérience de location simple et professionnelle avec des véhicules fiables et bien entretenus.",
+          "Chez AmseelCars, nous proposons une expérience de location simple et professionnelle avec des véhicules fiables et bien entretenus.",
           "La Clio 5 blanche fait partie des modèles les plus demandés grâce à son excellent équilibre entre économie, confort et modernité.",
           "Selon les dates et la disponibilité, vous pouvez réserver rapidement et récupérer une voiture prête à partir. Notre équipe reste disponible pour vous conseiller et vous accompagner tout au long de votre location."
         ]
@@ -745,7 +745,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Clio 5 blanche est une voiture moderne, confortable et économique, parfaitement adaptée pour circuler à Agadir et découvrir la région.",
-          "Pour une location voiture Agadir, elle représente un excellent choix grâce à sa facilité de conduite, sa connectivité EASY LINK et sa consommation maîtrisée. Contactez Amsel Cars pour réserver votre Clio 5 blanche à Agadir et profiter pleinement de votre séjour."
+          "Pour une location voiture Agadir, elle représente un excellent choix grâce à sa facilité de conduite, sa connectivité EASY LINK et sa consommation maîtrisée. Contactez AmseelCars pour réserver votre Clio 5 blanche à Agadir et profiter pleinement de votre séjour."
         ]
       }
     ],
@@ -781,9 +781,9 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (EASY LINK)" }
      ],
      specs: {
-       engine: "1.5L Blue dCi (diesel) – 4 cylindres",
+       engine: "1.5L Blue dCi (diesel) - 4 cylindres",
        horsepower: "101 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "174 km/h",
        fuelEfficiency: "4,1 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
@@ -821,15 +821,15 @@ export const cars: Car[] = [
      rating: 4.6,
      description: "Confortable et technologique, la Citroën C4 1.2 PureTech 130 ch avec boîte automatique EAT8 offre une conduite souple, une bonne efficience et une connectivité complète (Apple CarPlay / Android Auto sans fil). Idéale pour la ville de Fès comme pour les trajets interurbains.",
   richContent: {
-    h1Title: "Location Citroen C4 à Agadir – Confort & boîte auto | Amsel Cars",
-    seoTitle: "Citroen C4 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Citroen C4 à Agadir avec Amsel Cars : voiture confortable, boîte auto, climatisation et Apple CarPlay/Android Auto. Réservation rapide.",
+    h1Title: "Location Citroen C4 Agadir | Confort & boîte auto | AmseelCars",
+    seoTitle: "Citroen C4 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Citroen C4 à Agadir avec AmseelCars : voiture confortable, boîte auto, climatisation et Apple CarPlay/Android Auto. Réservation rapide.",
     sections: [
       {
         h2: "Présentation de la Citroen C4 en location à Agadir",
         paragraphs: [
           "La Citroen C4 est une voiture moderne et confortable, conçue pour offrir une expérience de conduite douce, pratique et agréable au quotidien. Grâce à son intérieur spacieux, son style distinctif et sa technologie embarquée, elle représente un excellent choix pour les voyageurs.",
-          "Chez Amsel Cars, nous proposons la Citroen C4 en location voiture à Agadir, idéale pour circuler en ville, longer le littoral et rejoindre facilement les destinations populaires de la région, que ce soit pour les vacances, le travail ou un séjour longue durée."
+          "Chez AmseelCars, nous proposons la Citroen C4 en location voiture à Agadir, idéale pour circuler en ville, longer le littoral et rejoindre facilement les destinations populaires de la région, que ce soit pour les vacances, le travail ou un séjour longue durée."
         ]
       },
       {
@@ -881,9 +881,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Citroen C4 à Agadir avec Amsel Cars",
+        h2: "Louer une Citroen C4 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous mettons tout en œuvre pour rendre votre location voiture à Agadir simple, rapide et agréable. Nous proposons des véhicules fiables, propres et bien entretenus.",
+          "Chez AmseelCars, nous mettons tout en œuvre pour rendre votre location voiture à Agadir simple, rapide et agréable. Nous proposons des véhicules fiables, propres et bien entretenus.",
           "La Citroen C4 fait partie des modèles les plus appréciés de notre flotte grâce à son confort supérieur et à sa conduite agréable.",
           "Selon la disponibilité, vous pouvez réserver rapidement votre Citroen C4 et la récupérer prête à partir pour profiter pleinement d'Agadir et de ses environs, avec un service professionnel et réactif."
         ]
@@ -892,7 +892,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Citroen C4 est une voiture moderne, confortable et polyvalente, parfaitement adaptée à une location voiture Agadir.",
-          "Grâce à son confort à bord, sa conduite fluide, sa connectivité et son style distinctif, elle constitue un excellent choix pour découvrir Agadir en toute sérénité. Contactez Amsel Cars pour réserver votre Citroen C4 à Agadir et profiter pleinement de votre séjour."
+          "Grâce à son confort à bord, sa conduite fluide, sa connectivité et son style distinctif, elle constitue un excellent choix pour découvrir Agadir en toute sérénité. Contactez AmseelCars pour réserver votre Citroen C4 à Agadir et profiter pleinement de votre séjour."
         ]
       }
     ],
@@ -926,7 +926,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.2L PureTech turbo (3 cylindres, essence)",
        horsepower: "130 ch",
-       acceleration: "0–100 km/h en 10,2 s",
+       acceleration: "0-100 km/h en 10,2 s",
        topSpeed: "200 km/h",
        fuelEfficiency: "5,9 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
@@ -962,15 +962,15 @@ export const cars: Car[] = [
      rating: 5.0,
      description: "SUV compact confortable et polyvalent, la nouvelle Citroën C3 Aircross   offre une conduite souple, une faible consommation WLTP et une connectivité moderne (écran 10,25\" avec Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
   richContent: {
-    h1Title: "Location C3 Aircross à Agadir – SUV compact confortable | Amsel Cars",
-    seoTitle: "C3 Aircross en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez un C3 Aircross à Agadir avec Amsel Cars : SUV compact spacieux, confortable, climatisation et Apple CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location C3 Aircross Agadir | SUV compact confortable | AmseelCars",
+    seoTitle: "C3 Aircross en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez un C3 Aircross à Agadir avec AmseelCars : SUV compact spacieux, confortable, climatisation et Apple CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation du C3 Aircross en location à Agadir",
         paragraphs: [
           "Le C3 Aircross est un SUV compact idéal pour les conducteurs qui recherchent une voiture confortable, pratique et polyvalente. Grâce à sa position de conduite surélevée, son espace intérieur et sa conduite agréable, il convient aussi bien aux trajets urbains qu'aux déplacements plus longs.",
-          "Chez Amsel Cars, nous proposons le C3 Aircross en location voiture à Agadir, une excellente option pour les touristes, les familles et les professionnels qui souhaitent profiter pleinement de leur séjour avec un véhicule fiable et confortable."
+          "Chez AmseelCars, nous proposons le C3 Aircross en location voiture à Agadir, une excellente option pour les touristes, les familles et les professionnels qui souhaitent profiter pleinement de leur séjour avec un véhicule fiable et confortable."
         ]
       },
       {
@@ -1022,9 +1022,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer un C3 Aircross à Agadir avec Amsel Cars",
+        h2: "Louer un C3 Aircross à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous mettons tout en œuvre pour rendre votre location voiture à Agadir simple, transparente et agréable.",
+          "Chez AmseelCars, nous mettons tout en œuvre pour rendre votre location voiture à Agadir simple, transparente et agréable.",
           "Nous proposons des véhicules fiables, propres et prêts à partir, accompagnés d'un service client disponible et réactif.",
           "Le C3 Aircross fait partie des modèles les plus appréciés de notre flotte. Selon la disponibilité, vous pouvez le réserver rapidement et profiter d'un véhicule parfaitement adapté à Agadir et à sa région."
         ]
@@ -1033,14 +1033,14 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "Le C3 Aircross est un SUV compact moderne, confortable et polyvalent, idéal pour une location voiture Agadir.",
-          "Grâce à son espace intérieur, sa conduite agréable, sa connectivité et son confort à bord, il constitue un excellent choix pour découvrir la ville et explorer la région en toute sérénité. Contactez Amsel Cars pour réserver votre C3 Aircross à Agadir."
+          "Grâce à son espace intérieur, sa conduite agréable, sa connectivité et son confort à bord, il constitue un excellent choix pour découvrir la ville et explorer la région en toute sérénité. Contactez AmseelCars pour réserver votre C3 Aircross à Agadir."
         ]
       }
     ],
     faqs: [
       {
         question: "Quel est le prix de location d'une Citroën C3 Aircross ?",
-        answer: "Le prix de location d'un C3 Aircross dépend de la durée, de la saison et de la disponibilité. Les tarifs varient selon les périodes. Contactez Amsel Cars pour obtenir un devis précis."
+        answer: "Le prix de location d'un C3 Aircross dépend de la durée, de la saison et de la disponibilité. Les tarifs varient selon les périodes. Contactez AmseelCars pour obtenir un devis précis."
       },
       {
         question: "Quel est le prix d'une Citroën C3 Aircross neuve au Maroc ?",
@@ -1065,9 +1065,9 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.2L PureTech  (48V) – 3 cylindres Diesel",
+       engine: "1.2L PureTech  (48V) - 3 cylindres Diesel",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 8,8 s",
+       acceleration: "0-100 km/h en 8,8 s",
        topSpeed: "192 km/h",
        fuelEfficiency: "5,6 l/100 km (WLTP)",
        drivetrain: "Traction (roues avant)"
@@ -1106,15 +1106,15 @@ export const cars: Car[] = [
      rating: 5.0,
      description: "SUV compact confortable et polyvalent, la nouvelle C3 Aircross  136 e-DSC6 offre une conduite souple, une faible consommation WLTP et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d'Agadir comme pour les trajets interurbains.",
   richContent: {
-    h1Title: "Location C3 Aircross gris à Agadir – SUV compact confortable | Amsel Cars",
-    seoTitle: "C3 Aircross gris en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez un C3 Aircross gris à Agadir avec Amsel Cars : SUV compact spacieux, boîte auto, climatisation et Apple CarPlay/Android Auto.",
+    h1Title: "Location C3 Aircross gris Agadir | SUV compact confortable | AmseelCars",
+    seoTitle: "C3 Aircross gris en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez un C3 Aircross gris à Agadir avec AmseelCars : SUV compact spacieux, boîte auto, climatisation et Apple CarPlay/Android Auto.",
     sections: [
       {
         h2: "Présentation du C3 Aircross gris en location à Agadir",
         paragraphs: [
           "Le C3 Aircross gris est un SUV compact moderne, idéal pour les conducteurs à la recherche d'une voiture confortable, polyvalente et agréable à conduire pendant leur séjour à Agadir.",
-          "Sa couleur grise élégante et discrète lui confère une allure premium tout en restant pratique au quotidien. Chez Amsel Cars, nous proposons le C3 Aircross gris en location voiture à Agadir pour les vacances, le travail ou les séjours longue durée."
+          "Sa couleur grise élégante et discrète lui confère une allure premium tout en restant pratique au quotidien. Chez AmseelCars, nous proposons le C3 Aircross gris en location voiture à Agadir pour les vacances, le travail ou les séjours longue durée."
         ]
       },
       {
@@ -1166,9 +1166,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer un C3 Aircross gris à Agadir avec Amsel Cars",
+        h2: "Louer un C3 Aircross gris à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons un service de location voiture à Agadir simple, rapide et professionnel.",
+          "Chez AmseelCars, nous proposons un service de location voiture à Agadir simple, rapide et professionnel.",
           "Nos véhicules sont sélectionnés pour leur fiabilité, leur propreté et leur confort afin de garantir une excellente expérience client.",
           "Le C3 Aircross gris fait partie des modèles les plus demandés. Selon la disponibilité, vous pouvez le réserver rapidement et récupérer une voiture prête à partir pour profiter pleinement d'Agadir et de ses environs."
         ]
@@ -1177,7 +1177,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "Le C3 Aircross gris est un SUV compact moderne, confortable et polyvalent, parfaitement adapté à une location voiture Agadir.",
-          "Grâce à son espace intérieur, sa conduite agréable, sa connectivité et son style élégant, il constitue un excellent choix pour vos trajets en ville et vos excursions. Contactez Amsel Cars pour réserver votre C3 Aircross gris à Agadir."
+          "Grâce à son espace intérieur, sa conduite agréable, sa connectivité et son style élégant, il constitue un excellent choix pour vos trajets en ville et vos excursions. Contactez AmseelCars pour réserver votre C3 Aircross gris à Agadir."
         ]
       }
     ],
@@ -1209,9 +1209,9 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.2L PureTech (48V) – 3 cylindres Diesel",
+       engine: "1.2L PureTech (48V) - 3 cylindres Diesel",
        horsepower: "136 ch",
-       acceleration: "0–60 mph en 8,8 s",
+       acceleration: "0-60 mph en 8,8 s",
        topSpeed: "125 mph",
        fuelEfficiency: "5,6 l/100 km (WLTP)",
        drivetrain: "Traction (roues avant)"
@@ -1246,15 +1246,15 @@ export const cars: Car[] = [
      rating: 4.7,
      description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
   richContent: {
-    h1Title: "Location Citroen C3 à Agadir – Économique & pratique | Amsel Cars",
-    seoTitle: "Citroen C3 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Citroen C3 à Agadir avec Amsel Cars : voiture économique, confortable, climatisation et Apple CarPlay/Android Auto. Réservation rapide.",
+    h1Title: "Location Citroen C3 Agadir | Économique & pratique | AmseelCars",
+    seoTitle: "Citroen C3 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Citroen C3 à Agadir avec AmseelCars : voiture économique, confortable, climatisation et Apple CarPlay/Android Auto. Réservation rapide.",
     sections: [
       {
         h2: "Présentation de la Citroen C3 en location à Agadir",
         paragraphs: [
           "La Citroen C3 est une voiture idéale pour ceux qui recherchent un véhicule pratique, économique et agréable à conduire au quotidien. Reconnue pour son confort et sa simplicité d'utilisation, elle fait partie des modèles les plus demandés en location.",
-          "Chez Amsel Cars, nous proposons la Citroen C3 en location voiture à Agadir, une solution parfaite pour les touristes comme pour les professionnels qui souhaitent une voiture fiable, facile à prendre en main et adaptée aux routes de la ville et de ses alentours."
+          "Chez AmseelCars, nous proposons la Citroen C3 en location voiture à Agadir, une solution parfaite pour les touristes comme pour les professionnels qui souhaitent une voiture fiable, facile à prendre en main et adaptée aux routes de la ville et de ses alentours."
         ]
       },
       {
@@ -1306,9 +1306,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Citroen C3 à Agadir avec Amsel Cars",
+        h2: "Louer une Citroen C3 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons un service de location voiture à Agadir simple, professionnel et transparent.",
+          "Chez AmseelCars, nous proposons un service de location voiture à Agadir simple, professionnel et transparent.",
           "Nos véhicules sont sélectionnés et entretenus pour leur fiabilité afin de garantir une expérience agréable à nos clients.",
           "La Citroen C3 fait partie des modèles les plus demandés. Selon la disponibilité, vous pouvez réserver rapidement et récupérer une voiture prête à partir pour profiter pleinement de votre séjour à Agadir."
         ]
@@ -1317,7 +1317,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Citroen C3 est une voiture pratique, confortable et économique, idéale pour une location voiture Agadir.",
-          "Grâce à sa conduite facile, sa consommation maîtrisée et sa connectivité utile, elle constitue un excellent choix pour voyager sereinement. Contactez Amsel Cars pour réserver votre Citroen C3 à Agadir."
+          "Grâce à sa conduite facile, sa consommation maîtrisée et sa connectivité utile, elle constitue un excellent choix pour voyager sereinement. Contactez AmseelCars pour réserver votre Citroen C3 à Agadir."
         ]
       }
     ],
@@ -1351,9 +1351,9 @@ export const cars: Car[] = [
      specs: {
        engine: "1.5L BlueHDi (4 cylindres, diesel)",
        horsepower: "102 ch",
-       acceleration: "0–100 km/h en 10,2 s",
+       acceleration: "0-100 km/h en 10,2 s",
        topSpeed: "188 km/h",
-       fuelEfficiency: "4,4–4,5 l/100 km (WLTP)",
+       fuelEfficiency: "4,4-4,5 l/100 km (WLTP)",
        drivetrain: "Traction (roues avant)"
      },
      category: 'economy',
@@ -1391,15 +1391,15 @@ export const cars: Car[] = [
      rating: 5.0,
      description: "Citadine agile et économique, la Hyundai i10 1.0 MPi 63 ch avec boîte robotisée (BVR 5) est idéale pour la ville. Elle offre une faible consommation WLTP, les aides à la conduite essentielles et une connectivité moderne via écran 8\" (Apple CarPlay / Android Auto).",
   richContent: {
-    h1Title: "Location Hyundai i10 à Agadir – automatique 2024 | Amsel Cars",
-    seoTitle: "Hyundai i10 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Hyundai i10 à Agadir chez Amsel Cars : citadine automatique essence 2024, économique, CarPlay/Android Auto. Réservez facilement.",
+    h1Title: "Location Hyundai i10 Agadir | automatique 2024 | AmseelCars",
+    seoTitle: "Hyundai i10 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Hyundai i10 à Agadir chez AmseelCars : citadine automatique essence 2024, économique, CarPlay/Android Auto. Réservez facilement.",
     sections: [
       {
         h2: "Présentation de la Hyundai i10 en location à Agadir",
         paragraphs: [
           "La Hyundai i10 est l'une des meilleures options si vous recherchez une voiture simple, économique et facile à conduire à Agadir. Compacte, maniable et rassurante, elle est parfaitement adaptée aux déplacements urbains et aux petits trajets du quotidien.",
-          "Chez Amsel Cars, nous proposons la Hyundai i10 2024 en version essence avec boîte automatique, un choix idéal pour profiter d'Agadir avec une conduite fluide et sans stress, notamment dans la circulation urbaine."
+          "Chez AmseelCars, nous proposons la Hyundai i10 2024 en version essence avec boîte automatique, un choix idéal pour profiter d'Agadir avec une conduite fluide et sans stress, notamment dans la circulation urbaine."
         ]
       },
       {
@@ -1412,7 +1412,7 @@ export const cars: Car[] = [
       {
         h2: "Boîte automatique : conduite facile et zéro fatigue",
         paragraphs: [
-          "L'un des principaux atouts de la Hyundai i10 proposée par Amsel Cars est sa boîte automatique. Elle rend la conduite plus simple et beaucoup plus confortable, surtout si vous arrivez après un vol ou si vous circulez souvent en ville.",
+          "L'un des principaux atouts de la Hyundai i10 proposée par AmseelCars est sa boîte automatique. Elle rend la conduite plus simple et beaucoup plus confortable, surtout si vous arrivez après un vol ou si vous circulez souvent en ville.",
           "Dans le cadre d'une location voiture Agadir, la boîte automatique est un véritable plus : moins de fatigue, conduite plus détendue dans les embouteillages et prise en main rapide, même pour les conducteurs occasionnels."
         ]
       },
@@ -1467,9 +1467,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Hyundai i10 à Agadir avec Amsel Cars",
+        h2: "Louer une Hyundai i10 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons un service de location voiture Agadir simple, rapide et transparent. Nos véhicules sont propres, récents et prêts à partir.",
+          "Chez AmseelCars, nous proposons un service de location voiture Agadir simple, rapide et transparent. Nos véhicules sont propres, récents et prêts à partir.",
           "La Hyundai i10 2024 est idéale si vous recherchez une citadine automatique, économique et connectée. La disponibilité dépend des dates, il est donc conseillé de réserver à l'avance."
         ]
       },
@@ -1477,7 +1477,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Hyundai i10 est une citadine parfaitement adaptée à Agadir : compacte, économique, agréable à conduire et équipée d'une boîte automatique et de technologies modernes.",
-          "Pour une location voiture Agadir, elle coche toutes les cases : simplicité, confort, budget maîtrisé et facilité de conduite. Contactez Amsel Cars pour réserver votre Hyundai i10 et profiter de votre séjour sans stress."
+          "Pour une location voiture Agadir, elle coche toutes les cases : simplicité, confort, budget maîtrisé et facilité de conduite. Contactez AmseelCars pour réserver votre Hyundai i10 et profiter de votre séjour sans stress."
         ]
       }
     ],
@@ -1511,9 +1511,9 @@ export const cars: Car[] = [
      specs: {
        engine: "1.0L MPi (3 cylindres, essence)",
        horsepower: "63 ch",
-       acceleration: "0–100 km/h en 18,4 s",
+       acceleration: "0-100 km/h en 18,4 s",
        topSpeed: "143 km/h",
-       fuelEfficiency: "5,2–5,9 l/100 km (WLTP combiné)",
+       fuelEfficiency: "5,2-5,9 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
      },
      category: 'economy',
@@ -1547,15 +1547,15 @@ export const cars: Car[] = [
      rating: 4.9,
      description: "Citadine agile et économique, la Kia Picanto 1.0 MPi avec boîte automatique robotisée (AMT 5) offre une consommation contenue, des aides à la conduite essentielles (freinage d'urgence, aide au maintien de voie) et une connectivité moderne via écran 8\" avec Apple CarPlay / Android Auto (selon finition).",
   richContent: {
-    h1Title: "Location Kia Picanto à Agadir – Citadine automatique essence 2025 | Amsel Cars",
-    seoTitle: "Kia Picanto en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Kia Picanto à Agadir chez Amsel Cars : citadine automatique essence 2025, 5 places, CarPlay/Android Auto, économique. Réservez vite.",
+    h1Title: "Location Kia Picanto Agadir | Citadine automatique essence 2025 | AmseelCars",
+    seoTitle: "Kia Picanto en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Kia Picanto à Agadir chez AmseelCars : citadine automatique essence 2025, 5 places, CarPlay/Android Auto, économique. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Kia Picanto en location à Agadir",
         paragraphs: [
           "La Kia Picanto est une citadine moderne, pratique et agréable à conduire, idéale pour une location voiture Agadir. Compacte, économique et facile à prendre en main, elle répond parfaitement aux besoins des voyageurs qui souhaitent se déplacer simplement en ville et dans les environs.",
-          "Chez Amsel Cars, nous proposons la Kia Picanto 2025 en version essence avec boîte automatique, un choix parfait pour une conduite détendue, notamment dans la circulation urbaine d'Agadir."
+          "Chez AmseelCars, nous proposons la Kia Picanto 2025 en version essence avec boîte automatique, un choix parfait pour une conduite détendue, notamment dans la circulation urbaine d'Agadir."
         ]
       },
       {
@@ -1630,9 +1630,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Kia Picanto à Agadir avec Amsel Cars",
+        h2: "Louer une Kia Picanto à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons un service de location voiture Agadir simple, clair et rapide, avec des véhicules prêts à partir et un service client réactif.",
+          "Chez AmseelCars, nous proposons un service de location voiture Agadir simple, clair et rapide, avec des véhicules prêts à partir et un service client réactif.",
           "La Kia Picanto 2025 est une excellente citadine automatique pour Agadir. La disponibilité dépend des dates, il est donc conseillé de réserver à l'avance."
         ]
       },
@@ -1640,7 +1640,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Kia Picanto est une citadine parfaitement adaptée à Agadir : compacte, automatique, économique, connectée et rassurante.",
-          "Pour une location voiture Agadir, elle représente un choix intelligent si vous recherchez simplicité, confort et budget maîtrisé. Contactez Amsel Cars pour réserver votre Kia Picanto et profiter pleinement de votre séjour."
+          "Pour une location voiture Agadir, elle représente un choix intelligent si vous recherchez simplicité, confort et budget maîtrisé. Contactez AmseelCars pour réserver votre Kia Picanto et profiter pleinement de votre séjour."
         ]
       }
     ],
@@ -1670,7 +1670,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.0L MPi (3 cylindres, essence)",
        horsepower: "63 ch",
-       acceleration: "0–100 km/h en ~16,8 s",
+       acceleration: "0-100 km/h en ~16,8 s",
        topSpeed: "145 km/h",
        fuelEfficiency: "≈ 5,5 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
@@ -1702,15 +1702,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic (boîte CVT) offre une conduite souple, une consommation contenue et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains à agadir.",
   richContent: {
-    h1Title: "Location Stepway à Agadir – Crossover automatique CVT essence 2025 | Amsel Cars",
-    seoTitle: "Stepway en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Stepway à Agadir chez Amsel Cars : crossover 5 places, boîte auto CVT X-Tronic, essence turbo, CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location Stepway Agadir | Crossover automatique CVT essence 2025 | AmseelCars",
+    seoTitle: "Stepway en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Stepway à Agadir chez AmseelCars : crossover 5 places, boîte auto CVT X-Tronic, essence turbo, CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Stepway en location à Agadir",
         paragraphs: [
           "La Stepway est un excellent choix si vous recherchez une voiture qui combine la praticité d'une citadine et la polyvalence d'un petit SUV. Confortable, rassurante et suffisamment spacieuse pour voyager avec des bagages, elle s'adapte parfaitement à une location voiture Agadir.",
-          "Chez Amsel Cars, nous mettons à votre disposition la Stepway 2025 en version essence avec boîte automatique CVT X-Tronic, idéale pour une conduite fluide et sans fatigue, surtout en ville et dans les zones de circulation dense."
+          "Chez AmseelCars, nous mettons à votre disposition la Stepway 2025 en version essence avec boîte automatique CVT X-Tronic, idéale pour une conduite fluide et sans fatigue, surtout en ville et dans les zones de circulation dense."
         ]
       },
       {
@@ -1742,7 +1742,7 @@ export const cars: Car[] = [
         paragraphs: [
           "La Stepway est équipée d'un moteur essence 1.0L TCe turbo (3 cylindres) annoncé autour de 91 ch. Cette motorisation offre un excellent compromis pour une location voiture Agadir : assez dynamique pour la ville et les routes autour d'Agadir, tout en restant raisonnable en consommation.",
           "Elle permet une conduite souple et sécurisante avec des relances correctes, utiles pour dépasser ou s'insérer lorsque nécessaire.",
-          "Avec une vitesse maximale annoncée autour de 163 km/h et un 0–100 km/h d'environ 14,2 secondes, la Stepway confirme sa vocation : confortable, polyvalente et adaptée aux axes rapides dans une conduite normale."
+          "Avec une vitesse maximale annoncée autour de 163 km/h et un 0-100 km/h d'environ 14,2 secondes, la Stepway confirme sa vocation : confortable, polyvalente et adaptée aux axes rapides dans une conduite normale."
         ]
       },
       {
@@ -1792,9 +1792,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Stepway à Agadir avec Amsel Cars",
+        h2: "Louer une Stepway à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons des véhicules récents et bien entretenus pour une expérience de location simple, rapide et transparente.",
+          "Chez AmseelCars, nous proposons des véhicules récents et bien entretenus pour une expérience de location simple, rapide et transparente.",
           "La Stepway est disponible selon les dates et la disponibilité. Si vous avez déjà vos périodes, il est conseillé de réserver tôt, surtout en haute saison.",
           "Notre équipe reste disponible pour vous accompagner et vous aider à choisir la voiture la plus adaptée à votre programme, que ce soit pour quelques jours ou plusieurs semaines."
         ]
@@ -1803,14 +1803,14 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Stepway est un crossover moderne, confortable et polyvalent, parfait pour explorer Agadir et ses environs.",
-          "Avec sa boîte automatique CVT X-Tronic, son moteur essence turbo, ses 5 places et sa connectivité Apple CarPlay / Android Auto (selon finition), elle répond parfaitement aux besoins d'une location voiture Agadir. Contactez Amsel Cars pour réserver votre Stepway à Agadir et profiter d'une conduite simple et confortable."
+          "Avec sa boîte automatique CVT X-Tronic, son moteur essence turbo, ses 5 places et sa connectivité Apple CarPlay / Android Auto (selon finition), elle répond parfaitement aux besoins d'une location voiture Agadir. Contactez AmseelCars pour réserver votre Stepway à Agadir et profiter d'une conduite simple et confortable."
         ]
       }
     ],
     faqs: [
       {
         question: "Quelle est la location d'une Dacia Stepway ?",
-        answer: "Le tarif de location d'une Stepway dépend de la durée, de la saison et de la disponibilité. Pour un prix précis à Agadir, contactez Amsel Cars afin d'obtenir un devis adapté à vos dates."
+        answer: "Le tarif de location d'une Stepway dépend de la durée, de la saison et de la disponibilité. Pour un prix précis à Agadir, contactez AmseelCars afin d'obtenir un devis adapté à vos dates."
       },
       {
         question: "Quels sont les défauts de la Dacia Sandero Stepway ?",
@@ -1822,7 +1822,7 @@ export const cars: Car[] = [
       },
       {
         question: "Combien coûte la location d'une voiture pour 2 mois ?",
-        answer: "Le coût d'une location sur 2 mois dépend du modèle, du kilométrage inclus, de la saison et des conditions de l'agence. En général, les tarifs sont dégressifs sur une longue durée. Contactez Amsel Cars pour une offre longue durée personnalisée."
+        answer: "Le coût d'une location sur 2 mois dépend du modèle, du kilométrage inclus, de la saison et des conditions de l'agence. En général, les tarifs sont dégressifs sur une longue durée. Contactez AmseelCars pour une offre longue durée personnalisée."
       }
     ]
   },
@@ -1837,9 +1837,9 @@ export const cars: Car[] = [
      specs: {
        engine: "1.0L TCe turbo (3 cylindres, essence)",
        horsepower: "91 ch",
-       acceleration: "0–100 km/h en 14,2 s",
+       acceleration: "0-100 km/h en 14,2 s",
        topSpeed: "163 km/h",
-       fuelEfficiency: "5,8–6,2 l/100 km (WLTP combiné)",
+       fuelEfficiency: "5,8-6,2 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
      },
      category: 'crossover',
@@ -1869,15 +1869,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Parfaite pour la ville comme pour les trajets interurbains à agadir.",
   richContent: {
-    h1Title: "Location Sandero Stepway à Agadir – Crossover automatique essence 2025 | Amsel Cars",
-    seoTitle: "Sandero Stepway en location à Agadir | Amsel Cars",
+    h1Title: "Location Sandero Stepway Agadir | Crossover automatique essence 2025 | AmseelCars",
+    seoTitle: "Sandero Stepway en location à Agadir | AmseelCars",
     seoMetaDescription: "Louez une Sandero Stepway à Agadir : crossover 5 places, boîte auto, essence turbo, CarPlay/Android Auto, confortable et pratique.",
     sections: [
       {
         h2: "Présentation de la Sandero Stepway en location à Agadir",
         paragraphs: [
           "La Sandero Stepway est l'un des meilleurs choix pour une location voiture Agadir si vous recherchez un véhicule polyvalent, confortable et rassurant. Elle combine la praticité d'une compacte avec l'esprit crossover : position de conduite plus haute, meilleure visibilité et confort général supérieur.",
-          "Chez Amsel Cars, nous proposons la Sandero Stepway 2025 en version essence avec boîte automatique, idéale pour une conduite souple et sans stress, aussi bien en ville que sur route."
+          "Chez AmseelCars, nous proposons la Sandero Stepway 2025 en version essence avec boîte automatique, idéale pour une conduite souple et sans stress, aussi bien en ville que sur route."
         ]
       },
       {
@@ -1959,9 +1959,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Sandero Stepway à Agadir avec Amsel Cars",
+        h2: "Louer une Sandero Stepway à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons des véhicules récents et bien entretenus pour une expérience de location simple et professionnelle.",
+          "Chez AmseelCars, nous proposons des véhicules récents et bien entretenus pour une expérience de location simple et professionnelle.",
           "La Sandero Stepway 2025 est disponible selon les dates et la disponibilité. Il est conseillé de réserver à l'avance, surtout en haute saison.",
           "Notre équipe vous accompagne pour choisir la voiture la plus adaptée à votre séjour à Agadir."
         ]
@@ -1970,7 +1970,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Sandero Stepway est un crossover idéal pour Agadir : confortable, polyvalent, économique et agréable à conduire.",
-          "Avec sa boîte automatique, son moteur essence TCe turbo, ses 5 places et sa connectivité moderne, elle répond parfaitement aux attentes d'une location voiture Agadir. Contactez Amsel Cars pour réserver votre Sandero Stepway et profiter pleinement de votre séjour."
+          "Avec sa boîte automatique, son moteur essence TCe turbo, ses 5 places et sa connectivité moderne, elle répond parfaitement aux attentes d'une location voiture Agadir. Contactez AmseelCars pour réserver votre Sandero Stepway et profiter pleinement de votre séjour."
         ]
       }
     ],
@@ -2004,9 +2004,9 @@ export const cars: Car[] = [
      specs: {
        engine: "1.0L TCe turbo (3 cylindres, essence)",
        horsepower: "91 ch",
-       acceleration: "0–100 km/h en 14,2 s",
+       acceleration: "0-100 km/h en 14,2 s",
        topSpeed: "163 km/h",
-       fuelEfficiency: "5,8–6,2 l/100 km (WLTP combiné)",
+       fuelEfficiency: "5,8-6,2 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
      },
      category: 'crossover',
@@ -2042,15 +2042,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV haut de gamme confortable et puissant, le Volkswagen Touareg V6 TDI 286 ch associe transmission intégrale 4MOTION, boîte automatique Tiptronic à 8 rapports et technologies de pointe (IQ.LIGHT HD Matrix, Innovision Cockpit 15\"). Idéal pour les longs trajets comme pour la ville.",
   richContent: {
-    h1Title: "Location Touareg à Agadir – SUV premium diesel automatique 2025 | Amsel Cars",
-    seoTitle: "Volkswagen Touareg en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez un Volkswagen Touareg à Agadir chez Amsel Cars : SUV premium diesel, boîte auto, 4MOTION, confort et technologies haut de gamme.",
+    h1Title: "Location Touareg Agadir | SUV premium diesel automatique 2025 | AmseelCars",
+    seoTitle: "Volkswagen Touareg en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez un Volkswagen Touareg à Agadir chez AmseelCars : SUV premium diesel, boîte auto, 4MOTION, confort et technologies haut de gamme.",
     sections: [
       {
         h2: "Présentation du Volkswagen Touareg en location à Agadir",
         paragraphs: [
           "Le Volkswagen Touareg est un SUV premium de référence pour une location voiture Agadir haut de gamme. Il combine puissance, confort exceptionnel et technologies avancées, aussi bien pour la conduite en ville que sur route.",
-          "Chez Amsel Cars, nous proposons le Touareg 2025 en version diesel avec boîte automatique et transmission intégrale 4MOTION, une configuration idéale pour voyager dans toute la région d'Agadir avec sérénité et élégance."
+          "Chez AmseelCars, nous proposons le Touareg 2025 en version diesel avec boîte automatique et transmission intégrale 4MOTION, une configuration idéale pour voyager dans toute la région d'Agadir avec sérénité et élégance."
         ]
       },
       {
@@ -2125,9 +2125,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer un Touareg à Agadir avec Amsel Cars",
+        h2: "Louer un Touareg à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons des véhicules récents, bien entretenus et parfaitement équipés pour une location voiture Agadir simple et transparente.",
+          "Chez AmseelCars, nous proposons des véhicules récents, bien entretenus et parfaitement équipés pour une location voiture Agadir simple et transparente.",
           "Le Volkswagen Touareg 2025 est disponible selon les dates et la disponibilité. En raison de sa forte demande, il est conseillé de réserver à l'avance.",
           "Notre équipe reste à votre disposition pour vous accompagner et vous proposer une expérience de location haut de gamme."
         ]
@@ -2136,7 +2136,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "Le Volkswagen Touareg est un SUV premium complet, puissant et confortable, parfaitement adapté à une location voiture Agadir haut de gamme.",
-          "Avec son moteur V6 TDI, sa boîte automatique, sa transmission intégrale 4MOTION et ses technologies avancées, il offre une expérience de conduite exceptionnelle. Contactez Amsel Cars pour réserver votre Touareg à Agadir et profiter d'un séjour sous le signe du luxe et de la sérénité."
+          "Avec son moteur V6 TDI, sa boîte automatique, sa transmission intégrale 4MOTION et ses technologies avancées, il offre une expérience de conduite exceptionnelle. Contactez AmseelCars pour réserver votre Touareg à Agadir et profiter d'un séjour sous le signe du luxe et de la sérénité."
         ]
       }
     ],
@@ -2170,7 +2170,7 @@ export const cars: Car[] = [
      specs: {
        engine: "3.0L V6 TDI",
        horsepower: "286 ch",
-       acceleration: "0–100 km/h en 6,1 s",
+       acceleration: "0-100 km/h en 6,1 s",
        topSpeed: "235 km/h",
        fuelEfficiency: "8,0 l/100 km (WLTP, combiné)",
        drivetrain: "4MOTION (4 roues motrices)"
@@ -2202,15 +2202,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "Berline économique et spacieuse, la Dacia Logan 1.5 Blue dCi 95 ch (boîte manuelle 5 rapports) allie sobriété, fiabilité et coffre généreux (528 L). Équipements modernes selon finition : écran 8\" Media Display, aides à la conduite essentielles, et connectivité Apple CarPlay / Android Auto.",
   richContent: {
-    h1Title: "Location Dacia Logan à Agadir – Berline diesel économique 2024 | Amsel Cars",
-    seoTitle: "Dacia Logan en location à Agadir | Amsel Cars",
+    h1Title: "Location Dacia Logan Agadir | Berline diesel économique 2024 | AmseelCars",
+    seoTitle: "Dacia Logan en location à Agadir | AmseelCars",
     seoMetaDescription: "Louez une Dacia Logan à Agadir : berline diesel 5 places, économique, pratique et fiable pour tous vos trajets. Réservez facilement.",
     sections: [
       {
         h2: "Présentation de la Dacia Logan en location à Agadir",
         paragraphs: [
           "La Dacia Logan est l'une des voitures les plus choisies lorsqu'on cherche une location voiture Agadir simple, fiable et économique. Elle est reconnue pour son excellent rapport espace/prix, sa conduite facile et sa capacité à s'adapter à presque tous les usages.",
-          "Chez Amsel Cars, nous mettons à votre disposition la Dacia Logan 2024 en version diesel avec boîte manuelle, idéale si vous prévoyez de rouler souvent et que vous souhaitez garder un budget carburant maîtrisé."
+          "Chez AmseelCars, nous mettons à votre disposition la Dacia Logan 2024 en version diesel avec boîte manuelle, idéale si vous prévoyez de rouler souvent et que vous souhaitez garder un budget carburant maîtrisé."
         ]
       },
       {
@@ -2232,7 +2232,7 @@ export const cars: Car[] = [
       {
         h2: "Motorisation diesel : économique et adaptée aux longs trajets",
         paragraphs: [
-          "La Dacia Logan proposée chez Amsel Cars est en motorisation diesel, un vrai avantage si vous comptez faire beaucoup de kilomètres.",
+          "La Dacia Logan proposée chez AmseelCars est en motorisation diesel, un vrai avantage si vous comptez faire beaucoup de kilomètres.",
           "En location voiture Agadir, le diesel est souvent recherché pour son efficacité sur route et son autonomie confortable, particulièrement utile pour les excursions et les déplacements réguliers.",
           "C'est une option stratégique si vous souhaitez une voiture endurante, économique et agréable sur la durée."
         ]
@@ -2270,9 +2270,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Dacia Logan à Agadir avec Amsel Cars",
+        h2: "Louer une Dacia Logan à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une expérience de location voiture Agadir simple et efficace : réservation claire, véhicule propre, prêt à partir, et service client réactif.",
+          "Chez AmseelCars, nous proposons une expérience de location voiture Agadir simple et efficace : réservation claire, véhicule propre, prêt à partir, et service client réactif.",
           "La Dacia Logan est disponible selon les dates et la disponibilité. En période de forte demande, il est conseillé de réserver à l'avance.",
           "Notre équipe peut aussi vous conseiller si vous hésitez entre plusieurs modèles, selon votre programme et votre style de conduite."
         ]
@@ -2281,14 +2281,14 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Dacia Logan est une berline pratique, économique et fiable, parfaite pour se déplacer à Agadir et dans les environs.",
-          "Avec ses 5 places, sa motorisation diesel et sa boîte manuelle, elle représente un excellent choix pour une location voiture Agadir orientée budget et efficacité, sans sacrifier le confort. Contactez Amsel Cars pour réserver votre Dacia Logan à Agadir."
+          "Avec ses 5 places, sa motorisation diesel et sa boîte manuelle, elle représente un excellent choix pour une location voiture Agadir orientée budget et efficacité, sans sacrifier le confort. Contactez AmseelCars pour réserver votre Dacia Logan à Agadir."
         ]
       }
     ],
     faqs: [
       {
         question: "Quel est le prix de location d'une Dacia Sandero ?",
-        answer: "Le prix de location d'une Dacia Sandero dépend de la ville, de la saison, de la durée et des conditions (kilométrage, caution). Pour un tarif exact à Agadir, contactez Amsel Cars avec vos dates."
+        answer: "Le prix de location d'une Dacia Sandero dépend de la ville, de la saison, de la durée et des conditions (kilométrage, caution). Pour un tarif exact à Agadir, contactez AmseelCars avec vos dates."
       },
       {
         question: "Quelle est la voiture en location la moins chère ?",
@@ -2300,7 +2300,7 @@ export const cars: Car[] = [
       },
       {
         question: "Combien coûte la location d'une voiture pour 2 mois ?",
-        answer: "Le coût pour 2 mois dépend du modèle choisi, du kilométrage inclus, de la saison et des conditions de location. En général, les prix sont plus avantageux sur longue durée. Contactez Amsel Cars pour un devis personnalisé."
+        answer: "Le coût pour 2 mois dépend du modèle choisi, du kilométrage inclus, de la saison et des conditions de location. En général, les prix sont plus avantageux sur longue durée. Contactez AmseelCars pour un devis personnalisé."
       }
     ]
   },
@@ -2315,7 +2315,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.5L Blue dCi (4 cylindres, turbo diesel)",
        horsepower: "95 ch",
-       acceleration: "0–100 km/h en 13,9 s",
+       acceleration: "0-100 km/h en 13,9 s",
        topSpeed: "172 km/h",
        fuelEfficiency: "4,1 l/100 km (mixte WLTP)",
        drivetrain: "Traction (roues avant)"
@@ -2355,15 +2355,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch avec boîte automatique DCT à 7 rapports (2WD) offre confort, technologies utiles (écran 8\" avec Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
-    h1Title: "Location Kia Sportage à Agadir – SUV diesel automatique 2025 | Amsel Cars",
-    seoTitle: "Kia Sportage en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez un Kia Sportage à Agadir chez Amsel Cars : SUV diesel 2025, boîte auto DCT 7, 5 places, CarPlay/Android Auto, économique et confortable.",
+    h1Title: "Location Kia Sportage Agadir | SUV diesel automatique 2025 | AmseelCars",
+    seoTitle: "Kia Sportage en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez un Kia Sportage à Agadir chez AmseelCars : SUV diesel 2025, boîte auto DCT 7, 5 places, CarPlay/Android Auto, économique et confortable.",
     sections: [
       {
         h2: "Présentation du Kia Sportage en location à Agadir",
         paragraphs: [
           "Le Kia Sportage est un SUV moderne, confortable et polyvalent, parfaitement adapté à une location voiture Agadir. Il séduit par son équilibre entre espace, technologies, confort de conduite et consommation maîtrisée.",
-          "Chez Amsel Cars, nous proposons le Kia Sportage gris 2025 en motorisation diesel 1.6 CRDi avec boîte automatique DCT à 7 rapports et traction 2 roues motrices, une configuration idéale pour une conduite fluide et agréable au quotidien."
+          "Chez AmseelCars, nous proposons le Kia Sportage gris 2025 en motorisation diesel 1.6 CRDi avec boîte automatique DCT à 7 rapports et traction 2 roues motrices, une configuration idéale pour une conduite fluide et agréable au quotidien."
         ]
       },
       {
@@ -2395,7 +2395,7 @@ export const cars: Car[] = [
         paragraphs: [
           "Le moteur 1.6 CRDi diesel développe 136 ch, offrant un excellent compromis entre performances et consommation.",
           "En location voiture Agadir, cette motorisation est idéale pour les conducteurs qui roulent souvent et recherchent une voiture endurante et économique.",
-          "Avec une accélération 0–100 km/h d'environ 11,4 secondes, le Sportage reste suffisamment dynamique pour une conduite confortable et sécurisante."
+          "Avec une accélération 0-100 km/h d'environ 11,4 secondes, le Sportage reste suffisamment dynamique pour une conduite confortable et sécurisante."
         ]
       },
       {
@@ -2447,9 +2447,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer un Kia Sportage à Agadir avec Amsel Cars",
+        h2: "Louer un Kia Sportage à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une expérience de location voiture Agadir simple et professionnelle : véhicules récents, bien entretenus et prêts à partir.",
+          "Chez AmseelCars, nous proposons une expérience de location voiture Agadir simple et professionnelle : véhicules récents, bien entretenus et prêts à partir.",
           "Le Kia Sportage 2025 est disponible selon les dates et la disponibilité. En période de forte demande, il est conseillé de réserver à l'avance.",
           "Notre équipe reste disponible pour vous accompagner et vous aider à choisir le véhicule le plus adapté à votre séjour."
         ]
@@ -2458,14 +2458,14 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "Le Kia Sportage est un SUV moderne, confortable et polyvalent, parfaitement adapté à une location voiture Agadir.",
-          "Avec son moteur diesel 1.6 CRDi de 136 ch, sa boîte automatique DCT 7, sa consommation maîtrisée et ses équipements modernes, il offre une expérience de conduite agréable et rassurante. Contactez Amsel Cars pour réserver votre Kia Sportage à Agadir."
+          "Avec son moteur diesel 1.6 CRDi de 136 ch, sa boîte automatique DCT 7, sa consommation maîtrisée et ses équipements modernes, il offre une expérience de conduite agréable et rassurante. Contactez AmseelCars pour réserver votre Kia Sportage à Agadir."
         ]
       }
     ],
     faqs: [
       {
         question: "Quel est le prix de location d'un Kia Sportage ?",
-        answer: "Le prix dépend de la durée, de la saison et des options incluses. Pour un tarif précis à Agadir, il est recommandé de contacter directement Amsel Cars avec vos dates."
+        answer: "Le prix dépend de la durée, de la saison et des options incluses. Pour un tarif précis à Agadir, il est recommandé de contacter directement AmseelCars avec vos dates."
       },
       {
         question: "Quels sont les défauts de la Kia Sportage ?",
@@ -2492,7 +2492,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.6L CRDi (4 cylindres, turbo diesel)",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "180 km/h",
        fuelEfficiency: "5,8 l/100 km (mixte, WLTP)",
        drivetrain: "Traction (2 roues motrices)"
@@ -2531,15 +2531,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch ( avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
-    h1Title: "Location Kia Sportage vert à Agadir – SUV diesel automatique 2025 | Amsel Cars",
-    seoTitle: "Kia Sportage vert en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez un Kia Sportage vert à Agadir chez Amsel Cars : SUV diesel 2025, boîte automatique, 5 places, CarPlay/Android Auto, confortable et économique.",
+    h1Title: "Location Kia Sportage vert Agadir | SUV diesel automatique 2025 | AmseelCars",
+    seoTitle: "Kia Sportage vert en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez un Kia Sportage vert à Agadir chez AmseelCars : SUV diesel 2025, boîte automatique, 5 places, CarPlay/Android Auto, confortable et économique.",
     sections: [
       {
         h2: "Présentation du Kia Sportage vert en location à Agadir",
         paragraphs: [
           "Le Kia Sportage vert est un SUV moderne et polyvalent qui combine style distinctif, confort élevé et excellent équilibre entre performances et économie.",
-          "Chez Amsel Cars, nous proposons le Kia Sportage vert 2025 en version diesel avec boîte automatique, une configuration idéale pour profiter d'Agadir et de sa région aussi bien en ville que sur route."
+          "Chez AmseelCars, nous proposons le Kia Sportage vert 2025 en version diesel avec boîte automatique, une configuration idéale pour profiter d'Agadir et de sa région aussi bien en ville que sur route."
         ]
       },
       {
@@ -2623,9 +2623,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer un Kia Sportage vert à Agadir avec Amsel Cars",
+        h2: "Louer un Kia Sportage vert à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une location voiture Agadir simple, rapide et transparente.",
+          "Chez AmseelCars, nous proposons une location voiture Agadir simple, rapide et transparente.",
           "Le Kia Sportage vert 2025 est disponible selon les dates et la disponibilité.",
           "Notre équipe vous accompagne pour choisir le véhicule le plus adapté à votre séjour et vous garantir une expérience fluide."
         ]
@@ -2634,7 +2634,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "Le Kia Sportage vert est un SUV moderne, confortable et polyvalent, parfaitement adapté à une location voiture Agadir.",
-          "Avec sa motorisation diesel, sa boîte automatique, son espace intérieur et sa connectivité moderne, il répond aux attentes des voyageurs exigeants. Contactez Amsel Cars pour réserver votre Kia Sportage vert à Agadir."
+          "Avec sa motorisation diesel, sa boîte automatique, son espace intérieur et sa connectivité moderne, il répond aux attentes des voyageurs exigeants. Contactez AmseelCars pour réserver votre Kia Sportage vert à Agadir."
         ]
       }
     ],
@@ -2668,7 +2668,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.6L CRDi (4 cyl., turbo diesel, ",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "180 km/h",
        fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
        drivetrain: "Traction (2 roues motrices)"
@@ -2704,15 +2704,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV familial moderne, le Clio 5 1.5 Blue dCi 100 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
-    h1Title: "Location Clio 5 gris à Agadir – Boîte automatique, confort & technologie | Amsel Cars",
-    seoTitle: "Clio 5 gris en location à Agadir | Boîte automatique & confort – Amsel Cars",
-    seoMetaDescription: "Louez une Clio 5 gris à Agadir chez Amsel Cars : citadine moderne, boîte auto, 5 places, climatisation, CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location Clio 5 gris Agadir | Boîte automatique, confort & technologie | AmseelCars",
+    seoTitle: "Clio 5 gris en location à Agadir | Boîte automatique & confort - AmseelCars",
+    seoMetaDescription: "Louez une Clio 5 gris à Agadir chez AmseelCars : citadine moderne, boîte auto, 5 places, climatisation, CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Clio 5 gris en location à Agadir",
         paragraphs: [
           "La Clio 5 gris fait partie des voitures les plus demandées pour une location voiture Agadir pratique, moderne et agréable à conduire. Elle séduit par sa facilité de prise en main, son confort et son format compact, parfait pour la ville.",
-          "Chez Amsel Cars, nous proposons la Clio 5 gris à Agadir avec boîte automatique, une configuration idéale pour conduire sans stress, surtout dans la circulation urbaine et les embouteillages."
+          "Chez AmseelCars, nous proposons la Clio 5 gris à Agadir avec boîte automatique, une configuration idéale pour conduire sans stress, surtout dans la circulation urbaine et les embouteillages."
         ]
       },
       {
@@ -2796,9 +2796,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Clio 5 gris à Agadir avec Amsel Cars",
+        h2: "Louer une Clio 5 gris à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une location voiture Agadir simple, rapide et professionnelle. Nos véhicules sont récents, bien entretenus et prêts à partir.",
+          "Chez AmseelCars, nous proposons une location voiture Agadir simple, rapide et professionnelle. Nos véhicules sont récents, bien entretenus et prêts à partir.",
           "La Clio 5 gris est disponible selon les dates et la disponibilité, et notre équipe vous accompagne pour une réservation fluide et transparente.",
           "Que ce soit pour quelques jours ou un séjour plus long, nous vous aidons à choisir le véhicule le plus adapté à votre programme."
         ]
@@ -2807,14 +2807,14 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Clio 5 gris est une citadine moderne, confortable et très pratique, idéale pour une location voiture Agadir.",
-          "Grâce à sa boîte automatique, sa motorisation essence, sa connectivité CarPlay/Android Auto et son format compact, elle offre une conduite fluide et agréable pour vos trajets à Agadir et dans les environs. Contactez Amsel Cars pour réserver votre Clio 5 à Agadir."
+          "Grâce à sa boîte automatique, sa motorisation essence, sa connectivité CarPlay/Android Auto et son format compact, elle offre une conduite fluide et agréable pour vos trajets à Agadir et dans les environs. Contactez AmseelCars pour réserver votre Clio 5 à Agadir."
         ]
       }
     ],
     faqs: [
       {
         question: "Quel est le prix de location d'une Renault Clio 5 au Maroc ?",
-        answer: "Le prix dépend de la ville, de la saison, de la durée et des conditions (kilométrage, caution, assurances). Pour un tarif précis à Agadir, contactez Amsel Cars avec vos dates."
+        answer: "Le prix dépend de la ville, de la saison, de la durée et des conditions (kilométrage, caution, assurances). Pour un tarif précis à Agadir, contactez AmseelCars avec vos dates."
       },
       {
         question: "Est-ce rentable de prendre une voiture en location ?",
@@ -2822,7 +2822,7 @@ export const cars: Car[] = [
       },
       {
         question: "Quel est le prix de location d'une Clio RC5 ?",
-        answer: "Le tarif varie selon l'agence, la période et la disponibilité. Pour une offre exacte à Agadir, le mieux est de demander un devis à Amsel Cars selon vos dates."
+        answer: "Le tarif varie selon l'agence, la période et la disponibilité. Pour une offre exacte à Agadir, le mieux est de demander un devis à AmseelCars selon vos dates."
       },
       {
         question: "Quelle voiture à 150 € par mois ?",
@@ -2841,7 +2841,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.6L CRDi (4 cyl., turbo essence, ",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "180 km/h",
        fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
        drivetrain: "Traction (2 roues motrices)"
@@ -2876,15 +2876,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
-    h1Title: "Location Kia Picanto 2025 à Agadir – Citadine automatique, économique & moderne | Amsel Cars",
-    seoTitle: "Kia Picanto 2025 en location à Agadir | Amsel Cars",
+    h1Title: "Location Kia Picanto 2025 Agadir | Citadine automatique, économique & moderne | AmseelCars",
+    seoTitle: "Kia Picanto 2025 en location à Agadir | AmseelCars",
     seoMetaDescription: "Louez une Kia Picanto 2025 à Agadir : citadine essence, boîte automatique, faible consommation, climatisation, CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Kia Picanto 2025 en location à Agadir",
         paragraphs: [
           "La Kia Picanto 2025 est une citadine idéale pour une location voiture Agadir simple, économique et facile à conduire. Compacte et moderne, elle convient parfaitement aux déplacements urbains comme aux sorties autour de la ville.",
-          "Chez Amsel Cars, nous proposons la Kia Picanto 2025 à Agadir avec boîte automatique, une solution parfaite pour rouler sans stress et profiter pleinement de votre séjour."
+          "Chez AmseelCars, nous proposons la Kia Picanto 2025 à Agadir avec boîte automatique, une solution parfaite pour rouler sans stress et profiter pleinement de votre séjour."
         ]
       },
       {
@@ -2968,9 +2968,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Kia Picanto 2025 à Agadir avec Amsel Cars",
+        h2: "Louer une Kia Picanto 2025 à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une location voiture Agadir simple, rapide et professionnelle.",
+          "Chez AmseelCars, nous proposons une location voiture Agadir simple, rapide et professionnelle.",
           "La Kia Picanto 2025 est disponible selon les dates et la disponibilité.",
           "Notre équipe vous accompagne pour une réservation claire et une expérience sans stress."
         ]
@@ -2979,7 +2979,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Kia Picanto 2025 est une citadine moderne, économique et très pratique, idéale pour une location voiture Agadir.",
-          "Avec sa boîte automatique, sa faible consommation et sa connectivité CarPlay/Android Auto, elle permet de profiter d'Agadir et de ses environs en toute simplicité. Contactez Amsel Cars pour réserver votre Kia Picanto 2025."
+          "Avec sa boîte automatique, sa faible consommation et sa connectivité CarPlay/Android Auto, elle permet de profiter d'Agadir et de ses environs en toute simplicité. Contactez AmseelCars pour réserver votre Kia Picanto 2025."
         ]
       }
     ],
@@ -3013,7 +3013,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.6L CRDi (4 cyl., turbo diesel",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "180 km/h",
        fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
        drivetrain: "Traction (2 roues motrices)"
@@ -3049,15 +3049,15 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
-    h1Title: "Location Kia Picanto noir à Agadir – Citadine automatique, économique & facile au quotidien | Amsel Cars",
-    seoTitle: "Kia Picanto noir en location à Agadir | Amsel Cars",
+    h1Title: "Location Kia Picanto noir Agadir | Citadine automatique, économique & facile au quotidien | AmseelCars",
+    seoTitle: "Kia Picanto noir en location à Agadir | AmseelCars",
     seoMetaDescription: "Louez une Kia Picanto noir à Agadir : citadine essence, boîte auto, faible consommation, climatisation, Apple CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
         h2: "Présentation de la Kia Picanto noir en location à Agadir",
         paragraphs: [
           "La Kia Picanto noir est une excellente solution pour une location voiture Agadir simple, économique et moderne. Compacte et facile à conduire, elle est parfaitement adaptée aux déplacements urbains et aux trajets du quotidien.",
-          "Chez Amsel Cars, la Kia Picanto noir est proposée avec boîte automatique, ce qui garantit une conduite fluide et sans stress, idéale pour la circulation à Agadir."
+          "Chez AmseelCars, la Kia Picanto noir est proposée avec boîte automatique, ce qui garantit une conduite fluide et sans stress, idéale pour la circulation à Agadir."
         ]
       },
       {
@@ -3149,9 +3149,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Kia Picanto noir à Agadir avec Amsel Cars",
+        h2: "Louer une Kia Picanto noir à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, nous proposons une location voiture Agadir simple, rapide et transparente.",
+          "Chez AmseelCars, nous proposons une location voiture Agadir simple, rapide et transparente.",
           "La Kia Picanto noir est disponible selon les dates et la disponibilité.",
           "Notre équipe vous accompagne pour une réservation fluide et sans stress."
         ]
@@ -3160,7 +3160,7 @@ export const cars: Car[] = [
         h2: "Conclusion",
         paragraphs: [
           "La Kia Picanto noir est une citadine moderne, élégante et économique, idéale pour une location voiture Agadir.",
-          "Avec sa boîte automatique, sa faible consommation et sa connectivité moderne, elle rend la conduite simple et agréable. Contactez Amsel Cars pour réserver votre Kia Picanto noir à Agadir."
+          "Avec sa boîte automatique, sa faible consommation et sa connectivité moderne, elle rend la conduite simple et agréable. Contactez AmseelCars pour réserver votre Kia Picanto noir à Agadir."
         ]
       }
     ],
@@ -3194,7 +3194,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.6L CRDi (4 cyl., turbo diesel",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "180 km/h",
        fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
        drivetrain: "Traction (2 roues motrices)"
@@ -3230,16 +3230,16 @@ export const cars: Car[] = [
      rating: 4.8,
      description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
-    h1Title: "Location Kia Picanto gris à Agadir – Citadine automatique 2025, pratique & moderne | Amsel Cars",
-    seoTitle: "Kia Picanto gris 2025 en location à Agadir | Amsel Cars",
-    seoMetaDescription: "Louez une Kia Picanto gris 2025 à Agadir avec Amsel Cars : citadine automatique, économique, Apple CarPlay/Android Auto. Réservation rapide.",
+    h1Title: "Location Kia Picanto gris Agadir | Citadine automatique 2025, pratique & moderne | AmseelCars",
+    seoTitle: "Kia Picanto gris 2025 en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Kia Picanto gris 2025 à Agadir avec AmseelCars : citadine automatique, économique, Apple CarPlay/Android Auto. Réservation rapide.",
     sections: [
       {
         h2: "Présentation de la Kia Picanto gris 2025 en location à Agadir",
         paragraphs: [
           "La Kia Picanto gris (2025) est une citadine moderne, simple et efficace, parfaitement adaptée à une location voiture Agadir.",
           "Compacte, maniable et rassurante, elle convient aussi bien aux déplacements urbains qu'aux petites excursions autour d'Agadir.",
-          "Chez Amsel Cars, elle est proposée en version essence avec boîte automatique pour une conduite fluide et sans stress."
+          "Chez AmseelCars, elle est proposée en version essence avec boîte automatique pour une conduite fluide et sans stress."
         ]
       },
       {
@@ -3317,9 +3317,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Louer une Kia Picanto gris à Agadir avec Amsel Cars",
+        h2: "Louer une Kia Picanto gris à Agadir avec AmseelCars",
         paragraphs: [
-          "Chez Amsel Cars, la location voiture Agadir est pensée pour être simple et transparente.",
+          "Chez AmseelCars, la location voiture Agadir est pensée pour être simple et transparente.",
           "La Kia Picanto gris est disponible selon les dates et la disponibilité.",
           "Notre équipe vous accompagne pour une réservation rapide et adaptée à votre séjour."
         ]
@@ -3329,7 +3329,7 @@ export const cars: Car[] = [
         paragraphs: [
           "La Kia Picanto gris 2025 est une citadine moderne, automatique et parfaitement adaptée à Agadir.",
           "Maniable, économique, connectée et rassurante, elle répond aux besoins essentiels d'une location voiture Agadir.",
-          "Contactez Amsel Cars pour réserver votre Kia Picanto gris et profiter d'une expérience de conduite simple et agréable."
+          "Contactez AmseelCars pour réserver votre Kia Picanto gris et profiter d'une expérience de conduite simple et agréable."
         ]
       }
     ],
@@ -3363,7 +3363,7 @@ export const cars: Car[] = [
      specs: {
        engine: "1.6L CRDi (4 cyl., turbo diesel",
        horsepower: "136 ch",
-       acceleration: "0–100 km/h en 11,4 s",
+       acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "180 km/h",
        fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
        drivetrain: "Traction (2 roues motrices)"
@@ -3398,8 +3398,8 @@ export const cars: Car[] = [
      rating: 4.7,
       description: "Dacia Logan 2026 diesel manuelle : berline spacieuse, économique et fiable. Idéale pour Agadir, l'aéroport et les excursions avec un bon volume de coffre.",
    richContent: {
-   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | Amsel Cars",
-   seoTitle: "Location Dacia Logan 2026 à Agadir | Amsel Cars",
+   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | AmseelCars",
+   seoTitle: "Location Dacia Logan 2026 à Agadir | AmseelCars",
    seoMetaDescription: "Louez la Dacia Logan 2026 à Agadir : diesel, boîte manuelle, 5 places, grand coffre et budget maîtrisé.",
    sections: [
      {
@@ -3460,8 +3460,8 @@ export const cars: Car[] = [
      ],
      specs: {
         engine: "1.5L diesel (selon version)",
-        horsepower: "environ 95–100 ch",
-        acceleration: "0–100 km/h (selon version)",
+        horsepower: "environ 95-100 ch",
+        acceleration: "0-100 km/h (selon version)",
         topSpeed: "vitesse max (selon version)",
         fuelEfficiency: "consommation maîtrisée (selon cycle)",
        drivetrain: "Traction (roues avant)"
@@ -3497,8 +3497,8 @@ export const cars: Car[] = [
       rating: 4.7,
       description: "Dacia Logan 2026 diesel manuelle : berline spacieuse, économique et fiable. Idéale pour Agadir, l'aéroport et les excursions avec un bon volume de coffre.",
    richContent: {
-   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | Amsel Cars",
-   seoTitle: "Location Dacia Logan 2026 à Agadir | Amsel Cars",
+   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | AmseelCars",
+   seoTitle: "Location Dacia Logan 2026 à Agadir | AmseelCars",
    seoMetaDescription: "Louez la Dacia Logan 2026 à Agadir : diesel, boîte manuelle, 5 places, grand coffre et budget maîtrisé.",
    sections: [
      {
@@ -3559,8 +3559,8 @@ export const cars: Car[] = [
        ],
        specs: {
         engine: "1.5L diesel (selon version)",
-        horsepower: "environ 95–100 ch",
-        acceleration: "0–100 km/h (selon version)",
+        horsepower: "environ 95-100 ch",
+        acceleration: "0-100 km/h (selon version)",
         topSpeed: "vitesse max (selon version)",
         fuelEfficiency: "consommation maîtrisée (selon cycle)",
          drivetrain: "Traction (roues avant)"
@@ -3597,8 +3597,8 @@ export const cars: Car[] = [
          rating: 4.7,
         description: "Renault Clio 5 automatique essence : citadine moderne, facile à conduire, 5 places, climatisation et connectivité Apple CarPlay / Android Auto selon finition.",
      richContent: {
-       h1Title: "Renault Clio 5 automatique : location à Agadir | Amsel Cars",
-       seoTitle: "Location Renault Clio 5 à Agadir | Amsel Cars",
+       h1Title: "Renault Clio 5 automatique : location à Agadir | AmseelCars",
+       seoTitle: "Location Renault Clio 5 à Agadir | AmseelCars",
        seoMetaDescription: "Louez la Renault Clio 5 à Agadir : automatique essence, 5 places, confortable en ville comme sur route.",
        sections: [
          {
@@ -3659,8 +3659,8 @@ export const cars: Car[] = [
          ],
          specs: {
           engine: "1.0L essence turbo (selon version)",
-          horsepower: "environ 90–100 ch",
-          acceleration: "0–100 km/h (selon version)",
+          horsepower: "environ 90-100 ch",
+          acceleration: "0-100 km/h (selon version)",
           topSpeed: "vitesse max (selon version)",
           fuelEfficiency: "consommation urbaine/interurbaine maîtrisée",
            drivetrain: "Traction (roues avant)"

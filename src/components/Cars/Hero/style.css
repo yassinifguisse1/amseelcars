@@ -1,12 +1,18 @@
+/* overflow-x: hidden on html/body breaks position:sticky (BMW 4-car scrub).
+   Use clip so horizontal spill is clipped without killing sticky. */
 body{
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 html{
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
-img{
+/* Scoped — global img { height:100% } breaks BMWCarScroll Next/Image cars */
+.hero img,
+.website-content img,
+.pinned img,
+.info img {
     width: 100%;
     height: 100%;
     object-fit: cover;

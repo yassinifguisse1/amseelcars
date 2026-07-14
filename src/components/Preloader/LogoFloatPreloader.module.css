@@ -1,0 +1,92 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #050505;
+  color: #f4f1ec;
+  opacity: 1;
+  transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.root.exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 1.5rem;
+}
+
+.logoWrap {
+  animation: logo-float 2.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.logo {
+  width: clamp(7.5rem, 22vw, 11rem);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.45));
+}
+
+.percent {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.1em;
+  font-family: var(--font-heading), var(--font-playfair), "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.percentValue {
+  font-size: clamp(3.25rem, 10vw, 5.5rem);
+}
+
+.percentSign {
+  font-size: clamp(1.25rem, 3.5vw, 1.85rem);
+  color: #cb1939;
+  font-weight: 600;
+}
+
+.track {
+  width: min(12rem, 42vw);
+  height: 1px;
+  background: rgba(244, 241, 236, 0.16);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: #cb1939;
+  transition: width 0.08s linear;
+}
+
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoWrap {
+    animation: none;
+  }
+
+  .fill {
+    transition: none;
+  }
+}

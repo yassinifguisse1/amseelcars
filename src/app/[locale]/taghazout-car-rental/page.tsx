@@ -4,6 +4,7 @@ import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
 import { generateLocalSeoLandingGraphSchema } from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
+import { buildPageMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo/site-meta";
 import { routing } from "@/i18n/routing";
 import {
   LOCALE_SHORT_LABELS,
@@ -18,8 +19,6 @@ import { carListingCaption, carListingImageAlt, carListingImageTitle } from "@/l
 import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
-
-const siteUrl = "https://www.amseelcars.com";
 
 const FEATURED_SLUGS = [
   "location-voiture-agadir-bmw-x3-pack-m",
@@ -42,36 +41,24 @@ export async function generateMetadata({
   const l = toAppLocale(locale);
   const t = await getTranslations({ locale: l, namespace: "landingTaghazoutPage" });
   const path = getPathname({ locale: l, href: "/taghazout-car-rental" });
+  const title = t("meta.title");
 
   return {
-    title: t("meta.title"),
-    description: t("meta.description"),
-    alternates: localizedAlternates(l, "/taghazout-car-rental"),
-    openGraph: {
-      type: "website",
-      url: `${siteUrl}${path}`,
-      siteName: "AmseelCars",
-      locale: localeToOpenGraphLocale(l),
-      title: t("meta.ogTitle"),
-      description: t("meta.ogDescription"),
-      images: [{ url: "/og/og-default.jpg" }],
-    },
+    ...buildPageMetadata({
+      title,
+      description: t("meta.description"),
+      path,
+      localeOg: localeToOpenGraphLocale(l),
+      alternates: localizedAlternates(l, "/taghazout-car-rental"),
+      ogTitle: t("meta.ogTitle"),
+      ogDescription: t("meta.ogDescription"),
+      imageAlt: title,
+    }),
     twitter: {
       card: "summary_large_image",
       title: t("meta.twitterTitle"),
       description: t("meta.twitterDescription"),
-      images: ["/og/og-default.jpg"],
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-snippet": -1,
-        "max-image-preview": "large",
-        "max-video-preview": -1,
-      },
+      images: [DEFAULT_OG_IMAGE],
     },
   };
 }
@@ -112,7 +99,7 @@ export default async function TaghazoutCarRentalPage() {
       { name: t("schema.breadcrumbName"), url: selfPath },
     ],
     faqs: [...faqs],
-    primaryImagePath: "/og/og-default.jpg",
+    primaryImagePath: DEFAULT_OG_IMAGE,
     service: {
       name: t("schema.serviceName"),
       description: t("schema.serviceDescription"),
@@ -120,7 +107,7 @@ export default async function TaghazoutCarRentalPage() {
     serviceAreaServed: [
       { "@type": "City", name: "Taghazout" },
       { "@type": "City", name: "Agadir" },
-      { "@type": "Airport", name: "Agadir–Al Massira Airport" },
+      { "@type": "Airport", name: "Agadir-Al Massira Airport" },
       { "@type": "Country", name: "Morocco" },
     ],
   });

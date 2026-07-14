@@ -7,7 +7,7 @@ export const reviews: Review[] = [
       name: 'Leila Archi',
     },
     rating: 5,
-    reviewBody: 'I rented a car over the summer, and I couldn\'t be happier with the experience! The service was excellent —quick, friendly, and very professional. On top of that, they offered the best prices I found, making my trip both convenient and affordable. Highly recommend!',
+    reviewBody: 'I rented a car over the summer, and I couldn\'t be happier with the experience! The service was excellent, quick, friendly, and very professional. On top of that, they offered the best prices I found, making my trip both convenient and affordable. Highly recommend!',
     datePublished: '2024-01-15',
     publisher: {
       name: 'Google Reviews',

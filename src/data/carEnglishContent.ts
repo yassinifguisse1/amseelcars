@@ -16,18 +16,18 @@ export type CarEnglishBundle = {
 export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
   'location-voiture-agadir-bmw-x3-pack-m': {
     description:
-      'Experience comfort and performance in the BMW X3 M Sport (2025). This premium SUV features mild-hybrid diesel, xDrive all-wheel drive, iDrive 9 with curved display, and wireless Apple CarPlay / Android Auto — ideal for city driving and longer road trips.',
+      'Experience comfort and performance in the BMW X3 M Sport (2025). This premium SUV features mild-hybrid diesel, xDrive all-wheel drive, iDrive 9 with curved display, and wireless Apple CarPlay / Android Auto, ideal for city driving and longer road trips.',
 
     richContent: {
-      h1Title: 'BMW X3 rental in Agadir – Premium M Sport SUV 2025 | Amseel Cars',
-      seoTitle: 'BMW X3 M Sport 2025 car rental in Agadir | Amseel Cars',
+      h1Title: 'BMW X3 rental Agadir | Premium M Sport SUV 2025 | AmseelCars',
+      seoTitle: 'BMW X3 M Sport 2025 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a BMW X3 M Sport 2025 in Agadir with Amseel Cars: premium SUV, automatic gearbox, comfort and modern tech. Quick booking.',
+        'Rent a BMW X3 M Sport 2025 in Agadir with AmseelCars: premium SUV, automatic gearbox, comfort and modern tech. Quick booking.',
       sections: [
         {
           h2: 'BMW X3 M Sport 2025 overview',
           paragraphs: [
-            'If you want a premium SUV that blends elegance, comfort and driving pleasure, the BMW X3 M Sport 2025 is an excellent choice. At Amseel Cars we offer this recent model for car rental in Agadir — perfect for the city, the corniche, beaches and scenic drives nearby.',
+            'If you want a premium SUV that blends elegance, comfort and driving pleasure, the BMW X3 M Sport 2025 is an excellent choice. At AmseelCars we offer this recent model for car rental in Agadir, perfect for the city, the corniche, beaches and scenic drives nearby.',
             'Known for its build quality, engaging drive and versatility, the BMW X3 suits both holidaymakers and business travellers in Agadir.',
           ],
         },
@@ -35,7 +35,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Premium presence and sporty design',
           paragraphs: [
             'The BMW X3 M Sport 2025 stands out with a modern, dynamic silhouette. Clean, athletic lines give it strong road presence and a high-end look.',
-            'The M Sport trim adds a sharper, more refined edge — ideal if you want a premium SUV without sacrificing comfort.',
+            'The M Sport trim adds a sharper, more refined edge, ideal if you want a premium SUV without sacrificing comfort.',
             'In Agadir, its raised driving position, good visibility and practical size make it easy to drive and park around town.',
           ],
         },
@@ -68,7 +68,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'Car rental in Agadir should tick boxes for comfort, safety, flexibility, running costs and enjoyment. The BMW X3 M Sport covers them well.',
             'It is spacious enough for passengers and luggage while still enjoyable on open roads.',
-            'The elevated driving position works well in town and along the coast — reassuring for visitors and presentable for business use.',
+            'The elevated driving position works well in town and along the coast, reassuring for visitors and presentable for business use.',
           ],
         },
         {
@@ -79,9 +79,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a BMW X3 in Agadir with Amseel Cars',
+          h2: 'Rent a BMW X3 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we provide recent, well-maintained vehicles for local and international clients. Our Agadir car rental process is simple, fast and transparent.',
+            'At AmseelCars we provide recent, well-maintained vehicles for local and international clients. Our Agadir car rental process is simple, fast and transparent.',
             'We help you pick the right car for your trip, whether short or extended.',
             'The BMW X3 M Sport 2025 is available subject to dates and fleet availability. We aim for a smooth handover: a clean car, ready to go, with responsive customer service.',
           ],
@@ -90,7 +90,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Summary',
           paragraphs: [
             'The BMW X3 M Sport 2025 is a complete premium SUV: sporty design, high comfort, modern tech and an enjoyable drive.',
-            'For car rental in Agadir it is ideal if you want a high-end experience to explore the city and surroundings with confidence. Contact Amseel Cars to book your BMW X3 in Agadir.',
+            'For car rental in Agadir it is ideal if you want a high-end experience to explore the city and surroundings with confidence. Contact AmseelCars to book your BMW X3 in Agadir.',
           ],
         },
       ],
@@ -98,7 +98,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a BMW X3 M Sport in Agadir?',
           answer:
-            'Rates depend on season, duration and availability. Contact Amseel Cars for an exact quote and offers tailored to your stay.',
+            'Rates depend on season, duration and availability. Contact AmseelCars for an exact quote and offers tailored to your stay.',
         },
         {
           question: 'Is the BMW X3 M Sport suitable for long drives?',
@@ -118,7 +118,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Can I book the BMW X3 M Sport in advance?',
           answer:
-            'Yes. Advance booking is recommended, especially in peak season. Contact Amseel Cars to check availability and secure your reservation.',
+            'Yes. Advance booking is recommended, especially in peak season. Contact AmseelCars to check availability and secure your reservation.',
         },
       ],
     },
@@ -129,16 +129,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'The Golf 8 blends compact size with modern tech. Its 1.5 eTSI 150 hp mild-hybrid engine and 7-speed DSG deliver smooth performance, efficient running costs, and up-to-date connectivity (Apple CarPlay / Android Auto).',
 
     richContent: {
-      h1Title: 'Golf 8 rental in Agadir – Automatic, comfort & tech | Amseel Cars',
-      seoTitle: 'Golf 8 car rental in Agadir | Amseel Cars',
+      h1Title: 'Golf 8 rental Agadir | Automatic, comfort & tech | AmseelCars',
+      seoTitle: 'Golf 8 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Golf 8 in Agadir with Amseel Cars: modern compact, comfortable, automatic gearbox, Apple CarPlay / Android Auto connectivity. Book quickly.',
+        'Rent a Golf 8 in Agadir with AmseelCars: modern compact, comfortable, automatic gearbox, Apple CarPlay / Android Auto connectivity. Book quickly.',
       sections: [
         {
-          h2: 'Golf 8 rental in Agadir — overview',
+          h2: 'Golf 8 rental in Agadir, overview',
           paragraphs: [
             "The Golf 8 is one of the world's most popular compact cars thanks to its balance of comfort, modern tech and driving enjoyment. Whether you are in Agadir on holiday, for business or a long stay, it suits every kind of journey.",
-            'At Amseel Cars we offer the Golf 8 for car rental in Agadir to give you a dependable, practical and premium experience without hassle. Its road manners, onboard technology and controlled fuel consumption make it ideal in town and for exploring the area.',
+            'At AmseelCars we offer the Golf 8 for car rental in Agadir to give you a dependable, practical and premium experience without hassle. Its road manners, onboard technology and controlled fuel consumption make it ideal in town and for exploring the area.',
           ],
         },
         {
@@ -146,7 +146,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'From the first glance the Golf 8 looks more modern than earlier generations. Its lines are clean and refined, with distinctive lighting that gives it real character on the road.',
             "It stays discreet while still feeling premium thanks to Volkswagen's build quality. For car rental in Agadir that matters: it is easy to get used to, pleasant to drive, and compact enough to park easily, even in busy areas.",
-            'Day to day you feel its versatility right away — appointments, family outings, transfers, errands or trips to beaches and villages around Agadir. The Golf 8 is built to do it all, and does it very well.',
+            'Day to day you feel its versatility right away, appointments, family outings, transfers, errands or trips to beaches and villages around Agadir. The Golf 8 is built to do it all, and does it very well.',
           ],
         },
         {
@@ -154,7 +154,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'Inside, the Golf 8 stands out with a modern, well-equipped cabin. The seats offer good comfort and support in urban driving and on the open road. Materials feel solid, which is reassuring when you rent a car for several days.',
             'On the move the Golf 8 is known for its balance: precise steering, stable handling and comfort over bumps. In Agadir, where you mix city traffic, ring roads and more open routes towards Taghazout, Tamraght or Aourir, that behaviour is a real advantage.',
-            'The Golf 8 delivers a smooth, relaxed and secure feel — ideal for everyday driving and longer outings.',
+            'The Golf 8 delivers a smooth, relaxed and secure feel, ideal for everyday driving and longer outings.',
           ],
         },
         {
@@ -189,9 +189,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Golf 8 in Agadir with Amseel Cars',
+          h2: 'Rent a Golf 8 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars our priority is a simple, professional experience. We choose dependable, well-maintained vehicles and help you pick the best car for your stay.',
+            'At AmseelCars our priority is a simple, professional experience. We choose dependable, well-maintained vehicles and help you pick the best car for your stay.',
             'Choosing the Golf 8 for car rental in Agadir means a modern, comfortable, practical car, ideal for relaxed driving. We focus on availability, responsiveness and customer satisfaction.',
             'The Golf 8 can be booked according to dates and availability. Whether you are on holiday or travelling for work, we help you arrange your rental quickly, with clear service and a car ready to go.',
           ],
@@ -200,7 +200,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The Golf 8 is a modern, versatile compact, ideal for getting around Agadir and discovering the region. Comfortable, well equipped, enjoyable to drive and economical, it fits car rental in Agadir very well.',
-            'Contact Amseel Cars to book your Golf 8 in Agadir and enjoy a reliable, modern car for your whole stay.',
+            'Contact AmseelCars to book your Golf 8 in Agadir and enjoy a reliable, modern car for your whole stay.',
           ],
         },
       ],
@@ -213,7 +213,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much is leasing for a Golf 8?',
           answer:
-            'Most offers in Morocco fall between 3,000 and 6,500 MAD/month (depending on down payment, term, mileage and trim). In Europe you often see roughly €250–450/month with a variable initial payment.',
+            'Most offers in Morocco fall between 3,000 and 6,500 MAD/month (depending on down payment, term, mileage and trim). In Europe you often see roughly €250-450/month with a variable initial payment.',
         },
         {
           question: 'How much does a Golf 8 cost to buy?',
@@ -231,25 +231,25 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-t-roc': {
     description:
-      'Compact and tech-forward, the Volkswagen T-Roc 2024 with 1.5 TSI 150 hp (6-speed manual) offers balanced performance, low fuel use and strong safety. Apple CarPlay / Android Auto via App-Connect, comprehensive driver assists and everyday comfort — ideal for Agadir and the surrounding area.',
+      'Compact and tech-forward, the Volkswagen T-Roc 2024 with 1.5 TSI 150 hp (6-speed manual) offers balanced performance, low fuel use and strong safety. Apple CarPlay / Android Auto via App-Connect, comprehensive driver assists and everyday comfort, ideal for Agadir and the surrounding area.',
 
     richContent: {
-      h1Title: 'T-Roc rental in Agadir – Comfortable compact SUV | Amseel Cars',
-      seoTitle: 'T-Roc car rental in Agadir | Amseel Cars',
+      h1Title: 'T-Roc rental Agadir | Comfortable compact SUV | AmseelCars',
+      seoTitle: 'T-Roc car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Volkswagen T-Roc in Agadir with Amseel Cars: modern compact SUV, comfort, air conditioning and CarPlay / Android Auto connectivity. Book quickly.',
+        'Rent a Volkswagen T-Roc in Agadir with AmseelCars: modern compact SUV, comfort, air conditioning and CarPlay / Android Auto connectivity. Book quickly.',
       sections: [
         {
-          h2: 'T-Roc rental in Agadir — overview',
+          h2: 'T-Roc rental in Agadir, overview',
           paragraphs: [
             'The T-Roc is a modern compact SUV that combines style, comfort and versatility. It is ideal if you want a practical city car with a raised driving position and a high level of safety.',
-            'At Amseel Cars we offer the T-Roc for car rental in Agadir for travellers who want a comfortable, easy-to-drive vehicle suited to all kinds of trips — holidays, business or outings to the beaches and surrounding area.',
+            'At AmseelCars we offer the T-Roc for car rental in Agadir for travellers who want a comfortable, easy-to-drive vehicle suited to all kinds of trips, holidays, business or outings to the beaches and surrounding area.',
           ],
         },
         {
           h2: 'Dynamic design with real SUV presence',
           paragraphs: [
-            'At first glance the T-Roc stands out with a sporty, elegant design. Volkswagen shaped this model for a strong identity — more distinctive than a classic hatchback — while keeping an ideal size for urban driving.',
+            'At first glance the T-Roc stands out with a sporty, elegant design. Volkswagen shaped this model for a strong identity, more distinctive than a classic hatchback, while keeping an ideal size for urban driving.',
             'Modern lines, a robust stance and balanced proportions give it a premium feel without excess.',
             'For car rental in Agadir this format works well: compact enough for easy city driving, with the reassuring feel of an SUV.',
           ],
@@ -266,7 +266,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Engine and balanced performance',
           paragraphs: [
             'The T-Roc is valued for its balance between performance and fuel economy. It has enough punch for safe overtaking and merging onto main roads.',
-            'In daily driving it feels flexible and pleasant — a good match for expectations when renting a car in Agadir.',
+            'In daily driving it feels flexible and pleasant, a good match for expectations when renting a car in Agadir.',
             'Depending on version, the T-Roc can have a manual or automatic gearbox. An automatic is ideal in town for extra comfort; a manual suits drivers who prefer full control on the open road.',
           ],
         },
@@ -295,18 +295,18 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a T-Roc in Agadir with Amseel Cars',
+          h2: 'Rent a T-Roc in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we choose reliable, comfortable, well-maintained vehicles so your rental experience is enjoyable.',
+            'At AmseelCars we choose reliable, comfortable, well-maintained vehicles so your rental experience is enjoyable.',
             'The T-Roc is one of our most requested models because it matches clients who want a modern, versatile SUV.',
-            'We support you before and during the rental; subject to availability you can book your T-Roc quickly and collect it ready to go. With Amseel Cars you get professional service and a car suited to your trips in Agadir and the region.',
+            'We support you before and during the rental; subject to availability you can book your T-Roc quickly and collect it ready to go. With AmseelCars you get professional service and a car suited to your trips in Agadir and the region.',
           ],
         },
         {
           h2: 'Summary',
           paragraphs: [
             'The T-Roc is a modern, comfortable, versatile compact SUV. It fits car rental in Agadir well thanks to easy driving, on-board comfort, practical technology and premium style.',
-            'For city trips or outings to the beaches and surroundings, the T-Roc is an excellent choice. Contact Amseel Cars to book your T-Roc in Agadir and enjoy a relaxed drive throughout your stay.',
+            'For city trips or outings to the beaches and surroundings, the T-Roc is an excellent choice. Contact AmseelCars to book your T-Roc in Agadir and enjoy a relaxed drive throughout your stay.',
           ],
         },
       ],
@@ -314,7 +314,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a T-Roc in Agadir?',
           answer:
-            'Rental price depends on duration, season and availability. Rates usually vary with rental length and options chosen. Contact Amseel Cars for an exact quote.',
+            'Rental price depends on duration, season and availability. Rates usually vary with rental length and options chosen. Contact AmseelCars for an exact quote.',
         },
         {
           question: 'What does a new Volkswagen T-Roc cost in Morocco?',
@@ -329,7 +329,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'What are typical car rental rates in Agadir?',
           answer:
-            'Rates in Agadir vary by model, duration, season and rental terms. Amseel Cars offers options for different needs, with transparent pricing and professional service.',
+            'Rates in Agadir vary by model, duration, season and rental terms. AmseelCars offers options for different needs, with transparent pricing and professional service.',
         },
       ],
     },
@@ -340,16 +340,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'The Renault Clio 5 (phase 2) with 1.5 Blue dCi 100 hp pairs efficiency with driving pleasure. Its 6-speed manual, driver assists and EASY LINK connectivity (Apple CarPlay / Android Auto) make it ideal for city driving and longer runs.',
 
     richContent: {
-      h1Title: 'Renault Clio 5 rental in Agadir – Economical & comfortable | Amseel Cars',
-      seoTitle: 'Renault Clio 5 car rental in Agadir | Amseel Cars',
+      h1Title: 'Renault Clio 5 rental Agadir | Economical & comfortable | AmseelCars',
+      seoTitle: 'Renault Clio 5 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Renault Clio 5 in Agadir with Amseel Cars: modern, economical car, air conditioning and Apple CarPlay / Android Auto connectivity. Book quickly.',
+        'Rent a Renault Clio 5 in Agadir with AmseelCars: modern, economical car, air conditioning and Apple CarPlay / Android Auto connectivity. Book quickly.',
       sections: [
         {
-          h2: 'Renault Clio 5 rental in Agadir — overview',
+          h2: 'Renault Clio 5 rental in Agadir, overview',
           paragraphs: [
-            'The Clio 5 is one of the most popular cars for its versatility, comfort and controlled fuel use. It suits urban trips and longer journeys alike — an excellent choice for a stay in Morocco.',
-            'At Amseel Cars we offer the Clio 5 for car rental in Agadir for clients who want a reliable, economical, pleasant-to-drive vehicle, whether for holidays, business or a long-stay visit.',
+            'The Clio 5 is one of the most popular cars for its versatility, comfort and controlled fuel use. It suits urban trips and longer journeys alike, an excellent choice for a stay in Morocco.',
+            'At AmseelCars we offer the Clio 5 for car rental in Agadir for clients who want a reliable, economical, pleasant-to-drive vehicle, whether for holidays, business or a long-stay visit.',
           ],
         },
         {
@@ -363,7 +363,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Interior comfort and driving experience',
           paragraphs: [
-            'On board, the Clio 5 offers a well designed cabin. Seats are comfortable, the driving position is pleasant, and interior space works well for several people — couples, small families or a small group.',
+            'On board, the Clio 5 offers a well designed cabin. Seats are comfortable, the driving position is pleasant, and interior space works well for several people, couples, small families or a small group.',
             'The dashboard is modern and ergonomic, built to simplify driving and make every trip more enjoyable.',
             'On the road the Clio 5 is smooth and stable. It handles bumps well, stays agile in town and feels secure on the open road, including trips to Taghazout, Tamraght, Aourir or other destinations around Agadir.',
           ],
@@ -371,7 +371,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Engine and fuel economy',
           paragraphs: [
-            'A major strength of the Clio 5 is the balance between performance and consumption. Depending on version, it delivers flexible, smooth, economical driving — well suited to car rental in Agadir.',
+            'A major strength of the Clio 5 is the balance between performance and consumption. Depending on version, it delivers flexible, smooth, economical driving, well suited to car rental in Agadir.',
             'If you plan several trips per day or want to explore the region without high fuel bills, the Clio 5 is a very cost-effective choice.',
             'It is lively enough in town and comfortable on the road for anyone who wants a simple, efficient, reliable car.',
           ],
@@ -401,9 +401,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Clio 5 in Agadir with Amseel Cars',
+          h2: 'Rent a Clio 5 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we offer straightforward, fast, professional car rental in Agadir. Our cars are chosen for reliability, comfort and excellent condition.',
+            'At AmseelCars we offer straightforward, fast, professional car rental in Agadir. Our cars are chosen for reliability, comfort and excellent condition.',
             'The Clio 5 is among the most requested models because it matches clients who want a practical, economical car.',
             'We help you book quickly and choose the best vehicle for your stay. Subject to availability, the Clio 5 can be ready to go so you can enjoy Agadir and the surroundings to the full.',
           ],
@@ -412,7 +412,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Summary',
           paragraphs: [
             'The Clio 5 is a modern, comfortable, economical car, ideal for getting around Agadir and exploring the region.',
-            'For car rental in Agadir it is an excellent choice thanks to easy driving, connectivity and low fuel use. Contact Amseel Cars to book your Clio 5 in Agadir and enjoy a dependable car for your whole stay.',
+            'For car rental in Agadir it is an excellent choice thanks to easy driving, connectivity and low fuel use. Contact AmseelCars to book your Clio 5 in Agadir and enjoy a dependable car for your whole stay.',
           ],
         },
       ],
@@ -420,12 +420,12 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'What is the best engine choice for a Clio 5?',
           answer:
-            'This Clio 5 uses the 1.5 Blue dCi diesel: strong fuel economy and relaxed driving for city and longer trips — a practical choice for rental in Agadir.',
+            'This Clio 5 uses the 1.5 Blue dCi diesel: strong fuel economy and relaxed driving for city and longer trips, a practical choice for rental in Agadir.',
         },
         {
           question: 'How much does it cost to rent a Renault Clio 5 in Agadir?',
           answer:
-            'Rental price depends on duration, season and availability. Rates are usually among the most economical. Contact Amseel Cars for an exact quote.',
+            'Rental price depends on duration, season and availability. Rates are usually among the most economical. Contact AmseelCars for an exact quote.',
         },
         {
           question: 'What does a new Renault Clio 5 cost in Morocco?',
@@ -446,22 +446,22 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Practical and economical, the white Renault Clio 5 (phase 2) with 1.5 Blue dCi 100 hp and a 6-speed manual offers low fuel use, comprehensive driver assists and EASY LINK connectivity (Apple CarPlay / Android Auto). Ideal for Agadir and longer runs.',
 
     richContent: {
-      h1Title: 'White Renault Clio 5 rental in Agadir – Economical & comfortable | Amseel Cars',
-      seoTitle: 'White Clio 5 car rental in Agadir | Amseel Cars',
+      h1Title: 'White Renault Clio 5 rental Agadir | Economical & comfortable | AmseelCars',
+      seoTitle: 'White Clio 5 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a white Renault Clio 5 in Agadir with Amseel Cars: modern, economical car, air conditioning and EASY LINK Apple CarPlay / Android Auto. Book quickly.',
+        'Rent a white Renault Clio 5 in Agadir with AmseelCars: modern, economical car, air conditioning and EASY LINK Apple CarPlay / Android Auto. Book quickly.',
       sections: [
         {
-          h2: 'White Clio 5 rental in Agadir — overview',
+          h2: 'White Clio 5 rental in Agadir, overview',
           paragraphs: [
             'The white Clio 5 is an excellent choice if you want a modern, economical, easy-to-drive car for your stay in Agadir. The popular white finish looks clean, elegant and premium while keeping a strong balance of practicality and comfort.',
-            'At Amseel Cars we offer the white Clio 5 for car rental in Agadir for city driving, beach trips and longer journeys — holidays, business or extended stays.',
+            'At AmseelCars we offer the white Clio 5 for car rental in Agadir for city driving, beach trips and longer journeys, holidays, business or extended stays.',
           ],
         },
         {
           h2: 'A modern city car with elegant style',
           paragraphs: [
-            'The white Clio 5 stands out with a refined, timeless look. White feels modern and well kept — often appreciated on rentals because it suggests a recent, well maintained vehicle.',
+            'The white Clio 5 stands out with a refined, timeless look. White feels modern and well kept, often appreciated on rentals because it suggests a recent, well maintained vehicle.',
             'Dynamic design, harmonious lines and a balanced silhouette make it as nice to look at as it is to drive.',
             'For car rental in Agadir its size is ideal: compact enough for easy city driving and parking, yet stable and comfortable on the open road.',
           ],
@@ -470,7 +470,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Interior comfort and pleasant driving',
           paragraphs: [
             'Inside, the white Clio 5 offers a well thought out cabin with a comfortable driving position and simple ergonomics. Seats are supportive and space suits a couple, a small family or a small group.',
-            'Driving is smooth and reassuring. In town the car is agile and easy to get used to — helpful if you are still learning the roads around Agadir.',
+            'Driving is smooth and reassuring. In town the car is agile and easy to get used to, helpful if you are still learning the roads around Agadir.',
             'On the road it stays stable and comfortable, ideal for Taghazout, Tamraght, Aourir or exploring the wider area.',
           ],
         },
@@ -486,7 +486,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Technology and connectivity',
           paragraphs: [
             'The white Clio 5 is appreciated for its onboard tech, which really helps on a rental. Depending on specification, EASY LINK includes Apple CarPlay and Android Auto for quick smartphone pairing.',
-            'That means Waze, Google Maps, music and calls are easy to use — a big help for getting around Agadir.',
+            'That means Waze, Google Maps, music and calls are easy to use, a big help for getting around Agadir.',
             'Air conditioning keeps the cabin comfortable in hot weather. Driver aids and safety equipment add peace of mind on board.',
           ],
         },
@@ -507,9 +507,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a white Clio 5 in Agadir with Amseel Cars',
+          h2: 'Rent a white Clio 5 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we focus on straightforward, professional rental with reliable, well maintained vehicles.',
+            'At AmseelCars we focus on straightforward, professional rental with reliable, well maintained vehicles.',
             'The white Clio 5 is among our most requested models thanks to its balance of economy, comfort and modern features.',
             'Subject to dates and availability you can book quickly and collect a car ready to go. Our team is on hand to advise and support you throughout your rental.',
           ],
@@ -518,7 +518,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Summary',
           paragraphs: [
             'The white Clio 5 is a modern, comfortable, economical car, perfectly suited to Agadir and discovering the region.',
-            'For car rental in Agadir it is an excellent choice thanks to easy driving, EASY LINK connectivity and low fuel use. Contact Amseel Cars to book your white Clio 5 in Agadir and make the most of your stay.',
+            'For car rental in Agadir it is an excellent choice thanks to easy driving, EASY LINK connectivity and low fuel use. Contact AmseelCars to book your white Clio 5 in Agadir and make the most of your stay.',
           ],
         },
       ],
@@ -546,7 +546,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'What is the top speed of a Clio 5?',
           answer:
-            'Depending on engine, a Clio 5 typically has a maximum speed in the region of roughly 170–200 km/h — more than enough for normal road and motorway use.',
+            'Depending on engine, a Clio 5 typically has a maximum speed in the region of roughly 170-200 km/h, more than enough for normal road and motorway use.',
         },
       ],
     },
@@ -557,16 +557,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Comfortable and tech-rich, the Citroën C4 1.2 PureTech 130 hp with EAT8 automatic gearbox delivers smooth driving, strong efficiency and full connectivity (wireless Apple CarPlay / Android Auto). Ideal for Agadir and longer journeys.',
 
     richContent: {
-      h1Title: 'Citroën C4 rental in Agadir – Comfort & automatic | Amseel Cars',
-      seoTitle: 'Citroën C4 car rental in Agadir | Amseel Cars',
+      h1Title: 'Citroën C4 rental Agadir | Comfort & automatic | AmseelCars',
+      seoTitle: 'Citroën C4 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Citroën C4 in Agadir with Amseel Cars: comfortable car, automatic gearbox, air conditioning and Apple CarPlay / Android Auto. Quick booking.',
+        'Rent a Citroën C4 in Agadir with AmseelCars: comfortable car, automatic gearbox, air conditioning and Apple CarPlay / Android Auto. Quick booking.',
       sections: [
         {
-          h2: 'Citroën C4 rental in Agadir — overview',
+          h2: 'Citroën C4 rental in Agadir, overview',
           paragraphs: [
             'The Citroën C4 is a modern, comfortable car built for smooth, practical everyday driving. Spacious interior, distinctive style and useful tech make it a strong choice for travellers.',
-            'At Amseel Cars we offer the Citroën C4 for car rental in Agadir — great for the city, the coast and popular spots nearby, whether you are on holiday, working or staying longer.',
+            'At AmseelCars we offer the Citroën C4 for car rental in Agadir, great for the city, the coast and popular spots nearby, whether you are on holiday, working or staying longer.',
           ],
         },
         {
@@ -581,7 +581,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Interior comfort and wellbeing',
           paragraphs: [
             'Comfort is a major strength. Seats offer a pleasant ride and good support for short urban trips and longer drives.',
-            'The roomy cabin helps passengers relax, and the boot swallows luggage easily — a real plus for tourists.',
+            'The roomy cabin helps passengers relax, and the boot swallows luggage easily, a real plus for tourists.',
             'In Agadir, where you often mix short hops with beach runs and outings, Citroën suspension balances softness and stability and helps reduce fatigue on longer days.',
           ],
         },
@@ -597,7 +597,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Technology and connectivity',
           paragraphs: [
             'Modern kit helps on a rental: an intuitive central screen plus Apple CarPlay and Android Auto (depending on equipment).',
-            'Pair your phone for Waze, Google Maps, music and calls — a big help getting around Agadir.',
+            'Pair your phone for Waze, Google Maps, music and calls, a big help getting around Agadir.',
             'Air conditioning is essential in the region and keeps the cabin pleasant even on the hottest days.',
           ],
         },
@@ -618,9 +618,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Citroën C4 in Agadir with Amseel Cars',
+          h2: 'Rent a Citroën C4 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we keep car rental in Agadir simple, fast and pleasant. Our cars are reliable, clean and well maintained.',
+            'At AmseelCars we keep car rental in Agadir simple, fast and pleasant. Our cars are reliable, clean and well maintained.',
             'The C4 is among the favourites in our fleet for its high comfort and enjoyable drive.',
             'Subject to availability you can book quickly and collect a car ready to go, with responsive professional service for Agadir and the surrounding area.',
           ],
@@ -629,7 +629,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Summary',
           paragraphs: [
             'The Citroën C4 is a modern, comfortable, versatile car, very well suited to car rental in Agadir.',
-            'On-board comfort, smooth driving, connectivity and distinctive style make it an excellent way to explore the city with confidence. Contact Amseel Cars to book your Citroën C4 in Agadir and enjoy your stay.',
+            'On-board comfort, smooth driving, connectivity and distinctive style make it an excellent way to explore the city with confidence. Contact AmseelCars to book your Citroën C4 in Agadir and enjoy your stay.',
           ],
         },
       ],
@@ -647,12 +647,12 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Is the Citroën C4 a good car?',
           answer:
-            'Yes. It is known for comfort, smooth driving and original design — a dependable, pleasant car and popular for rental.',
+            'Yes. It is known for comfort, smooth driving and original design, a dependable, pleasant car and popular for rental.',
         },
         {
           question: 'Is it a good idea to rent a car in Morocco?',
           answer:
-            'Yes. Renting a car is widely recommended to make the most of your trip — more freedom to visit cities, beaches and the surrounding area at your own pace.',
+            'Yes. Renting a car is widely recommended to make the most of your trip, more freedom to visit cities, beaches and the surrounding area at your own pace.',
         },
       ],
     },
@@ -663,16 +663,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'A comfortable, versatile compact SUV, the new Citroën C3 Aircross offers smooth driving, low WLTP fuel use and modern connectivity (10.25" display with Apple CarPlay / Android Auto on selected trims). Ideal for the city and longer trips.',
 
     richContent: {
-      h1Title: 'C3 Aircross rental in Agadir – Comfortable compact SUV | Amseel Cars',
-      seoTitle: 'C3 Aircross car rental in Agadir | Amseel Cars',
+      h1Title: 'C3 Aircross rental Agadir | Comfortable compact SUV | AmseelCars',
+      seoTitle: 'C3 Aircross car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Citroën C3 Aircross in Agadir with Amseel Cars: spacious compact SUV, comfort, air conditioning and Apple CarPlay / Android Auto. Book quickly.',
+        'Rent a Citroën C3 Aircross in Agadir with AmseelCars: spacious compact SUV, comfort, air conditioning and Apple CarPlay / Android Auto. Book quickly.',
       sections: [
         {
-          h2: 'C3 Aircross rental in Agadir — overview',
+          h2: 'C3 Aircross rental in Agadir, overview',
           paragraphs: [
             'The C3 Aircross is a compact SUV for drivers who want comfort, practicality and versatility. Raised driving position, interior space and an easy drive suit urban trips and longer journeys.',
-            'At Amseel Cars we offer the C3 Aircross for car rental in Agadir — a strong option for tourists, families and professionals who want a reliable, comfortable car for their stay.',
+            'At AmseelCars we offer the C3 Aircross for car rental in Agadir, a strong option for tourists, families and professionals who want a reliable, comfortable car for their stay.',
           ],
         },
         {
@@ -688,14 +688,14 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'Comfort is a highlight. The cabin is designed to feel pleasant for driver and passengers alike.',
             'The raised seat improves visibility and confidence, especially if Agadir is new to you. Seats are comfortable and there is enough space for several people.',
-            'The boot works well for luggage, shopping or beach gear — a real asset for families and day trips.',
+            'The boot works well for luggage, shopping or beach gear, a real asset for families and day trips.',
           ],
         },
         {
           h2: 'Smooth, easy everyday driving',
           paragraphs: [
             'The C3 Aircross is known for supple, reassuring driving. In town it is agile, easy to learn and pleasant in traffic.',
-            'On the road it stays stable and comfortable — well suited to longer runs and coastal outings.',
+            'On the road it stays stable and comfortable, well suited to longer runs and coastal outings.',
             'Depending on version, an automatic gearbox adds convenience in urban driving. Performance is enough for relaxed, stress-free progress.',
           ],
         },
@@ -703,7 +703,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Technology and connectivity',
           paragraphs: [
             'Useful modern equipment for rentals. Depending on trim you get Apple CarPlay and Android Auto.',
-            'Connect your phone for Waze, Google Maps, music and calls — a big help for exploring Agadir and the area.',
+            'Connect your phone for Waze, Google Maps, music and calls, a big help for exploring Agadir and the area.',
             'Air conditioning matters in the region and keeps the cabin comfortable. Driver aids (where fitted) add safety and peace of mind.',
           ],
         },
@@ -724,9 +724,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a C3 Aircross in Agadir with Amseel Cars',
+          h2: 'Rent a C3 Aircross in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we aim to make car rental in Agadir simple, transparent and pleasant.',
+            'At AmseelCars we aim to make car rental in Agadir simple, transparent and pleasant.',
             'We offer reliable, clean cars ready to go, backed by responsive customer service.',
             'The C3 Aircross is among our most popular models. Subject to availability you can book quickly and enjoy a car well suited to Agadir and the region.',
           ],
@@ -734,8 +734,8 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Summary',
           paragraphs: [
-            'The C3 Aircross is a modern, comfortable, versatile compact SUV — ideal for car rental in Agadir.',
-            'Interior space, pleasant driving, connectivity and comfort make it a great way to see the city and explore the area. Contact Amseel Cars to book your C3 Aircross in Agadir.',
+            'The C3 Aircross is a modern, comfortable, versatile compact SUV, ideal for car rental in Agadir.',
+            'Interior space, pleasant driving, connectivity and comfort make it a great way to see the city and explore the area. Contact AmseelCars to book your C3 Aircross in Agadir.',
           ],
         },
       ],
@@ -743,7 +743,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a Citroën C3 Aircross?',
           answer:
-            'Rental price depends on duration, season and availability. Contact Amseel Cars for an exact quote.',
+            'Rental price depends on duration, season and availability. Contact AmseelCars for an exact quote.',
         },
         {
           question: 'How much does a new Citroën C3 Aircross cost in Morocco?',
@@ -769,23 +769,23 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Comfortable, versatile compact SUV: the grey Citroën C3 Aircross 136 e-DSC6 delivers smooth driving, low WLTP fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
 
     richContent: {
-      h1Title: 'Grey C3 Aircross rental in Agadir – Comfortable compact SUV | Amseel Cars',
-      seoTitle: 'Grey Citroën C3 Aircross car rental in Agadir | Amseel Cars',
+      h1Title: 'Grey C3 Aircross rental Agadir | Comfortable compact SUV | AmseelCars',
+      seoTitle: 'Grey Citroën C3 Aircross car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a grey Citroën C3 Aircross in Agadir with Amseel Cars: spacious compact SUV, automatic, air conditioning and Apple CarPlay / Android Auto.',
+        'Rent a grey Citroën C3 Aircross in Agadir with AmseelCars: spacious compact SUV, automatic, air conditioning and Apple CarPlay / Android Auto.',
       sections: [
         {
-          h2: 'Grey C3 Aircross rental in Agadir — overview',
+          h2: 'Grey C3 Aircross rental in Agadir, overview',
           paragraphs: [
             'The grey C3 Aircross is a modern compact SUV for drivers who want comfort, versatility and an easy drive during a stay in Agadir.',
-            'The elegant, understated grey finish looks premium while staying practical every day. At Amseel Cars we offer the grey C3 Aircross for car rental in Agadir for holidays, business or extended stays.',
+            'The elegant, understated grey finish looks premium while staying practical every day. At AmseelCars we offer the grey C3 Aircross for car rental in Agadir for holidays, business or extended stays.',
           ],
         },
         {
           h2: 'Modern design and refined colour',
           paragraphs: [
             'The grey C3 Aircross stands out with confident styling and a compact SUV silhouette that feels reassuring on the road.',
-            'Grey is a timeless, versatile choice — popular on rentals because it suits most tastes and looks well kept and modern.',
+            'Grey is a timeless, versatile choice, popular on rentals because it suits most tastes and looks well kept and modern.',
             'The footprint stays practical: compact enough to park easily, with a stronger presence than a classic city car.',
           ],
         },
@@ -802,7 +802,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The grey C3 Aircross is appreciated for fluid, reassuring driving. In town it is agile, easy to learn and pleasant in traffic.',
             'The raised seat improves visibility and confidence, especially for visitors discovering Agadir.',
-            'On the road it stays stable and comfortable — ideal for Taghazout, Tamraght, Aourir or longer excursions.',
+            'On the road it stays stable and comfortable, ideal for Taghazout, Tamraght, Aourir or longer excursions.',
           ],
         },
         {
@@ -816,7 +816,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Why choose the grey C3 Aircross for car rental in Agadir?',
           paragraphs: [
-            'The grey C3 Aircross combines comfort, space and versatility — a strong option for car rental in Agadir.',
+            'The grey C3 Aircross combines comfort, space and versatility, a strong option for car rental in Agadir.',
             'The compact SUV format suits the city and longer outings. Grey adds a smart, premium look for clients who want something modern and understated.',
           ],
         },
@@ -829,9 +829,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a grey C3 Aircross in Agadir with Amseel Cars',
+          h2: 'Rent a grey C3 Aircross in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we keep car rental in Agadir simple, fast and professional.',
+            'At AmseelCars we keep car rental in Agadir simple, fast and professional.',
             'Our cars are chosen for reliability, cleanliness and comfort.',
             'The grey C3 Aircross is among our most requested models. Subject to availability you can book quickly and collect a car ready to enjoy Agadir and the area.',
           ],
@@ -839,8 +839,8 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Summary',
           paragraphs: [
-            'The grey C3 Aircross is a modern, comfortable, versatile compact SUV — ideal for car rental in Agadir.',
-            'Space, pleasant driving, connectivity and elegant styling make it a great choice for city trips and excursions. Contact Amseel Cars to book your grey C3 Aircross in Agadir.',
+            'The grey C3 Aircross is a modern, comfortable, versatile compact SUV, ideal for car rental in Agadir.',
+            'Space, pleasant driving, connectivity and elegant styling make it a great choice for city trips and excursions. Contact AmseelCars to book your grey C3 Aircross in Agadir.',
           ],
         },
       ],
@@ -853,7 +853,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Is the C3 Aircross engine reliable?',
           answer:
-            'Yes. C3 Aircross engines are generally seen as dependable, with a good balance of performance and fuel economy — a sound rental choice.',
+            'Yes. C3 Aircross engines are generally seen as dependable, with a good balance of performance and fuel economy, a sound rental choice.',
         },
         {
           question: 'Which C3 Aircross version is best?',
@@ -874,16 +874,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Versatile, economical city car: the Citroën C3 BlueHDi 100 (6-speed manual) offers low fuel use, essential driver assists and good connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer runs.',
 
     richContent: {
-      h1Title: 'Citroën C3 rental in Agadir – Economical & practical | Amseel Cars',
-      seoTitle: 'Citroën C3 car rental in Agadir | Amseel Cars',
+      h1Title: 'Citroën C3 rental Agadir | Economical & practical | AmseelCars',
+      seoTitle: 'Citroën C3 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Citroën C3 in Agadir with Amseel Cars: economical car, comfortable, air conditioning and Apple CarPlay / Android Auto. Quick booking.',
+        'Rent a Citroën C3 in Agadir with AmseelCars: economical car, comfortable, air conditioning and Apple CarPlay / Android Auto. Quick booking.',
       sections: [
         {
-          h2: 'Citroën C3 rental in Agadir — overview',
+          h2: 'Citroën C3 rental in Agadir, overview',
           paragraphs: [
             'The Citroën C3 suits anyone who wants a practical, economical, easy-to-drive car for everyday use. Known for comfort and simplicity, it is a popular rental choice.',
-            'At Amseel Cars we offer the Citroën C3 for car rental in Agadir — ideal for tourists and professionals who want a dependable car that is easy to pick up and suited to the city and nearby roads.',
+            'At AmseelCars we offer the Citroën C3 for car rental in Agadir, ideal for tourists and professionals who want a dependable car that is easy to pick up and suited to the city and nearby roads.',
           ],
         },
         {
@@ -905,7 +905,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Engine and low running costs',
           paragraphs: [
-            'The C3 is often chosen for controlled fuel consumption — economical for car rental in Agadir if you make several trips per day.',
+            'The C3 is often chosen for controlled fuel consumption, economical for car rental in Agadir if you make several trips per day.',
             'The engine delivers smooth, easy progress with enough response for town and highway.',
             'A strong pick if you want something simple, reliable and cost-effective without giving up comfort.',
           ],
@@ -914,7 +914,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Technology and connectivity',
           paragraphs: [
             'Depending on equipment, Apple CarPlay and Android Auto let you connect your phone quickly.',
-            'Use Google Maps, Waze, music and calls — a big help for getting around Agadir.',
+            'Use Google Maps, Waze, music and calls, a big help for getting around Agadir.',
             'Air conditioning matters in the region and keeps the cabin pleasant on hot days. Certain driver aids (where fitted) add safety and peace of mind.',
           ],
         },
@@ -935,9 +935,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Citroën C3 in Agadir with Amseel Cars',
+          h2: 'Rent a Citroën C3 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we offer clear, professional car rental in Agadir.',
+            'At AmseelCars we offer clear, professional car rental in Agadir.',
             'Our cars are selected and maintained for reliability so your experience stays positive.',
             'The Citroën C3 is among our most requested models. Subject to availability you can book quickly and collect a car ready for your stay in Agadir.',
           ],
@@ -945,8 +945,8 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Summary',
           paragraphs: [
-            'The Citroën C3 is practical, comfortable and economical — ideal for car rental in Agadir.',
-            'Easy driving, low fuel use and useful connectivity make it a relaxed choice. Contact Amseel Cars to book your Citroën C3 in Agadir.',
+            'The Citroën C3 is practical, comfortable and economical, ideal for car rental in Agadir.',
+            'Easy driving, low fuel use and useful connectivity make it a relaxed choice. Contact AmseelCars to book your Citroën C3 in Agadir.',
           ],
         },
       ],
@@ -969,7 +969,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much is an automatic Citroën C3?',
           answer:
-            'New automatic prices depend on trim and market. This fleet C3 is a manual diesel; contact Amseel Cars if you need an automatic — we can suggest available alternatives.',
+            'New automatic prices depend on trim and market. This fleet C3 is a manual diesel; contact AmseelCars if you need an automatic, we can suggest available alternatives.',
         },
       ],
     },
@@ -980,16 +980,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Agile, economical city car: the Hyundai i10 1.0 MPi 63 hp with 5-speed automated manual (AMT) is ideal for town. Low WLTP fuel use, essential driver assists and an 8-inch screen with Apple CarPlay / Android Auto.',
 
     richContent: {
-      h1Title: 'Hyundai i10 rental in Agadir – Automatic 2024 | Amseel Cars',
-      seoTitle: 'Hyundai i10 car rental in Agadir | Amseel Cars',
+      h1Title: 'Hyundai i10 rental Agadir | Automatic 2024 | AmseelCars',
+      seoTitle: 'Hyundai i10 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Hyundai i10 in Agadir with Amseel Cars: 2024 petrol city car with automated gearbox, economical, CarPlay / Android Auto. Book easily.',
+        'Rent a Hyundai i10 in Agadir with AmseelCars: 2024 petrol city car with automated gearbox, economical, CarPlay / Android Auto. Book easily.',
       sections: [
         {
-          h2: 'Hyundai i10 rental in Agadir — overview',
+          h2: 'Hyundai i10 rental in Agadir, overview',
           paragraphs: [
             'The Hyundai i10 is a top pick if you want a simple, economical, easy car in Agadir. Compact, agile and reassuring, it suits urban trips and short daily journeys.',
-            'At Amseel Cars we offer the 2024 Hyundai i10 in petrol form with an automated manual-style gearbox — smooth, relaxed driving, especially in city traffic.',
+            'At AmseelCars we offer the 2024 Hyundai i10 in petrol form with an automated manual-style gearbox, smooth, relaxed driving, especially in city traffic.',
           ],
         },
         {
@@ -1009,22 +1009,22 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Economical 1.0L petrol engine',
           paragraphs: [
-            'The i10 uses a 1.0L MPI three-cylinder petrol engine with around 63 hp — tuned for efficiency and simplicity, ideal for urban and everyday use.',
+            'The i10 uses a 1.0L MPI three-cylinder petrol engine with around 63 hp, tuned for efficiency and simplicity, ideal for urban and everyday use.',
             'Progress is smooth and adequate for city boulevards while keeping fuel costs under control.',
           ],
         },
         {
           h2: 'Controlled consumption for your budget',
           paragraphs: [
-            'Combined WLTP consumption is typically around 5.2–5.9 l/100 km, among the more economical city cars to rent.',
+            'Combined WLTP consumption is typically around 5.2-5.9 l/100 km, among the more economical city cars to rent.',
             'Fewer fuel stops, a predictable fuel budget and a smart option for multi-day stays or frequent trips in Agadir.',
           ],
         },
         {
           h2: 'Cabin comfort and daily usability',
           paragraphs: [
-            'Despite its city size, the i10 works in real life with four comfortable seats — fine for a couple with luggage, friends or a small family.',
-            'The cabin is simple, functional and pleasant. Natural driving position, intuitive controls and fast familiarity — a real rental advantage.',
+            'Despite its city size, the i10 works in real life with four comfortable seats, fine for a couple with luggage, friends or a small family.',
+            'The cabin is simple, functional and pleasant. Natural driving position, intuitive controls and fast familiarity, a real rental advantage.',
           ],
         },
         {
@@ -1057,17 +1057,17 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Hyundai i10 in Agadir with Amseel Cars',
+          h2: 'Rent a Hyundai i10 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we keep Agadir car rental simple, fast and transparent. Cars are clean, recent and ready to go.',
-            'The 2024 Hyundai i10 fits anyone who wants an economical, connected automated city car. Availability varies by date — booking ahead is recommended.',
+            'At AmseelCars we keep Agadir car rental simple, fast and transparent. Cars are clean, recent and ready to go.',
+            'The 2024 Hyundai i10 fits anyone who wants an economical, connected automated city car. Availability varies by date, booking ahead is recommended.',
           ],
         },
         {
           h2: 'Summary',
           paragraphs: [
             'The Hyundai i10 fits Agadir well: compact, economical, pleasant to drive, with automated shifting and modern features.',
-            'For car rental in Agadir it ticks the boxes for simplicity, comfort and controlled costs. Contact Amseel Cars to book your Hyundai i10 and enjoy a relaxed stay.',
+            'For car rental in Agadir it ticks the boxes for simplicity, comfort and controlled costs. Contact AmseelCars to book your Hyundai i10 and enjoy a relaxed stay.',
           ],
         },
       ],
@@ -1101,30 +1101,30 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Nimble and economical, the Kia Picanto 1.0 MPi with a 5-speed automated manual (AMT) offers low fuel use, key driver aids (emergency braking, lane-keeping assist) and modern connectivity via an 8-inch screen with Apple CarPlay / Android Auto (trim dependent).',
 
     richContent: {
-      h1Title: 'Kia Picanto rental in Agadir – Automatic petrol city car 2025 | Amseel Cars',
-      seoTitle: 'Kia Picanto car rental in Agadir | Amseel Cars',
+      h1Title: 'Kia Picanto rental Agadir | Automatic petrol city car 2025 | AmseelCars',
+      seoTitle: 'Kia Picanto car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Kia Picanto in Agadir with Amseel Cars: 2025 automatic petrol city car, 5 seats, CarPlay/Android Auto, economical. Book quickly.',
+        'Rent a Kia Picanto in Agadir with AmseelCars: 2025 automatic petrol city car, 5 seats, CarPlay/Android Auto, economical. Book quickly.',
       sections: [
         {
           h2: 'Introducing the Kia Picanto for rent in Agadir',
           paragraphs: [
-            'The Kia Picanto is a modern, practical city car that is easy and pleasant to drive — ideal for car rental in Agadir. Compact, economical and simple to get used to, it suits travellers who want to get around town and nearby areas without fuss.',
-            'At Amseel Cars we offer the 2025 Kia Picanto in petrol form with an automatic gearbox — a great match for relaxed driving, especially in Agadir’s urban traffic.',
+            'The Kia Picanto is a modern, practical city car that is easy and pleasant to drive, ideal for car rental in Agadir. Compact, economical and simple to get used to, it suits travellers who want to get around town and nearby areas without fuss.',
+            'At AmseelCars we offer the 2025 Kia Picanto in petrol form with an automatic gearbox, a great match for relaxed driving, especially in Agadir’s urban traffic.',
           ],
         },
         {
           h2: 'A city-friendly car: compact and easy to park',
           paragraphs: [
             'Thanks to its compact footprint, the Kia Picanto fits Agadir driving well. It slips through traffic, parks easily and makes simple manoeuvres even in busy areas.',
-            'For car rental in Agadir that means less stress, smoother trips and time saved day to day — whether you are running errands, heading to the beach or visiting the city centre.',
+            'For car rental in Agadir that means less stress, smoother trips and time saved day to day, whether you are running errands, heading to the beach or visiting the city centre.',
           ],
         },
         {
           h2: 'Automatic gearbox: everyday comfort',
           paragraphs: [
             'The Picanto’s automatic transmission makes driving more comfortable, especially in town where stop-start is constant.',
-            'On a rental in Agadir that is a real plus: smoother progress, less fatigue and a quick learning curve — handy after a long flight or when several drivers share the car.',
+            'On a rental in Agadir that is a real plus: smoother progress, less fatigue and a quick learning curve, handy after a long flight or when several drivers share the car.',
           ],
         },
         {
@@ -1158,7 +1158,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Apple CarPlay and Android Auto',
           paragraphs: [
-            'The 2025 Picanto offers Apple CarPlay and Android Auto (trim dependent) — a big help for visitors.',
+            'The 2025 Picanto offers Apple CarPlay and Android Auto (trim dependent), a big help for visitors.',
             'Navigation with Google Maps or Waze, music and hands-free calls make getting around Agadir and nearby spots like Taghazout or Tamraght easier.',
           ],
         },
@@ -1166,7 +1166,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Safety and useful driver aids',
           paragraphs: [
             'The Picanto includes key safety kit such as automatic emergency braking and lane-keeping assist (depending on version).',
-            'Those aids add confidence at the wheel — especially on a rental if you are not used to local roads.',
+            'Those aids add confidence at the wheel, especially on a rental if you are not used to local roads.',
           ],
         },
         {
@@ -1174,7 +1174,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The Picanto is a strong pick for Agadir thanks to its small size, automatic gearbox and low consumption.',
             'It is ideal for the city, daily errands and stays where simplicity and budget matter.',
-            'It is a modern, dependable, low-stress city car — perfect for enjoying Agadir at your own pace.',
+            'It is a modern, dependable, low-stress city car, perfect for enjoying Agadir at your own pace.',
           ],
         },
         {
@@ -1185,17 +1185,17 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Kia Picanto in Agadir with Amseel Cars',
+          h2: 'Rent a Kia Picanto in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we offer straightforward Agadir car rental with cars ready to go and responsive customer service.',
-            'The 2025 Picanto is an excellent automatic city car for Agadir. Availability depends on dates — booking ahead is recommended.',
+            'At AmseelCars we offer straightforward Agadir car rental with cars ready to go and responsive customer service.',
+            'The 2025 Picanto is an excellent automatic city car for Agadir. Availability depends on dates, booking ahead is recommended.',
           ],
         },
         {
           h2: 'Conclusion',
           paragraphs: [
             'The Kia Picanto fits Agadir well: compact, automatic, economical, connected and reassuring.',
-            'For car rental in Agadir it is a smart choice if you want simplicity, comfort and controlled costs. Contact Amseel Cars to book your Picanto and make the most of your stay.',
+            'For car rental in Agadir it is a smart choice if you want simplicity, comfort and controlled costs. Contact AmseelCars to book your Picanto and make the most of your stay.',
           ],
         },
       ],
@@ -1224,16 +1224,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Versatile and comfortable, the Dacia Sandero Stepway TCe 90 X-Tronic (CVT) delivers smooth driving, sensible fuel use and modern connectivity (Apple CarPlay / Android Auto, trim dependent). Ideal in town and for longer runs around Agadir.',
 
     richContent: {
-      h1Title: 'Stepway rental in Agadir – Automatic CVT petrol crossover 2025 | Amseel Cars',
-      seoTitle: 'Dacia Stepway car rental in Agadir | Amseel Cars',
+      h1Title: 'Stepway rental Agadir | Automatic CVT petrol crossover 2025 | AmseelCars',
+      seoTitle: 'Dacia Stepway car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Stepway in Agadir with Amseel Cars: 5-seat crossover, CVT X-Tronic automatic, turbo petrol, CarPlay/Android Auto. Book quickly.',
+        'Rent a Stepway in Agadir with AmseelCars: 5-seat crossover, CVT X-Tronic automatic, turbo petrol, CarPlay/Android Auto. Book quickly.',
       sections: [
         {
           h2: 'Introducing the Stepway for rent in Agadir',
           paragraphs: [
             'The Stepway is a strong choice if you want the practicality of a city car with the versatility of a small SUV. Comfortable, reassuring and roomy enough for luggage, it fits Agadir car rental very well.',
-            'At Amseel Cars we offer the 2025 Stepway in petrol form with CVT X-Tronic automatic — ideal for smooth, low-fatigue driving in town and in heavier traffic.',
+            'At AmseelCars we offer the 2025 Stepway in petrol form with CVT X-Tronic automatic, ideal for smooth, low-fatigue driving in town and in heavier traffic.',
           ],
         },
         {
@@ -1241,13 +1241,13 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The Stepway stands out with crossover styling: a slightly raised silhouette, tougher look and more presence on the road.',
             'For car rental in Agadir that format is a real advantage: the car stays compact and easy to manoeuvre while feeling larger and more secure.',
-            'The higher driving position improves visibility and comfort — especially for visitors discovering Agadir and its roads.',
+            'The higher driving position improves visibility and comfort, especially for visitors discovering Agadir and its roads.',
           ],
         },
         {
           h2: 'Interior comfort and space for travel',
           paragraphs: [
-            'Comfort is a Stepway strength. It is built to feel pleasant day to day for driver and passengers — important on an Agadir rental when you often spend a lot of time on the road.',
+            'Comfort is a Stepway strength. It is built to feel pleasant day to day for driver and passengers, important on an Agadir rental when you often spend a lot of time on the road.',
             'With five seats it suits a small family, a group of friends or a couple with luggage. Cabin space and the driving position make longer days easier.',
             'It does not feel "small" yet remains easy to drive and practical in the city.',
           ],
@@ -1256,22 +1256,22 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'CVT X-Tronic automatic: smooth, stress-free driving',
           paragraphs: [
             'The CVT X-Tronic automatic is a major plus: no clutch, no gear changes to think about and more relaxed progress in queues, roundabouts and urban traffic.',
-            'CVTs are known for smoothness, making acceleration feel linear and the drive calmer — great if you prefer an easy, restful style.',
+            'CVTs are known for smoothness, making acceleration feel linear and the drive calmer, great if you prefer an easy, restful style.',
             'It is also ideal when several people drive: the car is quick to get used to with a clear comfort gain every day.',
           ],
         },
         {
           h2: '1.0 TCe petrol: balance of performance and efficiency',
           paragraphs: [
-            'The Stepway uses a 1.0L TCe turbo petrol (3 cylinders) rated around 91 hp — a good compromise for Agadir rental: lively enough for town and roads nearby without heavy fuel use.',
+            'The Stepway uses a 1.0L TCe turbo petrol (3 cylinders) rated around 91 hp, a good compromise for Agadir rental: lively enough for town and roads nearby without heavy fuel use.',
             'Progress feels smooth and secure with adequate response for merging or overtaking when needed.',
-            'With a quoted top speed around 163 km/h and 0–100 km/h in about 14.2 seconds, the Stepway is clearly aimed at comfort, versatility and normal motorway-style driving.',
+            'With a quoted top speed around 163 km/h and 0-100 km/h in about 14.2 seconds, the Stepway is clearly aimed at comfort, versatility and normal motorway-style driving.',
           ],
         },
         {
           h2: 'Sensible consumption for multi-day stays',
           paragraphs: [
-            'Combined WLTP consumption is typically around 5.8–6.2 L/100 km — reasonable for an automatic crossover, especially with smooth driving and a mix of town and open road.',
+            'Combined WLTP consumption is typically around 5.8-6.2 L/100 km, reasonable for an automatic crossover, especially with smooth driving and a mix of town and open road.',
             'On an Agadir rental that matters: you keep a comfortable car without blowing the fuel budget, even on busy days with several outings.',
           ],
         },
@@ -1286,7 +1286,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Connectivity and everyday equipment',
           paragraphs: [
             'The Stepway offers modern connectivity with Apple CarPlay and Android Auto (trim dependent), which makes travel easier.',
-            'Use Google Maps or Waze, stream music and take calls hands-free — simpler and safer trips.',
+            'Use Google Maps or Waze, stream music and take calls hands-free, simpler and safer trips.',
             'That is especially handy for day trips to Taghazout, Tamraght, Paradise Valley and other spots near Agadir.',
           ],
         },
@@ -1303,7 +1303,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The Stepway shines for versatility: comfortable in town and pleasant on the open road, with a higher seat and good visibility.',
             'The CVT X-Tronic automatic keeps progress smooth and stress-free while fuel use stays reasonable for a crossover.',
-            'With five seats, connectivity and useful kit it ticks many boxes for a stay in Agadir — holiday, business or longer hire.',
+            'With five seats, connectivity and useful kit it ticks many boxes for a stay in Agadir, holiday, business or longer hire.',
           ],
         },
         {
@@ -1315,18 +1315,18 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Stepway in Agadir with Amseel Cars',
+          h2: 'Rent a Stepway in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we provide recent, well-maintained cars for a simple, fast and transparent rental experience.',
-            'Stepway availability depends on dates — if your dates are fixed, book early especially in peak season.',
+            'At AmseelCars we provide recent, well-maintained cars for a simple, fast and transparent rental experience.',
+            'Stepway availability depends on dates, if your dates are fixed, book early especially in peak season.',
             'Our team can help you pick the best car for your plans, whether for a few days or several weeks.',
           ],
         },
         {
           h2: 'Conclusion',
           paragraphs: [
-            'The Stepway is a modern, comfortable, versatile crossover — perfect for Agadir and the surrounding area.',
-            'With CVT X-Tronic automatic, turbo petrol engine, five seats and Apple CarPlay / Android Auto (trim dependent), it matches what most people want from car rental in Agadir. Contact Amseel Cars to book your Stepway and enjoy simple, comfortable driving.',
+            'The Stepway is a modern, comfortable, versatile crossover, perfect for Agadir and the surrounding area.',
+            'With CVT X-Tronic automatic, turbo petrol engine, five seats and Apple CarPlay / Android Auto (trim dependent), it matches what most people want from car rental in Agadir. Contact AmseelCars to book your Stepway and enjoy simple, comfortable driving.',
           ],
         },
       ],
@@ -1334,7 +1334,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a Dacia Stepway?',
           answer:
-            'Stepway rental rates depend on length of hire, season and availability. For an exact price in Agadir, contact Amseel Cars for a quote tailored to your dates.',
+            'Stepway rental rates depend on length of hire, season and availability. For an exact price in Agadir, contact AmseelCars for a quote tailored to your dates.',
         },
         {
           question: 'What are the downsides of the Dacia Sandero Stepway?',
@@ -1344,12 +1344,12 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Is renting a car worth it?',
           answer:
-            'Yes — renting can be very worthwhile if you want freedom and flexibility, especially to explore Agadir and nearby areas. Total cost depends on how much you drive, how long you stay and your itinerary.',
+            'Yes, renting can be very worthwhile if you want freedom and flexibility, especially to explore Agadir and nearby areas. Total cost depends on how much you drive, how long you stay and your itinerary.',
         },
         {
           question: 'How much does two months of car rental cost?',
           answer:
-            'Two-month rental cost depends on model, mileage allowance, season and agency terms. Longer hires are often discounted. Contact Amseel Cars for a tailored long-term offer.',
+            'Two-month rental cost depends on model, mileage allowance, season and agency terms. Longer hires are often discounted. Contact AmseelCars for a tailored long-term offer.',
         },
       ],
     },
@@ -1360,16 +1360,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Versatile and comfortable, the Dacia Sandero Stepway TCe 90 X-Tronic offers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto, trim dependent). Great in town and for longer trips around Agadir.',
 
     richContent: {
-      h1Title: 'Dacia Sandero Stepway rental in Agadir – Automatic petrol crossover 2025 | Amseel Cars',
-      seoTitle: 'Dacia Sandero Stepway car rental in Agadir | Amseel Cars',
+      h1Title: 'Dacia Sandero Stepway rental Agadir | Automatic petrol crossover 2025 | AmseelCars',
+      seoTitle: 'Dacia Sandero Stepway car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Dacia Sandero Stepway in Agadir: 5-seat crossover, automatic, turbo petrol, CarPlay/Android Auto — comfortable and practical.',
+        'Rent a Dacia Sandero Stepway in Agadir: 5-seat crossover, automatic, turbo petrol, CarPlay/Android Auto, comfortable and practical.',
       sections: [
         {
           h2: 'Introducing the Dacia Sandero Stepway for rent in Agadir',
           paragraphs: [
             'The Sandero Stepway is one of the best Agadir rental options if you want a versatile, comfortable and reassuring car. It blends compact practicality with a crossover feel: higher driving position, better visibility and overall comfort.',
-            'At Amseel Cars we offer the 2025 Sandero Stepway in petrol form with automatic gearbox — ideal for smooth, low-stress driving in town and on the open road.',
+            'At AmseelCars we offer the 2025 Sandero Stepway in petrol form with automatic gearbox, ideal for smooth, low-stress driving in town and on the open road.',
           ],
         },
         {
@@ -1393,13 +1393,13 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The automatic transmission is a major asset. It simplifies driving in town and in traffic.',
             'For car rental in Agadir that means less stress, less fatigue and a nicer experience, especially if you drive every day.',
-            'It is quick and intuitive to get used to — ideal for occasional drivers or those still learning local roads.',
+            'It is quick and intuitive to get used to, ideal for occasional drivers or those still learning local roads.',
           ],
         },
         {
           h2: 'TCe turbo petrol engine',
           paragraphs: [
-            'The Sandero Stepway uses a 1.0L TCe turbo petrol engine with around 91 hp — a good balance of performance and economy.',
+            'The Sandero Stepway uses a 1.0L TCe turbo petrol engine with around 91 hp, a good balance of performance and economy.',
             'It suits Agadir rental well: smooth starts, adequate response and comfortable everyday driving.',
             'You can drive calmly in town and on the open road without chasing sportiness, but with enough flexibility for mixed use.',
           ],
@@ -1407,7 +1407,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Controlled consumption for longer stays',
           paragraphs: [
-            'Combined WLTP consumption is typically around 5.8–6.2 L/100 km — reasonable for an automatic crossover.',
+            'Combined WLTP consumption is typically around 5.8-6.2 L/100 km, reasonable for an automatic crossover.',
             'On an Agadir rental that helps keep fuel costs under control even if you drive daily.',
             'That matters for multi-day trips or longer hires.',
           ],
@@ -1451,10 +1451,10 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Sandero Stepway in Agadir with Amseel Cars',
+          h2: 'Rent a Sandero Stepway in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we provide recent, well-maintained cars for a simple, professional rental experience.',
-            'The 2025 Sandero Stepway is subject to date and stock — book ahead, especially in peak season.',
+            'At AmseelCars we provide recent, well-maintained cars for a simple, professional rental experience.',
+            'The 2025 Sandero Stepway is subject to date and stock, book ahead, especially in peak season.',
             'Our team can help you choose the best car for your stay in Agadir.',
           ],
         },
@@ -1462,7 +1462,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The Sandero Stepway is an ideal Agadir crossover: comfortable, versatile, economical and pleasant to drive.',
-            'With automatic gearbox, TCe turbo petrol engine, five seats and modern connectivity it matches what most people want from car rental in Agadir. Contact Amseel Cars to book your Sandero Stepway and enjoy your stay.',
+            'With automatic gearbox, TCe turbo petrol engine, five seats and modern connectivity it matches what most people want from car rental in Agadir. Contact AmseelCars to book your Sandero Stepway and enjoy your stay.',
           ],
         },
       ],
@@ -1485,7 +1485,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Is the Sandero Stepway a good car?',
           answer:
-            'Yes. The Sandero Stepway is known for strong value for money, comfort and versatility — a very good choice for rental or daily use.',
+            'Yes. The Sandero Stepway is known for strong value for money, comfort and versatility, a very good choice for rental or daily use.',
         },
       ],
     },
@@ -1496,23 +1496,23 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Premium, comfortable and powerful SUV: the Volkswagen Touareg V6 TDI 286 hp pairs 4MOTION all-wheel drive, 8-speed Tiptronic automatic and flagship tech (IQ.LIGHT HD Matrix, 15-inch Innovision Cockpit). Ideal for long drives and city use.',
 
     richContent: {
-      h1Title: 'Volkswagen Touareg rental in Agadir – Premium diesel automatic SUV 2025 | Amseel Cars',
-      seoTitle: 'Volkswagen Touareg car rental in Agadir | Amseel Cars',
+      h1Title: 'Volkswagen Touareg rental Agadir | Premium diesel automatic SUV 2025 | AmseelCars',
+      seoTitle: 'Volkswagen Touareg car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Volkswagen Touareg in Agadir with Amseel Cars: premium diesel SUV, automatic gearbox, 4MOTION, comfort and high-end technology.',
+        'Rent a Volkswagen Touareg in Agadir with AmseelCars: premium diesel SUV, automatic gearbox, 4MOTION, comfort and high-end technology.',
       sections: [
         {
-          h2: 'Volkswagen Touareg rental in Agadir — overview',
+          h2: 'Volkswagen Touareg rental in Agadir, overview',
           paragraphs: [
             'The Volkswagen Touareg is a benchmark premium SUV for high-end car rental in Agadir. It blends power, exceptional comfort and advanced technology for both urban and long-distance driving.',
-            'At Amseel Cars we offer the 2025 Touareg in diesel form with automatic gearbox and 4MOTION all-wheel drive — ideal for travelling around the Agadir region with poise and style.',
+            'At AmseelCars we offer the 2025 Touareg in diesel form with automatic gearbox and 4MOTION all-wheel drive, ideal for travelling around the Agadir region with poise and style.',
           ],
         },
         {
           h2: 'Elegant design and premium presence',
           paragraphs: [
             'The Touareg stands out with a design that is both elegant and imposing. Modern, refined lines give it real road presence.',
-            'For car rental in Agadir it is a car that immediately reflects well on the driver — for business, special occasions or an upscale holiday.',
+            'For car rental in Agadir it is a car that immediately reflects well on the driver, for business, special occasions or an upscale holiday.',
             'Its understated premium look suits urban driving as well as main roads and coastal routes around Agadir.',
           ],
         },
@@ -1535,15 +1535,15 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'V6 TDI: power with control',
           paragraphs: [
-            'Under the bonnet, the Touareg packs a 3.0 V6 TDI with 286 hp — impressive diesel performance with smooth, controlled delivery.',
-            'With 0–100 km/h in about 6.1 seconds and a top speed around 235 km/h, the Touareg ranks among the most capable SUVs in its class.',
+            'Under the bonnet, the Touareg packs a 3.0 V6 TDI with 286 hp, impressive diesel performance with smooth, controlled delivery.',
+            'With 0-100 km/h in about 6.1 seconds and a top speed around 235 km/h, the Touareg ranks among the most capable SUVs in its class.',
             'That power mainly translates into relaxed confidence, especially when overtaking or on faster roads around Agadir.',
           ],
         },
         {
           h2: 'Consumption and efficiency for a premium SUV',
           paragraphs: [
-            'Despite its performance, combined WLTP consumption is around 8.0 L/100 km — reasonable for a premium SUV of this size.',
+            'Despite its performance, combined WLTP consumption is around 8.0 L/100 km, reasonable for a premium SUV of this size.',
             'On an Agadir rental you can enjoy a high-end car without excessive fuel use, especially on longer road trips.',
             'It is a strong balance of power, comfort and efficiency.',
           ],
@@ -1552,7 +1552,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'On-board technology and equipment',
           paragraphs: [
             'The Touareg features cutting-edge tech including Innovision Cockpit with a large central display and a modern, intuitive interface.',
-            'Apple CarPlay and Android Auto make navigation, calls and apps easy — very useful for car rental in Agadir.',
+            'Apple CarPlay and Android Auto make navigation, calls and apps easy, very useful for car rental in Agadir.',
             'IQ.LIGHT HD Matrix headlights deliver excellent night visibility, improving safety and comfort after dark.',
           ],
         },
@@ -1580,9 +1580,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Touareg in Agadir with Amseel Cars',
+          h2: 'Rent a Touareg in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we provide recent, well-maintained, fully equipped cars for simple, transparent Agadir car rental.',
+            'At AmseelCars we provide recent, well-maintained, fully equipped cars for simple, transparent Agadir car rental.',
             'The 2025 Touareg is subject to date and availability. Strong demand means booking ahead is recommended.',
             'Our team is on hand to support you and deliver a premium rental experience.',
           ],
@@ -1590,8 +1590,8 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Conclusion',
           paragraphs: [
-            'The Volkswagen Touareg is a complete premium SUV — powerful, comfortable and ideal for upscale car rental in Agadir.',
-            'With its V6 TDI, automatic gearbox, 4MOTION and advanced technology it offers an outstanding drive. Contact Amseel Cars to book your Touareg in Agadir and enjoy a stay defined by luxury and calm.',
+            'The Volkswagen Touareg is a complete premium SUV, powerful, comfortable and ideal for upscale car rental in Agadir.',
+            'With its V6 TDI, automatic gearbox, 4MOTION and advanced technology it offers an outstanding drive. Contact AmseelCars to book your Touareg in Agadir and enjoy a stay defined by luxury and calm.',
           ],
         },
       ],
@@ -1625,23 +1625,23 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Economical, spacious saloon: the Dacia Logan 1.5 Blue dCi 95 hp (5-speed manual) combines simplicity, reliability and a generous 528 L boot. Modern kit by trim: 8-inch Media Display, essential driver aids, and Apple CarPlay / Android Auto.',
 
     richContent: {
-      h1Title: 'Dacia Logan rental in Agadir – Economical diesel saloon 2024 | Amseel Cars',
-      seoTitle: 'Dacia Logan car rental in Agadir | Amseel Cars',
+      h1Title: 'Dacia Logan rental Agadir | Economical diesel saloon 2024 | AmseelCars',
+      seoTitle: 'Dacia Logan car rental in Agadir | AmseelCars',
       seoMetaDescription:
         'Rent a Dacia Logan in Agadir: 5-seat diesel saloon, economical, practical and reliable for every trip. Book easily.',
       sections: [
         {
-          h2: 'Dacia Logan rental in Agadir — overview',
+          h2: 'Dacia Logan rental in Agadir, overview',
           paragraphs: [
             'The Dacia Logan is a popular choice when you want simple, reliable, economical car rental in Agadir. It is known for strong space-for-money, easy driving and versatility across almost any use.',
-            'At Amseel Cars we offer the 2024 Logan in diesel form with manual gearbox — ideal if you plan to drive a lot and want to keep fuel spend under control.',
+            'At AmseelCars we offer the 2024 Logan in diesel form with manual gearbox, ideal if you plan to drive a lot and want to keep fuel spend under control.',
           ],
         },
         {
           h2: 'A sober, modern, efficient saloon',
           paragraphs: [
             'The Logan takes a clear approach: a modern saloon without excess, built to be practical and efficient every day.',
-            'Its understated, current design suits many drivers — urban trips, business runs, transfers or sightseeing.',
+            'Its understated, current design suits many drivers, urban trips, business runs, transfers or sightseeing.',
             'For car rental in Agadir it balances city manoeuvrability with stable road manners and a quick learning curve.',
           ],
         },
@@ -1656,7 +1656,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Diesel engine: economical and suited to longer drives',
           paragraphs: [
-            'The Logan we offer is diesel — a real advantage if you plan high mileage.',
+            'The Logan we offer is diesel, a real advantage if you plan high mileage.',
             'For car rental in Agadir diesel is often chosen for motorway efficiency and comfortable range, handy for excursions and regular trips.',
             'It is a smart option if you want an enduring, economical, pleasant car over time.',
           ],
@@ -1673,7 +1673,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Driving comfort: stable, relaxing progress',
           paragraphs: [
             'The Logan focuses on useful comfort: not sporty, but stable, smooth and relaxing day to day.',
-            'It handles bumps reasonably well and behaves predictably — calmer driving, especially when you are new to the area.',
+            'It handles bumps reasonably well and behaves predictably, calmer driving, especially when you are new to the area.',
             'For car rental in Agadir that is exactly what many people want: a car that does not tire you out and keeps trips simple.',
           ],
         },
@@ -1694,9 +1694,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Dacia Logan in Agadir with Amseel Cars',
+          h2: 'Rent a Dacia Logan in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we keep Agadir car rental straightforward: clear booking, clean car, ready to go, responsive service.',
+            'At AmseelCars we keep Agadir car rental straightforward: clear booking, clean car, ready to go, responsive service.',
             'Logan availability depends on dates; book ahead in busy periods.',
             'Our team can help if you are choosing between models for your plans and driving style.',
           ],
@@ -1705,7 +1705,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The Dacia Logan is a practical, economical, reliable saloon for Agadir and the surrounding area.',
-            'With five seats, diesel engine and manual gearbox it is an excellent choice for budget-focused, efficient car rental without giving up comfort. Contact Amseel Cars to book your Dacia Logan in Agadir.',
+            'With five seats, diesel engine and manual gearbox it is an excellent choice for budget-focused, efficient car rental without giving up comfort. Contact AmseelCars to book your Dacia Logan in Agadir.',
           ],
         },
       ],
@@ -1713,7 +1713,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a Dacia Logan?',
           answer:
-            'Logan rental rates depend on city, season, duration and terms (mileage, deposit). For an exact Agadir quote, contact Amseel Cars with your dates.',
+            'Logan rental rates depend on city, season, duration and terms (mileage, deposit). For an exact Agadir quote, contact AmseelCars with your dates.',
         },
         {
           question: 'What is usually the cheapest rental car?',
@@ -1728,7 +1728,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much is two months of car rental?',
           answer:
-            'Two-month cost depends on model, mileage allowance, season and rental conditions. Long-term deals are usually better value. Contact Amseel Cars for a personalised quote.',
+            'Two-month cost depends on model, mileage allowance, season and rental conditions. Long-term deals are usually better value. Contact AmseelCars for a personalised quote.',
         },
       ],
     },
@@ -1739,16 +1739,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Modern family SUV: the Kia Sportage 1.6 CRDi 136 hp with 7-speed DCT automatic (2WD) offers comfort, useful tech (8-inch screen with Apple CarPlay/Android Auto, trim dependent) and sensible everyday running costs.',
 
     richContent: {
-      h1Title: 'Kia Sportage rental in Agadir – Diesel automatic SUV 2025 | Amseel Cars',
-      seoTitle: 'Kia Sportage car rental in Agadir | Amseel Cars',
+      h1Title: 'Kia Sportage rental Agadir | Diesel automatic SUV 2025 | AmseelCars',
+      seoTitle: 'Kia Sportage car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Kia Sportage in Agadir with Amseel Cars: 2025 diesel SUV, 7-speed DCT auto, 5 seats, CarPlay/Android Auto — economical and comfortable.',
+        'Rent a Kia Sportage in Agadir with AmseelCars: 2025 diesel SUV, 7-speed DCT auto, 5 seats, CarPlay/Android Auto, economical and comfortable.',
       sections: [
         {
-          h2: 'Kia Sportage rental in Agadir — overview',
+          h2: 'Kia Sportage rental in Agadir, overview',
           paragraphs: [
             'The Kia Sportage is a modern, comfortable, versatile SUV, well suited to car rental in Agadir. It balances space, technology, driving comfort and controlled consumption.',
-            'At Amseel Cars we offer the grey 2025 Sportage with 1.6 CRDi diesel, 7-speed DCT automatic and front-wheel drive — ideal for smooth, pleasant everyday driving.',
+            'At AmseelCars we offer the grey 2025 Sportage with 1.6 CRDi diesel, 7-speed DCT automatic and front-wheel drive, ideal for smooth, pleasant everyday driving.',
           ],
         },
         {
@@ -1778,9 +1778,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: '1.6 CRDi diesel: power and economy',
           paragraphs: [
-            'The 1.6 CRDi diesel produces 136 hp — a strong mix of performance and fuel economy.',
+            'The 1.6 CRDi diesel produces 136 hp, a strong mix of performance and fuel economy.',
             'For Agadir rental it suits drivers who cover plenty of miles and want an enduring, economical car.',
-            '0–100 km/h in about 11.4 seconds keeps progress comfortable and secure.',
+            '0-100 km/h in about 11.4 seconds keeps progress comfortable and secure.',
           ],
         },
         {
@@ -1832,9 +1832,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a Kia Sportage in Agadir with Amseel Cars',
+          h2: 'Rent a Kia Sportage in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we offer simple, professional Agadir car rental: recent cars, well maintained and ready to go.',
+            'At AmseelCars we offer simple, professional Agadir car rental: recent cars, well maintained and ready to go.',
             'The 2025 Sportage is subject to date and stock; book ahead in peak periods.',
             'Our team can help you pick the best vehicle for your trip.',
           ],
@@ -1843,7 +1843,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The Kia Sportage is a modern, comfortable, versatile SUV, ideal for car rental in Agadir.',
-            'With its 136 hp 1.6 CRDi diesel, 7-speed DCT automatic, controlled consumption and modern equipment it delivers a pleasant, reassuring drive. Contact Amseel Cars to book your Kia Sportage in Agadir.',
+            'With its 136 hp 1.6 CRDi diesel, 7-speed DCT automatic, controlled consumption and modern equipment it delivers a pleasant, reassuring drive. Contact AmseelCars to book your Kia Sportage in Agadir.',
           ],
         },
       ],
@@ -1851,7 +1851,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a Kia Sportage?',
           answer:
-            'Price depends on duration, season and included options. For an exact Agadir rate, contact Amseel Cars with your dates.',
+            'Price depends on duration, season and included options. For an exact Agadir rate, contact AmseelCars with your dates.',
         },
         {
           question: 'What are the downsides of the Kia Sportage?',
@@ -1877,16 +1877,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Modern family SUV: the green Kia Sportage 1.6 CRDi 136 hp with 7-speed DCT automatic offers comfort, useful tech (Apple CarPlay/Android Auto, trim dependent) and sensible everyday running costs.',
 
     richContent: {
-      h1Title: 'Green Kia Sportage rental in Agadir – Diesel automatic SUV 2025 | Amseel Cars',
-      seoTitle: 'Green Kia Sportage car rental in Agadir | Amseel Cars',
+      h1Title: 'Green Kia Sportage rental Agadir | Diesel automatic SUV 2025 | AmseelCars',
+      seoTitle: 'Green Kia Sportage car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a green Kia Sportage in Agadir with Amseel Cars: 2025 diesel SUV, automatic, 5 seats, CarPlay/Android Auto — comfortable and economical.',
+        'Rent a green Kia Sportage in Agadir with AmseelCars: 2025 diesel SUV, automatic, 5 seats, CarPlay/Android Auto, comfortable and economical.',
       sections: [
         {
-          h2: 'Green Kia Sportage rental in Agadir — overview',
+          h2: 'Green Kia Sportage rental in Agadir, overview',
           paragraphs: [
             'The green Kia Sportage is a modern, versatile SUV combining distinctive style, high comfort and a strong balance of performance and economy.',
-            'At Amseel Cars we offer the green 2025 Sportage in diesel form with automatic gearbox — ideal for Agadir and the region, in town and on the open road.',
+            'At AmseelCars we offer the green 2025 Sportage in diesel form with automatic gearbox, ideal for Agadir and the region, in town and on the open road.',
           ],
         },
         {
@@ -1894,7 +1894,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The green Sportage stands out with bold, contemporary design.',
             'An expressive front, dynamic lines and lighting signature give it real personality on the road.',
-            'Green paint adds character while staying elegant and premium — a modern, distinctive choice for car rental in Agadir.',
+            'Green paint adds character while staying elegant and premium, a modern, distinctive choice for car rental in Agadir.',
           ],
         },
         {
@@ -1969,9 +1969,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a green Kia Sportage in Agadir with Amseel Cars',
+          h2: 'Rent a green Kia Sportage in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we offer simple, fast, transparent Agadir car rental.',
+            'At AmseelCars we offer simple, fast, transparent Agadir car rental.',
             'The green 2025 Sportage is subject to date and availability.',
             'Our team helps you choose the right car and ensures a smooth experience.',
           ],
@@ -1980,7 +1980,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The green Kia Sportage is a modern, comfortable, versatile SUV, ideal for car rental in Agadir.',
-            'With diesel engine, automatic gearbox, spacious interior and modern connectivity it meets the expectations of discerning travellers. Contact Amseel Cars to book your green Kia Sportage in Agadir.',
+            'With diesel engine, automatic gearbox, spacious interior and modern connectivity it meets the expectations of discerning travellers. Contact AmseelCars to book your green Kia Sportage in Agadir.',
           ],
         },
       ],
@@ -2014,23 +2014,23 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Grey Renault Clio 5 city car with automatic gearbox: modern, easy to drive, five seats, air conditioning and useful tech (Apple CarPlay / Android Auto, trim dependent) for Agadir and short trips nearby.',
 
     richContent: {
-      h1Title: 'Grey Renault Clio 5 rental in Agadir – Automatic, comfort & tech | Amseel Cars',
-      seoTitle: 'Grey Clio 5 car rental in Agadir | Automatic & comfort | Amseel Cars',
+      h1Title: 'Grey Renault Clio 5 rental Agadir | Automatic, comfort & tech | AmseelCars',
+      seoTitle: 'Grey Clio 5 car rental in Agadir | Automatic & comfort | AmseelCars',
       seoMetaDescription:
-        'Rent a grey Clio 5 in Agadir with Amseel Cars: modern city car, automatic, 5 seats, A/C, CarPlay/Android Auto. Book quickly.',
+        'Rent a grey Clio 5 in Agadir with AmseelCars: modern city car, automatic, 5 seats, A/C, CarPlay/Android Auto. Book quickly.',
       sections: [
         {
-          h2: 'Grey Clio 5 rental in Agadir — overview',
+          h2: 'Grey Clio 5 rental in Agadir, overview',
           paragraphs: [
             'The grey Clio 5 is a popular choice for practical, modern, pleasant car rental in Agadir. It wins people over with easy familiarity, comfort and a compact footprint perfect for the city.',
-            'At Amseel Cars we offer the grey Clio 5 in Agadir with automatic gearbox — ideal for stress-free driving, especially in urban traffic and queues.',
+            'At AmseelCars we offer the grey Clio 5 in Agadir with automatic gearbox, ideal for stress-free driving, especially in urban traffic and queues.',
           ],
         },
         {
           h2: 'Modern, elegant design in grey',
           paragraphs: [
             'The Clio 5 is known for modern style and an almost premium feel in the city-car class.',
-            'In grey it looks understated and versatile — a smart, easy colour that still feels upmarket.',
+            'In grey it looks understated and versatile, a smart, easy colour that still feels upmarket.',
             'An expressive front, smooth lines and distinctive lighting give it real character on the road.',
           ],
         },
@@ -2045,7 +2045,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Interior comfort and five usable seats',
           paragraphs: [
-            'The Clio 5 seats five — a good fit for a couple with luggage, a small family or anyone who wants more room than a tiny city car.',
+            'The Clio 5 seats five, a good fit for a couple with luggage, a small family or anyone who wants more room than a tiny city car.',
             'The cabin is well laid out with modern ergonomics and a quality feel for the segment.',
             'For Agadir rental that matters: comfortable seats, smooth progress and a pleasant place to spend time every day.',
           ],
@@ -2061,7 +2061,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Petrol engine: balance for urban and mixed use',
           paragraphs: [
-            'Our Clio 5 runs on petrol — well suited to urban driving and mixed day-to-day use.',
+            'Our Clio 5 runs on petrol, well suited to urban driving and mixed day-to-day use.',
             'Light, easy behaviour with adequate performance for everyday needs.',
             'For car rental in Agadir it is a practical, simple, enjoyable choice in town and for sightseeing.',
           ],
@@ -2087,7 +2087,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'Depending on trim, the Clio 5 can include useful aids such as emergency braking and lane keeping.',
             'They add calm if you drive a lot or are new to local roads.',
-            'The Clio 5 feels stable and reassuring — comfortable, secure driving.',
+            'The Clio 5 feels stable and reassuring, comfortable, secure driving.',
           ],
         },
         {
@@ -2107,9 +2107,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a grey Clio 5 in Agadir with Amseel Cars',
+          h2: 'Rent a grey Clio 5 in Agadir with AmseelCars',
           paragraphs: [
-            'At Amseel Cars we offer straightforward, professional Agadir car rental with recent, well-maintained cars ready to go.',
+            'At AmseelCars we offer straightforward, professional Agadir car rental with recent, well-maintained cars ready to go.',
             'Grey Clio 5 availability depends on dates; our team helps with a smooth, transparent booking.',
             'Whether for a few days or longer, we help you pick the right car for your plans.',
           ],
@@ -2118,7 +2118,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The grey Clio 5 is a modern, comfortable, very practical city car for car rental in Agadir.',
-            'With automatic gearbox, petrol engine, CarPlay/Android Auto and compact size it delivers smooth, enjoyable driving in Agadir and nearby. Contact Amseel Cars to book your Clio 5 in Agadir.',
+            'With automatic gearbox, petrol engine, CarPlay/Android Auto and compact size it delivers smooth, enjoyable driving in Agadir and nearby. Contact AmseelCars to book your Clio 5 in Agadir.',
           ],
         },
       ],
@@ -2126,7 +2126,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a Renault Clio 5 in Morocco?',
           answer:
-            'Rates depend on city, season, duration and terms (mileage, deposit, insurance). For an exact Agadir quote, contact Amseel Cars with your dates.',
+            'Rates depend on city, season, duration and terms (mileage, deposit, insurance). For an exact Agadir quote, contact AmseelCars with your dates.',
         },
         {
           question: 'Is renting a car worth it?',
@@ -2136,12 +2136,12 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much to rent a Renault 5 / similar model?',
           answer:
-            'Rates vary by agency, period and availability. For an exact offer in Agadir, request a quote from Amseel Cars for your dates.',
+            'Rates vary by agency, period and availability. For an exact offer in Agadir, request a quote from AmseelCars for your dates.',
         },
         {
           question: 'Which car for around €150 per month?',
           answer:
-            'At that budget, city cars in leasing depend on down payment and terms. Short-term rental prices depend heavily on dates and vehicle category — ask us for a quote.',
+            'At that budget, city cars in leasing depend on down payment and terms. Short-term rental prices depend heavily on dates and vehicle category, ask us for a quote.',
         },
       ],
     },
@@ -2149,19 +2149,19 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-kia-picanto-2025': {
     description:
-      'Compact 2025 Kia Picanto city car with automatic gearbox: low fuel use, essential driver aids (trim dependent), 8-inch connectivity with Apple CarPlay / Android Auto — easy for Agadir and short trips.',
+      'Compact 2025 Kia Picanto city car with automatic gearbox: low fuel use, essential driver aids (trim dependent), 8-inch connectivity with Apple CarPlay / Android Auto, easy for Agadir and short trips.',
 
     richContent: {
-      h1Title: 'Kia Picanto 2025 rental in Agadir – Automatic city car | Amseel Cars',
-      seoTitle: 'Kia Picanto 2025 car rental in Agadir | Amseel Cars',
+      h1Title: 'Kia Picanto 2025 rental Agadir | Automatic city car | AmseelCars',
+      seoTitle: 'Kia Picanto 2025 car rental in Agadir | AmseelCars',
       seoMetaDescription:
         'Rent a 2025 Kia Picanto in Agadir: petrol city car, automatic, low consumption, A/C, CarPlay/Android Auto. Book quickly.',
       sections: [
         {
-          h2: 'Kia Picanto 2025 rental in Agadir — overview',
+          h2: 'Kia Picanto 2025 rental in Agadir, overview',
           paragraphs: [
             'The 2025 Kia Picanto is ideal for simple, economical, easy car rental in Agadir. Compact and modern, it suits urban driving and short runs beyond the city.',
-            'At Amseel Cars we offer the 2025 Picanto with automatic gearbox — relaxed driving so you can enjoy your stay.',
+            'At AmseelCars we offer the 2025 Picanto with automatic gearbox, relaxed driving so you can enjoy your stay.',
           ],
         },
         {
@@ -2175,7 +2175,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Five seats: extra flexibility',
           paragraphs: [
-            'Despite its small footprint, the Picanto seats five — more versatile than a strict two-seater city car.',
+            'Despite its small footprint, the Picanto seats five, more versatile than a strict two-seater city car.',
             'Works for a couple with bags, small groups or occasional multi-passenger trips.',
             'That flexibility is appreciated on rental.',
           ],
@@ -2243,7 +2243,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a 2025 Kia Picanto in Agadir with Amseel Cars',
+          h2: 'Rent a 2025 Kia Picanto in Agadir with AmseelCars',
           paragraphs: [
             'We keep Agadir car rental simple and professional.',
             '2025 Picanto availability depends on dates.',
@@ -2254,7 +2254,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The 2025 Kia Picanto is a modern, economical, very practical city car for Agadir.',
-            'Automatic gearbox, low consumption and CarPlay/Android Auto help you enjoy Agadir and nearby with minimal fuss. Contact Amseel Cars to book your 2025 Kia Picanto.',
+            'Automatic gearbox, low consumption and CarPlay/Android Auto help you enjoy Agadir and nearby with minimal fuss. Contact AmseelCars to book your 2025 Kia Picanto.',
           ],
         },
       ],
@@ -2288,16 +2288,16 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Black Kia Picanto city car with automatic gearbox: compact, economical petrol engine, low running costs and modern connectivity (Apple CarPlay / Android Auto, trim dependent) for easy Agadir driving.',
 
     richContent: {
-      h1Title: 'Black Kia Picanto rental in Agadir – Automatic city car | Amseel Cars',
-      seoTitle: 'Black Kia Picanto car rental in Agadir | Amseel Cars',
+      h1Title: 'Black Kia Picanto rental Agadir | Automatic city car | AmseelCars',
+      seoTitle: 'Black Kia Picanto car rental in Agadir | AmseelCars',
       seoMetaDescription:
         'Rent a black Kia Picanto in Agadir: petrol city car, automatic, low consumption, A/C, Apple CarPlay/Android Auto. Book quickly.',
       sections: [
         {
-          h2: 'Black Kia Picanto rental in Agadir — overview',
+          h2: 'Black Kia Picanto rental in Agadir, overview',
           paragraphs: [
             'The black Kia Picanto is a strong option for simple, economical, modern car rental in Agadir. Compact and easy to drive, it suits urban trips and daily errands.',
-            'At Amseel Cars the black Picanto comes with automatic gearbox for smooth, low-stress progress in Agadir traffic.',
+            'At AmseelCars the black Picanto comes with automatic gearbox for smooth, low-stress progress in Agadir traffic.',
           ],
         },
         {
@@ -2341,7 +2341,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Low fuel use',
           paragraphs: [
             'The Picanto is known for frugal fuel consumption.',
-            'Drive regularly without constantly worrying about fuel budget — handy for multi-day or longer stays.',
+            'Drive regularly without constantly worrying about fuel budget, handy for multi-day or longer stays.',
           ],
         },
         {
@@ -2381,7 +2381,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a black Kia Picanto in Agadir with Amseel Cars',
+          h2: 'Rent a black Kia Picanto in Agadir with AmseelCars',
           paragraphs: [
             'Simple, fast, transparent Agadir car rental.',
             'Black Picanto subject to date and availability.',
@@ -2392,7 +2392,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The black Kia Picanto is a modern, elegant, economical city car for Agadir.',
-            'Automatic gearbox, low consumption and modern connectivity keep driving simple and pleasant. Contact Amseel Cars to book your black Kia Picanto in Agadir.',
+            'Automatic gearbox, low consumption and modern connectivity keep driving simple and pleasant. Contact AmseelCars to book your black Kia Picanto in Agadir.',
           ],
         },
       ],
@@ -2410,7 +2410,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Is the Kia Picanto a good car?',
           answer:
-            'Yes — widely liked for reliability, low consumption and easy driving, especially in town.',
+            'Yes, widely liked for reliability, low consumption and easy driving, especially in town.',
         },
         {
           question: 'Which Kia models have the fewest problems?',
@@ -2426,24 +2426,24 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Grey 2025 Kia Picanto city car with automatic gearbox: easy to drive, economical petrol use, Apple CarPlay / Android Auto (trim dependent) and effective air conditioning for Agadir.',
 
     richContent: {
-      h1Title: 'Grey Kia Picanto 2025 rental in Agadir – Automatic city car | Amseel Cars',
-      seoTitle: 'Grey Kia Picanto 2025 car rental in Agadir | Amseel Cars',
+      h1Title: 'Grey Kia Picanto 2025 rental Agadir | Automatic city car | AmseelCars',
+      seoTitle: 'Grey Kia Picanto 2025 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a grey 2025 Kia Picanto in Agadir with Amseel Cars: automatic city car, economical, CarPlay/Android Auto. Quick booking.',
+        'Rent a grey 2025 Kia Picanto in Agadir with AmseelCars: automatic city car, economical, CarPlay/Android Auto. Quick booking.',
       sections: [
         {
-          h2: 'Grey Kia Picanto 2025 rental in Agadir — overview',
+          h2: 'Grey Kia Picanto 2025 rental in Agadir, overview',
           paragraphs: [
             'The grey 2025 Kia Picanto is a modern, simple, efficient city car for car rental in Agadir.',
             'Compact, nimble and reassuring, it suits urban driving and short outings around the city.',
-            'At Amseel Cars it is offered in petrol form with automatic gearbox for smooth, stress-free driving.',
+            'At AmseelCars it is offered in petrol form with automatic gearbox for smooth, stress-free driving.',
           ],
         },
         {
           h2: 'Modern style in grey',
           paragraphs: [
             'Compact size is a real advantage in a city like Agadir.',
-            'Grey looks elegant, discreet and easy to live with — popular with tourists and professionals.',
+            'Grey looks elegant, discreet and easy to live with, popular with tourists and professionals.',
             'Modern design and a dynamic front give it pleasant road presence for a city car.',
           ],
         },
@@ -2467,7 +2467,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Fuel budget',
           paragraphs: [
             'The Picanto is known for low consumption.',
-            'More trips without constantly watching fuel spend — good for several days or longer hires.',
+            'More trips without constantly watching fuel spend, good for several days or longer hires.',
           ],
         },
         {
@@ -2507,7 +2507,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a grey Kia Picanto in Agadir with Amseel Cars',
+          h2: 'Rent a grey Kia Picanto in Agadir with AmseelCars',
           paragraphs: [
             'We keep Agadir rental simple and transparent.',
             'Grey Picanto availability depends on dates.',
@@ -2518,7 +2518,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The grey 2025 Kia Picanto is a modern automatic city car tailored to Agadir.',
-            'Nimble, economical, connected and reassuring — everything you need for straightforward car rental in Agadir. Contact Amseel Cars to book your grey Kia Picanto.',
+            'Nimble, economical, connected and reassuring, everything you need for straightforward car rental in Agadir. Contact AmseelCars to book your grey Kia Picanto.',
           ],
         },
       ],
@@ -2531,7 +2531,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'What are the main weaknesses of the Kia Picanto?',
           answer:
-            'Rear space and boot size are limited — normal for the city-car class.',
+            'Rear space and boot size are limited, normal for the city-car class.',
         },
         {
           question: 'Which Kia petrol engine is most reliable?',
@@ -2541,7 +2541,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'Is the Kia Picanto reliable?',
           answer:
-            'Overall yes — recognised for dependability, low upkeep and durability in daily use.',
+            'Overall yes, recognised for dependability, low upkeep and durability in daily use.',
         },
       ],
     },
@@ -2552,13 +2552,13 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Versatile, economical city car: the Citroën C3 with 1.5 BlueHDi diesel offers low fuel use, essential driver aids and solid connectivity (Apple CarPlay / Android Auto, trim dependent). Ideal in town and for longer runs.',
 
     richContent: {
-      h1Title: 'Citroën C3 2024 rental in Agadir – Diesel automatic city car | Amseel Cars',
-      seoTitle: 'Citroën C3 2024 car rental in Agadir | Amseel Cars',
+      h1Title: 'Citroën C3 2024 rental Agadir | Diesel automatic city car | AmseelCars',
+      seoTitle: 'Citroën C3 2024 car rental in Agadir | AmseelCars',
       seoMetaDescription:
         'Rent a Citroën C3 2024 in Agadir: BlueHDi diesel, automatic, 5 seats, low consumption, Apple CarPlay/Android Auto.',
       sections: [
         {
-          h2: 'Citroën C3 2024 in Agadir — practical, economical and pleasant',
+          h2: 'Citroën C3 2024 in Agadir, practical, economical and pleasant',
           paragraphs: [
             'If you want a simple, economical, easy everyday car, the 2024 Citroën C3 is a popular rental choice in Agadir.',
             'Compact and quick to get used to, it suits city driving and trips to Taghazout, Imouzzer or beaches near Agadir.',
@@ -2570,7 +2570,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'A major strength is the 1.5L BlueHDi diesel, valued for smooth delivery and controlled consumption.',
             'With around 102 hp it is lively enough for a city car: merging on faster roads, overtaking and comfortable cruising.',
-            'WLTP combined consumption around 4.4–4.5 L/100 km helps if you cover a lot of miles during your stay.',
+            'WLTP combined consumption around 4.4-4.5 L/100 km helps if you cover a lot of miles during your stay.',
           ],
         },
         {
@@ -2584,7 +2584,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           h2: 'Cabin comfort and five seats',
           paragraphs: [
-            'The C3 remains a city car but offers reasonable room for five — handy for a small family or group.',
+            'The C3 remains a city car but offers reasonable room for five, handy for a small family or group.',
             'Front seats are comfortable and the driving position suits most drivers.',
             'A good Agadir compromise: compact enough for the city, habitable enough for longer trips.',
           ],
@@ -2609,8 +2609,8 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Performance suited to driving in Morocco',
           paragraphs: [
             'The C3 is not a sports car but is more than enough for versatile use in Agadir and the region.',
-            'With a quoted top speed around 188 km/h and 0–100 km/h in about 10.2 s, it has margin for relaxed road driving.',
-            'Front-wheel drive feels stable and predictable — city, coastal roads and interurban trips.',
+            'With a quoted top speed around 188 km/h and 0-100 km/h in about 10.2 s, it has margin for relaxed road driving.',
+            'Front-wheel drive feels stable and predictable, city, coastal roads and interurban trips.',
           ],
         },
         {
@@ -2626,7 +2626,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The Citroën C3 2024 is a dependable rental in Agadir: 1.5 BlueHDi diesel, automatic, five seats, low consumption and modern connectivity.',
             'Comfortable, practical and reassuring for holiday or business stays.',
-            'Contact Amseel Cars to book your Citroën C3 2024 in Agadir for a simple, economical experience.',
+            'Contact AmseelCars to book your Citroën C3 2024 in Agadir for a simple, economical experience.',
           ],
         },
       ],
@@ -2660,23 +2660,23 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       'Spacious, economical Dacia Logan 2026 diesel saloon with manual gearbox: simple, reliable, generous boot and modern equipment (8-inch display, essential driver aids, Apple CarPlay / Android Auto by trim) for city and longer trips.',
 
     richContent: {
-      h1Title: 'Dacia Logan 2026 rental in Agadir – Diesel manual saloon | Amseel Cars',
-      seoTitle: 'Dacia Logan 2026 car rental in Agadir | Amseel Cars',
+      h1Title: 'Dacia Logan 2026 rental Agadir | Diesel manual saloon | AmseelCars',
+      seoTitle: 'Dacia Logan 2026 car rental in Agadir | AmseelCars',
       seoMetaDescription:
         'Rent a Dacia Logan 2026 in Agadir: diesel, manual, 5 seats, economical saloon, practical for Agadir and excursions.',
       sections: [
         {
-          h2: 'Dacia Logan 2026 rental in Agadir — overview',
+          h2: 'Dacia Logan 2026 rental in Agadir, overview',
           paragraphs: [
             'The Dacia Logan 2026 is a strong choice when you want simple, reliable, budget-friendly car rental in Agadir.',
             'As a saloon it offers more boot and rear space than many city cars, with diesel economy and a manual gearbox for drivers who prefer full control.',
-            'At Amseel Cars we focus on clear booking and cars ready for your programme around Agadir and nearby.',
+            'At AmseelCars we focus on clear booking and cars ready for your programme around Agadir and nearby.',
           ],
         },
         {
           h2: 'Diesel and manual: control and running costs',
           paragraphs: [
-            'Diesel suits higher mileage and longer runs — useful for excursions and regular driving.',
+            'Diesel suits higher mileage and longer runs, useful for excursions and regular driving.',
             'The manual gearbox gives direct control and is often chosen by drivers used to a stick shift.',
             'Together they support an economical, predictable rental if you plan to drive a lot.',
           ],
@@ -2713,7 +2713,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The Dacia Logan 2026 is a practical diesel manual saloon for Agadir: spacious, economical and straightforward.',
-            'Contact Amseel Cars to check availability and book your Logan 2026 for your dates.',
+            'Contact AmseelCars to check availability and book your Logan 2026 for your dates.',
           ],
         },
       ],
@@ -2721,7 +2721,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much does it cost to rent a Dacia Logan?',
           answer:
-            'Rates depend on season, duration, mileage and terms. Contact Amseel Cars with your Agadir dates for a quote.',
+            'Rates depend on season, duration, mileage and terms. Contact AmseelCars with your Agadir dates for a quote.',
         },
         {
           question: 'Is a manual car OK for Agadir?',
@@ -2744,26 +2744,26 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-Clio-5-2025': {
     description:
-      'Renault Clio 5 automatic petrol city car: modern, easy to drive, five seats, air conditioning and Apple CarPlay / Android Auto (trim dependent) — ideal for Agadir, the corniche and coastal day trips.',
+      'Renault Clio 5 automatic petrol city car: modern, easy to drive, five seats, air conditioning and Apple CarPlay / Android Auto (trim dependent), ideal for Agadir, the corniche and coastal day trips.',
 
     richContent: {
-      h1Title: 'Renault Clio 5 rental in Agadir – Automatic petrol 2025 | Amseel Cars',
-      seoTitle: 'Renault Clio 5 car rental in Agadir | Amseel Cars',
+      h1Title: 'Renault Clio 5 rental Agadir | Automatic petrol 2025 | AmseelCars',
+      seoTitle: 'Renault Clio 5 car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a Renault Clio 5 in Agadir: automatic petrol, 5 seats, A/C, CarPlay/Android Auto. Book with Amseel Cars.',
+        'Rent a Renault Clio 5 in Agadir: automatic petrol, 5 seats, A/C, CarPlay/Android Auto. Book with AmseelCars.',
       sections: [
         {
-          h2: 'Renault Clio 5 rental in Agadir — overview',
+          h2: 'Renault Clio 5 rental in Agadir, overview',
           paragraphs: [
             'The Renault Clio 5 is a smart pick for modern, comfortable car rental in Agadir.',
             'Compact for parking yet usable for five, with automatic gearbox and petrol power for simple urban and mixed driving.',
-            'At Amseel Cars we offer this configuration for guests who want low-stress driving in town and along the coast.',
+            'At AmseelCars we offer this configuration for guests who want low-stress driving in town and along the coast.',
           ],
         },
         {
           h2: 'Automatic petrol for everyday ease',
           paragraphs: [
-            'Automatic shifting makes traffic and stop-start much easier — especially after a flight or in summer heat.',
+            'Automatic shifting makes traffic and stop-start much easier, especially after a flight or in summer heat.',
             'Petrol suits varied short and medium trips typical of a stay in Agadir.',
           ],
         },
@@ -2806,7 +2806,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           h2: 'Conclusion',
           paragraphs: [
             'The Renault Clio 5 automatic petrol is a practical, pleasant rental for Agadir and the surrounding area.',
-            'Contact Amseel Cars to reserve your Clio 5 and plan your trip with confidence.',
+            'Contact AmseelCars to reserve your Clio 5 and plan your trip with confidence.',
           ],
         },
       ],
@@ -2814,7 +2814,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
         {
           question: 'How much to rent a Renault Clio in Morocco?',
           answer:
-            'Rates depend on city, season, duration and terms. Message Amseel Cars with your Agadir dates for an exact quote.',
+            'Rates depend on city, season, duration and terms. Message AmseelCars with your Agadir dates for an exact quote.',
         },
         {
           question: 'Is the Clio 5 good for families?',

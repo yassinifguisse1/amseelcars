@@ -1,13 +1,11 @@
 "use client";
 
-import { useMemo, type ReactNode } from "react";
-import { Car, ChevronRight, MapPin, Sparkles, Tag } from "lucide-react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getAllCars } from "@/data/cars";
 import { brandToSlug } from "@/lib/brandSlug";
-import { cn } from "@/lib/utils";
 
 type BrowseHref =
   | "/location-voiture-agadir"
@@ -20,41 +18,10 @@ type LocationLink = { label: string; href: BrowseHref };
 type VehicleTypeLink = { label: string; category: string };
 type StatItem = { value: string; label: string };
 
-type PanelProps = {
-  icon: typeof MapPin;
-  title: string;
-  description?: string;
-  children: ReactNode;
-  className?: string;
-};
-
-const linkChipClass =
-  "group inline-flex min-h-[2.75rem] items-center justify-between gap-2 rounded-full border border-white/40 bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-900 shadow-[0_18px_45px_-25px_rgba(0,0,0,0.65)] transition duration-300 hover:-translate-y-0.5 hover:border-[#b11226]/50 hover:bg-white/90 hover:text-[#b11226] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b11226] md:text-xs";
-
-function Panel({ icon: Icon, title, description, children, className }: PanelProps) {
-  return (
-    <div className={cn("rounded-[1.75rem] border border-neutral-200/70 bg-white/80 p-5", className)}>
-      <div className="flex items-start gap-3">
-        <span
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#b11226]/10 text-[#b11226]"
-          aria-hidden
-        >
-          <Icon className="h-[1.125rem] w-[1.125rem]" strokeWidth={2.2} />
-        </span>
-        <div>
-          <h3 className="font-heading text-lg font-semibold tracking-tight text-neutral-950">
-            {title}
-          </h3>
-          {description ? (
-            <p className="mt-1 text-sm text-neutral-600">{description}</p>
-          ) : null}
-        </div>
-      </div>
-      <div className="mt-4">{children}</div>
-    </div>
-  );
-}
-
+/**
+ * Internal links hub — same black/white/red template as VehicleTypes / Destinations.
+ * Crawlable links to landings, categories, and brand hubs.
+ */
 export function HomeBrowseServicesSection() {
   const t = useTranslations("home.browseServices");
 
@@ -78,160 +45,201 @@ export function HomeBrowseServicesSection() {
 
   return (
     <motion.section
-      className="relative overflow-hidden bg-[#f9f9f9] py-16 text-neutral-900 md:py-24"
+      className="relative overflow-hidden bg-black py-20 text-white md:py-28 lg:py-32"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
       aria-labelledby="browse-services-heading"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(177,18,38,0.18),_transparent_60%)]" />
-      <div className="mx-auto max-w-[min(100%,1160px)] px-4 md:px-6">
-        <div className="relative rounded-[2.4rem] border border-neutral-200/70 bg-white/90 p-6 shadow-[0_35px_120px_-60px_rgba(0,0,0,0.9)] md:p-10">
-          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-            <div>
-              <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#b11226]">
-                <Car className="h-3.5 w-3.5" strokeWidth={2.4} aria-hidden />
-                {t("kicker")}
-              </p>
-              <h2
-                id="browse-services-heading"
-                className="mt-4 font-heading text-balance text-[1.85rem] font-semibold tracking-tight text-neutral-950 sm:text-[2.25rem]"
-              >
-                {t("title")}
-              </h2>
-              <p className="mt-4 text-[0.95rem] leading-relaxed text-neutral-600 md:text-base">
-                {t("subtitle")}
-              </p>
+      <div className="mx-auto max-w-[1400px] px-5 md:px-8">
+        {/* Header — matches VehicleTypes / Destinations */}
+        <div className="mx-auto max-w-[48rem] text-center">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[#FF6B81]">
+            {t("kicker")}
+          </p>
+          <h2
+            id="browse-services-heading"
+            className="mt-4 font-heading text-balance text-[clamp(1.75rem,4.2vw,3.25rem)] font-semibold leading-[1.15] text-white"
+          >
+            {t("title")}
+          </h2>
+          <p className="mx-auto mt-5 max-w-[42rem] text-pretty text-base leading-[1.7] text-white/70 md:mt-6 md:text-lg md:leading-[1.75]">
+            {t("subtitle")}
+          </p>
+        </div>
 
-              {stats.length ? (
-                <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                  {stats.map((stat) => (
-                    <div
-                      key={stat.label}
-                      className="rounded-2xl border border-neutral-200/80 bg-neutral-50/70 px-4 py-5"
+        {stats.length ? (
+          <ul className="mx-auto mt-12 flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-4 border-y border-white/10 py-6 md:mt-14">
+            {stats.map((stat) => (
+              <li key={stat.label} className="flex items-baseline gap-2.5 text-center">
+                <span className="text-2xl font-semibold text-white md:text-3xl">
+                  {stat.value}
+                </span>
+                <span className="text-left text-xs uppercase tracking-wide text-white/70 md:text-sm">
+                  {stat.label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-10">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-[#CB1939] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#a0142e]"
+          >
+            {t("primaryCta")}
+          </Link>
+          <Link
+            href="/cars"
+            className="inline-flex items-center justify-center rounded-full border-2 border-white/80 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+          >
+            {t("secondaryCta")}
+          </Link>
+        </div>
+
+        {/* Link grids — same card language as vehicle types */}
+        <div className="mt-14 grid gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+          <nav
+            aria-labelledby="browse-locations-heading"
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition-colors hover:border-white/20 lg:p-7"
+          >
+            <h3
+              id="browse-locations-heading"
+              className="text-lg font-semibold text-white lg:text-xl"
+            >
+              {t("panels.locationsHeading")}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/60">
+              {t("panels.locationsCopy")}
+            </p>
+            <ul className="mt-6 space-y-1">
+              {locations.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="group flex items-center justify-between gap-3 border-b border-white/10 py-3 text-sm text-white/85 transition last:border-0 hover:text-[#FF6B81]"
+                  >
+                    <span>{item.label}</span>
+                    <span
+                      className="text-[#FF6B81] opacity-0 transition group-hover:opacity-100"
+                      aria-hidden
                     >
-                      <p className="text-2xl font-semibold text-neutral-950">{stat.value}</p>
-                      <p className="mt-1 text-xs font-semibold uppercase tracking-[0.3em] text-neutral-500">
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/contact"
-                  className="inline-flex flex-1 items-center justify-center rounded-[1.5rem] bg-[#b11226] px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#7a0f18]"
-                >
-                  {t("primaryCta")}
-                </Link>
-                <Link
-                  href="/cars"
-                  className="inline-flex flex-1 items-center justify-center rounded-[1.5rem] border border-neutral-200 bg-white px-5 py-3 text-center text-xs font-semibold uppercase tracking-[0.35em] text-neutral-900 hover:border-neutral-300"
-                >
-                  {t("secondaryCta")}
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              <Panel
-                icon={MapPin}
-                title={t("panels.locationsHeading")}
-                description={t("panels.locationsCopy")}
-              >
-                <ul className="flex flex-wrap gap-2.5">
-                  {locations.map((item) => (
-                    <li key={item.label}>
-                      <Link href={item.href} className={linkChipClass}>
-                        <span>{item.label}</span>
-                        <ChevronRight className="h-3.5 w-3.5 opacity-40 transition group-hover:translate-x-0.5 group-hover:opacity-80" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-
-              <Panel
-                icon={Sparkles}
-                title={t("panels.vehicleTypesHeading")}
-                description={t("panels.vehicleTypesCopy")}
-              >
-                <ul className="flex flex-wrap gap-2.5">
-                  {vehicleTypes.map((item) => (
-                    <li key={item.label}>
-                      <Link
-                        href={{ pathname: "/cars", query: { category: item.category } }}
-                        className={linkChipClass}
-                      >
-                        <span>{item.label}</span>
-                        <ChevronRight className="h-3.5 w-3.5 opacity-40 transition group-hover:translate-x-0.5 group-hover:opacity-80" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-
-              <Panel
-                icon={Tag}
-                title={t("panels.brandsHeading")}
-                description={t("panels.brandsCopy")}
-                className="md:col-span-2"
-              >
-                <ul className="flex flex-wrap gap-2.5">
-                  {brandLinks.map(({ name, slug }) => (
-                    <li key={name}>
-                      <Link
-                        href={{ pathname: "/cars/brand/[brandSlug]", params: { brandSlug: slug } }}
-                        className={linkChipClass}
-                      >
-                        <span>{t("brandLinkLabel", { brand: name })}</span>
-                        <ChevronRight className="h-3.5 w-3.5 opacity-40 transition group-hover:translate-x-0.5 group-hover:opacity-80" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-
-              <div className="md:col-span-2 rounded-[1.75rem] border border-white/15 bg-gradient-to-br from-[#050505] via-[#101010] to-[#1e1e1e] p-5 text-white">
-                <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/70">
-                  {t("brandSpotlightLabel")}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2.5">
-                  {spotlightBrands.map(({ name, slug }) => (
-                    <Link
-                      key={name}
-                      href={{ pathname: "/cars/brand/[brandSlug]", params: { brandSlug: slug } }}
-                      className="inline-flex items-center gap-1 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-white transition hover:border-[#b11226]/60 hover:text-[#b11226]"
+          <nav
+            aria-labelledby="browse-categories-heading"
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition-colors hover:border-white/20 lg:p-7"
+          >
+            <h3
+              id="browse-categories-heading"
+              className="text-lg font-semibold text-white lg:text-xl"
+            >
+              {t("panels.vehicleTypesHeading")}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/60">
+              {t("panels.vehicleTypesCopy")}
+            </p>
+            <ul className="mt-6 space-y-1">
+              {vehicleTypes.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={{ pathname: "/cars", query: { category: item.category } }}
+                    className="group flex items-center justify-between gap-3 border-b border-white/10 py-3 text-sm text-white/85 transition last:border-0 hover:text-[#FF6B81]"
+                  >
+                    <span>{item.label}</span>
+                    <span
+                      className="text-[#FF6B81] opacity-0 transition group-hover:opacity-100"
+                      aria-hidden
                     >
-                      {name}
-                      <ChevronRight className="h-3 w-3" />
-                    </Link>
-                  ))}
-                </div>
-                <p className="mt-4 text-sm text-white/80">{t("brandSpotlightCopy")}</p>
-                <Link
-                  href={
-                    primarySpotlight
-                      ? {
-                          pathname: "/cars/brand/[brandSlug]",
-                          params: { brandSlug: primarySpotlight.slug },
-                        }
-                      : "/cars"
-                  }
-                  className="mt-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.35em] text-white/80 hover:text-white"
-                >
-                  {t("brandSpotlightCta")}
-                  <ChevronRight className="h-3.5 w-3.5" />
-                </Link>
-                <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.35em] text-white/55">
-                  {t("brandSpotlightHelper")}
-                </p>
-              </div>
-            </div>
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav
+            aria-labelledby="browse-brands-heading"
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition-colors hover:border-white/20 md:col-span-2 lg:col-span-1 lg:p-7"
+          >
+            <h3
+              id="browse-brands-heading"
+              className="text-lg font-semibold text-white lg:text-xl"
+            >
+              {t("panels.brandsHeading")}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/60">
+              {t("panels.brandsCopy")}
+            </p>
+            <ul className="mt-6 grid gap-x-4 sm:grid-cols-2 lg:grid-cols-1">
+              {brandLinks.map(({ name, slug }) => (
+                <li key={name}>
+                  <Link
+                    href={{
+                      pathname: "/cars/brand/[brandSlug]",
+                      params: { brandSlug: slug },
+                    }}
+                    className="group flex items-center justify-between gap-3 border-b border-white/10 py-3 text-sm text-white/85 transition last:border-0 hover:text-[#FF6B81]"
+                  >
+                    <span>{t("brandLinkLabel", { brand: name })}</span>
+                    <span
+                      className="text-[#FF6B81] opacity-0 transition group-hover:opacity-100"
+                      aria-hidden
+                    >
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {/* Spotlight — quiet close, same palette */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-8 text-center md:mt-10 md:px-10 md:py-10">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/70">
+            {t("brandSpotlightLabel")}
+          </p>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+            {spotlightBrands.map(({ name, slug }) => (
+              <Link
+                key={name}
+                href={{
+                  pathname: "/cars/brand/[brandSlug]",
+                  params: { brandSlug: slug },
+                }}
+                className="rounded-full border border-white/20 px-4 py-2 text-sm text-white/90 transition hover:border-[#CB1939] hover:text-[#FF6B81]"
+              >
+                {name}
+              </Link>
+            ))}
           </div>
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-white/60">
+            {t("brandSpotlightCopy")}
+          </p>
+          <Link
+            href={
+              primarySpotlight
+                ? {
+                    pathname: "/cars/brand/[brandSlug]",
+                    params: { brandSlug: primarySpotlight.slug },
+                  }
+                : "/cars"
+            }
+            className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#FF6B81] transition hover:underline"
+          >
+            {t("brandSpotlightCta")}
+            <span aria-hidden>→</span>
+          </Link>
         </div>
       </div>
     </motion.section>

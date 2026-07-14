@@ -43,7 +43,6 @@ export type DestinationCta = {
   external?: boolean;
 };
 
-/** Key–value rows for AI / human “at a glance” extraction */
 export type DestinationKeyFact = {
   term: string;
   value: string;
@@ -56,7 +55,6 @@ export type DestinationRelatedPage = {
 
 export type DestinationAeoLandingProps = {
   languageSwitcher: ReactNode;
-  /** Visual accent: shifts gradient weight (still red / black / white) */
   variant?: "default" | "airport" | "coast";
   hero: {
     eyebrow: string;
@@ -64,15 +62,12 @@ export type DestinationAeoLandingProps = {
     lead: string;
     meta: string;
   };
-  /**
-   * One short, factual paragraph immediately under H1 — recommended for AEO / AI overviews.
-   */
+  /** Full-bleed visual for first viewport (fleet / place photography). */
+  heroVisual?: { src: string; alt: string };
   quickAnswer: string;
   keyFacts?: DestinationKeyFact[];
-  /** Shown above the definition list when `keyFacts` is set */
   keyFactsTitle?: string;
   relatedPages?: DestinationRelatedPage[];
-  /** Label for the related links nav */
   relatedPagesLabel?: string;
   serviceChips: string[];
   stats: DestinationStat[];
@@ -95,13 +90,11 @@ export type DestinationAeoLandingProps = {
   fleetHref: string;
   fleetCtaLabel?: string;
   carOpenHint?: string;
-  /** Section above feature cards (localized) */
   operationsSection: {
     kicker: string;
     title: string;
     lead: string;
   };
-  /** AI panel heading (localized) */
   aiPanel: {
     badge: string;
     title: string;
@@ -114,7 +107,7 @@ function CtaLink({ cta }: { cta: DestinationCta }) {
     cta.href.startsWith("http") ||
     cta.href.startsWith("mailto:");
   const className = clsx(
-    styles.ctaButton,
+    styles.cta,
     cta.variant === "primary" && styles.ctaPrimary,
     cta.variant === "secondary" && styles.ctaSecondary,
     cta.variant === "ghost" && styles.ctaGhost,
@@ -133,10 +126,15 @@ function CtaLink({ cta }: { cta: DestinationCta }) {
   );
 }
 
+/**
+ * Editorial destination landing — cinematic, brand-led, crawlable.
+ * Avoids generic SEO-template patterns (chip clouds, boxed “AI overview”, card farms).
+ */
 export function DestinationAeoLanding({
   languageSwitcher,
   variant = "default",
   hero,
+  heroVisual,
   quickAnswer,
   keyFacts,
   keyFactsTitle = "At a glance",
@@ -159,93 +157,167 @@ export function DestinationAeoLanding({
   aiPanel,
 }: DestinationAeoLandingProps) {
   const fleetLabel = fleetCtaLabel ?? "Explore the entire fleet";
-  const openHint = carOpenHint ?? "Open briefing →";
+  const openHint = carOpenHint ?? "Voir le véhicule →";
+  const visual = heroVisual ?? (cars[0] ? { src: cars[0].image, alt: cars[0].imageAlt } : null);
 
   return (
     <div className={styles.root} data-variant={variant}>
-      <div className={styles.backdrop} aria-hidden />
-      <div className={styles.gridTexture} aria-hidden />
-      <div className={styles.diagonalWash} aria-hidden />
-      <div className={styles.noise} aria-hidden />
-      <div className={styles.redRail} aria-hidden />
-
-      <article className={styles.inner} itemScope itemType="https://schema.org/WebPage">
-        <meta itemProp="name" content={typeof hero.title === "string" ? hero.title : undefined} />
-
-        <section className={styles.heroSection} aria-labelledby="aeo-main-heading">
-          <div className={styles.heroTopBar}>
-            <div className={styles.langSwitcher}>{languageSwitcher}</div>
-            <span className={styles.heroRule} aria-hidden />
+      {/* ——— Hero: one composition ——— */}
+      <header className={styles.hero}>
+        {visual ? (
+          <div className={styles.heroMedia} aria-hidden={false}>
+            <Image
+              src={visual.src}
+              alt={visual.alt}
+              fill
+              priority
+              sizes="100vw"
+              className={styles.heroImage}
+            />
+            <div className={styles.heroShade} aria-hidden />
           </div>
-          <p className={styles.heroEyebrow}>{hero.eyebrow}</p>
+        ) : (
+          <div className={styles.heroFallback} aria-hidden />
+        )}
+
+        <div className={styles.heroInner}>
+          <div className={styles.heroLang}>{languageSwitcher}</div>
+
+          <div className={styles.heroBrand}>
+            <p className={styles.brandMark}>AMSEEL CARS</p>
+            <p className={styles.heroPlace}>{hero.eyebrow}</p>
+          </div>
+
           <h1 id="aeo-main-heading" className={styles.heroTitle}>
             {hero.title}
           </h1>
 
-          <div className={styles.heroSplit}>
-            <div className={styles.heroSplitMain}>
-              <p id="quick-answer" className={styles.quickAnswer}>
-                {quickAnswer}
-              </p>
-              <p className={styles.heroLead}>{hero.lead}</p>
-              <p className={styles.heroMeta}>{hero.meta}</p>
+          <p className={styles.heroLead}>{hero.lead}</p>
 
-              {serviceChips.length ? (
-                <div className={styles.serviceChips} aria-label="Service types">
-                  {serviceChips.map((chip) => (
-                    <span key={chip}>{chip}</span>
-                  ))}
-                </div>
-              ) : null}
-
-              <div className={styles.ctaRow}>
-                <CtaLink cta={ctas.primary} />
-                {ctas.secondary ? <CtaLink cta={ctas.secondary} /> : null}
-                {ctas.tertiary ? <CtaLink cta={ctas.tertiary} /> : null}
-              </div>
-            </div>
-
-            {stats.length ? (
-              <aside className={styles.statsRail} aria-label="Key stats">
-                {stats.map((stat) => (
-                  <div key={stat.label} className={styles.statCard}>
-                    <span className={styles.statValue}>{stat.value}</span>
-                    <span className={styles.statLabel}>{stat.label}</span>
-                    {stat.helper ? <p>{stat.helper}</p> : null}
-                  </div>
-                ))}
-              </aside>
-            ) : null}
+          <div className={styles.heroActions}>
+            <CtaLink cta={ctas.primary} />
+            {ctas.secondary ? <CtaLink cta={ctas.secondary} /> : null}
           </div>
 
-          {aiHighlights.length ? (
-            <section className={styles.aiBand} aria-labelledby="ai-panel-heading">
-              <div className={styles.aiBandHeader}>
-                <p className={styles.aiBadge}>{aiPanel.badge}</p>
-                <h2 id="ai-panel-heading" className={styles.aiPanelTitle}>
-                  {aiPanel.title}
-                </h2>
-              </div>
-              <div className={styles.aiList}>
-                {aiHighlights.map((item) => (
-                  <article key={item.title} className={styles.aiListItem}>
-                    <h3 className={styles.aiItemTitle}>{item.title}</h3>
-                    <p className={styles.aiItemBody}>{item.body}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
+          <div className={styles.heroScroll} aria-hidden>
+            <span />
+          </div>
+        </div>
+      </header>
+
+      <section className={styles.fleet} aria-labelledby="cars-heading">
+        <div className={styles.fleetInner}>
+          <div className={styles.fleetHead}>
+            <p className={styles.kicker}>{carsSection.kicker}</p>
+            <h2 id="cars-heading" className={styles.h2}>
+              {carsSection.title}
+            </h2>
+            <p className={styles.lead}>{carsSection.lead}</p>
+          </div>
+        </div>
+
+        <div className={styles.fleetRail} role="region" aria-label={carsSection.title}>
+          <div className={styles.fleetTrack}>
+            {cars.map((car, index) => {
+              const title = (car.imageTitle?.trim() || car.imageAlt).slice(0, 200);
+              return (
+                <NextLink key={car.href} href={car.href} className={styles.fleetCard}>
+                  <div className={styles.fleetCardMedia}>
+                    <Image
+                      src={car.image}
+                      alt={car.imageAlt}
+                      title={title}
+                      fill
+                      priority={index < 1}
+                      sizes="(max-width: 640px) 72vw, 300px"
+                      className={styles.fleetCardImg}
+                    />
+                  </div>
+                  <div className={styles.fleetCardCopy}>
+                    {car.badge ? <p className={styles.fleetBadge}>{car.badge}</p> : null}
+                    <p className={styles.fleetName}>{car.name}</p>
+                    {car.imageCaption ? (
+                      <p className={styles.fleetCaption}>{car.imageCaption}</p>
+                    ) : null}
+                    <span className={styles.fleetHint}>{openHint}</span>
+                  </div>
+                </NextLink>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className={styles.fleetInner}>
+          <NextLink href={fleetHref} className={styles.fleetAll}>
+            {fleetLabel}
+          </NextLink>
+        </div>
+      </section>
+
+      <article className={styles.body} itemScope itemType="https://schema.org/WebPage">
+        {/* Crawlable intro — plain type, no callout box */}
+        <section className={styles.intro} aria-labelledby="aeo-main-heading">
+          <p id="quick-answer" className={styles.quickAnswer}>
+            {quickAnswer}
+          </p>
+          <p className={styles.meta}>{hero.meta}</p>
+          {serviceChips.length ? (
+            <p className={styles.chipLine}>
+              {serviceChips.map((chip, i) => (
+                <span key={chip}>
+                  {i > 0 ? <span className={styles.chipSep} aria-hidden> · </span> : null}
+                  {chip}
+                </span>
+              ))}
+            </p>
+          ) : null}
+          {ctas.tertiary ? (
+            <p className={styles.tertiaryWrap}>
+              <CtaLink cta={ctas.tertiary} />
+            </p>
           ) : null}
         </section>
 
-        {keyFacts?.length || relatedPages?.length ? (
-          <div className={styles.factsRelatedShell}>
+        {stats.length ? (
+          <section className={styles.statStrip} aria-label="Key stats">
+            {stats.map((stat) => (
+              <div key={stat.label} className={styles.statItem}>
+                <span className={styles.statValue}>{stat.value}</span>
+                <span className={styles.statLabel}>{stat.label}</span>
+                {stat.helper ? <span className={styles.statHelper}>{stat.helper}</span> : null}
+              </div>
+            ))}
+          </section>
+        ) : null}
+
+        {aiHighlights.length ? (
+          <section className={styles.editorial} aria-labelledby="highlights-heading">
+            <p className={styles.kicker}>{aiPanel.badge}</p>
+            <h2 id="highlights-heading" className={styles.h2}>
+              {aiPanel.title}
+            </h2>
+            <ol className={styles.points}>
+              {aiHighlights.map((item, i) => (
+                <li key={item.title}>
+                  <span className={styles.pointIndex} aria-hidden>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className={styles.pointTitle}>{item.title}</h3>
+                    <p className={styles.pointBody}>{item.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null}
+
+        {(keyFacts?.length || relatedPages?.length) ? (
+          <section className={styles.glance}>
             {keyFacts?.length ? (
-              <section className={styles.factsStrip} aria-labelledby="key-facts-heading">
-                <h2 id="key-facts-heading" className={styles.factsTitle}>
-                  {keyFactsTitle}
-                </h2>
-                <dl className={styles.factsGrid}>
+              <div className={styles.facts}>
+                <h2 className={styles.h2Sm}>{keyFactsTitle}</h2>
+                <dl className={styles.factList}>
                   {keyFacts.map((row) => (
                     <div key={row.term} className={styles.factRow}>
                       <dt>{row.term}</dt>
@@ -253,41 +325,33 @@ export function DestinationAeoLanding({
                     </div>
                   ))}
                 </dl>
-              </section>
+              </div>
             ) : null}
 
             {relatedPages?.length ? (
-              <nav className={styles.relatedNav} aria-label="Related locations">
-                <span className={styles.relatedLabel}>{relatedPagesLabel}</span>
+              <nav className={styles.related} aria-label={relatedPagesLabel}>
+                <p className={styles.relatedLabel}>{relatedPagesLabel}</p>
                 <ul>
                   {relatedPages.map((p) => (
                     <li key={p.href}>
-                      <NextLink href={p.href} className={styles.relatedLink}>
-                        {p.label}
-                      </NextLink>
+                      <NextLink href={p.href}>{p.label}</NextLink>
                     </li>
                   ))}
                 </ul>
               </nav>
             ) : null}
-          </div>
+          </section>
         ) : null}
 
-        <section className={styles.section} aria-labelledby="ops-heading">
-          <span className={styles.sectionDivider} aria-hidden />
-          <div className={styles.sectionHeader}>
-            <p id="ops-heading" className={styles.sectionKicker}>
-              {operationsSection.kicker}
-            </p>
-            <h2 className={styles.sectionTitle}>{operationsSection.title}</h2>
-            <p className={styles.sectionLead}>{operationsSection.lead}</p>
-          </div>
-          <div className={styles.featuresGrid}>
-            {features.map((feature, index) => (
-              <article
-                key={feature.title}
-                className={index === 0 ? `${styles.featureCard} ${styles.featureCardLead}` : styles.featureCard}
-              >
+        <section className={styles.editorial} aria-labelledby="ops-heading">
+          <p className={styles.kicker}>{operationsSection.kicker}</p>
+          <h2 id="ops-heading" className={styles.h2}>
+            {operationsSection.title}
+          </h2>
+          <p className={styles.lead}>{operationsSection.lead}</p>
+          <div className={styles.featureRows}>
+            {features.map((feature) => (
+              <article key={feature.title} className={styles.featureRow}>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
               </article>
@@ -295,56 +359,11 @@ export function DestinationAeoLanding({
           </div>
         </section>
 
-        <section className={styles.section} aria-labelledby="cars-heading">
-          <span className={styles.sectionDivider} aria-hidden />
-          <div className={styles.sectionHeader}>
-            <p className={styles.sectionKicker}>{carsSection.kicker}</p>
-            <h2 id="cars-heading" className={styles.sectionTitle}>
-              {carsSection.title}
-            </h2>
-            <p className={styles.sectionLead}>{carsSection.lead}</p>
-          </div>
-          <div className={styles.carsGrid}>
-            {cars.map((car) => {
-              const title = (car.imageTitle?.trim() || car.imageAlt).slice(0, 200);
-              return (
-                <NextLink key={car.href} href={car.href} className={styles.carCard}>
-                  <div className={styles.carImageWrap}>
-                    <Image
-                      src={car.image}
-                      alt={car.imageAlt}
-                      title={title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className={styles.carImage}
-                    />
-                    <div className={styles.carImageOverlay} />
-                  </div>
-                  <div className={styles.carContent}>
-                    {car.badge ? <span className={styles.carBadge}>{car.badge}</span> : null}
-                    <p className={styles.carName}>{car.name}</p>
-                    {car.imageCaption ? (
-                      <p className={styles.carCaption}>{car.imageCaption}</p>
-                    ) : null}
-                    <span className={styles.carHint}>{openHint}</span>
-                  </div>
-                </NextLink>
-              );
-            })}
-          </div>
-          <NextLink href={fleetHref} className={styles.linkAll}>
-            {fleetLabel} ↗
-          </NextLink>
-        </section>
-
-        <section className={styles.section} aria-labelledby="faq-heading">
-          <span className={styles.sectionDivider} aria-hidden />
-          <div className={styles.sectionHeader}>
-            <p className={styles.sectionKicker}>{faqKicker}</p>
-            <h2 id="faq-heading" className={styles.sectionTitle}>
-              {faqTitle}
-            </h2>
-          </div>
+        <section className={styles.faq} aria-labelledby="faq-heading">
+          <p className={styles.kicker}>{faqKicker}</p>
+          <h2 id="faq-heading" className={styles.h2}>
+            {faqTitle}
+          </h2>
           <div className={styles.faqList}>
             {faqs.map((faq) => (
               <details key={faq.question} className={styles.faqItem}>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { LoadingProvider } from "@/contexts/LoadingContext";
 import { ContactContent } from "./ContactContent";
 import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -9,11 +8,10 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
+import { buildPageMetadata } from "@/lib/seo/site-meta";
 import type { AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
-import { localeToLanguageTag, toAppLocale } from "@/i18n/locale-utils";
-
-const siteUrl = "https://www.amseelcars.com";
+import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -23,17 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = t("contact.title");
   const description = t("contact.description");
 
-  return {
+  return buildPageMetadata({
     title,
     description,
+    path,
+    localeOg: localeToOpenGraphLocale(l),
     alternates: localizedAlternates(l, "/contact"),
-    openGraph: {
-      type: "website",
-      url: `${siteUrl}${path}`,
-      title: `${title} | AmseelCars`,
-      description,
-    },
-  };
+    imageAlt: title,
+  });
 }
 
 export default async function Contact() {
@@ -75,9 +70,7 @@ export default async function Contact() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-    <LoadingProvider>
-      <ContactContent />
-    </LoadingProvider>
+    <ContactContent />
     </>
   );
 }

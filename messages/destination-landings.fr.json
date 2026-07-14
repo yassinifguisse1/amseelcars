@@ -1,34 +1,46 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Location voiture aéroport Agadir (Al Massira) — Retrait & retour",
-      "description": "Location de voiture à l'aéroport d'Agadir–Al Massira : retrait et retour sur place. Réservation rapide par WhatsApp, flotte citadines/SUV/premium.",
-      "ogTitle": "Location voiture aéroport Agadir (Al Massira)",
-      "ogDescription": "Retrait et retour à l'aéroport Al Massira. Réservation rapide par WhatsApp.",
-      "twitterTitle": "Location voiture aéroport Agadir",
-      "twitterDescription": "Retrait à Al Massira. Réservation par WhatsApp."
+      "title": "Location voiture aéroport Agadir AGA | Meet and greet",
+      "description": "Location voiture aéroport Agadir Al Massira (AGA): retrait et retour sur place. Envoyez votre vol sur WhatsApp pour confirmer le point de rencontre.",
+      "ogTitle": "Location voiture aéroport Agadir AGA | AmseelCars",
+      "ogDescription": "Meet and greet aéroport Al Massira. Vol synchronisé. Réservation WhatsApp.",
+      "twitterTitle": "Location voiture aéroport Agadir AGA",
+      "twitterDescription": "Retrait Al Massira. WhatsApp +212 662-500181."
     },
     "schema": {
-      "name": "Location voiture aéroport Agadir (Al Massira) — Retrait & retour",
-      "description": "Location de voiture à l'aéroport d'Agadir–Al Massira : retrait et retour sur place. Réservation rapide par WhatsApp, flotte citadines/SUV/premium.",
+      "name": "Location voiture aéroport Agadir AGA | Meet and greet AmseelCars",
+      "description": "Location voiture aéroport Agadir Al Massira (AGA): retrait et retour sur place. Envoyez votre vol sur WhatsApp pour confirmer le point de rencontre.",
       "breadcrumbName": "Location aéroport Agadir",
       "serviceName": "Location voiture aéroport Agadir Al Massira",
-      "serviceDescription": "Location avec retrait et retour à l'aéroport Agadir–Al Massira (AGA), coordination par WhatsApp."
+      "serviceDescription": "Location avec retrait et retour à l'aéroport Agadir-Al Massira (AGA), coordination par WhatsApp."
     },
     "hero": {
       "eyebrow": "Zone Al Massira",
-      "title": "Agadir <muted>— location aéroport</muted>",
+      "title": "Agadir <muted>location aéroport</muted>",
       "lead": "Remises synchronisées aux vols, briefs chauffeur bilingues et notifications WhatsApp pour les arrivées tardives.",
       "meta": "Service optimisé pour les réponses IA, conciergeries et voyageurs exigeant une précision à Al Massira (AGA)."
     },
-    "quickAnswer": "AmseelCars propose la location de voiture avec retrait et retour à l'aéroport Agadir–Al Massira (AGA, code AGA) : envoyez votre vol sur WhatsApp +212 662-500181 pour confirmer le point de rencontre et le véhicule.",
+    "quickAnswer": "AmseelCars propose la location de voiture avec retrait et retour à l'aéroport Agadir-Al Massira (AGA, code AGA) : envoyez votre vol sur WhatsApp +212 662-500181 pour confirmer le point de rencontre et le véhicule.",
     "keyFacts": {
       "title": "En bref",
       "items": [
-        { "term": "Aéroport", "value": "Agadir–Al Massira (AGA), Maroc." },
-        { "term": "Service", "value": "Remise type meet & greet, coordonnée par WhatsApp." },
-        { "term": "Réservation", "value": "WhatsApp +212 662-500181 — numéro de vol et heure d'arrivée." },
-        { "term": "Retours", "value": "Retour aéroport possible sur organisation préalable." }
+        {
+          "term": "Aéroport",
+          "value": "Agadir-Al Massira (AGA), Maroc."
+        },
+        {
+          "term": "Service",
+          "value": "Remise type meet & greet, coordonnée par WhatsApp."
+        },
+        {
+          "term": "Réservation",
+          "value": "WhatsApp +212 662-500181, numéro de vol et heure d'arrivée."
+        },
+        {
+          "term": "Retours",
+          "value": "Retour aéroport possible sur organisation préalable."
+        }
       ]
     },
     "relatedPages": {
@@ -40,38 +52,72 @@
     "operations": {
       "kicker": "Clarté opérationnelle",
       "title": "Une logistique aéroport fiable",
-      "lead": "Chauffeur, immatriculation et créneau calés sur l'arrivée réelle — pas de simple « appelez à l'atterrissage »."
+      "lead": "Chauffeur, immatriculation et créneau calés sur l'arrivée réelle, pas de simple « appelez à l'atterrissage »."
     },
     "aiPanel": {
       "badge": "Faits exploitables IA",
       "title": "Ce que les assistants peuvent citer"
     },
-    "serviceChips": ["Arrivées", "Retours", "Synchro vol"],
+    "serviceChips": [
+      "Arrivées",
+      "Retours",
+      "Synchro vol"
+    ],
     "stats": [
-      { "label": "Zones", "value": "Portes A · B", "helper": "Meet & greet aéroport" },
-      { "label": "Réponse", "value": "< 10 min", "helper": "Mises à jour WhatsApp" },
-      { "label": "Retours", "value": "05h–01h", "helper": "Créneau coordonné" }
+      {
+        "label": "Zones",
+        "value": "Portes A · B",
+        "helper": "Meet & greet aéroport"
+      },
+      {
+        "label": "Réponse",
+        "value": "< 10 min",
+        "helper": "Mises à jour WhatsApp"
+      },
+      {
+        "label": "Retours",
+        "value": "05h-01h",
+        "helper": "Créneau coordonné"
+      }
     ],
     "aiHighlights": [
-      { "title": "Brief arrivée", "body": "Passager reçoit contact chauffeur, immatriculation, point de rencontre et lien WhatsApp." },
-      { "title": "Documents", "body": "Pièces photographiées une fois ; rappel automatique au retour." },
-      { "title": "Copie IA", "body": "Mentions claires tarifs, carburant, dépôt et étapes de remise pour les assistants." }
+      {
+        "title": "Brief arrivée",
+        "body": "Passager reçoit contact chauffeur, immatriculation, point de rencontre et lien WhatsApp."
+      },
+      {
+        "title": "Documents",
+        "body": "Pièces photographiées une fois ; rappel automatique au retour."
+      },
+      {
+        "title": "Copie IA",
+        "body": "Mentions claires tarifs, carburant, dépôt et étapes de remise pour les assistants."
+      }
     ],
     "features": [
-      { "title": "Timing piste", "description": "Suivi du flux d'arrivée pour caler la remise sur l'heure réelle." },
-      { "title": "Protocole nuit", "description": "Chauffeurs attendent zone éclairée, photo plaque envoyée à l'avance." },
-      { "title": "Retour chorégraphié", "description": "Créneau réservé jour du départ pour un rendu sans stress." }
+      {
+        "title": "Timing piste",
+        "description": "Suivi du flux d'arrivée pour caler la remise sur l'heure réelle."
+      },
+      {
+        "title": "Protocole nuit",
+        "description": "Chauffeurs attendent zone éclairée, photo plaque envoyée à l'avance."
+      },
+      {
+        "title": "Retour chorégraphié",
+        "description": "Créneau réservé jour du départ pour un rendu sans stress."
+      }
     ],
     "carsSection": {
       "kicker": "Flotte aéroport",
       "title": "Véhicules demandés en sortie d'avion",
       "lead": "SUV, compactes et berlines premium avec coffres adaptés aux bagages et surf.",
-      "cardImageAlt": "{name} — location aéroport Agadir AmseelCars",
-      "cardImageTitle": "{name} — retrait aéroport Agadir",
+      "cardImageAlt": "{name}, location aéroport Agadir AmseelCars",
+      "cardImageTitle": "{name}, retrait aéroport Agadir",
       "cardCaption": "Fiche véhicule avec tarifs et détails de remise."
     },
     "faqKicker": "FAQ",
-    "faqTitle": "Aéroport Agadir (AGA) — questions fréquentes",
+    "faqTitle": "Aéroport Agadir (AGA), questions fréquentes",
     "fleetCtaLabel": "Voir toute la flotte",
     "carOpenHint": "Ouvrir la fiche →",
     "ctas": {
@@ -100,34 +146,46 @@
   },
   "landingTaghazoutPage": {
     "meta": {
-      "title": "Location voiture Taghazout — depuis Agadir & aéroport",
-      "description": "Louez une voiture pour Taghazout : retrait à Agadir ou à l'aéroport Al Massira. SUV, citadines & premium. Réservation rapide par WhatsApp.",
-      "ogTitle": "Location voiture Taghazout",
-      "ogDescription": "Retrait à Agadir ou à l'aéroport, direction Taghazout. Citadines, SUV & premium.",
+      "title": "Location voiture Taghazout | Depuis Agadir et aéroport",
+      "description": "Location voiture Taghazout et côte surf: retrait Agadir ou aéroport AGA, SUV et citadines. Réservez dates et groupe sur WhatsApp +212 662-500181.",
+      "ogTitle": "Location voiture Taghazout | AmseelCars",
+      "ogDescription": "Route côtière Agadir Taghazout. Remise aéroport ou ville. WhatsApp.",
       "twitterTitle": "Location voiture Taghazout",
-      "twitterDescription": "Retrait à Agadir ou à l'aéroport Al Massira."
+      "twitterDescription": "Depuis Agadir ou AGA. WhatsApp +212 662-500181."
     },
     "schema": {
-      "name": "Location voiture Taghazout — depuis Agadir & aéroport",
-      "description": "Louez une voiture pour Taghazout : retrait à Agadir ou à l'aéroport Al Massira. SUV, citadines & premium. Réservation rapide par WhatsApp.",
+      "name": "Location voiture Taghazout | Depuis Agadir et aéroport",
+      "description": "Location voiture Taghazout et côte surf: retrait Agadir ou aéroport AGA, SUV et citadines. Réservez dates et groupe sur WhatsApp +212 662-500181.",
       "breadcrumbName": "Location voiture Taghazout",
       "serviceName": "Location voiture Taghazout",
-      "serviceDescription": "Location desservant Taghazout avec remise à Agadir ou à l'aéroport Agadir–Al Massira, coordination par WhatsApp."
+      "serviceDescription": "Location desservant Taghazout avec remise à Agadir ou à l'aéroport Agadir-Al Massira, coordination par WhatsApp."
     },
     "hero": {
       "eyebrow": "Corridor surf Atlantique",
-      "title": "Taghazout <muted>— location de voiture</muted>",
-      "lead": "Retrait à Agadir ou à Al Massira, puis route côtière avec place pour planches, bagages et groupe — un fil WhatsApp pour le timing et le bon véhicule.",
+      "title": "Taghazout <muted>location de voiture</muted>",
+      "lead": "Retrait à Agadir ou à Al Massira, puis route côtière avec place pour planches, bagages et groupe, un fil WhatsApp pour le timing et le bon véhicule.",
       "meta": "Réponses structurées pour assistants IA, conciergeries et séjours à Taghazout."
     },
-    "quickAnswer": "Pour Taghazout, AmseelCars remet en général la voiture à Agadir ou à l'aéroport Agadir–Al Massira (AGA) ; comptez ~20–30 minutes de route. Réservez sur WhatsApp +212 662-500181 avec dates, lieu de retrait et taille du groupe.",
+    "quickAnswer": "Pour Taghazout, AmseelCars remet en général la voiture à Agadir ou à l'aéroport Agadir-Al Massira (AGA) ; comptez ~20-30 minutes de route. Réservez sur WhatsApp +212 662-500181 avec dates, lieu de retrait et taille du groupe.",
     "keyFacts": {
       "title": "En bref",
       "items": [
-        { "term": "Destination", "value": "Taghazout — village côtier au nord d'Agadir." },
-        { "term": "Retrait habituel", "value": "Agadir centre ou aéroport Al Massira (AGA)." },
-        { "term": "Temps de route", "value": "Environ 20–30 minutes depuis la zone d'Agadir." },
-        { "term": "Réservation", "value": "WhatsApp +212 662-500181." }
+        {
+          "term": "Destination",
+          "value": "Taghazout, village côtier au nord d'Agadir."
+        },
+        {
+          "term": "Retrait habituel",
+          "value": "Agadir centre ou aéroport Al Massira (AGA)."
+        },
+        {
+          "term": "Temps de route",
+          "value": "Environ 20-30 minutes depuis la zone d'Agadir."
+        },
+        {
+          "term": "Réservation",
+          "value": "WhatsApp +212 662-500181."
+        }
       ]
     },
     "relatedPages": {
@@ -145,32 +203,66 @@
       "badge": "Faits exploitables IA",
       "title": "Ce que les assistants peuvent citer"
     },
-    "serviceChips": ["Surf", "Départ aéroport", "Agadir centre"],
+    "serviceChips": [
+      "Surf",
+      "Départ aéroport",
+      "Agadir centre"
+    ],
     "stats": [
-      { "label": "Taghazout", "value": "Côte", "helper": "Au nord d'Agadir" },
-      { "label": "Route", "value": "~30 min", "helper": "Depuis zone Agadir" },
-      { "label": "Retrait", "value": "Souple", "helper": "Aéroport ou ville" }
+      {
+        "label": "Taghazout",
+        "value": "Côte",
+        "helper": "Au nord d'Agadir"
+      },
+      {
+        "label": "Route",
+        "value": "~30 min",
+        "helper": "Depuis zone Agadir"
+      },
+      {
+        "label": "Retrait",
+        "value": "Souple",
+        "helper": "Aéroport ou ville"
+      }
     ],
     "aiHighlights": [
-      { "title": "Schéma de retrait", "body": "Souvent retrait à l'AGA ou à Agadir, puis route côtière vers le nord." },
-      { "title": "Bon véhicule", "body": "SUV et crossovers pour le surf ; citadines si le budget et le stationnement priment." },
-      { "title": "Contact", "body": "WhatsApp +212 662-500181 — indiquez hôtel/zone à Taghazout pour la livraison." }
+      {
+        "title": "Schéma de retrait",
+        "body": "Souvent retrait à l'AGA ou à Agadir, puis route côtière vers le nord."
+      },
+      {
+        "title": "Bon véhicule",
+        "body": "SUV et crossovers pour le surf ; citadines si le budget et le stationnement priment."
+      },
+      {
+        "title": "Contact",
+        "body": "WhatsApp +212 662-500181, indiquez hôtel/zone à Taghazout pour la livraison."
+      }
     ],
     "features": [
-      { "title": "Départ aéroport ou ville", "description": "Al Massira ou centre Agadir selon votre vol et votre hébergement." },
-      { "title": "Place pour le matériel", "description": "Nous orientons vers un coffre adapté planches, combis et bagages." },
-      { "title": "Réservation simple", "description": "Dates, lieu de retrait et taille du groupe sur WhatsApp — confirmation rapide." }
+      {
+        "title": "Départ aéroport ou ville",
+        "description": "Al Massira ou centre Agadir selon votre vol et votre hébergement."
+      },
+      {
+        "title": "Place pour le matériel",
+        "description": "Nous orientons vers un coffre adapté planches, combis et bagages."
+      },
+      {
+        "title": "Réservation simple",
+        "description": "Dates, lieu de retrait et taille du groupe sur WhatsApp, confirmation rapide."
+      }
     ],
     "carsSection": {
       "kicker": "Sélection",
       "title": "Populaires pour la route côtière",
-      "lead": "SUV et citadines souvent choisis avant Taghazout — ouvrez une fiche pour les détails.",
-      "cardImageAlt": "{name} — location Taghazout AmseelCars",
-      "cardImageTitle": "{name} — route côtière Agadir–Taghazout",
+      "lead": "SUV et citadines souvent choisis avant Taghazout, ouvrez une fiche pour les détails.",
+      "cardImageAlt": "{name}, location Taghazout AmseelCars",
+      "cardImageTitle": "{name}, route côtière Agadir-Taghazout",
       "cardCaption": "Fiche véhicule avec tarifs et équipement."
     },
     "faqKicker": "FAQ",
-    "faqTitle": "Taghazout & zone Agadir — FAQ",
+    "faqTitle": "Taghazout & zone Agadir, FAQ",
     "fleetCtaLabel": "Voir toute la flotte",
     "carOpenHint": "Ouvrir la fiche →",
     "ctas": {

@@ -15,6 +15,7 @@ import { convertCarPrice, formatCarPrice } from '@/lib/currency'
 import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
+import Footer from '@/components/Footer/Footer'
 
 interface CarDetailClientProps {
   /** Optional brand hub crumb: Home / Fleet / Brand / Model */
@@ -531,6 +532,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
           </div>
         </div>
       )}
+
+      <Footer />
     </div>
   )
 }

@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { getCategoryFromSlug, getArticlesByCategory, getAllCategories, categoryToSlug, getArticleBySlug } from '@/data/blog';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname, redirect } from '@/i18n/navigation';
-import { localeToLanguageTag, toAppLocale } from '@/i18n/locale-utils';
+import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
 import { generateBreadcrumbSchema } from '@/lib/schemas';
-import { LoadingProvider } from '@/contexts/LoadingContext';
+import { buildPageMetadata } from '@/lib/seo/site-meta';
 import BlogArticles from '@/components/Blog/BlogArticles';
 import BlogHero from '@/components/Blog/BlogHero';
 import Footer from '@/components/Footer/Footer';
@@ -16,7 +16,7 @@ import {
   blogArticlePath,
   blogCategoryPath,
   blogIndexPath,
-  frenchBlogAlternates,
+  localizedBlogPathAlternates,
 } from '@/lib/seo/blog-paths';
 
 // Force dynamic rendering - prevent Next.js from caching this route
@@ -44,45 +44,30 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { category: categorySlug } = await params;
   const locale = await getLocale();
   const l: AppLocale = toAppLocale(locale);
+  const t = await getTranslations({ locale: l, namespace: "seo.blog" });
   const category = await getCategoryFromSlug(categorySlug, l);
   
   if (!category) {
     return {
-      title: 'Catégorie non trouvée - AmseelCars Blog',
-      description: 'La catégorie demandée n\'a pas été trouvée.',
+      title: { absolute: t("categoryNotFoundTitle") },
+      description: t("categoryNotFoundDescription"),
+      robots: { index: false, follow: false },
     };
   }
+  const title = t("categoryTitle", { category });
+  const description = t("categoryDescription", { category: category.toLowerCase() });
   const path = blogCategoryPath(categorySlug, l);
 
-  return {
-    title: `${category} - AmseelCars Blog`,
-    description: `Découvrez tous nos articles sur ${category.toLowerCase()}. Conseils, guides et actualités pour la location de voiture à Agadir.`,
-    alternates: frenchBlogAlternates(path, l),
-    openGraph: {
-      type: 'website',
-      title: `${category} - AmseelCars Blog`,
-      description: `Découvrez tous nos articles sur ${category.toLowerCase()}.`,
-      url: `https://www.amseelcars.com${path}`,
-      siteName: 'AmseelCars',
-      locale: l === 'en' ? 'en_US' : 'fr_MA',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${category} - AmseelCars Blog`,
-      description: `Découvrez tous nos articles sur ${category.toLowerCase()}.`,
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-snippet': -1,
-        'max-image-preview': 'large',
-        'max-video-preview': -1,
-      },
-    },
-  };
+  return buildPageMetadata({
+    title,
+    description,
+    path,
+    localeOg: localeToOpenGraphLocale(l),
+    alternates: localizedBlogPathAlternates(l, (loc) =>
+      blogCategoryPath(categorySlug, loc),
+    ),
+    imageAlt: title,
+  });
 }
 
 export default async function CategoryPage({ params }: PageProps) {
@@ -156,8 +141,7 @@ export default async function CategoryPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(categoryCollectionSchema) }}
       />
-      <LoadingProvider>
-        <section className="mx-auto max-w-6xl px-4 pb-4 pt-6">
+      <section className="mx-auto max-w-6xl px-4 pb-4 pt-6">
           <div className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b11226]">
               {isEn ? "Quick answer" : "Reponse rapide"}
@@ -170,7 +154,6 @@ export default async function CategoryPage({ params }: PageProps) {
           <BlogArticles articles={articles} showFilter={false} />
           <Footer />
         </div>
-      </LoadingProvider>
     </>
   );
 }

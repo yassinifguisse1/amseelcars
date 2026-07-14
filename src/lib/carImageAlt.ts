@@ -59,7 +59,7 @@ const CATEGORY_BY_LOCALE: Record<AppLocale, Record<Car['category'], string>> = {
   pl: CATEGORY_PL,
 }
 
-/** Alt: stay concise for screen readers & SERP (≈125–160 chars). */
+/** Alt: stay concise for screen readers & SERP (≈125-160 chars). */
 const MAX_ALT = 158
 /** Title tooltips: similar cap so UI stays predictable. */
 const MAX_TITLE = 158
@@ -150,11 +150,11 @@ function detailFallbackScene(index: number, locale: AppLocale): string {
 }
 
 /**
- * Text after the last em/en dash — usually the "scene" (vue avant, intérieur, etc.).
- * Empty if the alt is a single phrase (we then use the full alt).
+ * Text after the last separator (hyphen / pipe), usually the "scene"
+ * (vue avant, intérieur, etc.). Empty if the alt is a single phrase.
  */
 function extractSceneDescription(raw: string): string {
-  const m = raw.match(/\s[-–—]\s(.+)$/)
+  const m = raw.match(/\s(?:[-|]|[\u2013\u2014])\s(.+)$/)
   return m ? m[1]!.trim() : ''
 }
 
@@ -173,21 +173,21 @@ function buildListingAltBody(
   if (!rawPrimaryAlt) {
     switch (locale) {
       case 'en':
-        return `${core} (${cat}) — main view, car rental`
+        return `${core} (${cat}), main view, car rental`
       case 'es':
-        return `${core} (${cat}) — vista principal, alquiler de coches`
+        return `${core} (${cat}), vista principal, alquiler de coches`
       case 'de':
-        return `${core} (${cat}) — Hauptansicht, Mietwagen`
+        return `${core} (${cat}), Hauptansicht, Mietwagen`
       case 'pl':
-        return `${core} (${cat}) — widok główny, wynajem samochodów`
+        return `${core} (${cat}), widok główny, wynajem samochodów`
       default:
-        return `${core} (${cat}) — vue principale, location voiture`
+        return `${core} (${cat}), vue principale, location voiture`
     }
   }
 
   const scene = extractSceneDescription(rawPrimaryAlt)
   const line =
-    scene.length >= 4 ? `${core} (${cat}) — ${scene}` : `${core} (${cat}) — ${rawPrimaryAlt}`
+    scene.length >= 4 ? `${core} (${cat}), ${scene}` : `${core} (${cat}), ${rawPrimaryAlt}`
 
   return line
 }
@@ -223,7 +223,7 @@ function appendLocalAndBrand(
 }
 
 /**
- * Listing / grid: primary photo — vehicle + angle + local rental context (SEO / AEO-friendly).
+ * Listing / grid: primary photo, vehicle + angle + local rental context (SEO / AEO-friendly).
  */
 export function carListingImageAlt(
   car: Pick<Car, 'images' | 'carName' | 'brand' | 'model' | 'year' | 'category'>,
@@ -236,7 +236,7 @@ export function carListingImageAlt(
 }
 
 /**
- * Listing image title: distinct from alt — booking intent + segment (AEO / long-tail).
+ * Listing image title: distinct from alt, booking intent + segment (AEO / long-tail).
  */
 export function carListingImageTitle(
   car: Pick<Car, 'carName' | 'description' | 'brand' | 'model' | 'year' | 'category'>,
@@ -249,43 +249,43 @@ export function carListingImageTitle(
   if (excerpt) {
     switch (locale) {
       case 'en':
-        line = `${car.carName} for rent in Agadir (${cat}) — ${excerpt}`
+        line = `${car.carName} for rent in Agadir (${cat}) | ${excerpt}`
         break
       case 'es':
-        line = `${car.carName} en alquiler en Agadir (${cat}) — ${excerpt}`
+        line = `${car.carName} en alquiler en Agadir (${cat}) | ${excerpt}`
         break
       case 'de':
-        line = `${car.carName} mieten in Agadir (${cat}) — ${excerpt}`
+        line = `${car.carName} mieten in Agadir (${cat}) | ${excerpt}`
         break
       case 'pl':
-        line = `${car.carName} do wynajęcia w Agadirze (${cat}) — ${excerpt}`
+        line = `${car.carName} do wynajęcia w Agadirze (${cat}) | ${excerpt}`
         break
       default:
-        line = `${car.carName} à louer à Agadir (${cat}) — ${excerpt}`
+        line = `${car.carName} location voiture Agadir (${cat}) | ${excerpt}`
     }
   } else {
     switch (locale) {
       case 'en':
-        line = `${core} — car rental Agadir, Morocco — ${cat} — AmseelCars`
+        line = `${core} | car rental Agadir | Morocco | ${cat} | AmseelCars`
         break
       case 'es':
-        line = `${core} — alquiler coches Agadir, Marruecos — ${cat} — AmseelCars`
+        line = `${core} | alquiler coches Agadir | Marruecos | ${cat} | AmseelCars`
         break
       case 'de':
-        line = `${core} — Mietwagen Agadir, Marokko — ${cat} — AmseelCars`
+        line = `${core} | Mietwagen Agadir | Marokko | ${cat} | AmseelCars`
         break
       case 'pl':
-        line = `${core} — wynajem Agadir, Maroko — ${cat} — AmseelCars`
+        line = `${core} | wynajem Agadir | Maroko | ${cat} | AmseelCars`
         break
       default:
-        line = `${core} — location voiture Agadir, Maroc — ${cat} — AmseelCars`
+        line = `${core} | location voiture Agadir | Maroc | ${cat} | AmseelCars`
     }
   }
   return truncateMeta(line, MAX_TITLE)
 }
 
 /**
- * Short caption under card image (visible) — unchanged semantics.
+ * Short caption under card image (visible), unchanged semantics.
  */
 export function carListingCaption(
   car: Pick<Car, 'description'>,
@@ -334,13 +334,13 @@ export function carDetailImageAlt(
     default:
       rental = `${scene}, location voiture`
   }
-  let body = `${core} (${cat}) — ${rental}`
+  let body = `${core} (${cat}), ${rental}`
   body = appendLocalAndBrand(body, { includeBrand: index === 0 }, locale)
   return truncateMeta(body, MAX_ALT)
 }
 
 /**
- * Tooltip title: not a copy-paste of alt — pipe-separated facts for crawlers & hover UX.
+ * Tooltip title: not a copy-paste of alt, pipe-separated facts for crawlers & hover UX.
  */
 export function carDetailImageTitle(
   car: Pick<Car, 'images' | 'brand' | 'model' | 'year' | 'category'>,

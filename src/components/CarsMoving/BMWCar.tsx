@@ -9,6 +9,10 @@ import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { brandToSlug } from "@/lib/brandSlug";
 import Rounded from '../../common/RoundedButton';
 import { HomeSeoMainIntroOverlay } from "@/components/home-seo/home-seo";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 
 declare global {
@@ -80,32 +84,46 @@ function useBreakpointValue(values: {
   return values.xxl ?? values.xl ?? values.lg ?? values.md ?? values.base;
 }
 
-// Custom hook to detect 1080×500 resolution (wide but short screens)
-function useShortLandscape() {
-  const [isShortLandscape, setIsShortLandscape] = useState(false);
-  
+/**
+ * Compact viewport: short height, short landscape, or phone landscape.
+ * Broader than the old width>=900 && height<=800 check so logo+car+CTA stay in frame.
+ */
+function useCompactViewport() {
+  const [isCompact, setIsCompact] = useState(false);
+
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
-      // Detect wide but short screens (like 900×800)
-      const isWideButShort = width >= 900 && height <= 800;
-      setIsShortLandscape(isWideButShort);
+      const landscape = width > height;
+      setIsCompact(
+        height <= 800 ||
+          (landscape && height <= 900) ||
+          (width >= 900 && height <= 800)
+      );
     };
 
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    window.addEventListener("orientationchange", checkScreenSize);
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+      window.removeEventListener("orientationchange", checkScreenSize);
+    };
   }, []);
 
-  return isShortLandscape;
+  return isCompact;
 }
 
-// Custom hook to detect 1080×500 resolution (wide but short screens)
+export type BMWCarScrollVariant = "home" | "about";
 
+type BMWCarScrollProps = {
+  /** `home` = full runway + SEO overlay; `about` = shorter runway, no home SEO, fleet CTA */
+  variant?: BMWCarScrollVariant;
+};
 
-
-export default function BMWCarScroll() {
+export default function BMWCarScroll({ variant = "home" }: BMWCarScrollProps) {
+  const isAbout = variant === "about";
   const router = useRouter();
   const locale = useLocale() as AppLocale;
   const t = useTranslations("bmwScroll");
@@ -259,35 +277,24 @@ export default function BMWCarScroll() {
   //   }
   // }, [isNavigating, navDebugEnabled]);
   
-  // Use the custom hook to detect short landscape screens
-  const isShortLandscape = useShortLandscape();
-  // Define all images that need to be preloaded for instant loading
-  // const criticalImages = [
-  //   '/images/bmw-body.webp',
-  //   '/images/wheel-rear.webp',
-  //   '/images/wheel-front.webp',
-  //   '/images/kia-body.webp',
-  //   '/images/left wheel kia.webp',
-  //   '/images/right wheel kia.webp',
-  //   '/images/t-roc-body.webp',
-  //   '/images/t-roc wheel left.webp',
-  //   '/images/t-roc wheel right.webp',
-  //   '/images/golf8-body.webp',
-  //   '/images/golf8-wheel-left.webp',
-  //   '/images/golf8-wheel-right.webp',
-  //   '/images/x3-bm.webp',
-  //   '/images/Kia-sportage-logo.webp',
-  //   '/images/t roc logo-0014.webp',
-  //   '/images/GOLF 8 LOGO PNG.webp'
-  // ];
+  // Compact / short viewports (about + home): height-first car fit
+  const isShortLandscape = useCompactViewport();
+  const carFrameWidth = isAbout || isShortLandscape
+    ? "min(1120px, 85vw, calc(48svh * 1.8))"
+    : "clamp(280px, 85vw, 1120px)";
+  // About needs enough runway for BMW→Kia→T-Roc→Golf (+ fleet CTA) before the next About section.
+  // 480svh was too short vs home's 920vh timing curves — user hit next section mid-drive.
+  const trackHeight = isAbout ? "860svh" : "920vh";
+  const stickyStageClass = isAbout
+    ? "sticky top-0 h-[100svh] w-full flex items-center justify-center overflow-hidden"
+    : "sticky top-0 h-screen flex items-center justify-center overflow-hidden";
 
-  // Preload all critical images
-  // const { loadedImages, isLoading: imagesLoading } = useImagePreloader(criticalImages);
-
-  // Track scroll progress within the section
+  // Track scroll progress within the section.
+  // About: start/end at viewport edges so sticky occupies the full scrub (all 4 cars).
+  // Home: keep proven center→center beat used with the SEO overlay.
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: isAbout ? ["start start", "end end"] : ["start center", "end center"],
   });
 
   // useEffect(() => {
@@ -419,14 +426,38 @@ export default function BMWCarScroll() {
     [0.8, 0.852, 0.926, 0.942],
     [0, 1, 1, 0]
   );
+  const finalCtaOpacityHome = useTransform(
+    scrollYProgress,
+    [0.942, 0.948, 1],
+    [0, 1, 1]
+  );
+  const finalCtaOpacityAbout = useTransform(
+    scrollYProgress,
+    [0.9, 0.94, 1],
+    [0, 1, 1]
+  );
+
+  // After mount / resize, refresh GSAP pins on About (Lenis + ScrollTrigger in Hero)
+  // so this tall sticky runway is measured correctly.
+  useEffect(() => {
+    if (!isAbout || typeof window === "undefined") return;
+    const refresh = () => ScrollTrigger.refresh();
+    const t = window.setTimeout(refresh, 150);
+    window.addEventListener("resize", refresh);
+    return () => {
+      window.clearTimeout(t);
+      window.removeEventListener("resize", refresh);
+    };
+  }, [isAbout, trackHeight]);
 
       return (
     <section
       ref={containerRef}
-      className="bg-gradient-to-b from-gray-100 to-gray-200"
-      style={{ height: "920vh" }}
+      className="relative z-10 bg-gradient-to-b from-gray-100 to-gray-200"
+      style={{ height: trackHeight }}
+      aria-label={isAbout ? "Fleet showcase" : undefined}
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden ">
+      <div className={stickyStageClass}>
         
         {/* Loading indicator */}
         {/* {imagesLoading && (
@@ -500,9 +531,7 @@ export default function BMWCarScroll() {
       x: bmwCarX,
       y: bmwCarY,
       top: isShortLandscape ? '-1vh' : '',
-      width: isShortLandscape 
-        ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
-        : 'clamp(280px, 85vw, 1120px)',
+      width: carFrameWidth,
       // opacity: isImageLoaded('/images/bmw-body.webp') && 
       //          isImageLoaded('/images/wheel-rear.webp') && 
       //          isImageLoaded('/images/wheel-front.webp') ? 1 : 0,
@@ -563,7 +592,11 @@ export default function BMWCarScroll() {
     style={{
       // x: bmwCarX,
       // pointerEvents: ctaInteractivity.bmw ? "auto" : "none",
-      top: isShortLandscape ? '65vh' : '',
+      top: isAbout
+        ? "calc(100% + clamp(10px, 1.5vh, 24px))"
+        : isShortLandscape
+          ? "65vh"
+          : "",
       left: '50%',
       transform: 'translateX(-50%)',
       opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
@@ -686,9 +719,7 @@ export default function BMWCarScroll() {
       x: kiaCarX,
       y: kiaCarY,
       // Dynamic width based on screen size
-      width: isShortLandscape 
-        ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
-        : 'clamp(280px, 85vw, 1120px)',
+      width: carFrameWidth,
       // Add visual indicator for testing
       // backgroundColor: isShortLandscape ? '#ef4444' : 'transparent',
       // opacity:
@@ -743,7 +774,11 @@ export default function BMWCarScroll() {
       className="absolute left-1/2 -translate-x-1/2 z-10 w-full max-w-[90vw] pointer-events-none"
       style={{
         // Conditional positioning based on screen size
-        top: isShortLandscape ? '55vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
+        top: isAbout
+          ? "calc(100% + clamp(10px, 1.5vh, 24px))"
+          : isShortLandscape
+            ? "55vh"
+            : "calc(100% + clamp(18px, 2vh, 32px))",
 
         opacity: useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [1, 1, 1, 0]),
         y:       useTransform(scrollYProgress, [0.25, 0.3, 0.5, 0.55], [0, 0, 0, 50]),
@@ -890,9 +925,7 @@ export default function BMWCarScroll() {
               y: touaregCarY,
               top: isShortLandscape ? '-3.6vh' : '',
 
-                width: isShortLandscape 
-          ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
-          : 'clamp(280px, 85vw, 1120px)',
+                width: carFrameWidth,
                 // opacity: isImageLoaded('/images/t-roc-body.webp') && 
                 //          isImageLoaded('/images/t-roc wheel left.webp') && 
                 //        isImageLoaded('/images/t-roc wheel right.webp') ? 1 : 0,
@@ -961,7 +994,11 @@ export default function BMWCarScroll() {
               style={{
                 // x: touaregCarX,
                 // pointerEvents: ctaInteractivity.touareg ? "auto" : "none",
-                top: isShortLandscape ? '51vh' : 'calc(100% + clamp(18px, 2vh, 32px))',
+                top: isAbout
+                  ? "calc(100% + clamp(10px, 1.5vh, 24px))"
+                  : isShortLandscape
+                    ? "51vh"
+                    : "calc(100% + clamp(18px, 2vh, 32px))",
                 opacity: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [1, 1, 1, 0]),
                  y: useTransform(scrollYProgress, [0.5, 0.55, 0.75, 0.8], [0, 0, 0, 50]),
                 willChange: 'transform, opacity',
@@ -1058,9 +1095,7 @@ export default function BMWCarScroll() {
               x: golf8CarX, 
               y: golf8CarY,
               top: isShortLandscape ? '-3.7vh' : '',
-              width: isShortLandscape 
-              ? 'min(1120px, 85vw, calc(70vh * 1.8))' 
-              : 'clamp(280px, 85vw, 1120px)',
+              width: carFrameWidth,
               // opacity: isImageLoaded('/images/golf8-body.webp') && 
               //          isImageLoaded('/images/golf8-wheel-left.webp') && 
               //          isImageLoaded('/images/golf8-wheel-right.webp') ? 1 : 0,
@@ -1128,7 +1163,11 @@ export default function BMWCarScroll() {
             style={{
               // x: golf8CarX,
               // pointerEvents: ctaInteractivity.golf ? "auto" : "none",
-              top: isShortLandscape ? '51vh' : '',
+              top: isAbout
+                ? "calc(100% + clamp(10px, 1.5vh, 24px))"
+                : isShortLandscape
+                  ? "51vh"
+                  : "",
               left: '50%',
               transform: 'translateX(-50%)',
               opacity: useTransform(scrollYProgress, [0.75, 0.8, 0.862, 0.88], [1, 1, 1, 0]),
@@ -1190,56 +1229,69 @@ export default function BMWCarScroll() {
 
         </motion.div>
        
-        {/* SEO: “location de voiture à Agadir…” — only between end of Golf UI and the final CTA */}
-        <HomeSeoMainIntroOverlay opacity={mainSeoOpacity} />
+        {/* SEO: home only — between Golf UI and final CTA */}
+        {!isAbout && <HomeSeoMainIntroOverlay opacity={mainSeoOpacity} />}
 
-        {/* Final CTA — fade on this wrapper only (nested motion opacity × parent = wrong dimming / “jump”).
-            No translateY: keeps copy locked to same optical center as the SEO beat above. */}
+        {/* Final CTA — home: after SEO beat; about: after Golf → fleet CTA */}
         <motion.div
           className="pointer-events-none absolute inset-0 z-[30] flex min-h-0 flex-col items-center justify-center px-3 sm:px-4"
           style={{
-            /* Fade in after SEO beat ends (~0.942); plateau to end of sticky section */
-            opacity: useTransform(scrollYProgress, [0.942, 0.948, 1], [0, 1, 1]),
+            opacity: isAbout ? finalCtaOpacityAbout : finalCtaOpacityHome,
           }}
         >
-          {/* Outer is pointer-events-none so opacity-0 does not block car “Réservez” buttons; inner re-enables hits for this CTA only. */}
           <div className="pointer-events-auto mx-auto flex max-w-[90rem] flex-col items-center justify-center space-y-6 text-center sm:space-y-8">
-            <h2
-              className="font-bold leading-tight text-gray-800 [text-wrap:balance]
-                         text-[clamp(28px,7vw,56px)] md:text-[clamp(36px,6vw,72px)] lg:text-[clamp(44px,5vw,90px)]"
-            >
-              {t("idealTrip")}
-              <br />
-              <span className="text-red-600">{t("awaits")}</span>
-            </h2>
+            {isAbout ? (
+              <h2
+                className="font-bold leading-tight text-gray-800 [text-wrap:balance]
+                           text-[clamp(24px,6vw,48px)] md:text-[clamp(32px,5vw,64px)]"
+              >
+                {t("seeFleetTitle")}
+              </h2>
+            ) : (
+              <h2
+                className="font-bold leading-tight text-gray-800 [text-wrap:balance]
+                           text-[clamp(28px,7vw,56px)] md:text-[clamp(36px,6vw,72px)] lg:text-[clamp(44px,5vw,90px)]"
+              >
+                {t("idealTrip")}
+                <br />
+                <span className="text-red-600">{t("awaits")}</span>
+              </h2>
+            )}
             <Rounded
               backgroundColor="#D32F2F"
               onClick={() => goToFleet()}
-              aria-label={t("bookNow")}
-              style={{ 
-                pointerEvents: isNavigating ? 'none' : 'auto',
+              aria-label={isAbout ? t("seeFleet") : t("bookNow")}
+              style={{
+                pointerEvents: isNavigating ? "none" : "auto",
                 opacity: isNavigating ? 0.7 : 1,
-                cursor: isNavigating ? 'not-allowed' : 'pointer'
+                cursor: isNavigating ? "not-allowed" : "pointer",
               }}
             >
-              <p className="z-10 text-black">{isNavigating ? t("loading") : t("bookNow")}</p>
+              <p className="z-10 text-black">
+                {isNavigating
+                  ? t("loading")
+                  : isAbout
+                    ? t("seeFleet")
+                    : t("bookNow")}
+              </p>
             </Rounded>
 
-   
-
-            {/* Scroll hint — visibility follows parent opacity only */}
-            <div className="flex flex-col items-center border-gray-300 pt-8">
-              <div className="mb-2 text-xs sm:text-sm">{t("scrollHint")}</div>
-              <div
-                className="flex h-[clamp(28px,5.5vw,40px)] w-[clamp(16px,3vw,24px)] justify-center rounded-full border-2 border-gray-300"
-              >
-                <motion.div
-                  className="mt-2 h-[clamp(10px,2vw,14px)] w-[clamp(3px,0.6vw,4px)] rounded-full bg-gray-300"
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                />
+            {!isAbout && (
+              <div className="flex flex-col items-center border-gray-300 pt-8">
+                <div className="mb-2 text-xs sm:text-sm">{t("scrollHint")}</div>
+                <div className="flex h-[clamp(28px,5.5vw,40px)] w-[clamp(16px,3vw,24px)] justify-center rounded-full border-2 border-gray-300">
+                  <motion.div
+                    className="mt-2 h-[clamp(10px,2vw,14px)] w-[clamp(3px,0.6vw,4px)] rounded-full bg-gray-300"
+                    animate={{ y: [0, 12, 0] }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </motion.div>
 

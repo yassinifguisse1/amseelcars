@@ -11,10 +11,11 @@ import {
   localizedAlternates,
   localizedCarBrandScopedAlternates,
 } from "@/lib/seo/localized-alternates";
+import { absoluteTitle, SITE_NAME, SITE_URL } from "@/lib/seo/site-meta";
 import { frenchCarSlugToEnglishSlug, carSlugForLocale } from "@/lib/carSlugLocale";
 import { brandToSlug } from "@/lib/brandSlug";
 import type { AppLocale } from "@/i18n/routing";
-import { toAppLocale } from "@/i18n/locale-utils";
+import { localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
 import { getPathname } from "@/i18n/navigation";
 
 type Props = {
@@ -56,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!carRaw || brandToSlug(carRaw.brand) !== brandSlug.toLowerCase()) {
     const t = await getTranslations({ locale: l, namespace: "seo" });
     return {
-      title: t("carNotFound.title"),
+      title: absoluteTitle(t("carNotFound.title")),
       description: t("carNotFound.description"),
       robots: { index: false, follow: false },
       openGraph: {
@@ -97,14 +98,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 
   return {
-    title: pageTitle,
+    title: absoluteTitle(pageTitle),
     description: metaDescription,
     keywords: [carRaw.brand, carRaw.model, carRaw.category, ...keywordExtras],
     alternates: localizedCarBrandScopedAlternates(l, carRaw.brand, frSlug, enSlug),
     openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      locale: localeToOpenGraphLocale(l),
       title: pageTitle,
       description: metaDescription,
-      url: canonicalPath,
+      url: `${SITE_URL}${canonicalPath}`,
       images: [
         {
           url: carRaw.carImage,
@@ -119,6 +123,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: pageTitle,
       description: metaDescription,
       images: [carRaw.carImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-snippet": -1,
+        "max-image-preview": "large",
+        "max-video-preview": -1,
+      },
     },
   };
 }

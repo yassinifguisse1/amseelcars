@@ -84,9 +84,11 @@ export default function Footer() {
                 src="/images/amseel-car-logo.png"
               />
             </div>
-            <h2>{t("titleLine1")}</h2>
+            <h2>
+              {t("titleLine1")}{" "}
+              <span className="block">{t("titleLine2")}</span>
+            </h2>
           </span>
-          <h2>{t("titleLine2")}</h2>
           <motion.svg
             style={{ rotate, scale: 2 }}
             width="9"

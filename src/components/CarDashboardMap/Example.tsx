@@ -194,7 +194,7 @@ export default function FullscreenMap() {
         const CONFIGURATION = {
           locations: [
             {
-              title: "AMSEEL CARS — Location voiture Agadir & car rental Agadir",
+              title: "AMSEEL CARS, Location voiture Agadir & car rental Agadir",
               address1: "Haut founty rdc imm sinwan",
               address2: "Agadir, Morocco",
               coords: { lat: 30.4008209, lng: -9.5775943 },
