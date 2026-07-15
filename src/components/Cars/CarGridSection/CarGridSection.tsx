@@ -254,7 +254,7 @@ const CarGridSection = ({
                     imageAlt={carListingImageAlt(displayCar, l)}
                     imageTitle={carListingImageTitle(displayCar, l)}
                     imageCaption={carListingCaption(displayCar, l)}
-                    imagePriority={index < 1}
+                    imagePriority={index < 2}
                     pricePerDay={priceInCurrency}
                     pricing={car.pricing ? {
                       shortTerm: priceInCurrency,

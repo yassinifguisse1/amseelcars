@@ -3,9 +3,8 @@ import { useEffect, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 
-import { HomeHeroCopyBand } from "@/components/scroll-video/scroll-video";
+import { HomeHeroCopyBand } from "@/components/home/HomeHeroCopyBand";
 import CarsGridLoadingFallback from "@/components/Cars/CarsGridLoadingFallback";
-import { LogoFloatPreloader } from "@/components/Preloader/LogoFloatPreloader";
 
 const CarGridSection = dynamic(
   () => import("@/components/Cars/CarGridSection"),
@@ -69,8 +68,6 @@ export function HomeContentLandingPage() {
 
   return (
     <div className="page-content hero">
-      <LogoFloatPreloader />
-
       <HomeHeroCopyBand />
       <Suspense fallback={<CarsGridLoadingFallback />}>
         <CarGridSection showTitle />

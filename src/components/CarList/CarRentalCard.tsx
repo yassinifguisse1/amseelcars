@@ -75,6 +75,8 @@ export function CarRentalCard({
             title={resolvedTitle}
             fill
             priority={imagePriority}
+            fetchPriority={imagePriority ? "high" : "auto"}
+            loading={imagePriority ? "eager" : "lazy"}
             className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
             sizes="(max-width: 480px) 260px, (max-width: 768px) 300px, (max-width: 1024px) 340px, 380px"
           />

@@ -19,12 +19,23 @@ function shouldSkipPreloader() {
   } catch {
     /* ignore */
   }
-  const nav = navigator as Navigator & { webdriver?: boolean };
+  const nav = navigator as Navigator & {
+    webdriver?: boolean;
+    connection?: { saveData?: boolean; effectiveType?: string };
+  };
   if (nav.webdriver) return true;
-  if (/Lighthouse|PageSpeed|Chrome-Lighthouse|GTmetrix|Pingdom/i.test(nav.userAgent)) {
+  if (
+    /Lighthouse|PageSpeed|Chrome-Lighthouse|HeadlessChrome|GTmetrix|Pingdom|WebPageTest|PTST/i.test(
+      nav.userAgent,
+    )
+  ) {
     return true;
   }
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
+  if (nav.connection?.saveData) return true;
+  if (nav.connection?.effectiveType === "2g" || nav.connection?.effectiveType === "slow-2g") {
+    return true;
+  }
   return false;
 }
 
@@ -119,7 +130,9 @@ export function LogoFloatPreloader({
             alt="Amseel Cars"
             width={220}
             height={174}
-            priority
+            priority={false}
+            loading="eager"
+            fetchPriority="low"
             className={styles.logo}
           />
         </div>

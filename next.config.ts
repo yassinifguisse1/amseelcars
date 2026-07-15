@@ -104,7 +104,14 @@ const nextConfig: NextConfig = {
     ]
   },
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "gsap",
+      "@react-google-maps/api",
+    ],
+    /** Inline CSS into HTML to cut render-blocking stylesheet waterfalls (Tailwind + modules). */
+    inlineCss: true,
   },
   // Turbopack configuration to handle Uploadthing
   // Using 'turbopack' (not 'experimental.turbo') for Next.js 15+

@@ -8,7 +8,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Script from "next/script";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { Phone, MessageCircle, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -405,7 +405,7 @@ function FaqAnswerText({
   const [showToggle, setShowToggle] = useState(false);
   const pRef = useRef<HTMLParagraphElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const el = pRef.current;
     if (!el) return;
 
@@ -414,7 +414,11 @@ function FaqAnswerText({
         setShowToggle(true);
         return;
       }
-      setShowToggle(el.scrollHeight > el.clientHeight + 2);
+      // Avoid forced reflow during style settle: measure in rAF.
+      requestAnimationFrame(() => {
+        if (!pRef.current) return;
+        setShowToggle(pRef.current.scrollHeight > pRef.current.clientHeight + 2);
+      });
     };
 
     measure();

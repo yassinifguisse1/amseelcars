@@ -22,17 +22,23 @@ export default function Index({ children }: MagneticProps) {
       ease: "elastic.out(1, 0.3)",
     });
 
+    let raf = 0;
+
     const handleMouseMove = (e: MouseEvent) => {
+      if (raf) cancelAnimationFrame(raf);
       const { clientX, clientY } = e;
-      const { height, width, left, top } =
-        currentElement.getBoundingClientRect();
-      const x = clientX - (left + width / 2);
-      const y = clientY - (top + height / 2);
-      xTo(x * 0.35);
-      yTo(y * 0.35);
+      raf = requestAnimationFrame(() => {
+        const { height, width, left, top } =
+          currentElement.getBoundingClientRect();
+        const x = clientX - (left + width / 2);
+        const y = clientY - (top + height / 2);
+        xTo(x * 0.35);
+        yTo(y * 0.35);
+      });
     };
 
     const handleMouseLeave = () => {
+      if (raf) cancelAnimationFrame(raf);
       xTo(0);
       yTo(0);
     };
@@ -41,6 +47,7 @@ export default function Index({ children }: MagneticProps) {
     currentElement.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
+      if (raf) cancelAnimationFrame(raf);
       currentElement.removeEventListener("mousemove", handleMouseMove);
       currentElement.removeEventListener("mouseleave", handleMouseLeave);
     };

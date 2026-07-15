@@ -19,7 +19,7 @@ export default function Button({ isActive, toggleMenu }: ButtonProps) {
     <div className={styles.button}>
       <motion.div
         className={styles.slider}
-        animate={{ top: isActive ? "-100%" : "0%" }}
+        animate={{ y: isActive ? "-100%" : "0%" }}
         transition={{ duration: 0.5, type: "tween", ease: [0.76, 0, 0.24, 1] }}
       >
         <div
@@ -81,7 +81,7 @@ export function MenuStyleButton({
       role="button"
       tabIndex={0}
     >
-      <div className={styles.slider} style={{ top: 0 }}>
+      <div className={styles.slider} style={{ transform: "translateY(0%)" }}>
         <div className={styles.el} style={{ pointerEvents: "auto" }}>
           <PerspectiveText label={label} />
         </div>

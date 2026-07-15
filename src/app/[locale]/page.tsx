@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { getImageProps } from "next/image";
 import { HomeContentLandingPage } from "./HomeContentLandingPage";
 import Script from "next/script";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema, generateReviewSchema, generateAggregateRatingSchema } from "@/lib/schemas";
 import { reviews } from "@/data/reviews";
+import { getAllCars } from "@/data/cars";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import { buildPageMetadata } from "@/lib/seo/site-meta";
 import { routing, type AppLocale } from "@/i18n/routing";
@@ -59,8 +61,29 @@ export default async function Home({
     aggregateRating: generateAggregateRatingSchema(reviews),
   };
 
+  const firstCarImage = getAllCars()[0]?.carImage;
+  const lcpPreload = firstCarImage
+    ? getImageProps({
+        src: firstCarImage,
+        alt: "",
+        width: 760,
+        height: 570,
+        sizes: "(max-width: 480px) 260px, (max-width: 768px) 300px, 380px",
+      }).props
+    : null;
+
   return (
     <>
+      {lcpPreload?.srcSet ? (
+        <link
+          rel="preload"
+          as="image"
+          imageSrcSet={lcpPreload.srcSet}
+          imageSizes={lcpPreload.sizes}
+          fetchPriority="high"
+        />
+      ) : null}
+
       {/* LocalBusiness (CarRental) Schema with AggregateRating for Homepage */}
       <Script
         id="ld-json-local-business"
