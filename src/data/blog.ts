@@ -5,12 +5,17 @@ import { articleLocales, isArticleLocale, type ArticleLocale } from '@/lib/valid
 /** Draft translations stay hidden on non-FR locales. */
 export const PUBLIC_ARTICLE_FILTER = { published: { not: false } };
 
-/** FR blog is canonical: all French originals are public (no translation/publish gate). */
-const FRENCH_LOCALE: Prisma.BlogArticleWhereInput = { locale: 'fr' };
+/**
+ * FR blog is canonical. Treat missing `locale` as French so older Mongo docs
+ * still resolve before/without the locale backfill script.
+ */
+const FRENCH_LOCALE: Prisma.BlogArticleWhereInput = {
+  OR: [{ locale: "fr" }, { locale: { isSet: false } }, { locale: "" }],
+};
 
 /** FR blog is canonical: show all French originals without requiring translations. */
-export function publicArticlesWhere(locale: ArticleLocale = 'fr'): Prisma.BlogArticleWhereInput {
-  if (locale === 'fr') {
+export function publicArticlesWhere(locale: ArticleLocale = "fr"): Prisma.BlogArticleWhereInput {
+  if (locale === "fr") {
     return FRENCH_LOCALE;
   }
   return {
