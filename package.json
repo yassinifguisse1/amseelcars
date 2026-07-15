@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "browserslist": [
-    "chrome >= 92",
-    "edge >= 92",
-    "firefox >= 90",
-    "safari >= 15.4",
-    "ios >= 15.4",
+    "chrome >= 111",
+    "edge >= 111",
+    "firefox >= 111",
+    "safari >= 16.4",
+    "ios >= 16.4",
     "not dead",
     "not op_mini all"
   ],

@@ -122,6 +122,10 @@ const nextConfig: NextConfig = {
       // Redirect the specific README.md that's causing issues
       // Using absolute path to ensure Turbopack can resolve it
       '@uploadthing/mime-types/README.md': path.join(__dirname, 'public', 'empty.js'),
+      // Drop Next's unconditional modern polyfill bundle (~11 KiB Lighthouse "Legacy JS").
+      '../build/polyfills/polyfill-module': './src/lib/empty-polyfill.js',
+      'next/dist/build/polyfills/polyfill-module': './src/lib/empty-polyfill.js',
+      'next/dist/build/polyfills/polyfill-module.js': './src/lib/empty-polyfill.js',
     },
     // Configure rules to handle markdown files from uploadthing packages
     rules: {
@@ -160,6 +164,13 @@ const nextConfig: NextConfig = {
         fs: false,
       };
     }
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Drop Next's unconditional modern polyfill bundle (~11 KiB Lighthouse "Legacy JS").
+      "../build/polyfills/polyfill-module": false,
+      "next/dist/build/polyfills/polyfill-module": false,
+      "next/dist/build/polyfills/polyfill-module.js": false,
+    };
     // Ignore markdown files from node_modules using IgnorePlugin
     config.plugins = config.plugins || [];
     config.plugins.push(

@@ -6,7 +6,7 @@
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import Header from "@/components/Header";
+import { DeferredHeader } from "@/components/Header/DeferredHeader";
 import { ArticleLocalePathsProvider } from "@/contexts/ArticleLocalePathsContext";
 import { routing } from "@/i18n/routing";
 
@@ -33,7 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider key={locale} locale={locale} messages={messages}>
       <ArticleLocalePathsProvider>
-        <Header />
+        <DeferredHeader />
         <main id="main-content">{children}</main>
       </ArticleLocalePathsProvider>
     </NextIntlClientProvider>
