@@ -78,12 +78,13 @@ export default function ArticleCard({ article, variant }: ArticleCardProps) {
           
           <div className={styles.footer}>
             <span className={styles.readMore}>
-              Lire la suite
+              {article.title}
               <motion.span 
                 className={styles.arrow}
                 initial={{ x: 0 }}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
+                aria-hidden
               >
                 →
               </motion.span>
