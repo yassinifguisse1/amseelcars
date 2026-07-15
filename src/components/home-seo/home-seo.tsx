@@ -51,7 +51,7 @@ interface HomeSeoMainIntroOverlayProps {
 export function HomeSeoMainIntroOverlay({ opacity }: HomeSeoMainIntroOverlayProps) {
   const t = useTranslations("home.mainIntro");
   const [seoInteractive, setSeoInteractive] = useState(false);
-  useLayoutEffect(() => {
+  useEffect(() => {
     setSeoInteractive(opacity.get() > 0.04);
   }, [opacity]);
   useMotionValueEvent(opacity, "change", (latest) => {
