@@ -109,6 +109,11 @@ export async function GET(request: NextRequest) {
         { source: { contains: search } },
         { ctaLabel: { contains: search } },
         { message: { contains: search } },
+        { visitorId: { contains: search } },
+        { country: { contains: search } },
+        { city: { contains: search } },
+        { trafficSource: { contains: search } },
+        { deviceType: { contains: search } },
       ];
     }
 
@@ -205,6 +210,17 @@ export async function GET(request: NextRequest) {
           carSlug: true,
           createdAt: true,
           source: true,
+          visitorId: true,
+          isReturning: true,
+          country: true,
+          city: true,
+          deviceType: true,
+          browser: true,
+          os: true,
+          trafficSource: true,
+          utmSource: true,
+          utmMedium: true,
+          utmCampaign: true,
         },
         orderBy: { createdAt: 'desc' },
         take: 5000,
@@ -224,6 +240,12 @@ export async function GET(request: NextRequest) {
     // Top cars / pages from period sample
     const carCounts = new Map<string, number>();
     const pathCounts = new Map<string, number>();
+    const countryCounts = new Map<string, number>();
+    const deviceCounts = new Map<string, number>();
+    const trafficCounts = new Map<string, number>();
+    const browserCounts = new Map<string, number>();
+    const utmSourceCounts = new Map<string, number>();
+    const visitorSeen = new Map<string, boolean>(); // visitorId -> isReturning (any true wins)
     const daily = new Map<string, { date: string; views: number; whatsapp: number; reservations: number; abandons: number; clicks: number }>();
 
     for (let i = 0; i < days; i++) {
@@ -233,10 +255,36 @@ export async function GET(request: NextRequest) {
       daily.set(key, { date: key, views: 0, whatsapp: 0, reservations: 0, abandons: 0, clicks: 0 });
     }
 
+    const bump = (map: Map<string, number>, key: string | null | undefined) => {
+      const k = (key || '').trim();
+      if (!k) return;
+      map.set(k, (map.get(k) ?? 0) + 1);
+    };
+
     for (const row of periodEventsForAgg) {
       const car = (row.carName || row.carSlug || '').trim();
       if (car) carCounts.set(car, (carCounts.get(car) ?? 0) + 1);
       if (row.path) pathCounts.set(row.path, (pathCounts.get(row.path) ?? 0) + 1);
+
+      // Audience: prefer page-views so we count visits, not every click
+      const countAudience = row.event === 'page-view' || !row.visitorId;
+      if (row.event === 'page-view') {
+        bump(countryCounts, row.country);
+        bump(deviceCounts, row.deviceType);
+        bump(trafficCounts, row.trafficSource);
+        bump(browserCounts, row.browser);
+        bump(utmSourceCounts, row.utmSource);
+        if (row.visitorId) {
+          const prev = visitorSeen.get(row.visitorId) ?? false;
+          visitorSeen.set(row.visitorId, prev || Boolean(row.isReturning));
+        }
+      } else if (countAudience && row.visitorId && !visitorSeen.has(row.visitorId)) {
+        // Fallback for older events without page-views in sample
+        bump(countryCounts, row.country);
+        bump(deviceCounts, row.deviceType);
+        bump(trafficCounts, row.trafficSource);
+        visitorSeen.set(row.visitorId, Boolean(row.isReturning));
+      }
 
       const key = dayKey(new Date(row.createdAt));
       const bucket = daily.get(key);
@@ -248,15 +296,21 @@ export async function GET(request: NextRequest) {
       else if ((IMPORTANT_CLICK_EVENTS as readonly string[]).includes(row.event)) bucket.clicks += 1;
     }
 
-    const topCars = [...carCounts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(([name, count]) => ({ name, count }));
+    const topList = (map: Map<string, number>, n = 8) =>
+      [...map.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, n)
+        .map(([name, count]) => ({ name, count }));
 
-    const topPages = [...pathCounts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(([path, count]) => ({ path, count }));
+    const topCars = topList(carCounts);
+    const topPages = topList(pathCounts).map(({ name, count }) => ({ path: name, count }));
+
+    let returningVisitors = 0;
+    for (const isRet of visitorSeen.values()) {
+      if (isRet) returningVisitors += 1;
+    }
+    const uniqueVisitors = visitorSeen.size;
+    const newVisitors = Math.max(0, uniqueVisitors - returningVisitors);
 
     const funnel = {
       pageViews: pageViewsPeriod,
@@ -280,6 +334,16 @@ export async function GET(request: NextRequest) {
         topPages,
         daily: [...daily.values()],
         funnel,
+        audience: {
+          uniqueVisitors,
+          newVisitors,
+          returningVisitors,
+          topCountries: topList(countryCounts),
+          topDevices: topList(deviceCounts, 5),
+          topTrafficSources: topList(trafficCounts, 6),
+          topBrowsers: topList(browserCounts, 5),
+          topUtmSources: topList(utmSourceCounts, 8),
+        },
       },
       stats: {
         total,
@@ -297,6 +361,9 @@ export async function GET(request: NextRequest) {
         phonePeriod,
         contactPeriod,
         leadsWithContact: leadsWithContact.length,
+        uniqueVisitors,
+        newVisitors,
+        returningVisitors,
         byEvent: statsByEvent,
         periodDays: days,
       },

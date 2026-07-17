@@ -14,6 +14,20 @@ export interface SaveTrackEventInput {
   screen?: string | null;
   timezone?: string | null;
   clientIp?: string | null;
+  visitorId?: string | null;
+  sessionId?: string | null;
+  isReturning?: boolean | null;
+  country?: string | null;
+  city?: string | null;
+  deviceType?: string | null;
+  browser?: string | null;
+  os?: string | null;
+  trafficSource?: string | null;
+  utmSource?: string | null;
+  utmMedium?: string | null;
+  utmCampaign?: string | null;
+  utmContent?: string | null;
+  utmTerm?: string | null;
   fullName?: string | null;
   email?: string | null;
   phone?: string | null;
@@ -43,6 +57,20 @@ export async function saveTrackEvent(data: SaveTrackEventInput) {
       screen: data.screen ?? null,
       timezone: data.timezone ?? null,
       clientIp: data.clientIp ?? null,
+      visitorId: data.visitorId ?? null,
+      sessionId: data.sessionId ?? null,
+      isReturning: data.isReturning ?? null,
+      country: data.country ?? null,
+      city: data.city ?? null,
+      deviceType: data.deviceType ?? null,
+      browser: data.browser ?? null,
+      os: data.os ?? null,
+      trafficSource: data.trafficSource ?? null,
+      utmSource: data.utmSource ?? null,
+      utmMedium: data.utmMedium ?? null,
+      utmCampaign: data.utmCampaign ?? null,
+      utmContent: data.utmContent ?? null,
+      utmTerm: data.utmTerm ?? null,
       fullName: data.fullName ?? null,
       email: data.email ?? null,
       phone: data.phone ?? null,

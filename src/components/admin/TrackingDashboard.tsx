@@ -19,15 +19,19 @@ import {
   ChevronUp,
   Eye,
   FlaskConical,
+  Globe2,
   Loader2,
   Mail,
   MessageCircle,
+  MonitorSmartphone,
   MousePointerClick,
   Phone,
   RefreshCw,
   Search,
   Send,
+  Share2,
   TrendingUp,
+  UserPlus,
   Users,
 } from 'lucide-react';
 import { EVENT_LABELS, SOURCE_LABELS } from '@/lib/trackEventTypes';
@@ -48,6 +52,20 @@ type TrackEventRow = {
   screen: string | null;
   timezone: string | null;
   clientIp: string | null;
+  visitorId: string | null;
+  sessionId: string | null;
+  isReturning: boolean | null;
+  country: string | null;
+  city: string | null;
+  deviceType: string | null;
+  browser: string | null;
+  os: string | null;
+  trafficSource: string | null;
+  utmSource: string | null;
+  utmMedium: string | null;
+  utmCampaign: string | null;
+  utmContent: string | null;
+  utmTerm: string | null;
   fullName: string | null;
   email: string | null;
   phone: string | null;
@@ -79,9 +97,14 @@ type TrackStats = {
   phonePeriod: number;
   contactPeriod: number;
   leadsWithContact: number;
+  uniqueVisitors?: number;
+  newVisitors?: number;
+  returningVisitors?: number;
   byEvent: Record<string, { count: number; label: string }>;
   periodDays: number;
 };
+
+type RankItem = { name: string; count: number };
 
 type Insights = {
   topCars: Array<{ name: string; count: number }>;
@@ -102,6 +125,16 @@ type Insights = {
     formProgress: number;
     abandoned: number;
     confirmed: number;
+  };
+  audience?: {
+    uniqueVisitors: number;
+    newVisitors: number;
+    returningVisitors: number;
+    topCountries: RankItem[];
+    topDevices: RankItem[];
+    topTrafficSources: RankItem[];
+    topBrowsers: RankItem[];
+    topUtmSources: RankItem[];
   };
 };
 
@@ -146,6 +179,69 @@ function formatDay(isoDate: string) {
 function sourceLabel(source: string | null) {
   if (!source) return '–';
   return SOURCE_LABELS[source] ?? source;
+}
+
+const TRAFFIC_LABELS: Record<string, string> = {
+  direct: 'Direct',
+  organic: 'Organique (SEO)',
+  social: 'Réseaux sociaux',
+  referral: 'Référent',
+  paid: 'Payant (ads)',
+  email: 'Email',
+};
+
+const DEVICE_LABELS: Record<string, string> = {
+  mobile: 'Mobile',
+  tablet: 'Tablette',
+  desktop: 'Desktop',
+};
+
+function trafficLabel(v: string | null | undefined) {
+  if (!v) return '–';
+  return TRAFFIC_LABELS[v] ?? v;
+}
+
+function deviceLabel(v: string | null | undefined) {
+  if (!v) return '–';
+  return DEVICE_LABELS[v] ?? v;
+}
+
+function countryLabel(code: string | null | undefined) {
+  if (!code) return '–';
+  try {
+    const name = new Intl.DisplayNames(['fr'], { type: 'region' }).of(code.toUpperCase());
+    return name ? `${name} (${code})` : code;
+  } catch {
+    return code;
+  }
+}
+
+function RankList({
+  items,
+  empty,
+  formatName,
+}: {
+  items: RankItem[];
+  empty: string;
+  formatName?: (name: string) => string;
+}) {
+  if (items.length === 0) {
+    return <p className="text-sm text-slate-500">{empty}</p>;
+  }
+  return (
+    <ul className="space-y-2">
+      {items.map((item) => (
+        <li key={item.name} className="flex items-center justify-between gap-3 text-sm">
+          <span className="truncate font-medium text-slate-800">
+            {formatName ? formatName(item.name) : item.name}
+          </span>
+          <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">
+            {item.count}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function formatLocation(key: string | null) {
@@ -260,12 +356,25 @@ function DailyChart({ daily }: { daily: Insights['daily'] }) {
 function EventDetail({ event }: { event: TrackEventRow }) {
   const rows: Array<[string, string | number | null | undefined]> = [
     ['Page', event.path],
-    ['Source', sourceLabel(event.source)],
+    ['Source CTA', sourceLabel(event.source)],
+    ['Trafic', trafficLabel(event.trafficSource)],
+    ['UTM source', event.utmSource],
+    ['UTM medium', event.utmMedium],
+    ['UTM campaign', event.utmCampaign],
     ['Voiture', event.carName || event.carSlug || '–'],
     ['URL', event.fullUrl],
+    ['Pays', countryLabel(event.country)],
+    ['Ville', event.city],
+    ['Appareil', deviceLabel(event.deviceType)],
+    ['OS', event.os],
+    ['Navigateur', event.browser],
+    ['Visiteur', event.isReturning == null ? null : event.isReturning ? 'Récurrent' : 'Nouveau'],
+    ['Visitor ID', event.visitorId],
     ['IP', event.clientIp],
     ['Langue', event.language],
     ['Référent', event.referrer],
+    ['Écran', event.screen],
+    ['Fuseau', event.timezone],
   ];
 
   if (event.fullName || event.email || event.phone) {
@@ -364,6 +473,19 @@ function LeadCard({ lead }: { lead: TrackEventRow }) {
       <div className="mt-2 space-y-0.5 text-sm text-slate-700">
         {lead.phone ? <p>Tél: {lead.phone}</p> : null}
         {lead.email ? <p>Email: {lead.email}</p> : null}
+        {(lead.country || lead.deviceType || lead.trafficSource) && (
+          <p className="text-xs text-slate-500">
+            {[
+              lead.country ? countryLabel(lead.country) : null,
+              lead.city,
+              lead.deviceType ? deviceLabel(lead.deviceType) : null,
+              lead.trafficSource ? trafficLabel(lead.trafficSource) : null,
+              lead.isReturning ? 'Récurrent' : lead.isReturning === false ? 'Nouveau' : null,
+            ]
+              .filter(Boolean)
+              .join(' · ')}
+          </p>
+        )}
         {(lead.pickupDate || lead.returnDate) && (
           <p>
             {lead.pickupDate || '?'} → {lead.returnDate || '?'}
@@ -474,7 +596,7 @@ export default function TrackingDashboard() {
         <div>
           <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Analytics site</h2>
           <p className="mt-1 text-sm text-slate-500">
-            Trafic, WhatsApp, réservations et leads — tout dans l&apos;admin, sans Statsig.
+            Trafic, visiteurs (pays, appareil, source), WhatsApp, réservations et leads — dans l&apos;admin.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -499,6 +621,11 @@ export default function TrackingDashboard() {
 
       {/* KPI strip */}
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <KpiCard
+          label="Visiteurs uniques"
+          value={stats?.uniqueVisitors ?? insights?.audience?.uniqueVisitors ?? '–'}
+          hint={`${stats?.newVisitors ?? insights?.audience?.newVisitors ?? 0} nouveaux · ${stats?.returningVisitors ?? insights?.audience?.returningVisitors ?? 0} récurrents`}
+        />
         <KpiCard
           label="Pages vues"
           value={stats?.pageViewsPeriod ?? '–'}
@@ -526,9 +653,6 @@ export default function TrackingDashboard() {
           accent="amber"
           onClick={() => setQuickView('leads')}
         />
-      </div>
-
-      <div className="grid gap-3 sm:grid-cols-3">
         <KpiCard label="Clic Réserver" value={stats?.reserverPeriod ?? '–'} hint="intention de booking" onClick={() => { setQuickView('clicks'); setEventFilter('reserver'); }} />
         <KpiCard label="Clic téléphone" value={stats?.phonePeriod ?? '–'} hint="appels depuis le site" onClick={() => { setQuickView('clicks'); setEventFilter('phone-click'); }} />
         <KpiCard label="Messages contact" value={stats?.contactPeriod ?? '–'} hint="formulaire contact" onClick={() => { setQuickView('leads'); setEventFilter('contact-submit'); }} />
@@ -640,6 +764,85 @@ export default function TrackingDashboard() {
                     </li>
                   ))}
                 </ul>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200 bg-white shadow-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Globe2 className="h-5 w-5 text-[#b11226]" />
+                Pays
+              </CardTitle>
+              <CardDescription>D&apos;où viennent les visiteurs (geo IP)</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <RankList
+                items={insights?.audience?.topCountries ?? []}
+                empty="Pas encore de données pays (visible après déploiement + trafic)."
+                formatName={countryLabel}
+              />
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200 bg-white shadow-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <MonitorSmartphone className="h-5 w-5 text-[#b11226]" />
+                Appareils
+              </CardTitle>
+              <CardDescription>Mobile, tablette, desktop</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <RankList
+                items={insights?.audience?.topDevices ?? []}
+                empty="Pas encore de données appareil."
+                formatName={deviceLabel}
+              />
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200 bg-white shadow-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Share2 className="h-5 w-5 text-[#b11226]" />
+                Source de trafic
+              </CardTitle>
+              <CardDescription>Direct, SEO, social, ads, email…</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <RankList
+                items={insights?.audience?.topTrafficSources ?? []}
+                empty="Pas encore de sources détectées."
+                formatName={trafficLabel}
+              />
+            </CardContent>
+          </Card>
+
+          <Card className="border-slate-200 bg-white shadow-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <UserPlus className="h-5 w-5 text-[#b11226]" />
+                Nouveaux vs récurrents
+              </CardTitle>
+              <CardDescription>Visiteurs reconnus via cookie navigateur</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <FunnelBar
+                label="Nouveaux"
+                value={insights?.audience?.newVisitors ?? 0}
+                max={Math.max(1, insights?.audience?.uniqueVisitors ?? 1)}
+              />
+              <FunnelBar
+                label="Récurrents"
+                value={insights?.audience?.returningVisitors ?? 0}
+                max={Math.max(1, insights?.audience?.uniqueVisitors ?? 1)}
+              />
+              {(insights?.audience?.topUtmSources?.length ?? 0) > 0 && (
+                <div className="border-t border-slate-100 pt-3">
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">UTM sources</p>
+                  <RankList items={insights!.audience!.topUtmSources} empty="" />
+                </div>
               )}
             </CardContent>
           </Card>
@@ -760,6 +963,26 @@ export default function TrackingDashboard() {
                             <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
                               {sourceLabel(event.source)}
                             </span>
+                            {event.trafficSource ? (
+                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                                {trafficLabel(event.trafficSource)}
+                              </span>
+                            ) : null}
+                            {event.country ? (
+                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                                {event.country}
+                              </span>
+                            ) : null}
+                            {event.deviceType ? (
+                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                                {deviceLabel(event.deviceType)}
+                              </span>
+                            ) : null}
+                            {event.isReturning ? (
+                              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-800">
+                                Récurrent
+                              </span>
+                            ) : null}
                           </div>
                           <p className="mt-1 truncate text-sm text-slate-600">
                             {event.fullName || event.carName || event.carSlug || event.path}

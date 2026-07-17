@@ -1,4 +1,5 @@
 import type { TrackEventType } from './trackEventTypes';
+import { getVisitorContext } from './visitorContext';
 
 export type { TrackEventType };
 
@@ -24,35 +25,32 @@ export interface TrackEventPayload {
 
 const TRACK_API = '/api/track/event';
 
-function getVisitorContext() {
-  if (typeof window === 'undefined') return {};
-  let referrer = '';
-  if (document.referrer) {
-    try {
-      const refUrl = new URL(document.referrer);
-      referrer = refUrl.origin + refUrl.pathname;
-    } catch {
-      referrer = '';
-    }
-  }
-  return {
-    fullUrl: window.location.href,
-    userAgent: window.navigator.userAgent,
-    language: window.navigator.language,
-    referrer,
-    screen: `${window.screen?.width ?? ''}x${window.screen?.height ?? ''}`,
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-  };
-}
-
 export function buildTrackBody(params: TrackEventPayload) {
   const path =
     params.path ||
     (typeof window !== 'undefined' ? window.location.pathname : '/');
+  const ctx = getVisitorContext();
   return {
     ...params,
     path,
-    ...getVisitorContext(),
+    visitorId: ctx.visitorId,
+    sessionId: ctx.sessionId,
+    isReturning: ctx.isReturning,
+    deviceType: ctx.deviceType,
+    browser: ctx.browser,
+    os: ctx.os,
+    trafficSource: ctx.trafficSource,
+    utmSource: ctx.utmSource || undefined,
+    utmMedium: ctx.utmMedium || undefined,
+    utmCampaign: ctx.utmCampaign || undefined,
+    utmContent: ctx.utmContent || undefined,
+    utmTerm: ctx.utmTerm || undefined,
+    fullUrl: ctx.fullUrl,
+    userAgent: ctx.userAgent,
+    language: ctx.language,
+    referrer: ctx.referrer,
+    screen: ctx.screen,
+    timezone: ctx.timezone,
   };
 }
 

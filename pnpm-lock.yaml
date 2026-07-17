@@ -8,12 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@ai-sdk/openai':
+        specifier: ^3.0.67
+        version: 3.0.85(zod@4.4.2)
       '@clerk/nextjs':
         specifier: ^6.35.2
-        version: 6.39.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 6.39.3(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@flags-sdk/statsig':
         specifier: ^0.2.5
-        version: 0.2.5(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))
+        version: 0.2.5(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))
       '@gsap/react':
         specifier: ^2.1.2
         version: 2.1.2(gsap@3.15.0)(react@18.3.1)
@@ -61,10 +64,13 @@ importers:
         version: 0.179.0
       '@uploadthing/react':
         specifier: ^7.3.3
-        version: 7.3.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(uploadthing@7.7.4(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4))
+        version: 7.3.3(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(uploadthing@7.7.4(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4))
       '@vercel/analytics':
         specifier: ^1.5.0
-        version: 1.6.1(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)
+        version: 1.6.1(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)
+      ai:
+        specifier: ^6.0.193
+        version: 6.0.229(zod@4.4.2)
       autoprefixer:
         specifier: ^10.4.21
         version: 10.5.0(postcss@8.5.13)
@@ -82,7 +88,7 @@ importers:
         version: 17.4.2
       flags:
         specifier: ^4.0.2
-        version: 4.0.6(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.0.6(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       framer-motion:
         specifier: ^12.23.12
         version: 12.38.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -109,13 +115,13 @@ importers:
         version: 12.38.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next:
         specifier: 15.5.9
-        version: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+        version: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       next-intl:
         specifier: ^4.9.1
-        version: 4.11.0(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(typescript@5.9.3)
+        version: 4.11.0(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(typescript@5.9.3)
       next-view-transitions:
         specifier: ^0.3.4
-        version: 0.3.5(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 0.3.5(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       postcss:
         specifier: ^8.5.6
         version: 8.5.13
@@ -154,7 +160,7 @@ importers:
         version: 0.179.1
       uploadthing:
         specifier: ^7.7.4
-        version: 7.7.4(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4)
+        version: 7.7.4(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4)
       zod:
         specifier: ^4.1.12
         version: 4.4.2
@@ -212,6 +218,28 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@ai-sdk/gateway@3.0.152':
+    resolution: {integrity: sha512-IM9D6if0CXsNkiyyIqoaD3/80gZVpCI3/tKpsq1N+vNa2O1ZeUfJmaUcIr92qqPO1G8u5YHah+0EayhIkk3ACA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/openai@3.0.85':
+    resolution: {integrity: sha512-/j7rPYswnWhStDbaO75gLVwq+Tm73vCquFCNTuYYyxY31TP0ZG7d0ZANIjiVlNDEVqQqXNBeMrEzGCpSN4QnKg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/provider-utils@4.0.39':
+    resolution: {integrity: sha512-XPR6o7561RYUkfYlLYouWsvm6Gv2tYIQy5pttGRkvML98u138ClPThn5yiQg5rMQutTtZLB+GUC8qFFCzDKQQQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
+
+  '@ai-sdk/provider@3.0.14':
+    resolution: {integrity: sha512-5X1k57JBJ4H7H1QjX7CnJYAB1I19r/trVZTMcSms7/kLNZ8RaU4Nt2agcwZzv82Hfx6Q7/TOLU7agAKeFfc8cA==}
+    engines: {node: '>=18'}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -810,6 +838,10 @@ packages:
   '@nolyfill/is-core-module@1.0.39':
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
+
+  '@opentelemetry/api@1.9.1':
+    resolution: {integrity: sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q==}
+    engines: {node: '>=8.0.0'}
 
   '@opentelemetry/semantic-conventions@1.40.0':
     resolution: {integrity: sha512-cifvXDhcqMwwTlTK04GBNeIe7yyo28Mfby85QXFe1Yk8nmi36Ab/5UQwptOx84SsoGNRg+EVSjwzfSZMy6pmlw==}
@@ -1936,6 +1968,10 @@ packages:
       '@aws-sdk/credential-provider-web-identity':
         optional: true
 
+  '@vercel/oidc@3.2.0':
+    resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
+    engines: {node: '>= 20'}
+
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
 
@@ -2008,6 +2044,12 @@ packages:
     resolution: {integrity: sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3+82K6JgJlm/Y+KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5+4jh9sw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  ai@6.0.229:
+    resolution: {integrity: sha512-bDi36L2RdEFMS7z2WIhBr7fpQhMkjzd6mgRKgtlmBSs2zZwUI22s6ZBOak/XN/LpKiJnS7SrlVqKDcqqvzTW8A==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
 
   ajv-formats@2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
@@ -2571,6 +2613,10 @@ packages:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
 
+  eventsource-parser@3.1.0:
+    resolution: {integrity: sha512-kJezFj9YFAMLeORyi7aCLxLbD5/qWMQnoMVlVPyHIll7lgRJCc3JVln9Vgl9nwQi0YkMnhdGTMNn7CkRRAptMg==}
+    engines: {node: '>=18.0.0'}
+
   exsolve@1.0.8:
     resolution: {integrity: sha512-LmDxfWXwcTArk8fUEnOfSZpHOJ6zOMUJKOtFLFqJLoKJetuQG874Uc7/Kki7zFLzYybmZhp1M7+98pfMqeX8yA==}
 
@@ -3045,6 +3091,9 @@ packages:
 
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+
+  json-schema@0.4.0:
+    resolution: {integrity: sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==}
 
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
@@ -4333,6 +4382,30 @@ packages:
 
 snapshots:
 
+  '@ai-sdk/gateway@3.0.152(zod@4.4.2)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.14
+      '@ai-sdk/provider-utils': 4.0.39(zod@4.4.2)
+      '@vercel/oidc': 3.2.0
+      zod: 4.4.2
+
+  '@ai-sdk/openai@3.0.85(zod@4.4.2)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.14
+      '@ai-sdk/provider-utils': 4.0.39(zod@4.4.2)
+      zod: 4.4.2
+
+  '@ai-sdk/provider-utils@4.0.39(zod@4.4.2)':
+    dependencies:
+      '@ai-sdk/provider': 3.0.14
+      '@standard-schema/spec': 1.1.0
+      eventsource-parser: 3.1.0
+      zod: 4.4.2
+
+  '@ai-sdk/provider@3.0.14':
+    dependencies:
+      json-schema: 0.4.0
+
   '@alloc/quick-lru@5.2.0': {}
 
   '@babel/runtime@7.29.2': {}
@@ -4354,13 +4427,13 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       tslib: 2.8.1
 
-  '@clerk/nextjs@6.39.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@clerk/nextjs@6.39.3(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@clerk/backend': 2.33.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/clerk-react': 5.61.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/shared': 3.47.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@clerk/types': 4.101.23(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       server-only: 0.0.1
@@ -4539,12 +4612,12 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@flags-sdk/statsig@0.2.5(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))':
+  '@flags-sdk/statsig@0.2.5(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))':
     dependencies:
-      '@vercel/edge-config': 1.4.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))
+      '@vercel/edge-config': 1.4.3(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))
       '@vercel/functions': 1.6.0
       statsig-node-lite: 0.5.2
-      statsig-node-vercel: 0.7.0(@vercel/edge-config@1.4.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)))
+      statsig-node-vercel: 0.7.0(@vercel/edge-config@1.4.3(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)))
     transitivePeerDependencies:
       - '@aws-sdk/credential-provider-web-identity'
       - '@opentelemetry/api'
@@ -4813,6 +4886,8 @@ snapshots:
       fastq: 1.20.1
 
   '@nolyfill/is-core-module@1.0.39': {}
+
+  '@opentelemetry/api@1.9.1': {}
 
   '@opentelemetry/semantic-conventions@1.40.0': {}
 
@@ -5800,14 +5875,14 @@ snapshots:
 
   '@uploadthing/mime-types@0.3.6': {}
 
-  '@uploadthing/react@7.3.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(uploadthing@7.7.4(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4))':
+  '@uploadthing/react@7.3.3(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(uploadthing@7.7.4(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4))':
     dependencies:
       '@uploadthing/shared': 7.1.10
       file-selector: 0.6.0
       react: 18.3.1
-      uploadthing: 7.7.4(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4)
+      uploadthing: 7.7.4(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4)
     optionalDependencies:
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
 
   '@uploadthing/shared@7.1.10':
     dependencies:
@@ -5828,20 +5903,23 @@ snapshots:
     optionalDependencies:
       react: 18.3.1
 
-  '@vercel/analytics@1.6.1(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)':
+  '@vercel/analytics@1.6.1(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)':
     optionalDependencies:
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       react: 18.3.1
 
   '@vercel/edge-config-fs@0.1.0': {}
 
-  '@vercel/edge-config@1.4.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))':
+  '@vercel/edge-config@1.4.3(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))':
     dependencies:
       '@vercel/edge-config-fs': 0.1.0
     optionalDependencies:
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      '@opentelemetry/api': 1.9.1
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
 
   '@vercel/functions@1.6.0': {}
+
+  '@vercel/oidc@3.2.0': {}
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
@@ -5936,6 +6014,14 @@ snapshots:
       acorn: 8.16.0
 
   acorn@8.16.0: {}
+
+  ai@6.0.229(zod@4.4.2):
+    dependencies:
+      '@ai-sdk/gateway': 3.0.152(zod@4.4.2)
+      '@ai-sdk/provider': 3.0.14
+      '@ai-sdk/provider-utils': 4.0.39(zod@4.4.2)
+      '@opentelemetry/api': 1.9.1
+      zod: 4.4.2
 
   ajv-formats@2.1.1(ajv@8.20.0):
     optionalDependencies:
@@ -6661,6 +6747,8 @@ snapshots:
 
   events@3.3.0: {}
 
+  eventsource-parser@3.1.0: {}
+
   exsolve@1.0.8: {}
 
   extend-shallow@2.0.1:
@@ -6729,12 +6817,13 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  flags@4.0.6(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  flags@4.0.6(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@edge-runtime/cookies': 5.0.2
       jose: 5.10.0
     optionalDependencies:
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      '@opentelemetry/api': 1.9.1
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -7105,6 +7194,8 @@ snapshots:
 
   json-schema-traverse@1.0.0: {}
 
+  json-schema@0.4.0: {}
+
   json-stable-stringify-without-jsonify@1.0.1: {}
 
   json5@1.0.2:
@@ -7371,14 +7462,14 @@ snapshots:
 
   next-intl-swc-plugin-extractor@4.11.0: {}
 
-  next-intl@4.11.0(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(typescript@5.9.3):
+  next-intl@4.11.0(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react@18.3.1)(typescript@5.9.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.8.5
       '@parcel/watcher': 2.5.6
       '@swc/core': 1.15.33
       icu-minify: 4.11.0
       negotiator: 1.0.0
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       next-intl-swc-plugin-extractor: 4.11.0
       po-parser: 2.1.1
       react: 18.3.1
@@ -7388,13 +7479,13 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  next-view-transitions@0.3.5(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next-view-transitions@0.3.5(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0):
+  next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0):
     dependencies:
       '@next/env': 15.5.9
       '@swc/helpers': 0.5.15
@@ -7412,6 +7503,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 15.5.7
       '@next/swc-win32-arm64-msvc': 15.5.7
       '@next/swc-win32-x64-msvc': 15.5.7
+      '@opentelemetry/api': 1.9.1
       sass: 1.99.0
       sharp: 0.34.5
     transitivePeerDependencies:
@@ -7982,9 +8074,9 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  statsig-node-vercel@0.7.0(@vercel/edge-config@1.4.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))):
+  statsig-node-vercel@0.7.0(@vercel/edge-config@1.4.3(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))):
     dependencies:
-      '@vercel/edge-config': 1.4.3(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))
+      '@vercel/edge-config': 1.4.3(@opentelemetry/api@1.9.1)(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))
       statsig-node-lite: 0.4.4
     transitivePeerDependencies:
       - encoding
@@ -8284,7 +8376,7 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
-  uploadthing@7.7.4(next@15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4):
+  uploadthing@7.7.4(next@15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0))(tailwindcss@4.2.4):
     dependencies:
       '@effect/platform': 0.90.3(effect@3.17.7)
       '@standard-schema/spec': 1.0.0-beta.4
@@ -8292,7 +8384,7 @@ snapshots:
       '@uploadthing/shared': 7.1.10
       effect: 3.17.7
     optionalDependencies:
-      next: 15.5.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
+      next: 15.5.9(@opentelemetry/api@1.9.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.99.0)
       tailwindcss: 4.2.4
 
   uri-js@4.4.1:

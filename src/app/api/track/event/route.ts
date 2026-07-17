@@ -65,6 +65,25 @@ function getClientIp(request: NextRequest): string {
     ?? '–';
 }
 
+function getGeoFromRequest(request: NextRequest): { country: string; city: string } {
+  const country = (
+    request.headers.get('x-vercel-ip-country')
+    ?? request.headers.get('cf-ipcountry')
+    ?? request.headers.get('x-country-code')
+    ?? ''
+  ).trim().toUpperCase().slice(0, 8);
+  const city = (
+    request.headers.get('x-vercel-ip-city')
+    ?? request.headers.get('cf-ipcity')
+    ?? ''
+  ).trim().slice(0, 80);
+  // Cloudflare uses "XX" when unknown
+  return {
+    country: country && country !== 'XX' ? country : '',
+    city: city ? decodeURIComponent(city) : '',
+  };
+}
+
 function escapeHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -80,7 +99,12 @@ const ALLOWED_KEYS = new Set([
   'path', 'source', 'carSlug', 'carName', 'fullUrl', 'userAgent', 'language', 'referrer',
   'screen', 'timezone', 'event', 'fullName', 'email', 'phone', 'message', 'pickupDate',
   'returnDate', 'pickupLocation', 'returnLocation', 'rentalDays', 'totalPrice', 'ctaLabel', 'metadata',
+  'visitorId', 'sessionId', 'isReturning', 'deviceType', 'browser', 'os', 'trafficSource',
+  'utmSource', 'utmMedium', 'utmCampaign', 'utmContent', 'utmTerm',
 ]);
+
+const DEVICE_TYPES = new Set(['mobile', 'tablet', 'desktop']);
+const TRAFFIC_SOURCES = new Set(['direct', 'organic', 'social', 'referral', 'paid', 'email']);
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_PER_IP = 150;
@@ -143,6 +167,18 @@ interface ValidatedBody {
   screen: string;
   timezone: string;
   event: string;
+  visitorId: string;
+  sessionId: string;
+  isReturning: boolean | undefined;
+  deviceType: string;
+  browser: string;
+  os: string;
+  trafficSource: string;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  utmContent: string;
+  utmTerm: string;
   fullName: string;
   email: string;
   phone: string;
@@ -179,6 +215,10 @@ function parseAndValidateBody(raw: unknown): { ok: true; data: ValidatedBody } |
 
   const rentalDays = typeof body.rentalDays === 'number' && Number.isFinite(body.rentalDays) ? body.rentalDays : undefined;
   const totalPrice = typeof body.totalPrice === 'number' && Number.isFinite(body.totalPrice) ? body.totalPrice : undefined;
+  const deviceTypeRaw = toStr(body.deviceType, 20);
+  const trafficSourceRaw = toStr(body.trafficSource, 20);
+  const isReturning =
+    typeof body.isReturning === 'boolean' ? body.isReturning : undefined;
 
   return {
     ok: true,
@@ -194,6 +234,18 @@ function parseAndValidateBody(raw: unknown): { ok: true; data: ValidatedBody } |
       screen: toStr(body.screen, 50),
       timezone: toStr(body.timezone, 80),
       event,
+      visitorId: toStr(body.visitorId, 80),
+      sessionId: toStr(body.sessionId, 80),
+      isReturning,
+      deviceType: DEVICE_TYPES.has(deviceTypeRaw) ? deviceTypeRaw : '',
+      browser: toStr(body.browser, 40),
+      os: toStr(body.os, 40),
+      trafficSource: TRAFFIC_SOURCES.has(trafficSourceRaw) ? trafficSourceRaw : '',
+      utmSource: toStr(body.utmSource, 100),
+      utmMedium: toStr(body.utmMedium, 100),
+      utmCampaign: toStr(body.utmCampaign, 100),
+      utmContent: toStr(body.utmContent, 100),
+      utmTerm: toStr(body.utmTerm, 100),
       fullName: toStr(body.fullName, 200),
       email: sanitizeEmail(body.email),
       phone: sanitizePhone(body.phone),
@@ -257,10 +309,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
     }
 
+    const geo = getGeoFromRequest(request);
+
     try {
       await saveTrackEvent({
         ...body,
         clientIp: clientIp !== '–' ? clientIp : null,
+        country: geo.country || null,
+        city: geo.city || null,
+        visitorId: body.visitorId || null,
+        sessionId: body.sessionId || null,
+        isReturning: body.isReturning ?? null,
+        deviceType: body.deviceType || null,
+        browser: body.browser || null,
+        os: body.os || null,
+        trafficSource: body.trafficSource || null,
+        utmSource: body.utmSource || null,
+        utmMedium: body.utmMedium || null,
+        utmCampaign: body.utmCampaign || null,
+        utmContent: body.utmContent || null,
+        utmTerm: body.utmTerm || null,
         metadata: body.metadata,
       });
     } catch (dbErr) {
@@ -312,6 +380,11 @@ export async function POST(request: NextRequest) {
           ? [row('Raison', String((body.metadata as Record<string, unknown>).reason))]
           : []),
         row('IP', clientIp),
+        ...(geo.country ? [row('Pays', geo.country)] : []),
+        ...(geo.city ? [row('Ville', geo.city)] : []),
+        ...(body.deviceType ? [row('Appareil', body.deviceType)] : []),
+        ...(body.trafficSource ? [row('Trafic', body.trafficSource)] : []),
+        ...(body.isReturning != null ? [row('Visiteur', body.isReturning ? 'Récurrent' : 'Nouveau')] : []),
         row('Navigateur', ua.slice(0, 120)),
       ].join('');
 

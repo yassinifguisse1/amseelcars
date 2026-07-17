@@ -120,6 +120,20 @@ model TrackEvent {
   screen         String?
   timezone       String?
   clientIp       String?
+  visitorId      String?
+  sessionId      String?
+  isReturning    Boolean?
+  country        String?
+  city           String?
+  deviceType     String?
+  browser        String?
+  os             String?
+  trafficSource  String?
+  utmSource      String?
+  utmMedium      String?
+  utmCampaign    String?
+  utmContent     String?
+  utmTerm        String?
   fullName       String?
   email          String?
   phone          String?
@@ -137,5 +151,9 @@ model TrackEvent {
   @@index([event])
   @@index([createdAt])
   @@index([event, createdAt])
+  @@index([visitorId])
+  @@index([country])
+  @@index([deviceType])
+  @@index([trafficSource])
   @@map("track_events")
 }

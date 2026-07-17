@@ -1,4 +1,3 @@
-/** @deprecated Statsig runs on /admin only — see AdminStatsigProvider */
-export default function MyStatsig({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
-}
+/** @deprecated Use PublicStatsigProvider from @/components/analytics/PublicStatsigProvider */
+export { PublicStatsigProvider as DynamicStatsigProvider } from '@/components/analytics/PublicStatsigProvider';
+export { PublicStatsigProvider as default } from '@/components/analytics/PublicStatsigProvider';

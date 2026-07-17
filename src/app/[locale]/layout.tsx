@@ -9,7 +9,9 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import { SiteTracker } from "@/components/analytics/SiteTracker";
+import { PublicStatsigProvider } from "@/components/analytics/PublicStatsigProvider";
 import { ArticleLocalePathsProvider } from "@/contexts/ArticleLocalePathsContext";
+import { getStatsigClientKey, isStatsigConfigured } from "@/lib/statsig/config";
 import { routing } from "@/i18n/routing";
 
 type Props = {
@@ -31,15 +33,18 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   const messages = await getMessages();
+  const statsigClientKey = isStatsigConfigured() ? getStatsigClientKey() : null;
 
   return (
     <NextIntlClientProvider key={locale} locale={locale} messages={messages}>
       <ArticleLocalePathsProvider>
-        <Suspense fallback={null}>
-          <SiteTracker />
-        </Suspense>
-        <Header />
-        <main id="main-content">{children}</main>
+        <PublicStatsigProvider clientKey={statsigClientKey}>
+          <Suspense fallback={null}>
+            <SiteTracker />
+          </Suspense>
+          <Header />
+          <main id="main-content">{children}</main>
+        </PublicStatsigProvider>
       </ArticleLocalePathsProvider>
     </NextIntlClientProvider>
   );

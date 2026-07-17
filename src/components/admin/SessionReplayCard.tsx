@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 /**
- * Session Replay videos are hosted by Statsig — there is no public embed/player API.
- * This card links to the Statsig console and explains what is recorded.
+ * Session Replay videos are hosted by Statsig — open console to watch.
+ * Public visitors are recorded again via PublicStatsigProvider.
  */
 export default function SessionReplayCard() {
   const [projectId, setProjectId] = useState<string | null>(null);
@@ -36,11 +36,11 @@ export default function SessionReplayCard() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <MonitorPlay className="h-5 w-5 text-violet-700" />
-          Session Replay
+          Session Replay (visiteurs)
         </CardTitle>
         <CardDescription>
-          Les replays vidéo sont dans Statsig (pas d&apos;intégration player dans l&apos;admin).
-          Délai de traitement ~1 heure après la session.
+          Statsig enregistre à nouveau les visiteurs du site public (+ admin).
+          Les vidéos se regardent dans la console Statsig (~1h de délai).
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -55,30 +55,26 @@ export default function SessionReplayCard() {
               <p className="font-semibold">{configured ? 'Connecté' : 'Non configuré'}</p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-white px-3 py-2">
-              <p className="text-xs text-slate-500">SDK admin</p>
-              <p className="font-semibold">{bootstrapped ? 'Actif (enregistre /admin)' : 'Inactif'}</p>
+              <p className="text-xs text-slate-500">Admin SDK</p>
+              <p className="font-semibold">{bootstrapped ? 'Actif' : 'Inactif'}</p>
             </div>
           </div>
         )}
 
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-          <p className="font-medium">Ce qui est enregistré aujourd&apos;hui</p>
-          <p className="mt-1 text-amber-900/90">
-            Uniquement vos sessions sur <strong>/admin</strong> (gate <code className="text-xs">admin_session_replay</code>).
-            Les visiteurs du site public ne sont <strong>pas</strong> enregistrés (PageSpeed).
-            Pour les clients qui abandonnent une réservation, utilisez l&apos;onglet{' '}
-            <strong>Leads &amp; réservations</strong> (champs, téléphone, email).
+        <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-950">
+          <p className="font-medium">Enregistrement visiteurs : réactivé</p>
+          <p className="mt-1 text-green-900/90">
+            Le SDK Statsig (session replay + autocapture) charge ~2,5s après l&apos;ouverture
+            d&apos;une page publique pour limiter l&apos;impact PageSpeed.
           </p>
         </div>
 
         <ol className="list-decimal space-y-1.5 pl-5 text-sm text-slate-700">
-          <li>Ouvrez Statsig avec le bouton ci-dessous.</li>
+          <li>Ouvrez Statsig.</li>
           <li>
-            Menu gauche → <strong>Users</strong> → <strong>Session Replays</strong>
-            {' '}(parfois sous Analytics).
+            Menu → <strong>Users</strong> → <strong>Session Replays</strong>.
           </li>
-          <li>Choisissez une session et lancez la lecture.</li>
-          <li>Si rien n&apos;apparaît : naviguez un peu dans l&apos;admin, attendez ~1h, puis rafraîchissez.</li>
+          <li>Filtrez par date pour voir les sessions visiteurs.</li>
         </ol>
 
         <Button asChild className="bg-violet-700 text-white hover:bg-violet-800">
