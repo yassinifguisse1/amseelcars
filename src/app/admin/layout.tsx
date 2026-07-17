@@ -5,7 +5,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { AdminStatsigProvider } from "@/components/admin/AdminStatsigProvider";
 import { getAdminStatsigBootstrap } from "@/lib/statsig/bootstrap";
-import { isStatsigConfigured } from "@/lib/statsig/config";
+import { getStatsigClientKey, isStatsigConfigured } from "@/lib/statsig/config";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -13,15 +13,17 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const statsigBootstrap = isStatsigConfigured()
-    ? await getAdminStatsigBootstrap()
-    : null;
+  const configured = isStatsigConfigured();
+  const statsigBootstrap = configured ? await getAdminStatsigBootstrap() : null;
+  const clientKey = configured ? getStatsigClientKey() : null;
 
   const body = (
     <>
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-      {statsigBootstrap ? (
-        <AdminStatsigProvider datafile={statsigBootstrap}>{children}</AdminStatsigProvider>
+      {statsigBootstrap && clientKey ? (
+        <AdminStatsigProvider datafile={statsigBootstrap} clientKey={clientKey}>
+          {children}
+        </AdminStatsigProvider>
       ) : (
         children
       )}

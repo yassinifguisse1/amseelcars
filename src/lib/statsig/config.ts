@@ -1,24 +1,51 @@
-/** True when Vercel Statsig integration env vars are present. */
-export function isStatsigConfigured(): boolean {
-  return Boolean(
-    process.env.STATSIG_SERVER_API_KEY?.trim() &&
-      getStatsigClientKey()?.trim(),
-  );
+function firstEnv(...keys: string[]): string | undefined {
+  for (const key of keys) {
+    const value = process.env[key]?.trim();
+    if (value) return value;
+  }
+  return undefined;
 }
 
-/** Client SDK key from Vercel Statsig marketplace integration. */
+/** Prefers Amseel_* vars from the second Vercel Statsig integration. */
+export function getStatsigServerApiKey(): string | undefined {
+  return firstEnv('Amseel_STATSIG_SERVER_API_KEY', 'STATSIG_SERVER_API_KEY');
+}
+
+/** Client SDK key (server-readable; pass to browser via props). */
 export function getStatsigClientKey(): string | undefined {
-  return (
-    process.env.NEXT_PUBLIC_STATSIG_CLIENT_KEY?.trim() ||
-    process.env.NEXT_PUBLIC_STATSIG_CLIENT_API_KEY?.trim() ||
-    process.env.STATSIG_CLIENT_KEY?.trim()
+  return firstEnv(
+    'Amseel_STATSIG_CLIENT_KEY',
+    'NEXT_PUBLIC_Amseel_STATSIG_CLIENT_KEY',
+    'NEXT_PUBLIC_STATSIG_CLIENT_KEY',
+    'NEXT_PUBLIC_STATSIG_CLIENT_API_KEY',
+    'STATSIG_CLIENT_KEY',
   );
 }
 
 export function getStatsigProjectId(): string | undefined {
-  return process.env.STATSIG_PROJECT_ID?.trim();
+  return firstEnv('Amseel_STATSIG_PROJECT_ID', 'STATSIG_PROJECT_ID');
+}
+
+export function getStatsigEdgeConfigConnection(): string | undefined {
+  return firstEnv('Amseel_EXPERIMENTATION_CONFIG', 'EXPERIMENTATION_CONFIG');
+}
+
+export function getStatsigEdgeConfigItemKey(): string | undefined {
+  return firstEnv(
+    'Amseel_EXPERIMENTATION_CONFIG_ITEM_KEY',
+    'EXPERIMENTATION_CONFIG_ITEM_KEY',
+  );
+}
+
+export function getStatsigConsoleApiKey(): string | undefined {
+  return firstEnv('Amseel_STATSIG_CONSOLE_API_KEY', 'STATSIG_CONSOLE_API_KEY');
+}
+
+/** True when Amseel / default Statsig server + client keys are present. */
+export function isStatsigConfigured(): boolean {
+  return Boolean(getStatsigServerApiKey() && getStatsigClientKey());
 }
 
 export function getStatsigProjectLabel(): string {
-  return process.env.STATSIG_PROJECT_ID?.trim() || 'Statsig';
+  return getStatsigProjectId() || 'Amseel Statsig';
 }

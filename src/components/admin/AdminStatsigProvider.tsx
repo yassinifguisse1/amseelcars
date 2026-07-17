@@ -8,7 +8,6 @@ import {
 } from '@statsig/react-bindings';
 import { StatsigAutoCapturePlugin } from '@statsig/web-analytics';
 import { StatsigSessionReplayPlugin } from '@statsig/session-replay';
-import { getStatsigClientKey } from '@/lib/statsig/config';
 
 type StatsigDatafile = NonNullable<
   Awaited<ReturnType<typeof Statsig.getClientInitializeResponse>>
@@ -17,16 +16,14 @@ type StatsigDatafile = NonNullable<
 export function AdminStatsigProvider({
   children,
   datafile,
+  clientKey,
 }: {
   children: React.ReactNode;
   datafile: StatsigDatafile | null;
+  /** Passed from server — Amseel_STATSIG_CLIENT_KEY is not NEXT_PUBLIC_ */
+  clientKey?: string | null;
 }) {
-  if (!datafile) {
-    return <>{children}</>;
-  }
-
-  const clientKey = getStatsigClientKey();
-  if (!clientKey) {
+  if (!datafile || !clientKey) {
     return <>{children}</>;
   }
 

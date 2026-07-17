@@ -1,4 +1,4 @@
-import { statsigAdapter } from '@flags-sdk/statsig';
+import { amseelStatsigAdapter } from './adapter';
 import { identifyAdminUser } from './admin-identify';
 import { isStatsigConfigured } from './config';
 
@@ -7,7 +7,7 @@ export async function getAdminStatsigBootstrap() {
 
   try {
     const user = await identifyAdminUser();
-    const Statsig = await statsigAdapter.initialize();
+    const Statsig = await amseelStatsigAdapter.initialize();
     const datafile = await Statsig.getClientInitializeResponse(user, {
       hash: 'djb2',
     });

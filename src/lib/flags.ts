@@ -1,7 +1,8 @@
-import { statsigAdapter, type StatsigUser } from '@flags-sdk/statsig';
+import { type StatsigUser } from '@flags-sdk/statsig';
 import { flag, dedupe } from 'flags/next';
 import type { Identify } from 'flags';
 import { identifyAdminUser } from '@/lib/statsig/admin-identify';
+import { amseelStatsigAdapter } from '@/lib/statsig/adapter';
 
 export const identify = dedupe((async () => {
   return identifyAdminUser();
@@ -10,7 +11,7 @@ export const identify = dedupe((async () => {
 export function createFeatureFlag(key: string) {
   return flag<boolean, StatsigUser>({
     key,
-    adapter: statsigAdapter.featureGate((gate) => gate.value, {
+    adapter: amseelStatsigAdapter.featureGate((gate) => gate.value, {
       exposureLogging: true,
     }),
     identify,

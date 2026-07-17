@@ -2,7 +2,10 @@ import { NextResponse } from 'next/server';
 import { isAdmin } from '@/lib/auth';
 import {
   getStatsigClientKey,
+  getStatsigEdgeConfigConnection,
+  getStatsigEdgeConfigItemKey,
   getStatsigProjectId,
+  getStatsigServerApiKey,
   isStatsigConfigured,
 } from '@/lib/statsig/config';
 import { getAdminStatsigBootstrap } from '@/lib/statsig/bootstrap';
@@ -27,10 +30,9 @@ export async function GET() {
     bootstrapped,
     projectId: getStatsigProjectId(),
     clientKeyPresent: Boolean(getStatsigClientKey()),
-    serverKeyPresent: Boolean(process.env.STATSIG_SERVER_API_KEY?.trim()),
+    serverKeyPresent: Boolean(getStatsigServerApiKey()),
     edgeConfigPresent: Boolean(
-      process.env.EXPERIMENTATION_CONFIG?.trim() &&
-        process.env.EXPERIMENTATION_CONFIG_ITEM_KEY?.trim(),
+      getStatsigEdgeConfigConnection() && getStatsigEdgeConfigItemKey(),
     ),
   });
 }

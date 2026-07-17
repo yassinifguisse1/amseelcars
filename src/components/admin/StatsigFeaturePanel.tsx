@@ -134,9 +134,11 @@ export default function StatsigFeaturePanel() {
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
             <p className="font-medium">Connect Statsig on Vercel</p>
             <p className="mt-1 text-amber-900/90">
-              Install the Statsig integration (e.g. <strong>statsig-byzantine-prism</strong>), then redeploy.
-              Required env vars: <code className="text-xs">STATSIG_SERVER_API_KEY</code>,{' '}
-              <code className="text-xs">NEXT_PUBLIC_STATSIG_CLIENT_KEY</code>, and Edge Config keys from the integration.
+              Connect <strong>statsig-byzantine-prism</strong> on Vercel, then redeploy.
+              Expected env vars: <code className="text-xs">Amseel_STATSIG_SERVER_API_KEY</code>,{' '}
+              <code className="text-xs">Amseel_STATSIG_CLIENT_KEY</code>,{' '}
+              <code className="text-xs">Amseel_EXPERIMENTATION_CONFIG_ITEM_KEY</code>
+              (plus Edge Config connection string if provided).
             </p>
           </div>
         )}
