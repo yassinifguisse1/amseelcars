@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { StatsigClient } from '@statsig/js-client';
+import { StatsigClient, type StatsigOptions } from '@statsig/js-client';
 import { StatsigAutoCapturePlugin } from '@statsig/web-analytics';
 import { StatsigSessionReplayPlugin } from '@statsig/session-replay';
 import { getOrCreateVisitorId } from '@/lib/statsig/visitor-id';
@@ -47,18 +47,21 @@ function PublicStatsigBoot({
     const start = async () => {
       if (cancelled) return;
       try {
+        // Plugin typings across @statsig packages disagree slightly; same pattern as react-bindings.
+        const options = {
+          plugins: [
+            new StatsigAutoCapturePlugin(),
+            new StatsigSessionReplayPlugin(),
+          ],
+        } as StatsigOptions;
+
         client = new StatsigClient(
           clientKey,
           {
             userID: getOrCreateVisitorId(),
             custom: { surface: 'public' },
           },
-          {
-            plugins: [
-              new StatsigAutoCapturePlugin(),
-              new StatsigSessionReplayPlugin(),
-            ],
-          },
+          options,
         );
         await client.initializeAsync();
       } catch (err) {
