@@ -1,17 +1,16 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import {
-  StatsigProvider,
-  useClientAsyncInit,
-} from '@statsig/react-bindings';
+import { useEffect } from 'react';
+import { StatsigClient } from '@statsig/js-client';
 import { StatsigAutoCapturePlugin } from '@statsig/web-analytics';
 import { StatsigSessionReplayPlugin } from '@statsig/session-replay';
 import { getOrCreateVisitorId } from '@/lib/statsig/visitor-id';
 
 /**
  * Public-site Statsig: autocapture + session replay for visitors.
- * Starts after a short delay to reduce impact on LCP / PageSpeed.
+ *
+ * Boots as a sibling (returns null) so delayed init never remounts the page tree.
+ * Passing children through a late StatsigProvider caused a visible double-load.
  */
 export function PublicStatsigProvider({
   children,
@@ -23,60 +22,69 @@ export function PublicStatsigProvider({
   /** Delay before loading Statsig SDK (ms). Default 2.5s. */
   delayMs?: number;
 }) {
-  const [ready, setReady] = useState(false);
+  return (
+    <>
+      {clientKey ? (
+        <PublicStatsigBoot clientKey={clientKey} delayMs={delayMs} />
+      ) : null}
+      {children}
+    </>
+  );
+}
 
+function PublicStatsigBoot({
+  clientKey,
+  delayMs,
+}: {
+  clientKey: string;
+  delayMs: number;
+}) {
   useEffect(() => {
-    if (!clientKey) return;
+    let cancelled = false;
+    let client: StatsigClient | null = null;
     let idleId: number | undefined;
+
+    const start = async () => {
+      if (cancelled) return;
+      try {
+        client = new StatsigClient(
+          clientKey,
+          {
+            userID: getOrCreateVisitorId(),
+            custom: { surface: 'public' },
+          },
+          {
+            plugins: [
+              new StatsigAutoCapturePlugin(),
+              new StatsigSessionReplayPlugin(),
+            ],
+          },
+        );
+        await client.initializeAsync();
+      } catch (err) {
+        console.error('[statsig] public init failed', err);
+      }
+    };
+
     const timer = window.setTimeout(() => {
       if ('requestIdleCallback' in window) {
-        idleId = window.requestIdleCallback(() => setReady(true), { timeout: 2000 });
+        idleId = window.requestIdleCallback(() => {
+          void start();
+        }, { timeout: 2000 });
       } else {
-        setReady(true);
+        void start();
       }
     }, delayMs);
+
     return () => {
+      cancelled = true;
       window.clearTimeout(timer);
       if (idleId != null && 'cancelIdleCallback' in window) {
         window.cancelIdleCallback(idleId);
       }
+      void client?.shutdown();
     };
   }, [clientKey, delayMs]);
 
-  if (!clientKey || !ready) {
-    return <>{children}</>;
-  }
-
-  return <PublicStatsigInner clientKey={clientKey}>{children}</PublicStatsigInner>;
-}
-
-function PublicStatsigInner({
-  children,
-  clientKey,
-}: {
-  children: React.ReactNode;
-  clientKey: string;
-}) {
-  const user = useMemo(
-    () => ({
-      userID: getOrCreateVisitorId(),
-      custom: { surface: 'public' },
-    }),
-    [],
-  );
-
-  const plugins = useMemo(
-    () => [new StatsigAutoCapturePlugin(), new StatsigSessionReplayPlugin()],
-    [],
-  );
-
-  const { client } = useClientAsyncInit(clientKey, user, { plugins });
-
-  if (!client) {
-    return <>{children}</>;
-  }
-
-  // User is already bound via useClientAsyncInit — do not pass `user` again
-  // or Statsig warns that client + config props conflict.
-  return <StatsigProvider client={client}>{children}</StatsigProvider>;
+  return null;
 }
