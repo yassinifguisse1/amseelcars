@@ -27,6 +27,7 @@ import {
   Users,
 } from 'lucide-react';
 import { EVENT_LABELS, SOURCE_LABELS } from '@/lib/trackEventTypes';
+import StatsigFeaturePanel from '@/components/admin/StatsigFeaturePanel';
 
 type TrackEventRow = {
   id: string;
@@ -235,6 +236,7 @@ export default function TrackingDashboard() {
 
   return (
     <div className="space-y-6">
+      <StatsigFeaturePanel />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Card className="border-slate-200 bg-white shadow-sm">
           <CardHeader className="pb-2">
