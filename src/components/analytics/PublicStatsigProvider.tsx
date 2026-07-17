@@ -53,7 +53,7 @@ function PublicStatsigBoot({
             new StatsigAutoCapturePlugin(),
             new StatsigSessionReplayPlugin(),
           ],
-        } as StatsigOptions;
+        } as unknown as StatsigOptions;
 
         client = new StatsigClient(
           clientKey,
