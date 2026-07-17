@@ -9,9 +9,10 @@ export const PUBLIC_ARTICLE_FILTER = { published: { not: false } };
  * FR blog is canonical. Treat missing `locale` as French so older Mongo docs
  * still resolve before/without the locale backfill script.
  */
-const FRENCH_LOCALE: Prisma.BlogArticleWhereInput = {
+/** Legacy Mongo docs may omit `locale`; `isSet` is valid at runtime but not on required StringFilter types. */
+const FRENCH_LOCALE = {
   OR: [{ locale: "fr" }, { locale: { isSet: false } }, { locale: "" }],
-};
+} as Prisma.BlogArticleWhereInput;
 
 /** FR blog is canonical: show all French originals without requiring translations. */
 export function publicArticlesWhere(locale: ArticleLocale = "fr"): Prisma.BlogArticleWhereInput {

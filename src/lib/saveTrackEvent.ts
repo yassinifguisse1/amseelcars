@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { Prisma } from '@prisma/client';
 
 export interface SaveTrackEventInput {
   event: string;
@@ -24,7 +25,7 @@ export interface SaveTrackEventInput {
   rentalDays?: number | null;
   totalPrice?: number | null;
   ctaLabel?: string | null;
-  metadata?: Record<string, unknown> | null;
+  metadata?: Prisma.InputJsonValue | null;
 }
 
 export async function saveTrackEvent(data: SaveTrackEventInput) {
@@ -54,6 +55,6 @@ export async function saveTrackEvent(data: SaveTrackEventInput) {
       totalPrice: data.totalPrice ?? null,
       ctaLabel: data.ctaLabel ?? null,
       metadata: data.metadata ?? undefined,
-    },
+    } satisfies Prisma.TrackEventCreateInput,
   });
 }
