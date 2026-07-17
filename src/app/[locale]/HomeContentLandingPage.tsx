@@ -84,7 +84,7 @@ export function HomeContentLandingPage() {
       <HomeSeoVehicleTypesBlock />
       <Reviews
         reviews={reviews}
-        useApi={true}
+        useApi={false}
         introParagraph={t("reviewsIntro")}
       />
       <HomeSeoLocalDiscoveryBlock />

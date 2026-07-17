@@ -3,10 +3,12 @@
  * `<html lang="…">` lives in `app/layout.tsx` and follows the
  * `x-next-intl-locale` request header set by `next-intl` middleware.
  */
+import { Suspense } from "react";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { DeferredHeader } from "@/components/Header/DeferredHeader";
+import Header from "@/components/Header";
+import { SiteTracker } from "@/components/analytics/SiteTracker";
 import { ArticleLocalePathsProvider } from "@/contexts/ArticleLocalePathsContext";
 import { routing } from "@/i18n/routing";
 
@@ -33,7 +35,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider key={locale} locale={locale} messages={messages}>
       <ArticleLocalePathsProvider>
-        <DeferredHeader />
+        <Suspense fallback={null}>
+          <SiteTracker />
+        </Suspense>
+        <Header />
         <main id="main-content">{children}</main>
       </ArticleLocalePathsProvider>
     </NextIntlClientProvider>

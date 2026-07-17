@@ -209,7 +209,7 @@ export default function Footer() {
         <div className={styles.info}>
           <div>
             <span>
-              <p>{t("copyrightEdition", { year })}</p>
+              <p suppressHydrationWarning>{t("copyrightEdition", { year })}</p>
             </span>
             <span>
               <p>

@@ -12,7 +12,7 @@ import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
 import { convertCarPrice, formatCarPrice } from '@/lib/currency'
-import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
+import { trackEvent } from '@/lib/trackEvent'
 import styles from './CarGridSection.module.scss'
 
 const FLEET_CATEGORIES: Car['category'][] = [
@@ -51,6 +51,7 @@ const CarGridSection = ({
     name: string
     price: number
     image: string
+    slug?: string
   } | null>(null)
 
   // Filter state
@@ -140,10 +141,18 @@ const CarGridSection = ({
   const handleBookCar = (carName: string) => {
     const car = allCars.find(c => c.carName === carName)
     if (car) {
+      trackEvent({
+        event: 'booking-dialog-open',
+        path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
+        source: 'car-listing',
+        carSlug: car.slug,
+        carName: car.carName,
+      })
       setSelectedCar({
         name: car.carName,
         price: car.pricePerDay,
-        image: car.carImage
+        image: car.carImage,
+        slug: car.slug,
       })
       setIsBookingDialogOpen(true)
     }
@@ -154,19 +163,13 @@ const CarGridSection = ({
     if (car) {
       const path =
         typeof window !== 'undefined' ? window.location.pathname : '/cars'
-      fetch('/api/track/whatsapp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          getWhatsAppTrackBody({
-            path,
-            source: 'car-listing',
-            carSlug: car.slug,
-            carName: car.carName,
-            event: 'whatsapp',
-          })
-        ),
-      }).catch(() => {})
+      trackEvent({
+        event: 'whatsapp',
+        path,
+        source: 'car-listing',
+        carSlug: car.slug,
+        carName: car.carName,
+      })
       const price = car.pricing?.shortTerm || car.pricePerDay
       const priceInCurrency = convertCarPrice(price, currency)
       const priceStr = formatCarPrice(priceInCurrency, currency)
@@ -184,11 +187,28 @@ const CarGridSection = ({
 
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters)
+    trackEvent({
+      event: 'filter-change',
+      path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
+      source: 'car-listing',
+      metadata: {
+        brand: newFilters.brand || '',
+        category: newFilters.category || '',
+        minPrice: newFilters.minPrice || '',
+        maxPrice: newFilters.maxPrice || '',
+      },
+    })
   }
 
   const handleCurrencyChange = (newCurrency: 'MAD' | 'EUR' | 'USD') => {
     setCurrency(newCurrency)
     setFilters({ ...filters, currency: newCurrency })
+    trackEvent({
+      event: 'currency-change',
+      path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
+      source: 'car-listing',
+      ctaLabel: newCurrency,
+    })
     // Store currency preference in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('carRentalCurrency', newCurrency)
@@ -307,6 +327,7 @@ const CarGridSection = ({
           }}
           carName={selectedCar.name}
           carPrice={selectedCar.price}
+          carSlug={selectedCar.slug}
         />
       )}
     </section>

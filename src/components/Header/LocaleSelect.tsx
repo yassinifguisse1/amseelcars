@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { getPathname, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { trackEvent } from "@/lib/trackEvent";
 import { cn } from "@/lib/utils";
 import { resolveCarDetailSlugForLocale } from "@/lib/carSlugLocale";
 import { useArticleLocalePaths } from "@/contexts/ArticleLocalePathsContext";
@@ -168,6 +169,13 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
       // useRouter from @/i18n/navigation — that wrapper forces a /{locale}/…
       // prefix even when localePrefix is "never", which breaks some navigations.
       document.cookie = `NEXT_LOCALE=${next};path=/;SameSite=lax;max-age=31536000`;
+      trackEvent({
+        event: 'locale-change',
+        path: pathname,
+        source: 'header',
+        ctaLabel: `${locale} → ${next}`,
+        metadata: { from: locale, to: next },
+      });
       router.replace(onBlogArticle ? bypassCachedArticleRedirect(target) : target);
       closeMenu?.();
     },

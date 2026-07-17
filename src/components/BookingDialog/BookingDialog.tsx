@@ -9,7 +9,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp';
+import { trackEvent } from '@/lib/trackEvent';
+import { useBookingAbandonTracking } from '@/hooks/useBookingAbandonTracking';
 import { track } from '@vercel/analytics/react';
 import styles from './BookingDialog.module.css';
 import { BookingFormDateField } from './BookingFormDateField';
@@ -50,6 +51,7 @@ interface BookingDialogProps {
   onClose?: () => void;
   carName: string;
   carPrice: number;
+  carSlug?: string;
   /** Optional tiered pricing: shortTerm (1–4 days), longTerm (5+ days). When set, total uses longTerm for 5+ days. */
   pricing?: {
     shortTerm: number;
@@ -81,6 +83,7 @@ export default function BookingDialog({
   onClose = () => {}, 
   carName, 
   carPrice,
+  carSlug,
   pricing,
   inline = false,
   extraActions,
@@ -110,16 +113,15 @@ export default function BookingDialog({
     formState: { errors },
     reset,
     watch,
+    getValues,
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
   });
 
+  const formValues = watch();
   const watchedPickupDate = watch('pickupDate');
   const watchedReturnDate = watch('returnDate');
 
-  // Prevent body scroll when dialog is open and handle mobile viewport
-  // useScrollLock(isOpen);
-  // Calculate rental duration and total price (use 5+ days rate when pricing.hasDiscount and days >= 5)
   const calculateRentalDetails = () => {
     if (!watchedPickupDate || !watchedReturnDate) return { days: 0, total: 0 };
     
@@ -138,6 +140,18 @@ export default function BookingDialog({
 
   const { days, total } = calculateRentalDetails();
 
+  const { sendAbandoned, markSubmitted } = useBookingAbandonTracking({
+    carName,
+    carSlug,
+    isActive: inline || isOpen,
+    rentalDays: days,
+    totalPrice: total,
+    getValues,
+    watchValues: formValues,
+    isSubmitting,
+    submitSucceeded: submitStatus === 'success',
+  });
+
   const pickupDisabled = { before: startOfToday() };
   const returnDisabled = watchedPickupDate
     ? {
@@ -148,6 +162,24 @@ export default function BookingDialog({
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
     setSubmitStatus('idle');
+
+    const path = typeof window !== 'undefined' ? window.location.pathname : '/';
+    markSubmitted();
+    trackEvent({
+      event: 'booking-submit',
+      path,
+      source: 'booking-form',
+      carName,
+      fullName: data.fullName,
+      email: data.email,
+      phone: data.phone,
+      pickupDate: data.pickupDate,
+      returnDate: data.returnDate,
+      pickupLocation: data.pickupLocation,
+      returnLocation: data.returnLocation,
+      rentalDays: days,
+      totalPrice: total,
+    });
 
     try {
       const response = await fetch('/api/booking', {
@@ -165,14 +197,11 @@ export default function BookingDialog({
       });
 
       if (response.ok) {
-        const path = typeof window !== 'undefined' ? window.location.pathname : '/';
-        const trackBody = {
-          ...getWhatsAppTrackBody({
-            path,
-            source: 'booking-form',
-            carName,
-            event: 'booking-confirmed',
-          }),
+        trackEvent({
+          event: 'booking-confirmed',
+          path,
+          source: 'booking-form',
+          carName,
           fullName: data.fullName,
           email: data.email,
           phone: data.phone,
@@ -182,12 +211,7 @@ export default function BookingDialog({
           returnLocation: data.returnLocation,
           rentalDays: days,
           totalPrice: total,
-        };
-        fetch('/api/track/whatsapp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(trackBody),
-        }).catch(() => {});
+        });
         track('Booking Confirmed', {
           car: carName,
           path,
@@ -206,10 +230,24 @@ export default function BookingDialog({
           setTimeout(() => setSubmitStatus('idle'), 5000);
         }
       } else {
+        trackEvent({
+          event: 'booking-error',
+          path,
+          source: 'booking-form',
+          carName,
+          metadata: { status: response.status },
+        });
         setSubmitStatus('error');
       }
     } catch (error) {
       console.error('Booking submission error:', error);
+      trackEvent({
+        event: 'booking-error',
+        path,
+        source: 'booking-form',
+        carName,
+        metadata: { reason: 'network' },
+      });
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -218,6 +256,7 @@ export default function BookingDialog({
 
   const handleClose = () => {
     if (!isSubmitting) {
+      sendAbandoned('dialog-close');
       onClose?.();
       setSubmitStatus('idle');
       reset();

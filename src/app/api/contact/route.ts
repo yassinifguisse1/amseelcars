@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { saveTrackEvent } from '@/lib/saveTrackEvent'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for')
+  if (forwarded) return forwarded.split(',')[0].trim()
+  return request.headers.get('x-real-ip') ?? request.headers.get('cf-connecting-ip') ?? '–'
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -69,6 +76,21 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to send email' },
         { status: 500 }
       )
+    }
+
+    try {
+      await saveTrackEvent({
+        event: 'contact-submit',
+        path: '/contact',
+        source: 'contact-form-server',
+        fullName: name,
+        email,
+        phone: phone || null,
+        message,
+        clientIp: getClientIp(request) !== '–' ? getClientIp(request) : null,
+      })
+    } catch (trackErr) {
+      console.error('[contact] Track event save error:', trackErr)
     }
 
     return NextResponse.json(

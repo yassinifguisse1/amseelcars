@@ -108,7 +108,14 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const headerStore = await headers();
   const intlLocale = headerStore.get("x-next-intl-locale");
-  const htmlLang = intlLocale === "en" ? "en" : "fr";
+  const htmlLang =
+    intlLocale === "en" ||
+    intlLocale === "es" ||
+    intlLocale === "de" ||
+    intlLocale === "pl" ||
+    intlLocale === "fr"
+      ? intlLocale
+      : "fr";
 
   const fontVariables = clsx(playfair.variable, anticDidone.variable);
 

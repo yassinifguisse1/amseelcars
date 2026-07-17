@@ -28,6 +28,36 @@ interface ReviewsProps {
   introParagraph?: string;
 }
 
+/** Deterministic UTC date label — avoids SSR/client toLocaleDateString mismatches (React #418). */
+function formatReviewDate(isoDate: string, locale: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate);
+  if (!match) return isoDate;
+  const y = Number(match[1]);
+  const m = Number(match[2]);
+  const d = Number(match[3]);
+  const date = new Date(Date.UTC(y, m - 1, d));
+  const tag =
+    locale === "en"
+      ? "en-GB"
+      : locale === "es"
+        ? "es-ES"
+        : locale === "de"
+          ? "de-DE"
+          : locale === "pl"
+            ? "pl-PL"
+            : "fr-FR";
+  try {
+    return new Intl.DateTimeFormat(tag, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(date);
+  } catch {
+    return `${match[1]}-${match[2]}-${match[3]}`;
+  }
+}
+
 export default function Reviews({
   reviews: manualReviews,
   useApi = false,
@@ -55,8 +85,6 @@ export default function Reviews({
   const averageRating = reviews.length > 0 
     ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length 
     : 0;
-  const ratingCount = reviews.length;
-
 
   // Duplicate reviews for seamless loop
   const duplicateReviews = (reviewList: Review[]) => [...reviewList, ...reviewList];
@@ -75,12 +103,12 @@ export default function Reviews({
           )}
           <div>
             <p className={styles.authorName}>{review.author.name}</p>
-            <time className={styles.reviewDate} dateTime={review.datePublished}>
-              {new Date(review.datePublished).toLocaleDateString(locale === "en" ? "en-US" : "fr-FR", {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
+            <time
+              className={styles.reviewDate}
+              dateTime={review.datePublished}
+              suppressHydrationWarning
+            >
+              {formatReviewDate(review.datePublished, locale)}
             </time>
           </div>
         </div>
@@ -153,22 +181,20 @@ export default function Reviews({
                 />
               ))}
             </div>
-            <span className={styles.ratingValue}>{averageRating.toFixed(1)}</span>
-            {/* <span className={styles.ratingCount}>({ratingCount} avis)</span> */}
+            <span className={styles.ratingValue} suppressHydrationWarning>
+              {averageRating.toFixed(1)}
+            </span>
           </div>
         </motion.div>
 
-        {/* Single row with horizontal scrolling for both desktop and mobile */}
         <div className={styles.reviewsGrid}>
           <motion.div
             className={styles.scrollingRow}
             animate={{
-              // Calculate scroll distance: approximately half the content width for seamless loop
-              // Each card is ~350px + 16px gap = ~366px, so for duplicated content, scroll by half
               x: [0, -(reviews.length * 366)],
             }}
             transition={{
-              duration: reviews.length * 4, // Slower animation - increased from 2 to 4
+              duration: reviews.length * 4,
               repeat: Infinity,
               repeatType: "loop",
               ease: "linear",
@@ -187,4 +213,3 @@ export default function Reviews({
     </section>
   );
 }
-

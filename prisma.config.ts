@@ -2,7 +2,8 @@ import { defineConfig, env } from "prisma/config";
 import { config } from "dotenv";
 import { resolve } from "path";
 
-// Load .env.local file
+// Load .env then .env.local (local overrides)
+config({ path: resolve(process.cwd(), ".env") });
 config({ path: resolve(process.cwd(), ".env.local") });
 
 export default defineConfig({

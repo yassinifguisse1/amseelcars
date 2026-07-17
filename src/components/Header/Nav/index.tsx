@@ -5,6 +5,7 @@ import styles from "./style.module.scss";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { trackEvent } from "@/lib/trackEvent";
 
 interface NavProps {
   closeMenu: () => void;
@@ -25,7 +26,18 @@ export default function Nav({ closeMenu }: NavProps) {
               animate="enter"
               exit="exit"
             >
-              <Link href={item.href} onClick={closeMenu}>
+              <Link
+                href={item.href}
+                onClick={() => {
+                  trackEvent({
+                    event: 'nav-click',
+                    path: typeof window !== 'undefined' ? window.location.pathname : '/',
+                    source: 'header',
+                    ctaLabel: item.href,
+                  });
+                  closeMenu();
+                }}
+              >
                 {t(item.messageKey)}
               </Link>
             </motion.div>

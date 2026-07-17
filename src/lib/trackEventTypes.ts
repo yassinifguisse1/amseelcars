@@ -1,0 +1,96 @@
+export const TRACK_EVENT_TYPES = [
+  'page-view',
+  'whatsapp',
+  'reserver',
+  'booking-dialog-open',
+  'booking-submit',
+  'booking-confirmed',
+  'booking-error',
+  'booking-form-progress',
+  'booking-abandoned',
+  'blog-cta',
+  'contact-submit',
+  'contact-error',
+  'phone-click',
+  'email-click',
+  'social-click',
+  'nav-click',
+  'link-click',
+  'hero-cta',
+  'car-card-click',
+  'filter-change',
+  'locale-change',
+  'currency-change',
+  'scroll-reservation',
+  'menu-toggle',
+  'maps-click',
+] as const;
+
+export type TrackEventType = (typeof TRACK_EVENT_TYPES)[number];
+
+/** High-intent events that trigger email notifications */
+export const EMAIL_TRACK_EVENTS = new Set<TrackEventType>([
+  'whatsapp',
+  'reserver',
+  'booking-submit',
+  'booking-confirmed',
+  'blog-cta',
+  'contact-submit',
+  'booking-abandoned',
+]);
+
+/** High-intent events forwarded to Make webhook */
+export const WEBHOOK_TRACK_EVENTS = new Set<TrackEventType>([
+  'whatsapp',
+  'reserver',
+  'booking-submit',
+  'booking-confirmed',
+  'blog-cta',
+  'contact-submit',
+  'booking-abandoned',
+]);
+
+export const EVENT_LABELS: Record<string, string> = {
+  'page-view': 'Visite de page',
+  whatsapp: 'WhatsApp',
+  reserver: 'Réserver maintenant',
+  'booking-dialog-open': 'Ouverture formulaire',
+  'booking-submit': 'Envoi réservation (clic)',
+  'booking-confirmed': 'Réservation confirmée',
+  'booking-error': 'Erreur réservation',
+  'booking-form-progress': 'Formulaire en cours',
+  'booking-abandoned': 'Réservation abandonnée',
+  'blog-cta': 'CTA blog',
+  'contact-submit': 'Message contact envoyé',
+  'contact-error': 'Erreur contact',
+  'phone-click': 'Clic téléphone',
+  'email-click': 'Clic email',
+  'social-click': 'Réseau social',
+  'nav-click': 'Navigation menu',
+  'link-click': 'Clic lien',
+  'hero-cta': 'CTA accueil',
+  'car-card-click': 'Clic fiche voiture',
+  'filter-change': 'Filtre voitures',
+  'locale-change': 'Changement langue',
+  'currency-change': 'Changement devise',
+  'scroll-reservation': 'Aller au formulaire',
+  'menu-toggle': 'Menu ouvert/fermé',
+  'maps-click': 'Clic carte Google',
+};
+
+export const SOURCE_LABELS: Record<string, string> = {
+  'car-detail': 'Fiche voiture',
+  'car-listing': 'Liste voitures',
+  'car-card': 'Carte voiture',
+  'booking-form': 'Formulaire de réservation',
+  blog: 'Blog',
+  footer: 'Pied de page',
+  header: 'En-tête',
+  contact: 'Page contact',
+  home: 'Accueil',
+  navigation: 'Navigation',
+  'contact-form': 'Formulaire contact',
+  'contact-form-server': 'Formulaire contact (serveur)',
+  'contact-info': 'Infos contact',
+  'auto-tracker': 'Détection automatique',
+};

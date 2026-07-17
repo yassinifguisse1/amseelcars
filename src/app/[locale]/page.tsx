@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getImageProps } from "next/image";
+import { preload } from "react-dom";
 import { HomeContentLandingPage } from "./HomeContentLandingPage";
 import Script from "next/script";
-import { generateLocalBusinessSchema, generateBreadcrumbSchema, generateReviewSchema, generateAggregateRatingSchema } from "@/lib/schemas";
+import {
+  generateLocalBusinessSchema,
+  generateBreadcrumbSchema,
+  generateReviewSchema,
+  generateAggregateRatingSchema,
+} from "@/lib/schemas";
 import { reviews } from "@/data/reviews";
 import { getAllCars } from "@/data/cars";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
@@ -55,50 +61,47 @@ export default async function Home({
     { name: tHome("breadcrumb"), url: homePath },
   ]);
 
-  // Add aggregateRating to LocalBusiness schema
   const localBusinessWithRating = {
     ...localBusinessSchema,
     aggregateRating: generateAggregateRatingSchema(reviews),
   };
 
   const firstCarImage = getAllCars()[0]?.carImage;
-  const lcpPreload = firstCarImage
-    ? getImageProps({
-        src: firstCarImage,
-        alt: "",
-        width: 760,
-        height: 570,
-        sizes: "(max-width: 480px) 260px, (max-width: 768px) 300px, 380px",
-      }).props
-    : null;
+  if (firstCarImage) {
+    const { props } = getImageProps({
+      src: firstCarImage,
+      alt: "",
+      width: 760,
+      height: 570,
+      sizes: "(max-width: 480px) 260px, (max-width: 768px) 300px, 380px",
+    });
+    // React preload API — avoids a raw <link> that can surface as unused preconnect to "/".
+    if (props.srcSet) {
+      preload(props.src || firstCarImage, {
+        as: "image",
+        imageSrcSet: props.srcSet,
+        imageSizes: props.sizes,
+        fetchPriority: "high",
+      });
+    } else if (props.src) {
+      preload(props.src, { as: "image", fetchPriority: "high" });
+    }
+  }
 
   return (
     <>
-      {lcpPreload?.srcSet ? (
-        <link
-          rel="preload"
-          as="image"
-          imageSrcSet={lcpPreload.srcSet}
-          imageSizes={lcpPreload.sizes}
-          fetchPriority="high"
-        />
-      ) : null}
-
-      {/* LocalBusiness (CarRental) Schema with AggregateRating for Homepage */}
       <Script
         id="ld-json-local-business"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessWithRating) }}
       />
-      
-      {/* Breadcrumb Schema for Homepage */}
+
       <Script
         id="ld-json-breadcrumb-home"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      
-      {/* Individual Review Schemas */}
+
       {reviews.map((review) => (
         <Script
           key={review.id}
@@ -107,9 +110,8 @@ export default async function Home({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(generateReviewSchema(review)) }}
         />
       ))}
-      
-    <HomeContentLandingPage />
-    
+
+      <HomeContentLandingPage />
     </>
   );
 }

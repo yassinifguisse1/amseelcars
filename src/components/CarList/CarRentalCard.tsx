@@ -7,7 +7,7 @@ import { CometCard } from "@/components/ui/comet-card"
 import { Button } from "@/components/ui/button"
 import { Car, Users, Fuel, Settings } from "lucide-react"
 import Image from "next/image"
-import { getWhatsAppTrackBody } from "@/lib/trackWhatsApp"
+import { trackEvent } from "@/lib/trackEvent"
 import { carBrandScopedHref } from "@/lib/carPublicHref"
 
 interface CarRentalCardProps {
@@ -148,19 +148,13 @@ export function CarRentalCard({
           onClick={(e) => {
             e.preventDefault()
             e.stopPropagation()
-            fetch('/api/track/whatsapp', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(
-                getWhatsAppTrackBody({
-                  path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
-                  source: 'car-card',
-                  carSlug: slug,
-                  carName,
-                  event: 'reserver',
-                })
-              ),
-            }).catch(() => {})
+            trackEvent({
+              event: 'reserver',
+              path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
+              source: 'car-card',
+              carSlug: slug,
+              carName,
+            })
             onBook()
           }}
           className="mt-3 sm:mt-4 w-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base"
@@ -206,7 +200,19 @@ export function CarRentalCard({
           };
     return (
       <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">
-        <Link href={detailHref} className="block">
+        <Link
+          href={detailHref}
+          className="block"
+          onClick={() => {
+            trackEvent({
+              event: 'car-card-click',
+              path: typeof window !== 'undefined' ? window.location.pathname : '/cars',
+              source: 'car-card',
+              carSlug: slug,
+              carName,
+            })
+          }}
+        >
           {cardContent}
         </Link>
       </CometCard>

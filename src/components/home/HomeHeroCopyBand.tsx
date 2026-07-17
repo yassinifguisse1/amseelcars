@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { trackEvent } from "@/lib/trackEvent";
 
 /**
  * Lightweight home H1 + CTA (no framer-motion / video).
@@ -10,15 +10,6 @@ import { Link } from "@/i18n/navigation";
  */
 export function HomeHeroCopyBand() {
   const t = useTranslations("home.hero");
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    const sync = () => setIsMobile(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   return (
     <section
@@ -41,13 +32,22 @@ export function HomeHeroCopyBand() {
         <div className="mt-8 flex justify-center md:mt-10">
           <Link
             href="/cars"
-            className={`group relative inline-flex rounded-full border-2 border-white bg-white font-bold text-black shadow-2xl no-underline transition-colors duration-300 ease-out hover:border-[#CB1939] hover:bg-[#CB1939] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-              isMobile ? "px-6 py-3 text-base" : "px-8 py-4 text-lg"
-            }`}
+            onClick={() => {
+              trackEvent({
+                event: 'hero-cta',
+                path: typeof window !== 'undefined' ? window.location.pathname : '/',
+                source: 'home',
+                ctaLabel: 'fleet-cta',
+              });
+            }}
+            className="group relative inline-flex rounded-full border-2 border-white bg-white px-6 py-3 text-base font-bold text-black shadow-2xl no-underline transition-colors duration-300 ease-out hover:border-[#CB1939] hover:bg-[#CB1939] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:px-8 md:py-4 md:text-lg"
           >
             <span className="relative z-10 flex items-center gap-2 text-[13px] sm:text-[18px] md:text-base lg:text-lg">
               {t("fleetCta")}
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
+              <span
+                className="inline-block transition-transform duration-300 group-hover:translate-x-1"
+                aria-hidden
+              >
                 →
               </span>
             </span>

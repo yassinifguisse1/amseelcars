@@ -12,7 +12,7 @@ import { ArrowLeft, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag 
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { MenuStyleButton } from '@/components/Header/Button'
 import { convertCarPrice, formatCarPrice } from '@/lib/currency'
-import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
+import { trackEvent } from '@/lib/trackEvent'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 import Footer from '@/components/Footer/Footer'
@@ -129,6 +129,13 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   }, [])
 
   const scrollToReservationForm = () => {
+    trackEvent({
+      event: 'scroll-reservation',
+      path: typeof window !== 'undefined' ? window.location.pathname : '/',
+      source: 'car-detail',
+      carSlug: car.slug,
+      carName: car.carName,
+    })
     document.getElementById(RESERVATION_FORM_ID)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -366,6 +373,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
             <BookingDialog
               inline
               carName={car.carName}
+              carSlug={car.slug}
               carPrice={car.pricePerDay}
               pricing={car.pricing}
               extraActions={
@@ -374,19 +382,13 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                   size="lg"
                   className="w-full bg-green-600 text-white hover:bg-green-700 cursor-pointer rounded-[25px] h-10"
                   onClick={() => {
-                    fetch('/api/track/whatsapp', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(
-                        getWhatsAppTrackBody({
-                          path: typeof window !== 'undefined' ? window.location.pathname : '',
-                          source: 'car-detail',
-                          carSlug: car.slug,
-                          carName: car.carName,
-                          event: 'whatsapp',
-                        })
-                      ),
-                    }).catch(() => {});
+                    trackEvent({
+                      event: 'whatsapp',
+                      path: typeof window !== 'undefined' ? window.location.pathname : '',
+                      source: 'car-detail',
+                      carSlug: car.slug,
+                      carName: car.carName,
+                    })
                     const price = car.pricing?.shortTerm || car.pricePerDay
                     const priceInCurrency = convertCarPrice(price, currency)
                     const message = t('waInquiry', {

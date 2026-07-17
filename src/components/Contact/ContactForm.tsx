@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { CheckCircle, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { trackEvent } from "@/lib/trackEvent";
 import styles from "./contact.module.css";
 
 interface FormData {
@@ -65,12 +66,27 @@ export default function ContactForm() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Failed to send message");
 
+      trackEvent({
+        event: 'contact-submit',
+        path: typeof window !== 'undefined' ? window.location.pathname : '/contact',
+        source: 'contact-form',
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        message: formData.message,
+      });
+
       setIsSubmitted(true);
       setTimeout(() => {
         setFormData({ name: "", email: "", phone: "", message: "" });
         setIsSubmitted(false);
       }, 3200);
     } catch {
+      trackEvent({
+        event: 'contact-error',
+        path: typeof window !== 'undefined' ? window.location.pathname : '/contact',
+        source: 'contact-form',
+      });
       setErrors({ message: t("errSendFailed") });
     } finally {
       setIsSubmitting(false);

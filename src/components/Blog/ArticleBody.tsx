@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useScroll, useTransform } from "framer-motion";
 import { BlogArticle } from '@/data/blog';
+import { trackEvent } from "@/lib/trackEvent";
 import styles from "./ArticleBody.module.scss";
 import TableOfContents, { processContentWithIds } from "./TableOfContents";
 import { enhanceArticleBodyImages } from "@/lib/articleContentImages";
@@ -31,42 +32,12 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
       if (!target || !containerElement.contains(target)) return;
       const hrefPart = target instanceof HTMLAnchorElement ? target.href : '';
       const ctaLabel = (target.textContent?.trim() || hrefPart || '').slice(0, 200);
-      const currentUrl = new URL(window.location.href);
-      const fullUrl = currentUrl.origin + currentUrl.pathname;
-      let referrer = '';
-      if (document.referrer) {
-        try {
-          const refUrl = new URL(document.referrer);
-          referrer = refUrl.origin + refUrl.pathname;
-        } catch {
-          referrer = '';
-        }
-      }
-      const payload = {
+      trackEvent({
         path: window.location.pathname,
         source: 'blog',
         event: 'blog-cta',
         ctaLabel,
-        fullUrl,
-        userAgent: navigator.userAgent,
-        language: navigator.language,
-        referrer,
-        screen: `${window.screen.width}x${window.screen.height}`,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      };
-      const url = '/api/track/whatsapp';
-      const bodyStr = JSON.stringify(payload);
-      if (navigator.sendBeacon) {
-        const blob = new Blob([bodyStr], { type: 'application/json' });
-        navigator.sendBeacon(url, blob);
-      } else {
-        fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: bodyStr,
-          keepalive: true,
-        }).catch((err) => console.error('[ArticleBody] CTA tracking request failed', err));
-      }
+      });
     };
     containerElement.addEventListener('click', handleClick);
     return () => containerElement.removeEventListener('click', handleClick);

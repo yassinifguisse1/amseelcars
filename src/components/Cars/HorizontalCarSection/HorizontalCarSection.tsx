@@ -11,7 +11,7 @@ import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/lib/carImageAlt'
 import { getAllCars } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
-import { getWhatsAppTrackBody } from '@/lib/trackWhatsApp'
+import { trackEvent } from '@/lib/trackEvent'
 import styles from './HorizontalCarSection.module.scss'
 
 interface HorizontalCarSectionProps {
@@ -85,6 +85,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
     name: string
     price: number
     image: string
+    slug?: string
   } | null>(null)
 
   // Get all cars and handle responsive layout
@@ -113,13 +114,20 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
   const { carsRow1, carsRow2, allCarsSingleRow } = getCarsData()
 
   const handleBookCar = (carName: string) => {
-    // Find the car data
     const car = allCars.find(c => c.carName === carName)
     if (car) {
+      trackEvent({
+        event: 'booking-dialog-open',
+        path: typeof window !== 'undefined' ? window.location.pathname : '/',
+        source: 'car-listing',
+        carSlug: car.slug,
+        carName: car.carName,
+      })
       setSelectedCar({
         name: car.carName,
         price: car.pricePerDay,
-        image: car.carImage
+        image: car.carImage,
+        slug: car.slug,
       })
       setIsBookingDialogOpen(true)
     }
@@ -127,19 +135,13 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
   const handleWhatsapp = (carName: string) => {
     const car = allCars.find(c => c.carName === carName)
     if (car) {
-      fetch('/api/track/whatsapp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          getWhatsAppTrackBody({
-            path: typeof window !== 'undefined' ? window.location.pathname : '/',
-            source: 'car-listing',
-            carSlug: car.slug,
-            carName: car.carName,
-            event: 'whatsapp',
-          })
-        ),
-      }).catch(() => {})
+      trackEvent({
+        event: 'whatsapp',
+        path: typeof window !== 'undefined' ? window.location.pathname : '/',
+        source: 'car-listing',
+        carSlug: car.slug,
+        carName: car.carName,
+      })
       const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} MAD/jour. Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL
@@ -608,6 +610,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
           }}
           carName={selectedCar.name}
           carPrice={selectedCar.price}
+          carSlug={selectedCar.slug}
         />
       )}
     </section>

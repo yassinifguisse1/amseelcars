@@ -105,3 +105,37 @@ model Page {
   @@index([published])
   @@map("pages")
 }
+
+model TrackEvent {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  event          String
+  path           String
+  source         String?
+  carSlug        String?
+  carName        String?
+  fullUrl        String?
+  userAgent      String?
+  language       String?
+  referrer       String?
+  screen         String?
+  timezone       String?
+  clientIp       String?
+  fullName       String?
+  email          String?
+  phone          String?
+  pickupDate     String?
+  returnDate     String?
+  pickupLocation String?
+  returnLocation String?
+  rentalDays     Int?
+  totalPrice     Float?
+  ctaLabel       String?
+  message        String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([event])
+  @@index([createdAt])
+  @@index([event, createdAt])
+  @@map("track_events")
+}

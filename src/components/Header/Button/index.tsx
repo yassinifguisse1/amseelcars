@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import styles from "./style.module.scss";
+import { trackEvent } from "@/lib/trackEvent";
 
 interface ButtonProps {
   isActive: boolean;
@@ -11,7 +12,13 @@ export default function Button({ isActive, toggleMenu }: ButtonProps) {
   const t = useTranslations("nav");
 
   const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Stop event bubbling
+    e.stopPropagation();
+    trackEvent({
+      event: 'menu-toggle',
+      path: typeof window !== 'undefined' ? window.location.pathname : '/',
+      source: 'header',
+      ctaLabel: isActive ? 'close' : 'open',
+    });
     toggleMenu();
   };
 
