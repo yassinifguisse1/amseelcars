@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { EVENT_LABELS, SOURCE_LABELS } from '@/lib/trackEventTypes';
 import StatsigFeaturePanel from '@/components/admin/StatsigFeaturePanel';
+import SessionReplayCard from '@/components/admin/SessionReplayCard';
 
 type TrackEventRow = {
   id: string;
@@ -493,6 +494,8 @@ export default function TrackingDashboard() {
           </Button>
         </div>
       </div>
+
+      <SessionReplayCard />
 
       {/* KPI strip */}
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
