@@ -76,9 +76,7 @@ function PublicStatsigInner({
     return <>{children}</>;
   }
 
-  return (
-    <StatsigProvider client={client} user={user}>
-      {children}
-    </StatsigProvider>
-  );
+  // User is already bound via useClientAsyncInit — do not pass `user` again
+  // or Statsig warns that client + config props conflict.
+  return <StatsigProvider client={client}>{children}</StatsigProvider>;
 }

@@ -57,9 +57,6 @@ function AdminStatsigInner({
     { plugins },
   );
 
-  return (
-    <StatsigProvider client={client} user={datafile.user}>
-      {children}
-    </StatsigProvider>
-  );
+  // User is already bound via useClientBootstrapInit — client prop only.
+  return <StatsigProvider client={client}>{children}</StatsigProvider>;
 }
