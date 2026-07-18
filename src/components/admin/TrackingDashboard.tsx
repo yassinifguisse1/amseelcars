@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -17,7 +17,6 @@ import {
   ChevronDown,
   ChevronUp,
   Eye,
-  FlaskConical,
   Loader2,
   Mail,
   MessageCircle,
@@ -29,13 +28,12 @@ import {
   Users,
 } from 'lucide-react';
 import { EVENT_LABELS, SOURCE_LABELS } from '@/lib/trackEventTypes';
-import StatsigFeaturePanel from '@/components/admin/StatsigFeaturePanel';
 import { AnalyticsDateRangePicker } from '@/components/admin/AnalyticsDateRangePicker';
 import {
+  formatSeriesTick,
   resolveAnalyticsRange,
   type AnalyticsRange,
 } from '@/lib/admin/analyticsRange';
-import AdminPwaPushCard from '@/components/admin/AdminPwaPushCard';
 
 type TrackEventRow = {
   id: string;
@@ -183,32 +181,40 @@ function formatLocation(key: string | null) {
   return map[key] ?? key;
 }
 
-function formatSeriesTick(key: string, granularity: 'hour' | 'day') {
-  if (granularity === 'hour') {
-    const d = new Date(key.includes('T') ? `${key}:00:00` : key);
-    return d.toLocaleTimeString('en-US', { hour: 'numeric' });
-  }
-  const d = new Date(`${key}T12:00:00`);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
 function VisitorsChart({
   series,
   granularity,
+  uniqueVisitors,
+  pageViews,
 }: {
   series: SeriesPoint[];
   granularity: 'hour' | 'day';
+  uniqueVisitors: number;
+  pageViews: number;
 }) {
-  const max = Math.max(1, ...series.map((s) => Math.max(s.visitors, s.pageViews)));
-  const width = 640;
-  const height = 180;
-  const padX = 8;
-  const padY = 12;
-  const innerW = width - padX * 2;
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [width, setWidth] = useState(640);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const update = () => setWidth(Math.max(280, Math.floor(el.clientWidth)));
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const height = width < 480 ? 160 : 200;
+  const padL = 28;
+  const padR = 8;
+  const padY = 16;
+  const innerW = width - padL - padR;
   const innerH = height - padY * 2;
+  const max = Math.max(1, ...series.map((s) => s.visitors));
 
   const points = series.map((s, i) => {
-    const x = padX + (series.length <= 1 ? innerW / 2 : (i / (series.length - 1)) * innerW);
+    const x = padL + (series.length <= 1 ? innerW / 2 : (i / (series.length - 1)) * innerW);
     const y = padY + innerH - (s.visitors / max) * innerH;
     return { x, y, ...s };
   });
@@ -216,53 +222,73 @@ function VisitorsChart({
   const path =
     points.length === 0
       ? ''
-      : points
-          .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
-          .join(' ');
+      : points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
 
   const area =
     points.length === 0
       ? ''
       : `${path} L ${points[points.length - 1].x.toFixed(1)} ${(padY + innerH).toFixed(1)} L ${points[0].x.toFixed(1)} ${(padY + innerH).toFixed(1)} Z`;
 
-  const labelEvery = Math.max(1, Math.ceil(series.length / 8));
+  const labelEvery = Math.max(1, Math.ceil(series.length / (width < 500 ? 5 : 8)));
 
   return (
-    <div className="space-y-2">
-      <svg viewBox={`0 0 ${width} ${height}`} className="h-44 w-full overflow-visible">
+    <div ref={wrapRef} className="w-full space-y-2">
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        width="100%"
+        height={height}
+        className="block w-full overflow-visible"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Visitors over time"
+      >
         <defs>
           <linearGradient id="visitorsFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.35" />
             <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
           </linearGradient>
         </defs>
+        <text x={4} y={padY + 4} className="fill-zinc-500" style={{ fontSize: 10 }}>
+          {max}
+        </text>
+        <text x={4} y={padY + innerH} className="fill-zinc-500" style={{ fontSize: 10 }}>
+          0
+        </text>
+        <line
+          x1={padL}
+          y1={padY + innerH}
+          x2={width - padR}
+          y2={padY + innerH}
+          stroke="#3f3f46"
+          strokeWidth="1"
+        />
         {area ? <path d={area} fill="url(#visitorsFill)" /> : null}
-        {path ? <path d={path} fill="none" stroke="#60a5fa" strokeWidth="2" /> : null}
+        {path ? <path d={path} fill="none" stroke="#60a5fa" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" /> : null}
         {points.map((p) => (
-          <circle key={p.key} cx={p.x} cy={p.y} r="2.5" fill="#93c5fd" />
+          <circle key={p.key} cx={p.x} cy={p.y} r={width < 400 ? 2 : 3} fill="#93c5fd">
+            <title>
+              {formatSeriesTick(p.key, granularity)}: {p.visitors} visitors · {p.pageViews} views
+            </title>
+          </circle>
         ))}
       </svg>
-      <div className="flex justify-between text-[10px] text-zinc-500">
+      <div className="flex justify-between gap-1 pl-7 text-[10px] text-zinc-500 sm:text-[11px]">
         {series.map((s, i) =>
           i % labelEvery === 0 || i === series.length - 1 ? (
-            <span key={s.key}>{formatSeriesTick(s.key, granularity)}</span>
+            <span key={s.key} className="shrink-0">
+              {formatSeriesTick(s.key, granularity)}
+            </span>
           ) : (
-            <span key={s.key} />
+            <span key={s.key} className="min-w-0 flex-1" />
           ),
         )}
       </div>
-      <div className="flex gap-4 text-xs text-zinc-400">
+      <div className="flex flex-wrap gap-4 text-xs text-zinc-400">
         <span>
-          Visitors:{' '}
-          <strong className="text-zinc-200">
-            {series.reduce((sum, s) => sum + s.visitors, 0)}
-          </strong>
+          Visitors: <strong className="text-zinc-200">{uniqueVisitors}</strong>
         </span>
         <span>
-          Page views:{' '}
-          <strong className="text-zinc-200">
-            {series.reduce((sum, s) => sum + s.pageViews, 0)}
-          </strong>
+          Page views: <strong className="text-zinc-200">{pageViews}</strong>
         </span>
       </div>
     </div>
@@ -445,7 +471,14 @@ export default function TrackingDashboard() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [showStatsig, setShowStatsig] = useState(false);
+
+  const timezone = useMemo(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+    } catch {
+      return 'UTC';
+    }
+  }, []);
 
   const fetchEvents = useCallback(async () => {
     setLoading(true);
@@ -457,6 +490,8 @@ export default function TrackingDashboard() {
         preset: range.preset,
         from: range.from.toISOString(),
         to: range.to.toISOString(),
+        label: range.label,
+        tz: timezone,
         view: view === 'overview' ? 'all' : view,
         excludePageViews: 'true',
       });
@@ -479,7 +514,7 @@ export default function TrackingDashboard() {
     } finally {
       setLoading(false);
     }
-  }, [eventFilter, page, range, search, view]);
+  }, [eventFilter, page, range, search, timezone, view]);
 
   useEffect(() => {
     fetchEvents();
@@ -518,14 +553,6 @@ export default function TrackingDashboard() {
       : utmTab === 'mediums'
         ? insights?.utm?.mediums ?? []
         : insights?.utm?.campaigns ?? [];
-
-  const timezone = useMemo(() => {
-    try {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch {
-      return 'Local';
-    }
-  }, []);
 
   return (
     <div className="space-y-6">
@@ -590,7 +617,12 @@ export default function TrackingDashboard() {
           ) : (insights?.series?.length ?? 0) === 0 ? (
             <p className="py-12 text-center text-sm text-zinc-500">No visitor data for this range yet.</p>
           ) : (
-            <VisitorsChart series={insights!.series} granularity={granularity} />
+            <VisitorsChart
+              series={insights!.series}
+              granularity={granularity}
+              uniqueVisitors={stats?.uniqueVisitors ?? 0}
+              pageViews={stats?.pageViewsPeriod ?? 0}
+            />
           )}
         </div>
 
@@ -925,27 +957,6 @@ export default function TrackingDashboard() {
           </CardContent>
         </Card>
       )}
-
-      <AdminPwaPushCard />
-
-      <div className="rounded-2xl border border-slate-200 bg-white">
-        <button
-          type="button"
-          className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-slate-700"
-          onClick={() => setShowStatsig((v) => !v)}
-        >
-          <span className="inline-flex items-center gap-2">
-            <FlaskConical className="h-4 w-4 text-violet-600" />
-            Statsig options (optional)
-          </span>
-          {showStatsig ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-        </button>
-        {showStatsig ? (
-          <div className="border-t border-slate-100 p-4">
-            <StatsigFeaturePanel />
-          </div>
-        ) : null}
-      </div>
     </div>
   );
 }

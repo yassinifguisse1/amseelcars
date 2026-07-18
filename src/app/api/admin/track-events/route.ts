@@ -4,8 +4,9 @@ import { isAdmin } from '@/lib/auth';
 import { EVENT_LABELS } from '@/lib/trackEventTypes';
 import {
   buildTimeBuckets,
-  dayKey,
-  hourKey,
+  dayKeyInZone,
+  hourKeyInZone,
+  rangeFromBounds,
   referrerHost,
   resolveAnalyticsRange,
   type AnalyticsPreset,
@@ -54,9 +55,10 @@ function parseRange(searchParams: URLSearchParams) {
   const presetRaw = searchParams.get('preset')?.trim() || '';
   const fromRaw = searchParams.get('from')?.trim() || '';
   const toRaw = searchParams.get('to')?.trim() || '';
+  const labelRaw = searchParams.get('label')?.trim() || '';
   const daysFallback = Math.min(365, Math.max(1, parseInt(searchParams.get('days') ?? '30', 10) || 30));
 
-  let preset: AnalyticsPreset = '30d';
+  let preset: AnalyticsPreset = '24h';
   if (PRESETS.has(presetRaw)) {
     preset = presetRaw as AnalyticsPreset;
   } else if (searchParams.has('days')) {
@@ -67,12 +69,23 @@ function parseRange(searchParams: URLSearchParams) {
     else preset = '365d';
   }
 
-  if (fromRaw && toRaw) {
-    const customFrom = new Date(fromRaw);
-    const customTo = new Date(toRaw);
-    if (!Number.isNaN(customFrom.getTime()) && !Number.isNaN(customTo.getTime())) {
-      return resolveAnalyticsRange('custom', customFrom, customTo);
-    }
+  const fromDate = fromRaw ? new Date(fromRaw) : null;
+  const toDate = toRaw ? new Date(toRaw) : null;
+  const boundsOk =
+    fromDate &&
+    toDate &&
+    !Number.isNaN(fromDate.getTime()) &&
+    !Number.isNaN(toDate.getTime()) &&
+    fromDate.getTime() <= toDate.getTime();
+
+  // Custom calendar range only
+  if (preset === 'custom' && boundsOk) {
+    return resolveAnalyticsRange('custom', fromDate, toDate);
+  }
+
+  // Presets: keep exact client from/to so 24h stays hourly (do NOT snap to day bounds)
+  if (boundsOk) {
+    return rangeFromBounds(preset, fromDate, toDate, labelRaw || undefined);
   }
 
   return resolveAnalyticsRange(preset);
@@ -95,6 +108,10 @@ export async function GET(request: NextRequest) {
 
     const range = parseRange(searchParams);
     const { from: since, to: until, granularity, preset, label } = range;
+    const timeZone =
+      searchParams.get('tz')?.trim() ||
+      searchParams.get('timezone')?.trim() ||
+      'UTC';
 
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
@@ -286,7 +303,7 @@ export async function GET(request: NextRequest) {
     const utmMediumStats = new Map<string, Set<string>>();
     const utmCampaignStats = new Map<string, Set<string>>();
 
-    const bucketKeys = buildTimeBuckets(since, until, granularity);
+    const bucketKeys = buildTimeBuckets(since, until, granularity, timeZone);
     const timeseries = new Map<
       string,
       { key: string; visitors: Set<string>; pageViews: number; whatsapp: number; reservations: number; abandons: number; clicks: number }
@@ -308,7 +325,7 @@ export async function GET(request: NextRequest) {
       string,
       { date: string; views: number; whatsapp: number; reservations: number; abandons: number; clicks: number }
     >();
-    for (const key of buildTimeBuckets(since, until, 'day')) {
+    for (const key of buildTimeBuckets(since, until, 'day', timeZone)) {
       daily.set(key, { date: key, views: 0, whatsapp: 0, reservations: 0, abandons: 0, clicks: 0 });
     }
 
@@ -335,9 +352,10 @@ export async function GET(request: NextRequest) {
       if (row.path) pathCounts.set(row.path, (pathCounts.get(row.path) ?? 0) + 1);
 
       const created = new Date(row.createdAt);
-      const seriesKey = granularity === 'hour' ? hourKey(created) : dayKey(created);
+      const seriesKey =
+        granularity === 'hour' ? hourKeyInZone(created, timeZone) : dayKeyInZone(created, timeZone);
       const bucket = timeseries.get(seriesKey);
-      const dayBucket = daily.get(dayKey(created));
+      const dayBucket = daily.get(dayKeyInZone(created, timeZone));
 
       if (row.event === 'page-view') {
         bump(deviceCounts, row.deviceType);

@@ -83,6 +83,30 @@ export function resolveAnalyticsRange(
   };
 }
 
+/** Exact bounds from the client (preserves 24h hourly windows). */
+export function rangeFromBounds(
+  preset: AnalyticsPreset,
+  from: Date,
+  to: Date,
+  label?: string,
+): AnalyticsRange {
+  const spanHours = Math.max(0, (to.getTime() - from.getTime()) / (1000 * 60 * 60));
+  const granularity: AnalyticsGranularity =
+    preset === '24h' || spanHours <= 36 ? 'hour' : 'day';
+  const presetLabel =
+    preset === 'custom'
+      ? formatCustomLabel(from, to)
+      : ANALYTICS_PRESETS.find((p) => p.value === preset)?.label ?? label ?? 'Custom';
+
+  return {
+    from,
+    to,
+    preset,
+    label: label || presetLabel,
+    granularity,
+  };
+}
+
 function formatCustomLabel(from: Date, to: Date): string {
   const fmt = (d: Date) =>
     d.toLocaleString('en-US', {
@@ -94,44 +118,106 @@ function formatCustomLabel(from: Date, to: Date): string {
   return `${fmt(from)} – ${fmt(to)}`;
 }
 
+type ZoneParts = { year: string; month: string; day: string; hour: string };
+
+function zonedParts(date: Date, timeZone: string): ZoneParts {
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    hourCycle: 'h23',
+  });
+  const map: Record<string, string> = {};
+  for (const part of fmt.formatToParts(date)) {
+    if (part.type !== 'literal') map[part.type] = part.value;
+  }
+  return {
+    year: map.year,
+    month: map.month,
+    day: map.day,
+    hour: map.hour.padStart(2, '0'),
+  };
+}
+
+export function hourKeyInZone(d: Date, timeZone: string): string {
+  const p = zonedParts(d, timeZone);
+  return `${p.year}-${p.month}-${p.day}T${p.hour}`;
+}
+
+export function dayKeyInZone(d: Date, timeZone: string): string {
+  const p = zonedParts(d, timeZone);
+  return `${p.year}-${p.month}-${p.day}`;
+}
+
+/** @deprecated Prefer hourKeyInZone — kept for callers that already pass local Dates */
 export function hourKey(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const h = String(d.getHours()).padStart(2, '0');
-  return `${y}-${m}-${day}T${h}`;
+  return hourKeyInZone(d, Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC');
 }
 
 export function dayKey(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  return dayKeyInZone(d, Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC');
 }
 
 export function buildTimeBuckets(
   from: Date,
   to: Date,
   granularity: AnalyticsGranularity,
+  timeZone = 'UTC',
 ): string[] {
-  const keys: string[] = [];
   if (granularity === 'hour') {
-    const cursor = new Date(from);
-    cursor.setMinutes(0, 0, 0);
-    while (cursor <= to) {
-      keys.push(hourKey(cursor));
-      cursor.setHours(cursor.getHours() + 1);
+    const keys: string[] = [];
+    let t = new Date(Math.floor(from.getTime() / 3_600_000) * 3_600_000);
+    const end = to.getTime();
+    const seen = new Set<string>();
+    while (t.getTime() <= end) {
+      const key = hourKeyInZone(t, timeZone);
+      if (!seen.has(key)) {
+        seen.add(key);
+        keys.push(key);
+      }
+      t = new Date(t.getTime() + 3_600_000);
     }
     return keys;
   }
 
-  const cursor = startOfLocalDay(from);
-  const end = startOfLocalDay(to);
-  while (cursor <= end) {
-    keys.push(dayKey(cursor));
-    cursor.setDate(cursor.getDate() + 1);
+  // Daily: walk hour-by-hour so each local calendar day is collected once
+  const keys: string[] = [];
+  const seen = new Set<string>();
+  let t = new Date(Math.floor(from.getTime() / 3_600_000) * 3_600_000);
+  const end = to.getTime();
+  while (t.getTime() <= end) {
+    const key = dayKeyInZone(t, timeZone);
+    if (!seen.has(key)) {
+      seen.add(key);
+      keys.push(key);
+    }
+    t = new Date(t.getTime() + 3_600_000);
+    if (keys.length > 400) break;
   }
   return keys;
+}
+
+export function formatSeriesTick(key: string, granularity: AnalyticsGranularity): string {
+  if (granularity === 'hour') {
+    const [datePart, hourPart = '0'] = key.split('T');
+    const hour = Number.parseInt(hourPart, 10) || 0;
+    const [, month, day] = datePart.split('-').map(Number);
+    if (hour === 0) {
+      const monthName = new Date(2000, (month || 1) - 1, 1).toLocaleString('en-US', {
+        month: 'short',
+      });
+      return `${monthName} ${day}`;
+    }
+    const suffix = hour >= 12 ? 'pm' : 'am';
+    const h12 = hour % 12 || 12;
+    return `${h12}${suffix}`;
+  }
+
+  const [y, m, d] = key.split('-').map(Number);
+  const date = new Date(y, (m || 1) - 1, d || 1);
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 export function referrerHost(referrer: string | null | undefined): string {
