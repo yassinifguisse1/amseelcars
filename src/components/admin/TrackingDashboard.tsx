@@ -26,6 +26,7 @@ import {
   Search,
   Send,
   Users,
+  X,
 } from 'lucide-react';
 import { EVENT_LABELS, SOURCE_LABELS } from '@/lib/trackEventTypes';
 import { AnalyticsDateRangePicker } from '@/components/admin/AnalyticsDateRangePicker';
@@ -39,6 +40,17 @@ import {
   type BookingJourney,
   type JourneyStage,
 } from '@/lib/admin/bookingJourneys';
+import {
+  clearFilter,
+  filterChips,
+  filtersToQuery,
+  hasActiveFilters,
+  loadFiltersFromStorage,
+  saveFiltersToStorage,
+  toggleFilter,
+  type AnalyticsDimensionFilters,
+  type AnalyticsFilterKey,
+} from '@/lib/admin/analyticsFilters';
 
 type TrackEventRow = {
   id: string;
@@ -116,10 +128,22 @@ type TrackStats = {
   byEvent: Record<string, { count: number; label: string }>;
 };
 
+type CarStatRow = {
+  name: string;
+  slug: string | null;
+  clicks: number;
+  opens: number;
+  confirms: number;
+  abandons: number;
+  interest: number;
+};
+
 type Insights = {
   series: SeriesPoint[];
   countries: CountryRow[];
   referrers: VisitorCountRow[];
+  carStats?: CarStatRow[];
+  topCars?: Array<{ name: string; count: number }>;
   utm: {
     sources: VisitorCountRow[];
     mediums: VisitorCountRow[];
@@ -136,7 +160,8 @@ type Insights = {
   };
 };
 
-type ViewMode = 'overview' | 'leads' | 'clicks' | 'reservations' | 'all';
+type DashboardPage = 'analytics' | 'reservations';
+type JournalMode = 'clicks' | 'all';
 
 const EVENT_ICONS: Record<string, typeof MessageCircle> = {
   'page-view': Eye,
@@ -500,25 +525,78 @@ function JourneyCard({ journey }: { journey: BookingJourney }) {
 
 type JourneyFilter = 'all' | JourneyStage;
 
-export default function TrackingDashboard() {
+
+function FilterBar({
+  filters,
+  onClearKey,
+  onClearAll,
+  dark,
+}: {
+  filters: AnalyticsDimensionFilters;
+  onClearKey: (key: AnalyticsFilterKey) => void;
+  onClearAll: () => void;
+  dark?: boolean;
+}) {
+  const chips = filterChips(filters, countryLabel);
+  if (chips.length === 0) return null;
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-2 ${
+        dark ? 'border-b border-zinc-800 px-4 py-3 sm:px-6' : 'mb-4'
+      }`}
+    >
+      <span className={`text-xs font-semibold uppercase tracking-wide ${dark ? 'text-zinc-500' : 'text-slate-500'}`}>
+        Filtered by
+      </span>
+      {chips.map((chip) => (
+        <button
+          key={`${chip.key}:${chip.value}`}
+          type="button"
+          onClick={() => onClearKey(chip.key)}
+          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
+            dark
+              ? 'bg-zinc-800 text-zinc-100 ring-1 ring-zinc-600 hover:bg-zinc-700'
+              : 'bg-slate-100 text-slate-800 ring-1 ring-slate-200 hover:bg-slate-200'
+          }`}
+        >
+          {chip.label}
+          <X className="h-3 w-3 opacity-70" />
+        </button>
+      ))}
+      <button
+        type="button"
+        onClick={onClearAll}
+        className={`text-xs font-medium underline-offset-2 hover:underline ${
+          dark ? 'text-zinc-400' : 'text-slate-500'
+        }`}
+      >
+        Clear all
+      </button>
+    </div>
+  );
+}
+
+export default function TrackingDashboard({ page = 'analytics' }: { page?: DashboardPage }) {
   const [range, setRange] = useState<AnalyticsRange>(() => resolveAnalyticsRange('24h'));
+  const [filters, setFilters] = useState<AnalyticsDimensionFilters>({});
+  const [filtersReady, setFiltersReady] = useState(false);
   const [events, setEvents] = useState<TrackEventRow[]>([]);
   const [journeys, setJourneys] = useState<BookingJourney[]>([]);
   const [journeyFilter, setJourneyFilter] = useState<JourneyFilter>('all');
+  const [journalMode, setJournalMode] = useState<JournalMode>('clicks');
   const [stats, setStats] = useState<TrackStats | null>(null);
   const [insights, setInsights] = useState<Insights | null>(null);
   const [granularity, setGranularity] = useState<'hour' | 'day'>('hour');
   const [eventLabels, setEventLabels] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<ViewMode>('overview');
   const [eventFilter, setEventFilter] = useState('all');
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [countrySearch, setCountrySearch] = useState('');
   const [sourceTab, setSourceTab] = useState<'referrers' | 'utm'>('referrers');
   const [utmTab, setUtmTab] = useState<'sources' | 'mediums' | 'campaigns'>('sources');
-  const [page, setPage] = useState(1);
+  const [pageNum, setPageNum] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
@@ -530,23 +608,52 @@ export default function TrackingDashboard() {
     }
   }, []);
 
+  useEffect(() => {
+    setFilters(loadFiltersFromStorage());
+    setFiltersReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!filtersReady) return;
+    saveFiltersToStorage(filters);
+  }, [filters, filtersReady]);
+
+  const setDimFilter = useCallback((key: AnalyticsFilterKey, value: string) => {
+    setFilters((prev) => toggleFilter(prev, key, value));
+    setPageNum(1);
+  }, []);
+
+  const removeDimFilter = useCallback((key: AnalyticsFilterKey) => {
+    setFilters((prev) => clearFilter(prev, key));
+    setPageNum(1);
+  }, []);
+
+  const clearAllFilters = useCallback(() => {
+    setFilters({});
+    setPageNum(1);
+  }, []);
+
   const fetchEvents = useCallback(async () => {
+    if (!filtersReady) return;
     setLoading(true);
     setError(null);
     try {
       const params = new URLSearchParams({
-        page: String(page),
+        page: String(pageNum),
         limit: '40',
         preset: range.preset,
         from: range.from.toISOString(),
         to: range.to.toISOString(),
         label: range.label,
         tz: timezone,
-        view: view === 'overview' ? 'all' : view,
+        view: page === 'reservations' ? (journalMode === 'clicks' ? 'clicks' : 'reservations') : 'all',
         excludePageViews: 'true',
       });
-      if (eventFilter !== 'all') params.set('event', eventFilter);
+      if (page === 'reservations' && eventFilter !== 'all') params.set('event', eventFilter);
       if (search) params.set('search', search);
+      for (const [k, v] of Object.entries(filtersToQuery(filters))) {
+        params.set(k, v);
+      }
 
       const res = await fetch(`/api/admin/track-events?${params.toString()}`);
       const data = await res.json();
@@ -564,7 +671,7 @@ export default function TrackingDashboard() {
     } finally {
       setLoading(false);
     }
-  }, [eventFilter, page, range, search, timezone, view]);
+  }, [eventFilter, filters, filtersReady, journalMode, page, pageNum, range, search, timezone]);
 
   useEffect(() => {
     fetchEvents();
@@ -572,19 +679,13 @@ export default function TrackingDashboard() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setPage(1);
+    setPageNum(1);
     setSearch(searchInput.trim());
-  };
-
-  const setQuickView = (next: ViewMode) => {
-    setView(next);
-    setEventFilter('all');
-    setPage(1);
   };
 
   const onRangeChange = (next: AnalyticsRange) => {
     setRange(next);
-    setPage(1);
+    setPageNum(1);
   };
 
   const filteredCountries = useMemo(() => {
@@ -622,233 +723,117 @@ export default function TrackingDashboard() {
         ? insights?.utm?.mediums ?? []
         : insights?.utm?.campaigns ?? [];
 
-  return (
-    <div className="space-y-6">
-      {/* Dark analytics home */}
-      <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl">
-        <div className="flex flex-col gap-4 border-b border-zinc-800 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <div>
-            <h2 className="text-xl font-semibold tracking-tight">Analytics</h2>
-            <p className="mt-0.5 text-sm text-zinc-500">
-              Visitors, countries & sources · Local ({timezone})
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <AnalyticsDateRangePicker value={range} onChange={onRangeChange} />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={fetchEvents}
-              disabled={loading}
-              className="border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:text-white"
-            >
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-              Refresh
-            </Button>
-          </div>
-        </div>
+  const funnel = insights?.funnel;
+  const carStats = insights?.carStats ?? [];
+  const activeFilters = hasActiveFilters(filters);
 
-        {error && (
-          <div className="mx-4 mt-4 rounded-lg border border-red-900/60 bg-red-950/50 p-3 text-sm text-red-200 sm:mx-6">
-            {error}
-          </div>
-        )}
+  const filterBar = (
+    <FilterBar
+      filters={filters}
+      onClearKey={removeDimFilter}
+      onClearAll={clearAllFilters}
+      dark
+    />
+  );
 
-        <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
-          {[
-            {
-              label: 'Visitors',
-              value: stats?.uniqueVisitors ?? '–',
-              hint: `${stats?.newVisitors ?? 0} new · ${stats?.returningVisitors ?? 0} returning`,
-            },
-            { label: 'Page views', value: stats?.pageViewsPeriod ?? '–', hint: range.label },
-            { label: 'WhatsApp', value: stats?.whatsappPeriod ?? '–', hint: 'clicks in range' },
-            { label: 'Bookings', value: stats?.confirmedPeriod ?? '–', hint: 'confirmed in range' },
-          ].map((kpi) => (
-            <div key={kpi.label} className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-3">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
-              <p className="mt-1 text-2xl font-semibold tabular-nums">{kpi.value}</p>
-              <p className="mt-1 text-xs text-zinc-500">{kpi.hint}</p>
+  if (page === 'reservations') {
+    return (
+      <div className="space-y-6">
+        <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl">
+          <div className="flex flex-col gap-4 border-b border-zinc-800 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+            <div>
+              <h2 className="text-xl font-semibold tracking-tight">Reservations</h2>
+              <p className="mt-0.5 text-sm text-zinc-500">
+                Funnel, car clicks & booking journeys · Local ({timezone})
+              </p>
             </div>
-          ))}
-        </div>
-
-        <div className="border-b border-zinc-800 px-4 py-5 sm:px-6">
-          <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-zinc-200">Visitors</h3>
-            <span className="text-xs text-zinc-500">{range.label}</span>
-          </div>
-          {loading && !insights ? (
-            <div className="flex justify-center py-16">
-              <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
+            <div className="flex flex-wrap items-center gap-2">
+              <AnalyticsDateRangePicker value={range} onChange={onRangeChange} />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={fetchEvents}
+                disabled={loading}
+                className="border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+              >
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+                Refresh
+              </Button>
             </div>
-          ) : (insights?.series?.length ?? 0) === 0 ? (
-            <p className="py-12 text-center text-sm text-zinc-500">No visitor data for this range yet.</p>
-          ) : (
-            <VisitorsChart
-              series={insights!.series}
-              granularity={granularity}
-              uniqueVisitors={stats?.uniqueVisitors ?? 0}
-              pageViews={stats?.pageViewsPeriod ?? 0}
-            />
+          </div>
+
+          {error && (
+            <div className="mx-4 mt-4 rounded-lg border border-red-900/60 bg-red-950/50 p-3 text-sm text-red-200 sm:mx-6">
+              {error}
+            </div>
           )}
-        </div>
 
-        <div className="grid gap-0 lg:grid-cols-2">
-          {/* Countries */}
-          <div className="border-b border-zinc-800 p-4 sm:p-6 lg:border-b-0 lg:border-r">
+          {filterBar}
+
+          <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 xl:grid-cols-7">
+            {[
+              { label: 'Page views', value: funnel?.pageViews ?? stats?.pageViewsPeriod ?? '–' },
+              { label: 'Car interest', value: funnel?.carInterest ?? '–' },
+              { label: 'WhatsApp', value: funnel?.whatsapp ?? stats?.whatsappPeriod ?? '–' },
+              { label: 'Form open', value: funnel?.formOpen ?? '–' },
+              { label: 'In progress', value: funnel?.formProgress ?? '–' },
+              { label: 'Abandoned', value: funnel?.abandoned ?? stats?.abandonedPeriod ?? '–' },
+              { label: 'Confirmed', value: funnel?.confirmed ?? stats?.confirmedPeriod ?? '–' },
+            ].map((kpi) => (
+              <div key={kpi.label} className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-3 py-3">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
+                <p className="mt-1 text-xl font-semibold tabular-nums">{kpi.value}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="p-4 sm:p-6">
             <div className="mb-3 flex items-end justify-between gap-3">
-              <h3 className="text-sm font-semibold">Countries</h3>
-              <div className="flex gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
-                <span className="w-16 text-right">Visitors</span>
-                <span className="w-16 text-right">Page views</span>
+              <div>
+                <h3 className="text-sm font-semibold">Cars performance</h3>
+                <p className="text-xs text-zinc-500">Click a car to filter journeys and events</p>
+              </div>
+              <div className="hidden gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 sm:flex">
+                <span className="w-14 text-right">Clicks</span>
+                <span className="w-14 text-right">Opens</span>
+                <span className="w-14 text-right">Confirm</span>
+                <span className="w-14 text-right">Abandon</span>
               </div>
             </div>
-            <div className="relative mb-3">
-              <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-500" />
-              <Input
-                value={countrySearch}
-                onChange={(e) => setCountrySearch(e.target.value)}
-                placeholder="Search"
-                className="h-9 border-zinc-700 bg-zinc-900 pl-9 text-sm text-zinc-100 placeholder:text-zinc-500"
-              />
-            </div>
-            <ul className="max-h-80 space-y-1 overflow-y-auto">
-              {filteredCountries.length === 0 ? (
-                <li className="py-8 text-center text-sm text-zinc-500">No countries yet.</li>
-              ) : (
-                filteredCountries.map((c) => {
-                  const name = countryLabel(c.code || c.name);
-                  const bar = Math.max(2, Math.min(100, c.share));
+            {loading && carStats.length === 0 ? (
+              <div className="flex justify-center py-10">
+                <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
+              </div>
+            ) : carStats.length === 0 ? (
+              <p className="py-8 text-center text-sm text-zinc-500">No car activity in this range.</p>
+            ) : (
+              <ul className="max-h-96 space-y-1 overflow-y-auto">
+                {carStats.map((car) => {
+                  const value = car.slug || car.name;
+                  const active = filters.car === value || filters.car === car.name;
                   return (
-                    <li key={c.code || c.name} className="relative rounded-md px-2 py-2 hover:bg-zinc-900/80">
-                      <div
-                        className="pointer-events-none absolute inset-y-1 left-0 rounded-md bg-zinc-800/80"
-                        style={{ width: `${bar}%` }}
-                      />
-                      <div className="relative flex items-center gap-2 text-sm">
-                        <Flag code={c.code} />
-                        <span className="min-w-0 flex-1 truncate font-medium">{name}</span>
-                        <span className="w-10 shrink-0 text-right text-xs text-zinc-500">
-                          {c.share < 0.5 ? '<0.5%' : `${c.share}%`}
-                        </span>
-                        <span className="w-16 shrink-0 text-right tabular-nums">{c.visitors}</span>
-                        <span className="w-16 shrink-0 text-right tabular-nums text-zinc-300">{c.pageViews}</span>
-                      </div>
+                    <li key={value}>
+                      <button
+                        type="button"
+                        onClick={() => setDimFilter('car', value)}
+                        className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-zinc-900/80 ${
+                          active ? 'bg-zinc-800 ring-1 ring-sky-500/50' : ''
+                        }`}
+                      >
+                        <span className="min-w-0 flex-1 truncate font-medium">{car.name}</span>
+                        <span className="w-14 shrink-0 text-right tabular-nums text-zinc-300">{car.clicks}</span>
+                        <span className="w-14 shrink-0 text-right tabular-nums text-zinc-300">{car.opens}</span>
+                        <span className="w-14 shrink-0 text-right tabular-nums text-emerald-300">{car.confirms}</span>
+                        <span className="w-14 shrink-0 text-right tabular-nums text-amber-300">{car.abandons}</span>
+                      </button>
                     </li>
                   );
-                })
-              )}
-            </ul>
-          </div>
-
-          {/* Referrers / UTM */}
-          <div className="p-4 sm:p-6">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <div className="flex gap-4 text-sm">
-                <button
-                  type="button"
-                  onClick={() => setSourceTab('referrers')}
-                  className={
-                    sourceTab === 'referrers'
-                      ? 'border-b-2 border-white pb-1 font-semibold text-white'
-                      : 'pb-1 text-zinc-500 hover:text-zinc-300'
-                  }
-                >
-                  Referrers
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSourceTab('utm')}
-                  className={
-                    sourceTab === 'utm'
-                      ? 'border-b-2 border-white pb-1 font-semibold text-white'
-                      : 'pb-1 text-zinc-500 hover:text-zinc-300'
-                  }
-                >
-                  UTM Parameters
-                </button>
-              </div>
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
-                Visitors
-              </span>
-            </div>
-
-            {sourceTab === 'utm' ? (
-              <div className="mb-3 flex gap-2">
-                {(['sources', 'mediums', 'campaigns'] as const).map((tab) => (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setUtmTab(tab)}
-                    className={`rounded-full px-2.5 py-1 text-xs capitalize ${
-                      utmTab === tab ? 'bg-zinc-100 text-zinc-950' : 'bg-zinc-900 text-zinc-400'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-            ) : null}
-
-            <ul className="max-h-80 space-y-1 overflow-y-auto">
-              {sourceTab === 'referrers' ? (
-                (insights?.referrers?.length ?? 0) === 0 ? (
-                  <li className="py-8 text-center text-sm text-zinc-500">No referrers yet.</li>
-                ) : (
-                  insights!.referrers.map((r) => (
-                    <li
-                      key={r.name}
-                      className="flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-zinc-900/80"
-                    >
-                      <Favicon host={r.name} />
-                      <span className="min-w-0 flex-1 truncate">{r.name}</span>
-                      <span className="tabular-nums text-zinc-200">{r.visitors}</span>
-                    </li>
-                  ))
-                )
-              ) : utmRows.length === 0 ? (
-                <li className="py-8 text-center text-sm text-zinc-500">No UTM data yet.</li>
-              ) : (
-                utmRows.map((r) => (
-                  <li
-                    key={r.name}
-                    className="flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-zinc-900/80"
-                  >
-                    <span className="min-w-0 flex-1 truncate font-mono text-xs">{r.name}</span>
-                    <span className="tabular-nums text-zinc-200">{r.visitors}</span>
-                  </li>
-                ))
-              )}
-            </ul>
+                })}
+              </ul>
+            )}
           </div>
         </div>
-      </div>
 
-      {/* Secondary views */}
-      <div className="flex flex-wrap gap-2">
-        {(
-          [
-            ['overview', 'Overview'],
-            ['leads', 'Leads & bookings'],
-            ['clicks', 'Important clicks'],
-            ['reservations', 'Booking funnel'],
-            ['all', 'Event journal'],
-          ] as Array<[ViewMode, string]>
-        ).map(([key, label]) => (
-          <Button
-            key={key}
-            size="sm"
-            variant={view === key ? 'default' : 'outline'}
-            className={view === key ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
-            onClick={() => setQuickView(key)}
-          >
-            {label}
-          </Button>
-        ))}
-      </div>
-
-      {(view === 'overview' || view === 'leads' || view === 'reservations') && (
         <Card className="border-slate-200 bg-white shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
@@ -856,8 +841,8 @@ export default function TrackingDashboard() {
               Booking journeys
             </CardTitle>
             <CardDescription>
-              One card per visitor for {range.label}. Confirmed bookings hide false “abandoned”
-              duplicates. Includes people who opened a car / form without leaving details.
+              One card per visitor for {range.label}
+              {activeFilters ? ' (scoped to active filters)' : ''}.
             </CardDescription>
             <div className="flex flex-wrap gap-2 pt-2">
               {(
@@ -905,24 +890,46 @@ export default function TrackingDashboard() {
             )}
           </CardContent>
         </Card>
-      )}
 
-      {(view === 'clicks' || view === 'all' || view === 'reservations') && (
         <Card className="border-slate-200 bg-white shadow-sm">
           <CardHeader>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <CardTitle className="flex items-center gap-2">
                   <MousePointerClick className="h-5 w-5 text-[#b11226]" />
-                  {view === 'clicks' ? 'Important clicks' : 'Event journal'}
+                  {journalMode === 'clicks' ? 'Important clicks' : 'Booking events'}
                 </CardTitle>
-                <CardDescription className="mt-1">Same date range as the analytics chart.</CardDescription>
+                <CardDescription className="mt-1">Same date range and dimension filters.</CardDescription>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    variant={journalMode === 'clicks' ? 'default' : 'outline'}
+                    className={journalMode === 'clicks' ? 'bg-slate-950 text-white' : 'bg-white'}
+                    onClick={() => {
+                      setJournalMode('clicks');
+                      setPageNum(1);
+                    }}
+                  >
+                    Important clicks
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={journalMode === 'all' ? 'default' : 'outline'}
+                    className={journalMode === 'all' ? 'bg-slate-950 text-white' : 'bg-white'}
+                    onClick={() => {
+                      setJournalMode('all');
+                      setPageNum(1);
+                    }}
+                  >
+                    Booking funnel events
+                  </Button>
+                </div>
               </div>
               <Select
                 value={eventFilter}
                 onValueChange={(v) => {
                   setEventFilter(v);
-                  setPage(1);
+                  setPageNum(1);
                 }}
               >
                 <SelectTrigger className="w-[220px] bg-white">
@@ -1001,9 +1008,16 @@ export default function TrackingDashboard() {
                               {sourceLabel(event.source)}
                             </span>
                             {event.country ? (
-                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                              <button
+                                type="button"
+                                className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-200"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDimFilter('country', event.country!.toUpperCase());
+                                }}
+                              >
                                 {event.country}
-                              </span>
+                              </button>
                             ) : null}
                           </div>
                           <p className="mt-1 truncate text-sm text-slate-600">
@@ -1030,20 +1044,20 @@ export default function TrackingDashboard() {
                 <Button
                   variant="outline"
                   size="sm"
-                  disabled={page <= 1 || loading}
-                  onClick={() => setPage((p) => p - 1)}
+                  disabled={pageNum <= 1 || loading}
+                  onClick={() => setPageNum((p) => p - 1)}
                   className="bg-white"
                 >
                   Previous
                 </Button>
                 <span className="text-sm text-slate-500">
-                  Page {page} / {totalPages}
+                  Page {pageNum} / {totalPages}
                 </span>
                 <Button
                   variant="outline"
                   size="sm"
-                  disabled={page >= totalPages || loading}
-                  onClick={() => setPage((p) => p + 1)}
+                  disabled={pageNum >= totalPages || loading}
+                  onClick={() => setPageNum((p) => p + 1)}
                   className="bg-white"
                 >
                   Next
@@ -1052,7 +1066,244 @@ export default function TrackingDashboard() {
             )}
           </CardContent>
         </Card>
-      )}
+      </div>
+    );
+  }
+
+  // Analytics page
+  return (
+    <div className="space-y-6">
+      <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl">
+        <div className="flex flex-col gap-4 border-b border-zinc-800 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">Analytics</h2>
+            <p className="mt-0.5 text-sm text-zinc-500">
+              Visitors, countries & sources · Local ({timezone})
+              {activeFilters ? ' · filtered' : ''}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <AnalyticsDateRangePicker value={range} onChange={onRangeChange} />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={fetchEvents}
+              disabled={loading}
+              className="border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+            >
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+              Refresh
+            </Button>
+          </div>
+        </div>
+
+        {error && (
+          <div className="mx-4 mt-4 rounded-lg border border-red-900/60 bg-red-950/50 p-3 text-sm text-red-200 sm:mx-6">
+            {error}
+          </div>
+        )}
+
+        {filterBar}
+
+        <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+          {[
+            {
+              label: 'Visitors',
+              value: stats?.uniqueVisitors ?? '–',
+              hint: `${stats?.newVisitors ?? 0} new · ${stats?.returningVisitors ?? 0} returning`,
+            },
+            { label: 'Page views', value: stats?.pageViewsPeriod ?? '–', hint: range.label },
+            { label: 'WhatsApp', value: stats?.whatsappPeriod ?? '–', hint: 'clicks in range' },
+            { label: 'Bookings', value: stats?.confirmedPeriod ?? '–', hint: 'confirmed in range' },
+          ].map((kpi) => (
+            <div key={kpi.label} className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
+              <p className="mt-1 text-2xl font-semibold tabular-nums">{kpi.value}</p>
+              <p className="mt-1 text-xs text-zinc-500">{kpi.hint}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-b border-zinc-800 px-4 py-5 sm:px-6">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-zinc-200">Visitors</h3>
+            <span className="text-xs text-zinc-500">{range.label}</span>
+          </div>
+          {loading && !insights ? (
+            <div className="flex justify-center py-16">
+              <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
+            </div>
+          ) : (insights?.series?.length ?? 0) === 0 ? (
+            <p className="py-12 text-center text-sm text-zinc-500">No visitor data for this range yet.</p>
+          ) : (
+            <VisitorsChart
+              series={insights!.series}
+              granularity={granularity}
+              uniqueVisitors={stats?.uniqueVisitors ?? 0}
+              pageViews={stats?.pageViewsPeriod ?? 0}
+            />
+          )}
+        </div>
+
+        <div className="grid gap-0 lg:grid-cols-2">
+          <div className="border-b border-zinc-800 p-4 sm:p-6 lg:border-b-0 lg:border-r">
+            <div className="mb-3 flex items-end justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-semibold">Countries</h3>
+                <p className="text-xs text-zinc-500">Click to filter all KPIs</p>
+              </div>
+              <div className="flex gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                <span className="w-16 text-right">Visitors</span>
+                <span className="w-16 text-right">Page views</span>
+              </div>
+            </div>
+            <div className="relative mb-3">
+              <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-500" />
+              <Input
+                value={countrySearch}
+                onChange={(e) => setCountrySearch(e.target.value)}
+                placeholder="Search"
+                className="h-9 border-zinc-700 bg-zinc-900 pl-9 text-sm text-zinc-100 placeholder:text-zinc-500"
+              />
+            </div>
+            <ul className="max-h-80 space-y-1 overflow-y-auto">
+              {filteredCountries.length === 0 ? (
+                <li className="py-8 text-center text-sm text-zinc-500">No countries yet.</li>
+              ) : (
+                filteredCountries.map((c) => {
+                  const code = c.code || 'ZZ';
+                  const name = countryLabel(c.code || c.name);
+                  const bar = Math.max(2, Math.min(100, c.share));
+                  const active = filters.country === code;
+                  return (
+                    <li key={c.code || c.name}>
+                      <button
+                        type="button"
+                        onClick={() => setDimFilter('country', code)}
+                        className={`relative w-full rounded-md px-2 py-2 text-left hover:bg-zinc-900/80 ${
+                          active ? 'bg-zinc-800 ring-1 ring-sky-500/50' : ''
+                        }`}
+                      >
+                        <div
+                          className="pointer-events-none absolute inset-y-1 left-0 rounded-md bg-zinc-800/80"
+                          style={{ width: `${bar}%` }}
+                        />
+                        <div className="relative flex items-center gap-2 text-sm">
+                          <Flag code={c.code} />
+                          <span className="min-w-0 flex-1 truncate font-medium">{name}</span>
+                          <span className="w-10 shrink-0 text-right text-xs text-zinc-500">
+                            {c.share < 0.5 ? '<0.5%' : `${c.share}%`}
+                          </span>
+                          <span className="w-16 shrink-0 text-right tabular-nums">{c.visitors}</span>
+                          <span className="w-16 shrink-0 text-right tabular-nums text-zinc-300">{c.pageViews}</span>
+                        </div>
+                      </button>
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+          </div>
+
+          <div className="p-4 sm:p-6">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div className="flex gap-4 text-sm">
+                <button
+                  type="button"
+                  onClick={() => setSourceTab('referrers')}
+                  className={
+                    sourceTab === 'referrers'
+                      ? 'border-b-2 border-white pb-1 font-semibold text-white'
+                      : 'pb-1 text-zinc-500 hover:text-zinc-300'
+                  }
+                >
+                  Referrers
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSourceTab('utm')}
+                  className={
+                    sourceTab === 'utm'
+                      ? 'border-b-2 border-white pb-1 font-semibold text-white'
+                      : 'pb-1 text-zinc-500 hover:text-zinc-300'
+                  }
+                >
+                  UTM Parameters
+                </button>
+              </div>
+              <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                Visitors
+              </span>
+            </div>
+
+            {sourceTab === 'utm' ? (
+              <div className="mb-3 flex gap-2">
+                {(['sources', 'mediums', 'campaigns'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setUtmTab(tab)}
+                    className={`rounded-full px-2.5 py-1 text-xs capitalize ${
+                      utmTab === tab ? 'bg-zinc-100 text-zinc-950' : 'bg-zinc-900 text-zinc-400'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            <ul className="max-h-80 space-y-1 overflow-y-auto">
+              {sourceTab === 'referrers' ? (
+                (insights?.referrers?.length ?? 0) === 0 ? (
+                  <li className="py-8 text-center text-sm text-zinc-500">No referrers yet.</li>
+                ) : (
+                  insights!.referrers.map((r) => {
+                    const active = filters.referrer === r.name;
+                    return (
+                      <li key={r.name}>
+                        <button
+                          type="button"
+                          onClick={() => setDimFilter('referrer', r.name)}
+                          className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-zinc-900/80 ${
+                            active ? 'bg-zinc-800 ring-1 ring-sky-500/50' : ''
+                          }`}
+                        >
+                          <Favicon host={r.name} />
+                          <span className="min-w-0 flex-1 truncate">{r.name}</span>
+                          <span className="tabular-nums text-zinc-200">{r.visitors}</span>
+                        </button>
+                      </li>
+                    );
+                  })
+                )
+              ) : utmRows.length === 0 ? (
+                <li className="py-8 text-center text-sm text-zinc-500">No UTM data yet.</li>
+              ) : (
+                utmRows.map((r) => {
+                  const key: AnalyticsFilterKey =
+                    utmTab === 'sources' ? 'utmSource' : utmTab === 'mediums' ? 'utmMedium' : 'utmCampaign';
+                  const active = filters[key] === r.name;
+                  return (
+                    <li key={r.name}>
+                      <button
+                        type="button"
+                        onClick={() => setDimFilter(key, r.name)}
+                        className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-zinc-900/80 ${
+                          active ? 'bg-zinc-800 ring-1 ring-sky-500/50' : ''
+                        }`}
+                      >
+                        <span className="min-w-0 flex-1 truncate font-mono text-xs">{r.name}</span>
+                        <span className="tabular-nums text-zinc-200">{r.visitors}</span>
+                      </button>
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

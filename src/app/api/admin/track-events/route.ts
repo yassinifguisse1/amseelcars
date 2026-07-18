@@ -12,6 +12,12 @@ import {
   type AnalyticsPreset,
 } from '@/lib/admin/analyticsRange';
 import { buildBookingJourneys } from '@/lib/admin/bookingJourneys';
+import {
+  filtersToQuery,
+  hasActiveFilters,
+  mergeWhereWithDimensions,
+  parseDimensionFilters,
+} from '@/lib/admin/analyticsFilters';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -50,6 +56,18 @@ const IMPORTANT_CLICK_EVENTS = [
   'social-click',
 ] as const;
 
+const JOURNEY_EVENTS = [
+  'booking-confirmed',
+  'booking-abandoned',
+  'booking-form-progress',
+  'booking-submit',
+  'booking-dialog-open',
+  'contact-submit',
+  'car-card-click',
+  'reserver',
+  'scroll-reservation',
+] as const;
+
 const PRESETS = new Set(['24h', '7d', '30d', '90d', '365d', 'custom']);
 
 function parseRange(searchParams: URLSearchParams) {
@@ -79,12 +97,10 @@ function parseRange(searchParams: URLSearchParams) {
     !Number.isNaN(toDate.getTime()) &&
     fromDate.getTime() <= toDate.getTime();
 
-  // Custom calendar range only
   if (preset === 'custom' && boundsOk) {
     return resolveAnalyticsRange('custom', fromDate, toDate);
   }
 
-  // Presets: keep exact client from/to so 24h stays hourly (do NOT snap to day bounds)
   if (boundsOk) {
     return rangeFromBounds(preset, fromDate, toDate, labelRaw || undefined);
   }
@@ -106,6 +122,7 @@ export async function GET(request: NextRequest) {
     const search = searchParams.get('search')?.trim() || undefined;
     const view = searchParams.get('view')?.trim() || 'all';
     const excludePageViews = searchParams.get('excludePageViews') !== 'false';
+    const dimFilters = parseDimensionFilters(searchParams);
 
     const range = parseRange(searchParams);
     const { from: since, to: until, granularity, preset, label } = range;
@@ -118,11 +135,7 @@ export async function GET(request: NextRequest) {
     todayStart.setHours(0, 0, 0, 0);
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
-    const where: {
-      createdAt: { gte: Date; lte: Date };
-      event?: string | { not: string } | { in: string[] };
-      OR?: Array<Record<string, unknown>>;
-    } = {
+    let where: Record<string, unknown> = {
       createdAt: { gte: since, lte: until },
     };
 
@@ -142,6 +155,7 @@ export async function GET(request: NextRequest) {
           'booking-dialog-open',
           'reserver',
           'scroll-reservation',
+          'car-card-click',
         ],
       };
     } else if (excludePageViews) {
@@ -169,7 +183,12 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    const periodFilter = { createdAt: { gte: since, lte: until } };
+    where = mergeWhereWithDimensions(where, dimFilters);
+
+    const periodBase: Record<string, unknown> = {
+      createdAt: { gte: since, lte: until },
+    };
+    const periodFilter = mergeWhereWithDimensions(periodBase, dimFilters);
 
     const [
       total,
@@ -191,16 +210,16 @@ export async function GET(request: NextRequest) {
       recentLeads,
       periodEventsForAgg,
     ] = await Promise.all([
-      prisma.trackEvent.count({ where }),
+      prisma.trackEvent.count({ where: where as never }),
       prisma.trackEvent.findMany({
-        where,
+        where: where as never,
         orderBy: { createdAt: 'desc' },
         skip: (page - 1) * limit,
         take: limit,
       }),
       prisma.trackEvent.groupBy({
         by: ['event'],
-        where: periodFilter,
+        where: periodFilter as never,
         _count: { event: true },
       }),
       prisma.trackEvent.count({ where: { createdAt: { gte: todayStart } } }),
@@ -209,57 +228,69 @@ export async function GET(request: NextRequest) {
         where: { event: 'page-view', createdAt: { gte: todayStart } },
       }),
       prisma.trackEvent.count({
-        where: { event: 'page-view', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'page-view', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.count({
-        where: { event: 'whatsapp', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'whatsapp', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.count({
         where: { event: 'whatsapp', createdAt: { gte: todayStart } },
       }),
       prisma.trackEvent.count({
-        where: { event: 'booking-confirmed', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'booking-confirmed', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.count({
         where: { event: 'booking-confirmed', createdAt: { gte: todayStart } },
       }),
       prisma.trackEvent.count({
-        where: { event: 'booking-abandoned', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'booking-abandoned', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.count({
         where: { event: 'booking-abandoned', createdAt: { gte: todayStart } },
       }),
       prisma.trackEvent.count({
-        where: { event: 'reserver', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'reserver', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.count({
-        where: { event: 'phone-click', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'phone-click', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.count({
-        where: { event: 'contact-submit', ...periodFilter },
+        where: mergeWhereWithDimensions(
+          { event: 'contact-submit', createdAt: { gte: since, lte: until } },
+          dimFilters,
+        ) as never,
       }),
       prisma.trackEvent.findMany({
-        where: {
-          createdAt: { gte: since, lte: until },
-          event: {
-            in: [
-              'booking-confirmed',
-              'booking-abandoned',
-              'booking-form-progress',
-              'booking-submit',
-              'booking-dialog-open',
-              'contact-submit',
-              'car-card-click',
-              'reserver',
-              'scroll-reservation',
-            ],
+        where: mergeWhereWithDimensions(
+          {
+            createdAt: { gte: since, lte: until },
+            event: { in: [...JOURNEY_EVENTS] },
           },
-        },
+          dimFilters,
+        ) as never,
         orderBy: { createdAt: 'desc' },
         take: 400,
       }),
       prisma.trackEvent.findMany({
-        where: periodFilter,
+        where: periodFilter as never,
         select: {
           event: true,
           path: true,
@@ -296,13 +327,16 @@ export async function GET(request: NextRequest) {
     );
 
     const carCounts = new Map<string, number>();
+    const carStatsMap = new Map<
+      string,
+      { name: string; slug: string | null; clicks: number; opens: number; confirms: number; abandons: number }
+    >();
     const pathCounts = new Map<string, number>();
     const deviceCounts = new Map<string, number>();
     const trafficCounts = new Map<string, number>();
     const browserCounts = new Map<string, number>();
     const visitorSeen = new Map<string, boolean>();
 
-    // country -> { visitors: Set, pageViews }
     const countryStats = new Map<string, { visitors: Set<string>; pageViews: number; anonViews: number }>();
     const referrerStats = new Map<string, Set<string>>();
     const utmSourceStats = new Map<string, Set<string>>();
@@ -326,7 +360,6 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Legacy daily shape for older UI bits
     const daily = new Map<
       string,
       { date: string; views: number; whatsapp: number; reservations: number; abandons: number; clicks: number }
@@ -352,10 +385,44 @@ export async function GET(request: NextRequest) {
       set.add(visitorId && visitorId.length >= 4 ? visitorId : `anon:${k}:${set.size}`);
     };
 
+    const bumpCarStat = (
+      name: string,
+      slug: string | null,
+      field: 'clicks' | 'opens' | 'confirms' | 'abandons',
+    ) => {
+      const key = (slug || name).trim();
+      if (!key) return;
+      let row = carStatsMap.get(key);
+      if (!row) {
+        row = { name, slug, clicks: 0, opens: 0, confirms: 0, abandons: 0 };
+        carStatsMap.set(key, row);
+      }
+      if (name && !row.name) row.name = name;
+      if (slug && !row.slug) row.slug = slug;
+      row[field] += 1;
+    };
+
     for (const row of periodEventsForAgg) {
       const car = (row.carName || row.carSlug || '').trim();
       if (car) carCounts.set(car, (carCounts.get(car) ?? 0) + 1);
       if (row.path) pathCounts.set(row.path, (pathCounts.get(row.path) ?? 0) + 1);
+
+      if (row.carName || row.carSlug) {
+        const cName = (row.carName || row.carSlug || '').trim();
+        const cSlug = row.carSlug?.trim() || null;
+        if (row.event === 'car-card-click' || row.event === 'reserver') {
+          bumpCarStat(cName, cSlug, 'clicks');
+        } else if (
+          row.event === 'booking-dialog-open' ||
+          row.event === 'scroll-reservation'
+        ) {
+          bumpCarStat(cName, cSlug, 'opens');
+        } else if (row.event === 'booking-confirmed') {
+          bumpCarStat(cName, cSlug, 'confirms');
+        } else if (row.event === 'booking-abandoned') {
+          bumpCarStat(cName, cSlug, 'abandons');
+        }
+      }
 
       const created = new Date(row.createdAt);
       const seriesKey =
@@ -427,6 +494,14 @@ export async function GET(request: NextRequest) {
         .sort((a, b) => b.visitors - a.visitors)
         .slice(0, n);
 
+    const carStats = [...carStatsMap.values()]
+      .map((c) => ({
+        ...c,
+        interest: c.clicks + c.opens,
+      }))
+      .sort((a, b) => b.interest - a.interest || b.confirms - a.confirms)
+      .slice(0, 25);
+
     const countryRows = [...countryStats.entries()]
       .map(([code, stat]) => {
         const visitorCount =
@@ -490,6 +565,7 @@ export async function GET(request: NextRequest) {
       events,
       leads: journeys.filter((j) => j.hasContact || j.stage !== 'car-interest'),
       journeys,
+      filters: filtersToQuery(dimFilters),
       range: {
         from: since.toISOString(),
         to: until.toISOString(),
@@ -499,6 +575,7 @@ export async function GET(request: NextRequest) {
       },
       insights: {
         topCars: topList(carCounts),
+        carStats,
         topPages: topList(pathCounts).map(({ name, count }) => ({ path: name, count })),
         daily: [...daily.values()],
         series,
@@ -549,6 +626,7 @@ export async function GET(request: NextRequest) {
         returningVisitors,
         byEvent: statsByEvent,
         periodDays,
+        filtered: hasActiveFilters(dimFilters),
       },
       pagination: {
         page,
