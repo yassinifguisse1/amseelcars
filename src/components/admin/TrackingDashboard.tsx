@@ -14,29 +14,28 @@ import {
 import {
   AlertTriangle,
   CalendarCheck,
-  Car,
   ChevronDown,
   ChevronUp,
   Eye,
   FlaskConical,
-  Globe2,
   Loader2,
   Mail,
   MessageCircle,
-  MonitorSmartphone,
   MousePointerClick,
   Phone,
   RefreshCw,
   Search,
   Send,
-  Share2,
-  TrendingUp,
-  UserPlus,
   Users,
 } from 'lucide-react';
 import { EVENT_LABELS, SOURCE_LABELS } from '@/lib/trackEventTypes';
 import StatsigFeaturePanel from '@/components/admin/StatsigFeaturePanel';
-import SessionReplayCard from '@/components/admin/SessionReplayCard';
+import { AnalyticsDateRangePicker } from '@/components/admin/AnalyticsDateRangePicker';
+import {
+  resolveAnalyticsRange,
+  type AnalyticsRange,
+} from '@/lib/admin/analyticsRange';
+import AdminPwaPushCard from '@/components/admin/AdminPwaPushCard';
 
 type TrackEventRow = {
   id: string;
@@ -64,8 +63,6 @@ type TrackEventRow = {
   utmSource: string | null;
   utmMedium: string | null;
   utmCampaign: string | null;
-  utmContent: string | null;
-  utmTerm: string | null;
   fullName: string | null;
   email: string | null;
   phone: string | null;
@@ -81,18 +78,31 @@ type TrackEventRow = {
   createdAt: string;
 };
 
+type SeriesPoint = {
+  key: string;
+  visitors: number;
+  pageViews: number;
+  whatsapp: number;
+  reservations: number;
+  abandons: number;
+  clicks: number;
+};
+
+type CountryRow = {
+  code: string;
+  name: string;
+  visitors: number;
+  pageViews: number;
+  share: number;
+};
+
+type VisitorCountRow = { name: string; visitors: number };
+
 type TrackStats = {
-  total: number;
-  today: number;
-  last7Days: number;
-  pageViewsToday: number;
   pageViewsPeriod: number;
   whatsappPeriod: number;
-  whatsappToday: number;
   confirmedPeriod: number;
-  confirmedToday: number;
   abandonedPeriod: number;
-  abandonedToday: number;
   reserverPeriod: number;
   phonePeriod: number;
   contactPeriod: number;
@@ -101,22 +111,17 @@ type TrackStats = {
   newVisitors?: number;
   returningVisitors?: number;
   byEvent: Record<string, { count: number; label: string }>;
-  periodDays: number;
 };
 
-type RankItem = { name: string; count: number };
-
 type Insights = {
-  topCars: Array<{ name: string; count: number }>;
-  topPages: Array<{ path: string; count: number }>;
-  daily: Array<{
-    date: string;
-    views: number;
-    whatsapp: number;
-    reservations: number;
-    abandons: number;
-    clicks: number;
-  }>;
+  series: SeriesPoint[];
+  countries: CountryRow[];
+  referrers: VisitorCountRow[];
+  utm: {
+    sources: VisitorCountRow[];
+    mediums: VisitorCountRow[];
+    campaigns: VisitorCountRow[];
+  };
   funnel: {
     pageViews: number;
     carInterest: number;
@@ -126,25 +131,9 @@ type Insights = {
     abandoned: number;
     confirmed: number;
   };
-  audience?: {
-    uniqueVisitors: number;
-    newVisitors: number;
-    returningVisitors: number;
-    topCountries: RankItem[];
-    topDevices: RankItem[];
-    topTrafficSources: RankItem[];
-    topBrowsers: RankItem[];
-    topUtmSources: RankItem[];
-  };
 };
 
 type ViewMode = 'overview' | 'leads' | 'clicks' | 'reservations' | 'all';
-
-const PERIOD_OPTIONS = [
-  { value: '7', label: '7 jours' },
-  { value: '30', label: '30 jours' },
-  { value: '90', label: '90 jours' },
-];
 
 const EVENT_ICONS: Record<string, typeof MessageCircle> = {
   'page-view': Eye,
@@ -169,79 +158,18 @@ function formatDate(iso: string) {
   });
 }
 
-function formatDay(isoDate: string) {
-  return new Date(isoDate + 'T12:00:00').toLocaleDateString('fr-FR', {
-    day: '2-digit',
-    month: 'short',
-  });
-}
-
 function sourceLabel(source: string | null) {
   if (!source) return '–';
   return SOURCE_LABELS[source] ?? source;
 }
 
-const TRAFFIC_LABELS: Record<string, string> = {
-  direct: 'Direct',
-  organic: 'Organique (SEO)',
-  social: 'Réseaux sociaux',
-  referral: 'Référent',
-  paid: 'Payant (ads)',
-  email: 'Email',
-};
-
-const DEVICE_LABELS: Record<string, string> = {
-  mobile: 'Mobile',
-  tablet: 'Tablette',
-  desktop: 'Desktop',
-};
-
-function trafficLabel(v: string | null | undefined) {
-  if (!v) return '–';
-  return TRAFFIC_LABELS[v] ?? v;
-}
-
-function deviceLabel(v: string | null | undefined) {
-  if (!v) return '–';
-  return DEVICE_LABELS[v] ?? v;
-}
-
 function countryLabel(code: string | null | undefined) {
-  if (!code) return '–';
+  if (!code) return 'Unknown';
   try {
-    const name = new Intl.DisplayNames(['fr'], { type: 'region' }).of(code.toUpperCase());
-    return name ? `${name} (${code})` : code;
+    return new Intl.DisplayNames(['en'], { type: 'region' }).of(code.toUpperCase()) ?? code;
   } catch {
     return code;
   }
-}
-
-function RankList({
-  items,
-  empty,
-  formatName,
-}: {
-  items: RankItem[];
-  empty: string;
-  formatName?: (name: string) => string;
-}) {
-  if (items.length === 0) {
-    return <p className="text-sm text-slate-500">{empty}</p>;
-  }
-  return (
-    <ul className="space-y-2">
-      {items.map((item) => (
-        <li key={item.name} className="flex items-center justify-between gap-3 text-sm">
-          <span className="truncate font-medium text-slate-800">
-            {formatName ? formatName(item.name) : item.name}
-          </span>
-          <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">
-            {item.count}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
 }
 
 function formatLocation(key: string | null) {
@@ -255,101 +183,123 @@ function formatLocation(key: string | null) {
   return map[key] ?? key;
 }
 
-function KpiCard({
-  label,
-  value,
-  hint,
-  accent,
-  onClick,
+function formatSeriesTick(key: string, granularity: 'hour' | 'day') {
+  if (granularity === 'hour') {
+    const d = new Date(key.includes('T') ? `${key}:00:00` : key);
+    return d.toLocaleTimeString('en-US', { hour: 'numeric' });
+  }
+  const d = new Date(`${key}T12:00:00`);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function VisitorsChart({
+  series,
+  granularity,
 }: {
-  label: string;
-  value: number | string;
-  hint: string;
-  accent?: 'green' | 'red' | 'amber' | 'slate';
-  onClick?: () => void;
+  series: SeriesPoint[];
+  granularity: 'hour' | 'day';
 }) {
-  const accents = {
-    green: 'border-green-200 bg-green-50/70 text-green-900',
-    red: 'border-[#b11226]/30 bg-[#b11226]/5 text-[#7a0c1a]',
-    amber: 'border-amber-200 bg-amber-50/70 text-amber-950',
-    slate: 'border-slate-200 bg-white text-slate-950',
-  };
-  const cls = accents[accent ?? 'slate'];
-  const Comp = onClick ? 'button' : 'div';
-  return (
-    <Comp
-      type={onClick ? 'button' : undefined}
-      onClick={onClick}
-      className={`rounded-2xl border p-4 text-left shadow-sm transition ${cls} ${onClick ? 'hover:shadow-md cursor-pointer' : ''}`}
-    >
-      <p className="text-xs font-semibold uppercase tracking-wide opacity-70">{label}</p>
-      <p className="mt-1 text-3xl font-semibold tracking-tight">{value}</p>
-      <p className="mt-1 text-xs opacity-70">{hint}</p>
-    </Comp>
-  );
-}
+  const max = Math.max(1, ...series.map((s) => Math.max(s.visitors, s.pageViews)));
+  const width = 640;
+  const height = 180;
+  const padX = 8;
+  const padY = 12;
+  const innerW = width - padX * 2;
+  const innerH = height - padY * 2;
 
-function FunnelBar({ label, value, max }: { label: string; value: number; max: number }) {
-  const pct = max > 0 ? Math.max(4, Math.round((value / max) * 100)) : 0;
-  return (
-    <div className="space-y-1">
-      <div className="flex items-center justify-between text-sm">
-        <span className="text-slate-600">{label}</span>
-        <span className="font-semibold text-slate-900">{value}</span>
-      </div>
-      <div className="h-2.5 overflow-hidden rounded-full bg-slate-100">
-        <div className="h-full rounded-full bg-[#b11226]" style={{ width: `${pct}%` }} />
-      </div>
-    </div>
-  );
-}
+  const points = series.map((s, i) => {
+    const x = padX + (series.length <= 1 ? innerW / 2 : (i / (series.length - 1)) * innerW);
+    const y = padY + innerH - (s.visitors / max) * innerH;
+    return { x, y, ...s };
+  });
 
-function DailyChart({ daily }: { daily: Insights['daily'] }) {
-  const max = useMemo(
-    () =>
-      Math.max(
-        1,
-        ...daily.map((d) => d.views + d.whatsapp + d.reservations + d.abandons + d.clicks),
-      ),
-    [daily],
-  );
+  const path =
+    points.length === 0
+      ? ''
+      : points
+          .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
+          .join(' ');
 
-  if (daily.length === 0) return null;
+  const area =
+    points.length === 0
+      ? ''
+      : `${path} L ${points[points.length - 1].x.toFixed(1)} ${(padY + innerH).toFixed(1)} L ${points[0].x.toFixed(1)} ${(padY + innerH).toFixed(1)} Z`;
 
-  const showEvery = daily.length > 14 ? Math.ceil(daily.length / 10) : 1;
+  const labelEvery = Math.max(1, Math.ceil(series.length / 8));
 
   return (
-    <div className="space-y-3">
-      <div className="flex h-36 items-end gap-0.5 sm:gap-1">
-        {daily.map((d) => {
-          const total = d.views + d.whatsapp + d.reservations + d.abandons + d.clicks;
-          const h = Math.max(total > 0 ? 8 : 2, Math.round((total / max) * 100));
-          return (
-            <div key={d.date} className="group relative flex flex-1 flex-col items-center justify-end">
-              <div
-                className="w-full max-w-[18px] rounded-t bg-slate-800 transition group-hover:bg-[#b11226]"
-                style={{ height: `${h}%` }}
-                title={`${formatDay(d.date)} · ${total} événements`}
-              />
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex justify-between text-[10px] text-slate-400">
-        {daily.map((d, i) =>
-          i % showEvery === 0 || i === daily.length - 1 ? (
-            <span key={d.date}>{formatDay(d.date)}</span>
+    <div className="space-y-2">
+      <svg viewBox={`0 0 ${width} ${height}`} className="h-44 w-full overflow-visible">
+        <defs>
+          <linearGradient id="visitorsFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {area ? <path d={area} fill="url(#visitorsFill)" /> : null}
+        {path ? <path d={path} fill="none" stroke="#60a5fa" strokeWidth="2" /> : null}
+        {points.map((p) => (
+          <circle key={p.key} cx={p.x} cy={p.y} r="2.5" fill="#93c5fd" />
+        ))}
+      </svg>
+      <div className="flex justify-between text-[10px] text-zinc-500">
+        {series.map((s, i) =>
+          i % labelEvery === 0 || i === series.length - 1 ? (
+            <span key={s.key}>{formatSeriesTick(s.key, granularity)}</span>
           ) : (
-            <span key={d.date} />
+            <span key={s.key} />
           ),
         )}
       </div>
-      <div className="flex flex-wrap gap-3 text-xs text-slate-500">
-        <span>WhatsApp période: {daily.reduce((s, d) => s + d.whatsapp, 0)}</span>
-        <span>Réservations: {daily.reduce((s, d) => s + d.reservations, 0)}</span>
-        <span>Abandons: {daily.reduce((s, d) => s + d.abandons, 0)}</span>
+      <div className="flex gap-4 text-xs text-zinc-400">
+        <span>
+          Visitors:{' '}
+          <strong className="text-zinc-200">
+            {series.reduce((sum, s) => sum + s.visitors, 0)}
+          </strong>
+        </span>
+        <span>
+          Page views:{' '}
+          <strong className="text-zinc-200">
+            {series.reduce((sum, s) => sum + s.pageViews, 0)}
+          </strong>
+        </span>
       </div>
     </div>
+  );
+}
+
+function Flag({ code }: { code: string }) {
+  if (!code || code.length !== 2) {
+    return <span className="inline-block h-3.5 w-5 rounded-sm bg-zinc-700" />;
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`https://flagcdn.com/20x15/${code.toLowerCase()}.png`}
+      alt=""
+      width={20}
+      height={15}
+      className="h-3.5 w-5 rounded-[2px] object-cover"
+      loading="lazy"
+    />
+  );
+}
+
+function Favicon({ host }: { host: string }) {
+  if (host === 'Direct') {
+    return <span className="inline-flex h-4 w-4 items-center justify-center rounded bg-zinc-700 text-[9px] text-zinc-300">D</span>;
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={`https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=32`}
+      alt=""
+      width={16}
+      height={16}
+      className="h-4 w-4 rounded-sm"
+      loading="lazy"
+    />
   );
 }
 
@@ -357,26 +307,15 @@ function EventDetail({ event }: { event: TrackEventRow }) {
   const rows: Array<[string, string | number | null | undefined]> = [
     ['Page', event.path],
     ['Source CTA', sourceLabel(event.source)],
-    ['Trafic', trafficLabel(event.trafficSource)],
+    ['Trafic', event.trafficSource],
     ['UTM source', event.utmSource],
-    ['UTM medium', event.utmMedium],
-    ['UTM campaign', event.utmCampaign],
-    ['Voiture', event.carName || event.carSlug || '–'],
-    ['URL', event.fullUrl],
-    ['Pays', countryLabel(event.country)],
+    ['Pays', event.country ? countryLabel(event.country) : null],
     ['Ville', event.city],
-    ['Appareil', deviceLabel(event.deviceType)],
-    ['OS', event.os],
-    ['Navigateur', event.browser],
+    ['Appareil', event.deviceType],
     ['Visiteur', event.isReturning == null ? null : event.isReturning ? 'Récurrent' : 'Nouveau'],
-    ['Visitor ID', event.visitorId],
     ['IP', event.clientIp],
-    ['Langue', event.language],
     ['Référent', event.referrer],
-    ['Écran', event.screen],
-    ['Fuseau', event.timezone],
   ];
-
   if (event.fullName || event.email || event.phone) {
     rows.push(['Nom', event.fullName], ['Email', event.email], ['Téléphone', event.phone]);
   }
@@ -391,7 +330,6 @@ function EventDetail({ event }: { event: TrackEventRow }) {
     );
   }
   if (event.message) rows.push(['Message', event.message]);
-  if (event.ctaLabel) rows.push(['CTA', event.ctaLabel]);
 
   return (
     <div className="mt-3 grid gap-1 rounded-xl border border-slate-200 bg-white/80 p-3 text-sm">
@@ -406,10 +344,7 @@ function EventDetail({ event }: { event: TrackEventRow }) {
       {(event.phone || event.email) && (
         <div className="mt-2 flex flex-wrap gap-2 border-t border-slate-100 pt-2">
           {event.phone ? (
-            <a
-              href={`tel:${event.phone}`}
-              className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1 text-xs font-medium text-white"
-            >
+            <a href={`tel:${event.phone}`} className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1 text-xs font-medium text-white">
               <Phone className="h-3 w-3" /> Appeler
             </a>
           ) : null}
@@ -421,14 +356,6 @@ function EventDetail({ event }: { event: TrackEventRow }) {
               className="inline-flex items-center gap-1 rounded-full bg-green-600 px-3 py-1 text-xs font-medium text-white"
             >
               <MessageCircle className="h-3 w-3" /> WhatsApp
-            </a>
-          ) : null}
-          {event.email ? (
-            <a
-              href={`mailto:${event.email}`}
-              className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-800"
-            >
-              <Mail className="h-3 w-3" /> Email
             </a>
           ) : null}
         </div>
@@ -459,6 +386,13 @@ function LeadCard({ lead }: { lead: TrackEventRow }) {
             {lead.carName || lead.carSlug || '—'} · {EVENT_LABELS[lead.event] ?? lead.event}
           </p>
           <p className="mt-1 text-xs text-slate-400">{formatDate(lead.createdAt)}</p>
+          {(lead.country || lead.deviceType) && (
+            <p className="mt-1 text-xs text-slate-500">
+              {[lead.country ? countryLabel(lead.country) : null, lead.city, lead.deviceType]
+                .filter(Boolean)
+                .join(' · ')}
+            </p>
+          )}
         </div>
         {isAbandoned ? (
           <span className="rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-900">
@@ -470,36 +404,9 @@ function LeadCard({ lead }: { lead: TrackEventRow }) {
           </span>
         ) : null}
       </div>
-      <div className="mt-2 space-y-0.5 text-sm text-slate-700">
-        {lead.phone ? <p>Tél: {lead.phone}</p> : null}
-        {lead.email ? <p>Email: {lead.email}</p> : null}
-        {(lead.country || lead.deviceType || lead.trafficSource) && (
-          <p className="text-xs text-slate-500">
-            {[
-              lead.country ? countryLabel(lead.country) : null,
-              lead.city,
-              lead.deviceType ? deviceLabel(lead.deviceType) : null,
-              lead.trafficSource ? trafficLabel(lead.trafficSource) : null,
-              lead.isReturning ? 'Récurrent' : lead.isReturning === false ? 'Nouveau' : null,
-            ]
-              .filter(Boolean)
-              .join(' · ')}
-          </p>
-        )}
-        {(lead.pickupDate || lead.returnDate) && (
-          <p>
-            {lead.pickupDate || '?'} → {lead.returnDate || '?'}
-            {lead.rentalDays ? ` (${lead.rentalDays}j)` : ''}
-            {lead.totalPrice != null ? ` · ${lead.totalPrice} MAD` : ''}
-          </p>
-        )}
-      </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {lead.phone ? (
-          <a
-            href={`tel:${lead.phone}`}
-            className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white"
-          >
+          <a href={`tel:${lead.phone}`} className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white">
             <Phone className="h-3 w-3" /> Appeler
           </a>
         ) : null}
@@ -519,18 +426,22 @@ function LeadCard({ lead }: { lead: TrackEventRow }) {
 }
 
 export default function TrackingDashboard() {
+  const [range, setRange] = useState<AnalyticsRange>(() => resolveAnalyticsRange('24h'));
   const [events, setEvents] = useState<TrackEventRow[]>([]);
   const [leads, setLeads] = useState<TrackEventRow[]>([]);
   const [stats, setStats] = useState<TrackStats | null>(null);
   const [insights, setInsights] = useState<Insights | null>(null);
+  const [granularity, setGranularity] = useState<'hour' | 'day'>('hour');
   const [eventLabels, setEventLabels] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [view, setView] = useState<ViewMode>('overview');
   const [eventFilter, setEventFilter] = useState('all');
-  const [days, setDays] = useState('30');
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [countrySearch, setCountrySearch] = useState('');
+  const [sourceTab, setSourceTab] = useState<'referrers' | 'utm'>('referrers');
+  const [utmTab, setUtmTab] = useState<'sources' | 'mediums' | 'campaigns'>('sources');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -543,7 +454,9 @@ export default function TrackingDashboard() {
       const params = new URLSearchParams({
         page: String(page),
         limit: '40',
-        days,
+        preset: range.preset,
+        from: range.from.toISOString(),
+        to: range.to.toISOString(),
         view: view === 'overview' ? 'all' : view,
         excludePageViews: 'true',
       });
@@ -558,6 +471,7 @@ export default function TrackingDashboard() {
       setLeads(data.leads ?? []);
       setStats(data.stats ?? null);
       setInsights(data.insights ?? null);
+      setGranularity(data.range?.granularity === 'hour' ? 'hour' : 'day');
       setEventLabels(data.eventLabels ?? {});
       setTotalPages(data.pagination?.totalPages ?? 1);
     } catch (err) {
@@ -565,7 +479,7 @@ export default function TrackingDashboard() {
     } finally {
       setLoading(false);
     }
-  }, [days, eventFilter, page, search, view]);
+  }, [eventFilter, page, range, search, view]);
 
   useEffect(() => {
     fetchEvents();
@@ -583,90 +497,245 @@ export default function TrackingDashboard() {
     setPage(1);
   };
 
-  const funnelMax = Math.max(
-    1,
-    insights?.funnel.pageViews ?? 0,
-    insights?.funnel.whatsapp ?? 0,
-    insights?.funnel.confirmed ?? 0,
-  );
+  const onRangeChange = (next: AnalyticsRange) => {
+    setRange(next);
+    setPage(1);
+  };
+
+  const filteredCountries = useMemo(() => {
+    const q = countrySearch.trim().toLowerCase();
+    const list = insights?.countries ?? [];
+    if (!q) return list;
+    return list.filter((c) => {
+      const name = countryLabel(c.code || c.name).toLowerCase();
+      return name.includes(q) || c.code.toLowerCase().includes(q);
+    });
+  }, [countrySearch, insights?.countries]);
+
+  const utmRows =
+    utmTab === 'sources'
+      ? insights?.utm?.sources ?? []
+      : utmTab === 'mediums'
+        ? insights?.utm?.mediums ?? []
+        : insights?.utm?.campaigns ?? [];
+
+  const timezone = useMemo(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch {
+      return 'Local';
+    }
+  }, []);
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-950">Analytics site</h2>
-          <p className="mt-1 text-sm text-slate-500">
-            Trafic, visiteurs (pays, appareil, source), WhatsApp, réservations et leads — dans l&apos;admin.
-          </p>
+      {/* Dark analytics home */}
+      <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl">
+        <div className="flex flex-col gap-4 border-b border-zinc-800 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <h2 className="text-xl font-semibold tracking-tight">Analytics</h2>
+            <p className="mt-0.5 text-sm text-zinc-500">
+              Visitors, countries & sources · Local ({timezone})
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <AnalyticsDateRangePicker value={range} onChange={onRangeChange} />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={fetchEvents}
+              disabled={loading}
+              className="border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:text-white"
+            >
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+              Refresh
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <Select value={days} onValueChange={(v) => { setDays(v); setPage(1); }}>
-            <SelectTrigger className="w-[120px] bg-white">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {PERIOD_OPTIONS.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button variant="outline" size="sm" onClick={fetchEvents} disabled={loading} className="bg-white">
-            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-            Actualiser
-          </Button>
+
+        {error && (
+          <div className="mx-4 mt-4 rounded-lg border border-red-900/60 bg-red-950/50 p-3 text-sm text-red-200 sm:mx-6">
+            {error}
+          </div>
+        )}
+
+        <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+          {[
+            {
+              label: 'Visitors',
+              value: stats?.uniqueVisitors ?? '–',
+              hint: `${stats?.newVisitors ?? 0} new · ${stats?.returningVisitors ?? 0} returning`,
+            },
+            { label: 'Page views', value: stats?.pageViewsPeriod ?? '–', hint: range.label },
+            { label: 'WhatsApp', value: stats?.whatsappPeriod ?? '–', hint: 'clicks in range' },
+            { label: 'Bookings', value: stats?.confirmedPeriod ?? '–', hint: 'confirmed in range' },
+          ].map((kpi) => (
+            <div key={kpi.label} className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-4 py-3">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
+              <p className="mt-1 text-2xl font-semibold tabular-nums">{kpi.value}</p>
+              <p className="mt-1 text-xs text-zinc-500">{kpi.hint}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="border-b border-zinc-800 px-4 py-5 sm:px-6">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-zinc-200">Visitors</h3>
+            <span className="text-xs text-zinc-500">{range.label}</span>
+          </div>
+          {loading && !insights ? (
+            <div className="flex justify-center py-16">
+              <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
+            </div>
+          ) : (insights?.series?.length ?? 0) === 0 ? (
+            <p className="py-12 text-center text-sm text-zinc-500">No visitor data for this range yet.</p>
+          ) : (
+            <VisitorsChart series={insights!.series} granularity={granularity} />
+          )}
+        </div>
+
+        <div className="grid gap-0 lg:grid-cols-2">
+          {/* Countries */}
+          <div className="border-b border-zinc-800 p-4 sm:p-6 lg:border-b-0 lg:border-r">
+            <div className="mb-3 flex items-end justify-between gap-3">
+              <h3 className="text-sm font-semibold">Countries</h3>
+              <div className="flex gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                <span className="w-16 text-right">Visitors</span>
+                <span className="w-16 text-right">Page views</span>
+              </div>
+            </div>
+            <div className="relative mb-3">
+              <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-500" />
+              <Input
+                value={countrySearch}
+                onChange={(e) => setCountrySearch(e.target.value)}
+                placeholder="Search"
+                className="h-9 border-zinc-700 bg-zinc-900 pl-9 text-sm text-zinc-100 placeholder:text-zinc-500"
+              />
+            </div>
+            <ul className="max-h-80 space-y-1 overflow-y-auto">
+              {filteredCountries.length === 0 ? (
+                <li className="py-8 text-center text-sm text-zinc-500">No countries yet.</li>
+              ) : (
+                filteredCountries.map((c) => {
+                  const name = countryLabel(c.code || c.name);
+                  const bar = Math.max(2, Math.min(100, c.share));
+                  return (
+                    <li key={c.code || c.name} className="relative rounded-md px-2 py-2 hover:bg-zinc-900/80">
+                      <div
+                        className="pointer-events-none absolute inset-y-1 left-0 rounded-md bg-zinc-800/80"
+                        style={{ width: `${bar}%` }}
+                      />
+                      <div className="relative flex items-center gap-2 text-sm">
+                        <Flag code={c.code} />
+                        <span className="min-w-0 flex-1 truncate font-medium">{name}</span>
+                        <span className="w-10 shrink-0 text-right text-xs text-zinc-500">
+                          {c.share < 0.5 ? '<0.5%' : `${c.share}%`}
+                        </span>
+                        <span className="w-16 shrink-0 text-right tabular-nums">{c.visitors}</span>
+                        <span className="w-16 shrink-0 text-right tabular-nums text-zinc-300">{c.pageViews}</span>
+                      </div>
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+          </div>
+
+          {/* Referrers / UTM */}
+          <div className="p-4 sm:p-6">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div className="flex gap-4 text-sm">
+                <button
+                  type="button"
+                  onClick={() => setSourceTab('referrers')}
+                  className={
+                    sourceTab === 'referrers'
+                      ? 'border-b-2 border-white pb-1 font-semibold text-white'
+                      : 'pb-1 text-zinc-500 hover:text-zinc-300'
+                  }
+                >
+                  Referrers
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSourceTab('utm')}
+                  className={
+                    sourceTab === 'utm'
+                      ? 'border-b-2 border-white pb-1 font-semibold text-white'
+                      : 'pb-1 text-zinc-500 hover:text-zinc-300'
+                  }
+                >
+                  UTM Parameters
+                </button>
+              </div>
+              <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
+                Visitors
+              </span>
+            </div>
+
+            {sourceTab === 'utm' ? (
+              <div className="mb-3 flex gap-2">
+                {(['sources', 'mediums', 'campaigns'] as const).map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setUtmTab(tab)}
+                    className={`rounded-full px-2.5 py-1 text-xs capitalize ${
+                      utmTab === tab ? 'bg-zinc-100 text-zinc-950' : 'bg-zinc-900 text-zinc-400'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            ) : null}
+
+            <ul className="max-h-80 space-y-1 overflow-y-auto">
+              {sourceTab === 'referrers' ? (
+                (insights?.referrers?.length ?? 0) === 0 ? (
+                  <li className="py-8 text-center text-sm text-zinc-500">No referrers yet.</li>
+                ) : (
+                  insights!.referrers.map((r) => (
+                    <li
+                      key={r.name}
+                      className="flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-zinc-900/80"
+                    >
+                      <Favicon host={r.name} />
+                      <span className="min-w-0 flex-1 truncate">{r.name}</span>
+                      <span className="tabular-nums text-zinc-200">{r.visitors}</span>
+                    </li>
+                  ))
+                )
+              ) : utmRows.length === 0 ? (
+                <li className="py-8 text-center text-sm text-zinc-500">No UTM data yet.</li>
+              ) : (
+                utmRows.map((r) => (
+                  <li
+                    key={r.name}
+                    className="flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-zinc-900/80"
+                  >
+                    <span className="min-w-0 flex-1 truncate font-mono text-xs">{r.name}</span>
+                    <span className="tabular-nums text-zinc-200">{r.visitors}</span>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
         </div>
       </div>
 
-      <SessionReplayCard />
-
-      {/* KPI strip */}
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard
-          label="Visiteurs uniques"
-          value={stats?.uniqueVisitors ?? insights?.audience?.uniqueVisitors ?? '–'}
-          hint={`${stats?.newVisitors ?? insights?.audience?.newVisitors ?? 0} nouveaux · ${stats?.returningVisitors ?? insights?.audience?.returningVisitors ?? 0} récurrents`}
-        />
-        <KpiCard
-          label="Pages vues"
-          value={stats?.pageViewsPeriod ?? '–'}
-          hint={`Aujourd'hui: ${stats?.pageViewsToday ?? 0}`}
-          onClick={() => setQuickView('all')}
-        />
-        <KpiCard
-          label="WhatsApp"
-          value={stats?.whatsappPeriod ?? '–'}
-          hint={`Aujourd'hui: ${stats?.whatsappToday ?? 0}`}
-          accent="green"
-          onClick={() => { setQuickView('clicks'); setEventFilter('whatsapp'); }}
-        />
-        <KpiCard
-          label="Réservations"
-          value={stats?.confirmedPeriod ?? '–'}
-          hint={`Aujourd'hui: ${stats?.confirmedToday ?? 0}`}
-          accent="red"
-          onClick={() => setQuickView('reservations')}
-        />
-        <KpiCard
-          label="Abandons / leads"
-          value={stats?.abandonedPeriod ?? '–'}
-          hint={`${stats?.leadsWithContact ?? 0} contacts à relancer`}
-          accent="amber"
-          onClick={() => setQuickView('leads')}
-        />
-        <KpiCard label="Clic Réserver" value={stats?.reserverPeriod ?? '–'} hint="intention de booking" onClick={() => { setQuickView('clicks'); setEventFilter('reserver'); }} />
-        <KpiCard label="Clic téléphone" value={stats?.phonePeriod ?? '–'} hint="appels depuis le site" onClick={() => { setQuickView('clicks'); setEventFilter('phone-click'); }} />
-        <KpiCard label="Messages contact" value={stats?.contactPeriod ?? '–'} hint="formulaire contact" onClick={() => { setQuickView('leads'); setEventFilter('contact-submit'); }} />
-      </div>
-
-      {/* View tabs */}
+      {/* Secondary views */}
       <div className="flex flex-wrap gap-2">
-        {([
-          ['overview', 'Vue d’ensemble'],
-          ['leads', 'Leads & réservations'],
-          ['clicks', 'Clics importants'],
-          ['reservations', 'Tunnel booking'],
-          ['all', 'Journal complet'],
-        ] as Array<[ViewMode, string]>).map(([key, label]) => (
+        {(
+          [
+            ['overview', 'Overview'],
+            ['leads', 'Leads & bookings'],
+            ['clicks', 'Important clicks'],
+            ['reservations', 'Booking funnel'],
+            ['all', 'Event journal'],
+          ] as Array<[ViewMode, string]>
+        ).map(([key, label]) => (
           <Button
             key={key}
             size="sm"
@@ -679,194 +748,25 @@ export default function TrackingDashboard() {
         ))}
       </div>
 
-      {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>
-      )}
-
-      {/* Overview */}
-      {(view === 'overview' || view === 'reservations') && (
-        <div className="grid gap-4 lg:grid-cols-2">
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <TrendingUp className="h-5 w-5 text-[#b11226]" />
-                Activité quotidienne
-              </CardTitle>
-              <CardDescription>Volume d&apos;événements sur {days} jours</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {loading && !insights ? (
-                <div className="flex justify-center py-12"><Loader2 className="h-6 w-6 animate-spin text-slate-400" /></div>
-              ) : (
-                <DailyChart daily={insights?.daily ?? []} />
-              )}
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <MousePointerClick className="h-5 w-5 text-[#b11226]" />
-                Tunnel de conversion
-              </CardTitle>
-              <CardDescription>Du trafic à la réservation confirmée</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <FunnelBar label="Pages vues" value={insights?.funnel.pageViews ?? 0} max={funnelMax} />
-              <FunnelBar label="Intérêt voiture / Réserver" value={insights?.funnel.carInterest ?? 0} max={funnelMax} />
-              <FunnelBar label="WhatsApp" value={insights?.funnel.whatsapp ?? 0} max={funnelMax} />
-              <FunnelBar label="Formulaire ouvert" value={insights?.funnel.formOpen ?? 0} max={funnelMax} />
-              <FunnelBar label="Formulaire rempli (partiel)" value={insights?.funnel.formProgress ?? 0} max={funnelMax} />
-              <FunnelBar label="Abandons" value={insights?.funnel.abandoned ?? 0} max={funnelMax} />
-              <FunnelBar label="Réservations confirmées" value={insights?.funnel.confirmed ?? 0} max={funnelMax} />
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Car className="h-5 w-5 text-[#b11226]" />
-                Voitures les plus vues / cliquées
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {(insights?.topCars.length ?? 0) === 0 ? (
-                <p className="text-sm text-slate-500">Pas encore de données voiture.</p>
-              ) : (
-                <ul className="space-y-2">
-                  {insights!.topCars.map((car) => (
-                    <li key={car.name} className="flex items-center justify-between text-sm">
-                      <span className="truncate font-medium text-slate-800">{car.name}</span>
-                      <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">{car.count}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Eye className="h-5 w-5 text-[#b11226]" />
-                Pages les plus actives
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {(insights?.topPages.length ?? 0) === 0 ? (
-                <p className="text-sm text-slate-500">Pas encore de pages trackées.</p>
-              ) : (
-                <ul className="space-y-2">
-                  {insights!.topPages.map((p) => (
-                    <li key={p.path} className="flex items-center justify-between gap-3 text-sm">
-                      <span className="truncate font-mono text-xs text-slate-700">{p.path}</span>
-                      <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">{p.count}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe2 className="h-5 w-5 text-[#b11226]" />
-                Pays
-              </CardTitle>
-              <CardDescription>D&apos;où viennent les visiteurs (geo IP)</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RankList
-                items={insights?.audience?.topCountries ?? []}
-                empty="Pas encore de données pays (visible après déploiement + trafic)."
-                formatName={countryLabel}
-              />
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <MonitorSmartphone className="h-5 w-5 text-[#b11226]" />
-                Appareils
-              </CardTitle>
-              <CardDescription>Mobile, tablette, desktop</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RankList
-                items={insights?.audience?.topDevices ?? []}
-                empty="Pas encore de données appareil."
-                formatName={deviceLabel}
-              />
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Share2 className="h-5 w-5 text-[#b11226]" />
-                Source de trafic
-              </CardTitle>
-              <CardDescription>Direct, SEO, social, ads, email…</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <RankList
-                items={insights?.audience?.topTrafficSources ?? []}
-                empty="Pas encore de sources détectées."
-                formatName={trafficLabel}
-              />
-            </CardContent>
-          </Card>
-
-          <Card className="border-slate-200 bg-white shadow-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <UserPlus className="h-5 w-5 text-[#b11226]" />
-                Nouveaux vs récurrents
-              </CardTitle>
-              <CardDescription>Visiteurs reconnus via cookie navigateur</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <FunnelBar
-                label="Nouveaux"
-                value={insights?.audience?.newVisitors ?? 0}
-                max={Math.max(1, insights?.audience?.uniqueVisitors ?? 1)}
-              />
-              <FunnelBar
-                label="Récurrents"
-                value={insights?.audience?.returningVisitors ?? 0}
-                max={Math.max(1, insights?.audience?.uniqueVisitors ?? 1)}
-              />
-              {(insights?.audience?.topUtmSources?.length ?? 0) > 0 && (
-                <div className="border-t border-slate-100 pt-3">
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">UTM sources</p>
-                  <RankList items={insights!.audience!.topUtmSources} empty="" />
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* Leads */}
       {(view === 'overview' || view === 'leads' || view === 'reservations') && (
         <Card className="border-slate-200 bg-white shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Users className="h-5 w-5 text-[#b11226]" />
-              Leads à traiter
+              Leads in range
             </CardTitle>
             <CardDescription>
-              Réservations, abandons et contacts avec nom / email / téléphone — appelez directement depuis ici.
+              Filtered by {range.label}. Call or WhatsApp directly from here.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {loading && leads.length === 0 ? (
-              <div className="flex justify-center py-10"><Loader2 className="h-6 w-6 animate-spin text-slate-400" /></div>
+              <div className="flex justify-center py-10">
+                <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+              </div>
             ) : leads.length === 0 ? (
               <p className="py-8 text-center text-sm text-slate-500">
-                Aucun lead avec coordonnées pour cette période. Dès qu&apos;un visiteur remplit le formulaire, il apparaîtra ici.
+                No leads with contact details in this period.
               </p>
             ) : (
               <div className="grid gap-3 md:grid-cols-2">
@@ -879,7 +779,6 @@ export default function TrackingDashboard() {
         </Card>
       )}
 
-      {/* Event journal */}
       {(view === 'clicks' || view === 'all' || view === 'reservations') && (
         <Card className="border-slate-200 bg-white shadow-sm">
           <CardHeader>
@@ -887,20 +786,26 @@ export default function TrackingDashboard() {
               <div>
                 <CardTitle className="flex items-center gap-2">
                   <MousePointerClick className="h-5 w-5 text-[#b11226]" />
-                  {view === 'clicks' ? 'Clics importants' : 'Journal des événements'}
+                  {view === 'clicks' ? 'Important clicks' : 'Event journal'}
                 </CardTitle>
-                <CardDescription className="mt-1">
-                  WhatsApp, téléphone, réserver, formulaires — détail de chaque interaction.
-                </CardDescription>
+                <CardDescription className="mt-1">Same date range as the analytics chart.</CardDescription>
               </div>
-              <Select value={eventFilter} onValueChange={(v) => { setEventFilter(v); setPage(1); }}>
+              <Select
+                value={eventFilter}
+                onValueChange={(v) => {
+                  setEventFilter(v);
+                  setPage(1);
+                }}
+              >
                 <SelectTrigger className="w-[220px] bg-white">
-                  <SelectValue placeholder="Filtrer" />
+                  <SelectValue placeholder="Filter" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Tous</SelectItem>
+                  <SelectItem value="all">All</SelectItem>
                   {Object.entries(EVENT_LABELS).map(([value, label]) => (
-                    <SelectItem key={value} value={value}>{label}</SelectItem>
+                    <SelectItem key={value} value={value}>
+                      {label}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -913,17 +818,21 @@ export default function TrackingDashboard() {
                 <Input
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  placeholder="Voiture, email, téléphone, page…"
+                  placeholder="Car, email, phone, page…"
                   className="bg-white pl-9"
                 />
               </div>
-              <Button type="submit" variant="outline" className="bg-white">Rechercher</Button>
+              <Button type="submit" variant="outline" className="bg-white">
+                Search
+              </Button>
             </form>
 
             {loading ? (
-              <div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-slate-400" /></div>
+              <div className="flex justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+              </div>
             ) : events.length === 0 ? (
-              <p className="py-10 text-center text-sm text-slate-500">Aucun événement pour ce filtre.</p>
+              <p className="py-10 text-center text-sm text-slate-500">No events for this filter.</p>
             ) : (
               <div className="space-y-2">
                 {events.map((event) => {
@@ -963,24 +872,9 @@ export default function TrackingDashboard() {
                             <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
                               {sourceLabel(event.source)}
                             </span>
-                            {event.trafficSource ? (
-                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-                                {trafficLabel(event.trafficSource)}
-                              </span>
-                            ) : null}
                             {event.country ? (
                               <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
                                 {event.country}
-                              </span>
-                            ) : null}
-                            {event.deviceType ? (
-                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-                                {deviceLabel(event.deviceType)}
-                              </span>
-                            ) : null}
-                            {event.isReturning ? (
-                              <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-800">
-                                Récurrent
                               </span>
                             ) : null}
                           </div>
@@ -990,7 +884,11 @@ export default function TrackingDashboard() {
                           </p>
                           <p className="mt-1 text-xs text-slate-400">{formatDate(event.createdAt)}</p>
                         </div>
-                        {isExpanded ? <ChevronUp className="h-4 w-4 text-slate-400" /> : <ChevronDown className="h-4 w-4 text-slate-400" />}
+                        {isExpanded ? (
+                          <ChevronUp className="h-4 w-4 text-slate-400" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 text-slate-400" />
+                        )}
                       </button>
                       {isExpanded && <EventDetail event={event} />}
                     </div>
@@ -1001,12 +899,26 @@ export default function TrackingDashboard() {
 
             {totalPages > 1 && (
               <div className="flex items-center justify-between pt-2">
-                <Button variant="outline" size="sm" disabled={page <= 1 || loading} onClick={() => setPage((p) => p - 1)} className="bg-white">
-                  Précédent
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page <= 1 || loading}
+                  onClick={() => setPage((p) => p - 1)}
+                  className="bg-white"
+                >
+                  Previous
                 </Button>
-                <span className="text-sm text-slate-500">Page {page} / {totalPages}</span>
-                <Button variant="outline" size="sm" disabled={page >= totalPages || loading} onClick={() => setPage((p) => p + 1)} className="bg-white">
-                  Suivant
+                <span className="text-sm text-slate-500">
+                  Page {page} / {totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page >= totalPages || loading}
+                  onClick={() => setPage((p) => p + 1)}
+                  className="bg-white"
+                >
+                  Next
                 </Button>
               </div>
             )}
@@ -1014,7 +926,8 @@ export default function TrackingDashboard() {
         </Card>
       )}
 
-      {/* Optional Statsig — collapsed */}
+      <AdminPwaPushCard />
+
       <div className="rounded-2xl border border-slate-200 bg-white">
         <button
           type="button"
@@ -1023,7 +936,7 @@ export default function TrackingDashboard() {
         >
           <span className="inline-flex items-center gap-2">
             <FlaskConical className="h-4 w-4 text-violet-600" />
-            Options Statsig (optionnel — pas nécessaire pour le tracking)
+            Statsig options (optional)
           </span>
           {showStatsig ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </button>
