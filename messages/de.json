@@ -462,7 +462,11 @@
     "errReturnDate": "Bitte wählen Sie ein Rückgabedatum",
     "errPickupLoc": "Bitte wählen Sie einen Abholort",
     "errReturnLoc": "Bitte wählen Sie einen Rückgabeort",
-    "errReturnAfterPickup": "Das Rückgabedatum muss nach dem Abholdatum liegen"
+    "errReturnAfterPickup": "Das Rückgabedatum muss nach dem Abholdatum liegen",
+    "pickupTime": "Abholzeit *",
+    "returnTime": "Rückgabezeit *",
+    "errPickupTime": "Bitte Abholzeit wählen",
+    "errReturnTime": "Bitte Rückgabezeit wählen"
   },
   "contactPage": {
     "hero": {
@@ -940,5 +944,20 @@
     "backHome": "Zur Startseite",
     "viewCars": "Unsere Autos ansehen",
     "usefulLinks": "Nutzliche Links:"
+  },
+  "homeBookingSearch": {
+    "ariaLabel": "Mietwagen-Suche",
+    "airportHint": "Ankunft per Flugzeug? Flughafen Agadir (AGA) wählen",
+    "pickupLocation": "Abholort",
+    "returnLocation": "Rückgabeort",
+    "pickupDate": "Abholdatum",
+    "returnDate": "Rückgabedatum",
+    "pickupTime": "Abholzeit",
+    "returnTime": "Rückgabezeit",
+    "search": "Jetzt suchen",
+    "sameReturn": "Fahrzeug am gleichen Ort zurückgeben",
+    "driverNote": "Wohnsitzland des Fahrers: Marokko · Alter 30–65",
+    "searchAppliedTitle": "Ihre Mietdaten",
+    "searchAppliedHint": "Diese Angaben werden beim Klick auf Buchen vorausgefüllt."
   }
 }

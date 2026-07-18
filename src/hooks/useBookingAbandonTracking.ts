@@ -152,16 +152,17 @@ export function useBookingAbandonTracking({
     };
   }, [watchValues, isActive, isSubmitting, submitSucceeded, buildPayload]);
 
-  // Page leave / unmount
+  // Page leave / unmount — never after a successful submit attempt
   useEffect(() => {
     if (!isActive) return;
     const onPageHide = () => sendAbandoned('page-leave');
     window.addEventListener('pagehide', onPageHide);
     return () => {
       window.removeEventListener('pagehide', onPageHide);
+      if (submittedRef.current || submitSucceeded) return;
       sendAbandoned('unmount');
     };
-  }, [isActive, sendAbandoned]);
+  }, [isActive, sendAbandoned, submitSucceeded]);
 
   return { sendAbandoned, markSubmitted };
 }

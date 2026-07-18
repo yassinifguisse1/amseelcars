@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 
 import { HomeHeroCopyBand } from "@/components/home/HomeHeroCopyBand";
+import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 import CarsGridLoadingFallback from "@/components/Cars/CarsGridLoadingFallback";
 
 const CarGridSection = dynamic(
@@ -69,6 +70,9 @@ export function HomeContentLandingPage() {
   return (
     <div className="page-content hero">
       <HomeHeroCopyBand />
+      <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
+        <HomeBookingSearchBar />
+      </Suspense>
       <Suspense fallback={<CarsGridLoadingFallback />}>
         <CarGridSection showTitle />
       </Suspense>

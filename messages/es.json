@@ -462,7 +462,11 @@
     "errReturnDate": "Seleccione una fecha de devolución",
     "errPickupLoc": "Seleccione un lugar de recogida",
     "errReturnLoc": "Seleccione un lugar de devolución",
-    "errReturnAfterPickup": "La fecha de devolución debe ser posterior a la de recogida"
+    "errReturnAfterPickup": "La fecha de devolución debe ser posterior a la de recogida",
+    "pickupTime": "Hora de recogida *",
+    "returnTime": "Hora de devolución *",
+    "errPickupTime": "Seleccione la hora de recogida",
+    "errReturnTime": "Seleccione la hora de devolución"
   },
   "contactPage": {
     "hero": {
@@ -940,5 +944,20 @@
     "backHome": "Volver al inicio",
     "viewCars": "Ver nuestros coches",
     "usefulLinks": "Enlaces utiles:"
+  },
+  "homeBookingSearch": {
+    "ariaLabel": "Búsqueda de alquiler",
+    "airportHint": "¿Llega en avión? Seleccione Aeropuerto de Agadir (AGA)",
+    "pickupLocation": "Lugar de recogida",
+    "returnLocation": "Lugar de devolución",
+    "pickupDate": "Fecha de recogida",
+    "returnDate": "Fecha de devolución",
+    "pickupTime": "Hora de recogida",
+    "returnTime": "Hora de devolución",
+    "search": "Buscar ahora",
+    "sameReturn": "Devolver el coche en el mismo lugar",
+    "driverNote": "País de residencia del conductor: Marruecos · edad 30–65",
+    "searchAppliedTitle": "Sus fechas de alquiler",
+    "searchAppliedHint": "Estos datos se rellenan al pulsar Reservar."
   }
 }

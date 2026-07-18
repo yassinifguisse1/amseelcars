@@ -462,7 +462,11 @@
     "errReturnDate": "Please select a return date",
     "errPickupLoc": "Please select a pickup location",
     "errReturnLoc": "Please select a return location",
-    "errReturnAfterPickup": "Return date must be after pickup date"
+    "errReturnAfterPickup": "Return date must be after pickup date",
+    "pickupTime": "Pick-up time *",
+    "returnTime": "Return time *",
+    "errPickupTime": "Please select a pick-up time",
+    "errReturnTime": "Please select a return time"
   },
   "contactPage": {
     "hero": {
@@ -940,5 +944,20 @@
     "backHome": "Back to home",
     "viewCars": "View our cars",
     "usefulLinks": "Useful links:"
+  },
+  "homeBookingSearch": {
+    "ariaLabel": "Rental search",
+    "airportHint": "Arriving by plane? Select Agadir Airport (AGA)",
+    "pickupLocation": "Pick-up location",
+    "returnLocation": "Return location",
+    "pickupDate": "Pick-up date",
+    "returnDate": "Return date",
+    "pickupTime": "Pick-up time",
+    "returnTime": "Return time",
+    "search": "Search now",
+    "sameReturn": "Return the car to the same location",
+    "driverNote": "Driver’s country of residence is Morocco · age 30–65",
+    "searchAppliedTitle": "Your rental dates",
+    "searchAppliedHint": "These details are prefilled when you click Book."
   }
 }

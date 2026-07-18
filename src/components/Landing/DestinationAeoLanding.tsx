@@ -79,6 +79,8 @@ export type DestinationAeoLandingProps = {
     lead: string;
   };
   cars: DestinationCar[];
+  /** Optional booking search bar rendered above the fleet section. */
+  bookingSearch?: ReactNode;
   faqs: readonly DestinationFaq[];
   faqTitle: string;
   faqKicker?: string;
@@ -146,6 +148,7 @@ export function DestinationAeoLanding({
   features,
   carsSection,
   cars,
+  bookingSearch,
   faqs,
   faqTitle,
   faqKicker = "FAQ",
@@ -205,7 +208,9 @@ export function DestinationAeoLanding({
         </div>
       </header>
 
-      <section className={styles.fleet} aria-labelledby="cars-heading">
+      {bookingSearch}
+
+      <section id="cars" className={styles.fleet} aria-labelledby="cars-heading">
         <div className={styles.fleetInner}>
           <div className={styles.fleetHead}>
             <p className={styles.kicker}>{carsSection.kicker}</p>

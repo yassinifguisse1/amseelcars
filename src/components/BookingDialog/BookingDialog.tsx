@@ -8,12 +8,15 @@ import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { trackEvent } from '@/lib/trackEvent';
 import { useBookingAbandonTracking } from '@/hooks/useBookingAbandonTracking';
 import { track } from '@vercel/analytics/react';
 import styles from './BookingDialog.module.css';
 import { BookingFormDateField } from './BookingFormDateField';
+import { BOOKING_TIME_SLOTS } from '@/lib/bookingLocations';
+import { parseBookingSearchParams } from '@/lib/bookingSearchParams';
 
 type BookingFormData = {
   fullName: string;
@@ -21,6 +24,8 @@ type BookingFormData = {
   phone: string;
   pickupDate: string;
   returnDate: string;
+  pickupTime: string;
+  returnTime: string;
   pickupLocation: string;
   returnLocation: string;
 };
@@ -33,13 +38,15 @@ function buildBookingSchema(t: (key: string) => string) {
       phone: z.string().min(10, t('errPhone')),
       pickupDate: z.string().min(1, t('errPickupDate')),
       returnDate: z.string().min(1, t('errReturnDate')),
+      pickupTime: z.string().min(1, t('errPickupTime')),
+      returnTime: z.string().min(1, t('errReturnTime')),
       pickupLocation: z.string().min(1, t('errPickupLoc')),
       returnLocation: z.string().min(1, t('errReturnLoc')),
     })
     .refine(
       (data) => {
-        const pickup = new Date(data.pickupDate);
-        const returnDate = new Date(data.returnDate);
+        const pickup = new Date(`${data.pickupDate}T${data.pickupTime || '00:00'}`);
+        const returnDate = new Date(`${data.returnDate}T${data.returnTime || '00:00'}`);
         return returnDate > pickup;
       },
       { message: t('errReturnAfterPickup'), path: ['returnDate'] }
@@ -90,6 +97,8 @@ export default function BookingDialog({
 }: BookingDialogProps) {
   const locale = useLocale();
   const t = useTranslations('booking');
+  const searchParams = useSearchParams();
+  const bookingDefaults = useMemo(() => parseBookingSearchParams(searchParams), [searchParams]);
   const bookingSchema = useMemo(() => buildBookingSchema((k) => t(k as Parameters<typeof t>[0])), [t]);
   const locationOptions = useMemo(
     () => [
@@ -106,6 +115,21 @@ export default function BookingDialog({
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const contentRef = useRef<HTMLDivElement>(null);
 
+  const defaultValues = useMemo<BookingFormData>(
+    () => ({
+      fullName: '',
+      email: '',
+      phone: '',
+      pickupDate: bookingDefaults.pickupDate,
+      returnDate: bookingDefaults.returnDate,
+      pickupTime: bookingDefaults.pickupTime,
+      returnTime: bookingDefaults.returnTime,
+      pickupLocation: bookingDefaults.pickupLocation || '',
+      returnLocation: bookingDefaults.returnLocation || bookingDefaults.pickupLocation || '',
+    }),
+    [bookingDefaults],
+  );
+
   const {
     register,
     control,
@@ -116,7 +140,22 @@ export default function BookingDialog({
     getValues,
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
+    defaultValues,
   });
+
+  useEffect(() => {
+    reset({
+      ...getValues(),
+      pickupDate: defaultValues.pickupDate,
+      returnDate: defaultValues.returnDate,
+      pickupTime: defaultValues.pickupTime,
+      returnTime: defaultValues.returnTime,
+      pickupLocation: defaultValues.pickupLocation || getValues('pickupLocation'),
+      returnLocation: defaultValues.returnLocation || getValues('returnLocation'),
+    });
+    // Prefill from home search URL when dialog opens / params change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValues.pickupDate, defaultValues.returnDate, defaultValues.pickupLocation, defaultValues.returnLocation, defaultValues.pickupTime, defaultValues.returnTime, isOpen]);
 
   const formValues = watch();
   const watchedPickupDate = watch('pickupDate');
@@ -310,56 +349,92 @@ export default function BookingDialog({
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                        <div className="space-y-2">
                           <label
                             htmlFor="booking-pickup-date"
                             className="block text-sm font-medium text-gray-700 mb-1"
                           >
                             {t('pickupDate')}
                           </label>
-                          <Controller
-                            name="pickupDate"
-                            control={control}
-                            render={({ field }) => (
-                              <BookingFormDateField
-                                id="booking-pickup-date"
-                                value={field.value}
-                                onChange={field.onChange}
-                                onBlur={field.onBlur}
-                                disabled={pickupDisabled}
-                                placeholder={t('datePlaceholder')}
-                                openCalendarAria={t('calendarOpenAria')}
-                                locale={locale}
-                                error={errors.pickupDate?.message}
+                          <div className="flex gap-2">
+                            <div className="min-w-0 flex-1">
+                              <Controller
+                                name="pickupDate"
+                                control={control}
+                                render={({ field }) => (
+                                  <BookingFormDateField
+                                    id="booking-pickup-date"
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                    disabled={pickupDisabled}
+                                    placeholder={t('datePlaceholder')}
+                                    openCalendarAria={t('calendarOpenAria')}
+                                    locale={locale}
+                                    error={errors.pickupDate?.message}
+                                  />
+                                )}
                               />
-                            )}
-                          />
+                            </div>
+                            <select
+                              {...register('pickupTime')}
+                              aria-label={t('pickupTime')}
+                              className="w-[5.75rem] shrink-0 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                            >
+                              {BOOKING_TIME_SLOTS.map((slot) => (
+                                <option key={slot} value={slot}>
+                                  {slot}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          {errors.pickupTime && (
+                            <p className="text-sm text-red-500">{errors.pickupTime.message}</p>
+                          )}
                         </div>
 
-                        <div>
+                        <div className="space-y-2">
                           <label
                             htmlFor="booking-return-date"
                             className="block text-sm font-medium text-gray-700 mb-1"
                           >
                             {t('returnDate')}
                           </label>
-                          <Controller
-                            name="returnDate"
-                            control={control}
-                            render={({ field }) => (
-                              <BookingFormDateField
-                                id="booking-return-date"
-                                value={field.value}
-                                onChange={field.onChange}
-                                onBlur={field.onBlur}
-                                disabled={returnDisabled}
-                                placeholder={t('datePlaceholder')}
-                                openCalendarAria={t('calendarOpenAria')}
-                                locale={locale}
-                                error={errors.returnDate?.message}
+                          <div className="flex gap-2">
+                            <div className="min-w-0 flex-1">
+                              <Controller
+                                name="returnDate"
+                                control={control}
+                                render={({ field }) => (
+                                  <BookingFormDateField
+                                    id="booking-return-date"
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                    disabled={returnDisabled}
+                                    placeholder={t('datePlaceholder')}
+                                    openCalendarAria={t('calendarOpenAria')}
+                                    locale={locale}
+                                    error={errors.returnDate?.message}
+                                  />
+                                )}
                               />
-                            )}
-                          />
+                            </div>
+                            <select
+                              {...register('returnTime')}
+                              aria-label={t('returnTime')}
+                              className="w-[5.75rem] shrink-0 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                            >
+                              {BOOKING_TIME_SLOTS.map((slot) => (
+                                <option key={slot} value={slot}>
+                                  {slot}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          {errors.returnTime && (
+                            <p className="text-sm text-red-500">{errors.returnTime.message}</p>
+                          )}
                         </div>
                       </div>
                     </div>

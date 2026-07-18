@@ -11,6 +11,7 @@ import {
   resolveAnalyticsRange,
   type AnalyticsPreset,
 } from '@/lib/admin/analyticsRange';
+import { buildBookingJourneys } from '@/lib/admin/bookingJourneys';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -245,12 +246,17 @@ export async function GET(request: NextRequest) {
               'booking-confirmed',
               'booking-abandoned',
               'booking-form-progress',
+              'booking-submit',
+              'booking-dialog-open',
               'contact-submit',
+              'car-card-click',
+              'reserver',
+              'scroll-reservation',
             ],
           },
         },
         orderBy: { createdAt: 'desc' },
-        take: 80,
+        take: 400,
       }),
       prisma.trackEvent.findMany({
         where: periodFilter,
@@ -472,9 +478,8 @@ export async function GET(request: NextRequest) {
       confirmed: confirmedPeriod,
     };
 
-    const leadsWithContact = recentLeads.filter(
-      (l) => (l.fullName && l.fullName.trim()) || (l.email && l.email.trim()) || (l.phone && l.phone.trim()),
-    );
+    const journeys = buildBookingJourneys(recentLeads, { limit: 80 });
+    const leadsWithContact = journeys.filter((j) => j.hasContact);
 
     const periodDays = Math.max(
       1,
@@ -483,7 +488,8 @@ export async function GET(request: NextRequest) {
 
     return createNoCacheResponse({
       events,
-      leads: leadsWithContact,
+      leads: journeys.filter((j) => j.hasContact || j.stage !== 'car-interest'),
+      journeys,
       range: {
         from: since.toISOString(),
         to: until.toISOString(),
@@ -537,6 +543,7 @@ export async function GET(request: NextRequest) {
         phonePeriod,
         contactPeriod,
         leadsWithContact: leadsWithContact.length,
+        journeysCount: journeys.length,
         uniqueVisitors,
         newVisitors,
         returningVisitors,

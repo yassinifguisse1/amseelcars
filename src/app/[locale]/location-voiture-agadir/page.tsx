@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Link } from "@/i18n/navigation";
 import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -18,6 +19,7 @@ import { carForLocale } from "@/lib/carLocale";
 import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
+import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 
 type FaqContent = {
   question: string;
@@ -200,6 +202,11 @@ export default async function LocationVoitureAgadirPage() {
           lead: t("carsSection.lead"),
         }}
         cars={cars}
+        bookingSearch={
+          <Suspense fallback={<div className="w-full bg-black px-4 py-8" aria-hidden />}>
+            <HomeBookingSearchBar />
+          </Suspense>
+        }
         faqs={faqs}
         faqKicker={t("faqKicker")}
         faqTitle={t("faqTitle")}

@@ -12,6 +12,7 @@ import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
 import { convertCarPrice, formatCarPrice } from '@/lib/currency'
+import { parseBookingSearchParams, hasActiveBookingSearch } from '@/lib/bookingSearchParams'
 import { trackEvent } from '@/lib/trackEvent'
 import styles from './CarGridSection.module.scss'
 
@@ -39,9 +40,13 @@ const CarGridSection = ({
   subtitle,
 }: CarGridSectionProps) => {
   const t = useTranslations('carsPage')
+  const tBooking = useTranslations('booking')
+  const tSearch = useTranslations('homeBookingSearch')
   const localeUi = useLocale()
   const l: AppLocale = toAppLocale(localeUi)
   const searchParams = useSearchParams()
+  const bookingSearch = useMemo(() => parseBookingSearchParams(searchParams), [searchParams])
+  const searchActive = hasActiveBookingSearch(searchParams)
   const displayTitle = title ?? t('gridTitle')
   const displaySubtitle = subtitle ?? t('gridSubtitle')
 
@@ -238,6 +243,39 @@ const CarGridSection = ({
             ) : null}
           </header>
         )}
+
+        {searchActive ? (
+          <div className="mb-6 rounded-xl border border-[#b11226]/20 bg-[#b11226]/5 px-4 py-3 text-sm text-stone-800">
+            <p className="font-semibold text-[#7a0c1a]">{tSearch('searchAppliedTitle')}</p>
+            <p className="mt-1 text-stone-600">
+              {bookingSearch.pickupDate} {bookingSearch.pickupTime}
+              {' → '}
+              {bookingSearch.returnDate} {bookingSearch.returnTime}
+              {' · '}
+              {tBooking(
+                bookingSearch.pickupLocation === 'aeroport-al-massira'
+                  ? 'locAirport'
+                  : bookingSearch.pickupLocation === 'agadir-centre'
+                    ? 'locAgadirCentre'
+                    : bookingSearch.pickupLocation === 'taghazout'
+                      ? 'locTaghazout'
+                      : 'locAgency',
+              )}
+              {!bookingSearch.sameReturn
+                ? ` → ${tBooking(
+                    bookingSearch.returnLocation === 'aeroport-al-massira'
+                      ? 'locAirport'
+                      : bookingSearch.returnLocation === 'agadir-centre'
+                        ? 'locAgadirCentre'
+                        : bookingSearch.returnLocation === 'taghazout'
+                          ? 'locTaghazout'
+                          : 'locAgency',
+                  )}`
+                : ''}
+            </p>
+            <p className="mt-1 text-xs text-stone-500">{tSearch('searchAppliedHint')}</p>
+          </div>
+        ) : null}
 
         {/* Filter Bar */}
         <FilterBar

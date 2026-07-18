@@ -34,6 +34,11 @@ import {
   resolveAnalyticsRange,
   type AnalyticsRange,
 } from '@/lib/admin/analyticsRange';
+import {
+  JOURNEY_STAGE_LABELS,
+  type BookingJourney,
+  type JourneyStage,
+} from '@/lib/admin/bookingJourneys';
 
 type TrackEventRow = {
   id: string;
@@ -390,71 +395,116 @@ function EventDetail({ event }: { event: TrackEventRow }) {
   );
 }
 
-function LeadCard({ lead }: { lead: TrackEventRow }) {
-  const isAbandoned = lead.event === 'booking-abandoned';
-  const isConfirmed = lead.event === 'booking-confirmed';
+const JOURNEY_STYLES: Record<JourneyStage, { card: string; badge: string; label: string }> = {
+  confirmed: {
+    card: 'border-green-200 bg-green-50',
+    badge: 'bg-green-200 text-green-900',
+    label: JOURNEY_STAGE_LABELS.confirmed,
+  },
+  abandoned: {
+    card: 'border-amber-300 bg-amber-50',
+    badge: 'bg-amber-200 text-amber-900',
+    label: JOURNEY_STAGE_LABELS.abandoned,
+  },
+  'form-started': {
+    card: 'border-orange-200 bg-orange-50/80',
+    badge: 'bg-orange-200 text-orange-950',
+    label: JOURNEY_STAGE_LABELS['form-started'],
+  },
+  'opened-no-details': {
+    card: 'border-sky-200 bg-sky-50/80',
+    badge: 'bg-sky-200 text-sky-950',
+    label: JOURNEY_STAGE_LABELS['opened-no-details'],
+  },
+  'car-interest': {
+    card: 'border-slate-200 bg-slate-50',
+    badge: 'bg-slate-200 text-slate-800',
+    label: JOURNEY_STAGE_LABELS['car-interest'],
+  },
+};
+
+function JourneyCard({ journey }: { journey: BookingJourney }) {
+  const style = JOURNEY_STYLES[journey.stage];
+  const title =
+    journey.fullName ||
+    journey.email ||
+    journey.phone ||
+    (journey.stage === 'car-interest' || journey.stage === 'opened-no-details'
+      ? 'Visiteur anonyme'
+      : 'Visiteur');
+
   return (
-    <div
-      className={`rounded-xl border p-4 ${
-        isAbandoned
-          ? 'border-amber-300 bg-amber-50'
-          : isConfirmed
-            ? 'border-green-200 bg-green-50'
-            : 'border-slate-200 bg-white'
-      }`}
-    >
+    <div className={`rounded-xl border p-4 ${style.card}`}>
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <p className="font-semibold text-slate-900">
-            {lead.fullName || lead.email || lead.phone || 'Visiteur'}
+        <div className="min-w-0">
+          <p className="font-semibold text-slate-900">{title}</p>
+          <p className="text-sm text-slate-600">{journey.summary}</p>
+          <p className="mt-1 text-xs text-slate-400">
+            Dernière activité · {formatDate(journey.lastActivityAt)}
+            {journey.eventCount > 1 ? ` · ${journey.eventCount} événements` : ''}
           </p>
-          <p className="text-sm text-slate-600">
-            {lead.carName || lead.carSlug || '—'} · {EVENT_LABELS[lead.event] ?? lead.event}
-          </p>
-          <p className="mt-1 text-xs text-slate-400">{formatDate(lead.createdAt)}</p>
-          {(lead.country || lead.deviceType) && (
+          {(journey.country || journey.deviceType) && (
             <p className="mt-1 text-xs text-slate-500">
-              {[lead.country ? countryLabel(lead.country) : null, lead.city, lead.deviceType]
+              {[journey.country ? countryLabel(journey.country) : null, journey.city, journey.deviceType]
                 .filter(Boolean)
                 .join(' · ')}
             </p>
           )}
+          {(journey.pickupDate || journey.returnDate) && (
+            <p className="mt-1 text-xs text-slate-500">
+              {[journey.pickupDate, journey.returnDate].filter(Boolean).join(' → ')}
+            </p>
+          )}
         </div>
-        {isAbandoned ? (
-          <span className="rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-900">
-            À relancer
-          </span>
-        ) : isConfirmed ? (
-          <span className="rounded-full bg-green-200 px-2 py-0.5 text-xs font-semibold text-green-900">
-            Confirmée
-          </span>
-        ) : null}
+        <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${style.badge}`}>
+          {style.label}
+        </span>
       </div>
-      <div className="mt-3 flex flex-wrap gap-2">
-        {lead.phone ? (
-          <a href={`tel:${lead.phone}`} className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white">
-            <Phone className="h-3 w-3" /> Appeler
-          </a>
-        ) : null}
-        {lead.phone ? (
-          <a
-            href={`https://wa.me/${lead.phone.replace(/\D/g, '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-green-600 px-3 py-1.5 text-xs font-medium text-white"
-          >
-            <MessageCircle className="h-3 w-3" /> WhatsApp
-          </a>
-        ) : null}
-      </div>
+      {journey.hasContact ? (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {journey.phone ? (
+            <a
+              href={`tel:${journey.phone}`}
+              className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white"
+            >
+              <Phone className="h-3 w-3" /> Appeler
+            </a>
+          ) : null}
+          {journey.phone ? (
+            <a
+              href={`https://wa.me/${journey.phone.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 rounded-full bg-green-600 px-3 py-1.5 text-xs font-medium text-white"
+            >
+              <MessageCircle className="h-3 w-3" /> WhatsApp
+            </a>
+          ) : null}
+          {journey.email ? (
+            <a
+              href={`mailto:${journey.email}`}
+              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-slate-800 ring-1 ring-slate-200"
+            >
+              <Mail className="h-3 w-3" /> Email
+            </a>
+          ) : null}
+        </div>
+      ) : (
+        <p className="mt-3 text-xs text-slate-500">
+          Pas de téléphone / email — suivi possible seulement via le parcours site.
+        </p>
+      )}
     </div>
   );
 }
 
+type JourneyFilter = 'all' | JourneyStage;
+
 export default function TrackingDashboard() {
   const [range, setRange] = useState<AnalyticsRange>(() => resolveAnalyticsRange('24h'));
   const [events, setEvents] = useState<TrackEventRow[]>([]);
-  const [leads, setLeads] = useState<TrackEventRow[]>([]);
+  const [journeys, setJourneys] = useState<BookingJourney[]>([]);
+  const [journeyFilter, setJourneyFilter] = useState<JourneyFilter>('all');
   const [stats, setStats] = useState<TrackStats | null>(null);
   const [insights, setInsights] = useState<Insights | null>(null);
   const [granularity, setGranularity] = useState<'hour' | 'day'>('hour');
@@ -503,7 +553,7 @@ export default function TrackingDashboard() {
       if (!res.ok) throw new Error(data.error || 'Failed to load tracking data');
 
       setEvents(data.events ?? []);
-      setLeads(data.leads ?? []);
+      setJourneys(data.journeys ?? []);
       setStats(data.stats ?? null);
       setInsights(data.insights ?? null);
       setGranularity(data.range?.granularity === 'hour' ? 'hour' : 'day');
@@ -546,6 +596,24 @@ export default function TrackingDashboard() {
       return name.includes(q) || c.code.toLowerCase().includes(q);
     });
   }, [countrySearch, insights?.countries]);
+
+  const filteredJourneys = useMemo(() => {
+    if (journeyFilter === 'all') return journeys;
+    return journeys.filter((j) => j.stage === journeyFilter);
+  }, [journeyFilter, journeys]);
+
+  const journeyCounts = useMemo(() => {
+    const counts: Record<JourneyFilter, number> = {
+      all: journeys.length,
+      confirmed: 0,
+      abandoned: 0,
+      'form-started': 0,
+      'opened-no-details': 0,
+      'car-interest': 0,
+    };
+    for (const j of journeys) counts[j.stage] += 1;
+    return counts;
+  }, [journeys]);
 
   const utmRows =
     utmTab === 'sources'
@@ -785,25 +853,53 @@ export default function TrackingDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Users className="h-5 w-5 text-[#b11226]" />
-              Leads in range
+              Booking journeys
             </CardTitle>
             <CardDescription>
-              Filtered by {range.label}. Call or WhatsApp directly from here.
+              One card per visitor for {range.label}. Confirmed bookings hide false “abandoned”
+              duplicates. Includes people who opened a car / form without leaving details.
             </CardDescription>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {(
+                [
+                  ['all', 'All'],
+                  ['abandoned', 'À relancer'],
+                  ['form-started', 'Sans coordonnées'],
+                  ['opened-no-details', 'Ouvert, pas de détails'],
+                  ['car-interest', 'Intérêt voiture'],
+                  ['confirmed', 'Confirmées'],
+                ] as Array<[JourneyFilter, string]>
+              ).map(([key, label]) => (
+                <Button
+                  key={key}
+                  size="sm"
+                  variant={journeyFilter === key ? 'default' : 'outline'}
+                  className={
+                    journeyFilter === key
+                      ? 'bg-slate-950 text-white hover:bg-slate-800'
+                      : 'bg-white'
+                  }
+                  onClick={() => setJourneyFilter(key)}
+                >
+                  {label}
+                  <span className="ml-1.5 tabular-nums opacity-70">{journeyCounts[key]}</span>
+                </Button>
+              ))}
+            </div>
           </CardHeader>
           <CardContent>
-            {loading && leads.length === 0 ? (
+            {loading && journeys.length === 0 ? (
               <div className="flex justify-center py-10">
                 <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
               </div>
-            ) : leads.length === 0 ? (
+            ) : filteredJourneys.length === 0 ? (
               <p className="py-8 text-center text-sm text-slate-500">
-                No leads with contact details in this period.
+                No journeys in this filter for the selected period.
               </p>
             ) : (
               <div className="grid gap-3 md:grid-cols-2">
-                {leads.map((lead) => (
-                  <LeadCard key={lead.id} lead={lead} />
+                {filteredJourneys.map((journey) => (
+                  <JourneyCard key={`${journey.id}-${journey.stage}`} journey={journey} />
                 ))}
               </div>
             )}

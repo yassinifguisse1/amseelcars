@@ -462,7 +462,11 @@
     "errReturnDate": "Veuillez sélectionner une date de retour",
     "errPickupLoc": "Veuillez sélectionner le lieu de récupération",
     "errReturnLoc": "Veuillez sélectionner le lieu de retour",
-    "errReturnAfterPickup": "La date de retour doit être après la date de récupération"
+    "errReturnAfterPickup": "La date de retour doit être après la date de récupération",
+    "pickupTime": "Heure de récupération *",
+    "returnTime": "Heure de retour *",
+    "errPickupTime": "Veuillez sélectionner l’heure de récupération",
+    "errReturnTime": "Veuillez sélectionner l’heure de retour"
   },
   "contactPage": {
     "hero": {
@@ -940,5 +944,20 @@
     "backHome": "Retour à l'accueil",
     "viewCars": "Voir nos voitures",
     "usefulLinks": "Liens utiles :"
+  },
+  "homeBookingSearch": {
+    "ariaLabel": "Recherche de location",
+    "airportHint": "Vous arrivez en avion ? Sélectionnez Aéroport Al Massira (AGA)",
+    "pickupLocation": "Lieu de récupération",
+    "returnLocation": "Lieu de retour",
+    "pickupDate": "Date de récupération",
+    "returnDate": "Date de retour",
+    "pickupTime": "Heure de récupération",
+    "returnTime": "Heure de retour",
+    "search": "Rechercher",
+    "sameReturn": "Retourner la voiture au même endroit",
+    "driverNote": "Pays de résidence du conducteur : Maroc · âge 30–65",
+    "searchAppliedTitle": "Vos dates de location",
+    "searchAppliedHint": "Ces informations seront préremplies quand vous cliquez sur Réserver."
   }
 }

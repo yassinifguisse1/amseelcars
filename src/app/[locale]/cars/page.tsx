@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import CarGridSection from '@/components/Cars/CarGridSection'
 import CarsGridLoadingFallback from '@/components/Cars/CarsGridLoadingFallback'
+import { HomeBookingSearchBar } from '@/components/home/HomeBookingSearchBar'
 import Footer from '@/components/Footer/Footer'
 import HeroVideo from '@/components/Cars/HeroVedio/HeroVideo'
 import { getAllCars } from '@/data/cars'
@@ -142,6 +143,9 @@ export default async function CarsPage() {
           </dl>
         </div>
       </section>
+      <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
+        <HomeBookingSearchBar />
+      </Suspense>
       <Suspense fallback={<CarsGridLoadingFallback />}>
         <CarGridSection />
       </Suspense>

@@ -20,6 +20,8 @@ export async function POST(request: NextRequest) {
       phone,
       pickupDate,
       returnDate,
+      pickupTime,
+      returnTime,
       pickupLocation,
       returnLocation,
       carName,
@@ -82,8 +84,8 @@ export async function POST(request: NextRequest) {
 
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de la location</h2>
-              <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}</p>
-              <p><strong>Date de retour:</strong> ${formatDate(returnDate)}</p>
+              <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}${pickupTime ? ` à ${pickupTime}` : ''}</p>
+              <p><strong>Date de retour:</strong> ${formatDate(returnDate)}${returnTime ? ` à ${returnTime}` : ''}</p>
               <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
               <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
             </div>
@@ -115,8 +117,8 @@ export async function POST(request: NextRequest) {
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de votre réservation</h2>
               <p><strong>Car:</strong> ${carName}</p>
-              <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}</p>
-              <p><strong>Date de retour:</strong> ${formatDate(returnDate)}</p>
+              <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}${pickupTime ? ` à ${pickupTime}` : ''}</p>
+              <p><strong>Date de retour:</strong> ${formatDate(returnDate)}${returnTime ? ` à ${returnTime}` : ''}</p>
               <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${totalPrice} DH </span></p>
               <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
               <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
