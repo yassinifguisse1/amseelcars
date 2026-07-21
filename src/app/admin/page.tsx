@@ -2483,7 +2483,13 @@ export default function AdminPage() {
                     <p className="text-sm font-medium mb-4">
                       Total Article Families: <span className="text-primary">{articleFamilies.length}</span>
                     </p>
-                    <div className="space-y-2 max-h-[600px] overflow-y-auto">
+                    <div
+                      className="admin-articles-scroll max-h-[70vh] space-y-2 overflow-y-scroll overscroll-contain pr-2"
+                      data-lenis-prevent
+                      role="region"
+                      aria-label="All article families"
+                      tabIndex={0}
+                    >
                       {articleFamilies.map((family, index) => {
                         const familyBusy =
                           deletingArticleFamilyKey === family.key ||

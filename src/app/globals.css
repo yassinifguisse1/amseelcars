@@ -285,6 +285,35 @@ html {
   background: #f3f4f6;
 }
 
+/* Admin articles list - always scrollable with visible scrollbar */
+.admin-articles-scroll {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af #f3f4f6;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+}
+
+.admin-articles-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-articles-scroll::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.admin-articles-scroll::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 4px;
+}
+
+.admin-articles-scroll::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
 /* Progress indicator animation */
 @keyframes progress-pulse {
   0%, 100% {
