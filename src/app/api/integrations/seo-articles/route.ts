@@ -3,7 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { UTApi } from 'uploadthing/server';
 import { ZodError } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { articleLocales } from '@/lib/validations/article';
+import { articleLocales, isArticleLocale, type ArticleLocale } from '@/lib/validations/article';
 import type { MediaMetadataByLocale } from '@/lib/validations/media';
 import {
   downloadImportImage,
@@ -23,6 +23,12 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 const utapi = new UTApi();
+const AMSEEL_TRANSLATION_LOCALES = ['fr', 'es', 'de', 'pl'] as const;
+
+type IncomingArticle = {
+  article: NormalizedSeoArticleImport;
+  publish: boolean;
+};
 
 function createNoCacheResponse(data: unknown, status = 200) {
   return NextResponse.json(data, {
@@ -222,6 +228,205 @@ async function saveMediaAssets(input: {
   return folder;
 }
 
+function readRecord(value: unknown): Record<string, unknown> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error('Article import payload must be an object.');
+  }
+  return value as Record<string, unknown>;
+}
+
+function readString(record: Record<string, unknown>, key: string) {
+  return typeof record[key] === 'string' ? record[key].trim() : '';
+}
+
+function readStringArray(value: unknown) {
+  return Array.isArray(value)
+    ? value.filter((entry): entry is string => typeof entry === 'string').map((entry) => entry.trim()).filter(Boolean)
+    : [];
+}
+
+function readKeywords(value: unknown) {
+  if (typeof value === 'string') return value.split(',').map((entry) => entry.trim()).filter(Boolean);
+  return readStringArray(value);
+}
+
+function shopyAdsArticleToNative(input: {
+  record: Record<string, unknown>;
+  locale: ArticleLocale;
+  externalId: string;
+  featuredImageUrl: string;
+  publishedAt?: string;
+  publish: boolean;
+}) {
+  const meta = readRecord(input.record.meta ?? {});
+  const title = readString(input.record, 'title');
+  const slug = readString(input.record, 'slug');
+  const description = readString(input.record, 'excerpt') || readString(meta, 'description');
+  const categories = readStringArray(input.record.categories);
+  const keywords = readKeywords(input.record.keywords ?? meta.keywords);
+  const featuredImageAlt = readString(input.record, 'featuredImageAlt') || title;
+  const content = readString(input.record, 'html') || readString(input.record, 'content') || readString(input.record, 'markdown');
+
+  return normalizeSeoArticleImport({
+    externalId: input.externalId,
+    locale: input.locale,
+    slug,
+    title,
+    category: categories[0] || 'Car Rental',
+    content,
+    description: description || title,
+    tags: keywords.length > 0 ? keywords : categories.length > 0 ? categories : [title],
+    seo: {
+      metaTitle: readString(input.record, 'metaTitle') || readString(meta, 'title') || title,
+      metaDescription: readString(input.record, 'metaDescription') || readString(meta, 'description') || description || title,
+      keywords: keywords.length > 0 ? keywords : [title],
+    },
+    coverImage: {
+      sourceUrl: input.featuredImageUrl,
+      metaTitle: title,
+      altText: featuredImageAlt,
+      caption: featuredImageAlt,
+      description: featuredImageAlt,
+    },
+    bodyImages: [],
+    publishedAt: input.publishedAt,
+    indexable: input.publish,
+  });
+}
+
+function normalizeIncomingArticles(body: unknown): { articles: IncomingArticle[]; sourceLocale: ArticleLocale } {
+  const record = readRecord(body);
+  if ('locale' in record && 'coverImage' in record) {
+    const article = normalizeSeoArticleImport(record);
+    return { articles: [{ article, publish: article.locale === 'fr' }], sourceLocale: article.locale };
+  }
+
+  const sourceLocaleValue = readString(record, 'language') || 'en';
+  if (!isArticleLocale(sourceLocaleValue)) throw new Error(`Unsupported source locale: ${sourceLocaleValue}`);
+  const featuredImageUrl = readString(record, 'featuredImageUrl');
+  if (!featuredImageUrl) throw new Error('featuredImageUrl is required for Amseel imports.');
+  const sourceSlug = readString(record, 'slug');
+  const externalId = readString(record, 'externalId') || sourceSlug;
+  if (!externalId) throw new Error('slug or externalId is required.');
+  const publish = record.publish === true;
+  const publishedAt = readString(record, 'publishedAt') || undefined;
+  const sourceArticle = shopyAdsArticleToNative({
+    record,
+    locale: sourceLocaleValue,
+    externalId,
+    featuredImageUrl,
+    publishedAt,
+    publish,
+  });
+
+  const rawTranslations = Array.isArray(record.translations) ? record.translations : [];
+  if (rawTranslations.length === 0) {
+    return { articles: [{ article: sourceArticle, publish }], sourceLocale: sourceLocaleValue };
+  }
+
+  const translationsByLocale = new Map<ArticleLocale, Record<string, unknown>>();
+  for (const value of rawTranslations) {
+    const translation = readRecord(value);
+    const locale = readString(translation, 'locale');
+    if (!isArticleLocale(locale) || locale === sourceLocaleValue) {
+      throw new Error(`Invalid translation locale: ${locale || '(empty)'}`);
+    }
+    if (translationsByLocale.has(locale)) throw new Error(`Duplicate translation locale: ${locale}`);
+    translationsByLocale.set(locale, translation);
+  }
+  const missingLocales = AMSEEL_TRANSLATION_LOCALES.filter((locale) => !translationsByLocale.has(locale));
+  if (sourceLocaleValue === 'en' && missingLocales.length > 0) {
+    throw new Error(`Incomplete Amseel translation package. Missing: ${missingLocales.join(', ')}`);
+  }
+
+  const translatedArticles = [...translationsByLocale.entries()].map(([locale, translation]) => ({
+    article: shopyAdsArticleToNative({
+      record: translation,
+      locale,
+      externalId,
+      featuredImageUrl,
+      publishedAt,
+      publish,
+    }),
+    publish,
+  }));
+  return {
+    articles: [{ article: sourceArticle, publish }, ...translatedArticles],
+    sourceLocale: sourceLocaleValue,
+  };
+}
+
+async function importNormalizedArticle(
+  input: IncomingArticle,
+  sourceLocale: ArticleLocale,
+  createdBy: string,
+  translationGroup?: string,
+) {
+  const normalizedArticle = input.article;
+  const existingImportedArticle = normalizedArticle.externalId
+    ? await prisma.blogArticle.findFirst({
+        where: {
+          externalId: normalizedArticle.externalId,
+          locale: normalizedArticle.locale,
+          importSource: SEO_ARTICLE_IMPORT_SOURCE,
+        },
+      })
+    : null;
+
+  if (translationGroup) {
+    normalizedArticle.translationGroup = translationGroup;
+  } else if (existingImportedArticle?.translationGroup) {
+    normalizedArticle.translationGroup = existingImportedArticle.translationGroup;
+  }
+  const slugConflict = await prisma.blogArticle.findFirst({
+    where: { slug: normalizedArticle.slug, locale: normalizedArticle.locale },
+    select: { id: true },
+  });
+  if (slugConflict && slugConflict.id !== existingImportedArticle?.id) {
+    throw new Error(`Article slug already exists for ${normalizedArticle.locale}: ${normalizedArticle.slug}`);
+  }
+
+  const uploadedImages = await uploadArticleImages(normalizedArticle);
+  const coverUpload = uploadedImages.find(
+    (image) => normalizedImageUrlKey(image.sourceUrl) === normalizedImageUrlKey(normalizedArticle.coverImage.sourceUrl),
+  );
+  if (!coverUpload) throw new Error(`Cover image upload did not complete for ${normalizedArticle.locale}.`);
+  const rewrittenContent = rewriteImportedImageSources(normalizedArticle.content, uploadedImages);
+  const mediaFolder = await saveMediaAssets({ article: normalizedArticle, uploadedImages, createdBy });
+  const articleData = {
+    slug: normalizedArticle.slug,
+    locale: normalizedArticle.locale,
+    translationGroup: normalizedArticle.translationGroup,
+    translationSourceLocale: sourceLocale,
+    externalId: normalizedArticle.externalId || null,
+    importSource: SEO_ARTICLE_IMPORT_SOURCE,
+    importedAt: new Date(),
+    publicationCallback: normalizedArticle.publicationCallback || null,
+    title: normalizedArticle.title,
+    content: rewrittenContent,
+    category: normalizedArticle.category,
+    readTime: normalizedArticle.readTime,
+    date: normalizedArticle.date,
+    publishedAt: normalizedArticle.publishedAt,
+    image: coverUpload.hostedUrl,
+    imageMetaTitle: normalizedArticle.coverImage.metaTitle,
+    altText: normalizedArticle.coverImage.altText,
+    caption: normalizedArticle.coverImage.caption,
+    imageDescription: normalizedArticle.coverImage.description,
+    description: normalizedArticle.description,
+    featured: normalizedArticle.featured,
+    published: existingImportedArticle?.published ?? input.publish,
+    indexable: normalizedArticle.indexable,
+    tags: normalizedArticle.tags,
+    author: normalizedArticle.author,
+    seo: normalizedArticle.seo,
+  };
+  const article = existingImportedArticle
+    ? await prisma.blogArticle.update({ where: { id: existingImportedArticle.id }, data: articleData })
+    : await prisma.blogArticle.create({ data: { ...articleData, createdBy } });
+  return { article, mediaFolder, created: !existingImportedArticle };
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!isValidSeoArticleImportAuthorization(request.headers.get('authorization'))) {
@@ -229,118 +434,52 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const normalizedArticle = normalizeSeoArticleImport(body);
+    const normalizedPackage = normalizeIncomingArticles(body);
     const createdBy = getCreatedBy();
-
-    const existingImportedArticle = normalizedArticle.externalId
-      ? await prisma.blogArticle.findFirst({
-          where: {
-            externalId: normalizedArticle.externalId,
-            locale: normalizedArticle.locale,
-            importSource: SEO_ARTICLE_IMPORT_SOURCE,
-          },
-        })
-      : null;
-
-    if (existingImportedArticle?.translationGroup) {
-      normalizedArticle.translationGroup = existingImportedArticle.translationGroup;
-    }
-
-    const slugConflict = await prisma.blogArticle.findFirst({
-      where: {
-        slug: normalizedArticle.slug,
-        locale: normalizedArticle.locale,
-      },
-      select: { id: true, slug: true, locale: true },
-    });
-    if (slugConflict && slugConflict.id !== existingImportedArticle?.id) {
-      return createNoCacheResponse(
-        {
-          error: 'Article slug already exists for this locale.',
-          slug: slugConflict.slug,
-          locale: slugConflict.locale,
-        },
-        409,
+    const imported: Awaited<ReturnType<typeof importNormalizedArticle>>[] = [];
+    for (const incomingArticle of normalizedPackage.articles) {
+      imported.push(
+        await importNormalizedArticle(
+          incomingArticle,
+          normalizedPackage.sourceLocale,
+          createdBy,
+          imported[0]?.article.translationGroup ?? undefined,
+        ),
       );
     }
-
-    const uploadedImages = await uploadArticleImages(normalizedArticle);
-    const coverUpload = uploadedImages.find(
-      (image) => normalizedImageUrlKey(image.sourceUrl) === normalizedImageUrlKey(normalizedArticle.coverImage.sourceUrl),
-    );
-
-    if (!coverUpload) {
-      throw new Error('Cover image upload did not complete.');
-    }
-
-    const rewrittenContent = rewriteImportedImageSources(normalizedArticle.content, uploadedImages);
-
-    const mediaFolder = await saveMediaAssets({
-      article: normalizedArticle,
-      uploadedImages,
-      createdBy,
-    });
-
-    const articleData = {
-      slug: normalizedArticle.slug,
-      locale: normalizedArticle.locale,
-      translationGroup: normalizedArticle.translationGroup,
-      translationSourceLocale: normalizedArticle.locale,
-      externalId: normalizedArticle.externalId || null,
-      importSource: SEO_ARTICLE_IMPORT_SOURCE,
-      importedAt: new Date(),
-      publicationCallback: normalizedArticle.publicationCallback || null,
-      title: normalizedArticle.title,
-      content: rewrittenContent,
-      category: normalizedArticle.category,
-      readTime: normalizedArticle.readTime,
-      date: normalizedArticle.date,
-      publishedAt: normalizedArticle.publishedAt,
-      image: coverUpload.hostedUrl,
-      imageMetaTitle: normalizedArticle.coverImage.metaTitle,
-      altText: normalizedArticle.coverImage.altText,
-      caption: normalizedArticle.coverImage.caption,
-      imageDescription: normalizedArticle.coverImage.description,
-      description: normalizedArticle.description,
-      featured: normalizedArticle.featured,
-      published:
-        existingImportedArticle?.published ??
-        normalizedArticle.locale === 'fr',
-      indexable: normalizedArticle.indexable,
-      tags: normalizedArticle.tags,
-      author: normalizedArticle.author,
-      seo: normalizedArticle.seo,
-    };
-    const article = existingImportedArticle
-      ? await prisma.blogArticle.update({
-          where: { id: existingImportedArticle.id },
-          data: articleData,
-        })
-      : await prisma.blogArticle.create({
-          data: {
-            ...articleData,
-            createdBy,
-          },
-        });
+    const sourceResult = imported[0];
+    const sourceArticle = sourceResult.article;
+    const articleUrl = (article: typeof sourceArticle) =>
+      new URL(`/${article.locale}/blog/${slugify(article.category)}/${article.slug}`, request.nextUrl.origin).toString();
 
     return createNoCacheResponse(
       {
-        message: existingImportedArticle
-          ? 'Imported article source draft updated successfully.'
-          : 'Imported article source draft created successfully.',
-        article: {
-          id: article.id,
+        success: true,
+        id: sourceArticle.id,
+        slug: sourceArticle.slug,
+        language: sourceArticle.locale,
+        status: sourceArticle.published ? 'published' : 'draft',
+        url: articleUrl(sourceArticle),
+        created: sourceResult.created,
+        translations: imported.slice(1).map(({ article }) => ({
+          language: article.locale,
           slug: article.slug,
-          locale: article.locale,
-          published: article.published,
-          indexable: article.indexable,
+          url: articleUrl(article),
+        })),
+        message: `Imported ${imported.length} linked article locale${imported.length === 1 ? '' : 's'} successfully.`,
+        article: {
+          id: sourceArticle.id,
+          slug: sourceArticle.slug,
+          locale: sourceArticle.locale,
+          published: sourceArticle.published,
+          indexable: sourceArticle.indexable,
         },
         mediaFolder: {
-          id: mediaFolder.id,
-          name: mediaFolder.name,
+          id: sourceResult.mediaFolder.id,
+          name: sourceResult.mediaFolder.name,
         },
       },
-      existingImportedArticle ? 200 : 201,
+      sourceResult.created ? 201 : 200,
     );
   } catch (error: unknown) {
     console.error('[seo-articles import] Error:', error);
