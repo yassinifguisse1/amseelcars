@@ -50,7 +50,13 @@ export async function POST(request: NextRequest) {
     const uploadUrl = new URL('/api/integrations/seo-articles/images', request.nextUrl.origin);
     uploadUrl.searchParams.set('token', token);
 
-    return createNoCacheResponse({ uploadUrl: uploadUrl.toString() });
+    return createNoCacheResponse({
+      uploadUrl: uploadUrl.toString(),
+      method: 'POST',
+      headers: {
+        Origin: origin,
+      },
+    });
   } catch (error: unknown) {
     if (error instanceof ZodError) {
       return createNoCacheResponse({ error: 'Validation error', details: error.issues }, 400);
