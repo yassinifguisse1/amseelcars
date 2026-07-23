@@ -31,6 +31,15 @@ export type JourneyEventLike = {
   createdAt: Date | string;
 };
 
+export type BookingJourneyEvent = {
+  id: string;
+  event: string;
+  createdAt: string;
+  carName: string | null;
+  path: string | null;
+  source: string | null;
+};
+
 export type BookingJourney = {
   id: string;
   stage: JourneyStage;
@@ -45,6 +54,10 @@ export type BookingJourney = {
   deviceType: string | null;
   pickupDate: string | null;
   returnDate: string | null;
+  pickupLocation: string | null;
+  returnLocation: string | null;
+  rentalDays: number | null;
+  totalPrice: number | null;
   path: string | null;
   createdAt: string;
   lastActivityAt: string;
@@ -53,6 +66,8 @@ export type BookingJourney = {
   /** Primary track event (best representative for this journey). */
   event: string;
   summary: string;
+  /** Related events in this journey, newest first. */
+  events: BookingJourneyEvent[];
 };
 
 const STAGE_RANK: Record<JourneyStage, number> = {
@@ -285,6 +300,40 @@ export function buildBookingJourneys(
         trim(journey.events.map((e) => trim(e.phone)).find(Boolean) || '') ||
         null;
 
+      const withPrice = [...journey.events]
+        .filter((e) => e.totalPrice != null && e.totalPrice > 0)
+        .sort((a, b) => new Date(toIso(b.createdAt)).getTime() - new Date(toIso(a.createdAt)).getTime());
+      const withDays = [...journey.events]
+        .filter((e) => e.rentalDays != null && e.rentalDays > 0)
+        .sort((a, b) => new Date(toIso(b.createdAt)).getTime() - new Date(toIso(a.createdAt)).getTime());
+      const pickupLocation =
+        trim(p.pickupLocation) ||
+        trim(journey.events.map((e) => trim(e.pickupLocation)).find(Boolean) || '') ||
+        null;
+      const returnLocation =
+        trim(p.returnLocation) ||
+        trim(journey.events.map((e) => trim(e.returnLocation)).find(Boolean) || '') ||
+        null;
+      const pickupDate =
+        trim(p.pickupDate) ||
+        trim(journey.events.map((e) => trim(e.pickupDate)).find(Boolean) || '') ||
+        null;
+      const returnDate =
+        trim(p.returnDate) ||
+        trim(journey.events.map((e) => trim(e.returnDate)).find(Boolean) || '') ||
+        null;
+
+      const events: BookingJourneyEvent[] = [...journey.events]
+        .sort((a, b) => new Date(toIso(b.createdAt)).getTime() - new Date(toIso(a.createdAt)).getTime())
+        .map((e) => ({
+          id: e.id,
+          event: e.event,
+          createdAt: toIso(e.createdAt),
+          carName: trim(e.carName) || null,
+          path: trim(e.path) || null,
+          source: trim(e.source) || null,
+        }));
+
       return {
         id: p.id,
         stage: journey.stage,
@@ -297,8 +346,12 @@ export function buildBookingJourneys(
         country: trim(p.country) || null,
         city: trim(p.city) || null,
         deviceType: trim(p.deviceType) || null,
-        pickupDate: trim(p.pickupDate) || null,
-        returnDate: trim(p.returnDate) || null,
+        pickupDate,
+        returnDate,
+        pickupLocation,
+        returnLocation,
+        rentalDays: withDays[0]?.rentalDays ?? p.rentalDays ?? null,
+        totalPrice: withPrice[0]?.totalPrice ?? p.totalPrice ?? null,
         path: trim(p.path) || null,
         createdAt: new Date(journey.firstAt).toISOString(),
         lastActivityAt: new Date(journey.lastAt).toISOString(),
@@ -306,6 +359,7 @@ export function buildBookingJourneys(
         hasContact: Boolean(fullName || email || phone),
         event: p.event,
         summary: summaryFor(journey.stage, car),
+        events,
       } satisfies BookingJourney;
     })
     .sort((a, b) => {

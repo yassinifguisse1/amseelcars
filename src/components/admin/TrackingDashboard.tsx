@@ -36,9 +36,7 @@ import {
   type AnalyticsRange,
 } from '@/lib/admin/analyticsRange';
 import {
-  JOURNEY_STAGE_LABELS,
   type BookingJourney,
-  type JourneyStage,
 } from '@/lib/admin/bookingJourneys';
 import {
   clearFilter,
@@ -160,7 +158,6 @@ type Insights = {
   };
 };
 
-type DashboardPage = 'analytics' | 'reservations';
 type JournalMode = 'clicks' | 'all';
 
 const EVENT_ICONS: Record<string, typeof MessageCircle> = {
@@ -420,112 +417,6 @@ function EventDetail({ event }: { event: TrackEventRow }) {
   );
 }
 
-const JOURNEY_STYLES: Record<JourneyStage, { card: string; badge: string; label: string }> = {
-  confirmed: {
-    card: 'border-green-200 bg-green-50',
-    badge: 'bg-green-200 text-green-900',
-    label: JOURNEY_STAGE_LABELS.confirmed,
-  },
-  abandoned: {
-    card: 'border-amber-300 bg-amber-50',
-    badge: 'bg-amber-200 text-amber-900',
-    label: JOURNEY_STAGE_LABELS.abandoned,
-  },
-  'form-started': {
-    card: 'border-orange-200 bg-orange-50/80',
-    badge: 'bg-orange-200 text-orange-950',
-    label: JOURNEY_STAGE_LABELS['form-started'],
-  },
-  'opened-no-details': {
-    card: 'border-sky-200 bg-sky-50/80',
-    badge: 'bg-sky-200 text-sky-950',
-    label: JOURNEY_STAGE_LABELS['opened-no-details'],
-  },
-  'car-interest': {
-    card: 'border-slate-200 bg-slate-50',
-    badge: 'bg-slate-200 text-slate-800',
-    label: JOURNEY_STAGE_LABELS['car-interest'],
-  },
-};
-
-function JourneyCard({ journey }: { journey: BookingJourney }) {
-  const style = JOURNEY_STYLES[journey.stage];
-  const title =
-    journey.fullName ||
-    journey.email ||
-    journey.phone ||
-    (journey.stage === 'car-interest' || journey.stage === 'opened-no-details'
-      ? 'Visiteur anonyme'
-      : 'Visiteur');
-
-  return (
-    <div className={`rounded-xl border p-4 ${style.card}`}>
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div className="min-w-0">
-          <p className="font-semibold text-slate-900">{title}</p>
-          <p className="text-sm text-slate-600">{journey.summary}</p>
-          <p className="mt-1 text-xs text-slate-400">
-            Dernière activité · {formatDate(journey.lastActivityAt)}
-            {journey.eventCount > 1 ? ` · ${journey.eventCount} événements` : ''}
-          </p>
-          {(journey.country || journey.deviceType) && (
-            <p className="mt-1 text-xs text-slate-500">
-              {[journey.country ? countryLabel(journey.country) : null, journey.city, journey.deviceType]
-                .filter(Boolean)
-                .join(' · ')}
-            </p>
-          )}
-          {(journey.pickupDate || journey.returnDate) && (
-            <p className="mt-1 text-xs text-slate-500">
-              {[journey.pickupDate, journey.returnDate].filter(Boolean).join(' → ')}
-            </p>
-          )}
-        </div>
-        <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${style.badge}`}>
-          {style.label}
-        </span>
-      </div>
-      {journey.hasContact ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {journey.phone ? (
-            <a
-              href={`tel:${journey.phone}`}
-              className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white"
-            >
-              <Phone className="h-3 w-3" /> Appeler
-            </a>
-          ) : null}
-          {journey.phone ? (
-            <a
-              href={`https://wa.me/${journey.phone.replace(/\D/g, '')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full bg-green-600 px-3 py-1.5 text-xs font-medium text-white"
-            >
-              <MessageCircle className="h-3 w-3" /> WhatsApp
-            </a>
-          ) : null}
-          {journey.email ? (
-            <a
-              href={`mailto:${journey.email}`}
-              className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-slate-800 ring-1 ring-slate-200"
-            >
-              <Mail className="h-3 w-3" /> Email
-            </a>
-          ) : null}
-        </div>
-      ) : (
-        <p className="mt-3 text-xs text-slate-500">
-          Pas de téléphone / email — suivi possible seulement via le parcours site.
-        </p>
-      )}
-    </div>
-  );
-}
-
-type JourneyFilter = 'all' | JourneyStage;
-
-
 function FilterBar({
   filters,
   onClearKey,
@@ -576,13 +467,198 @@ function FilterBar({
   );
 }
 
-export default function TrackingDashboard({ page = 'analytics' }: { page?: DashboardPage }) {
+const LEAD_STYLES: Record<'confirmed' | 'abandoned', { card: string; badge: string; label: string }> = {
+  confirmed: {
+    card: 'border-green-200 bg-green-50',
+    badge: 'bg-green-200 text-green-900',
+    label: 'Confirmée',
+  },
+  abandoned: {
+    card: 'border-amber-300 bg-amber-50',
+    badge: 'bg-amber-200 text-amber-900',
+    label: 'À relancer',
+  },
+};
+
+function ContactLeadCard({
+  journey,
+  eventLabels,
+}: {
+  journey: BookingJourney;
+  eventLabels: Record<string, string>;
+}) {
+  const [open, setOpen] = useState(false);
+  const kind = journey.stage === 'confirmed' ? 'confirmed' : 'abandoned';
+  const style = LEAD_STYLES[kind];
+  const title = journey.fullName || journey.phone || journey.email || 'Contact';
+  const days = journey.rentalDays;
+  const total =
+    journey.totalPrice != null
+      ? `${Math.round(journey.totalPrice).toLocaleString('fr-FR')} MAD`
+      : null;
+
+  return (
+    <div className={`rounded-xl border p-4 ${style.card}`}>
+      <button
+        type="button"
+        className="flex w-full items-start justify-between gap-2 text-left"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+      >
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold text-slate-900">{title}</p>
+          <p className="text-sm text-slate-600">
+            {journey.carName || 'Voiture'}
+            {journey.stage === 'confirmed' ? ' · Réservation confirmée' : ' · Formulaire non terminé'}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-2 text-xs">
+            {days != null && days > 0 ? (
+              <span className="rounded-full bg-white/80 px-2 py-0.5 font-medium text-slate-800 ring-1 ring-slate-200">
+                {days} jour{days > 1 ? 's' : ''}
+              </span>
+            ) : null}
+            {total ? (
+              <span className="rounded-full bg-white/80 px-2 py-0.5 font-semibold text-slate-900 ring-1 ring-slate-200">
+                Total {total}
+              </span>
+            ) : null}
+            <span className="rounded-full bg-white/80 px-2 py-0.5 text-slate-600 ring-1 ring-slate-200">
+              {journey.eventCount} événement{journey.eventCount > 1 ? 's' : ''}
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-slate-400">
+            Dernière activité · {formatDate(journey.lastActivityAt)}
+          </p>
+          {(journey.country || journey.deviceType) && (
+            <p className="mt-1 text-xs text-slate-500">
+              {[journey.country ? countryLabel(journey.country) : null, journey.city, journey.deviceType]
+                .filter(Boolean)
+                .join(' · ')}
+            </p>
+          )}
+          {(journey.pickupDate || journey.returnDate) && (
+            <p className="mt-1 text-xs text-slate-500">
+              {[journey.pickupDate, journey.returnDate].filter(Boolean).join(' → ')}
+            </p>
+          )}
+        </div>
+        <div className="flex shrink-0 flex-col items-end gap-2">
+          <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${style.badge}`}>
+            {style.label}
+          </span>
+          {open ? (
+            <ChevronUp className="h-4 w-4 text-slate-400" />
+          ) : (
+            <ChevronDown className="h-4 w-4 text-slate-400" />
+          )}
+        </div>
+      </button>
+
+      {open ? (
+        <div className="mt-3 space-y-3 border-t border-black/5 pt-3">
+          <dl className="grid gap-1.5 text-sm sm:grid-cols-2">
+            {[
+              ['Client', journey.fullName],
+              ['Téléphone', journey.phone],
+              ['Email', journey.email],
+              ['Voiture', journey.carName],
+              ['Jours', days != null && days > 0 ? String(days) : null],
+              ['Total', total],
+              ['Départ', journey.pickupDate],
+              ['Retour', journey.returnDate],
+              ['Lieu départ', formatLocation(journey.pickupLocation)],
+              ['Lieu retour', formatLocation(journey.returnLocation)],
+              ['Pays', journey.country ? countryLabel(journey.country) : null],
+              ['Ville', journey.city],
+              ['Appareil', journey.deviceType],
+            ]
+              .filter(([, v]) => v != null && v !== '' && v !== '–')
+              .map(([label, value]) => (
+                <div key={String(label)} className="rounded-lg bg-white/70 px-2.5 py-1.5">
+                  <dt className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+                    {label}
+                  </dt>
+                  <dd className="break-all font-medium text-slate-900">{String(value)}</dd>
+                </div>
+              ))}
+          </dl>
+
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Événements du parcours
+            </p>
+            <ul className="max-h-56 space-y-1.5 overflow-y-auto">
+              {(journey.events ?? []).map((ev) => (
+                <li
+                  key={ev.id}
+                  className="rounded-lg border border-slate-200/80 bg-white/80 px-2.5 py-2 text-xs"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold text-slate-900">
+                      {eventLabels[ev.event] ?? EVENT_LABELS[ev.event] ?? ev.event}
+                    </span>
+                    {ev.source ? (
+                      <span className="rounded-full bg-slate-100 px-1.5 py-0.5 text-slate-600">
+                        {sourceLabel(ev.source)}
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="mt-0.5 text-slate-500">
+                    {formatDate(ev.createdAt)}
+                    {ev.carName ? ` · ${ev.carName}` : ''}
+                    {ev.path ? ` · ${ev.path}` : ''}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ) : (
+        <p className="mt-2 text-xs text-slate-500">Cliquer pour voir le détail client et les événements</p>
+      )}
+
+      <div className="mt-3 flex flex-wrap gap-2" onClick={(e) => e.stopPropagation()}>
+        {journey.phone ? (
+          <a
+            href={`tel:${journey.phone}`}
+            className="inline-flex items-center gap-1 rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white"
+          >
+            <Phone className="h-3 w-3" /> Appeler
+          </a>
+        ) : null}
+        {journey.phone ? (
+          <a
+            href={`https://wa.me/${journey.phone.replace(/\D/g, '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded-full bg-green-600 px-3 py-1.5 text-xs font-medium text-white"
+          >
+            <MessageCircle className="h-3 w-3" /> WhatsApp
+          </a>
+        ) : null}
+        {journey.email ? (
+          <a
+            href={`mailto:${journey.email}`}
+            className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-slate-800 ring-1 ring-slate-200"
+          >
+            <Mail className="h-3 w-3" /> Email
+          </a>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+type LeadTab = 'call' | 'confirmed' | 'all-contacts';
+
+
+export default function TrackingDashboard() {
   const [range, setRange] = useState<AnalyticsRange>(() => resolveAnalyticsRange('24h'));
   const [filters, setFilters] = useState<AnalyticsDimensionFilters>({});
   const [filtersReady, setFiltersReady] = useState(false);
   const [events, setEvents] = useState<TrackEventRow[]>([]);
   const [journeys, setJourneys] = useState<BookingJourney[]>([]);
-  const [journeyFilter, setJourneyFilter] = useState<JourneyFilter>('all');
+  const [leadTab, setLeadTab] = useState<LeadTab>('call');
   const [journalMode, setJournalMode] = useState<JournalMode>('clicks');
   const [stats, setStats] = useState<TrackStats | null>(null);
   const [insights, setInsights] = useState<Insights | null>(null);
@@ -646,10 +722,10 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
         to: range.to.toISOString(),
         label: range.label,
         tz: timezone,
-        view: page === 'reservations' ? (journalMode === 'clicks' ? 'clicks' : 'reservations') : 'all',
+        view: journalMode === 'clicks' ? 'clicks' : 'reservations',
         excludePageViews: 'true',
       });
-      if (page === 'reservations' && eventFilter !== 'all') params.set('event', eventFilter);
+      if (eventFilter !== 'all') params.set('event', eventFilter);
       if (search) params.set('search', search);
       for (const [k, v] of Object.entries(filtersToQuery(filters))) {
         params.set(k, v);
@@ -671,7 +747,7 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
     } finally {
       setLoading(false);
     }
-  }, [eventFilter, filters, filtersReady, journalMode, page, pageNum, range, search, timezone]);
+  }, [eventFilter, filters, filtersReady, journalMode, pageNum, range, search, timezone]);
 
   useEffect(() => {
     fetchEvents();
@@ -698,23 +774,22 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
     });
   }, [countrySearch, insights?.countries]);
 
-  const filteredJourneys = useMemo(() => {
-    if (journeyFilter === 'all') return journeys;
-    return journeys.filter((j) => j.stage === journeyFilter);
-  }, [journeyFilter, journeys]);
+  const contactLeads = useMemo(() => journeys.filter((j) => j.hasContact), [journeys]);
 
-  const journeyCounts = useMemo(() => {
-    const counts: Record<JourneyFilter, number> = {
-      all: journeys.length,
-      confirmed: 0,
-      abandoned: 0,
-      'form-started': 0,
-      'opened-no-details': 0,
-      'car-interest': 0,
-    };
-    for (const j of journeys) counts[j.stage] += 1;
-    return counts;
-  }, [journeys]);
+  const callBackLeads = useMemo(
+    () => contactLeads.filter((j) => j.stage !== 'confirmed'),
+    [contactLeads],
+  );
+  const confirmedLeads = useMemo(
+    () => contactLeads.filter((j) => j.stage === 'confirmed'),
+    [contactLeads],
+  );
+
+  const visibleLeads = useMemo(() => {
+    if (leadTab === 'call') return callBackLeads;
+    if (leadTab === 'confirmed') return confirmedLeads;
+    return contactLeads;
+  }, [callBackLeads, confirmedLeads, contactLeads, leadTab]);
 
   const utmRows =
     utmTab === 'sources'
@@ -727,350 +802,6 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
   const carStats = insights?.carStats ?? [];
   const activeFilters = hasActiveFilters(filters);
 
-  const filterBar = (
-    <FilterBar
-      filters={filters}
-      onClearKey={removeDimFilter}
-      onClearAll={clearAllFilters}
-      dark
-    />
-  );
-
-  if (page === 'reservations') {
-    return (
-      <div className="space-y-6">
-        <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl">
-          <div className="flex flex-col gap-4 border-b border-zinc-800 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-            <div>
-              <h2 className="text-xl font-semibold tracking-tight">Reservations</h2>
-              <p className="mt-0.5 text-sm text-zinc-500">
-                Funnel, car clicks & booking journeys · Local ({timezone})
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <AnalyticsDateRangePicker value={range} onChange={onRangeChange} />
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={fetchEvents}
-                disabled={loading}
-                className="border-zinc-700 bg-zinc-900 text-zinc-100 hover:bg-zinc-800 hover:text-white"
-              >
-                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-                Refresh
-              </Button>
-            </div>
-          </div>
-
-          {error && (
-            <div className="mx-4 mt-4 rounded-lg border border-red-900/60 bg-red-950/50 p-3 text-sm text-red-200 sm:mx-6">
-              {error}
-            </div>
-          )}
-
-          {filterBar}
-
-          <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 xl:grid-cols-7">
-            {[
-              { label: 'Page views', value: funnel?.pageViews ?? stats?.pageViewsPeriod ?? '–' },
-              { label: 'Car interest', value: funnel?.carInterest ?? '–' },
-              { label: 'WhatsApp', value: funnel?.whatsapp ?? stats?.whatsappPeriod ?? '–' },
-              { label: 'Form open', value: funnel?.formOpen ?? '–' },
-              { label: 'In progress', value: funnel?.formProgress ?? '–' },
-              { label: 'Abandoned', value: funnel?.abandoned ?? stats?.abandonedPeriod ?? '–' },
-              { label: 'Confirmed', value: funnel?.confirmed ?? stats?.confirmedPeriod ?? '–' },
-            ].map((kpi) => (
-              <div key={kpi.label} className="rounded-xl border border-zinc-800 bg-zinc-900/60 px-3 py-3">
-                <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
-                <p className="mt-1 text-xl font-semibold tabular-nums">{kpi.value}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="p-4 sm:p-6">
-            <div className="mb-3 flex items-end justify-between gap-3">
-              <div>
-                <h3 className="text-sm font-semibold">Cars performance</h3>
-                <p className="text-xs text-zinc-500">Click a car to filter journeys and events</p>
-              </div>
-              <div className="hidden gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 sm:flex">
-                <span className="w-14 text-right">Clicks</span>
-                <span className="w-14 text-right">Opens</span>
-                <span className="w-14 text-right">Confirm</span>
-                <span className="w-14 text-right">Abandon</span>
-              </div>
-            </div>
-            {loading && carStats.length === 0 ? (
-              <div className="flex justify-center py-10">
-                <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
-              </div>
-            ) : carStats.length === 0 ? (
-              <p className="py-8 text-center text-sm text-zinc-500">No car activity in this range.</p>
-            ) : (
-              <ul className="max-h-96 space-y-1 overflow-y-auto">
-                {carStats.map((car) => {
-                  const value = car.slug || car.name;
-                  const active = filters.car === value || filters.car === car.name;
-                  return (
-                    <li key={value}>
-                      <button
-                        type="button"
-                        onClick={() => setDimFilter('car', value)}
-                        className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-zinc-900/80 ${
-                          active ? 'bg-zinc-800 ring-1 ring-sky-500/50' : ''
-                        }`}
-                      >
-                        <span className="min-w-0 flex-1 truncate font-medium">{car.name}</span>
-                        <span className="w-14 shrink-0 text-right tabular-nums text-zinc-300">{car.clicks}</span>
-                        <span className="w-14 shrink-0 text-right tabular-nums text-zinc-300">{car.opens}</span>
-                        <span className="w-14 shrink-0 text-right tabular-nums text-emerald-300">{car.confirms}</span>
-                        <span className="w-14 shrink-0 text-right tabular-nums text-amber-300">{car.abandons}</span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
-        </div>
-
-        <Card className="border-slate-200 bg-white shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Users className="h-5 w-5 text-[#b11226]" />
-              Booking journeys
-            </CardTitle>
-            <CardDescription>
-              One card per visitor for {range.label}
-              {activeFilters ? ' (scoped to active filters)' : ''}.
-            </CardDescription>
-            <div className="flex flex-wrap gap-2 pt-2">
-              {(
-                [
-                  ['all', 'All'],
-                  ['abandoned', 'À relancer'],
-                  ['form-started', 'Sans coordonnées'],
-                  ['opened-no-details', 'Ouvert, pas de détails'],
-                  ['car-interest', 'Intérêt voiture'],
-                  ['confirmed', 'Confirmées'],
-                ] as Array<[JourneyFilter, string]>
-              ).map(([key, label]) => (
-                <Button
-                  key={key}
-                  size="sm"
-                  variant={journeyFilter === key ? 'default' : 'outline'}
-                  className={
-                    journeyFilter === key
-                      ? 'bg-slate-950 text-white hover:bg-slate-800'
-                      : 'bg-white'
-                  }
-                  onClick={() => setJourneyFilter(key)}
-                >
-                  {label}
-                  <span className="ml-1.5 tabular-nums opacity-70">{journeyCounts[key]}</span>
-                </Button>
-              ))}
-            </div>
-          </CardHeader>
-          <CardContent>
-            {loading && journeys.length === 0 ? (
-              <div className="flex justify-center py-10">
-                <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
-              </div>
-            ) : filteredJourneys.length === 0 ? (
-              <p className="py-8 text-center text-sm text-slate-500">
-                No journeys in this filter for the selected period.
-              </p>
-            ) : (
-              <div className="grid gap-3 md:grid-cols-2">
-                {filteredJourneys.map((journey) => (
-                  <JourneyCard key={`${journey.id}-${journey.stage}`} journey={journey} />
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card className="border-slate-200 bg-white shadow-sm">
-          <CardHeader>
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-              <div>
-                <CardTitle className="flex items-center gap-2">
-                  <MousePointerClick className="h-5 w-5 text-[#b11226]" />
-                  {journalMode === 'clicks' ? 'Important clicks' : 'Booking events'}
-                </CardTitle>
-                <CardDescription className="mt-1">Same date range and dimension filters.</CardDescription>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <Button
-                    size="sm"
-                    variant={journalMode === 'clicks' ? 'default' : 'outline'}
-                    className={journalMode === 'clicks' ? 'bg-slate-950 text-white' : 'bg-white'}
-                    onClick={() => {
-                      setJournalMode('clicks');
-                      setPageNum(1);
-                    }}
-                  >
-                    Important clicks
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant={journalMode === 'all' ? 'default' : 'outline'}
-                    className={journalMode === 'all' ? 'bg-slate-950 text-white' : 'bg-white'}
-                    onClick={() => {
-                      setJournalMode('all');
-                      setPageNum(1);
-                    }}
-                  >
-                    Booking funnel events
-                  </Button>
-                </div>
-              </div>
-              <Select
-                value={eventFilter}
-                onValueChange={(v) => {
-                  setEventFilter(v);
-                  setPageNum(1);
-                }}
-              >
-                <SelectTrigger className="w-[220px] bg-white">
-                  <SelectValue placeholder="Filter" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All</SelectItem>
-                  {Object.entries(EVENT_LABELS).map(([value, label]) => (
-                    <SelectItem key={value} value={value}>
-                      {label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <form onSubmit={handleSearch} className="flex gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                <Input
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  placeholder="Car, email, phone, page…"
-                  className="bg-white pl-9"
-                />
-              </div>
-              <Button type="submit" variant="outline" className="bg-white">
-                Search
-              </Button>
-            </form>
-
-            {loading ? (
-              <div className="flex justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
-              </div>
-            ) : events.length === 0 ? (
-              <p className="py-10 text-center text-sm text-slate-500">No events for this filter.</p>
-            ) : (
-              <div className="space-y-2">
-                {events.map((event) => {
-                  const Icon = EVENT_ICONS[event.event] ?? MousePointerClick;
-                  const isExpanded = expandedId === event.id;
-                  const isAbandoned = event.event === 'booking-abandoned';
-                  const isConfirmed = event.event === 'booking-confirmed';
-                  return (
-                    <div
-                      key={event.id}
-                      className={`rounded-xl border p-4 ${
-                        isAbandoned
-                          ? 'border-amber-300 bg-amber-50/80'
-                          : isConfirmed
-                            ? 'border-green-200 bg-green-50/50'
-                            : 'border-slate-200 bg-white'
-                      }`}
-                    >
-                      <button
-                        type="button"
-                        className="flex w-full items-start gap-3 text-left"
-                        onClick={() => setExpandedId(isExpanded ? null : event.id)}
-                      >
-                        <div className="mt-0.5 rounded-lg bg-slate-100 p-2">
-                          <Icon className="h-4 w-4 text-slate-700" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="font-semibold text-slate-900">
-                              {eventLabels[event.event] ?? event.event}
-                            </span>
-                            {isAbandoned && (
-                              <span className="rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-900">
-                                À relancer
-                              </span>
-                            )}
-                            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
-                              {sourceLabel(event.source)}
-                            </span>
-                            {event.country ? (
-                              <button
-                                type="button"
-                                className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-200"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setDimFilter('country', event.country!.toUpperCase());
-                                }}
-                              >
-                                {event.country}
-                              </button>
-                            ) : null}
-                          </div>
-                          <p className="mt-1 truncate text-sm text-slate-600">
-                            {event.fullName || event.carName || event.carSlug || event.path}
-                            {event.phone ? ` · ${event.phone}` : ''}
-                          </p>
-                          <p className="mt-1 text-xs text-slate-400">{formatDate(event.createdAt)}</p>
-                        </div>
-                        {isExpanded ? (
-                          <ChevronUp className="h-4 w-4 text-slate-400" />
-                        ) : (
-                          <ChevronDown className="h-4 w-4 text-slate-400" />
-                        )}
-                      </button>
-                      {isExpanded && <EventDetail event={event} />}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between pt-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={pageNum <= 1 || loading}
-                  onClick={() => setPageNum((p) => p - 1)}
-                  className="bg-white"
-                >
-                  Previous
-                </Button>
-                <span className="text-sm text-slate-500">
-                  Page {pageNum} / {totalPages}
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={pageNum >= totalPages || loading}
-                  onClick={() => setPageNum((p) => p + 1)}
-                  className="bg-white"
-                >
-                  Next
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  // Analytics page
   return (
     <div className="space-y-6">
       <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-xl">
@@ -1078,7 +809,7 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
           <div>
             <h2 className="text-xl font-semibold tracking-tight">Analytics</h2>
             <p className="mt-0.5 text-sm text-zinc-500">
-              Visitors, countries & sources · Local ({timezone})
+              Traffic, cars & leads · Local ({timezone})
               {activeFilters ? ' · filtered' : ''}
             </p>
           </div>
@@ -1103,7 +834,7 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
           </div>
         )}
 
-        {filterBar}
+        <FilterBar filters={filters} onClearKey={removeDimFilter} onClearAll={clearAllFilters} dark />
 
         <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
           {[
@@ -1120,6 +851,22 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
               <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
               <p className="mt-1 text-2xl font-semibold tabular-nums">{kpi.value}</p>
               <p className="mt-1 text-xs text-zinc-500">{kpi.hint}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid gap-3 border-b border-zinc-800 px-4 py-4 sm:grid-cols-2 sm:px-6 md:grid-cols-3 lg:grid-cols-6">
+          {[
+            { label: 'Car interest', value: funnel?.carInterest ?? '–' },
+            { label: 'Form open', value: funnel?.formOpen ?? '–' },
+            { label: 'In progress', value: funnel?.formProgress ?? '–' },
+            { label: 'Abandoned', value: funnel?.abandoned ?? stats?.abandonedPeriod ?? '–' },
+            { label: 'Confirmed', value: funnel?.confirmed ?? stats?.confirmedPeriod ?? '–' },
+            { label: 'To call', value: callBackLeads.length },
+          ].map((kpi) => (
+            <div key={kpi.label} className="rounded-xl border border-zinc-800 bg-zinc-900/40 px-3 py-2.5">
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">{kpi.label}</p>
+              <p className="mt-1 text-lg font-semibold tabular-nums">{kpi.value}</p>
             </div>
           ))}
         </div>
@@ -1145,12 +892,12 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
           )}
         </div>
 
-        <div className="grid gap-0 lg:grid-cols-2">
+        <div className="grid gap-0 border-b border-zinc-800 lg:grid-cols-2">
           <div className="border-b border-zinc-800 p-4 sm:p-6 lg:border-b-0 lg:border-r">
             <div className="mb-3 flex items-end justify-between gap-3">
               <div>
                 <h3 className="text-sm font-semibold">Countries</h3>
-                <p className="text-xs text-zinc-500">Click to filter all KPIs</p>
+                <p className="text-xs text-zinc-500">Click to filter everything below</p>
               </div>
               <div className="flex gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
                 <span className="w-16 text-right">Visitors</span>
@@ -1166,7 +913,7 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
                 className="h-9 border-zinc-700 bg-zinc-900 pl-9 text-sm text-zinc-100 placeholder:text-zinc-500"
               />
             </div>
-            <ul className="max-h-80 space-y-1 overflow-y-auto">
+            <ul className="max-h-72 space-y-1 overflow-y-auto">
               {filteredCountries.length === 0 ? (
                 <li className="py-8 text-center text-sm text-zinc-500">No countries yet.</li>
               ) : (
@@ -1231,11 +978,8 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
                   UTM Parameters
                 </button>
               </div>
-              <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
-                Visitors
-              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Visitors</span>
             </div>
-
             {sourceTab === 'utm' ? (
               <div className="mb-3 flex gap-2">
                 {(['sources', 'mediums', 'campaigns'] as const).map((tab) => (
@@ -1252,8 +996,7 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
                 ))}
               </div>
             ) : null}
-
-            <ul className="max-h-80 space-y-1 overflow-y-auto">
+            <ul className="max-h-72 space-y-1 overflow-y-auto">
               {sourceTab === 'referrers' ? (
                 (insights?.referrers?.length ?? 0) === 0 ? (
                   <li className="py-8 text-center text-sm text-zinc-500">No referrers yet.</li>
@@ -1303,7 +1046,282 @@ export default function TrackingDashboard({ page = 'analytics' }: { page?: Dashb
             </ul>
           </div>
         </div>
+
+        <div className="p-4 sm:p-6">
+          <div className="mb-3 flex items-end justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-semibold">Cars performance</h3>
+              <p className="text-xs text-zinc-500">Click a car to filter leads and events</p>
+            </div>
+            <div className="hidden gap-4 text-[10px] font-semibold uppercase tracking-wide text-zinc-500 sm:flex">
+              <span className="w-14 text-right">Clicks</span>
+              <span className="w-14 text-right">Opens</span>
+              <span className="w-14 text-right">Confirm</span>
+              <span className="w-14 text-right">Abandon</span>
+            </div>
+          </div>
+          {loading && carStats.length === 0 ? (
+            <div className="flex justify-center py-8">
+              <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
+            </div>
+          ) : carStats.length === 0 ? (
+            <p className="py-6 text-center text-sm text-zinc-500">No car activity in this range.</p>
+          ) : (
+            <ul className="max-h-64 space-y-1 overflow-y-auto">
+              {carStats.map((car) => {
+                const value = car.slug || car.name;
+                const active = filters.car === value || filters.car === car.name;
+                return (
+                  <li key={value}>
+                    <button
+                      type="button"
+                      onClick={() => setDimFilter('car', value)}
+                      className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm hover:bg-zinc-900/80 ${
+                        active ? 'bg-zinc-800 ring-1 ring-sky-500/50' : ''
+                      }`}
+                    >
+                      <span className="min-w-0 flex-1 truncate font-medium">{car.name}</span>
+                      <span className="w-14 shrink-0 text-right tabular-nums text-zinc-300">{car.clicks}</span>
+                      <span className="w-14 shrink-0 text-right tabular-nums text-zinc-300">{car.opens}</span>
+                      <span className="w-14 shrink-0 text-right tabular-nums text-emerald-300">{car.confirms}</span>
+                      <span className="w-14 shrink-0 text-right tabular-nums text-amber-300">{car.abandons}</span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </div>
+
+      <Card className="border-slate-200 bg-white shadow-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <Phone className="h-5 w-5 text-[#b11226]" />
+            Leads to call
+          </CardTitle>
+          <CardDescription>
+            Only people who left a phone or email for {range.label}. Anonymous clicks stay in the event journal.
+          </CardDescription>
+          <div className="flex flex-wrap gap-2 pt-2">
+            {(
+              [
+                ['call', 'À relancer', callBackLeads.length],
+                ['confirmed', 'Confirmées', confirmedLeads.length],
+                ['all-contacts', 'Tous contacts', contactLeads.length],
+              ] as Array<[LeadTab, string, number]>
+            ).map(([key, label, count]) => (
+              <Button
+                key={key}
+                size="sm"
+                variant={leadTab === key ? 'default' : 'outline'}
+                className={leadTab === key ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
+                onClick={() => setLeadTab(key)}
+              >
+                {label}
+                <span className="ml-1.5 tabular-nums opacity-70">{count}</span>
+              </Button>
+            ))}
+          </div>
+        </CardHeader>
+        <CardContent>
+          {loading && journeys.length === 0 ? (
+            <div className="flex justify-center py-10">
+              <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+            </div>
+          ) : visibleLeads.length === 0 ? (
+            <p className="py-8 text-center text-sm text-slate-500">
+              No contacts with phone or email in this filter.
+            </p>
+          ) : (
+            <div className="grid gap-3 md:grid-cols-2">
+              {visibleLeads.map((journey) => (
+                <ContactLeadCard
+                  key={`${journey.id}-${journey.stage}`}
+                  journey={journey}
+                  eventLabels={eventLabels}
+                />
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="border-slate-200 bg-white shadow-sm">
+        <CardHeader>
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <MousePointerClick className="h-5 w-5 text-[#b11226]" />
+                {journalMode === 'clicks' ? 'Important clicks' : 'Booking events'}
+              </CardTitle>
+              <CardDescription className="mt-1">Same date range and country / car filters.</CardDescription>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant={journalMode === 'clicks' ? 'default' : 'outline'}
+                  className={journalMode === 'clicks' ? 'bg-slate-950 text-white' : 'bg-white'}
+                  onClick={() => {
+                    setJournalMode('clicks');
+                    setPageNum(1);
+                  }}
+                >
+                  Important clicks
+                </Button>
+                <Button
+                  size="sm"
+                  variant={journalMode === 'all' ? 'default' : 'outline'}
+                  className={journalMode === 'all' ? 'bg-slate-950 text-white' : 'bg-white'}
+                  onClick={() => {
+                    setJournalMode('all');
+                    setPageNum(1);
+                  }}
+                >
+                  Booking funnel events
+                </Button>
+              </div>
+            </div>
+            <Select
+              value={eventFilter}
+              onValueChange={(v) => {
+                setEventFilter(v);
+                setPageNum(1);
+              }}
+            >
+              <SelectTrigger className="w-[220px] bg-white">
+                <SelectValue placeholder="Filter" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                {Object.entries(EVENT_LABELS).map(([value, label]) => (
+                  <SelectItem key={value} value={value}>
+                    {label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <form onSubmit={handleSearch} className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <Input
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Car, email, phone, page…"
+                className="bg-white pl-9"
+              />
+            </div>
+            <Button type="submit" variant="outline" className="bg-white">
+              Search
+            </Button>
+          </form>
+
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+            </div>
+          ) : events.length === 0 ? (
+            <p className="py-10 text-center text-sm text-slate-500">No events for this filter.</p>
+          ) : (
+            <div className="space-y-2">
+              {events.map((event) => {
+                const Icon = EVENT_ICONS[event.event] ?? MousePointerClick;
+                const isExpanded = expandedId === event.id;
+                const isAbandoned = event.event === 'booking-abandoned';
+                const isConfirmed = event.event === 'booking-confirmed';
+                return (
+                  <div
+                    key={event.id}
+                    className={`rounded-xl border p-4 ${
+                      isAbandoned
+                        ? 'border-amber-300 bg-amber-50/80'
+                        : isConfirmed
+                          ? 'border-green-200 bg-green-50/50'
+                          : 'border-slate-200 bg-white'
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      className="flex w-full items-start gap-3 text-left"
+                      onClick={() => setExpandedId(isExpanded ? null : event.id)}
+                    >
+                      <div className="mt-0.5 rounded-lg bg-slate-100 p-2">
+                        <Icon className="h-4 w-4 text-slate-700" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-semibold text-slate-900">
+                            {eventLabels[event.event] ?? event.event}
+                          </span>
+                          {isAbandoned && (
+                            <span className="rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-900">
+                              À relancer
+                            </span>
+                          )}
+                          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                            {sourceLabel(event.source)}
+                          </span>
+                          {event.country ? (
+                            <button
+                              type="button"
+                              className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-200"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDimFilter('country', event.country!.toUpperCase());
+                              }}
+                            >
+                              {event.country}
+                            </button>
+                          ) : null}
+                        </div>
+                        <p className="mt-1 truncate text-sm text-slate-600">
+                          {event.fullName || event.carName || event.carSlug || event.path}
+                          {event.phone ? ` · ${event.phone}` : ''}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-400">{formatDate(event.createdAt)}</p>
+                      </div>
+                      {isExpanded ? (
+                        <ChevronUp className="h-4 w-4 text-slate-400" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4 text-slate-400" />
+                      )}
+                    </button>
+                    {isExpanded && <EventDetail event={event} />}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={pageNum <= 1 || loading}
+                onClick={() => setPageNum((p) => p - 1)}
+                className="bg-white"
+              >
+                Previous
+              </Button>
+              <span className="text-sm text-slate-500">
+                Page {pageNum} / {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={pageNum >= totalPages || loading}
+                onClick={() => setPageNum((p) => p + 1)}
+                className="bg-white"
+              >
+                Next
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

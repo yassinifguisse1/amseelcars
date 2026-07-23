@@ -47,7 +47,6 @@ import {
 import { categoryToSlug } from '@/data/blog';
 import {
   BarChart3,
-  CalendarCheck,
   CalendarDays,
   CheckCircle2,
   Code2,
@@ -318,7 +317,7 @@ export default function AdminPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [jsonMode, setJsonMode] = useState(false);
   const [jsonInput, setJsonInput] = useState('');
-  const [activeTab, setActiveTab] = useState<'create' | 'list' | 'media' | 'pages' | 'tracking' | 'reservations'>('tracking');
+  const [activeTab, setActiveTab] = useState<'create' | 'list' | 'media' | 'pages' | 'tracking'>('tracking');
   const [articles, setArticles] = useState<ArticleSummary[]>([]);
   const [articlesLoading, setArticlesLoading] = useState(false);
   const [articlesError, setArticlesError] = useState<string | null>(null);
@@ -1600,7 +1599,7 @@ export default function AdminPage() {
           </div>
 
           <div className="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between md:p-5">
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-6">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
               <Button
                 variant={activeTab === 'tracking' ? 'default' : 'outline'}
                 onClick={() => {
@@ -1613,19 +1612,6 @@ export default function AdminPage() {
               >
                 <BarChart3 className="h-4 w-4" />
                 Analytics
-              </Button>
-              <Button
-                variant={activeTab === 'reservations' ? 'default' : 'outline'}
-                onClick={() => {
-                  setActiveTab('reservations');
-                  cancelEdit();
-                  cancelPageEdit();
-                }}
-                className={activeTab === 'reservations' ? 'bg-slate-950 text-white hover:bg-slate-800' : 'bg-white'}
-                size="sm"
-              >
-                <CalendarCheck className="h-4 w-4" />
-                Reservations
               </Button>
               <Button
                 variant={activeTab === 'create' ? 'default' : 'outline'}
@@ -2433,9 +2419,7 @@ export default function AdminPage() {
             </Card>
           </div>
         ) : activeTab === 'tracking' ? (
-          <TrackingDashboard page="analytics" />
-        ) : activeTab === 'reservations' ? (
-          <TrackingDashboard page="reservations" />
+          <TrackingDashboard />
         ) : activeTab === 'list' ? (
           <Card>
             <CardHeader>
