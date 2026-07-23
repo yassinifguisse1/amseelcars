@@ -2,6 +2,7 @@
 export type JourneyStage =
   | 'confirmed'
   | 'abandoned'
+  | 'whatsapp'
   | 'form-started'
   | 'opened-no-details'
   | 'car-interest';
@@ -73,6 +74,7 @@ export type BookingJourney = {
 const STAGE_RANK: Record<JourneyStage, number> = {
   confirmed: 50,
   abandoned: 40,
+  whatsapp: 35,
   'form-started': 30,
   'opened-no-details': 20,
   'car-interest': 10,
@@ -85,6 +87,7 @@ const INTEREST_EVENTS = new Set([
   'booking-form-progress',
   'booking-dialog-open',
   'contact-submit',
+  'whatsapp',
   'car-card-click',
   'reserver',
   'scroll-reservation',
@@ -138,6 +141,8 @@ function stageForEvent(row: JourneyEventLike): JourneyStage | null {
       return hasContact(row) ? 'abandoned' : 'opened-no-details';
     case 'contact-submit':
       return hasContact(row) ? 'abandoned' : 'form-started';
+    case 'whatsapp':
+      return 'whatsapp';
     case 'booking-dialog-open':
     case 'scroll-reservation':
       return 'opened-no-details';
@@ -156,6 +161,8 @@ function summaryFor(stage: JourneyStage, car: string | null): string {
       return `Réservation confirmée · ${carLabel}`;
     case 'abandoned':
       return `A commencé une réservation · ${carLabel}`;
+    case 'whatsapp':
+      return `Clic WhatsApp · ${carLabel}`;
     case 'form-started':
       return `Formulaire commencé, sans coordonnées · ${carLabel}`;
     case 'opened-no-details':
@@ -261,18 +268,19 @@ export function buildBookingJourneys(
   }
 
   const stageOrder = (s: JourneyStage) => {
-    // Actionable first: abandoned (call back), then incomplete, then confirmed (done), then cold interest
     switch (s) {
       case 'abandoned':
         return 0;
-      case 'form-started':
+      case 'whatsapp':
         return 1;
-      case 'opened-no-details':
+      case 'form-started':
         return 2;
-      case 'car-interest':
+      case 'opened-no-details':
         return 3;
-      case 'confirmed':
+      case 'car-interest':
         return 4;
+      case 'confirmed':
+        return 5;
     }
   };
 
@@ -373,6 +381,7 @@ export function buildBookingJourneys(
 export const JOURNEY_STAGE_LABELS: Record<JourneyStage, string> = {
   confirmed: 'Confirmée',
   abandoned: 'À relancer',
+  whatsapp: 'WhatsApp',
   'form-started': 'Sans coordonnées',
   'opened-no-details': 'Ouvert, pas de détails',
   'car-interest': 'Intérêt voiture',

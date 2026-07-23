@@ -467,7 +467,10 @@ function FilterBar({
   );
 }
 
-const LEAD_STYLES: Record<'confirmed' | 'abandoned', { card: string; badge: string; label: string }> = {
+const LEAD_STYLES: Record<
+  'confirmed' | 'abandoned' | 'whatsapp',
+  { card: string; badge: string; label: string }
+> = {
   confirmed: {
     card: 'border-green-200 bg-green-50',
     badge: 'bg-green-200 text-green-900',
@@ -477,6 +480,11 @@ const LEAD_STYLES: Record<'confirmed' | 'abandoned', { card: string; badge: stri
     card: 'border-amber-300 bg-amber-50',
     badge: 'bg-amber-200 text-amber-900',
     label: 'À relancer',
+  },
+  whatsapp: {
+    card: 'border-emerald-200 bg-emerald-50',
+    badge: 'bg-emerald-600 text-white',
+    label: 'WhatsApp',
   },
 };
 
@@ -488,14 +496,24 @@ function ContactLeadCard({
   eventLabels: Record<string, string>;
 }) {
   const [open, setOpen] = useState(false);
-  const kind = journey.stage === 'confirmed' ? 'confirmed' : 'abandoned';
-  const style = LEAD_STYLES[kind];
-  const title = journey.fullName || journey.phone || journey.email || 'Contact';
+  const styleKind: 'confirmed' | 'abandoned' | 'whatsapp' =
+    journey.stage === 'confirmed'
+      ? 'confirmed'
+      : journey.stage === 'whatsapp'
+        ? 'whatsapp'
+        : 'abandoned';
+  const style = LEAD_STYLES[styleKind];
+  const title =
+    journey.fullName ||
+    journey.phone ||
+    journey.email ||
+    (styleKind === 'whatsapp' ? 'Clic WhatsApp' : 'Contact');
   const days = journey.rentalDays;
   const total =
     journey.totalPrice != null
       ? `${Math.round(journey.totalPrice).toLocaleString('fr-FR')} MAD`
       : null;
+  const waClicks = (journey.events ?? []).filter((e) => e.event === 'whatsapp').length;
 
   return (
     <div className={`rounded-xl border p-4 ${style.card}`}>
@@ -509,7 +527,11 @@ function ContactLeadCard({
           <p className="font-semibold text-slate-900">{title}</p>
           <p className="text-sm text-slate-600">
             {journey.carName || 'Voiture'}
-            {journey.stage === 'confirmed' ? ' · Réservation confirmée' : ' · Formulaire non terminé'}
+            {journey.stage === 'confirmed'
+              ? ' · Réservation confirmée'
+              : journey.stage === 'whatsapp'
+                ? ' · Clic WhatsApp'
+                : ' · Formulaire non terminé'}
           </p>
           <div className="mt-2 flex flex-wrap gap-2 text-xs">
             {days != null && days > 0 ? (
@@ -520,6 +542,11 @@ function ContactLeadCard({
             {total ? (
               <span className="rounded-full bg-white/80 px-2 py-0.5 font-semibold text-slate-900 ring-1 ring-slate-200">
                 Total {total}
+              </span>
+            ) : null}
+            {waClicks > 0 ? (
+              <span className="rounded-full bg-emerald-600/10 px-2 py-0.5 font-medium text-emerald-800 ring-1 ring-emerald-200">
+                {waClicks} WhatsApp
               </span>
             ) : null}
             <span className="rounded-full bg-white/80 px-2 py-0.5 text-slate-600 ring-1 ring-slate-200">
@@ -571,6 +598,7 @@ function ContactLeadCard({
               ['Pays', journey.country ? countryLabel(journey.country) : null],
               ['Ville', journey.city],
               ['Appareil', journey.deviceType],
+              ['Page', journey.path],
             ]
               .filter(([, v]) => v != null && v !== '' && v !== '–')
               .map(([label, value]) => (
@@ -614,7 +642,7 @@ function ContactLeadCard({
           </div>
         </div>
       ) : (
-        <p className="mt-2 text-xs text-slate-500">Cliquer pour voir le détail client et les événements</p>
+        <p className="mt-2 text-xs text-slate-500">Cliquer pour voir le détail et les événements</p>
       )}
 
       <div className="mt-3 flex flex-wrap gap-2" onClick={(e) => e.stopPropagation()}>
@@ -633,7 +661,7 @@ function ContactLeadCard({
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 rounded-full bg-green-600 px-3 py-1.5 text-xs font-medium text-white"
           >
-            <MessageCircle className="h-3 w-3" /> WhatsApp
+            <MessageCircle className="h-3 w-3" /> WhatsApp client
           </a>
         ) : null}
         {journey.email ? (
@@ -649,7 +677,7 @@ function ContactLeadCard({
   );
 }
 
-type LeadTab = 'call' | 'confirmed' | 'all-contacts';
+type LeadTab = 'call' | 'confirmed' | 'whatsapp' | 'all-contacts';
 
 
 export default function TrackingDashboard() {
@@ -658,7 +686,7 @@ export default function TrackingDashboard() {
   const [filtersReady, setFiltersReady] = useState(false);
   const [events, setEvents] = useState<TrackEventRow[]>([]);
   const [journeys, setJourneys] = useState<BookingJourney[]>([]);
-  const [leadTab, setLeadTab] = useState<LeadTab>('call');
+  const [leadTab, setLeadTab] = useState<LeadTab>('whatsapp');
   const [journalMode, setJournalMode] = useState<JournalMode>('clicks');
   const [stats, setStats] = useState<TrackStats | null>(null);
   const [insights, setInsights] = useState<Insights | null>(null);
@@ -784,12 +812,20 @@ export default function TrackingDashboard() {
     () => contactLeads.filter((j) => j.stage === 'confirmed'),
     [contactLeads],
   );
+  const whatsappLeads = useMemo(
+    () =>
+      journeys.filter(
+        (j) => j.stage === 'whatsapp' || (j.events ?? []).some((e) => e.event === 'whatsapp'),
+      ),
+    [journeys],
+  );
 
   const visibleLeads = useMemo(() => {
     if (leadTab === 'call') return callBackLeads;
     if (leadTab === 'confirmed') return confirmedLeads;
+    if (leadTab === 'whatsapp') return whatsappLeads;
     return contactLeads;
-  }, [callBackLeads, confirmedLeads, contactLeads, leadTab]);
+  }, [callBackLeads, confirmedLeads, contactLeads, leadTab, whatsappLeads]);
 
   const utmRows =
     utmTab === 'sources'
@@ -1098,16 +1134,18 @@ export default function TrackingDashboard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <Phone className="h-5 w-5 text-[#b11226]" />
-            Leads to call
+            Leads
           </CardTitle>
           <CardDescription>
-            Only people who left a phone or email for {range.label}. Anonymous clicks stay in the event journal.
+            Confirmed bookings, WhatsApp clicks, and contacts to call for {range.label}. Click a card
+            for full details and events.
           </CardDescription>
           <div className="flex flex-wrap gap-2 pt-2">
             {(
               [
-                ['call', 'À relancer', callBackLeads.length],
+                ['whatsapp', 'WhatsApp', whatsappLeads.length],
                 ['confirmed', 'Confirmées', confirmedLeads.length],
+                ['call', 'À relancer', callBackLeads.length],
                 ['all-contacts', 'Tous contacts', contactLeads.length],
               ] as Array<[LeadTab, string, number]>
             ).map(([key, label, count]) => (
@@ -1131,14 +1169,20 @@ export default function TrackingDashboard() {
             </div>
           ) : visibleLeads.length === 0 ? (
             <p className="py-8 text-center text-sm text-slate-500">
-              No contacts with phone or email in this filter.
+              {leadTab === 'whatsapp'
+                ? 'No WhatsApp clicks in this period.'
+                : 'No leads in this filter for the selected period.'}
             </p>
           ) : (
             <div className="grid gap-3 md:grid-cols-2">
               {visibleLeads.map((journey) => (
                 <ContactLeadCard
-                  key={`${journey.id}-${journey.stage}`}
-                  journey={journey}
+                  key={`${journey.id}-${journey.stage}-${leadTab}`}
+                  journey={
+                    leadTab === 'whatsapp' && journey.stage !== 'whatsapp'
+                      ? { ...journey, stage: 'whatsapp' }
+                      : journey
+                  }
                   eventLabels={eventLabels}
                 />
               ))}

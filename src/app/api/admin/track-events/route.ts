@@ -63,6 +63,7 @@ const JOURNEY_EVENTS = [
   'booking-submit',
   'booking-dialog-open',
   'contact-submit',
+  'whatsapp',
   'car-card-click',
   'reserver',
   'scroll-reservation',
