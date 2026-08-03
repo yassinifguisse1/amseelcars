@@ -125,7 +125,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
       })
       setSelectedCar({
         name: car.carName,
-        price: car.pricePerDay,
+        price: car.pricing?.shortTerm || car.pricePerDay,
         image: car.carImage,
         slug: car.slug,
       })
@@ -142,7 +142,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
         carSlug: car.slug,
         carName: car.carName,
       })
-      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${car.pricePerDay} MAD/jour. Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
+      const daily = car.pricing?.shortTerm || car.pricePerDay
+      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${daily} MAD/jour (minimum 5 jours). Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL
       const encodedMessage = encodeURIComponent(message);
@@ -492,7 +493,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     imageAlt={carListingImageAlt(displayCar, l)}
                     imageTitle={carListingImageTitle(displayCar, l)}
                     imageCaption={carListingCaption(displayCar, l)}
-                    pricePerDay={car.pricePerDay}
+                    pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
@@ -521,7 +522,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     imageAlt={carListingImageAlt(displayCar, l)}
                     imageTitle={carListingImageTitle(displayCar, l)}
                     imageCaption={carListingCaption(displayCar, l)}
-                    pricePerDay={car.pricePerDay}
+                    pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
@@ -552,7 +553,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       imageAlt={carListingImageAlt(displayCar, l)}
                       imageTitle={carListingImageTitle(displayCar, l)}
                       imageCaption={carListingCaption(displayCar, l)}
-                      pricePerDay={car.pricePerDay}
+                      pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
@@ -581,7 +582,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       imageAlt={carListingImageAlt(displayCar, l)}
                       imageTitle={carListingImageTitle(displayCar, l)}
                       imageCaption={carListingCaption(displayCar, l)}
-                      pricePerDay={car.pricePerDay}
+                      pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}

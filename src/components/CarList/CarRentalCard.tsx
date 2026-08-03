@@ -96,29 +96,12 @@ export function CarRentalCard({
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-base sm:text-lg font-semibold text-foreground leading-tight">{carName}</h3>
             <div className="text-right flex-shrink-0">
-              {pricing?.hasDiscount ? (
-                <div>
-                  <div className="flex items-center gap-1">
-                    <p className="text-lg sm:text-xl font-bold text-primary">{pricing.shortTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} /</p>
-                    {/* <Tag className="h-3 w-3 text-green-600" /> */}
-                  <p className="text-xs text-muted-foreground">
-                    {" "}
-                    {t("daysShort")}
-                  </p>
-                  </div>
-                  <div className="flex items-center gap-1 mt-1">
-                    <p className="text-sm font-semibold text-green-800">{pricing.longTerm.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
-                    <span className="text-xs bg-green-100 text-green-800 px-1 rounded">
-                      {t("daysLong")}
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <p className="text-xl sm:text-2xl font-bold text-primary">{pricePerDay.toFixed(currency === 'MAD' ? 0 : 2)} {currency} </p>
-                  <p className="text-xs text-muted-foreground"></p>
-                </div>
-              )}
+              <div>
+                <p className="text-lg sm:text-xl font-bold text-primary">
+                  {(pricing?.shortTerm ?? pricePerDay).toFixed(currency === 'MAD' ? 0 : 2)} {currency} /
+                </p>
+                <p className="text-xs text-muted-foreground">{t("daysLong")}</p>
+              </div>
             </div>
           </div>
 

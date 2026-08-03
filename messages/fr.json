@@ -360,7 +360,7 @@
     },
     "card": {
       "altFallback": "{carName}, location de voiture à Agadir, AmseelCars",
-      "daysShort": "1-4 jours",
+      "daysShort": "5+ jours",
       "daysLong": "5+ jours",
       "seats": "{count} sièges",
       "premium": "Premium",
@@ -390,9 +390,9 @@
     }
   },
   "carDetail": {
-    "priceShortTerm": "(1-4 jours)",
+    "priceShortTerm": "(5+ jours)",
     "priceLongTerm": "(5+ jours)",
-    "priceTagline": "Meilleur prix garanti • Annulation gratuite",
+    "priceTagline": "Meilleur prix garanti • Annulation gratuite • Minimum 5 jours",
     "perDay": "/ jour",
     "seats": "{count} sièges",
     "capacity": "Capacité",
@@ -463,6 +463,8 @@
     "errPickupLoc": "Veuillez sélectionner le lieu de récupération",
     "errReturnLoc": "Veuillez sélectionner le lieu de retour",
     "errReturnAfterPickup": "La date de retour doit être après la date de récupération",
+    "errMinRentalDays": "Nous ne pouvons pas accepter une location de moins de 5 jours.",
+    "minRentalHint": "Durée sélectionnée : {selected} jour(s). Minimum requis : {days} jours.",
     "pickupTime": "Heure de récupération *",
     "returnTime": "Heure de retour *",
     "errPickupTime": "Veuillez sélectionner l’heure de récupération",

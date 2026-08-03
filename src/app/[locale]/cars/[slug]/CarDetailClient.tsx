@@ -8,7 +8,7 @@ import type { AppLocale } from '@/i18n/routing'
 import { toAppLocale } from '@/i18n/locale-utils'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone, Tag } from 'lucide-react'
+import { ArrowLeft, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { MenuStyleButton } from '@/components/Header/Button'
 import { convertCarPrice, formatCarPrice } from '@/lib/currency'
@@ -298,37 +298,19 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
 
             {/* Price */}
             <div className="bg-muted/30 rounded-lg p-6">
-              {car.pricing?.hasDiscount ? (
-                <div>
-                  {/* Short-term pricing */}
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-2xl font-bold text-foreground">
-                      {formatCarPrice(convertCarPrice(car.pricing.shortTerm, currency), currency)} {currency} /
-                    </span>
-                    <span className="text-muted-foreground">{t('priceShortTerm')}</span>
-                    <Tag className="h-4 w-4 text-primary" />
-                  </div>
-                  
-                  {/* Long-term pricing with discount */}
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                   
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-green-700">
-                        {formatCarPrice(convertCarPrice(car.pricing.longTerm, currency), currency)} {currency} /
-                      </span>
-                      <span className="text-green-600"> {t('priceLongTerm')}</span>
-                    </div>
-                   
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-bold text-foreground">
-                    {formatCarPrice(convertCarPrice(car.pricePerDay, currency), currency)} {currency} 
-                  </span>
-                  <span className="text-muted-foreground">{t('perDay')}</span>
-                </div>
-              )}
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-3xl font-bold text-foreground">
+                  {formatCarPrice(
+                    convertCarPrice(
+                      car.pricing?.shortTerm ?? car.pricePerDay,
+                      currency,
+                    ),
+                    currency,
+                  )}{' '}
+                  {currency} /
+                </span>
+                <span className="text-muted-foreground">{t('priceLongTerm')}</span>
+              </div>
               <p className="text-sm text-muted-foreground">
                 {t('priceTagline')}
               </p>
@@ -374,7 +356,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               inline
               carName={car.carName}
               carSlug={car.slug}
-              carPrice={car.pricePerDay}
+              carPrice={car.pricing?.shortTerm ?? car.pricePerDay}
               pricing={car.pricing}
               extraActions={
                 <Button

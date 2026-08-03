@@ -155,7 +155,7 @@ const CarGridSection = ({
       })
       setSelectedCar({
         name: car.carName,
-        price: car.pricePerDay,
+        price: car.pricing?.shortTerm || car.pricePerDay,
         image: car.carImage,
         slug: car.slug,
       })
@@ -300,9 +300,6 @@ const CarGridSection = ({
               const displayCar = carForLocale(car, l)
               const pricePerDay = car.pricing?.shortTerm || car.pricePerDay
               const priceInCurrency = convertCarPrice(pricePerDay, currency)
-              const longTermPrice = car.pricing?.longTerm 
-                ? convertCarPrice(car.pricing.longTerm, currency)
-                : undefined
 
               return (
                 <article key={car.slug || car.id} className={styles.carCard}>
@@ -316,8 +313,8 @@ const CarGridSection = ({
                     pricePerDay={priceInCurrency}
                     pricing={car.pricing ? {
                       shortTerm: priceInCurrency,
-                      longTerm: longTermPrice || priceInCurrency,
-                      hasDiscount: car.pricing.hasDiscount
+                      longTerm: priceInCurrency,
+                      hasDiscount: false
                     } : undefined}
                     seats={car.seats}
                     fuelType={car.fuelType}

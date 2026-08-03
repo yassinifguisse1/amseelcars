@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { addDays, parse, startOfToday } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { Plane, Search } from 'lucide-react';
@@ -13,6 +14,7 @@ import {
   parseBookingSearchParams,
   type BookingSearchValues,
 } from '@/lib/bookingSearchParams';
+import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
 import { trackEvent } from '@/lib/trackEvent';
 import { cn } from '@/lib/utils';
 
@@ -41,6 +43,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
     }
     return parsed;
   });
+  const [dateError, setDateError] = useState('');
 
   useEffect(() => {
     if (!hasBookingQuery(searchParams)) return;
@@ -48,6 +51,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
   }, [searchParams]);
 
   const setField = <K extends keyof BookingSearchValues>(key: K, value: BookingSearchValues[K]) => {
+    setDateError('');
     setValues((prev) => {
       const next = { ...prev, [key]: value };
       if (key === 'pickupLocation' && prev.sameReturn) {
@@ -60,9 +64,21 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
     });
   };
 
+  const returnDisabled = values.pickupDate
+    ? {
+        before: addDays(parse(values.pickupDate, 'yyyy-MM-dd', new Date()), MIN_RENTAL_DAYS),
+      }
+    : { before: addDays(startOfToday(), MIN_RENTAL_DAYS) };
+
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!values.pickupDate || !values.returnDate || !values.pickupLocation) return;
+
+    const days = rentalDayCount(values.pickupDate, values.returnDate);
+    if (!meetsMinRentalDays(days)) {
+      setDateError(tBooking('errMinRentalDays'));
+      return;
+    }
 
     const query = bookingSearchToQuery({
       ...values,
@@ -211,6 +227,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
                   placeholder={tBooking('datePlaceholder')}
                   openCalendarAria={tBooking('calendarOpenAria')}
                   locale={locale}
+                  disabled={returnDisabled}
                 />
               </div>
               <select
@@ -236,6 +253,12 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
             {t('search')}
           </Button>
         </div>
+
+        {dateError ? (
+          <p className="border-t border-white/20 bg-[#941020] px-4 py-2 text-sm text-amber-100 sm:px-5">
+            {dateError}
+          </p>
+        ) : null}
 
         <div className="flex flex-col gap-2 border-t border-white/20 px-4 py-3 text-sm text-white/95 sm:flex-row sm:items-center sm:justify-between sm:px-5">
           <label className="inline-flex cursor-pointer items-center gap-2">

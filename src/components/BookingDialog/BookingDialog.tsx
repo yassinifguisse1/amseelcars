@@ -17,6 +17,7 @@ import styles from './BookingDialog.module.css';
 import { BookingFormDateField } from './BookingFormDateField';
 import { BOOKING_TIME_SLOTS } from '@/lib/bookingLocations';
 import { parseBookingSearchParams } from '@/lib/bookingSearchParams';
+import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
 
 type BookingFormData = {
   fullName: string;
@@ -50,6 +51,13 @@ function buildBookingSchema(t: (key: string) => string) {
         return returnDate > pickup;
       },
       { message: t('errReturnAfterPickup'), path: ['returnDate'] }
+    )
+    .refine(
+      (data) => {
+        if (!data.pickupDate || !data.returnDate) return true;
+        return meetsMinRentalDays(rentalDayCount(data.pickupDate, data.returnDate));
+      },
+      { message: t('errMinRentalDays'), path: ['returnDate'] }
     );
 }
 
@@ -59,7 +67,7 @@ interface BookingDialogProps {
   carName: string;
   carPrice: number;
   carSlug?: string;
-  /** Optional tiered pricing: shortTerm (1–4 days), longTerm (5+ days). When set, total uses longTerm for 5+ days. */
+  /** Optional pricing. Min rental is 5 days; rate uses the former short-term (1–4 day) price. */
   pricing?: {
     shortTerm: number;
     longTerm: number;
@@ -162,22 +170,18 @@ export default function BookingDialog({
   const watchedReturnDate = watch('returnDate');
 
   const calculateRentalDetails = () => {
-    if (!watchedPickupDate || !watchedReturnDate) return { days: 0, total: 0 };
-    
-    const pickup = new Date(watchedPickupDate);
-    const returnDate = new Date(watchedReturnDate);
-    const diffTime = Math.abs(returnDate.getTime() - pickup.getTime());
-    const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    const pricePerDay =
-      pricing?.hasDiscount && days >= 5
-        ? pricing.longTerm
-        : (pricing?.shortTerm ?? carPrice);
+    if (!watchedPickupDate || !watchedReturnDate) return { days: 0, total: 0, tooShort: false };
+
+    const days = rentalDayCount(watchedPickupDate, watchedReturnDate);
+    if (!meetsMinRentalDays(days)) {
+      return { days, total: 0, tooShort: days > 0 };
+    }
+    const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
     const total = days * pricePerDay;
-    
-    return { days, total };
+    return { days, total, tooShort: false };
   };
 
-  const { days, total } = calculateRentalDetails();
+  const { days, total, tooShort } = calculateRentalDetails();
 
   const { sendAbandoned, markSubmitted } = useBookingAbandonTracking({
     carName,
@@ -194,16 +198,23 @@ export default function BookingDialog({
   const pickupDisabled = { before: startOfToday() };
   const returnDisabled = watchedPickupDate
     ? {
-        before: addDays(parse(watchedPickupDate, 'yyyy-MM-dd', new Date()), 1),
+        before: addDays(parse(watchedPickupDate, 'yyyy-MM-dd', new Date()), MIN_RENTAL_DAYS),
       }
-    : { before: startOfToday() };
+    : { before: addDays(startOfToday(), MIN_RENTAL_DAYS) };
 
   const onSubmit = async (data: BookingFormData) => {
+    const rentalDays = rentalDayCount(data.pickupDate, data.returnDate);
+    if (!meetsMinRentalDays(rentalDays)) {
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     const path = typeof window !== 'undefined' ? window.location.pathname : '/';
     markSubmitted();
+    const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
+    const totalPrice = rentalDays * pricePerDay;
     trackEvent({
       event: 'booking-submit',
       path,
@@ -216,8 +227,8 @@ export default function BookingDialog({
       returnDate: data.returnDate,
       pickupLocation: data.pickupLocation,
       returnLocation: data.returnLocation,
-      rentalDays: days,
-      totalPrice: total,
+      rentalDays,
+      totalPrice,
     });
 
     try {
@@ -229,9 +240,9 @@ export default function BookingDialog({
         body: JSON.stringify({
           ...data,
           carName,
-          carPrice,
-          rentalDays: days,
-          totalPrice: total,
+          carPrice: pricePerDay,
+          rentalDays,
+          totalPrice,
         }),
       });
 
@@ -248,14 +259,14 @@ export default function BookingDialog({
           returnDate: data.returnDate,
           pickupLocation: data.pickupLocation,
           returnLocation: data.returnLocation,
-          rentalDays: days,
-          totalPrice: total,
+          rentalDays,
+          totalPrice,
         });
         track('Booking Confirmed', {
           car: carName,
           path,
-          days,
-          total,
+          days: rentalDays,
+          total: totalPrice,
         });
         setSubmitStatus('success');
         reset();
@@ -564,6 +575,18 @@ export default function BookingDialog({
                       </div>
                     )} */}
 
+                    {/* Min rental notice */}
+                    {tooShort && (
+                      <div className="rounded-lg border border-amber-300 bg-amber-50 p-4">
+                        <p className="text-sm font-medium text-amber-900">
+                          {t('errMinRentalDays')}
+                        </p>
+                        <p className="mt-1 text-xs text-amber-800">
+                          {t('minRentalHint', { days: MIN_RENTAL_DAYS, selected: days })}
+                        </p>
+                      </div>
+                    )}
+
                     {/* Error Message */}
                     {submitStatus === 'error' && (
                       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -588,7 +611,7 @@ export default function BookingDialog({
                       )}
                       <Button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || tooShort}
                         className={inline ? "w-full bg-[#EC1C25] hover:bg-[#EC1C25]/90 text-white rounded-[25px] h-10 uppercase font-medium" : "flex-1 bg-blue-600 hover:bg-blue-700"}
                       >
                         {isSubmitting ? (

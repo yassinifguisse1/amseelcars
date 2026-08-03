@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -34,6 +35,17 @@ export async function POST(request: NextRequest) {
     if (!fullName || !email || !phone || !pickupDate || !returnDate) {
       return NextResponse.json(
         { error: 'Champs requis manquants' },
+        { status: 400 }
+      );
+    }
+
+    const computedDays = rentalDayCount(String(pickupDate), String(returnDate));
+    const days = Number(rentalDays) > 0 ? Number(rentalDays) : computedDays;
+    if (!meetsMinRentalDays(days)) {
+      return NextResponse.json(
+        {
+          error: `La location minimale est de ${MIN_RENTAL_DAYS} jours. Les locations de 1 à 4 jours ne sont pas acceptées.`,
+        },
         { status: 400 }
       );
     }
