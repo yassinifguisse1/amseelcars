@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import {
+  checkFormRateLimit,
+  escapeHtml,
+  getClientIp,
+  isHoneypotTripped,
+  isSubmittedTooFast,
+  notifySpamBlocked,
+} from '@/lib/formSpamGuard';
 import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Location mapping for display
 const locationLabels: { [key: string]: string } = {
   'agadir-centre': 'Agadir Centre',
   'aeroport-al-massira': 'Aéroport Al Massira',
   'taghazout': 'Taghazout',
-  'agence': 'Agence'
+  'agence': 'Agence',
 };
 
 export async function POST(request: NextRequest) {
@@ -29,13 +36,64 @@ export async function POST(request: NextRequest) {
       carPrice,
       rentalDays,
       totalPrice,
+      website,
+      formOpenedAt,
     } = body;
 
-    // Validate required fields
+    const ip = getClientIp(request);
+
+    // Honeypot: pretend success so bots stop retrying
+    if (isHoneypotTripped(website)) {
+      void notifySpamBlocked({
+        form: 'booking',
+        reason: 'honeypot',
+        ip,
+        fields: {
+          fullName,
+          email,
+          phone,
+          carName,
+          honeypot: website,
+          pickupDate,
+          returnDate,
+        },
+      });
+      return NextResponse.json(
+        { success: true, message: 'Demande de réservation soumise avec succès' },
+        { status: 200 },
+      );
+    }
+
     if (!fullName || !email || !phone || !pickupDate || !returnDate) {
       return NextResponse.json(
         { error: 'Champs requis manquants' },
-        { status: 400 }
+        { status: 400 },
+      );
+    }
+
+    if (isSubmittedTooFast(formOpenedAt)) {
+      void notifySpamBlocked({
+        form: 'booking',
+        reason: 'too_fast',
+        ip,
+        fields: { fullName, email, phone, carName, formOpenedAt, pickupDate, returnDate },
+      });
+      return NextResponse.json(
+        { error: 'Veuillez réessayer dans un instant.' },
+        { status: 400 },
+      );
+    }
+
+    if (!checkFormRateLimit(ip, 'booking').ok) {
+      void notifySpamBlocked({
+        form: 'booking',
+        reason: 'rate_limit',
+        ip,
+        fields: { fullName, email, phone, carName },
+      });
+      return NextResponse.json(
+        { error: 'Trop de demandes. Réessayez plus tard.' },
+        { status: 429 },
       );
     }
 
@@ -46,11 +104,10 @@ export async function POST(request: NextRequest) {
         {
           error: `La location minimale est de ${MIN_RENTAL_DAYS} jours. Les locations de 1 à 4 jours ne sont pas acceptées.`,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    // Format dates
     const formatDate = (dateString: string) => {
       return new Date(dateString).toLocaleDateString('fr-FR', {
         weekday: 'long',
@@ -60,17 +117,31 @@ export async function POST(request: NextRequest) {
       });
     };
 
-    // Format location labels
     const formatLocation = (locationKey: string) => {
       return locationLabels[locationKey] || locationKey;
     };
 
-    // Send email to business owner
+    const safe = {
+      fullName: escapeHtml(fullName),
+      email: escapeHtml(email),
+      phone: escapeHtml(phone),
+      carName: escapeHtml(carName),
+      carPrice: escapeHtml(carPrice),
+      rentalDays: escapeHtml(rentalDays),
+      totalPrice: escapeHtml(totalPrice),
+      pickupTime: escapeHtml(pickupTime),
+      returnTime: escapeHtml(returnTime),
+      pickupLocation: escapeHtml(formatLocation(pickupLocation)),
+      returnLocation: escapeHtml(formatLocation(returnLocation)),
+      pickupDate: escapeHtml(formatDate(pickupDate)),
+      returnDate: escapeHtml(formatDate(returnDate)),
+    };
+
     const businessEmail = await resend.emails.send({
-      from: 'Amseel Cars <noreply@amseelcars.com>', // Use your verified domain
-      replyTo: email, // Customer's email for easy replies
-      to: ['amseelcars5@gmail.com'], // Replace with your email
-      subject: `Nouvelle demande de réservation - ${carName}`,
+      from: 'Amseel Cars <noreply@amseelcars.com>',
+      replyTo: String(email),
+      to: ['amseelcars5@gmail.com'],
+      subject: `Nouvelle demande de réservation - ${String(carName)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
@@ -81,25 +152,25 @@ export async function POST(request: NextRequest) {
           <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de la voiture</h2>
-              <p><strong>Car:</strong> ${carName}</p>
-              <p><strong>Price par jour:</strong>${carPrice} DH </p>
-              <p><strong>Durée de location:</strong> ${rentalDays} jour${rentalDays > 1 ? 's' : ''}</p>
-              <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${totalPrice} DH </span></p>
+              <p><strong>Car:</strong> ${safe.carName}</p>
+              <p><strong>Price par jour:</strong>${safe.carPrice} DH </p>
+              <p><strong>Durée de location:</strong> ${safe.rentalDays} jour${Number(rentalDays) > 1 ? 's' : ''}</p>
+              <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${safe.totalPrice} DH </span></p>
             </div>
 
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Informations du client</h2>
-              <p><strong>Full Name:</strong> ${fullName}</p>
-              <p><strong>Email:</strong> <a href="mailto:${email}" style="color: #667eea;">${email}</a></p>
-              <p><strong>Phone:</strong> <a href="tel:${phone}" style="color: #667eea;">${phone}</a></p>
+              <p><strong>Full Name:</strong> ${safe.fullName}</p>
+              <p><strong>Email:</strong> <a href="mailto:${safe.email}" style="color: #667eea;">${safe.email}</a></p>
+              <p><strong>Phone:</strong> <a href="tel:${safe.phone}" style="color: #667eea;">${safe.phone}</a></p>
             </div>
 
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de la location</h2>
-              <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}${pickupTime ? ` à ${pickupTime}` : ''}</p>
-              <p><strong>Date de retour:</strong> ${formatDate(returnDate)}${returnTime ? ` à ${returnTime}` : ''}</p>
-              <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
-              <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
+              <p><strong>Date de retrait:</strong> ${safe.pickupDate}${pickupTime ? ` à ${safe.pickupTime}` : ''}</p>
+              <p><strong>Date de retour:</strong> ${safe.returnDate}${returnTime ? ` à ${safe.returnTime}` : ''}</p>
+              <p><strong>Lieu de retrait:</strong> ${safe.pickupLocation}</p>
+              <p><strong>Lieu de retour:</strong> ${safe.returnLocation}</p>
             </div>
 
 
@@ -112,12 +183,11 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    // Send confirmation email to customer
     const customerEmail = await resend.emails.send({
       from: 'Amseel Cars <noreply@amseelcars.com>',
-      replyTo: 'amseelcars5@gmail.com', // Your business email for customer replies
-      to: [email],
-      subject: `Demande de réservation reçue - ${carName}`,
+      replyTo: 'amseelcars5@gmail.com',
+      to: [String(email)],
+      subject: `Demande de réservation reçue - ${String(carName)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
@@ -128,12 +198,12 @@ export async function POST(request: NextRequest) {
           <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
             <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h2 style="color: #333; margin-top: 0; border-bottom: 2px solid #667eea; padding-bottom: 10px;">Détails de votre réservation</h2>
-              <p><strong>Car:</strong> ${carName}</p>
-              <p><strong>Date de retrait:</strong> ${formatDate(pickupDate)}${pickupTime ? ` à ${pickupTime}` : ''}</p>
-              <p><strong>Date de retour:</strong> ${formatDate(returnDate)}${returnTime ? ` à ${returnTime}` : ''}</p>
-              <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${totalPrice} DH </span></p>
-              <p><strong>Lieu de retrait:</strong> ${formatLocation(pickupLocation)}</p>
-              <p><strong>Lieu de retour:</strong> ${formatLocation(returnLocation)}</p>
+              <p><strong>Car:</strong> ${safe.carName}</p>
+              <p><strong>Date de retrait:</strong> ${safe.pickupDate}${pickupTime ? ` à ${safe.pickupTime}` : ''}</p>
+              <p><strong>Date de retour:</strong> ${safe.returnDate}${returnTime ? ` à ${safe.returnTime}` : ''}</p>
+              <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${safe.totalPrice} DH </span></p>
+              <p><strong>Lieu de retrait:</strong> ${safe.pickupLocation}</p>
+              <p><strong>Lieu de retour:</strong> ${safe.returnLocation}</p>
             </div>
 
             <div style="background: #28a745; color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
@@ -153,20 +223,19 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { 
-        success: true, 
+      {
+        success: true,
         message: 'Demande de réservation soumise avec succès',
         businessEmailId: businessEmail.data?.id,
         customerEmailId: customerEmail.data?.id,
       },
-      { status: 200 }
+      { status: 200 },
     );
-
   } catch (error) {
     console.error('Booking API error:', error);
     return NextResponse.json(
       { error: 'Échec de la soumission de la demande de réservation' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

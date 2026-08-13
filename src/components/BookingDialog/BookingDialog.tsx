@@ -121,7 +121,16 @@ export default function BookingDialog({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [honeypotWebsite, setHoneypotWebsite] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
+  const formOpenedAtRef = useRef(Date.now());
+
+  useEffect(() => {
+    if (inline || isOpen) {
+      formOpenedAtRef.current = Date.now();
+      setHoneypotWebsite('');
+    }
+  }, [inline, isOpen, carName]);
 
   const defaultValues = useMemo<BookingFormData>(
     () => ({
@@ -243,6 +252,8 @@ export default function BookingDialog({
           carPrice: pricePerDay,
           rentalDays,
           totalPrice,
+          website: honeypotWebsite,
+          formOpenedAt: formOpenedAtRef.current,
         }),
       });
 
@@ -349,6 +360,22 @@ export default function BookingDialog({
                   </motion.div>
                 ) : (
                   <form key={locale} onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+                    {/* Honeypot — leave empty; bots often fill it */}
+                    <div
+                      aria-hidden="true"
+                      style={{ position: 'absolute', left: '-9999px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}
+                    >
+                      <label htmlFor="booking-website">Website</label>
+                      <input
+                        id="booking-website"
+                        type="text"
+                        name="website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypotWebsite}
+                        onChange={(e) => setHoneypotWebsite(e.target.value)}
+                      />
+                    </div>
                     {/* Rental Dates - first */}
                     <p className="text-sm text-gray-600 -mt-1 mb-2">
                       {t('introBlurb')}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { CheckCircle, Send } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { trackEvent } from "@/lib/trackEvent";
@@ -27,9 +27,15 @@ export default function ContactForm() {
     phone: "",
     message: "",
   });
+  const [honeypotWebsite, setHoneypotWebsite] = useState("");
+  const formOpenedAtRef = useRef(Date.now());
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    formOpenedAtRef.current = Date.now();
+  }, []);
 
   const validateForm = useCallback((): boolean => {
     const next: FormErrors = {};
@@ -61,7 +67,11 @@ export default function ContactForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          website: honeypotWebsite,
+          formOpenedAt: formOpenedAtRef.current,
+        }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Failed to send message");
@@ -79,6 +89,8 @@ export default function ContactForm() {
       setIsSubmitted(true);
       setTimeout(() => {
         setFormData({ name: "", email: "", phone: "", message: "" });
+        setHoneypotWebsite("");
+        formOpenedAtRef.current = Date.now();
         setIsSubmitted(false);
       }, 3200);
     } catch {
@@ -100,6 +112,22 @@ export default function ContactForm() {
       className={styles.form}
       noValidate
     >
+      <div
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", top: "auto", width: 1, height: 1, overflow: "hidden" }}
+      >
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypotWebsite}
+          onChange={(e) => setHoneypotWebsite(e.target.value)}
+        />
+      </div>
+
       <div className={styles.field}>
         <label htmlFor="name" className={styles.fieldLabel}>
           {t("nameLabel")} *
