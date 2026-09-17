@@ -96,10 +96,10 @@ export const cars: Car[] = [
        { src: "/images/Bmw-x3-pack-M-2025-diesel-intérieure-image-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - tableau de bord" },
        { src: "/images/Bmw-x3-pack-M-2025-diesel-vue-d'arrière-amseel-cars-agadir-maroc.webp", alt: "BMW X3 - vue arrière" }
      ],
-     pricePerDay: 1500,
+     pricePerDay: 1400,
      pricing: {
-       shortTerm: 1500, // 1-4 days
-       longTerm: 1400,  // 5+ days 
+       shortTerm: 1400, // 1-4 days
+       longTerm: 1300,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -244,10 +244,10 @@ export const cars: Car[] = [
        { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arrieere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
   
      ],
-     pricePerDay: 900,
+     pricePerDay: 800,
      pricing: {
-       shortTerm: 900, // 1-4 days
-       longTerm: 800,  // 5+ days 
+       shortTerm: 800, // 1-4 days
+       longTerm: 700,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -386,10 +386,10 @@ export const cars: Car[] = [
        { src: "/images/T-roc-automatique-gris-diesel-2024-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - détails habitacle" },
        { src: "/images/T-roc-automatique-gris-diesel-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue arrière" },
      ],
-     pricePerDay: 800,
+     pricePerDay: 700,
      pricing: {
-       shortTerm: 800, // 1-4 days
-       longTerm: 700,  // 5+ days 
+       shortTerm: 700, // 1-4 days
+       longTerm: 600,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -528,7 +528,7 @@ export const cars: Car[] = [
        { src: "/images/clio-5-gris-manuel-diesel-2024-vue-de-lintérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Renault Clio 5 - vue latérale" }
   
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      seats: 5,
      fuelType: "Diesel",
      transmission: "Manuelle 6 rapports",
@@ -667,7 +667,7 @@ export const cars: Car[] = [
        { src: "/images/clio5-blanche-manuel-diesel-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Renault Clio 5 - détails habitacle" }
      ],
     
-     pricePerDay: 400,
+     pricePerDay: 300,
      seats: 5,
      fuelType: "Diesel",
      transmission: "Manuelle 6 rapports",
@@ -809,10 +809,10 @@ export const cars: Car[] = [
        { src: "/images/C4-gris-automatique-essence-2025-vue-de-linterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - détails habitacle" },
        { src: "/images/C4-gris-automatique-essence-2025-vue-dinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C4 - vue arrière" },
      ],
-     pricePerDay: 550,
+     pricePerDay: 450,
      pricing: {
-       shortTerm: 550, // 1-4 days
-       longTerm: 500,  // 5+ days 
+       shortTerm: 450, // 1-4 days
+       longTerm: 400,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -950,10 +950,10 @@ export const cars: Car[] = [
        { src: "/images/clipboard-image-1757626720.webp", alt: "Citroën C3 Aircross - vue latérale" },
        { src: "/images/clipboard-image-1757626807.webp", alt: "Citroën C3 Aircross - tableau de bord" }
      ],
-     pricePerDay: 550,
+     pricePerDay: 450,
      pricing: {
-       shortTerm: 550, // 1-4 days (C3 Aircross)
-       longTerm: 500,  // 5+ days 
+       shortTerm: 450, // 1-4 days (C3 Aircross)
+       longTerm: 400,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -1094,10 +1094,10 @@ export const cars: Car[] = [
   
   
      ],
-     pricePerDay: 550,
+     pricePerDay: 450,
      pricing: {
-       shortTerm: 550, // 1-4 days
-       longTerm: 500,  // 5+ days 
+       shortTerm: 450, // 1-4 days
+       longTerm: 400,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -1239,7 +1239,7 @@ export const cars: Car[] = [
        { src: "/images/C3-manuel-diesel-2024-vue-devant-de-l'intérieure-location-de-voiture-agadir-maroc-amseelcars.webp", alt: "Citroën C3 - vue latérale" },
        { src: "/images/C3-normal-manuel-diesel-2024-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" }
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      seats: 5,
      fuelType: "Diesel",
      transmission: "Manuelle",
@@ -1379,10 +1379,10 @@ export const cars: Car[] = [
        { src: "/images/inside-hyondia-i10.webp", alt: "Hyundai i10 - vue latérale" }
      ],
   
-     pricePerDay: 400,
+     pricePerDay: 300,
      pricing: {
-       shortTerm: 400, // 1-4 days (Hyundai i10)
-       longTerm: 350,  // 5+ days 
+       shortTerm: 300, // 1-4 days (Hyundai i10)
+       longTerm: 250,  // 5+ days 
        hasDiscount: true
      },
      seats: 4,
@@ -1535,10 +1535,10 @@ export const cars: Car[] = [
        { src: "/images/kia-picanto-blanche-automatique-essence-2025-vue-de-linterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
        { src: "/images/kia-picanto-blanche-automatique-essence-2025-vue-dinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - tableau de bord" }
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      pricing: {
-       shortTerm: 400, // 1-4 days (Kia Picanto)
-       longTerm: 350,  // 5+ days 
+       shortTerm: 300, // 1-4 days (Kia Picanto)
+       longTerm: 250,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -1695,7 +1695,7 @@ export const cars: Car[] = [
        { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-de-l'intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - vue latérale" },
        { src: "/images/Sandero-Stepway-automatique-essence-blanche-2025-vue-intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway - vue latérale" }
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      seats: 5,
      fuelType: "Essence",
      transmission: "Automatique (CVT X-Tronic)",
@@ -1861,7 +1861,7 @@ export const cars: Car[] = [
        { src: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" },
        { src: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Sandero Stepway Gris - vue latérale" }
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
   
      seats: 5,
      fuelType: "Essence",
@@ -2030,10 +2030,10 @@ export const cars: Car[] = [
        { src: "/images/Touareg-noire-automatique-diesel-2025-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - vue interieure" },
        { src: "/images/Touareg-noire-automatique-diesel-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Touareg - vue latérale" },
      ],
-     pricePerDay: 1500,
+     pricePerDay: 1400,
      pricing: {
-       shortTerm: 1500, // 1-4 days
-       longTerm: 1400,  // 5+ days 
+       shortTerm: 1400, // 1-4 days
+       longTerm: 1300,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -2194,7 +2194,7 @@ export const cars: Car[] = [
        { src: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Logan - vue latérale" },
        { src: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-d'intèrieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Dacia Logan - vue latérale" },
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
    
      seats: 5,
      fuelType: "Diesel",
@@ -2343,10 +2343,10 @@ export const cars: Car[] = [
   
   
      ],
-     pricePerDay: 800,
+     pricePerDay: 700,
      pricing: {
-       shortTerm: 800, // 1-4 days
-       longTerm: 700,  // 5+ days 
+       shortTerm: 700, // 1-4 days
+       longTerm: 600,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -2519,10 +2519,10 @@ export const cars: Car[] = [
        { src: "/images/Kia-sportage-automatique-2025-diesel-verte-vue-arrière-location-de-voiture-agadir-amseel-cars.webp", alt: "Kia Sportage - intérieur" },
   
      ],
-     pricePerDay: 800,
+     pricePerDay: 700,
      pricing: {
-       shortTerm: 800, // 1-4 days
-       longTerm: 700,  // 5+ days 
+       shortTerm: 700, // 1-4 days
+       longTerm: 600,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -2692,10 +2692,10 @@ export const cars: Car[] = [
        { src: "/images/clio-5-gris-automatique-essence-2025-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - vue latérale" },
        { src: "/images/clio-5-gris-automatique-essence-2025-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - vue latérale" },
      ],
-     pricePerDay: 450,
+     pricePerDay: 350,
      pricing: {
-       shortTerm: 450, // 1-4 days
-       longTerm: 400,  // 5+ days 
+       shortTerm: 350, // 1-4 days
+       longTerm: 300,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -2864,10 +2864,10 @@ export const cars: Car[] = [
        { src: "/images/kia-picanto-blanche-automatique-essence-2024-vue-dinterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
        { src: "/images/kia-picanto-blanche-automatique-essence-2024-vue-de-linteerieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" }
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      pricing: {
-       shortTerm: 400, // 1-4 days
-       longTerm: 350,  // 5+ days 
+       shortTerm: 300, // 1-4 days
+       longTerm: 250,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -3037,10 +3037,10 @@ export const cars: Car[] = [
        { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
        { src: "/images/kia-picanto-blue-automatique-essence-2025-vue-d'intérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      pricing: {
-       shortTerm: 400, // 1-4 days
-       longTerm: 350,  // 5+ days 
+       shortTerm: 300, // 1-4 days
+       longTerm: 250,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -3218,10 +3218,10 @@ export const cars: Car[] = [
        { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-d'intérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
        { src: "/images/kia-picanto-automatique-essence-gris-2025-vue-de-l'intérieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Kia Picanto - vue latérale" },
      ],
-     pricePerDay: 400,
+     pricePerDay: 300,
      pricing: {
-       shortTerm: 400, // 1-4 days
-       longTerm: 350,  // 5+ days 
+       shortTerm: 300, // 1-4 days
+       longTerm: 250,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -3386,10 +3386,10 @@ export const cars: Car[] = [
        { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
        { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
      ],
-     pricePerDay: 450,
+     pricePerDay: 350,
      pricing: {
-       shortTerm: 450, // 1-4 days
-       longTerm: 400,  // 5+ days 
+       shortTerm: 350, // 1-4 days
+       longTerm: 300,  // 5+ days 
        hasDiscount: true
      },
      seats: 5,
@@ -3485,10 +3485,10 @@ export const cars: Car[] = [
          { src: "/images/Logan-dacia-model-2026-Manuel-diesel-img03.webp", alt: "Dacia Logan - vue latérale" },
          { src: "/images/Logan-dacia-model-2026-Manuel-diesel-img04.webp", alt: "Dacia Logan - vue latérale" },
        ],
-       pricePerDay: 450,
+       pricePerDay: 350,
        pricing: {
-         shortTerm: 450, // 1-4 days
-         longTerm: 400,  // 5+ days 
+         shortTerm: 350, // 1-4 days
+         longTerm: 300,  // 5+ days 
          hasDiscount: true
        },
        seats: 5,
@@ -3585,10 +3585,10 @@ export const cars: Car[] = [
           { src: "/images/Clio 5 auto 2026 Essence img05.png", alt: "Renault Clio 5 - vue arrière" },
           { src: "/images/Clio 5 auto 2026 Essence img06.png", alt: "Renault Clio 5 - vue latérale" },
          ],
-         pricePerDay: 450,
+         pricePerDay: 350,
          pricing: {
-           shortTerm: 450, // 1-4 days
-           longTerm: 400,  // 5+ days 
+           shortTerm: 350, // 1-4 days
+           longTerm: 300,  // 5+ days 
            hasDiscount: true
          },
          seats: 5,
@@ -3668,7 +3668,114 @@ export const cars: Car[] = [
          category: 'economy',
          availability: true,
          location: "Agadir, Maroc"
-       }
+       },
+  {
+    id: 23,
+    slug: 'location-voiture-agadir-kia-sportage-gris-clair',
+    carName: "Kia Sportage",
+    brand: "Kia",
+    model: "Sportage 1.6 CRDi 136 DCT7",
+    year: 2026,
+    carImage: "/images/Kia-sportage-gris-clair-face-card-amseel-agadir.webp",
+    images: [
+      { src: "/images/Kia-sportage-gris-clair-face-card-amseel-agadir.webp", alt: "Kia Sportage gris clair - vue de face", isPrimary: true },
+      { src: "/images/Kia-sportage-automatique-diesel-gris-clair-vue-devant-location-de-voiture-agadir-amseel-cars.avif", alt: "Kia Sportage gris clair - vue avant trois quarts" },
+      { src: "/images/Kia-sportage-automatique-diesel-gris-clair-vue-arriere-location-de-voiture-agadir-amseel-cars.avif", alt: "Kia Sportage gris clair - vue arrière" },
+      { src: "/images/Kia-sportage-automatique-diesel-gris-clair-vue-de-cote-location-de-voiture-agadir-amseel-cars.avif", alt: "Kia Sportage gris clair - vue de côté" },
+      { src: "/images/Kia-sportage-automatique-diesel-gris-clair-vue-interieur-location-de-voiture-agadir-amseel-cars.avif", alt: "Kia Sportage gris clair - tableau de bord et sièges avant" },
+      { src: "/images/Kia-sportage-automatique-diesel-gris-clair-vue-places-arriere-location-de-voiture-agadir-amseel-cars.avif", alt: "Kia Sportage gris clair - places arrière" },
+    ],
+    pricePerDay: 700,
+    pricing: {
+      shortTerm: 700,
+      longTerm: 600,
+      hasDiscount: true
+    },
+    seats: 5,
+    fuelType: "Diesel",
+    transmission: "Automatique",
+    rating: 4.8,
+    description: "SUV familial moderne, le Kia Sportage gris clair 1.6 CRDi 136 ch avec boîte automatique DCT à 7 rapports offre confort, écran incurvé, Apple CarPlay/Android Auto et sobriété au quotidien.",
+    richContent: {
+      h1Title: "Location Kia Sportage gris clair Agadir | SUV diesel automatique | AmseelCars",
+      seoTitle: "Kia Sportage gris clair en location à Agadir | AmseelCars",
+      seoMetaDescription: "Louez un Kia Sportage gris clair à Agadir chez AmseelCars : SUV diesel automatique, 5 places, écran dual, CarPlay/Android Auto, confortable et économique.",
+      sections: [
+        {
+          h2: "Présentation du Kia Sportage gris clair en location à Agadir",
+          paragraphs: [
+            "Le Kia Sportage gris clair est un SUV moderne, confortable et polyvalent, parfaitement adapté à une location voiture Agadir.",
+            "Chez AmseelCars, nous proposons cette version diesel avec boîte automatique DCT 7, idéale pour la ville, l'aéroport et les excursions vers Taghazout ou la corniche."
+          ]
+        },
+        {
+          h2: "Design contemporain et couleur gris clair",
+          paragraphs: [
+            "Sa face avant distinctive, ses feux LED et sa silhouette SUV lui donnent une vraie présence sur la route.",
+            "La teinte gris clair reste élégante et discrète, idéale pour un usage touristique comme professionnel."
+          ]
+        },
+        {
+          h2: "Habitacle moderne : écran dual et places arrière confortables",
+          paragraphs: [
+            "À bord, un large écran incurvé regroupe instrumentation et multimédia, avec Apple CarPlay et Android Auto selon finition.",
+            "Les 5 places, l'accoudoir arrière avec porte-gobelets et les prises USB arrière facilitent les trajets en famille."
+          ]
+        },
+        {
+          h2: "Diesel automatique : confort et sobriété",
+          paragraphs: [
+            "La motorisation diesel 1.6 CRDi 136 ch et la boîte automatique DCT 7 offrent une conduite fluide et une bonne autonomie.",
+            "Un excellent choix pour les séjours de plusieurs jours à Agadir et dans la région."
+          ]
+        },
+        {
+          h2: "Louer ce Kia Sportage à Agadir avec AmseelCars",
+          paragraphs: [
+            "Véhicule récent, bien entretenu et prêt à partir. Réservez selon vos dates : en haute saison, une réservation anticipée est conseillée.",
+            "Contactez AmseelCars pour confirmer la disponibilité de ce Sportage gris clair."
+          ]
+        }
+      ],
+      faqs: [
+        {
+          question: "Quel est le prix de location de ce Kia Sportage ?",
+          answer: "Le tarif dépend de la durée, de la saison et des options. Contactez AmseelCars avec vos dates pour un devis précis."
+        },
+        {
+          question: "Ce Sportage est-il différent du Sportage gris déjà listé ?",
+          answer: "Oui, c'est une unité supplémentaire en gris clair, avec ses propres photos. Les prestations restent celles d'un Sportage diesel automatique 5 places."
+        },
+        {
+          question: "La boîte est-elle automatique ?",
+          answer: "Oui, boîte automatique DCT à 7 rapports, idéale pour la circulation à Agadir."
+        },
+        {
+          question: "Convient-il aux familles ?",
+          answer: "Oui : 5 places, coffre généreux, USB arrière et climatisation pour les trajets familiaux."
+        }
+      ]
+    },
+    features: [
+      { icon: "🚗", name: "Sièges", value: "5" },
+      { icon: "⛽", name: "Carburant", value: "Diesel" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+      { icon: "🛡️", name: "Sécurité", value: "6 airbags, ABS/ESC; AEB & maintien de voie selon finition" },
+      { icon: "❄️", name: "Climatisation", value: "Semi-auto ou bi-zone (selon finition)" },
+      { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
+    ],
+    specs: {
+      engine: "1.6L CRDi (4 cylindres, turbo diesel)",
+      horsepower: "136 ch",
+      acceleration: "0-100 km/h en 11,4 s",
+      topSpeed: "180 km/h",
+      fuelEfficiency: "5,8 l/100 km (mixte, WLTP)",
+      drivetrain: "Traction (2 roues motrices)"
+    },
+    category: 'suv',
+    availability: true,
+    location: "Agadir, Maroc"
+  }
   ]
 
 export function getAllCars(): Car[] {

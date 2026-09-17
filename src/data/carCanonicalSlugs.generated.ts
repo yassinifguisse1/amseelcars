@@ -27,7 +27,8 @@ export const CAR_CANONICAL_SLUGS = [
   "location-voiture-agadir-kia-picanto-gris",
   "location-voiture-agadir-citroen-c3-2024",
   "location-voiture-agadir-dacia-logan-2026",
-  "location-voiture-agadir-Clio-5-2025"
+  "location-voiture-agadir-Clio-5-2025",
+  "location-voiture-agadir-kia-sportage-gris-clair"
 ] as const
 
 export type CarCanonicalSlug = (typeof CAR_CANONICAL_SLUGS)[number]

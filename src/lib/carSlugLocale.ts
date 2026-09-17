@@ -6,6 +6,7 @@ const EN_PREFIX = 'agadir-car-rental-'
 
 /** Tail segment: French → English (URL slug) */
 const TAIL_REPLACEMENTS: [RegExp, string][] = [
+  [/-gris-clair(?=-|$)/, '-light-grey'],
   [/-blanche(?=-|$)/, '-white'],
   [/-gris(?=-|$)/, '-grey'],
   [/-vert(?=-|$)/, '-green'],

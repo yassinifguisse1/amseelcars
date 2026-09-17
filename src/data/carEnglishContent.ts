@@ -1872,6 +1872,75 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
     },
   },
 
+  'location-voiture-agadir-kia-sportage-gris-clair': {
+    description:
+      'Modern family SUV: the light-grey Kia Sportage 1.6 CRDi 136 hp with 7-speed DCT automatic offers comfort, dual curved display, Apple CarPlay/Android Auto and sensible everyday running costs.',
+
+    richContent: {
+      h1Title: 'Light-grey Kia Sportage rental Agadir | Diesel automatic SUV | AmseelCars',
+      seoTitle: 'Light-grey Kia Sportage car rental in Agadir | AmseelCars',
+      seoMetaDescription:
+        'Rent a light-grey Kia Sportage in Agadir with AmseelCars: diesel automatic SUV, 5 seats, dual screen, CarPlay/Android Auto, comfortable and economical.',
+      sections: [
+        {
+          h2: 'Light-grey Kia Sportage rental in Agadir, overview',
+          paragraphs: [
+            'This light-grey Kia Sportage is a modern, comfortable, versatile SUV, well suited to car rental in Agadir.',
+            'At AmseelCars we offer this diesel automatic DCT 7 unit for city trips, airport transfers and excursions to Taghazout or the corniche.',
+          ],
+        },
+        {
+          h2: 'Contemporary design in light grey',
+          paragraphs: [
+            'Distinctive front lighting, LED signature and SUV proportions give it strong road presence.',
+            'The light-grey finish stays elegant and discreet for both holiday and business use.',
+          ],
+        },
+        {
+          h2: 'Modern cabin: dual display and comfortable rear seats',
+          paragraphs: [
+            'A wide curved display covers instruments and multimedia, with Apple CarPlay and Android Auto depending on trim.',
+            'Five seats, a rear armrest with cupholders and rear USB ports make family trips easier.',
+          ],
+        },
+        {
+          h2: 'Diesel automatic: comfort and economy',
+          paragraphs: [
+            'The 1.6 CRDi 136 hp diesel and 7-speed DCT automatic deliver smooth driving and good range.',
+            'A strong choice for multi-day stays in Agadir and the surrounding region.',
+          ],
+        },
+        {
+          h2: 'Rent this Sportage in Agadir with AmseelCars',
+          paragraphs: [
+            'Recent, well-maintained and ready to go. Book according to your dates; advance booking is recommended in peak season.',
+            'Contact AmseelCars to confirm availability of this light-grey Sportage.',
+          ],
+        },
+      ],
+      faqs: [
+        {
+          question: 'What does it cost to rent this Kia Sportage?',
+          answer:
+            'Price depends on length of rental, season and options. Contact AmseelCars with your dates for an exact quote.',
+        },
+        {
+          question: 'Is this different from the other grey Sportage listed?',
+          answer:
+            'Yes — this is an extra light-grey unit with its own photos. Specs remain those of a diesel automatic 5-seat Sportage.',
+        },
+        {
+          question: 'Is the gearbox automatic?',
+          answer: 'Yes, a 7-speed DCT automatic, ideal for Agadir traffic.',
+        },
+        {
+          question: 'Is it suitable for families?',
+          answer: 'Yes: 5 seats, generous boot, rear USB and climate control for family trips.',
+        },
+      ],
+    },
+  },
+
   'location-voiture-agadir-kia-sportage-vert': {
     description:
       'Modern family SUV: the green Kia Sportage 1.6 CRDi 136 hp with 7-speed DCT automatic offers comfort, useful tech (Apple CarPlay/Android Auto, trim dependent) and sensible everyday running costs.',

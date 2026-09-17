@@ -21,7 +21,9 @@
     "backfill:blog-locale": "tsx scripts/backfill-blog-locale.ts",
     "backfill:article-published": "tsx scripts/backfill-article-published.ts",
     "generate:car-products": "tsx scripts/generate-car-products.ts",
-    "bootstrap:car-products-locales": "tsx scripts/bootstrap-car-products-locales.ts"
+    "bootstrap:car-products-locales": "tsx scripts/bootstrap-car-products-locales.ts",
+    "convert-images:avif": "tsx scripts/convert-images-avif.ts",
+    "convert-car-images": "tsx scripts/convert-images-avif.ts --car-inbox"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.67",
@@ -92,6 +94,7 @@
     "prisma": "^6.19.0",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^4.1.11",
+    "tinify": "^1.8.3",
     "tsx": "^4.20.6",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5"
