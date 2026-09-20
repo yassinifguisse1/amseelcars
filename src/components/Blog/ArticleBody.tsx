@@ -7,6 +7,7 @@ import { trackEvent } from "@/lib/trackEvent";
 import styles from "./ArticleBody.module.scss";
 import TableOfContents, { processContentWithIds } from "./TableOfContents";
 import { enhanceArticleBodyImages } from "@/lib/articleContentImages";
+import { BUSINESS_MAILTO, BUSINESS_WHATSAPP_URL } from "@/lib/business";
 
 interface ArticleBodyProps {
   article: BlogArticle;
@@ -130,7 +131,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
             </p>
             <div className={styles.ctaButtons}>
               <motion.a 
-                href="https://wa.me/212662500181/?text=Bonjour, je souhaite louer une voiture."
+                href={`${BUSINESS_WHATSAPP_URL}/?text=Bonjour, je souhaite louer une voiture.`}
                 className={styles.primaryButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -138,7 +139,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 Contactez-nous sur WhatsApp
               </motion.a>
               <motion.a 
-                href="mailto:info@amseelcars.com"
+                href={BUSINESS_MAILTO}
                 className={styles.secondaryButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

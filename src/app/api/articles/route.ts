@@ -37,6 +37,7 @@ function transformArticle(article: {
   readTime: string;
   date: string;
   publishedAt: Date;
+  updatedAt?: Date;
   image: string;
   imageMetaTitle: string | null;
   altText: string;
@@ -61,6 +62,7 @@ function transformArticle(article: {
     readTime: article.readTime,
     date: article.date,
     publishedAt: article.publishedAt.toISOString(),
+    updatedAt: (article.updatedAt ?? article.publishedAt).toISOString(),
     image: article.image,
     imageMetaTitle: article.imageMetaTitle ?? '',
     altText: article.altText,

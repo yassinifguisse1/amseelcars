@@ -13,7 +13,10 @@ type StaticHref =
   | "/cars"
   | "/location-voiture-agadir"
   | "/agadir-airport-car-rental"
-  | "/taghazout-car-rental";
+  | "/taghazout-car-rental"
+  | "/rental-terms"
+  | "/privacy"
+  | "/legal";
 
 const STATIC_HREFS: StaticHref[] = [
   "/",
@@ -23,6 +26,9 @@ const STATIC_HREFS: StaticHref[] = [
   "/location-voiture-agadir",
   "/agadir-airport-car-rental",
   "/taghazout-car-rental",
+  "/rental-terms",
+  "/privacy",
+  "/legal",
 ];
 
 export function escapeXml(s: string): string {

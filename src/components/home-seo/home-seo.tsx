@@ -415,7 +415,6 @@ function FaqAnswerText({
         setShowToggle(true);
         return;
       }
-      // Avoid forced reflow during style settle: measure in rAF.
       requestAnimationFrame(() => {
         if (!pRef.current) return;
         setShowToggle(pRef.current.scrollHeight > pRef.current.clientHeight + 2);
@@ -434,8 +433,8 @@ function FaqAnswerText({
         ref={pRef}
         id={answerId}
         className={cn(
-          "text-pretty text-[0.9375rem] leading-[1.65] text-neutral-600 sm:text-base sm:leading-[1.7]",
-          !expanded && "line-clamp-4 sm:line-clamp-5"
+          "text-pretty text-[0.9375rem] leading-[1.6] text-neutral-500 sm:text-[0.9875rem] sm:leading-[1.65]",
+          !expanded && "line-clamp-5"
         )}
       >
         {text}
@@ -443,7 +442,7 @@ function FaqAnswerText({
       {showToggle ? (
         <button
           type="button"
-          className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-[#CB1939] underline decoration-[#CB1939]/30 underline-offset-4 transition hover:decoration-[#CB1939] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#CB1939]"
+          className="mt-3 text-sm font-medium text-neutral-800 underline decoration-neutral-300 underline-offset-4 transition hover:decoration-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-800"
           aria-expanded={expanded}
           aria-controls={answerId}
           onClick={() => setExpanded((v) => !v)}
@@ -468,60 +467,25 @@ function HomeFaqCard({
 }) {
   const answerId = `home-faq-reponse-${index}`;
   return (
-    <article className="relative overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-[box-shadow,border-color] hover:border-neutral-300/90 hover:shadow-md">
-      <div
-        className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#CB1939]"
-        aria-hidden
-      />
-      <div className="pl-4 pr-4 py-4 sm:pl-5 sm:pr-5 sm:py-5">
-        <h3 className="text-balance text-[0.9375rem] font-semibold leading-snug tracking-tight text-neutral-900 sm:text-base md:text-[1.0625rem] md:leading-snug">
-          {item.q}
-        </h3>
-        <div className="mt-2.5 sm:mt-3">
-          <FaqAnswerText
-            text={item.a}
-            answerId={answerId}
-            readMoreLabel={readMoreLabel}
-            readLessLabel={readLessLabel}
-          />
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function FaqColumn({
-  items,
-  startIndex,
-  readMoreLabel,
-  readLessLabel,
-}: {
-  items: FaqItem[];
-  startIndex: number;
-  readMoreLabel: string;
-  readLessLabel: string;
-}) {
-  return (
-    <div className="flex flex-col gap-4 sm:gap-5">
-      {items.map((item, i) => (
-        <HomeFaqCard
-          key={item.q}
-          item={item}
-          index={startIndex + i}
+    <article className="rounded-xl border border-neutral-200 bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,0.04)] sm:p-7 md:p-8">
+      <h3 className="text-balance text-base font-bold leading-snug tracking-tight text-neutral-900 sm:text-[1.0625rem] md:text-lg md:leading-snug">
+        {item.q}
+      </h3>
+      <div className="mt-3 sm:mt-3.5">
+        <FaqAnswerText
+          text={item.a}
+          answerId={answerId}
           readMoreLabel={readMoreLabel}
           readLessLabel={readLessLabel}
         />
-      ))}
-    </div>
+      </div>
+    </article>
   );
 }
 
 export function HomeSeoFaqBlock() {
   const t = useTranslations("home.faq");
   const faqItems = t.raw("items") as FaqItem[];
-  const faqCol1 = faqItems.slice(0, 4);
-  const faqCol2 = faqItems.slice(4, 7);
-  const faqCol3 = faqItems.slice(7, 10);
 
   const homeFaqPageSchema = generateFAQSchema(
     faqItems.map((item) => ({ question: item.q, answer: item.a }))
@@ -543,29 +507,29 @@ export function HomeSeoFaqBlock() {
         />
       )}
       <section
-        className="border-t border-neutral-200 bg-gradient-to-b from-neutral-100/80 to-[#fafafa] px-4 py-14 sm:px-5 sm:py-16 md:py-20"
+        className="border-t border-neutral-200/80 bg-[#f7f7f8] px-4 py-14 sm:px-6 sm:py-16 md:py-20"
         aria-labelledby="home-faq-heading"
       >
-        <div className="mx-auto max-w-7xl">
-          <header className="mx-auto max-w-2xl text-center lg:max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#CB1939] sm:text-[0.8125rem]">
-              {t("kicker")}
-            </p>
+        <div className="mx-auto max-w-6xl">
+          <header className="mx-auto max-w-3xl text-center">
             <h2
               id="home-faq-heading"
-              className="mt-2 text-balance text-xl font-semibold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl md:leading-tight"
+              className="text-balance text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-[2rem] md:leading-tight"
             >
               {t("title")}
             </h2>
-            <p className="mt-3 text-pretty text-sm leading-relaxed text-neutral-600 sm:text-base sm:leading-relaxed">
-              {t("subtitle")}
-            </p>
           </header>
 
-          <div className="mt-9 grid grid-cols-1 gap-8 sm:mt-10 md:mt-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-0 xl:gap-x-8">
-            <FaqColumn items={faqCol1} startIndex={0} readMoreLabel={readMore} readLessLabel={readLess} />
-            <FaqColumn items={faqCol2} startIndex={4} readMoreLabel={readMore} readLessLabel={readLess} />
-            <FaqColumn items={faqCol3} startIndex={7} readMoreLabel={readMore} readLessLabel={readLess} />
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:gap-6 md:grid-cols-2 md:gap-x-6 md:gap-y-6 lg:gap-x-8 lg:gap-y-7">
+            {faqItems.map((item, index) => (
+              <HomeFaqCard
+                key={item.q}
+                item={item}
+                index={index}
+                readMoreLabel={readMore}
+                readLessLabel={readLess}
+              />
+            ))}
           </div>
         </div>
       </section>

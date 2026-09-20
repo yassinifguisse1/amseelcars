@@ -81,7 +81,7 @@ export default function ArticleHero({ article }: ArticleHeroProps) {
               <div className={styles.avatar}>
                 <Image
                   src={article.author.avatar}
-                  alt={`Portrait de ${article.author.name}, auteur AmseelCars`}
+                  alt={`${article.author.name} — AmseelCars`}
                   width={40}
                   height={40}
                   className={styles.avatarImage}
@@ -89,6 +89,9 @@ export default function ArticleHero({ article }: ArticleHeroProps) {
               </div>
               <div className={styles.authorInfo}>
                 <span className={styles.authorName}>{article.author.name}</span>
+                {article.author.bio ? (
+                  <span className={styles.authorBio}>{article.author.bio}</span>
+                ) : null}
                 <span className={styles.publishDate}>{article.date}</span>
               </div>
             </div>

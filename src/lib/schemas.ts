@@ -3,19 +3,21 @@
  * Following Schema.org best practices
  */
 
-const siteUrl = 'https://www.amseelcars.com';
-const siteName = 'AmseelCars';
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_GEO,
+  BUSINESS_POSTAL_ADDRESS,
+  BUSINESS_SAME_AS,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+  SITE_NAME,
+  SITE_URL,
+} from "./business";
 
-/** E.164; national (Morocco): 0662500181 */
-const businessTelephone = '+212662500181';
-
-const businessPostalAddress = {
-  streetAddress: 'Immeuble Sinwan, RDC',
-  addressLocality: 'Agadir',
-  addressRegion: 'Souss-Massa',
-  postalCode: '80000',
-  addressCountry: 'MA',
-} as const;
+const siteUrl = SITE_URL;
+const siteName = SITE_NAME;
+const businessTelephone = BUSINESS_TELEPHONE_E164;
+const businessPostalAddress = BUSINESS_POSTAL_ADDRESS;
 
 /**
  * Organization schema - used sitewide
@@ -27,11 +29,7 @@ export function generateOrganizationSchema() {
     name: siteName,
     url: siteUrl,
     logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
-    sameAs: [
-      'https://www.facebook.com/amseelcars/',
-      'https://www.instagram.com/amseelcars/',
-      'https://wa.me/212662500181',
-    ],
+    sameAs: [...BUSINESS_SAME_AS],
   };
 }
 
@@ -64,19 +62,20 @@ export function generateLocalBusinessSchema() {
     '@type': 'AutoRental',
     '@id': `${siteUrl}#business`,
     name: siteName,
+    alternateName: ['Amseel Cars', 'AmseelCars Agadir'],
     url: siteUrl,
     image: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     telephone: businessTelephone,
-    email: 'info@amseelcars.com',
+    email: BUSINESS_EMAIL,
     address: {
       '@type': 'PostalAddress',
       ...businessPostalAddress,
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 30.40085,
-      longitude: -9.57758,
+      latitude: BUSINESS_GEO.latitude,
+      longitude: BUSINESS_GEO.longitude,
     },
     hasMap: businessMapsUrl,
     priceRange: '$$',
@@ -88,8 +87,8 @@ export function generateLocalBusinessSchema() {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       telephone: businessTelephone,
-      email: 'info@amseelcars.com',
-      url: 'https://wa.me/212662500181',
+      email: BUSINESS_EMAIL,
+      url: BUSINESS_WHATSAPP_URL,
       availableLanguage: ['fr', 'en', 'es', 'de', 'pl'],
       areaServed: 'MA',
     },
@@ -127,11 +126,7 @@ export function generateLocalBusinessSchema() {
         name: 'Morocco',
       },
     ],
-    sameAs: [
-      'https://www.facebook.com/amseelcars/',
-      'https://www.instagram.com/amseelcars/',
-      'https://wa.me/212662500181',
-    ],
+    sameAs: [...BUSINESS_SAME_AS],
     parentOrganization: { '@id': `${siteUrl}#org` },
   };
 }
@@ -147,8 +142,9 @@ export function generateBlogPostingSchema(article: {
   imageAltText?: string;
   imageCaption?: string;
   imageDescription?: string;
-  author: { name: string };
+  author: { name: string; bio?: string };
   publishedAt: string;
+  updatedAt?: string;
   slug: string; // Full path like "guide-pratique/location-de-voiture-a-agadir"
   category: string;
   locale?: string;
@@ -184,6 +180,7 @@ export function generateBlogPostingSchema(article: {
     author: {
       '@type': 'Person',
       name: article.author.name,
+      ...(article.author.bio ? { description: article.author.bio } : {}),
     },
     publisher: {
       '@type': 'Organization',
@@ -194,7 +191,7 @@ export function generateBlogPostingSchema(article: {
       },
     },
     datePublished: article.publishedAt,
-    dateModified: article.publishedAt, // Update if you track modifications
+    dateModified: article.updatedAt ?? article.publishedAt,
     articleSection: article.category,
   };
 }

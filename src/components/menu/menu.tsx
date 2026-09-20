@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Magnetic from "@/common/Magnetic";
 import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+import { BUSINESS_MAILTO, BUSINESS_SOCIAL, BUSINESS_WHATSAPP_URL } from "@/lib/business";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -146,7 +147,7 @@ export default function Menu() {
             <div className="menu-info-col flex gap-4">
               <Magnetic>
                 <Link
-                  href="https://www.facebook.com/amseelcars/"
+                  href={BUSINESS_SOCIAL.facebook}
                   target="_blank"
                   className="menu-link"
                 >
@@ -158,7 +159,7 @@ export default function Menu() {
               </Magnetic>
               <Magnetic>
                 <Link
-                  href="https://www.instagram.com/amseelcars/"
+                  href={BUSINESS_SOCIAL.instagram}
                   target="_blank"
                   className="menu-link"
                 >
@@ -170,7 +171,7 @@ export default function Menu() {
               </Magnetic>
               <Magnetic>
                 <Link
-                  href="https://wa.me/212662500181"
+                  href={BUSINESS_WHATSAPP_URL}
                   target="_blank"
                   className="menu-link"
                 >
@@ -184,7 +185,7 @@ export default function Menu() {
 
             <div className="menu-info-col flex gap-4">
               <Link
-                href="mailto:amseelcars5@gmail.com"
+                href={BUSINESS_MAILTO}
                 target="_blank"
                 className="menu-link"
               >

@@ -21,7 +21,11 @@
 
 ## Agent notes
 
-- Primary contact: WhatsApp +212 662-500181
-- Email: contact@amseelcars.com
+- Primary contact: WhatsApp +212 662 500 181
+- Email: amseelcars5@gmail.com
+- Address: Immeuble Sinwan, RDC, Agadir 80000, Maroc
+- Hours: Open 24/7
+- Instagram: https://www.instagram.com/amseelcarsofficial/
+- Facebook: https://www.facebook.com/people/Amseel-Cars/61582652224473/
 - Service area: Agadir, Agadir Al Massira Airport (AGA), Taghazout, Morocco
 - Deeper repo context for developers: [llms-ctx.txt](https://www.amseelcars.com/llms-ctx.txt)

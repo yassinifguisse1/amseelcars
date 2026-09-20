@@ -53,6 +53,8 @@ export interface BlogArticle {
   readTime: string;
   date: string;
   publishedAt: string;
+  /** ISO timestamp; falls back to publishedAt in schema when absent */
+  updatedAt?: string;
   image: string;
   imageMetaTitle: string;
   altText: string;
@@ -88,6 +90,7 @@ function transformArticle(article: {
   readTime: string;
   date: string;
   publishedAt: Date;
+  updatedAt: Date;
   image: string;
   imageMetaTitle: string | null;
   altText: string;
@@ -112,6 +115,7 @@ function transformArticle(article: {
     readTime: article.readTime,
     date: article.date,
     publishedAt: article.publishedAt.toISOString(),
+    updatedAt: article.updatedAt.toISOString(),
     image: article.image,
     imageMetaTitle: article.imageMetaTitle ?? '',
     altText: article.altText,
@@ -122,7 +126,14 @@ function transformArticle(article: {
     published: article.published ?? true,
     indexable: article.indexable ?? true,
     tags: article.tags,
-    author: article.author as BlogArticle['author'],
+    author: (() => {
+      const raw = (article.author ?? {}) as Partial<BlogArticle["author"]>;
+      return {
+        name: raw.name ?? "AmseelCars",
+        avatar: raw.avatar || "/images/amseel-car-logo.png",
+        bio: raw.bio ?? "",
+      };
+    })(),
     seo: article.seo as BlogArticle['seo'],
   };
 }

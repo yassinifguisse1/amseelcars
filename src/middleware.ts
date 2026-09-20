@@ -118,7 +118,7 @@ function handlePublicRequest(req: NextRequest) {
   if (frenchBlogPath) {
     const url = req.nextUrl.clone();
     url.pathname = frenchBlogPath;
-    return NextResponse.redirect(url, 307);
+    return NextResponse.redirect(url, 301);
   }
 
   // Static media under /public/video — must not run next-intl (rewrites break the path → 404).

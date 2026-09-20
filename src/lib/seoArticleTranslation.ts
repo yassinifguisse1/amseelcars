@@ -38,7 +38,20 @@ const translatedImageOutputSchema = z.object({
 });
 
 const translatedImageSchema = translatedImageOutputSchema.extend({
-  sourceUrl: z.string().url(),
+  // Absolute http(s) URLs or site-relative paths like /images/blog/...
+  sourceUrl: z
+    .string()
+    .trim()
+    .min(1)
+    .refine((value) => {
+      if (value.startsWith('/')) return true;
+      try {
+        const parsed = new URL(value);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+      } catch {
+        return false;
+      }
+    }, 'Invalid image URL'),
 });
 
 const translatedArticleMetadataOutputSchema = z.object({
@@ -419,7 +432,13 @@ function assertHtmlStructureAndLinksPreserved(sourceContent: string, translatedC
     sourceStructure.length !== translatedStructure.length ||
     sourceStructure.some((tag, index) => tag !== translatedStructure[index])
   ) {
-    throw new Error('OpenAI translation changed the article HTML structure.');
+    const firstDiff = sourceStructure.findIndex((tag, index) => tag !== translatedStructure[index]);
+    throw new Error(
+      `OpenAI translation changed the article HTML structure. sourceTags=${sourceStructure.length} translatedTags=${translatedStructure.length}` +
+        (firstDiff >= 0
+          ? ` firstDiff@${firstDiff}: ${sourceStructure[firstDiff]} → ${translatedStructure[firstDiff] ?? '(missing)'}`
+          : ''),
+    );
   }
 
   const sourceLinks = linkTargets(sourceContent);
@@ -529,17 +548,25 @@ export async function translateSeoArticleDraft(
   });
 
   try {
+    // Sanitize before translate/assert so source and output share the same tag surface
+    // (legacy CMS HTML may include style attrs / unsafe tags that sanitize strips).
+    const cleanedSourceContent = sanitizeArticleHtml(source.content);
+    const sourceForTranslation: SeoArticleTranslationSource = {
+      ...source,
+      content: cleanedSourceContent,
+    };
+
     const [translatedArticle, translatedHtml] = await Promise.all([
-      translateArticleMetadata(model, source, targetLocale),
-      translateArticleHtml(model, source.locale, targetLocale, source.content),
+      translateArticleMetadata(model, sourceForTranslation, targetLocale),
+      translateArticleHtml(model, source.locale, targetLocale, cleanedSourceContent),
     ]);
 
     let content = sanitizeArticleHtml(translatedHtml);
     if (!stripHtml(content)) {
       throw new Error('OpenAI translation returned empty article content.');
     }
-    assertHtmlStructureAndLinksPreserved(source.content, content);
-    assertContentImageSourcesPreserved(source.content, content);
+    assertHtmlStructureAndLinksPreserved(cleanedSourceContent, content);
+    assertContentImageSourcesPreserved(cleanedSourceContent, content);
     const exactImageCountReturned = translatedArticle.images.length === source.images.length;
     if (exactImageCountReturned) {
       assertTranslatedImagesPreserved(source.images, translatedArticle.images);

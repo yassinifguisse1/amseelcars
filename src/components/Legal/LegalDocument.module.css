@@ -1,0 +1,86 @@
+.main {
+  background: #f7f5f2;
+  color: #1a1a1a;
+  min-height: 70vh;
+  padding: 7rem 1.25rem 4rem;
+}
+
+.article {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #666;
+  margin: 0 0 1rem;
+}
+
+.eyebrow a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.title {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.updated {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0 0 1.5rem;
+}
+
+.intro {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  margin: 0 0 2.5rem;
+  color: #333;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.paragraph {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+  margin: 0 0 0.85rem;
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
+  font-size: 0.9375rem;
+}
+
+.related a {
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 8rem 2rem 5rem;
+  }
+}

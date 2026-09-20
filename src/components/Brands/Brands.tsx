@@ -3,11 +3,13 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Brands() {
+  const t = useTranslations('home.brands');
   const firstRowRef = useRef<HTMLDivElement>(null);
   const secondRowRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -123,10 +125,10 @@ export default function Brands() {
         {/* Section Title */}
         <div ref={titleRef} className="text-center mb-16 ">
           <h2 ref={headingRef} className="text-6xl md:text-7xl font-bold text-white mb-4">
-          Nos Marques
+            {t('title')}
           </h2>
           <p ref={descriptionRef} className="text-xl text-gray-400 max-w-2xl mx-auto">
-          Des marques automobiles haut de gamme qui incarnent l’excellence et l’innovation.
+            {t('description')}
           </p>
         </div>
 
@@ -150,7 +152,7 @@ export default function Brands() {
                     <div className="w-32 h-32 md:w-36 md:h-36 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center p-6 transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-105">
                       <Image
                         src={brand.logo}
-                        alt={`${brand.name} logo`}
+                        alt={t('logoAlt', { name: brand.name })}
                         className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0"
                         width={100}
                         height={100}
@@ -194,7 +196,7 @@ export default function Brands() {
                     <div className="w-32 h-32 md:w-36 md:h-36 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center p-6 transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-105">
                       <Image
                         src={brand.logo}
-                        alt={`${brand.name} logo`}
+                        alt={t('logoAlt', { name: brand.name })}
                         className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0"
                         width={100}
                         height={100}

@@ -181,6 +181,7 @@ export default async function ArticlePage({ params }: PageProps) {
     imageDescription: article.imageDescription,
     author: article.author,
     publishedAt: article.publishedAt,
+    updatedAt: article.updatedAt,
     slug: `${categoryToSlug(article.category)}/${article.slug}`,
     category: article.category,
     locale: l,

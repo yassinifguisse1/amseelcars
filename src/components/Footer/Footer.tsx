@@ -8,6 +8,14 @@ import { useScroll, motion, useTransform } from "framer-motion";
 import Magnetic from "../../common/Magnetic";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_MAILTO,
+  BUSINESS_SOCIAL,
+  BUSINESS_TELEPHONE_DISPLAY,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/business";
 
 /** Same marques / order as the “Marque” filter on /cars (see FilterBar). */
 const LOCATION_VOITURE_AGADIR_BRANDS = [
@@ -67,7 +75,7 @@ export default function Footer() {
   const y = useTransform(scrollYProgress, [0, 1], [-100, 0]);
   const rotate = useTransform(scrollYProgress, [0, 1], [90, 90]);
 
-  const waHref = `https://wa.me/212662500181/?text=${encodeURIComponent(
+  const waHref = `${BUSINESS_WHATSAPP_URL}/?text=${encodeURIComponent(
     t("whatsappPrefill"),
   )}`;
   const year = new Date().getFullYear();
@@ -108,8 +116,8 @@ export default function Footer() {
         </p>
         <div className={styles.nav}>
           <Rounded>
-            <a href="mailto:amseelcars5@gmail.com">
-              <p>amseelcars5@gmail.com</p>
+            <a href={BUSINESS_MAILTO}>
+              <p>{BUSINESS_EMAIL}</p>
             </a>
           </Rounded>
           <Rounded>
@@ -133,19 +141,19 @@ export default function Footer() {
               <li>
                 {t("phoneWhatsappLabel")}{" "}
                 <a
-                  href="tel:+212662500181"
+                  href={`tel:${BUSINESS_TELEPHONE_E164}`}
                   className="underline-offset-2 hover:underline"
                 >
-                  +212 662 500 181
+                  {BUSINESS_TELEPHONE_DISPLAY}
                 </a>
               </li>
               <li>
                 {t("emailLabel")}{" "}
                 <a
-                  href="mailto:amseelcars5@gmail.com"
+                  href={BUSINESS_MAILTO}
                   className="underline-offset-2 hover:underline"
                 >
-                  amseelcars5@gmail.com
+                  {BUSINESS_EMAIL}
                 </a>
               </li>
               <li>{t("hoursLine")}</li>
@@ -163,6 +171,9 @@ export default function Footer() {
               <Link href="/taghazout-car-rental">{t("taghazout")}</Link>
               <Link href="/about">{t("about")}</Link>
               <Link href="/contact">{t("contact")}</Link>
+              <Link href="/rental-terms">{t("rentalTerms")}</Link>
+              <Link href="/privacy">{t("privacy")}</Link>
+              <Link href="/legal">{t("legal")}</Link>
             </nav>
           </div>
           <div>
@@ -188,7 +199,7 @@ export default function Footer() {
           </div>
           <div>
             <h3 className={styles.footerColTitle}>
-              <Link href="/blog" locale="fr">{t("blogColumnTitle")}</Link>
+              <Link href="/blog">{t("blogColumnTitle")}</Link>
             </h3>
             <nav
               className={styles.footerColLinks}
@@ -198,6 +209,7 @@ export default function Footer() {
                 <Link
                   key={`${params.category}/${params.slug}`}
                   href={{ pathname: "/blog/[category]/[slug]", params }}
+                  // Featured posts in this column use FR slugs; keep FR URLs until translations exist.
                   locale="fr"
                 >
                   {t(labelKey)}
@@ -230,7 +242,7 @@ export default function Footer() {
           >
             <Magnetic>
               <a
-                href="https://www.instagram.com/amseelcarsofficial/"
+                href={BUSINESS_SOCIAL.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -239,7 +251,7 @@ export default function Footer() {
             </Magnetic>
             <Magnetic>
               <a
-                href="https://www.facebook.com/people/Amseel-Cars/61582652224473/"
+                href={BUSINESS_SOCIAL.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -248,7 +260,7 @@ export default function Footer() {
             </Magnetic>
             <Magnetic>
               <a
-                href="https://www.tiktok.com/@amseelcars"
+                href={BUSINESS_SOCIAL.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -257,7 +269,7 @@ export default function Footer() {
             </Magnetic>
             <Magnetic>
               <a
-                href="https://www.pinterest.com/amseelcars/"
+                href={BUSINESS_SOCIAL.pinterest}
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
-import { generateAboutPageSchema, generateBreadcrumbSchema } from "@/lib/schemas";
+import { generateAboutPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schemas";
+import { generateFAQSchema } from "@/lib/faqSchema";
 import { AboutPageClient } from "./AboutPageClient";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import { buildPageMetadata } from "@/lib/seo/site-meta";
@@ -32,6 +33,7 @@ export default async function AboutPage() {
   const l: AppLocale = toAppLocale(locale);
   const tSeo = await getTranslations({ locale: l, namespace: "seo" });
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
+  const tCred = await getTranslations({ locale: l, namespace: "aboutPage.credentials" });
   const homePath = getPathname({ locale: l, href: "/" });
   const aboutPath = getPathname({ locale: l, href: "/about" });
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -44,6 +46,9 @@ export default async function AboutPage() {
     description: tSeo("about.description"),
     inLanguage: localeToLanguageTag(l),
   });
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const faqs = (tCred.raw("faqs") as Array<{ question: string; answer: string }>) ?? [];
+  const faqSchema = generateFAQSchema(faqs);
 
   return (
     <>
@@ -53,10 +58,22 @@ export default async function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
       />
       <Script
+        id="ld-json-local-business-about"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <Script
         id="ld-json-breadcrumb-about"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema ? (
+        <Script
+          id="ld-json-faq-about"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      ) : null}
       <AboutPageClient />
     </>
   );

@@ -1,3 +1,5 @@
+import { BUSINESS_SOCIAL } from "@/lib/business";
+
 /**
  * Main nav uses next-intl internal pathnames (see `src/i18n/routing.ts`).
  * Visible labels come from messages (nav namespace) via `messageKey`.
@@ -30,10 +32,10 @@ export interface SocialNavItem {
 export const socialNavItems: SocialNavItem[] = [
   {
     messageKey: "socialFacebook",
-    href: "https://www.facebook.com/amseelcars/",
+    href: BUSINESS_SOCIAL.facebook,
   },
   {
     messageKey: "socialInstagram",
-    href: "https://www.instagram.com/amseelcars/",
+    href: BUSINESS_SOCIAL.instagram,
   },
 ];

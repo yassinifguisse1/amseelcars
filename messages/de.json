@@ -27,10 +27,10 @@
     "whatsappPrefill": "Hallo, ich mochte ein Auto mieten.",
     "whatsappLine": "+212 662 500 181 · WhatsApp",
     "companyBlockTitle": "AMSEEL CARS",
-    "address": "Immeuble Sinwan, Erdgeschoss, Haut Founty, 80000 Agadir, Marokko",
+    "address": "Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko",
     "phoneWhatsappLabel": "Telefon / WhatsApp:",
     "emailLabel": "E-Mail:",
-    "hoursLine": "Zeiten: nach Termin und entsprechend deinen Lieferbedurfnissen; kontaktiere uns zur Planung.",
+    "hoursLine": "Öffnungszeiten: 24/7 geöffnet (Übergaben nach Termin).",
     "asideAria": "Kontaktdaten und Links von AMSEEL CARS",
     "quickLinksTitle": "Schnelllinks",
     "quickLinksNavAria": "Schnelllinks",
@@ -59,7 +59,11 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "tiktok": "TikTok",
-    "pinterest": "Pinterest"
+    "pinterest": "Pinterest",
+    "rentalTerms": "Mietbedingungen",
+    "privacy": "Datenschutz",
+    "legal": "Impressum",
+    "legalNavAria": "Rechtliche Seiten"
   },
   "home": {
     "meta": {
@@ -68,9 +72,9 @@
     },
     "breadcrumb": "Startseite",
     "hero": {
-      "title": "Mietwagen Agadir <brand>AMSEEL CARS</brand>",
-      "intro": "AMSEEL CARS bietet zuverlassige Mietwagen in Agadir mit Lieferung zum Flughafen Agadir Al Massira, zu deinem Hotel oder in die Innenstadt. Entdecke unsere Economy-, Automatik-, SUV- und Premium-Modelle mit einfacher Buchung, 24/7-Support und klaren Preisen.",
-      "ariaLabel": "Uberblick - Mietwagen Agadir",
+      "title": "Mietwagen Flughafen Agadir mit Vollversicherung und kostenloser Lieferung zum Flughafen <brand>AMSEEL CARS</brand>",
+      "intro": "AMSEEL CARS bietet zuverlässige Mietwagen in Agadir mit kostenloser Flughafenlieferung, aktuellen Modellen, transparenten Preisen und bequemer Abholung direkt am Flughafen Agadir Al Massira. Buche Economy-, Automatik-, SUV- oder Premium-Autos per WhatsApp, mit Support 24/7.",
+      "ariaLabel": "Uberblick - Mietwagen Flughafen Agadir mit Vollversicherung und kostenloser Lieferung",
       "fleetCta": "Unsere Autos ansehen"
     },
     "preloader": {
@@ -270,9 +274,9 @@
     },
     "location": {
       "title": "Wo du AMSEEL CARS in Agadir findest",
-      "body": "Unser Buro befindet sich in Haut Founty, Immeuble Sinwan, Erdgeschoss, Agadir. Wir liefern Fahrzeuge auch nach Absprache zum Flughafen Agadir Al Massira, zu deinem Hotel oder in die Innenstadt.",
+      "body": "Unser Büro befindet sich im Immeuble Sinwan, Erdgeschoss, Agadir 80000. Wir liefern Fahrzeuge auch nach Absprache zum Flughafen Agadir Al Massira, zu deinem Hotel oder in die Innenstadt.",
       "company": "AMSEEL CARS",
-      "address": "Immeuble Sinwan, Erdgeschoss, Haut Founty, 80000 Agadir, Marokko",
+      "address": "Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko",
       "whatsappLabel": "WhatsApp"
     },
     "bookingCta": {
@@ -331,6 +335,11 @@
           "a": "Frage nach Endpreis, erforderlichen Dokumenten, Abhol- und Ruckgabeprozess, Ruckgabebedingungen, enthaltener Hilfe und Services. Frage auch nach Lieferung zum Flughafen oder Hotel, welches Auto zu deinem Aufenthalt passt und wie die Buchung funktioniert. Einfache Checks helfen, ein klareres und besser passendes Angebot zu wahlen."
         }
       ]
+    },
+    "brands": {
+      "title": "Unsere Marken",
+      "description": "Premium-Automarken, die Exzellenz und Innovation verkörpern.",
+      "logoAlt": "{name}-Logo"
     }
   },
   "carsPage": {
@@ -513,7 +522,7 @@
       "cardAddress": "Adresse",
       "phoneValue": "+212 662 500 181",
       "emailValue": "amseelcars5@gmail.com",
-      "addressValue": "Sinwan-Gebäude, Erdgeschoss, Haut Founty, 80000 Agadir, Marokko",
+      "addressValue": "Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko",
       "followTitle": "Folgen Sie uns",
       "whyTitle": "Warum Amseel Cars",
       "statLuxury": "Premiumflotte",
@@ -525,7 +534,7 @@
       "mapLoadGoogle": "Google Maps wird geladen…",
       "mapNoKey": "Karte nicht verfügbar (API-Schlüssel)",
       "mapNoKeyHint": "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY zu .env.local hinzufügen",
-      "mapFallbackAddress": "Sinwan-Gebäude, Haut Founty, Agadir",
+      "mapFallbackAddress": "Immeuble Sinwan, Erdgeschoss, Agadir 80000",
       "mapError": "Die Karte konnte nicht geladen werden",
       "mapRetry": "Erneut versuchen",
       "mapInfoBusiness": "Amseel Cars",
@@ -544,11 +553,11 @@
   "aboutPage": {
     "videoNoSupport": "Ihr Browser unterstützt das Video-Tag nicht.",
     "introImageAlt": "Detail eines Premium-Fahrzeuginnenraums, Amseel Cars",
-    "introTitle": "Über Amseel Cars",
-    "introP1": "Bei Amseel Cars bringen wir Sie nicht nur von A nach B, wir gestalten Erlebnisse. Aus Leidenschaft für automobile Exzellenz bewegen wir uns im Premiumsegment und setzen neue Maßstäbe für luxuriöse Autovermietung.",
-    "introP2": "Wir stehen nicht für gewöhnliche Fahrten. Wir stehen für Reisen, die von Anfang bis Ende in Erinnerung bleiben. Deshalb haben wir eine außergewöhnliche Flotte aufgebaut, tausende zufriedene Kunden betreut und Partnerschaften mit Premium-Marken in Marokko geschlossen.",
-    "introP3": "Amseel Cars verbindet Luxus mit Zuverlässigkeit: herausragende Fahrzeuge, professioneller Service und unvergessliche Erlebnisse. Wir erfüllen Erwartungen nicht nur, wir übertreffen sie jedes Mal.",
-    "introP4": "Wir bringen automobile Exzellenz nach Agadir und darüber hinaus. Jedes Fahrzeug und jeder Servicepunkt wird sorgfältig gepflegt, denn „gut genug“ reicht uns nicht. Bei Amseel Cars bewegen wir nicht nur Menschen, wir schaffen Erinnerungen.",
+    "introTitle": "Über AmseelCars",
+    "introP1": "AmseelCars ist Ihre Autovermietung in Agadir. Wir verbinden eine gepflegte Flotte, flexible Übergabe in Stadt oder am Flughafen und persönliche WhatsApp-Betreuung.",
+    "introP2": "Von Agadir aus kennen wir die Wege zum Flughafen Al Massira (AGA), nach Taghazout und an die Küste. Unser Auftrag: das passende Auto, klare Konditionen und Erreichbarkeit während der Miete.",
+    "introP3": "AmseelCars (auch Amseel Cars) ist eine unabhängige Agentur in Agadir — kein Aggregator. Sie sprechen direkt mit dem lokalen Team über Fahrzeug, Daten, Übergabeort (Stadt, Flughafen AGA oder Taghazout) und Konditionen vor der Abfahrt.",
+    "introP4": "Lokale Erfahrung in Agadir und an der Küste hilft uns, echte Bedürfnisse zu antizipieren: Mietdokumente, Mindestdauer, Kraftstoff und WhatsApp-Support während des Aufenthalts. Transparenz und Nähe sind die Basis des Vertrauens bei AmseelCars.",
     "fleetImageAlt": "Premiumflotte, Amseel Cars",
     "fleetTitle": "Premium-Flottenerlebnis",
     "fleetP1": "Erleben Sie neu interpretierten Luxus mit unserer handverlesenen Premiumflotte. Jedes Fahrzeug steht für starke Technik, moderne Technologie und zeitloses Design.",
@@ -556,7 +565,7 @@
     "fleetP3": "Unser Anspruch geht über das Auto hinaus: professionelle Fahrer, reibungslose Buchung und 24/7-Support für eine entspannte Miete.",
     "brandWordAmseel": "Amseel",
     "brandWordCars": "Cars",
-    "headerInfo": "Amseel Cars: schnelle Buchung, Abholung am Flughafen oder in der Stadt, transparente Preise und 24/7-Support für Reisen in ganz Marokko.",
+    "headerInfo": "AmseelCars Agadir: WhatsApp-Buchung, Abholung Flughafen oder Zentrum, transparente Preise und 24/7 Support in Marokko.",
     "brandsHeading": "(Unsere",
     "brandsHeading2": " Marken)",
     "brandTileAria": "{name}, Vorschau",
@@ -577,7 +586,94 @@
     "textHoverLine3Span": "IN 2 MINUTEN",
     "showCarsLoading": "Fahrzeugbilder werden geladen…",
     "showCarsProgress": "{loaded} / {total} Bilder geladen",
-    "showCarsImageAlt": "Mietwagen, Bild {n}"
+    "showCarsImageAlt": "Mietwagen, Bild {n}",
+    "credentials": {
+      "brand": "AmseelCars — Agadir, Marokko",
+      "title": "Über AmseelCars, Autovermietung in Agadir",
+      "intro": "AmseelCars ist eine lokale Autovermietung in Agadir. Wir helfen Reisenden und Einwohnern, ein zuverlässiges Auto für Stadt, Flughafen Agadir-Al Massira (AGA) und Küste (Taghazout) zu buchen — mit klarer Bestätigung vor der Übergabe.",
+      "expertise": "Unser Fokus: aktuelle Flotte (Economy, Automatik, SUV, Premium), Übergaben 24/7 nach Termin, WhatsApp-Assistance und transparente Konditionen (Mindestdauer, Kraftstoff, Dokumente).",
+      "servicesTitle": "Was wir in Agadir anbieten",
+      "servicesBody": "Kurz- oder längere Mieten, Abholung in der Stadt / Sinwan-Gebäude, AGA-Flughafenlieferung und Optionen für Taghazout sowie Roadtrips in Souss-Massa.",
+      "servicesNavAria": "AmseelCars Service-Seiten",
+      "faqTitle": "Häufige Fragen zu AmseelCars",
+      "termsLink": "Mietbedingungen",
+      "privacyLink": "Datenschutz",
+      "contactLink": "Kontakt / Buchung",
+      "serviceLinks": [
+        {
+          "href": "/location-voiture-agadir",
+          "label": "Mietwagen Agadir"
+        },
+        {
+          "href": "/agadir-airport-car-rental",
+          "label": "Flughafen Al Massira (AGA)"
+        },
+        {
+          "href": "/taghazout-car-rental",
+          "label": "Taghazout"
+        },
+        {
+          "href": "/cars",
+          "label": "Flotte ansehen"
+        },
+        {
+          "href": "/contact",
+          "label": "Kontakt"
+        }
+      ],
+      "items": [
+        {
+          "label": "Marke",
+          "value": "AmseelCars (Amseel Cars) — Autovermietung in Agadir, Marokko"
+        },
+        {
+          "label": "Adresse",
+          "value": "Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko"
+        },
+        {
+          "label": "Telefon / WhatsApp",
+          "value": "+212 662 500 181"
+        },
+        {
+          "label": "E-Mail",
+          "value": "amseelcars5@gmail.com"
+        },
+        {
+          "label": "Öffnungszeiten",
+          "value": "24/7 für vereinbarte Übergaben"
+        },
+        {
+          "label": "Gebiet",
+          "value": "Agadir, Flughafen Al Massira (AGA), Taghazout und Umgebung"
+        },
+        {
+          "label": "Buchung",
+          "value": "Zuerst WhatsApp: Fahrzeug, Daten und Konditionen vor Abfahrt bestätigt"
+        },
+        {
+          "label": "Bewertungen",
+          "value": "Google-Bewertung 5,0 auf dem Google-Maps-Eintrag von Amseel Cars"
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Ist AmseelCars eine lokale Agentur in Agadir?",
+          "answer": "Ja. AmseelCars sitzt in Agadir (Immeuble Sinwan, Erdgeschoss, 80000) und organisiert die Übergabe in der Stadt, am Flughafen Al Massira (AGA) oder nach Absprache bei Taghazout."
+        },
+        {
+          "question": "Wie buche ich bei AmseelCars?",
+          "answer": "Am einfachsten per WhatsApp unter +212 662 500 181 oder über das Kontaktformular. Wir bestätigen Modell, Daten, Übergabeort und Konditionen vor der Abfahrt."
+        },
+        {
+          "question": "Welche Autos bietet AmseelCars?",
+          "answer": "Eine aktuelle Flotte: Stadtwagen, Automatik, SUVs und Premium-Modelle für Agadir, Flughafen und Fahrten nach Taghazout oder in die Region."
+        },
+        {
+          "question": "Gibt es eine Mindestmietdauer?",
+          "answer": "Ja, mindestens 5 Tage. Details (Kraftstoff, Dokumente, Storno) stehen in den Mietbedingungen und werden bei der Buchung bestätigt."
+        }
+      ]
+    }
   },
   "seo": {
     "cars": {
@@ -585,8 +681,8 @@
       "description": "AmseelCars-Flotte in Agadir: Economy, Automatik, SUV, Premium. Klare Tagespreise. Abholung am Flughafen Al Massira oder in der Stadt."
     },
     "about": {
-      "title": "Autovermietung Agadir | Über AmseelCars",
-      "description": "AmseelCars ist Ihr lokales Team für Mietwagen in Agadir: moderne Flotte, Abholung Flughafen oder Stadt, 24/7-Support und transparente WhatsApp-Buchung."
+      "title": "Über AmseelCars | Lokale Autovermietung Agadir",
+      "description": "AmseelCars, lokale Agentur in Agadir (Sinwan-Gebäude): Autovermietung, Abholung Flughafen AGA oder Stadt, WhatsApp +212 662 500 181, aktuelle Flotte und klare Konditionen."
     },
     "contact": {
       "title": "Kontakt Mietwagen Agadir | WhatsApp +212 662-500181",
@@ -619,6 +715,18 @@
       "categoryNotFoundDescription": "Diese Blog-Kategorie existiert nicht oder wurde verschoben.",
       "articleNotFoundTitle": "Artikel nicht gefunden | AmseelCars Blog",
       "articleNotFoundDescription": "Dieser Artikel existiert nicht oder wurde verschoben."
+    },
+    "rentalTerms": {
+      "title": "Mietbedingungen Agadir | AmseelCars",
+      "description": "AmseelCars Mietbedingungen in Agadir: Mindestalter, Mindestmietdauer 5 Tage, Abholung Flughafen oder Stadt, WhatsApp-Assistance."
+    },
+    "privacy": {
+      "title": "Datenschutz | AmseelCars",
+      "description": "Wie AmseelCars Buchungs- und Kontaktdaten verarbeitet und wie Sie Ihre Rechte ausüben."
+    },
+    "legal": {
+      "title": "Impressum | AmseelCars Agadir",
+      "description": "Impressum AmseelCars: Adresse Immeuble Sinwan Agadir, WhatsApp und E-Mail, Autovermietung."
     }
   },
   "locationAgadirPage": {
@@ -657,7 +765,7 @@
         },
         {
           "term": "Buchung",
-          "value": "WhatsApp +212 662-500181 oder E-Mail contact@amseelcars.com."
+          "value": "WhatsApp +212 662-500181 oder E-Mail amseelcars5@gmail.com."
         },
         {
           "term": "Flotte",
@@ -961,5 +1069,132 @@
     "driverNote": "Wohnsitzland des Fahrers: Marokko · Alter 30–65",
     "searchAppliedTitle": "Ihre Mietdaten",
     "searchAppliedHint": "Diese Angaben werden beim Klick auf Buchen vorausgefüllt."
+  },
+  "legalPages": {
+    "lastUpdatedLabel": "Zuletzt aktualisiert",
+    "lastUpdatedDate": "20. September 2026",
+    "relatedNavAria": "Rechtliche Seiten und Kontakt",
+    "rentalTerms": {
+      "h1": "Mietbedingungen",
+      "intro": "Diese Bedingungen fassen die wichtigsten Mietregeln von AmseelCars in Agadir zusammen. Bestätigen Sie Fahrzeug, Daten und Leistungen immer per WhatsApp vor der Übergabe.",
+      "sections": [
+        {
+          "title": "Wer mieten kann",
+          "paragraphs": [
+            "Der Hauptfahrer muss mindestens 21 Jahre alt sein und seit mindestens einem Jahr einen gültigen Führerschein besitzen.",
+            "Bei der Übergabe sind Reisepass oder Personalausweis erforderlich. Ein Zweitfahrer kann nach Verfügbarkeit und vorheriger Freigabe hinzugefügt werden."
+          ]
+        },
+        {
+          "title": "Mindestdauer",
+          "paragraphs": [
+            "Die Mindestmietdauer beträgt 5 Tage. Mietzeiten von 1–4 Tagen werden nicht akzeptiert.",
+            "Die Dauer berechnet sich aus den bestätigten Abhol- und Rückgabedaten."
+          ]
+        },
+        {
+          "title": "Buchung und Zahlung",
+          "paragraphs": [
+            "Buchung vor allem per WhatsApp (+212 662 500 181) oder Website-Formular. E-Mail: amseelcars5@gmail.com.",
+            "Der Preis hängt von Fahrzeug, Saison und Dauer ab. Inklusivleistungen werden vor der Bestätigung geklärt."
+          ]
+        },
+        {
+          "title": "Abholung und Rückgabe",
+          "paragraphs": [
+            "Übergabe im Büro (Immeuble Sinwan, Erdgeschoss, Agadir 80000), am Flughafen Agadir-Al Massira (AGA), Hotel oder Innenstadt nach Absprache.",
+            "Der Fahrzeugzustand wird bei Abholung und Rückgabe geprüft. Melden Sie vorhandene Schäden sofort."
+          ]
+        },
+        {
+          "title": "Kraftstoff, Pflege und Nutzung",
+          "paragraphs": [
+            "Sofern nicht anders angegeben gilt die Tankregelung voll/voll. Das Fahrzeug ist in angemessenem Zustand zurückzugeben.",
+            "Nur Privat-/Tourismusnutzung. Kein Untervermieten und kein Verlassen Marokkos ohne schriftliche Zustimmung."
+          ]
+        },
+        {
+          "title": "Assistance und Stornierung",
+          "paragraphs": [
+            "WhatsApp-Assistance rund um die Uhr für Mietnotfälle.",
+            "Storno- und Änderungsregeln werden bei der Buchung bestätigt."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "h1": "Datenschutz",
+      "intro": "AmseelCars verarbeitet personenbezogene Daten für Mietanfragen, Website-Verbesserung und gesetzliche Pflichten. Wir verkaufen Ihre Daten nicht.",
+      "sections": [
+        {
+          "title": "Erhobene Daten",
+          "paragraphs": [
+            "Kontaktdaten aus Formularen oder WhatsApp: Name, E-Mail, Telefon, Mietdaten, Fahrzeugwünsche und Nachrichten.",
+            "Technische Nutzungsdaten über Analyse-Tools, sofern aktiviert."
+          ]
+        },
+        {
+          "title": "Zwecke",
+          "paragraphs": [
+            "Bearbeitung von Buchungen und Anfragen, Kundenservice, Spam-/Betrugsprävention und Nutzungsanalyse.",
+            "Transaktionale E-Mails können über unseren Anbieter (Resend) versendet werden."
+          ]
+        },
+        {
+          "title": "Rechtsgrundlage und Speicherung",
+          "paragraphs": [
+            "Verarbeitung auf Basis Ihrer Anfrage, berechtigtem Interesse an der Absicherung des Dienstes und ggf. Einwilligung für Cookies/Messung.",
+            "Speicherung nur so lange wie für Geschäftsbeziehung und Pflichten nötig, danach Löschung oder Anonymisierung."
+          ]
+        },
+        {
+          "title": "Weitergabe und Sicherheit",
+          "paragraphs": [
+            "Zugriff nur für das AmseelCars-Team und notwendige technische Dienstleister.",
+            "Wir setzen angemessene Sicherheitsmaßnahmen ein. Kontaktieren Sie uns bei Fragen."
+          ]
+        },
+        {
+          "title": "Ihre Rechte",
+          "paragraphs": [
+            "Je nach geltendem Recht können Sie Auskunft, Berichtigung, Löschung oder Einschränkung verlangen.",
+            "Kontakt: amseelcars5@gmail.com oder WhatsApp +212 662 500 181. Adresse: Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko."
+          ]
+        }
+      ]
+    },
+    "legalNotice": {
+      "h1": "Impressum",
+      "intro": "Angaben zum Herausgeber von www.amseelcars.com.",
+      "sections": [
+        {
+          "title": "Herausgeber",
+          "paragraphs": [
+            "AmseelCars — Autovermietung in Agadir, Marokko.",
+            "Adresse: Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko. Telefon / WhatsApp: +212 662 500 181. E-Mail: amseelcars5@gmail.com."
+          ]
+        },
+        {
+          "title": "Tätigkeit",
+          "paragraphs": [
+            "Fahrzeugvermietung: Stadt, Flughafen Agadir-Al Massira (AGA) und Umgebung (z. B. Taghazout), je nach Verfügbarkeit.",
+            "Rund um die Uhr geöffnet für vereinbarte Übergaben."
+          ]
+        },
+        {
+          "title": "Hosting",
+          "paragraphs": [
+            "Die Website wird auf Cloud-Infrastruktur gehostet (z. B. Vercel und zugehörige Dienste)."
+          ]
+        },
+        {
+          "title": "Urheberrecht",
+          "paragraphs": [
+            "Texte, Bilder und Markenbestandteile von AmseelCars sind geschützt. Unerlaubte Vervielfältigung ist untersagt.",
+            "Automarken gehören ihren jeweiligen Inhabern und dienen der Beschreibung der Mietflotte."
+          ]
+        }
+      ]
+    }
   }
 }

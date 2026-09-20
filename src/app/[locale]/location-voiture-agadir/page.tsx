@@ -20,6 +20,7 @@ import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
+import { BUSINESS_MAILTO } from "@/lib/business";
 
 type FaqContent = {
   question: string;
@@ -215,7 +216,7 @@ export default async function LocationVoitureAgadirPage() {
         ctas={{
           primary: { label: t("ctas.primary"), href: "https://wa.me/212662500181", variant: "primary", external: true },
           secondary: { label: t("ctas.secondary"), href: carsPath, variant: "secondary" },
-          tertiary: { label: t("ctas.tertiary"), href: "mailto:contact@amseelcars.com", variant: "ghost", external: true },
+          tertiary: { label: t("ctas.tertiary"), href: BUSINESS_MAILTO, variant: "ghost", external: true },
         }}
         fleetHref={fleetHref}
       />

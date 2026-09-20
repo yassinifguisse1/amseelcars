@@ -84,6 +84,27 @@ export const routing = defineRouting({
       de: "/mietwagen-taghazout",
       pl: "/wynajem-samochodow-taghazout",
     },
+    "/rental-terms": {
+      fr: "/conditions-de-location",
+      en: "/rental-terms",
+      es: "/condiciones-de-alquiler",
+      de: "/mietbedingungen",
+      pl: "/warunki-wynajmu",
+    },
+    "/privacy": {
+      fr: "/politique-de-confidentialite",
+      en: "/privacy",
+      es: "/politica-de-privacidad",
+      de: "/datenschutz",
+      pl: "/polityka-prywatnosci",
+    },
+    "/legal": {
+      fr: "/mentions-legales",
+      en: "/legal",
+      es: "/aviso-legal",
+      de: "/impressum",
+      pl: "/nota-prawna",
+    },
   },
 });
 

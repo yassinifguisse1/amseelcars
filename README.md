@@ -153,7 +153,7 @@ The app can be deployed to any platform that supports Next.js:
 **Amseel Cars**
 - 📍 **Address**: Haut founty rdc imm sinwan, Agadir 80000, Morocco
 - 📱 **WhatsApp**: +212 662 500 181
-- 📧 **Email**: info@amseelcars.com
+- 📧 **Email**: amseelcars5@gmail.com
 - 🌐 **Website**: [Your Website URL]
 
 ## 🤝 **Contributing**

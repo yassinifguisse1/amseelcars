@@ -3,6 +3,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { useTranslations } from "next-intl";
+import { BUSINESS_SOCIAL } from "@/lib/business";
 import styles from "./contact.module.css";
 
 const mapContainerStyle = { width: "100%", height: "100%" };
@@ -77,7 +78,7 @@ export function ContactReach() {
         <p className={styles.socialLabel}>{t("followTitle")}</p>
         <div className={styles.socialLinks}>
           <a
-            href="https://www.facebook.com/amseelcars/"
+            href={BUSINESS_SOCIAL.facebook}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}
@@ -86,7 +87,7 @@ export function ContactReach() {
             Facebook
           </a>
           <a
-            href="https://www.instagram.com/amseelcars/"
+            href={BUSINESS_SOCIAL.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialLink}

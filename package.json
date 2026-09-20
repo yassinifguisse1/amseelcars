@@ -20,6 +20,8 @@
     "migrate:articles": "tsx scripts/migrate-articles.ts",
     "backfill:blog-locale": "tsx scripts/backfill-blog-locale.ts",
     "backfill:article-published": "tsx scripts/backfill-article-published.ts",
+    "translate:blog-fr-en": "tsx scripts/translate-blog-fr-to-en.ts",
+    "translate:blog-locales": "tsx scripts/translate-blog-locales.ts",
     "generate:car-products": "tsx scripts/generate-car-products.ts",
     "bootstrap:car-products-locales": "tsx scripts/bootstrap-car-products-locales.ts",
     "convert-images:avif": "tsx scripts/convert-images-avif.ts",

@@ -147,19 +147,19 @@ const MainSection = () => {
             <div className="w-5 h-5 bg-blue-500 rounded-full mt-1 flex-shrink-0"></div>
             <div>
               <p className="text-gray-300">Agadir, Morocco</p>
-              <p className="text-gray-400 text-sm">Bay Area, Agadir</p>
+              <p className="text-gray-400 text-sm">Immeuble Sinwan, RDC, Agadir 80000, Maroc</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
             <div className="w-5 h-5 bg-blue-500 rounded-full flex-shrink-0"></div>
-            <a href="tel:+212123456789" className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
-              +212 123 456 789
+            <a href="tel:+212662500181" className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
+              +212 662 500 181
             </a>
           </div>
           <div className="flex items-center space-x-3">
             <div className="w-5 h-5 bg-blue-500 rounded-full flex-shrink-0"></div>
-            <a href="mailto:info@amseelcars.com" className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
-              info@amseelcars.com
+            <a href="mailto:amseelcars5@gmail.com" className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
+              amseelcars5@gmail.com
             </a>
           </div>
         </div>
