@@ -5,6 +5,10 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import {
+  BUSINESS_GEO,
+  BUSINESS_GOOGLE_PLACE_ID,
+} from "@/lib/business";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -197,8 +201,8 @@ export default function FullscreenMap() {
               title: "AMSEEL CARS, Location voiture Agadir & car rental Agadir",
               address1: "Haut founty rdc imm sinwan",
               address2: "Agadir, Morocco",
-              coords: { lat: 30.4008209, lng: -9.5775943 },
-              placeId: "ChIJ6UYIlG63sw0Rkl2swhA3p08",
+              coords: { lat: BUSINESS_GEO.latitude, lng: BUSINESS_GEO.longitude },
+              placeId: BUSINESS_GOOGLE_PLACE_ID,
               actions: [
                 {
                   label: "Book appointment",
@@ -208,7 +212,7 @@ export default function FullscreenMap() {
             }
           ],
           mapOptions: {
-            center: { lat: 30.4008209, lng: -9.5775943 },
+            center: { lat: BUSINESS_GEO.latitude, lng: BUSINESS_GEO.longitude },
             fullscreenControl: true,
             mapTypeControl: false,
             streetViewControl: false,

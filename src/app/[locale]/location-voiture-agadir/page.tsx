@@ -175,6 +175,10 @@ export default async function LocationVoitureAgadirPage() {
           lead: t("hero.lead"),
           meta: t("hero.meta"),
         }}
+        heroVisual={{
+          src: "/images/agadir-city-hero.webp",
+          alt: t("hero.imageAlt"),
+        }}
         quickAnswer={t("quickAnswer")}
         keyFactsTitle={t("keyFacts.title")}
         keyFacts={keyFacts}

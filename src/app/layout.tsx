@@ -87,8 +87,8 @@ export const metadata: Metadata = {
   other: {
     "geo.region": "MA-SUS",
     "geo.placename": "Agadir",
-    "geo.position": "30.40085;-9.57758",
-    ICBM: "30.40085, -9.57758",
+    "geo.position": "30.4008596;-9.5775854",
+    ICBM: "30.4008596, -9.5775854",
   },
 };
 

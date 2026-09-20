@@ -3,13 +3,12 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { useTranslations } from "next-intl";
-import { BUSINESS_SOCIAL } from "@/lib/business";
+import { BUSINESS_GEO, BUSINESS_GOOGLE_MAPS_PLACE_URL, BUSINESS_SOCIAL } from "@/lib/business";
 import styles from "./contact.module.css";
 
 const mapContainerStyle = { width: "100%", height: "100%" };
-const center = { lat: 30.4007408, lng: -9.577593 };
-const MAPS_PLACE_URL =
-  "https://www.google.com/maps/place/Amseel+cars/@30.4007453,-9.5824693,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4007408!4d-9.577593!16s%2Fg%2F11w7lk46s0";
+const center = { lat: BUSINESS_GEO.latitude, lng: BUSINESS_GEO.longitude };
+const MAPS_PLACE_URL = BUSINESS_GOOGLE_MAPS_PLACE_URL;
 
 const mapOptions: google.maps.MapOptions = {
   mapTypeId: "terrain",

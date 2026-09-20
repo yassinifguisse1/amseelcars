@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
+import { BUSINESS_GOOGLE_PLACE_ID } from '@/lib/business';
 
 // Your Google Business Place ID
-const PLACE_ID = 'ChIJ6UYIlG63sw0Rkl2swhA3p08';
+const PLACE_ID = BUSINESS_GOOGLE_PLACE_ID;
 
 export async function GET() {
   try {

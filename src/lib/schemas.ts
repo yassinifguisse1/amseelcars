@@ -6,6 +6,9 @@
 import {
   BUSINESS_EMAIL,
   BUSINESS_GEO,
+  BUSINESS_GOOGLE_MAPS_PLACE_URL,
+  BUSINESS_GOOGLE_MAPS_URL,
+  BUSINESS_GOOGLE_PLACE_ID,
   BUSINESS_POSTAL_ADDRESS,
   BUSINESS_SAME_AS,
   BUSINESS_TELEPHONE_E164,
@@ -51,18 +54,16 @@ export function generateWebSiteSchema() {
  * LocalBusiness (AutoRental) schema - used on homepage and contact page
  */
 export function generateLocalBusinessSchema() {
-  const businessMapsUrl =
-    'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent(
-      `${businessPostalAddress.streetAddress}, ${businessPostalAddress.postalCode} ${businessPostalAddress.addressLocality}, Morocco`
-    );
-
   return {
     '@context': 'https://schema.org',
     '@type': 'AutoRental',
     '@id': `${siteUrl}#business`,
     name: siteName,
-    alternateName: ['Amseel Cars', 'AmseelCars Agadir'],
+    alternateName: [
+      'Amseel Cars',
+      'AmseelCars Agadir',
+      'Amseel Cars - Location voiture agadir aéroport',
+    ],
     url: siteUrl,
     image: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
@@ -77,7 +78,13 @@ export function generateLocalBusinessSchema() {
       latitude: BUSINESS_GEO.latitude,
       longitude: BUSINESS_GEO.longitude,
     },
-    hasMap: businessMapsUrl,
+    // Links the site entity to the Google Business / Maps pin for local SEO.
+    hasMap: [BUSINESS_GOOGLE_MAPS_URL, BUSINESS_GOOGLE_MAPS_PLACE_URL],
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'Google Place ID',
+      value: BUSINESS_GOOGLE_PLACE_ID,
+    },
     priceRange: '$$',
     currenciesAccepted: 'MAD',
     paymentAccepted: 'Cash, Credit Card',
@@ -114,12 +121,21 @@ export function generateLocalBusinessSchema() {
         name: 'Agadir',
       },
       {
+        '@type': 'AdministrativeArea',
+        name: 'Souss-Massa',
+      },
+      {
         '@type': 'Airport',
-        name: 'Aéroport Agadir-Al Massira',
+        name: 'Agadir Al Massira Airport',
+        iataCode: 'AGA',
       },
       {
         '@type': 'City',
         name: 'Taghazout',
+      },
+      {
+        '@type': 'City',
+        name: 'Tamraght',
       },
       {
         '@type': 'Country',
