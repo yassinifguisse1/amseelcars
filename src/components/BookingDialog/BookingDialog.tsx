@@ -686,30 +686,18 @@ export default function BookingDialog({
           <div className="absolute top-0 right-0 z-10 bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-bl-xl shadow-md">
             {t('inlineBadge')}
           </div>
-          <div className="relative bg-[#EC1C25] p-5 text-white md:p-7">
-            <div className="grid grid-cols-1 gap-3 pr-20 sm:grid-cols-3 sm:items-center sm:gap-4">
-              <div className="flex min-w-0 flex-wrap items-center justify-center gap-x-2.5 gap-y-1 sm:justify-self-center">
-                <h2 className="font-sans text-xl font-semibold tracking-tight drop-shadow-sm md:text-2xl">
-                  {t('inlineTitle')}
-                </h2>
-                <p className="inline-flex rounded-md bg-white/15 px-2.5 py-1 font-sans text-sm font-semibold tracking-wide text-white ring-1 ring-white/30 md:text-base">
-                  {carName}
-                </p>
-              </div>
+          <div className="relative bg-[#EC1C25] px-5 py-6 text-white md:px-7 md:py-7">
+            <div className="flex flex-col items-center justify-center gap-2 text-center">
               {priceLabel ? (
-                <p className="text-center font-sans text-3xl font-bold tracking-tight text-white sm:justify-self-center sm:text-2xl md:text-3xl">
+                <p className="font-sans text-3xl font-bold tracking-tight text-white md:text-3xl">
                   {priceLabel}
                 </p>
-              ) : (
-                <span className="hidden sm:block" aria-hidden />
-              )}
+              ) : null}
               {priceTagline ? (
-                <p className="mx-auto max-w-[18rem] text-center font-sans text-xs font-normal leading-snug text-white/85 sm:mx-0 sm:max-w-[14rem] sm:justify-self-center md:text-sm">
+                <p className="max-w-md font-sans text-xs font-normal leading-snug text-white/85 md:text-sm">
                   {priceTagline}
                 </p>
-              ) : (
-                <span className="hidden sm:block" aria-hidden />
-              )}
+              ) : null}
             </div>
           </div>
           <div className={`p-5 md:p-7 ${styles.inlineFormBody}`}>
