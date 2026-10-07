@@ -27,18 +27,18 @@ export function HomeHeroCopyBand({ children }: { children?: ReactNode }) {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/15" aria-hidden />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-start px-4 pb-6 pt-8 text-center sm:px-6 sm:pb-8 sm:pt-10 md:pt-12">
+      <div className="relative z-10 flex flex-col items-center justify-start px-3 pb-4 pt-[6.5rem] text-center sm:px-6 sm:pb-8 sm:pt-10 md:pt-12">
         <div className="mx-auto w-full max-w-4xl">
-          <h1 className="mx-auto max-w-4xl font-[family-name:var(--font-heading)] text-2xl font-semibold leading-[1.15] tracking-tight text-white sm:text-3xl md:text-4xl lg:text-[2.65rem]">
+          <h1 className="mx-auto max-w-[18ch] font-[family-name:var(--font-heading)] text-[1.45rem] font-semibold leading-[1.18] tracking-tight text-white sm:max-w-4xl sm:text-3xl md:text-4xl lg:text-[2.65rem]">
             {t.rich("title", {
               brand: (chunks) => (
-                <span className="mt-2 block text-[0.9em] font-bold tracking-[0.12em] text-white drop-shadow">
+                <span className="mt-1.5 block text-[0.9em] font-bold tracking-[0.12em] text-white drop-shadow sm:mt-2">
                   {chunks}
                 </span>
               ),
             })}
           </h1>
-          <p className="mx-auto mt-3 max-w-3xl rounded-[2rem] border border-white/35 bg-white/20 px-5 py-3.5 text-pretty text-xs leading-relaxed text-white shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-md sm:mt-4 sm:px-7 sm:py-4 sm:text-sm md:bg-white/25 md:px-8 md:text-[0.9375rem] md:leading-relaxed md:backdrop-blur-lg">
+          <p className="mx-auto mt-3 max-w-3xl rounded-2xl border border-white/35 bg-white/20 px-3.5 py-2.5 text-pretty text-[0.8rem] leading-snug text-white shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-md sm:mt-4 sm:rounded-[2rem] sm:px-7 sm:py-4 sm:text-sm sm:leading-relaxed md:bg-white/25 md:px-8 md:text-[0.9375rem] md:leading-relaxed md:backdrop-blur-lg">
             {t("intro")}
           </p>
         </div>
