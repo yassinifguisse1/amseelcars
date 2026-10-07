@@ -46,7 +46,7 @@
     },
     "relatedPages": {
       "label": "Pages liées",
-      "city": "Location voiture Agadir (accueil)",
+      "city": "Location voiture Agadir",
       "taghazout": "Location voiture Taghazout",
       "contact": "Contact"
     },
@@ -156,7 +156,7 @@
       },
       {
         "question": "Différence avec la page d'accueil ?",
-        "answer": "L'accueil porte la location voiture Agadir globale. Cette URL porte la location voiture Agadir aéroport à Al Massira."
+        "answer": "La page Location voiture Agadir porte les mots-clés ville. Cette URL porte la location voiture Agadir aéroport à Al Massira."
       },
       {
         "question": "Que demander avant de réserver ?",
@@ -211,7 +211,7 @@
     },
     "relatedPages": {
       "label": "Pages liées",
-      "city": "Location voiture Agadir (accueil)",
+      "city": "Location voiture Agadir",
       "airport": "Location voiture aéroport Agadir (AGA)",
       "contact": "Contact"
     },
@@ -337,7 +337,7 @@
       },
       {
         "question": "Différence avec accueil et page aéroport ?",
-        "answer": "L'accueil porte la location voiture Agadir. La page aéroport porte l'aéroport AGA. Cette URL porte la location voiture Taghazout."
+        "answer": "La page ville porte la location voiture Agadir. La page aéroport porte l'aéroport AGA. Cette URL porte la location voiture Taghazout."
       }
     ]
   }

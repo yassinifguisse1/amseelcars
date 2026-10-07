@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { Link, useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
@@ -8,10 +8,21 @@ import type { AppLocale } from '@/i18n/routing'
 import { toAppLocale } from '@/i18n/locale-utils'
 import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, MapPin, Calendar, Users, Fuel, Settings, Shield, Phone } from 'lucide-react'
+import {
+  ArrowLeft,
+  MapPin,
+  Calendar,
+  Users,
+  Fuel,
+  Settings,
+  Shield,
+  Phone,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { MenuStyleButton } from '@/components/Header/Button'
-import { convertCarPrice, formatCarPrice } from '@/lib/currency'
+import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
 import { trackEvent } from '@/lib/trackEvent'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
@@ -96,8 +107,33 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
   const [isReservationFormInView, setIsReservationFormInView] = useState(true)
+  const mobileGalleryRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const pathname = usePathname()
+  const galleryImages =
+    car.images.length > 0
+      ? car.images
+      : [{ src: car.carImage, alt: car.carName }]
+
+  const scrollMobileGalleryTo = useCallback((index: number) => {
+    const el = mobileGalleryRef.current
+    if (!el) return
+    const slide = el.children[index] as HTMLElement | undefined
+    if (!slide) return
+    el.scrollTo({ left: slide.offsetLeft, behavior: 'smooth' })
+    setSelectedImageIndex(index)
+  }, [])
+
+  const onMobileGalleryScroll = useCallback(() => {
+    const el = mobileGalleryRef.current
+    if (!el) return
+    const width = el.clientWidth
+    if (!width) return
+    const idx = Math.round(el.scrollLeft / width)
+    setSelectedImageIndex((prev) =>
+      idx !== prev && idx >= 0 && idx < galleryImages.length ? idx : prev,
+    )
+  }, [galleryImages.length])
   const searchParams = useSearchParams()
 
   // Resolve currency on client only: URL wins, then localStorage, default MAD (avoids SSR/hydration mismatch)
@@ -222,142 +258,163 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
 
       {/* Main Content */}
       <div className="container mx-auto px-4 pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          
-          {/* Image Gallery */}
-          <div className="space-y-4">
-            {/* Primary Image */}
-            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
-              <Image
-                src={car.images[selectedImageIndex]?.src || car.carImage}
-                alt={carDetailImageAlt(car, selectedImageIndex, l)}
-                title={carDetailImageTitle(car, selectedImageIndex, l)}
-                width={600}
-                height={450}
-                className="h-full w-full object-cover"
-                priority
-              />
+        {/*
+          Mobile order: title → photos → booking.
+          Desktop: photos left; title + booking right.
+        */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+          {/* Title — first on mobile (above photos), top-right on desktop */}
+          <header className="lg:col-start-2 lg:row-start-1">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+              <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium uppercase">
+                {
+                  {
+                    luxury: t('categories.luxury'),
+                    sports: t('categories.sports'),
+                    suv: t('categories.suv'),
+                    electric: t('categories.electric'),
+                    premium: t('categories.premium'),
+                    economy: t('categories.economy'),
+                    crossover: t('categories.crossover'),
+                  }[car.category]
+                }
+              </span>
             </div>
-            
-            {/* Thumbnail Gallery */}
-            {car.images.length > 1 && (
-              <div className="grid grid-cols-3 gap-4">
-                {car.images.map((image, index) => (
-                  <div 
-                    key={index} 
-                    className={`aspect-[4/3] overflow-hidden rounded-lg bg-muted cursor-pointer transition-all duration-300 ${
-                      selectedImageIndex === index 
-                        ? 'ring-2 ring-primary ring-offset-2' 
-                        : 'hover:scale-105'
-                    }`}
-                    onClick={() => setSelectedImageIndex(index)}
+
+            <h1 className="mb-2 !font-sans text-3xl font-semibold tracking-normal text-foreground md:text-4xl [font-family:ui-sans-serif,system-ui,sans-serif]">
+              {car.carName}
+            </h1>
+
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <MapPin className="h-4 w-4" />
+              <span>{car.location}</span>
+            </div>
+          </header>
+
+          {/* Image Gallery — second on mobile; left column on desktop */}
+          <div className="space-y-4 lg:col-start-1 lg:row-start-1 lg:row-span-2">
+            {/* Mobile: one photo, swipe left/right */}
+            <div className="relative lg:hidden">
+              <div
+                ref={mobileGalleryRef}
+                onScroll={onMobileGalleryScroll}
+                className="flex aspect-[4/3] w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-2xl bg-muted [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                aria-label={t('galleryAria', { carName: car.carName })}
+              >
+                {galleryImages.map((_, index) => (
+                  <div
+                    key={index}
+                    className="relative h-full w-full min-w-full shrink-0 snap-center snap-always"
                   >
                     <Image
-                      src={image.src}
+                      src={galleryImages[index]?.src || car.carImage}
                       alt={carDetailImageAlt(car, index, l)}
                       title={carDetailImageTitle(car, index, l)}
-                      width={200}
-                      height={150}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="100vw"
+                      className="object-cover"
+                      priority={index === 0}
                     />
                   </div>
                 ))}
               </div>
-            )}
+
+              {galleryImages.length > 1 ? (
+                <>
+                  <button
+                    type="button"
+                    className="absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm disabled:opacity-30"
+                    aria-label={t('galleryPrev')}
+                    disabled={selectedImageIndex <= 0}
+                    onClick={() => scrollMobileGalleryTo(selectedImageIndex - 1)}
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    className="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm disabled:opacity-30"
+                    aria-label={t('galleryNext')}
+                    disabled={selectedImageIndex >= galleryImages.length - 1}
+                    onClick={() => scrollMobileGalleryTo(selectedImageIndex + 1)}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                  <div className="pointer-events-none absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+                    {galleryImages.map((_, index) => (
+                      <span
+                        key={index}
+                        className={`h-1.5 rounded-full transition-all ${
+                          index === selectedImageIndex
+                            ? 'w-4 bg-white'
+                            : 'w-1.5 bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <p className="mt-2 text-center text-xs text-muted-foreground">
+                    {selectedImageIndex + 1} / {galleryImages.length}
+                  </p>
+                </>
+              ) : null}
+            </div>
+
+            {/* Desktop: main image + thumbnail grid */}
+            <div className="hidden space-y-4 lg:block">
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
+                <Image
+                  src={galleryImages[selectedImageIndex]?.src || car.carImage}
+                  alt={carDetailImageAlt(car, selectedImageIndex, l)}
+                  title={carDetailImageTitle(car, selectedImageIndex, l)}
+                  width={600}
+                  height={450}
+                  className="h-full w-full object-cover"
+                  priority
+                />
+              </div>
+
+              {galleryImages.length > 1 && (
+                <div className="grid grid-cols-3 gap-4">
+                  {galleryImages.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`aspect-[4/3] cursor-pointer overflow-hidden rounded-lg bg-muted transition-all duration-300 ${
+                        selectedImageIndex === index
+                          ? 'ring-2 ring-primary ring-offset-2'
+                          : 'hover:scale-105'
+                      }`}
+                      onClick={() => setSelectedImageIndex(index)}
+                    >
+                      <Image
+                        src={galleryImages[index]?.src || car.carImage}
+                        alt={carDetailImageAlt(car, index, l)}
+                        title={carDetailImageTitle(car, index, l)}
+                        width={200}
+                        height={150}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Car Details */}
-          <div className="space-y-8">
-            {/* Header */}
-            <div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium uppercase">
-                  {
-                    {
-                      luxury: t('categories.luxury'),
-                      sports: t('categories.sports'),
-                      suv: t('categories.suv'),
-                      electric: t('categories.electric'),
-                      premium: t('categories.premium'),
-                      economy: t('categories.economy'),
-                      crossover: t('categories.crossover'),
-                    }[car.category]
-                  }
-                </span>
-              </div>
-              
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                {car.carName}
-              </h1>
-              
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-4 w-4" />
-                <span>{car.location}</span>
-              </div>
-            </div>
-
-            {/* Price */}
-            <div className="bg-muted/30 rounded-lg p-6">
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-3xl font-bold text-foreground">
-                  {formatCarPrice(
-                    convertCarPrice(
-                      car.pricing?.shortTerm ?? car.pricePerDay,
-                      currency,
-                    ),
-                    currency,
-                  )}{' '}
-                  {currency} /
-                </span>
-                <span className="text-muted-foreground">{t('priceLongTerm')}</span>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {t('priceTagline')}
-              </p>
-            </div>
-
-            {/* Key Features */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Users className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{t('seats', { count: car.seats })}</p>
-                  <p className="text-sm text-muted-foreground">{t('capacity')}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Fuel className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{car.fuelType}</p>
-                  <p className="text-sm text-muted-foreground">{t('fuelTypeLabel')}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Settings className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{car.transmission}</p>
-                  <p className="text-sm text-muted-foreground">{t('transmissionLabel')}</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Calendar className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{car.year}</p>
-                  <p className="text-sm text-muted-foreground">{t('modelYear')}</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Booking form visible directly - no need to click a button; WhatsApp button below submit */}
+          {/* Booking — third on mobile; under title on desktop */}
+          <div className="space-y-8 lg:col-start-2 lg:row-start-2">
             <BookingDialog
               inline
               carName={car.carName}
               carSlug={car.slug}
               carPrice={car.pricing?.shortTerm ?? car.pricePerDay}
               pricing={car.pricing}
+              priceLabel={`${formatCarPriceLabel(
+                convertCarPrice(
+                  car.pricing?.shortTerm ?? car.pricePerDay,
+                  currency,
+                ),
+                currency,
+              )} ${t('perDay')}`}
+              priceTagline={t('priceTagline')}
               extraActions={
                 <Button
                   type="button"
@@ -375,8 +432,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                     const priceInCurrency = convertCarPrice(price, currency)
                     const message = t('waInquiry', {
                       carName: car.carName,
-                      price: formatCarPrice(priceInCurrency, currency),
-                      currency,
+                      price: formatCarPriceLabel(priceInCurrency, currency),
+                      currency: currency === 'EUR' ? '€' : currency,
                     })
                     const encodedMessage = encodeURIComponent(message);
                     const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
@@ -388,6 +445,41 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 </Button>
               }
             />
+
+            {/* Key specs under the booking form */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                <Users className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="font-medium">{t('seats', { count: car.seats })}</p>
+                  <p className="text-sm text-muted-foreground">{t('capacity')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                <Fuel className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="font-medium">{car.fuelType}</p>
+                  <p className="text-sm text-muted-foreground">{t('fuelTypeLabel')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                <Settings className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="font-medium">{car.transmission}</p>
+                  <p className="text-sm text-muted-foreground">{t('transmissionLabel')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
+                <Calendar className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="font-medium">{car.year}</p>
+                  <p className="text-sm text-muted-foreground">{t('modelYear')}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

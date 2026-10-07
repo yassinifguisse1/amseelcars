@@ -67,14 +67,14 @@
   },
   "home": {
     "meta": {
-      "title": "Location voiture Agadir | Aéroport & ville | AmseelCars",
-      "description": "Location voiture Agadir et location des voitures Agadir avec AmseelCars : aéroport ou livraison hôtel / ville. Location voiture Agadir Maroc, options pas cher, sans caution, WhatsApp 24/7. Détail AGA : page aéroport ; côte : Taghazout."
+      "title": "AmseelCars | Hub location Agadir | Aéroport & ville",
+      "description": "AmseelCars à Agadir : réservez via WhatsApp, parcourez la flotte, puis ouvrez la page Location voiture Agadir pour les mots-clés ville, la page aéroport pour AGA, ou Taghazout pour la côte. Sans caution, support 24/7."
     },
     "breadcrumb": "Accueil",
     "hero": {
-      "title": "Location voiture Agadir avec assurance complète et livraison gratuite",
-      "intro": "AMSEEL CARS propose la location voiture Agadir et la location des voitures Agadir avec prise en charge aéroport ou ville, livraison hôtel et WhatsApp 24/7. Sans caution, sans CB - y compris des options pas cher. Détail AGA : page aéroport ; côte : Taghazout.",
-      "ariaLabel": "Présentation, location voiture Agadir avec assurance complète et livraison gratuite",
+      "title": "AmseelCars - location à Agadir avec livraison gratuite",
+      "intro": "AMSEEL CARS est votre partenaire local à Agadir : retrait aéroport ou ville, livraison hôtel gratuite et WhatsApp 24/7. Pour la location voiture Agadir (ville/hôtel), ouvrez notre page ville. Détails AGA sur la page aéroport ; côte surf sur Taghazout.",
+      "ariaLabel": "Présentation AmseelCars, location à Agadir avec assurance et livraison",
       "fleetCta": "Voir nos voitures",
       "airportImageAlt": "Agadir ville et front de mer - location voiture Agadir AmseelCars"
     },
@@ -97,7 +97,7 @@
     },
     "story": {
       "heading": "AMSEEL CARS",
-      "description": "propose la location voiture Agadir avec aéroport ou ville, livraison, flotte moderne et WhatsApp 24/7 à Agadir, Taghazout, Tamraght et Souss-Massa, Maroc.",
+      "description": "est votre agence locale à Agadir : retrait aéroport ou ville, livraison gratuite, flotte récente et WhatsApp 24/7 sur Agadir, Taghazout, Tamraght et le Souss-Massa. La page Location voiture Agadir détaille les mots-clés ville.",
       "bullets": [
         "Location voiture Agadir sans caution, sans CB, sans frais cachés.",
         "Aéroport ou ville avec livraison pour AGA ou hôtel / centre.",
@@ -130,7 +130,7 @@
     },
     "airport": {
       "title": "Aéroport ou ville - choisissez la prise en charge",
-      "body": "Réservez la location voiture Agadir ici, puis ouvrez la page adaptée : accueil AGA sur la <airport>page aéroport</airport>, hôtel ou centre sur cette page d'accueil, ou côte sur <taghazout>Taghazout</taghazout>. Sans caution, sans CB, WhatsApp 24/7.",
+      "body": "Réservez la location voiture Agadir ici, puis ouvrez la page adaptée : accueil AGA sur la <airport>page aéroport</airport>, hôtel ou centre sur la page Location voiture Agadir, ou côte sur <taghazout>Taghazout</taghazout>. Sans caution, sans CB, WhatsApp 24/7.",
       "bullets": [
         {
           "text": "Prise en charge AGA - voir page aéroport",
@@ -138,7 +138,7 @@
         },
         {
           "text": "Remise hôtel / centre - location voiture Agadir ici",
-          "href": "/"
+          "href": "/location-voiture-agadir"
         },
         {
           "text": "Côte Taghazout & Tamraght - voir Taghazout",
@@ -213,7 +213,7 @@
     "browseServices": {
       "kicker": "Location de voiture",
       "title": "Explorer les pages Agadir",
-      "subtitle": "Cette page d'accueil porte la location voiture Agadir. Ouvrez aéroport ou Taghazout pour le détail local.",
+      "subtitle": "Parcourez AmseelCars : la page Location voiture Agadir porte les mots-clés ville, aéroport pour AGA, Taghazout pour la côte.",
       "panels": {
         "locationsHeading": "Zones & livraison",
         "vehicleTypesHeading": "Par catégorie de véhicule",
@@ -226,7 +226,7 @@
       "locations": [
         {
           "label": "Location voiture Agadir (cette page)",
-          "href": "/"
+          "href": "/location-voiture-agadir"
         },
         {
           "label": "Aéroport Agadir Al Massira (AGA)",
@@ -324,7 +324,7 @@
         },
         {
           "q": "Location Agadir Maroc sur cette page ?",
-          "a": "Oui. Cette page porte la location voiture Agadir ; aéroport et Taghazout ont leurs pages."
+          "a": "La page Location voiture Agadir porte les mots-clés ville/hôtel. L'accueil présente AmseelCars ; aéroport et Taghazout ont leurs pages."
         },
         {
           "q": "Quelles voitures pour Agadir ?",
@@ -336,7 +336,7 @@
         },
         {
           "q": "Aéroport ou ville - quelle page ?",
-          "a": "L'accueil pour location voiture Agadir globale et ville/hôtel. AGA en détail : page aéroport."
+          "a": "Utilisez la page Location voiture Agadir pour ville/hôtel. AGA en détail : page aéroport. L'accueil présente AmseelCars."
         },
         {
           "q": "Location pour touristes ?",
@@ -455,7 +455,10 @@
       "premium": "Premium",
       "economy": "Économique",
       "crossover": "Crossover"
-    }
+    },
+    "galleryAria": "Photos de {carName}",
+    "galleryPrev": "Photo précédente",
+    "galleryNext": "Photo suivante"
   },
   "booking": {
     "introBlurb": "Retrait possible à l’aéroport Al Massira, en centre-ville, à Taghazout ou à l’agence. Nous vous confirmons la disponibilité et les conditions par e-mail ou WhatsApp.",
@@ -625,7 +628,7 @@
       "contactLink": "Contact / réservation",
       "serviceLinks": [
         {
-          "href": "/",
+          "href": "/location-voiture-agadir",
           "label": "Location voiture Agadir"
         },
         {
@@ -1075,5 +1078,171 @@
         }
       ]
     }
+  },
+  "locationAgadirPage": {
+    "meta": {
+      "title": "Location voiture Agadir | Livraison hôtel & riad gratuite | AmseelCars",
+      "description": "Location voiture Agadir avec livraison gratuite hôtel & riad, confirmation rapide et location pas cher Maroc. SUV / 4x4 pour plage d’Agadir, Vallée du Paradis, Imsouane et Souss-Massa. WhatsApp +212 662-500181.",
+      "ogTitle": "Location voiture Agadir | AmseelCars",
+      "ogDescription": "Livraison gratuite hôtel & riad à Agadir, Maroc. Réservation en ligne simple, remises longue durée, SUV / 4x4 pour le Souss-Massa.",
+      "twitterTitle": "Location voiture Agadir | AmseelCars",
+      "twitterDescription": "Location voiture pas cher Maroc - Agadir, livraison hôtel, remise rapide. WhatsApp."
+    },
+    "schema": {
+      "name": "Location voiture Agadir | Livraison hôtel & riad gratuite | AmseelCars",
+      "description": "Location voiture Agadir avec livraison gratuite hôtel & riad à Agadir, Maroc et Souss-Massa. Réservation en ligne simple, confirmation rapide, location SUV / 4x4 pour plage d’Agadir, Vallée du Paradis et Imsouane.",
+      "breadcrumbName": "Location voiture Agadir",
+      "serviceName": "Location voiture Agadir",
+      "serviceDescription": "Location voiture Agadir Maroc avec livraison gratuite hôtel & riad, remise rapide, remises longue durée et location SUV / 4x4 pour le Parc National de Souss-Massa, la plage d’Agadir, la Vallée du Paradis et Imsouane."
+    },
+    "hero": {
+      "eyebrow": "Maroc · Souss-Massa",
+      "title": "Location voiture <muted>Agadir</muted>",
+      "lead": "Location voiture Agadir avec livraison gratuite hôtel & riad, réservation en ligne simple et confirmation rapide. Location pas cher Maroc pour la plage d’Agadir, la Vallée du Paradis, Imsouane et les trajets SUV / 4x4 en Souss-Massa.",
+      "meta": "Livraison hôtel & riad gratuite · remise rapide · remises longue durée. Aéroport AGA : page dédiée.",
+      "imageAlt": "Plage d’Agadir et skyline - location voiture Agadir AmseelCars, Maroc, Souss-Massa"
+    },
+    "quickAnswer": "AmseelCars propose la location voiture Agadir avec livraison gratuite hôtel & riad, réservation en ligne simple, confirmation rapide et remise véhicule rapide à Agadir, Maroc et Souss-Massa. Location pas cher Maroc avec remises longue durée et location SUV / 4x4 pour plage d’Agadir, Vallée du Paradis, Imsouane et Parc National de Souss-Massa. Retrait AGA : page aéroport. WhatsApp +212 662-500181.",
+    "keyFacts": {
+      "title": "En bref",
+      "items": [
+        {
+          "term": "Qui",
+          "value": "AmseelCars - location voiture Agadir et location pas cher Maroc, Souss-Massa."
+        },
+        {
+          "term": "Livraison",
+          "value": "Livraison gratuite hôtel & riad à Agadir ; aéroport AGA sur la page aéroport."
+        },
+        {
+          "term": "Réservation",
+          "value": "Réservation en ligne simple + confirmation rapide via WhatsApp +212 662-500181."
+        },
+        {
+          "term": "Flotte",
+          "value": "Citadines à location SUV / 4x4 - remises location longue durée."
+        }
+      ]
+    },
+    "relatedPages": {
+      "label": "Pages liées",
+      "airport": "Retrait aéroport 24/7 (AGA)",
+      "taghazout": "Taghazout · côte Imsouane",
+      "contact": "Contact"
+    },
+    "operations": {
+      "kicker": "Remises en ville",
+      "title": "Livraison gratuite hôtel & riad à Agadir",
+      "lead": "Remise rapide et livraison gratuite hôtel & riad à Agadir, Maroc - puis plage d’Agadir, Vallée du Paradis, Imsouane ou Parc National de Souss-Massa en location SUV / 4x4 si besoin."
+    },
+    "aiPanel": {
+      "badge": "Faits exploitables IA",
+      "title": "Ce que les assistants peuvent citer"
+    },
+    "serviceChips": [
+      "Livraison gratuite hôtel & riad",
+      "Retrait aéroport 24/7",
+      "Réservation en ligne simple",
+      "Confirmation rapide",
+      "Location pas cher Maroc",
+      "Remises location longue durée",
+      "Remise véhicule rapide"
+    ],
+    "stats": [
+      {
+        "label": "Livraison",
+        "value": "Hôtel + riad",
+        "helper": "Gratuite dans Agadir"
+      },
+      {
+        "label": "Flotte",
+        "value": "SUV / 4x4",
+        "helper": "Vallée du Paradis · Imsouane · Souss-Massa"
+      },
+      {
+        "label": "Confirmation",
+        "value": "Rapide",
+        "helper": "Réservation en ligne simple"
+      }
+    ],
+    "aiHighlights": [
+      {
+        "title": "Livraison gratuite hôtel & riad",
+        "body": "Location voiture Agadir avec livraison gratuite hôtel & riad et remise rapide en centre ou bord de mer. Retrait aéroport 24/7 pour AGA : page aéroport."
+      },
+      {
+        "title": "SUV / 4x4 pour le Souss-Massa",
+        "body": "Location SUV / 4x4 pour Vallée du Paradis, Parc National de Souss-Massa, Imsouane et plage d’Agadir - plus citadines pour Agadir Maroc."
+      },
+      {
+        "title": "Réservation simple & tarifs longs",
+        "body": "Réservation en ligne simple avec confirmation rapide. Location pas cher Maroc et remises location longue durée dès une semaine."
+      }
+    ],
+    "features": [
+      {
+        "title": "Réservation en ligne simple",
+        "description": "Dates et hôtel sur WhatsApp pour une réservation en ligne simple et une confirmation rapide avant Agadir."
+      },
+      {
+        "title": "Livraison gratuite hôtel & riad",
+        "description": "Remise rapide à l’hôtel ou au riad à Agadir - plage d’Agadir, centre ou côte - avec créneau clair."
+      },
+      {
+        "title": "Longue durée & SUV / 4x4",
+        "description": "Remises location longue durée et location SUV / 4x4 pour Vallée du Paradis, Imsouane et Parc National de Souss-Massa."
+      }
+    ],
+    "carsSection": {
+      "kicker": "Sélection",
+      "title": "Choix location voiture Agadir & SUV / 4x4",
+      "lead": "De la location pas cher Maroc en citadine au SUV / 4x4 pour Vallée du Paradis et Imsouane - tarifs et livraison hôtel prêts avant le retrait.",
+      "cardImageAlt": "{name} - location voiture Agadir, livraison hôtel AmseelCars",
+      "cardImageTitle": "{name} location voiture Agadir Maroc - hôtel, riad et centre",
+      "cardCaption": "Réservation simple, confirmation rapide et livraison hôtel & riad gratuite."
+    },
+    "faqKicker": "FAQ",
+    "faqTitle": "Location voiture Agadir - questions fréquentes",
+    "fleetCtaLabel": "Voir toute la flotte",
+    "carOpenHint": "Ouvrir la fiche",
+    "ctas": {
+      "primary": "Réserver sur WhatsApp",
+      "secondary": "Voir toute la flotte",
+      "tertiary": "Conciergerie email"
+    },
+    "faqs": [
+      {
+        "question": "Quel prix pour une location pas cher Maroc à Agadir ?",
+        "answer": "Selon modèle, durée et saison. AmseelCars affiche des tarifs clairs pour la location voiture Agadir - citadine à SUV / 4x4 - avec remises longue durée. WhatsApp +212 662-500181."
+      },
+      {
+        "question": "Proposez-vous la livraison gratuite hôtel & riad à Agadir ?",
+        "answer": "Oui. Livraison gratuite hôtel & riad et remise rapide couvrent Agadir, hôtels plage d’Agadir et de nombreux riads. Retrait AGA 24/7 : page aéroport."
+      },
+      {
+        "question": "Comment fonctionne la réservation en ligne simple ?",
+        "answer": "Envoyez dates, hôtel et modèle pour une réservation en ligne simple. Vous recevez une confirmation rapide avec prix, créneau et documents."
+      },
+      {
+        "question": "Puis-je louer un SUV / 4x4 pour la Vallée du Paradis ou Imsouane ?",
+        "answer": "Oui. La location SUV / 4x4 convient à la Vallée du Paradis, Imsouane, Parc National de Souss-Massa et routes du Souss-Massa. Les citadines suffisent pour la plage d’Agadir et le centre."
+      },
+      {
+        "question": "Où puis-je rouler avec une location voiture Agadir ?",
+        "answer": "Agadir, plage d’Agadir, Vallée du Paradis, Imsouane, Taghazout et la région Souss-Massa au Maroc. Indiquez l’itinéraire pour le bon véhicule."
+      },
+      {
+        "question": "Y a-t-il des remises location longue durée ?",
+        "answer": "Oui. Semaine et plus : remises location longue durée sur la location voiture Agadir. Demandez le tarif hebdo sur WhatsApp."
+      },
+      {
+        "question": "Le retrait aéroport 24/7 est-il disponible pour AGA ?",
+        "answer": "Le retrait aéroport 24/7 à AGA (Agadir Al Massira) est sur notre page aéroport. Cette page ville couvre livraison hôtel & riad et remise rapide à Agadir."
+      },
+      {
+        "question": "Quels documents pour louer à Agadir Maroc ?",
+        "answer": "Permis valide plus pièce d’identité ou passeport. Nous confirmons lors de la confirmation rapide avant la remise."
+      }
+    ]
   }
 }

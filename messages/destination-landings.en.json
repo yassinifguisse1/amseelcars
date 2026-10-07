@@ -46,7 +46,7 @@
     },
     "relatedPages": {
       "label": "Related pages",
-      "city": "Car rental Agadir (home)",
+      "city": "Car rental Agadir",
       "taghazout": "Taghazout car rental",
       "contact": "Contact"
     },
@@ -158,7 +158,7 @@
       },
       {
         "question": "How is this page different from the homepage?",
-        "answer": "The homepage owns car rental Agadir overall (city or airport start). This URL owns car rental Agadir airport at Al Massira - meet & greet, flight sync, and AGA pickup/drop-off - so search and assistants match airport intent here."
+        "answer": "The dedicated city page owns car rental Agadir (hotel and downtown delivery). This URL owns car rental Agadir airport at Al Massira - meet & greet, flight sync, and AGA pickup/drop-off - so search and assistants match airport intent here."
       },
       {
         "question": "What should I ask before Agadir airport rent a car?",
@@ -213,7 +213,7 @@
     },
     "relatedPages": {
       "label": "Related pages",
-      "city": "Car rental Agadir (home)",
+      "city": "Car rental Agadir",
       "airport": "Car rental Agadir airport (AGA)",
       "contact": "Contact"
     },
@@ -339,7 +339,7 @@
       },
       {
         "question": "How is this page different from the homepage or airport page?",
-        "answer": "The homepage owns car rental Agadir overall. The airport page owns car rental Agadir airport at AGA. This URL owns Taghazout car rental, car hire Taghazout, and rent a car Taghazout for the surf coast."
+        "answer": "The city page owns car rental Agadir. The airport page owns car rental Agadir airport at AGA. This URL owns Taghazout car rental, car hire Taghazout, and rent a car Taghazout for the surf coast."
       }
     ]
   }

@@ -78,7 +78,7 @@ export default async function TaghazoutCarRentalPage() {
   const waPrefill = encodeURIComponent(tFooter("whatsappPrefill"));
 
   const relatedPages = [
-    { label: t("relatedPages.city"), href: getPathname({ locale: l, href: "/" }) },
+    { label: t("relatedPages.city"), href: getPathname({ locale: l, href: "/location-voiture-agadir" }) },
     { label: t("relatedPages.airport"), href: airportPath },
     { label: t("relatedPages.contact"), href: contactPath },
   ];

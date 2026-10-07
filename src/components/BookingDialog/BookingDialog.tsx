@@ -77,6 +77,10 @@ interface BookingDialogProps {
   inline?: boolean;
   /** Optional content rendered below the submit button when inline (e.g. WhatsApp button) */
   extraActions?: React.ReactNode;
+  /** Formatted daily price for the inline red header (e.g. `130€`) */
+  priceLabel?: string;
+  /** Guarantee / terms line under the price in the inline header */
+  priceTagline?: string;
 }
 
 /**
@@ -102,6 +106,8 @@ export default function BookingDialog({
   pricing,
   inline = false,
   extraActions,
+  priceLabel,
+  priceTagline,
 }: BookingDialogProps) {
   const locale = useLocale();
   const t = useTranslations('booking');
@@ -676,10 +682,30 @@ export default function BookingDialog({
           <div className="absolute top-0 right-0 z-10 bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-bl-xl shadow-md">
             {t('inlineBadge')}
           </div>
-          <div className="bg-[#EC1C25] p-5 md:p-7 text-white relative">
-            <div className="pr-24">
-              <h2 className="text-xl md:text-2xl font-bold drop-shadow-sm">{t('inlineTitle')}</h2>
-              <p className="text-white/95 text-sm md:text-base mt-0.5">{carName}</p>
+          <div className="relative bg-[#EC1C25] p-5 text-white md:p-7">
+            <div className="grid grid-cols-1 gap-3 pr-20 sm:grid-cols-3 sm:items-center sm:gap-4">
+              <div className="flex min-w-0 flex-wrap items-center justify-center gap-x-2.5 gap-y-1 sm:justify-self-center">
+                <h2 className="font-sans text-xl font-semibold tracking-tight drop-shadow-sm md:text-2xl">
+                  {t('inlineTitle')}
+                </h2>
+                <p className="inline-flex rounded-md bg-white/15 px-2.5 py-1 font-sans text-sm font-semibold tracking-wide text-white ring-1 ring-white/30 md:text-base">
+                  {carName}
+                </p>
+              </div>
+              {priceLabel ? (
+                <p className="text-center font-sans text-3xl font-bold tracking-tight text-white sm:justify-self-center sm:text-2xl md:text-3xl">
+                  {priceLabel}
+                </p>
+              ) : (
+                <span className="hidden sm:block" aria-hidden />
+              )}
+              {priceTagline ? (
+                <p className="mx-auto max-w-[18rem] text-center font-sans text-xs font-normal leading-snug text-white/85 sm:mx-0 sm:max-w-[14rem] sm:justify-self-center md:text-sm">
+                  {priceTagline}
+                </p>
+              ) : (
+                <span className="hidden sm:block" aria-hidden />
+              )}
             </div>
           </div>
           <div className={`p-5 md:p-7 ${styles.inlineFormBody}`}>

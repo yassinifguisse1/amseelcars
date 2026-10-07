@@ -3,9 +3,8 @@ import { Suspense } from "react";
 import { Link } from "@/i18n/navigation";
 import Script from "next/script";
 import { getLocale, getTranslations } from "next-intl/server";
-import { generateLocalSeoLandingGraphSchema } from "@/lib/schemas";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
-import { buildPageMetadata } from "@/lib/seo/site-meta";
+import { buildPageMetadata, DEFAULT_OG_IMAGE } from "@/lib/seo/site-meta";
 import { routing } from "@/i18n/routing";
 import {
   LOCALE_SHORT_LABELS,
@@ -14,20 +13,40 @@ import {
   toAppLocale,
 } from "@/i18n/locale-utils";
 import { getPathname } from "@/i18n/navigation";
+import { generateLocalSeoLandingGraphSchema } from "@/lib/schemas";
 import { getAllCars } from "@/data/cars";
 import { carForLocale } from "@/lib/carLocale";
 import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
+import { BUSINESS_MAILTO } from "@/lib/business";
 
-const AIRPORT_HERO_IMAGE = "/images/aeroport-agadir-al-massira-aga.webp";
+type FaqContent = {
+  question: string;
+  answer: string;
+};
 
-type FaqContent = { question: string; answer: string };
-type KeyFactContent = { term: string; value: string };
-type StatContent = { label: string; value: string; helper: string };
-type HighlightContent = { title: string; body: string };
-type FeatureContent = { title: string; description: string };
+type KeyFactContent = {
+  term: string;
+  value: string;
+};
+
+type StatContent = {
+  label: string;
+  value: string;
+  helper: string;
+};
+
+type HighlightContent = {
+  title: string;
+  body: string;
+};
+
+type FeatureContent = {
+  title: string;
+  description: string;
+};
 
 export async function generateMetadata({
   params,
@@ -36,27 +55,34 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const l = toAppLocale(locale);
-  const t = await getTranslations({ locale: l, namespace: "landingAgadirAirportPage" });
-  const path = getPathname({ locale: l, href: "/agadir-airport-car-rental" });
+  const t = await getTranslations({ locale: l, namespace: "locationAgadirPage" });
+  const path = getPathname({ locale: l, href: "/location-voiture-agadir" });
   const title = t("meta.title");
 
-  return buildPageMetadata({
-    title,
-    description: t("meta.description"),
-    path,
-    localeOg: localeToOpenGraphLocale(l),
-    alternates: localizedAlternates(l, "/agadir-airport-car-rental"),
-    ogTitle: t("meta.ogTitle"),
-    ogDescription: t("meta.ogDescription"),
-    imageAlt: t("hero.imageAlt"),
-    ogImage: AIRPORT_HERO_IMAGE,
-  });
+  return {
+    ...buildPageMetadata({
+      title,
+      description: t("meta.description"),
+      path,
+      localeOg: localeToOpenGraphLocale(l),
+      alternates: localizedAlternates(l, "/location-voiture-agadir"),
+      ogTitle: t("meta.ogTitle"),
+      ogDescription: t("meta.ogDescription"),
+      imageAlt: title,
+    }),
+    twitter: {
+      card: "summary_large_image",
+      title: t("meta.twitterTitle"),
+      description: t("meta.twitterDescription"),
+      images: [DEFAULT_OG_IMAGE],
+    },
+  };
 }
 
-export default async function AgadirAirportCarRentalPage() {
+export default async function LocationVoitureAgadirPage() {
   const locale = await getLocale();
   const l = toAppLocale(locale);
-  const t = await getTranslations({ locale: l, namespace: "landingAgadirAirportPage" });
+  const t = await getTranslations({ locale: l, namespace: "locationAgadirPage" });
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
 
   const faqs = t.raw("faqs") as FaqContent[];
@@ -65,31 +91,29 @@ export default async function AgadirAirportCarRentalPage() {
   const aiHighlights = t.raw("aiHighlights") as HighlightContent[];
   const features = t.raw("features") as FeatureContent[];
   const serviceChips = t.raw("serviceChips") as string[];
-
+  const path = getPathname({ locale: l, href: "/location-voiture-agadir" });
+  const inLanguage = localeToLanguageTag(l);
   const homePath = getPathname({ locale: l, href: "/" });
   const carsPath = getPathname({ locale: l, href: "/cars" });
-  const contactPath = getPathname({ locale: l, href: "/contact" });
-  const selfPath = getPathname({ locale: l, href: "/agadir-airport-car-rental" });
-  const inLanguage = localeToLanguageTag(l);
-
+  const fleetHref = carsPath;
   const relatedPages = [
-    { label: t("relatedPages.city"), href: getPathname({ locale: l, href: "/location-voiture-agadir" }) },
+    { label: t("relatedPages.airport"), href: getPathname({ locale: l, href: "/agadir-airport-car-rental" }) },
     { label: t("relatedPages.taghazout"), href: getPathname({ locale: l, href: "/taghazout-car-rental" }) },
-    { label: t("relatedPages.contact"), href: contactPath },
+    { label: t("relatedPages.contact"), href: getPathname({ locale: l, href: "/contact" }) },
   ];
 
   const structuredData = generateLocalSeoLandingGraphSchema({
-    path: selfPath,
+    path,
     name: t("schema.name"),
     description: t("schema.description"),
     inLanguage,
     breadcrumbItems: [
       { name: tNav("home"), url: homePath },
       { name: tNav("cars"), url: carsPath },
-      { name: t("schema.breadcrumbName"), url: selfPath },
+      { name: t("schema.breadcrumbName"), url: path },
     ],
     faqs: [...faqs],
-    primaryImagePath: AIRPORT_HERO_IMAGE,
+    primaryImagePath: DEFAULT_OG_IMAGE,
     service: {
       name: t("schema.serviceName"),
       description: t("schema.serviceDescription"),
@@ -99,7 +123,10 @@ export default async function AgadirAirportCarRentalPage() {
   const cars = getAllCars().map((car) => {
       const c = carForLocale(car, l);
       const localizedSlug = carSlugForLocale(car.slug, l);
-      const href = getPathname({ locale: l, href: carBrandScopedHref(car.brand, localizedSlug) });
+      const href = getPathname({
+        locale: l,
+        href: carBrandScopedHref(car.brand, localizedSlug),
+      });
       return {
         name: c.carName,
         image: c.carImage,
@@ -114,13 +141,13 @@ export default async function AgadirAirportCarRentalPage() {
   return (
     <>
       <Script
-        id={`ld-json-agadir-landing-airport-${l}`}
+        id={`ld-json-agadir-landing-${l}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <DestinationAeoLanding
-        variant="airport"
+        variant="default"
         languageSwitcher={
           <>
             {routing.locales.map((targetLocale, index) => {
@@ -131,7 +158,7 @@ export default async function AgadirAirportCarRentalPage() {
                   {targetLocale === l ? (
                     <span>{label}</span>
                   ) : (
-                    <Link href="/agadir-airport-car-rental" locale={targetLocale}>
+                    <Link href="/location-voiture-agadir" locale={targetLocale}>
                       {label}
                     </Link>
                   )}
@@ -149,7 +176,7 @@ export default async function AgadirAirportCarRentalPage() {
           meta: t("hero.meta"),
         }}
         heroVisual={{
-          src: AIRPORT_HERO_IMAGE,
+          src: "/images/agadir-city-hero.webp",
           alt: t("hero.imageAlt"),
         }}
         quickAnswer={t("quickAnswer")}
@@ -157,15 +184,19 @@ export default async function AgadirAirportCarRentalPage() {
         keyFacts={keyFacts}
         relatedPagesLabel={t("relatedPages.label")}
         relatedPages={relatedPages}
-        operationsSection={{
-          kicker: t("operations.kicker"),
-          title: t("operations.title"),
-          lead: t("operations.lead"),
-        }}
-        aiPanel={{
-          badge: t("aiPanel.badge"),
-          title: t("aiPanel.title"),
-        }}
+        operationsSection={
+          {
+            kicker: t("operations.kicker"),
+            title: t("operations.title"),
+            lead: t("operations.lead"),
+          }
+        }
+        aiPanel={
+          {
+            badge: t("aiPanel.badge"),
+            title: t("aiPanel.title"),
+          }
+        }
         serviceChips={serviceChips}
         stats={stats}
         aiHighlights={aiHighlights}
@@ -176,27 +207,22 @@ export default async function AgadirAirportCarRentalPage() {
           lead: t("carsSection.lead"),
         }}
         cars={cars}
+        bookingSearch={
+          <Suspense fallback={<div className="w-full bg-black px-4 py-8" aria-hidden />}>
+            <HomeBookingSearchBar className="bg-transparent px-0 py-0 sm:px-0 sm:py-0" />
+          </Suspense>
+        }
         faqs={faqs}
         faqKicker={t("faqKicker")}
         faqTitle={t("faqTitle")}
         fleetCtaLabel={t("fleetCtaLabel")}
         carOpenHint={t("carOpenHint")}
         ctas={{
-          primary: {
-            label: t("ctas.primary"),
-            href: "https://wa.me/212662500181",
-            variant: "primary",
-            external: true,
-          },
+          primary: { label: t("ctas.primary"), href: "https://wa.me/212662500181", variant: "primary", external: true },
           secondary: { label: t("ctas.secondary"), href: carsPath, variant: "secondary" },
-          tertiary: { label: t("ctas.tertiary"), href: contactPath, variant: "ghost" },
+          tertiary: { label: t("ctas.tertiary"), href: BUSINESS_MAILTO, variant: "ghost", external: true },
         }}
-        fleetHref={carsPath}
-        bookingSearch={
-          <Suspense fallback={<div className="w-full px-4 py-8" aria-hidden />}>
-            <HomeBookingSearchBar className="bg-transparent px-0 py-0 sm:px-0 sm:py-0" />
-          </Suspense>
-        }
+        fleetHref={fleetHref}
       />
     </>
   );

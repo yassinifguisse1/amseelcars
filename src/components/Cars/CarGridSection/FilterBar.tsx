@@ -99,7 +99,7 @@ export default function FilterBar({
             className={`${styles.currencyButton} ${currency === 'EUR' ? styles.active : ''}`}
             onClick={() => handleCurrencyChange('EUR')}
           >
-            EUR
+            €
           </button>
           <button
             className={`${styles.currencyButton} ${currency === 'USD' ? styles.active : ''}`}

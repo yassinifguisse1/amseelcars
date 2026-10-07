@@ -46,7 +46,7 @@
     },
     "relatedPages": {
       "label": "Páginas relacionadas",
-      "city": "Alquiler coche Agadir (inicio)",
+      "city": "Alquiler coche Agadir",
       "taghazout": "Alquiler coches Taghazout",
       "contact": "Contacto"
     },
@@ -156,7 +156,7 @@
       },
       {
         "question": "¿Diferencia con la home?",
-        "answer": "La home lleva alquiler coches Agadir en general. Esta URL lleva alquiler coches Agadir aeropuerto en Al Massira."
+        "answer": "La página ciudad lleva alquiler coches Agadir. Esta URL lleva alquiler coches Agadir aeropuerto en Al Massira."
       },
       {
         "question": "¿Qué preguntar antes de reservar?",
@@ -211,7 +211,7 @@
     },
     "relatedPages": {
       "label": "Páginas relacionadas",
-      "city": "Alquiler coche Agadir (inicio)",
+      "city": "Alquiler coche Agadir",
       "airport": "Alquiler coches aeropuerto Agadir (AGA)",
       "contact": "Contacto"
     },
@@ -337,7 +337,7 @@
       },
       {
         "question": "¿Diferencia con home y aeropuerto?",
-        "answer": "La home lleva alquiler coches Agadir. La página aeropuerto, AGA. Esta URL lleva alquiler coches Taghazout."
+        "answer": "La página ciudad lleva alquiler coches Agadir. La página aeropuerto, AGA. Esta URL lleva alquiler coches Taghazout."
       }
     ]
   }

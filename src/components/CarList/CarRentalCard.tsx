@@ -9,6 +9,7 @@ import { Car, Users, Fuel, Settings } from "lucide-react"
 import Image from "next/image"
 import { trackEvent } from "@/lib/trackEvent"
 import { carBrandScopedHref } from "@/lib/carPublicHref"
+import { formatCarPriceLabel, type CarCurrency } from "@/lib/currency"
 
 interface CarRentalCardProps {
   carName: string
@@ -27,7 +28,7 @@ interface CarRentalCardProps {
   /** With `slug`, builds brand-scoped car URL (`/cars/brand/...`) for SEO */
   brand?: string
   href?: string // Optional custom href
-  currency?: 'MAD' | 'EUR' | 'USD' // Currency for price display
+  currency?: CarCurrency // Currency for price display
   onBook: () => void
   onWhatsapp: () => void
   /** Prefer LCP on dense grids (e.g. first row on /cars). */
@@ -96,12 +97,9 @@ export function CarRentalCard({
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-base sm:text-lg font-semibold text-foreground leading-tight">{carName}</h3>
             <div className="text-right flex-shrink-0">
-              <div>
-                <p className="text-lg sm:text-xl font-bold text-primary">
-                  {(pricing?.shortTerm ?? pricePerDay).toFixed(currency === 'MAD' ? 0 : 2)} {currency} /
-                </p>
-                <p className="text-xs text-muted-foreground">{t("daysLong")}</p>
-              </div>
+              <p className="text-lg sm:text-xl font-bold text-primary">
+                {formatCarPriceLabel(pricing?.shortTerm ?? pricePerDay, currency)}
+              </p>
             </div>
           </div>
 

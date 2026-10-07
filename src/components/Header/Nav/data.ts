@@ -5,12 +5,19 @@ import { BUSINESS_SOCIAL } from "@/lib/business";
  * Visible labels come from messages (nav namespace) via `messageKey`.
  */
 export interface MainNavItem {
-  messageKey: "home" | "about" | "cars" | "blog" | "contact";
-  href: "/" | "/about" | "/cars" | "/blog" | "/contact";
+  messageKey: "home" | "agadirRental" | "about" | "cars" | "blog" | "contact";
+  href:
+    | "/"
+    | "/location-voiture-agadir"
+    | "/about"
+    | "/cars"
+    | "/blog"
+    | "/contact";
 }
 
 export const mainNavItems: MainNavItem[] = [
   { messageKey: "home", href: "/" },
+  { messageKey: "agadirRental", href: "/location-voiture-agadir" },
   { messageKey: "about", href: "/about" },
   { messageKey: "cars", href: "/cars" },
   { messageKey: "blog", href: "/blog" },

@@ -4,7 +4,7 @@ Use this matrix when updating high-intent pages so each query gets a direct, ans
 
 | Query intent | Best page | Direct answer snippet |
 | --- | --- | --- |
-| Car rental in Agadir (general) | `/[locale]/cars` | AmseelCars offers economy, SUV, and premium rentals in Agadir with airport or city pickup and WhatsApp booking. |
+| Car rental in Agadir (general) | `/[locale]/location-voiture-agadir` (EN `/agadir-car-rental`) | AmseelCars offers car rental Agadir with free hotel and riad delivery, WhatsApp booking, and airport details on the dedicated AGA page. |
 | Agadir airport car rental | `/[locale]/agadir-airport-car-rental` | You can pick up and return your rental at Agadir Al Massira Airport with flight-time coordinated handover. |
 | Taghazout car rental from Agadir | `/[locale]/taghazout-car-rental` | Rent in Agadir or at AGA airport, then drive 20-30 minutes to Taghazout with a car class matched to your luggage/surf plans. |
 | Brand-specific rental (BMW, Dacia, Renault, etc.) | `/[locale]/cars/brand/[brandSlug]` | This brand page shows available models, starting daily rate, and pickup options in Agadir. |

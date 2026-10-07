@@ -18,5 +18,21 @@ export function convertCarPrice(priceInMAD: number, targetCurrency: CarCurrency)
 }
 
 export function formatCarPrice(price: number, currency: CarCurrency): string {
-  return price.toFixed(currency === 'MAD' ? 0 : 2)
+  if (currency === 'MAD') return price.toFixed(0)
+  if (currency === 'EUR') return String(Math.round(price))
+  return price.toFixed(2)
+}
+
+/** Display label: `70€`, `$25`, `268 MAD` */
+export function formatCarPriceLabel(price: number, currency: CarCurrency): string {
+  const amount = formatCarPrice(price, currency)
+  if (currency === 'EUR') return `${amount}€`
+  if (currency === 'USD') return `$${amount}`
+  return `${amount} MAD`
+}
+
+export function currencyCodeLabel(currency: CarCurrency): string {
+  if (currency === 'EUR') return '€'
+  if (currency === 'USD') return '$'
+  return 'MAD'
 }

@@ -164,7 +164,7 @@ export function HomeSeoAirportBlock() {
               </Link>
             ),
             city: (chunks) => (
-              <Link href="/" className={pageLinkClass}>
+              <Link href="/location-voiture-agadir" className={pageLinkClass}>
                 {chunks}
               </Link>
             ),
@@ -183,7 +183,13 @@ export function HomeSeoAirportBlock() {
               </span>
               {b.href ? (
                 <Link
-                  href={b.href as "/" | "/agadir-airport-car-rental" | "/taghazout-car-rental"}
+                  href={
+                    b.href as
+                      | "/"
+                      | "/location-voiture-agadir"
+                      | "/agadir-airport-car-rental"
+                      | "/taghazout-car-rental"
+                  }
                   className={`pt-0.5 leading-relaxed ${pageLinkClass}`}
                 >
                   {b.text}

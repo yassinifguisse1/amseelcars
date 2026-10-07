@@ -11,7 +11,7 @@ import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/l
 import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
-import { convertCarPrice, formatCarPrice } from '@/lib/currency'
+import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
 import { parseBookingSearchParams, hasActiveBookingSearch } from '@/lib/bookingSearchParams'
 import { trackEvent } from '@/lib/trackEvent'
 import styles from './CarGridSection.module.scss'
@@ -177,11 +177,11 @@ const CarGridSection = ({
       })
       const price = car.pricing?.shortTerm || car.pricePerDay
       const priceInCurrency = convertCarPrice(price, currency)
-      const priceStr = formatCarPrice(priceInCurrency, currency)
+      const priceStr = formatCarPriceLabel(priceInCurrency, currency)
       const message = t('waInquiry', {
         carName: car.carName,
         price: priceStr,
-        currency,
+        currency: currency === 'EUR' ? '€' : currency,
       })
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'

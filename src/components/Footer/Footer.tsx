@@ -166,7 +166,7 @@ export default function Footer() {
               aria-label={t("quickLinksNavAria")}
             >
               <Link href="/cars">{t("fleet")}</Link>
-              <Link href="/">{t("agadirRental")}</Link>
+              <Link href="/location-voiture-agadir">{t("agadirRental")}</Link>
               <Link href="/agadir-airport-car-rental">{t("airport")}</Link>
               <Link href="/taghazout-car-rental">{t("taghazout")}</Link>
               <Link href="/about">{t("about")}</Link>

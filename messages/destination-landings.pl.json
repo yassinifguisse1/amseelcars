@@ -46,7 +46,7 @@
     },
     "relatedPages": {
       "label": "Powiązane strony",
-      "city": "Wynajem samochodów Agadir ceny (home)",
+      "city": "Wynajem samochodów Agadir",
       "taghazout": "Wynajem Taghazout",
       "contact": "Kontakt"
     },
@@ -156,7 +156,7 @@
       },
       {
         "question": "Różnica względem strony głównej?",
-        "answer": "Home niesie wynajem samochodów Agadir ogólnie. Ten URL niesie wynajem samochodów Agadir lotnisko na Al Massira."
+        "answer": "Strona miasta niesie wynajem samochodów Agadir. Ten URL niesie wynajem samochodów Agadir lotnisko na Al Massira."
       },
       {
         "question": "O co pytać przed rezerwacją?",
@@ -211,7 +211,7 @@
     },
     "relatedPages": {
       "label": "Powiązane strony",
-      "city": "Wynajem samochodów Agadir ceny (home)",
+      "city": "Wynajem samochodów Agadir",
       "airport": "Wynajem lotnisko Agadir (AGA)",
       "contact": "Kontakt"
     },
@@ -337,7 +337,7 @@
       },
       {
         "question": "Różnica względem home i lotniska?",
-        "answer": "Home niesie wynajem samochodów Agadir. Strona lotniska - AGA. Ten URL niesie wynajem samochodów Taghazout."
+        "answer": "Strona miasta niesie wynajem samochodów Agadir. Strona lotniska - AGA. Ten URL niesie wynajem samochodów Taghazout."
       }
     ]
   }

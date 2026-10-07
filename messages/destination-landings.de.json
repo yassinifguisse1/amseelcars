@@ -46,7 +46,7 @@
     },
     "relatedPages": {
       "label": "Verwandte Seiten",
-      "city": "Mietwagen Agadir (Startseite)",
+      "city": "Mietwagen Agadir",
       "taghazout": "Mietwagen Taghazout",
       "contact": "Kontakt"
     },
@@ -156,7 +156,7 @@
       },
       {
         "question": "Unterschied zur Startseite?",
-        "answer": "Die Startseite trägt Mietwagen Agadir insgesamt. Diese URL trägt Mietwagen Agadir Flughafen an Al Massira."
+        "answer": "Die Mietwagen-Agadir-Stadtseite trägt die Stadtkw. Diese URL trägt Mietwagen Agadir Flughafen an Al Massira."
       },
       {
         "question": "Was vor der Buchung fragen?",
@@ -211,7 +211,7 @@
     },
     "relatedPages": {
       "label": "Verwandte Seiten",
-      "city": "Mietwagen Agadir (Startseite)",
+      "city": "Mietwagen Agadir",
       "airport": "Mietwagen Flughafen Agadir (AGA)",
       "contact": "Kontakt"
     },
@@ -337,7 +337,7 @@
       },
       {
         "question": "Unterschied zu Startseite und Flughafen?",
-        "answer": "Die Startseite trägt Mietwagen Agadir. Die Flughafenseite AGA. Diese URL trägt Mietwagen Taghazout."
+        "answer": "Die Stadtseite trägt Mietwagen Agadir. Die Flughafenseite AGA. Diese URL trägt Mietwagen Taghazout."
       }
     ]
   }

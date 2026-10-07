@@ -57,6 +57,7 @@ export function AboutCredentials() {
               href={
                 t(`serviceLinks.${index}.href`) as
                   | "/"
+                  | "/location-voiture-agadir"
                   | "/agadir-airport-car-rental"
                   | "/taghazout-car-rental"
                   | "/cars"

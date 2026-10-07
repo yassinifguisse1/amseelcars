@@ -5,8 +5,8 @@ Freshness helps both search engines and AI answer systems trust page answers. Ru
 ## Scope
 
 - `/[locale]/cars`
+- `/[locale]/location-voiture-agadir` (city keywords - do not 301 to home)
 - `/[locale]/agadir-airport-car-rental`
-- `/[locale]/location-voiture-agadir`
 - `/[locale]/taghazout-car-rental`
 - `/[locale]/cars/brand/[brandSlug]` (top 3 brands by traffic)
 - `/[locale]/cars/brand/[brandSlug]/[carSlug]` (top 10 models by traffic)

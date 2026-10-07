@@ -4,7 +4,9 @@
 
 ## Book and browse
 
-- [Home / Car rental Agadir](https://www.amseelcars.com/): Primary page for car rental Agadir (airport or city pickup)
+- [Home](https://www.amseelcars.com/): Brand hub - fleet overview and links to money pages
+- [Car rental Agadir (city)](https://www.amseelcars.com/fr/location-voiture-agadir): Primary page for car rental Agadir / location voiture Agadir (city & hotel delivery)
+- [Car rental Agadir (EN)](https://www.amseelcars.com/en/agadir-car-rental): English city landing for car rental Agadir
 - [Fleet / Voitures](https://www.amseelcars.com/voitures): Full car catalog with filters and pricing
 - [Agadir airport car rental](https://www.amseelcars.com/agadir-airport-car-rental): Pickup at Agadir Al Massira (AGA)
 - [Taghazout car rental](https://www.amseelcars.com/taghazout-car-rental): Cars for Taghazout and the coast

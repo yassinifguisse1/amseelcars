@@ -9,6 +9,7 @@ import { brandToSlug } from "@/lib/brandSlug";
 
 type BrowseHref =
   | "/"
+  | "/location-voiture-agadir"
   | "/agadir-airport-car-rental"
   | "/taghazout-car-rental"
   | "/cars"
