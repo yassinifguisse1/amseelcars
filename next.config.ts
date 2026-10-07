@@ -67,6 +67,18 @@ const nextConfig: NextConfig = {
       },
       // Legacy EN home URL -> canonical prefixed locale root.
       { source: "/home", destination: "/en", permanent: true },
+      // Agadir city landing retired - keywords live on homepage.
+      { source: "/en/agadir-car-rental", destination: "/en", permanent: true },
+      { source: "/fr/location-voiture-agadir", destination: "/fr", permanent: true },
+      { source: "/es/alquiler-coches-agadir", destination: "/es", permanent: true },
+      { source: "/de/mietwagen-agadir", destination: "/de", permanent: true },
+      { source: "/pl/wynajem-samochodow-agadir", destination: "/pl", permanent: true },
+      // Unprefixed legacy (if anything linked without locale prefix).
+      { source: "/agadir-car-rental", destination: "/en", permanent: true },
+      { source: "/location-voiture-agadir", destination: "/fr", permanent: true },
+      { source: "/alquiler-coches-agadir", destination: "/es", permanent: true },
+      { source: "/mietwagen-agadir", destination: "/de", permanent: true },
+      { source: "/wynajem-samochodow-agadir", destination: "/pl", permanent: true },
       // FR listing path rename: /vehicules is not used for EN; safe 301 to canonical /voitures.
       { source: "/vehicules", destination: "/voitures", permanent: true },
       {

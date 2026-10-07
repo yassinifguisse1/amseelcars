@@ -1,6 +1,7 @@
 import type { AppLocale } from '@/i18n/routing'
 import type { Car, CarRichContent } from '@/data/cars'
 import { carSlugForLocale } from '@/lib/carSlugLocale'
+import { localizeCarFields } from '@/lib/carFieldLocale'
 import carProductsFr from '../../messages/car-products.fr.json'
 import carProductsEn from '../../messages/car-products.en.json'
 import carProductsEs from '../../messages/car-products.es.json'
@@ -38,14 +39,15 @@ export function carForLocale(car: Car, locale: AppLocale): Car {
   const pack = packForSlug(frSlug, locale)
   const localizedSlug = carSlugForLocale(frSlug, locale)
 
-  if (!pack) {
-    return { ...car, slug: localizedSlug }
-  }
+  const withFields = localizeCarFields(
+    {
+      ...car,
+      description: pack?.description ?? car.description,
+      richContent: pack?.richContent ?? car.richContent,
+      slug: localizedSlug,
+    },
+    locale,
+  )
 
-  return {
-    ...car,
-    description: pack.description,
-    richContent: pack.richContent ?? car.richContent,
-    slug: localizedSlug,
-  }
+  return withFields
 }

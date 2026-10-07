@@ -11,7 +11,6 @@ type StaticHref =
   | "/about"
   | "/contact"
   | "/cars"
-  | "/location-voiture-agadir"
   | "/agadir-airport-car-rental"
   | "/taghazout-car-rental"
   | "/rental-terms"
@@ -23,7 +22,6 @@ const STATIC_HREFS: StaticHref[] = [
   "/about",
   "/contact",
   "/cars",
-  "/location-voiture-agadir",
   "/agadir-airport-car-rental",
   "/taghazout-car-rental",
   "/rental-terms",

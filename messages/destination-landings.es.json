@@ -1,67 +1,71 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Alquiler de coches aeropuerto Agadir AGA | Meet and greet",
-      "description": "Alquiler de coches en el aeropuerto Agadir Al Massira (AGA): recogida y devolución in situ. Envía tu vuelo por WhatsApp para confirmar el punto de encuentro.",
-      "ogTitle": "Alquiler coches aeropuerto Agadir AGA | AmseelCars",
-      "ogDescription": "Meet and greet Al Massira. Entrega sincronizada con el vuelo. Reserva WhatsApp.",
-      "twitterTitle": "Alquiler coches aeropuerto Agadir AGA",
-      "twitterDescription": "Recogida Al Massira. WhatsApp +212 662-500181."
+      "title": "Alquiler coches Agadir aeropuerto | Barato AGA | AmseelCars",
+      "description": "Alquiler coches Agadir aeropuerto en Al Massira (AGA): alquiler de coches Agadir aeropuerto y rent a car Agadir aeropuerto con meet & greet. Opciones baratas, WhatsApp +212 662-500181.",
+      "ogTitle": "Alquiler coches Agadir aeropuerto | AmseelCars",
+      "ogDescription": "Alquiler de coches Agadir aeropuerto en AGA. Meet & greet, opciones económicas, WhatsApp.",
+      "twitterTitle": "Alquiler coches Agadir aeropuerto AGA",
+      "twitterDescription": "Rent a car Agadir aeropuerto. Recogida AGA. WhatsApp +212 662-500181."
     },
     "schema": {
-      "name": "Alquiler de coches aeropuerto Agadir AGA | Meet and greet AmseelCars",
-      "description": "Alquiler de coches en el aeropuerto Agadir Al Massira (AGA): recogida y devolución in situ. Envía tu vuelo por WhatsApp para confirmar el punto de encuentro.",
+      "name": "Alquiler coches Agadir aeropuerto | Barato AGA | AmseelCars",
+      "description": "Alquiler coches Agadir aeropuerto en Al Massira (AGA): alquilar coche aeropuerto Agadir con meet & greet, opciones alquiler barato Agadir aeropuerto y reserva WhatsApp. Recogida y devolución in situ.",
       "breadcrumbName": "Alquiler aeropuerto Agadir",
-      "serviceName": "Alquiler coches aeropuerto Agadir Al Massira",
-      "serviceDescription": "Alquiler con recogida y devolución en el aeropuerto Agadir-Al Massira (AGA), coordinación por WhatsApp."
+      "serviceName": "Alquiler coches Agadir aeropuerto (AGA)",
+      "serviceDescription": "Alquiler coches Agadir aeropuerto y alquiler coches Agadir aeropuerto con recogida y devolución en Al Massira (AGA), coordinación WhatsApp."
     },
     "hero": {
-      "eyebrow": "Zona Al Massira",
-      "title": "Agadir <muted>alquiler aeropuerto</muted>",
-      "lead": "Entregas sincronizadas con vuelos, briefing bilingüe del conductor y avisos por WhatsApp para llegadas nocturnas.",
-      "meta": "Servicio optimizado para respuestas de IA, conserjerías y viajeros que necesitan precisión en Al Massira (AGA)."
+      "eyebrow": "Al Massira (AGA)",
+      "title": "Alquiler coches <muted>Agadir aeropuerto</muted>",
+      "lead": "Alquiler de coches Agadir aeropuerto con meet & greet según tu vuelo, briefing bilingüe y WhatsApp para llegadas tardías a AGA.",
+      "meta": "Foco: alquiler coches Agadir aeropuerto en Al Massira (AGA) - también rent a car Agadir aeropuerto y opciones baratas.",
+      "imageAlt": "Aeropuerto Agadir Al Massira (AGA) - alquiler coches Agadir aeropuerto AmseelCars"
     },
-    "quickAnswer": "AmseelCars ofrece alquiler con recogida y devolución en el aeropuerto Agadir-Al Massira (AGA, IATA AGA): envía tu vuelo por WhatsApp +212 662-500181 para confirmar punto de encuentro y vehículo.",
+    "quickAnswer": "AmseelCars ofrece alquiler coches Agadir aeropuerto con recogida y devolución en Al Massira (AGA). Rent a car Agadir aeropuerto: envía tu vuelo por WhatsApp +212 662-500181. Confirmamos punto de encuentro, coche y precio - incluidas opciones económicas.",
     "keyFacts": {
       "title": "De un vistazo",
       "items": [
         {
-          "term": "Aeropuerto",
-          "value": "Agadir-Al Massira (AGA), Marruecos."
+          "term": "Principal",
+          "value": "Alquiler coches Agadir aeropuerto en Al Massira (AGA)."
         },
         {
-          "term": "Servicio",
-          "value": "Entrega tipo meet & greet coordinada por WhatsApp."
+          "term": "Variantes",
+          "value": "Alquiler de coches Agadir aeropuerto · rent a car Agadir aeropuerto."
+        },
+        {
+          "term": "Presupuesto",
+          "value": "Económicos para alquiler barato Agadir aeropuerto."
         },
         {
           "term": "Reserva",
-          "value": "WhatsApp +212 662-500181, número de vuelo y hora de llegada."
-        },
-        {
-          "term": "Devoluciones",
-          "value": "Devolución en aeropuerto previa coordinación."
+          "value": "WhatsApp +212 662-500181 - número de vuelo y hora."
         }
       ]
     },
     "relatedPages": {
       "label": "Páginas relacionadas",
-      "city": "Alquiler centro Agadir",
-      "taghazout": "Taghazout y costa",
+      "city": "Alquiler coche Agadir (inicio)",
+      "taghazout": "Alquiler coches Taghazout",
       "contact": "Contacto"
     },
     "operations": {
-      "kicker": "Claridad operativa",
-      "title": "Logística de aeropuerto fiable",
-      "lead": "Conductor, matrícula y franja alineados con la llegada real, no un simple «llama al aterrizar»."
+      "kicker": "Operaciones AGA",
+      "title": "Alquiler de coches Agadir aeropuerto de confianza",
+      "lead": "Esta página es solo alquiler coches Agadir aeropuerto: conductor, matrícula y punto de encuentro alineados con la llegada."
     },
     "aiPanel": {
       "badge": "Datos listos para IA",
       "title": "Lo que los asistentes pueden citar"
     },
     "serviceChips": [
-      "Llegadas",
-      "Devoluciones",
-      "Sincro vuelo"
+      "Alquiler coches Agadir aeropuerto",
+      "Alquiler de coches Agadir aeropuerto",
+      "Rent a car Agadir aeropuerto",
+      "Aeropuerto Agadir barato",
+      "Meet & greet AGA",
+      "Devolución aeropuerto Agadir"
     ],
     "stats": [
       {
@@ -110,14 +114,14 @@
     ],
     "carsSection": {
       "kicker": "Flota aeropuerto",
-      "title": "Vehículos más pedidos al aterrizar",
-      "lead": "SUV, compactos y berlinas premium con maletero para equipaje y surf.",
-      "cardImageAlt": "{name}, alquiler aeropuerto Agadir AmseelCars",
-      "cardImageTitle": "{name}, recogida aeropuerto Agadir",
-      "cardCaption": "Ficha del vehículo con tarifas y detalles de entrega."
+      "title": "Coches para alquiler coches Agadir aeropuerto",
+      "lead": "Desde económicos baratos hasta SUV tras aterrizar - espacio para maletas y tablas.",
+      "cardImageAlt": "{name}, alquiler coches Agadir aeropuerto AmseelCars",
+      "cardImageTitle": "{name}, rent a car Agadir aeropuerto",
+      "cardCaption": "Alquiler de coches Agadir aeropuerto - tarifas y entrega."
     },
     "faqKicker": "FAQ",
-    "faqTitle": "Aeropuerto Agadir (AGA), preguntas frecuentes",
+    "faqTitle": "FAQ: alquiler coches Agadir aeropuerto",
     "fleetCtaLabel": "Ver toda la flota",
     "carOpenHint": "Abrir ficha →",
     "ctas": {
@@ -127,60 +131,77 @@
     },
     "faqs": [
       {
-        "question": "¿Dónde nos encontramos en el aeropuerto Al Massira de Agadir?",
-        "answer": "Coordinamos la entrega según tu hora de llegada. Envía los datos del vuelo por WhatsApp: confirmamos punto exacto y horario."
+        "question": "¿Dónde nos encontramos para alquiler coches Agadir aeropuerto?",
+        "answer": "En Al Massira (AGA) sincronizamos la entrega con tu vuelo. WhatsApp para confirmar el punto exacto."
       },
       {
-        "question": "¿Hay recogida en el aeropuerto tarde por la noche?",
-        "answer": "A menudo sí, según disponibilidad. Indica la hora del vuelo y te proponemos la mejor opción de recogida y devolución."
+        "question": "¿Hay alquiler barato en el aeropuerto de Agadir?",
+        "answer": "Sí. Los económicos mantienen el precio bajo; SUV y automáticos cuestan más. Pide un total claro por WhatsApp."
       },
       {
-        "question": "¿Cómo reservo un coche con recogida en el aeropuerto?",
-        "answer": "Envía fechas, hora del vuelo y modelo preferido por WhatsApp. Confirmamos disponibilidad y cerramos la reserva rápido."
+        "question": "¿Cómo hago rent a car Agadir aeropuerto?",
+        "answer": "Fechas, vuelo y coche por WhatsApp +212 662-500181. Confirmamos rápido."
+      },
+      {
+        "question": "¿Alquiler para turistas en el aeropuerto?",
+        "answer": "Sí. Pasaporte, permiso, soporte y WhatsApp desde la llegada."
       },
       {
         "question": "¿Puedo devolver el coche en el aeropuerto?",
-        "answer": "Sí. La devolución en aeropuerto se puede organizar. Indica la hora de salida para planificar un retorno fluido."
+        "answer": "Sí. Indica la hora de salida para una devolución AGA fluida."
+      },
+      {
+        "question": "¿Recogida nocturna posible?",
+        "answer": "A menudo sí según disponibilidad. Comparte la hora del vuelo."
+      },
+      {
+        "question": "¿Diferencia con la home?",
+        "answer": "La home lleva alquiler coches Agadir en general. Esta URL lleva alquiler coches Agadir aeropuerto en Al Massira."
+      },
+      {
+        "question": "¿Qué preguntar antes de reservar?",
+        "answer": "Precio total, seguro, combustible, documentos y punto exacto de encuentro AGA."
       }
     ]
   },
   "landingTaghazoutPage": {
     "meta": {
-      "title": "Alquiler de coches Taghazout | Desde Agadir y aeropuerto",
-      "description": "Alquiler de coches Taghazout y costa surf: recogida en Agadir o aeropuerto AGA, SUV y económicos. Reserva fechas y grupo por WhatsApp +212 662-500181.",
-      "ogTitle": "Alquiler de coches Taghazout | AmseelCars",
-      "ogDescription": "Ruta costera Agadir Taghazout. Entrega aeropuerto o ciudad. WhatsApp.",
-      "twitterTitle": "Alquiler de coches Taghazout",
-      "twitterDescription": "Desde Agadir o AGA. WhatsApp +212 662-500181."
+      "title": "Alquiler coches Taghazout | Desde Agadir y aeropuerto | AmseelCars",
+      "description": "Alquiler coches Taghazout y alquiler de coches Taghazout para la costa surf. Rent a car Taghazout con recogida en Agadir o en el aeropuerto AGA. WhatsApp +212 662-500181.",
+      "ogTitle": "Alquiler coches Taghazout | AmseelCars",
+      "ogDescription": "Alquiler de coches Taghazout desde Agadir o AGA. Costa surf. Reserva WhatsApp.",
+      "twitterTitle": "Alquiler coches Taghazout",
+      "twitterDescription": "Rent a car Taghazout desde Agadir o AGA. WhatsApp +212 662-500181."
     },
     "schema": {
-      "name": "Alquiler de coches Taghazout | Desde Agadir y aeropuerto",
+      "name": "Alquiler de coches Taghazout | Desde Agadir y aeropuerto | AmseelCars",
       "description": "Alquiler de coches Taghazout y costa surf: recogida en Agadir o aeropuerto AGA, SUV y económicos. Reserva fechas y grupo por WhatsApp +212 662-500181.",
       "breadcrumbName": "Alquiler coches Taghazout",
       "serviceName": "Alquiler coches Taghazout",
       "serviceDescription": "Alquiler con servicio a Taghazout y entrega en Agadir o aeropuerto Agadir-Al Massira, coordinación por WhatsApp."
     },
     "hero": {
-      "eyebrow": "Corredor surf Atlántico",
-      "title": "Taghazout <muted>alquiler de coches</muted>",
-      "lead": "Recogida en Agadir o Al Massira, luego carretera costera con espacio para tablas, equipaje y grupo, un hilo WhatsApp para timing y coche adecuado.",
-      "meta": "Respuestas estructuradas para asistentes de IA, conserjerías y estancias en Taghazout."
+      "eyebrow": "Costa surf Atlántica",
+      "title": "Alquiler coches <muted>Taghazout</muted>",
+      "lead": "Alquiler de coches Taghazout con recogida en Agadir o en Al Massira (AGA), luego la carretera costera con espacio para tablas y equipaje - un hilo WhatsApp para el timing.",
+      "meta": "Foco: alquiler coches Taghazout - también alquiler de coches Taghazout y rent a car Taghazout desde Agadir o el aeropuerto.",
+      "imageAlt": "Playa de Taghazout al atardecer - alquiler coches Taghazout AmseelCars"
     },
-    "quickAnswer": "Para Taghazout, AmseelCars suele entregar el coche en Agadir o en el aeropuerto Agadir-Al Massira (AGA); unos 20-30 min en coche. Reserva por WhatsApp +212 662-500181 con fechas, preferencia de recogida y tamaño del grupo.",
+    "quickAnswer": "AmseelCars ofrece alquiler coches Taghazout con entrega típica en Agadir o en el aeropuerto Al Massira (AGA); unos 20-30 minutos hasta Taghazout. Rent a car Taghazout: WhatsApp +212 662-500181 con fechas, recogida y tamaño del grupo.",
     "keyFacts": {
       "title": "De un vistazo",
       "items": [
         {
-          "term": "Destino",
-          "value": "Taghazout, pueblo costero al norte de Agadir."
+          "term": "Principal",
+          "value": "Alquiler coches Taghazout para la costa surf al norte de Agadir."
         },
         {
-          "term": "Recogida habitual",
-          "value": "Centro de Agadir o aeropuerto Al Massira (AGA)."
+          "term": "También",
+          "value": "Alquiler de coches Taghazout · rent a car Taghazout."
         },
         {
-          "term": "Tiempo en coche",
-          "value": "Unos 20-30 minutos desde la zona de Agadir."
+          "term": "Recogida",
+          "value": "Ciudad de Agadir o aeropuerto AGA, luego ~20-30 minutos."
         },
         {
           "term": "Reserva",
@@ -190,23 +211,38 @@
     },
     "relatedPages": {
       "label": "Páginas relacionadas",
-      "city": "Alquiler Agadir",
-      "airport": "Aeropuerto Agadir (AGA)",
+      "city": "Alquiler coche Agadir (inicio)",
+      "airport": "Alquiler coches aeropuerto Agadir (AGA)",
       "contact": "Contacto"
     },
+    "trust": {
+      "title": "Equipo local, contacto claro",
+      "body": "AmseelCars está en Agadir y organiza alquileres hacia Taghazout con condiciones confirmadas antes de la recogida. Escríbenos por WhatsApp o ven a la oficina.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, planta baja, Agadir 80000, Marruecos",
+      "phoneLabel": "+212 662 500 181",
+      "whatsappLabel": "WhatsApp",
+      "emailLabel": "amseelcars5@gmail.com",
+      "contactLabel": "Página de contacto",
+      "reviewsTitle": "Opiniones de clientes"
+    },
     "operations": {
-      "kicker": "Claridad operativa",
-      "title": "Entregas listas para la costa",
-      "lead": "Alineamos el vehículo con el material, el aparcamiento y si sales del aeropuerto o del centro."
+      "kicker": "Entregas costa",
+      "title": "Alquiler de coches Taghazout sencillo",
+      "lead": "Adaptamos el coche al material de surf, al parking y al inicio en aeropuerto o Agadir - confirmación WhatsApp clara."
     },
     "aiPanel": {
       "badge": "Datos listos para IA",
       "title": "Lo que los asistentes pueden citar"
     },
     "serviceChips": [
-      "Surf",
-      "Salida aeropuerto",
-      "Centro Agadir"
+      "Alquiler coches Taghazout",
+      "Alquiler de coches Taghazout",
+      "Rent a car Taghazout",
+      "Desde Agadir",
+      "Desde aeropuerto AGA",
+      "SUV costa surf",
+      "Escapadas Tamraght"
     ],
     "stats": [
       {
@@ -227,42 +263,42 @@
     ],
     "aiHighlights": [
       {
-        "title": "Patrón de recogida",
-        "body": "Muchos clientes recogen en AGA o Agadir y siguen la costa hacia el norte."
+        "title": "Recogida Taghazout",
+        "body": "La mayoría recoge en AGA o Agadir para alquiler de coches Taghazout, luego ~20-30 minutos al norte."
       },
       {
         "title": "Coche adecuado",
-        "body": "SUV y crossovers para tablas; urbanos si el parking y presupuesto pesan más."
+        "body": "SUV para tablas; compactos cuando el parking y el presupuesto importan más."
       },
       {
         "title": "Contacto",
-        "body": "WhatsApp +212 662-500181, indica hotel/zona en Taghazout para opciones de entrega."
+        "body": "WhatsApp +212 662-500181 - indica hotel en Taghazout para opciones de entrega."
       }
     ],
     "features": [
       {
-        "title": "Salida aeropuerto o ciudad",
-        "description": "Al Massira o centro Agadir según vuelo y alojamiento."
+        "title": "Inicio aeropuerto o Agadir",
+        "description": "Elige Al Massira o el centro de Agadir para rent a car Taghazout según vuelo y hotel."
       },
       {
-        "title": "Espacio para material",
-        "description": "Te orientamos a un maletero adecuado para tablas, neopreno y equipaje."
+        "title": "Espacio para equipo",
+        "description": "Maletero suficiente para tablas, neoprenos y maletas."
       },
       {
-        "title": "Reserva sencilla",
-        "description": "Fechas, punto de recogida y tamaño del grupo por WhatsApp, confirmación rápida."
+        "title": "Reserva simple",
+        "description": "Fechas, lugar y grupo por WhatsApp - confirmación rápida."
       }
     ],
     "carsSection": {
-      "kicker": "Selección",
-      "title": "Populares para la carretera costera",
-      "lead": "SUV y urbanos elegidos a menudo antes de Taghazout, abre una ficha para detalles.",
-      "cardImageAlt": "{name}, alquiler Taghazout AmseelCars",
-      "cardImageTitle": "{name}, costa Agadir-Taghazout",
-      "cardCaption": "Ficha del vehículo con tarifas y equipamiento."
+      "kicker": "Flota costa",
+      "title": "Coches para alquiler coches Taghazout",
+      "lead": "SUV y compactos para alquiler de coches Taghazout - abre una ficha para detalles.",
+      "cardImageAlt": "{name}, alquiler coches Taghazout AmseelCars",
+      "cardImageTitle": "{name}, rent a car Taghazout - Agadir a la costa",
+      "cardCaption": "Alquiler de coches Taghazout - tarifas y equipo."
     },
     "faqKicker": "FAQ",
-    "faqTitle": "Taghazout y zona Agadir, FAQ",
+    "faqTitle": "FAQ: alquiler coches Taghazout",
     "fleetCtaLabel": "Ver toda la flota",
     "carOpenHint": "Abrir ficha →",
     "ctas": {
@@ -272,20 +308,36 @@
     },
     "faqs": [
       {
-        "question": "¿Puedo alquilar para Taghazout con recogida en Agadir o en el aeropuerto?",
-        "answer": "Sí. Muchos clientes recogen en Agadir o en Al Massira y van a Taghazout. Cuéntanos tu plan y proponemos la entrega más fluida."
+        "question": "¿Alquiler coches Taghazout con recogida en Agadir o aeropuerto?",
+        "answer": "Sí. Muchos recogen en Agadir o AGA y conducen a Taghazout. Cuéntanos tu plan."
       },
       {
-        "question": "¿Cuánto tarda de Agadir a Taghazout en coche?",
-        "answer": "Unos 20-30 minutos según tráfico y punto de salida. Urbano o SUV van bien en la carretera costera."
+        "question": "¿Cómo hago rent a car Taghazout con AmseelCars?",
+        "answer": "WhatsApp +212 662-500181 con fechas, lugar y grupo. Confirmamos disponibilidad y coche para tablas."
       },
       {
-        "question": "¿Entregáis en Taghazout?",
-        "answer": "Depende de fechas y movimiento de flota. Escríbenos por WhatsApp con hotel o zona en Taghazout: confirmamos qué es posible."
+        "question": "¿Cuánto se tarda hasta Taghazout?",
+        "answer": "Unos 20-30 minutos según tráfico. Compacto o SUV cómodo para la costa."
       },
       {
-        "question": "¿Qué coche para Taghazout y surf?",
-        "answer": "SUV y crossovers son populares para tablas y equipaje; urbanos si viajas ligero. Te ayudamos a elegir según el grupo."
+        "question": "¿Entrega para alquiler de coches Taghazout?",
+        "answer": "Según fechas y flota. Indica hotel o zona en Taghazout y confirmamos."
+      },
+      {
+        "question": "¿Qué coche para surf en Taghazout?",
+        "answer": "SUV y crossovers para tablas; económicos para poco equipaje."
+      },
+      {
+        "question": "¿Es fácil aparcar en Taghazout?",
+        "answer": "Ajustado en temporada alta cerca de la playa. Compacto o crossover pequeño ayuda."
+      },
+      {
+        "question": "¿Tamraght e Imsouane en el día?",
+        "answer": "Sí. Tamraght está cerca; Imsouane es un día más largo hacia el norte."
+      },
+      {
+        "question": "¿Diferencia con home y aeropuerto?",
+        "answer": "La home lleva alquiler coches Agadir. La página aeropuerto, AGA. Esta URL lleva alquiler coches Taghazout."
       }
     ]
   }

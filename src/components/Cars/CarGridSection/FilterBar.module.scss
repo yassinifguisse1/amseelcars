@@ -1,13 +1,11 @@
 .filterBar {
   width: 100%;
-//   background: #1a1a1a;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 0.25rem 1rem 1rem;
   margin-bottom: 2rem;
-//   border: 1px solid #333;
 
   @media (min-width: 768px) {
-    padding: 1.5rem;
+    padding: 0.35rem 1.5rem 1.5rem;
   }
 }
 
@@ -15,17 +13,50 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-bottom: 1rem;
+  width: 100%;
+  background: #CB1939;
+  border-radius: 10px;
+  padding: 0.4rem 0.45rem;
+}
+
+.centerLabel {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.3;
+  padding: 0 0.25rem;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1.05rem;
+  }
+}
+
+.centerSpacer {
+  flex: 1;
+  min-width: 0;
 }
 
 .toggleButton {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  border: 1px solid #444;
-  color: #fff;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  color: #171717;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   cursor: pointer;
@@ -35,7 +66,7 @@
   position: relative;
 
   &:hover {
-    background: #2a2a2a;
+    background: #f5f5f5;
     border-color: #EC1C25;
   }
 
@@ -64,17 +95,17 @@
 .currencySelector {
   display: flex;
   gap: 0.5rem;
-  background: #2a2a2a;
+  background: #f5f5f5;
   padding: 0.25rem;
   border-radius: 8px;
-  border: 1px solid #444;
+  border: 1px solid #e5e5e5;
 }
 
 .currencyButton {
   padding: 0.5rem 1rem;
   background: transparent;
   border: none;
-  color: #cfcfcf;
+  color: #525252;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -88,8 +119,8 @@
   }
 
   &:hover {
-    color: #fff;
-    background: #333;
+    color: #171717;
+    background: #e5e5e5;
   }
 
   &.active {
@@ -102,7 +133,7 @@
   display: grid;
   gap: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid #333;
+  border-top: 1px solid #e5e5e5;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -121,16 +152,16 @@
 }
 
 .label {
-  color: #fff;
+  color: #171717;
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
 
 .select {
-  background: #2a2a2a;
-  border: 1px solid #444;
-  color: #fff;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  color: #171717;
   padding: 0.75rem;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -138,7 +169,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #555;
+    border-color: #a3a3a3;
   }
 
   &:focus {
@@ -148,8 +179,8 @@
   }
 
   option {
-    background: #2a2a2a;
-    color: #fff;
+    background: #fff;
+    color: #171717;
   }
 }
 
@@ -164,22 +195,22 @@
   left: 0.75rem;
   width: 18px;
   height: 18px;
-  color: #999;
+  color: #737373;
   pointer-events: none;
 }
 
 .input {
   width: 100%;
-  background: #2a2a2a;
-  border: 1px solid #444;
-  color: #fff;
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  color: #171717;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
   border-radius: 8px;
   font-size: 0.95rem;
   transition: all 0.3s ease;
 
   &::placeholder {
-    color: #666;
+    color: #a3a3a3;
   }
 
   &:focus {
@@ -198,7 +229,7 @@
   right: 0.5rem;
   background: transparent;
   border: none;
-  color: #999;
+  color: #737373;
   cursor: pointer;
   padding: 0.25rem;
   display: flex;
@@ -208,8 +239,8 @@
   transition: all 0.2s ease;
 
   &:hover {
-    color: #fff;
-    background: #333;
+    color: #171717;
+    background: #f5f5f5;
   }
 
   .clearIcon {
@@ -225,7 +256,7 @@
 }
 
 .priceSeparator {
-  color: #999;
+  color: #737373;
   font-weight: 500;
 }
 
@@ -258,4 +289,3 @@
     height: 16px;
   }
 }
-

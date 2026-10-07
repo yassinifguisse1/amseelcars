@@ -120,14 +120,14 @@ export default function Brands() {
   const extendedBrands = [...brands, ...brands, ...brands, ...brands];
 
   return (
-    <section className="py-20 bg-black relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative overflow-hidden bg-white py-20">
+      <div className="mx-auto max-w-7xl px-6">
         {/* Section Title */}
-        <div ref={titleRef} className="text-center mb-16 ">
-          <h2 ref={headingRef} className="text-6xl md:text-7xl font-bold text-white mb-4">
+        <div ref={titleRef} className="mb-16 text-center">
+          <h2 ref={headingRef} className="mb-4 text-6xl font-bold text-neutral-900 md:text-7xl">
             {t('title')}
           </h2>
-          <p ref={descriptionRef} className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p ref={descriptionRef} className="mx-auto max-w-2xl text-xl text-neutral-600">
             {t('description')}
           </p>
         </div>
@@ -135,8 +135,8 @@ export default function Brands() {
         {/* Scrolling Brands Container */}
         <div className="relative">
           {/* First Row - Left to Right */}
-          <div className="relative overflow-hidden mb-8">
-            <div 
+          <div className="relative mb-8 overflow-hidden">
+            <div
               ref={firstRowRef}
               className="flex"
               style={{ width: 'max-content' }}
@@ -144,34 +144,31 @@ export default function Brands() {
               {extendedBrands.map((brand, index) => (
                 <div
                   key={`row1-${index}`}
-                  className="flex-shrink-0 group cursor-pointer"
+                  className="group flex-shrink-0 cursor-pointer"
                   style={{ width: '200px' }}
                 >
                   <div className="relative mx-4">
-                    {/* Brand Logo Container */}
-                    <div className="w-32 h-32 md:w-36 md:h-36 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center p-6 transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-105">
+                    <div className="flex h-32 w-32 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition-all duration-500 group-hover:scale-105 group-hover:border-neutral-300 group-hover:bg-white md:h-36 md:w-36">
                       <Image
                         src={brand.logo}
                         alt={t('logoAlt', { name: brand.name })}
-                        className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0"
+                        className="h-full w-full object-contain transition-all duration-500 group-hover:scale-105"
                         width={100}
                         height={100}
-                        priority={index < 4} // Prioritize first 4 visible brands
-                        quality={95} // High quality for brand logos
+                        priority={index < 4}
+                        quality={95}
                         placeholder="blur"
                         blurDataURL="data:image/webp;base64,UklGRnoAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACAAFANgAAJ0BLUASFBDgCAAA"
                       />
                     </div>
-                    
-                    {/* Brand Name */}
+
                     <div className="mt-4 text-center">
-                      <h3 className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors duration-300">
+                      <h3 className="text-sm font-semibold text-neutral-700 transition-colors duration-300 group-hover:text-neutral-900">
                         {brand.name}
                       </h3>
                     </div>
 
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#CB1939]/20 to-[#CB1939]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
+                    <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#CB1939]/10 to-[#CB1939]/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"></div>
                   </div>
                 </div>
               ))}
@@ -180,7 +177,7 @@ export default function Brands() {
 
           {/* Second Row - Right to Left */}
           <div className="relative overflow-hidden">
-            <div 
+            <div
               ref={secondRowRef}
               className="flex"
               style={{ width: 'max-content' }}
@@ -188,34 +185,31 @@ export default function Brands() {
               {extendedBrands.map((brand, index) => (
                 <div
                   key={`row2-${index}`}
-                  className="flex-shrink-0 group cursor-pointer"
+                  className="group flex-shrink-0 cursor-pointer"
                   style={{ width: '200px' }}
                 >
                   <div className="relative mx-4">
-                    {/* Brand Logo Container */}
-                    <div className="w-32 h-32 md:w-36 md:h-36 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl flex items-center justify-center p-6 transition-all duration-500 group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-105">
+                    <div className="flex h-32 w-32 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 p-6 transition-all duration-500 group-hover:scale-105 group-hover:border-neutral-300 group-hover:bg-white md:h-36 md:w-36">
                       <Image
                         src={brand.logo}
                         alt={t('logoAlt', { name: brand.name })}
-                        className="w-full h-full object-contain filter brightness-0 invert transition-all duration-500 group-hover:brightness-100 group-hover:invert-0"
+                        className="h-full w-full object-contain transition-all duration-500 group-hover:scale-105"
                         width={100}
                         height={100}
-                        priority={index < 4} // Prioritize first 4 visible brands
-                        quality={95} // High quality for brand logos
+                        priority={index < 4}
+                        quality={95}
                         placeholder="blur"
                         blurDataURL="data:image/webp;base64,UklGRnoAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACAAFANgAAJ0BLUASFBDgCAAA"
                       />
                     </div>
-                    
-                    {/* Brand Name */}
+
                     <div className="mt-4 text-center">
-                      <h3 className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors duration-300">
+                      <h3 className="text-sm font-semibold text-neutral-700 transition-colors duration-300 group-hover:text-neutral-900">
                         {brand.name}
                       </h3>
                     </div>
 
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#CB1939]/20 to-[#CB1939]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"></div>
+                    <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-r from-[#CB1939]/10 to-[#CB1939]/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"></div>
                   </div>
                 </div>
               ))}
@@ -223,12 +217,11 @@ export default function Brands() {
           </div>
 
           {/* Fade Gradients - Left and Right */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-white to-transparent"></div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-white to-transparent"></div>
         </div>
 
-        {/* Bottom Gradient */}
-        <div className="mt-16 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        <div className="mt-16 h-px bg-gradient-to-r from-transparent via-neutral-200 to-transparent"></div>
       </div>
     </section>
   );

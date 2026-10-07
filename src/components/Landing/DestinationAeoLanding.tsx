@@ -53,6 +53,29 @@ export type DestinationRelatedPage = {
   href: string;
 };
 
+export type DestinationTrustReview = {
+  author: string;
+  body: string;
+  rating?: number;
+};
+
+export type DestinationTrustSection = {
+  title: string;
+  body: string;
+  company: string;
+  address: string;
+  phoneLabel: string;
+  phoneHref: string;
+  whatsappLabel: string;
+  whatsappHref: string;
+  emailLabel: string;
+  emailHref: string;
+  contactLabel: string;
+  contactHref: string;
+  reviewsTitle: string;
+  reviews: DestinationTrustReview[];
+};
+
 export type DestinationAeoLandingProps = {
   languageSwitcher: ReactNode;
   variant?: "default" | "airport" | "coast";
@@ -69,6 +92,7 @@ export type DestinationAeoLandingProps = {
   keyFactsTitle?: string;
   relatedPages?: DestinationRelatedPage[];
   relatedPagesLabel?: string;
+  trustSection?: DestinationTrustSection;
   serviceChips: string[];
   stats: DestinationStat[];
   aiHighlights: DestinationHighlight[];
@@ -79,7 +103,7 @@ export type DestinationAeoLandingProps = {
     lead: string;
   };
   cars: DestinationCar[];
-  /** Optional booking search bar rendered above the fleet section. */
+  /** Optional booking search bar overlaid on the lower mid of the hero image. */
   bookingSearch?: ReactNode;
   faqs: readonly DestinationFaq[];
   faqTitle: string;
@@ -142,6 +166,7 @@ export function DestinationAeoLanding({
   keyFactsTitle = "At a glance",
   relatedPages,
   relatedPagesLabel = "Related pages",
+  trustSection,
   serviceChips,
   stats,
   aiHighlights,
@@ -166,7 +191,7 @@ export function DestinationAeoLanding({
   return (
     <div className={styles.root} data-variant={variant}>
       {/* ——— Hero: one composition ——— */}
-      <header className={styles.hero}>
+      <header className={clsx(styles.hero, bookingSearch && styles.heroWithBooking)}>
         {visual ? (
           <div className={styles.heroMedia} aria-hidden={false}>
             <Image
@@ -197,18 +222,23 @@ export function DestinationAeoLanding({
 
           <p className={styles.heroLead}>{hero.lead}</p>
 
-          <div className={styles.heroActions}>
-            <CtaLink cta={ctas.primary} />
-            {ctas.secondary ? <CtaLink cta={ctas.secondary} /> : null}
-          </div>
-
-          <div className={styles.heroScroll} aria-hidden>
-            <span />
-          </div>
+          {!bookingSearch ? (
+            <>
+              <div className={styles.heroActions}>
+                <CtaLink cta={ctas.primary} />
+                {ctas.secondary ? <CtaLink cta={ctas.secondary} /> : null}
+              </div>
+              <div className={styles.heroScroll} aria-hidden>
+                <span />
+              </div>
+            </>
+          ) : null}
         </div>
-      </header>
 
-      {bookingSearch}
+        {bookingSearch ? (
+          <div className={styles.heroBooking}>{bookingSearch}</div>
+        ) : null}
+      </header>
 
       <section id="cars" className={styles.fleet} aria-labelledby="cars-heading">
         <div className={styles.fleetInner}>
@@ -363,6 +393,63 @@ export function DestinationAeoLanding({
             ))}
           </div>
         </section>
+
+        {trustSection ? (
+          <section className={styles.trust} aria-labelledby="trust-heading">
+            <p className={styles.kicker}>{trustSection.company}</p>
+            <h2 id="trust-heading" className={styles.h2}>
+              {trustSection.title}
+            </h2>
+            <p className={styles.lead}>{trustSection.body}</p>
+            <address className={styles.trustNap}>
+              <p className={styles.trustCompany}>{trustSection.company}</p>
+              <p>{trustSection.address}</p>
+              <ul className={styles.trustLinks}>
+                <li>
+                  <a href={trustSection.phoneHref}>{trustSection.phoneLabel}</a>
+                </li>
+                <li>
+                  <a
+                    href={trustSection.whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {trustSection.whatsappLabel}
+                  </a>
+                </li>
+                <li>
+                  <a href={trustSection.emailHref}>{trustSection.emailLabel}</a>
+                </li>
+                <li>
+                  <NextLink href={trustSection.contactHref}>
+                    {trustSection.contactLabel}
+                  </NextLink>
+                </li>
+              </ul>
+            </address>
+            {trustSection.reviews.length ? (
+              <div className={styles.trustReviews}>
+                <h3 className={styles.h2Sm}>{trustSection.reviewsTitle}</h3>
+                <ul className={styles.trustReviewList}>
+                  {trustSection.reviews.map((review) => (
+                    <li key={review.author} className={styles.trustReview}>
+                      <p className={styles.trustReviewBody}>&ldquo;{review.body}&rdquo;</p>
+                      <p className={styles.trustReviewAuthor}>
+                        {review.author}
+                        {review.rating ? (
+                          <span aria-label={`${review.rating} out of 5`}>
+                            {" "}
+                            · {"★".repeat(Math.min(5, Math.max(1, review.rating)))}
+                          </span>
+                        ) : null}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </section>
+        ) : null}
 
         <section className={styles.faq} aria-labelledby="faq-heading">
           <p className={styles.kicker}>{faqKicker}</p>

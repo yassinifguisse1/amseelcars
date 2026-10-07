@@ -139,7 +139,10 @@ function MainIntroCopy({
    ============================================================================= */
 export function HomeSeoAirportBlock() {
   const t = useTranslations("home.airport");
-  const bullets = t.raw("bullets") as string[];
+  const bullets = t.raw("bullets") as { text: string; href?: string }[];
+  const pageLinkClass =
+    "font-semibold text-[#CB1939] underline decoration-[#CB1939]/40 underline-offset-4 transition-colors hover:text-[#a0142e] hover:decoration-[#a0142e]";
+
   return (
     <motion.section
       className="bg-[#f7f5f2] py-14 md:py-20"
@@ -155,15 +158,39 @@ export function HomeSeoAirportBlock() {
         <p className="mx-auto mt-5 max-w-[56rem] text-pretty text-[1.05rem] leading-[1.95] text-neutral-600 sm:mt-6 sm:text-[1.14rem] sm:leading-[2] md:text-[1.22rem] md:leading-[2.1]">
           {t.rich("body", {
             kw: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
+            airport: (chunks) => (
+              <Link href="/agadir-airport-car-rental" className={pageLinkClass}>
+                {chunks}
+              </Link>
+            ),
+            city: (chunks) => (
+              <Link href="/" className={pageLinkClass}>
+                {chunks}
+              </Link>
+            ),
+            taghazout: (chunks) => (
+              <Link href="/taghazout-car-rental" className={pageLinkClass}>
+                {chunks}
+              </Link>
+            ),
           })}
         </p>
         <ul className="mx-auto mt-9 max-w-[56rem] space-y-4 text-left text-[1.05rem] text-neutral-700 sm:text-[1.14rem] md:text-[1.2rem]">
           {bullets.map((b) => (
-            <li key={b} className="flex gap-3.5 border-b border-neutral-200/80 pb-4 last:border-0">
+            <li key={b.text} className="flex gap-3.5 border-b border-neutral-200/80 pb-4 last:border-0">
               <span className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center text-xl font-semibold leading-none text-[#CB1939] sm:h-8 sm:w-8 sm:text-2xl" aria-hidden>
                 ✓
               </span>
-              <span className="pt-0.5 leading-relaxed">{b}</span>
+              {b.href ? (
+                <Link
+                  href={b.href as "/" | "/agadir-airport-car-rental" | "/taghazout-car-rental"}
+                  className={`pt-0.5 leading-relaxed ${pageLinkClass}`}
+                >
+                  {b.text}
+                </Link>
+              ) : (
+                <span className="pt-0.5 leading-relaxed">{b.text}</span>
+              )}
             </li>
           ))}
         </ul>
@@ -180,7 +207,7 @@ export function HomeSeoVehicleTypesBlock() {
   const cards = t.raw("cards") as { title: string; text: string }[];
   return (
     <motion.section
-      className="relative overflow-hidden bg-black py-20 lg:py-28"
+      className="relative overflow-hidden bg-white py-20 lg:py-28"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -194,10 +221,10 @@ export function HomeSeoVehicleTypesBlock() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-heading text-balance text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.2] text-white">
+          <h2 className="font-heading text-balance text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.2] text-neutral-900">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-5 max-w-[42rem] text-pretty text-[clamp(1rem,2.1vw,1.15rem)] font-normal leading-[1.65] text-white/70">
+          <p className="mx-auto mt-5 max-w-[42rem] text-pretty text-[clamp(1rem,2.1vw,1.15rem)] font-normal leading-[1.65] text-neutral-600">
             {t("subtitle")}
           </p>
         </motion.div>
@@ -207,10 +234,10 @@ export function HomeSeoVehicleTypesBlock() {
             <Link
               key={c.title}
               href="/cars"
-              className="group flex min-h-[300px] flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-7 transition-colors hover:border-[#CB1939]/50 hover:bg-white/[0.07] lg:min-h-[320px] lg:p-8"
+              className="group flex min-h-[300px] flex-col rounded-2xl border border-neutral-200 bg-neutral-50 p-7 transition-colors hover:border-[#CB1939]/50 hover:bg-white lg:min-h-[320px] lg:p-8"
             >
-              <h3 className="text-xl font-semibold text-white lg:text-[1.35rem]">{c.title}</h3>
-              <p className="mt-4 flex-1 text-base leading-relaxed text-white/72 lg:text-[1.0625rem] lg:leading-[1.65]">
+              <h3 className="text-xl font-semibold text-neutral-900 lg:text-[1.35rem]">{c.title}</h3>
+              <p className="mt-4 flex-1 text-base leading-relaxed text-neutral-600 lg:text-[1.0625rem] lg:leading-[1.65]">
                 {c.text}
               </p>
               <span className="mt-6 text-sm font-medium uppercase tracking-wider text-[#CB1939]">
@@ -306,7 +333,7 @@ export function HomeSeoLocationNapBlock() {
   const tFooter = useTranslations("footer");
   const waPrefill = encodeURIComponent(tFooter("whatsappPrefill"));
   return (
-    <section className="border-t border-neutral-200 bg-[#f2efe9] px-5 py-16 md:px-8 md:py-20 lg:py-24">
+    <section className="border-t border-neutral-200 bg-white px-5 py-16 md:px-8 md:py-20 lg:py-24">
       <div className="mx-auto max-w-[52rem] text-center md:text-left">
         <h2 className="font-heading text-balance text-[clamp(1.5rem,3.8vw,2.35rem)] font-semibold leading-snug text-neutral-900">
           {t("title")}
@@ -507,7 +534,7 @@ export function HomeSeoFaqBlock() {
         />
       )}
       <section
-        className="border-t border-neutral-200/80 bg-[#f7f7f8] px-4 py-14 sm:px-6 sm:py-16 md:py-20"
+        className="border-t border-neutral-200/80 bg-white px-4 py-14 sm:px-6 sm:py-16 md:py-20"
         aria-labelledby="home-faq-heading"
       >
         <div className="mx-auto max-w-6xl">

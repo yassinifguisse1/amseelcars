@@ -67,16 +67,16 @@
   },
   "home": {
     "meta": {
-      "title": "Car rental Agadir airport | AmseelCars AGA pickup",
-      "description": "Car rental Agadir airport: no deposit, no credit card required, no hidden fees. Free airport car delivery, airport meet & greet, 24/7 AGA pickup and WhatsApp support across Agadir, Taghazout, Tamraght and Souss-Massa."
+      "title": "Car rental Agadir | Airport & city pickup | AmseelCars",
+      "description": "Car rental Agadir and car hire Agadir with AmseelCars: airport meet & greet or city and hotel delivery. Car rental Agadir Morocco, no deposit, WhatsApp 24/7. AGA details on our airport page; Taghazout on our coast page."
     },
     "breadcrumb": "Home",
     "hero": {
-      "title": "Car rental Agadir airport with full insurance and free delivery <brand>AMSEEL CARS</brand>",
-      "intro": "AMSEEL CARS offers car hire Agadir airport with free airport car delivery at Agadir Al Massira Airport (AGA), airport meet & greet, and 24/7 airport pickup. No deposit car rental, no credit card required, no hidden fees, and 24/7 WhatsApp support across Agadir, Morocco and the Souss-Massa coast. Book economy to premium via WhatsApp.",
-      "ariaLabel": "Overview, car rental Agadir airport with full insurance and free delivery",
+      "title": "Car rental Agadir with full insurance and free delivery",
+      "intro": "AMSEEL CARS offers car rental Agadir and car hire Agadir with airport or city pickup, free hotel delivery, and 24/7 WhatsApp. No deposit, no credit card, no hidden fees. Rent a car Morocco Agadir for downtown, beach hotels, or AGA - deep airport details on our airport page; Taghazout on our coast page.",
+      "ariaLabel": "Overview, car rental Agadir with full insurance and free delivery",
       "fleetCta": "View our cars",
-      "airportImageAlt": "Agadir Al Massira Airport (AGA) — car rental Agadir airport pickup with AmseelCars"
+      "airportImageAlt": "Agadir city and seafront - car rental Agadir with AmseelCars"
     },
     "preloader": {
       "title": "AMSEEL CARS",
@@ -97,50 +97,62 @@
     },
     "story": {
       "heading": "AMSEEL CARS",
-      "description": "supports Agadir Airport Car Rental arrivals at Agadir Al Massira Airport with free airport car delivery, airport meet & greet, 24/7 airport pickup, a modern fleet, and 24/7 WhatsApp support across Agadir, Taghazout, Tamraght and Souss-Massa, Morocco.",
+      "description": "offers car rental Agadir with airport or city pickup, free delivery, a modern fleet, and 24/7 WhatsApp across Agadir, Taghazout, Tamraght and Souss-Massa, Morocco.",
       "bullets": [
-        "No deposit car rental, no credit card required, and no hidden fees — clear pricing before you land.",
-        "Airport meet & greet with free airport car delivery and 24/7 airport pickup timed to your AGA flight.",
-        "From city cars to SUVs: explore Agadir, Taghazout and Tamraght with full coverage and 24/7 WhatsApp support."
+        "No deposit car rental Agadir, no credit card required, and no hidden fees - clear pricing before you book.",
+        "Airport or city pickup with free delivery for AGA or downtown / hotel handover.",
+        "From city cars to SUVs: explore Agadir, Taghazout and Tamraght with 24/7 WhatsApp support."
       ],
       "aboutCta": "About us",
       "aboutAriaLabel": "About us"
     },
     "trustBar": {
-      "ariaLabel": "AMSEEL CARS USPs — Agadir airport car rental",
+      "ariaLabel": "AMSEEL CARS USPs - car rental Agadir",
       "items": [
         "No Deposit Car Rental",
         "No Credit Card Required",
         "No Hidden Fees",
-        "Airport Meet & Greet",
-        "24/7 Airport Pickup",
+        "Airport or City Pickup",
+        "Free Delivery Agadir",
         "24/7 WhatsApp Support",
-        "Free Airport Car Delivery"
+        "Local AmseelCars Team"
       ]
     },
     "mainIntro": {
-      "headline": "Car rental Agadir airport at a <accent>clear price</accent>",
-      "body": "Looking for Agadir Airport Car Rental after landing at Agadir Al Massira Airport? AMSEEL CARS delivers free airport car delivery with airport meet & greet, 24/7 airport pickup, no deposit, no credit card required, and no hidden fees. Drive from AGA across Agadir, Morocco — Taghazout, Tamraght and the Souss-Massa coast. City and hotel stays: see our Agadir city page.",
+      "headline": "Car rental Agadir with <accent>AmseelCars</accent>",
+      "body": "Looking for car hire Agadir or rent a car Agadir after landing or for a city stay? AMSEEL CARS is your local car rental Agadir Morocco partner: airport or city pickup, free hotel delivery, no deposit, no credit card, WhatsApp 24/7. Dedicated AGA guide: airport page. Surf coast: Taghazout page.",
       "bullets": [
-        "No deposit · no credit card · no hidden fees",
-        "Airport meet & greet · free AGA delivery",
-        "24/7 airport pickup · 24/7 WhatsApp support",
+        "Car rental Agadir · no deposit · no credit card",
+        "Airport or city pickup · free delivery",
+        "WhatsApp car hire Agadir · 24/7 support",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
       ]
     },
     "airport": {
-      "title": "Agadir Airport Car Rental — meet & greet on arrival",
-      "body": "Land at Agadir Al Massira Airport (AGA) and meet our team for airport meet & greet with free airport car delivery. Agadir Airport Car Rental with 24/7 airport pickup, 24/7 WhatsApp support, no deposit, no credit card required, and no hidden fees — ready for Agadir, Taghazout, Tamraght and Souss-Massa trips.",
+      "title": "Airport or city - choose your pickup",
+      "body": "Book car rental Agadir here, then open the page that matches your trip: Al Massira (AGA) meet & greet on our <airport>airport page</airport>, hotel or downtown handover on this homepage, or coastal delivery on <taghazout>Taghazout</taghazout>. Same clear rules: no deposit, no credit card, no hidden fees, WhatsApp 24/7.",
       "bullets": [
-        "Free airport car delivery at Agadir Al Massira Airport (AGA)",
-        "Airport meet & greet timed to your flight",
-        "24/7 airport pickup and 24/7 WhatsApp support",
-        "No deposit · no credit card · no hidden fees"
-      ]
+        {
+          "text": "Airport pickup at Al Massira (AGA) - see airport page",
+          "href": "/agadir-airport-car-rental"
+        },
+        {
+          "text": "City & hotel handover - car rental Agadir on this page",
+          "href": "/"
+        },
+        {
+          "text": "Taghazout & Tamraght coast - see Taghazout page",
+          "href": "/taghazout-car-rental"
+        },
+        {
+          "text": "No deposit · no credit card · WhatsApp 24/7"
+        }
+      ],
+      "flightBandAlt": "Passenger airplane over the Atlantic near Agadir - AmseelCars car rental Agadir arrivals"
     },
     "vehicleTypes": {
-      "title": "What type of car for Agadir airport car hire?",
-      "subtitle": "Economy, automatic, SUV, or premium: pick the category that matches your budget and trips after AGA pickup.",
+      "title": "What type of car for car rental Agadir?",
+      "subtitle": "Economy, automatic, SUV, or premium: pick the category that matches your budget and trips around Agadir and the coast.",
       "fleetCta": "View fleet →",
       "cards": [
         {
@@ -149,7 +161,7 @@
         },
         {
           "title": "Automatic cars",
-          "text": "Easier, more relaxed driving after airport pickup — great for stress-free automatic car hire."
+          "text": "Easier, more relaxed driving after airport pickup - great for stress-free automatic car hire."
         },
         {
           "title": "SUVs and family cars",
@@ -163,7 +175,7 @@
     },
     "destinations": {
       "title": "Explore Agadir, Taghazout, Tamraght and Souss-Massa",
-      "subtitle": "With Agadir Airport Car Rental and free AGA delivery, reach Taghazout, Tamraght, Imi Ouaddar, the seafront, downtown Agadir and the wider Souss-Massa region without taxis. City-only stays are on our Agadir city rental page.",
+      "subtitle": "With car rental Agadir from AmseelCars - airport or city pickup and free delivery - reach Taghazout, Tamraght, Imi Ouaddar, the seafront and Souss-Massa. Airport and Taghazout pages cover location-specific details.",
       "readMore": "Read more",
       "readMoreNamed": "Read the {name} guide",
       "imageAlt": "{name}, practical guide on the AmseelCars Agadir blog",
@@ -200,21 +212,21 @@
     },
     "browseServices": {
       "kicker": "Car rental",
-      "title": "Explore airport and local rental pages",
-      "subtitle": "Start with Agadir airport car hire, then open city or Taghazout pages for location-specific details. Every vehicle has its own URL for search engines and assistants.",
+      "title": "Explore Agadir rental pages",
+      "subtitle": "This homepage owns car rental Agadir. Open the airport or Taghazout page for location-specific details. Every vehicle has its own URL for search engines and assistants.",
       "panels": {
         "locationsHeading": "Where we deliver & operate",
         "vehicleTypesHeading": "Shop by vehicle category",
         "brandsHeading": "Shop by brand",
-        "locationsCopy": "Agadir Al Massira Airport meet & greet, downtown Agadir, Taghazout, Tamraght, or coastal villas across Souss-Massa — pick where we hand over your car.",
+        "locationsCopy": "Agadir Al Massira Airport meet & greet, downtown Agadir, Taghazout, Tamraght, or coastal villas across Souss-Massa - pick where we hand over your car.",
         "vehicleTypesCopy": "Filter the fleet by the driving style or budget you need in Agadir.",
         "brandsCopy": "Each brand hub has its own SEO-ready URL so assistants can cite it easily."
       },
       "brandLinkLabel": "{brand} rental in Agadir",
       "locations": [
         {
-          "label": "Agadir city & Souss-Massa",
-          "href": "/location-voiture-agadir"
+          "label": "Car rental Agadir (this page)",
+          "href": "/"
         },
         {
           "label": "Agadir Al Massira Airport (AGA)",
@@ -229,7 +241,7 @@
           "href": "/cars"
         },
         {
-          "label": "Morocco quote — WhatsApp 24/7",
+          "label": "Morocco quote - WhatsApp 24/7",
           "href": "/contact"
         }
       ],
@@ -284,8 +296,8 @@
       "whatsappLabel": "WhatsApp"
     },
     "bookingCta": {
-      "title": "Book Agadir Airport Car Rental now",
-      "body": "Reserve with no deposit, no credit card required, and no hidden fees. Free airport car delivery, airport meet & greet, 24/7 airport pickup and 24/7 WhatsApp support for Agadir, Taghazout, Tamraght and Souss-Massa.",
+      "title": "Book car rental Agadir now",
+      "body": "Reserve car hire Agadir with no deposit, no credit card, and no hidden fees. Airport or city pickup, free delivery, and WhatsApp 24/7 for Agadir, Taghazout, Tamraght and Souss-Massa.",
       "bookNow": "Book now",
       "whatsapp": "WhatsApp",
       "call": "Call",
@@ -293,58 +305,58 @@
     },
     "faq": {
       "kicker": "FAQ",
-      "title": "FAQ: car rental Agadir airport",
-      "subtitle": "Answers for travellers booking car hire Agadir airport and AGA pickup. Long answers show a short excerpt first.",
+      "title": "FAQ: car rental Agadir",
+      "subtitle": "Answers for car hire Agadir and rent a car Agadir - airport or city pickup. Long answers show a short excerpt first.",
       "readMore": "Read more",
       "readLess": "Show less",
       "items": [
         {
-          "q": "How do I book car rental Agadir airport with AmseelCars?",
-          "a": "Message us on WhatsApp 24/7 with flight details, dates, and preferred car. We confirm Agadir Airport Car Rental availability, free airport car delivery or meet & greet at Agadir Al Massira Airport, no-deposit options, insurance notes, and the final price with no hidden fees."
+          "q": "How do I book car rental Agadir with AmseelCars?",
+          "a": "Message us on WhatsApp 24/7 with dates, pickup place (airport or city), and preferred car. We confirm availability, no-deposit options, and the final price with no hidden fees."
         },
         {
-          "q": "How much does car hire Agadir airport cost?",
-          "a": "Rates depend on the model, season, rental length, and whether you need AGA delivery. Economy cars are usually the most accessible; SUVs, automatics, and premium models cost more. Always check what is included so Agadir airport rent a car pricing stays transparent."
+          "q": "How much does car hire Agadir cost?",
+          "a": "Rates depend on the model, season, rental length, and pickup place. Economy cars are usually the most accessible; SUVs and premium cost more. Always check what is included."
         },
         {
-          "q": "Is Agadir airport car rental available 24/7?",
-          "a": "Yes. We arrange 24/7 airport pickup for car rental Agadir airport Morocco, including late arrivals when booked in advance. WhatsApp confirmation locks your airport meet & greet point at Al Massira Airport (AGA)."
+          "q": "Do you offer free hotel delivery for car rental Agadir?",
+          "a": "Yes. Free hotel and downtown handover for car rental Agadir city stays. For AGA meet & greet details, use our dedicated airport page."
         },
         {
-          "q": "What is the difference between airport and city rental pages?",
-          "a": "This homepage focuses on car rental Agadir airport and car hire airport Agadir. Our Agadir city page targets in-town and hotel delivery keywords so each URL keeps a clear primary topic."
+          "q": "Is car rental Agadir Morocco covered on this page?",
+          "a": "Yes. This homepage owns car rental Agadir and car rental Morocco Agadir for city and hotel delivery, plus routing to our airport and Taghazout pages."
         },
         {
-          "q": "Which cars work best after landing at AGA?",
-          "a": "City cars suit short Agadir stays; automatics ease post-flight driving; SUVs help for Taghazout, Tamraght and family luggage across Souss-Massa. Tell us your plans and we match Agadir Airport Car Rental options."
+          "q": "Which cars work best for Agadir trips?",
+          "a": "City cars for short stays; automatics for easier driving; SUVs for Taghazout, Tamraght and family luggage. Tell us your plans and we match options."
         },
         {
-          "q": "What should I ask before Agadir airport rent a car?",
-          "a": "Ask for the total price, insurance, fuel policy, minimum hire days, documents, and exact AGA meeting point. Confirm whether return is at the airport or elsewhere so car hire Agadir airport Morocco terms stay clear."
+          "q": "How do I rent a car Morocco Agadir with AmseelCars?",
+          "a": "WhatsApp with dates, hotel or airport preference, and car type. Clear price and delivery window - no marketplace middlemen."
         },
         {
-          "q": "Do you offer car hire Agadir airport Morocco for tourists?",
-          "a": "Yes. International travellers regularly book Agadir airport car rentals with passport and licence checks, English support, and WhatsApp coordination from landing to return."
+          "q": "Airport or city - which page should I use?",
+          "a": "This homepage is for car rental Agadir overall, including city and hotel delivery. Deep AGA meet & greet lives on the airport page; the surf coast on Taghazout."
         },
         {
-          "q": "Can I rent a car Agadir after flying into Al Massira?",
-          "a": "Absolutely. Choose rent a car Agadir with airport pickup on this page, or use the city page if you prefer hotel or downtown handover instead of AGA."
+          "q": "Do you offer car hire Agadir for tourists?",
+          "a": "Yes. International travellers book with passport and licence checks, English support, and WhatsApp from pickup to return."
         },
         {
-          "q": "Is it safe to use Agadir airport car rentals?",
-          "a": "Yes, when you book a local agency with clear terms, maintained cars, and reachable assistance. AmseelCars keeps Agadir car rental airport handovers documented and support available during your stay."
+          "q": "Can I get a car after flying into Al Massira?",
+          "a": "Yes. Book car rental Agadir here, then open our airport page for AGA meet & greet details."
         },
         {
-          "q": "How fast is WhatsApp booking for car hire airport Agadir?",
-          "a": "Most travellers get a same-day reply with model options and pricing. Share flight number and dates to lock car rental Agadir airport delivery without marketplace middlemen."
+          "q": "How fast is WhatsApp booking for Agadir?",
+          "a": "Most travellers get a same-day reply with model options and pricing. Share dates and pickup place to lock delivery."
         },
         {
-          "q": "Do you offer no deposit car rental at Agadir airport?",
-          "a": "Yes. AmseelCars offers no deposit car rental and no credit card required options for Agadir Airport Car Rental when conditions are met. Confirm on WhatsApp before arrival so airport meet & greet and free airport car delivery stay clear — with no hidden fees."
+          "q": "Do you offer no deposit car rental Agadir?",
+          "a": "Yes, no deposit and no credit card required when conditions are met. Confirm on WhatsApp before arrival - with no hidden fees."
         },
         {
-          "q": "Is airport meet & greet and 24/7 pickup included?",
-          "a": "Yes. We provide airport meet & greet at Agadir Al Massira Airport, free airport car delivery, 24/7 airport pickup timed to flights, and 24/7 WhatsApp support across Agadir, Morocco, Taghazout, Tamraght and Souss-Massa."
+          "q": "Is free delivery and 24/7 support included?",
+          "a": "Yes. Free delivery for airport or city pickup when booked, plus 24/7 WhatsApp across Agadir, Taghazout, Tamraght and Souss-Massa."
         }
       ]
     },
@@ -498,7 +510,7 @@
       "lead": "A thoughtful, fast reply. We shape your rental around Agadir, the airport, or the coast, with the same care we give our fleet.",
       "messageCta": "Send a message",
       "whatsappCta": "WhatsApp",
-      "imageAlt": "BMW X3 Pack M from the Amseel Cars fleet in Agadir"
+      "imageAlt": "Agadir seafront and city — contact AmseelCars for car rental in Morocco"
     },
     "preloader": {
       "brandTitle": "AMSEEL CARS",
@@ -613,8 +625,8 @@
       "contactLink": "Contact / booking",
       "serviceLinks": [
         {
-          "href": "/location-voiture-agadir",
-          "label": "Agadir car rental"
+          "href": "/",
+          "label": "Car rental Agadir"
         },
         {
           "href": "/agadir-airport-car-rental",
@@ -740,172 +752,6 @@
       "title": "Legal notice | AmseelCars Agadir",
       "description": "AmseelCars legal notice: Sinwan building address in Agadir, WhatsApp and email contact, car rental activity."
     }
-  },
-  "locationAgadirPage": {
-    "meta": {
-      "title": "Car rental Agadir | Free hotel & riad delivery | AmseelCars",
-      "description": "Car rental Agadir with free hotel & riad delivery, fast booking confirmation and cheap car rental in Morocco. SUV / 4x4 for Agadir Beach, Paradise Valley, Imsouane and Souss-Massa. WhatsApp +212 662-500181.",
-      "ogTitle": "Car rental Agadir | AmseelCars",
-      "ogDescription": "Free hotel & riad delivery in Agadir, Morocco. Easy online car booking, long-term discounts, SUV / 4x4 for Souss-Massa trips.",
-      "twitterTitle": "Car rental Agadir | AmseelCars",
-      "twitterDescription": "Cheap car rental in Morocco — Agadir city, hotel delivery, fast car pickup. Book WhatsApp."
-    },
-    "schema": {
-      "name": "Car rental Agadir | Free hotel & riad delivery | AmseelCars",
-      "description": "Car rental Agadir with free hotel & riad delivery across Agadir, Morocco and Souss-Massa. Easy online car booking, fast confirmation, SUV / 4x4 rental for Agadir Beach, Paradise Valley and Imsouane.",
-      "breadcrumbName": "Car rental Agadir",
-      "serviceName": "Car rental Agadir",
-      "serviceDescription": "Car rental Agadir Morocco with free hotel & riad delivery, fast car pickup, long-term discounts, and SUV / 4x4 rental for Souss-Massa National Park, Agadir Beach, Paradise Valley and Imsouane."
-    },
-    "hero": {
-      "eyebrow": "Morocco · Souss-Massa",
-      "title": "Car rental <muted>Agadir</muted>",
-      "lead": "Car rental Agadir with free hotel & riad delivery, easy online car booking and fast booking confirmation. Cheap car rental in Morocco for Agadir Beach, Paradise Valley, Imsouane and SUV / 4x4 trips across Souss-Massa.",
-      "meta": "Free hotel & riad delivery · fast car pickup · long-term discounts. AGA airport on our airport page.",
-      "imageAlt": "Agadir Beach and city skyline — car rental Agadir with AmseelCars in Morocco, Souss-Massa"
-    },
-    "quickAnswer": "AmseelCars offers car rental Agadir with free hotel & riad delivery, easy online car booking, fast booking confirmation and fast car pickup across Agadir, Morocco and Souss-Massa. Cheap car rental in Morocco with long-term car rental discounts and SUV / 4x4 rental for Agadir Beach, Paradise Valley, Imsouane and Souss-Massa National Park. For AGA airport pickup, use our airport page. WhatsApp +212 662-500181.",
-    "keyFacts": {
-      "title": "At a glance",
-      "items": [
-        {
-          "term": "Who",
-          "value": "AmseelCars — car rental Agadir and cheap car rental in Morocco, Souss-Massa."
-        },
-        {
-          "term": "Delivery",
-          "value": "Free hotel & riad delivery in Agadir; AGA airport on the airport page."
-        },
-        {
-          "term": "Booking",
-          "value": "Easy online car booking + fast booking confirmation via WhatsApp +212 662-500181."
-        },
-        {
-          "term": "Fleet",
-          "value": "City cars to SUV / 4x4 rental — long-term car rental discounts available."
-        }
-      ]
-    },
-    "relatedPages": {
-      "label": "Related pages",
-      "airport": "24/7 airport pickup (AGA)",
-      "taghazout": "Taghazout · Imsouane coast",
-      "contact": "Contact"
-    },
-    "operations": {
-      "kicker": "City handovers",
-      "title": "Free hotel & riad delivery in Agadir",
-      "lead": "Fast car pickup and free hotel & riad delivery across Agadir, Morocco — then drive Agadir Beach, Paradise Valley, Imsouane or Souss-Massa National Park with SUV / 4x4 rental when you need it."
-    },
-    "aiPanel": {
-      "badge": "AI-ready facts",
-      "title": "What assistants can cite"
-    },
-    "serviceChips": [
-      "Free Hotel & Riad Delivery",
-      "24/7 Airport Pickup",
-      "Easy Online Car Booking",
-      "Fast Booking Confirmation",
-      "Cheap Car Rental in Morocco",
-      "Long-Term Car Rental Discounts",
-      "Fast Car Pickup"
-    ],
-    "stats": [
-      {
-        "label": "Delivery",
-        "value": "Hotel + riad",
-        "helper": "Free delivery across Agadir city"
-      },
-      {
-        "label": "Fleet",
-        "value": "SUV / 4x4",
-        "helper": "Paradise Valley · Imsouane · Souss-Massa"
-      },
-      {
-        "label": "Confirmation",
-        "value": "Fast",
-        "helper": "Easy online car booking reply"
-      }
-    ],
-    "aiHighlights": [
-      {
-        "title": "Free hotel & riad delivery",
-        "body": "Car rental Agadir with free hotel & riad delivery and fast car pickup downtown or beachside. 24/7 airport pickup for AGA stays on our airport page."
-      },
-      {
-        "title": "SUV / 4x4 for Souss-Massa",
-        "body": "SUV / 4x4 rental for Paradise Valley, Souss-Massa National Park, Imsouane and Agadir Beach day trips — plus city cars for Agadir Morocco stays."
-      },
-      {
-        "title": "Easy booking & long-term rates",
-        "body": "Easy online car booking with fast booking confirmation. Cheap car rental in Morocco and long-term car rental discounts for week-plus hires."
-      }
-    ],
-    "features": [
-      {
-        "title": "Easy online car booking",
-        "description": "Share dates and hotel on WhatsApp for easy online car booking and fast booking confirmation before you arrive in Agadir."
-      },
-      {
-        "title": "Free hotel & riad delivery",
-        "description": "We stage fast car pickup at your hotel or riad across Agadir — Agadir Beach, downtown or coast — with clear timing."
-      },
-      {
-        "title": "Long-term & SUV / 4x4",
-        "description": "Long-term car rental discounts and SUV / 4x4 rental for Paradise Valley, Imsouane and Souss-Massa National Park routes."
-      }
-    ],
-    "carsSection": {
-      "kicker": "Featured cars",
-      "title": "Popular car rental Agadir & SUV / 4x4 choices",
-      "lead": "From cheap car rental in Morocco city cars to SUV / 4x4 rental for Paradise Valley and Imsouane — pricing and free hotel delivery details ready before pickup.",
-      "cardImageAlt": "{name} — car rental Agadir, free hotel delivery AmseelCars",
-      "cardImageTitle": "{name} car hire Agadir Morocco — hotel, riad and city pickup",
-      "cardCaption": "Easy online booking, fast confirmation and free hotel & riad delivery."
-    },
-    "faqKicker": "FAQ",
-    "faqTitle": "Car rental Agadir — common questions",
-    "fleetCtaLabel": "Browse full fleet",
-    "carOpenHint": "Open car briefing",
-    "ctas": {
-      "primary": "Book via WhatsApp",
-      "secondary": "View entire fleet",
-      "tertiary": "Email concierge"
-    },
-    "faqs": [
-      {
-        "question": "How much does cheap car rental in Morocco cost in Agadir?",
-        "answer": "Rates depend on category, length and season. AmseelCars quotes clear daily prices for car rental Agadir — economy to SUV / 4x4 — with long-term car rental discounts on longer hires. WhatsApp +212 662-500181."
-      },
-      {
-        "question": "Do you offer free hotel & riad delivery in Agadir?",
-        "answer": "Yes. Free hotel & riad delivery and fast car pickup cover Agadir city, Agadir Beach hotels and many riads. For AGA 24/7 airport pickup, use our dedicated airport page."
-      },
-      {
-        "question": "How does easy online car booking work?",
-        "answer": "Message dates, hotel and preferred car for easy online car booking. You get fast booking confirmation with price, delivery window and documents for car hire Agadir Morocco."
-      },
-      {
-        "question": "Can I get SUV / 4x4 rental for Paradise Valley or Imsouane?",
-        "answer": "Yes. SUV / 4x4 rental suits Paradise Valley, Imsouane, Souss-Massa National Park and rougher Souss-Massa roads. City cars work well for Agadir Beach and downtown."
-      },
-      {
-        "question": "Where can I drive with car rental Agadir?",
-        "answer": "Explore Agadir, Agadir Beach, Paradise Valley, Imsouane, Taghazout and the wider Souss-Massa region in Morocco. Share your itinerary so we match the right car."
-      },
-      {
-        "question": "Do you offer long-term car rental discounts?",
-        "answer": "Yes. Week-plus and month-style hires often qualify for long-term car rental discounts on car rental Agadir. Ask on WhatsApp for a clear weekly rate."
-      },
-      {
-        "question": "Is 24/7 airport pickup available for AGA?",
-        "answer": "24/7 airport pickup at AGA (Agadir Al Massira) is covered on our airport rental page. This city page focuses on free hotel & riad delivery and fast car pickup in Agadir."
-      },
-      {
-        "question": "What documents do I need for car hire Morocco Agadir?",
-        "answer": "Usually a valid driving licence plus ID or passport. We confirm requirements during fast booking confirmation before your Agadir handover."
-      }
-    ]
   },
   "brandHubPage": {
     "breadcrumbAria": "Breadcrumb",

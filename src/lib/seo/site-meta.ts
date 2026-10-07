@@ -37,6 +37,8 @@ type BuildPageMetaInput = {
   ogTitle?: string;
   ogDescription?: string;
   imageAlt?: string;
+  /** Override default OG/Twitter image (root-relative or absolute URL). */
+  ogImage?: string;
 };
 
 /** Shared ranking metadata block for public pages. */
@@ -49,8 +51,17 @@ export function buildPageMetadata({
   ogTitle,
   ogDescription,
   imageAlt,
+  ogImage,
 }: BuildPageMetaInput): Metadata {
-  const images = defaultOgImages(imageAlt);
+  const imageUrl = ogImage ?? DEFAULT_OG_IMAGE;
+  const images = [
+    {
+      url: imageUrl,
+      width: 1200,
+      height: 630,
+      alt: imageAlt ?? DEFAULT_OG_IMAGE_ALT,
+    },
+  ];
   const socialTitle = ogTitle ?? title;
   const socialDescription = ogDescription ?? description;
 
@@ -71,7 +82,7 @@ export function buildPageMetadata({
       card: "summary_large_image",
       title: socialTitle,
       description: socialDescription,
-      images: [DEFAULT_OG_IMAGE],
+      images: [imageUrl],
     },
     robots: {
       index: true,

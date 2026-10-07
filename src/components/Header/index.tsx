@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { Link } from "@/i18n/navigation";
 import Button from "./Button";
 import styles from "./style.module.scss";
 import Nav from "./Nav";
@@ -25,33 +27,46 @@ export default function Index() {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <div className={styles.header}>
-      <motion.div
-        id="site-menu"
-        className={styles.menu}
-        variants={menuVariants}
-        animate={isActive ? "open" : "closed"}
-        initial="closed"
-        style={{
-          transformOrigin: "top right",
-          pointerEvents: isActive ? "auto" : "none",
-        }}
-      >
-        <AnimatePresence>
-          {isActive && <Nav closeMenu={() => setIsActive(false)} />}
-        </AnimatePresence>
-      </motion.div>
+    <>
+      <Link href="/" className={styles.logo} aria-label="AmseelCars home">
+        <Image
+          src="/images/amseel-cars-logo-red.svg"
+          alt="AmseelCars"
+          width={120}
+          height={95}
+          priority
+          className={styles.logoImage}
+        />
+      </Link>
 
-      <div className={styles.bar}>
-        <div className={styles.menuButtonWrap}>
-          <Button
-            isActive={isActive}
-            toggleMenu={() => setIsActive((v) => !v)}
-            aria-expanded={isActive}
-            aria-controls="site-menu"
-          />
+      <div className={styles.header}>
+        <motion.div
+          id="site-menu"
+          className={styles.menu}
+          variants={menuVariants}
+          animate={isActive ? "open" : "closed"}
+          initial="closed"
+          style={{
+            transformOrigin: "top right",
+            pointerEvents: isActive ? "auto" : "none",
+          }}
+        >
+          <AnimatePresence>
+            {isActive && <Nav closeMenu={() => setIsActive(false)} />}
+          </AnimatePresence>
+        </motion.div>
+
+        <div className={styles.bar}>
+          <div className={styles.menuButtonWrap}>
+            <Button
+              isActive={isActive}
+              toggleMenu={() => setIsActive((v) => !v)}
+              aria-expanded={isActive}
+              aria-controls="site-menu"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

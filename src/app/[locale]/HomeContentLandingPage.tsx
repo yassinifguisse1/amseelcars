@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 
 import { HomeHeroCopyBand, HomeFleetCtaButton } from "@/components/home/HomeHeroCopyBand";
+import { HomeAirportFlightBand } from "@/components/home/HomeAirportFlightBand";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 import CarsGridLoadingFallback from "@/components/Cars/CarsGridLoadingFallback";
 
@@ -69,22 +70,22 @@ export function HomeContentLandingPage() {
 
   return (
     <div className="page-content hero">
-      <div className="relative bg-black">
-        <HomeHeroCopyBand />
-        <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
-          <HomeBookingSearchBar className="z-20 -mt-[4.5rem] bg-transparent px-4 pb-2 pt-0 sm:-mt-24 sm:px-6 sm:pb-3 md:-mt-28" />
-        </Suspense>
-        <HomeFleetCtaButton />
+      <div className="relative">
+        <HomeHeroCopyBand>
+          <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
+            <HomeBookingSearchBar className="bg-transparent px-4 pb-6 pt-2 sm:px-6 sm:pb-8" />
+          </Suspense>
+        </HomeHeroCopyBand>
+        <div className="relative bg-white">
+          <HomeFleetCtaButton />
+        </div>
       </div>
       <Suspense fallback={<CarsGridLoadingFallback />}>
         <CarGridSection showTitle />
       </Suspense>
       <HomeSeoTrustBar />
       <HomeSeoMainIntroBlock />
-      <div
-        className="h-[min(8vh,88px)] shrink-0 bg-gradient-to-b from-gray-200 to-[#f7f5f2]"
-        aria-hidden
-      />
+      <HomeAirportFlightBand />
       <HomeSeoAirportBlock />
       <SplitHeadline />
       <Brands />

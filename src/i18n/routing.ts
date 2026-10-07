@@ -63,13 +63,6 @@ export const routing = defineRouting({
       de: "/autos/marke/[brandSlug]/[carSlug]",
       pl: "/samochody/marka/[brandSlug]/[carSlug]",
     },
-    "/location-voiture-agadir": {
-      fr: "/location-voiture-agadir",
-      en: "/agadir-car-rental",
-      es: "/alquiler-coches-agadir",
-      de: "/mietwagen-agadir",
-      pl: "/wynajem-samochodow-agadir",
-    },
     "/agadir-airport-car-rental": {
       fr: "/location-voiture-aeroport-agadir",
       en: "/agadir-airport-car-rental",
