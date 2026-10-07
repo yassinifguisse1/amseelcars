@@ -213,9 +213,9 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   return (
     <div className="min-h-screen bg-background  pt-20">
       {/* Breadcrumb Navigation */}
-      <nav className="bg-muted/30 py-4">
+      <nav className="bg-muted/30 py-2 md:py-4">
         <div className="container mx-auto px-4">
-          <div className="flex items-center space-x-2 text-sm">
+          <div className="flex items-center space-x-1.5 text-xs md:space-x-2 md:text-sm">
             <Link href="/" className="text-muted-foreground hover:text-foreground">
               {tNav('home')}
             </Link>
@@ -244,12 +244,12 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
       </nav>
 
       {/* Back Button */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-2.5 md:py-6">
         <button 
           onClick={handleBackToCars}
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors border-2 border-border rounded-lg p-2 hover:bg-muted/50"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground md:gap-2 md:border-2 md:p-2 md:text-sm"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-3.5 w-3.5 md:h-4 md:w-4" />
           {tNav('backToCars')}
         </button>
       </div>
@@ -260,11 +260,11 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
           Mobile order: title → photos → booking.
           Desktop: photos left; title + booking right.
         */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-12">
           {/* Title — first on mobile (above photos), top-right on desktop */}
           <header className="lg:col-start-2 lg:row-start-1">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-              <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium uppercase">
+            <div className="mb-1.5 flex items-center gap-2 text-sm text-muted-foreground md:mb-2">
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase text-primary md:py-1 md:text-xs">
                 {
                   {
                     luxury: t('categories.luxury'),
@@ -279,12 +279,12 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               </span>
             </div>
 
-            <h1 className="mb-2 !font-sans text-3xl font-semibold tracking-normal text-foreground md:text-4xl [font-family:ui-sans-serif,system-ui,sans-serif]">
+            <h1 className="mb-1 !font-sans text-2xl font-semibold tracking-normal text-foreground md:mb-2 md:text-4xl [font-family:ui-sans-serif,system-ui,sans-serif]">
               {car.carName}
             </h1>
 
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground md:gap-2 md:text-base">
+              <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4" />
               <span>{car.location}</span>
             </div>
           </header>
