@@ -8,7 +8,7 @@ import { LogoFloatPreloader } from "@/components/Preloader/LogoFloatPreloader";
 import { useTranslations } from "next-intl";
 import styles from "@/components/Contact/contact.module.css";
 
-const HERO_IMAGE = "/images/BMW-X3-PACKM-main.webp";
+const HERO_IMAGE = "/images/agadir-city-hero.webp";
 
 export function ContactContent() {
   const tHero = useTranslations("contactPage.hero");

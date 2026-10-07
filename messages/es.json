@@ -67,16 +67,16 @@
   },
   "home": {
     "meta": {
-      "title": "Alquiler coches aeropuerto Agadir | AmseelCars AGA",
-      "description": "Alquiler coches aeropuerto Agadir: sin depósito, sin tarjeta de crédito, sin cargos ocultos. Entrega gratuita, meet & greet, recogida 24/7 en AGA y WhatsApp. Agadir, Taghazout, Tamraght, Souss-Massa."
+      "title": "Alquiler coche Agadir | Aeropuerto y ciudad | AmseelCars",
+      "description": "Alquiler coche Agadir y alquiler de coches Agadir con AmseelCars: aeropuerto o entrega hotel/ciudad. Alquiler Agadir Marruecos, sin depósito, WhatsApp 24/7. AGA: página aeropuerto; costa: Taghazout."
     },
     "breadcrumb": "Inicio",
     "hero": {
-      "title": "Alquiler coches aeropuerto Agadir con seguro completo y entrega gratuita <brand>AMSEEL CARS</brand>",
-      "intro": "AMSEEL CARS ofrece alquiler de coches aeropuerto Agadir con entrega gratuita en el Aeropuerto Agadir Al Massira (AGA), meet & greet y recogida 24/7. Alquiler sin depósito, sin tarjeta de crédito, sin cargos ocultos y soporte WhatsApp 24/7 en Agadir, Marruecos y la costa Souss-Massa. Reserva urbano a premium por WhatsApp.",
-      "ariaLabel": "Resumen, alquiler coches aeropuerto Agadir con seguro completo y entrega gratuita",
+      "title": "Alquiler coche Agadir con seguro completo y entrega gratuita",
+      "intro": "AMSEEL CARS ofrece alquiler coche Agadir y alquiler de coches Agadir con recogida en aeropuerto o ciudad, entrega hotel y WhatsApp 24/7. Sin depósito, sin tarjeta. Detalle AGA: página aeropuerto; costa: Taghazout.",
+      "ariaLabel": "Resumen, alquiler coche Agadir con seguro completo y entrega gratuita",
       "fleetCta": "Ver nuestros coches",
-      "airportImageAlt": "Aeropuerto Agadir Al Massira (AGA) — alquiler coches aeropuerto Agadir AmseelCars"
+      "airportImageAlt": "Agadir ciudad y paseo marítimo - alquiler coche Agadir AmseelCars"
     },
     "preloader": {
       "title": "AMSEEL CARS",
@@ -97,50 +97,62 @@
     },
     "story": {
       "heading": "AMSEEL CARS",
-      "description": "acompaña tus llegadas al Aeropuerto Agadir Al Massira con entrega gratuita, meet & greet, recogida 24/7, flota reciente y soporte WhatsApp 24/7 en Agadir, Taghazout, Tamraght y Souss-Massa, Marruecos.",
+      "description": "ofrece alquiler coches Agadir con aeropuerto o ciudad, entrega, flota moderna y WhatsApp 24/7 en Agadir, Taghazout, Tamraght y Souss-Massa, Marruecos.",
       "bullets": [
-        "Alquiler sin depósito, sin tarjeta de crédito y sin cargos ocultos — precio claro antes de aterrizar.",
-        "Meet & greet en aeropuerto, entrega gratuita y recogida 24/7 sincronizada con tu vuelo AGA.",
-        "De urbanos a SUV: explora Agadir, Taghazout y Tamraght con cobertura y WhatsApp 24/7."
+        "Alquiler coches Agadir sin depósito, sin tarjeta, sin cargos ocultos.",
+        "Aeropuerto o ciudad con entrega para AGA u hotel / centro.",
+        "Del urbano al SUV: Agadir, Taghazout y Tamraght con WhatsApp 24/7."
       ],
       "aboutCta": "Sobre nosotros",
       "aboutAriaLabel": "Sobre nosotros"
     },
     "trustBar": {
-      "ariaLabel": "Ventajas AMSEEL CARS — alquiler aeropuerto Agadir",
+      "ariaLabel": "Ventajas AMSEEL CARS - alquiler coches Agadir",
       "items": [
-        "Alquiler sin depósito",
-        "Sin tarjeta de crédito",
+        "Sin depósito",
+        "Sin tarjeta",
         "Sin cargos ocultos",
-        "Meet & greet aeropuerto",
-        "Recogida aeropuerto 24/7",
-        "Soporte WhatsApp 24/7",
-        "Entrega gratuita aeropuerto"
+        "Aeropuerto o ciudad",
+        "Entrega gratis Agadir",
+        "WhatsApp 24/7",
+        "Equipo local AmseelCars"
       ]
     },
     "mainIntro": {
-      "headline": "Alquiler coches aeropuerto Agadir a <accent>precio claro</accent>",
-      "body": "¿Buscas alquiler coches aeropuerto Agadir tras aterrizar en Agadir Al Massira? AMSEEL CARS ofrece entrega gratuita, meet & greet, recogida 24/7, sin depósito, sin tarjeta y sin cargos ocultos. Desde AGA hacia Agadir, Marruecos — Taghazout, Tamraght y Souss-Massa. Estancias ciudad/hotel: página Agadir ciudad.",
+      "headline": "Alquiler coches Agadir con <accent>AmseelCars</accent>",
+      "body": "¿Alquiler de coches Agadir o rent a car Agadir tras aterrizar o en ciudad? AMSEEL CARS: aeropuerto o ciudad, entrega hotel, sin depósito, WhatsApp 24/7. Guía AGA: página aeropuerto. Costa: Taghazout.",
       "bullets": [
-        "Sin depósito · sin tarjeta · sin cargos ocultos",
-        "Meet & greet · entrega gratuita AGA",
-        "Recogida aeropuerto 24/7 · WhatsApp 24/7",
+        "Alquiler coches Agadir · sin depósito · sin tarjeta",
+        "Aeropuerto o ciudad · entrega",
+        "WhatsApp · soporte 24/7",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
       ]
     },
     "airport": {
-      "title": "Alquiler coches aeropuerto Agadir — meet & greet a la llegada",
-      "body": "En el Aeropuerto Agadir Al Massira (AGA) te recibimos con meet & greet y entrega gratuita. Alquiler aeropuerto Agadir con recogida 24/7, WhatsApp 24/7, sin depósito, sin tarjeta y sin cargos ocultos — para Agadir, Taghazout, Tamraght y Souss-Massa.",
+      "title": "Aeropuerto o ciudad - elige la recogida",
+      "body": "Reserva alquiler coches Agadir aquí y abre la página adecuada: meet & greet AGA en la <airport>página aeropuerto</airport>, hotel o centro en esta home, o costa en <taghazout>Taghazout</taghazout>. Sin depósito, sin tarjeta, WhatsApp 24/7.",
       "bullets": [
-        "Entrega gratuita en Aeropuerto Agadir Al Massira (AGA)",
-        "Meet & greet sincronizado con tu vuelo",
-        "Recogida aeropuerto 24/7 y soporte WhatsApp 24/7",
-        "Sin depósito · sin tarjeta · sin cargos ocultos"
-      ]
+        {
+          "text": "Recogida AGA - ver página aeropuerto",
+          "href": "/agadir-airport-car-rental"
+        },
+        {
+          "text": "Entrega hotel / centro - alquiler coches Agadir aquí",
+          "href": "/"
+        },
+        {
+          "text": "Costa Taghazout & Tamraght - ver Taghazout",
+          "href": "/taghazout-car-rental"
+        },
+        {
+          "text": "Sin depósito · sin tarjeta · WhatsApp 24/7"
+        }
+      ],
+      "flightBandAlt": "Avión sobre el Atlántico cerca de Agadir - llegadas AmseelCars"
     },
     "vehicleTypes": {
-      "title": "¿Qué coche para alquiler coche aeropuerto Agadir?",
-      "subtitle": "Económico, automático, SUV o premium: elige según presupuesto y trayectos después de AGA.",
+      "title": "¿Qué tipo de coche para alquiler coches Agadir?",
+      "subtitle": "Económico, automático, SUV o premium según presupuesto y trayectos.",
       "fleetCta": "Ver flota ->",
       "cards": [
         {
@@ -149,7 +161,7 @@
         },
         {
           "title": "Coches automaticos",
-          "text": "Conducción más fácil tras el vuelo — ideal para alquiler automático sin estrés."
+          "text": "Conducción más fácil tras el vuelo - ideal para alquiler automático sin estrés."
         },
         {
           "title": "SUV y coches familiares",
@@ -163,7 +175,7 @@
     },
     "destinations": {
       "title": "Explora Agadir, Taghazout, Tamraght y Souss-Massa",
-      "subtitle": "Con alquiler aeropuerto Agadir y entrega gratuita AGA, llega a Taghazout, Tamraght, Imi Ouaddar, el paseo marítimo, el centro de Agadir y la región Souss-Massa sin taxis. Estancias solo ciudad: página Agadir ciudad.",
+      "subtitle": "Con alquiler coches Agadir AmseelCars - aeropuerto o ciudad y entrega - llega a Taghazout, Tamraght y Souss-Massa. Páginas aeropuerto y Taghazout para el detalle.",
       "readMore": "Leer mas",
       "readMoreNamed": "Leer la guia de {name}",
       "imageAlt": "{name} - guia practica en el blog de AmseelCars Agadir",
@@ -200,28 +212,28 @@
     },
     "browseServices": {
       "kicker": "Alquiler de coches",
-      "title": "Páginas aeropuerto y destinos",
-      "subtitle": "Empieza por alquiler coches aeropuerto Agadir y abre ciudad o Taghazout. Cada vehículo tiene su propia URL.",
+      "title": "Explora las páginas de Agadir",
+      "subtitle": "Esta home posee alquiler coches Agadir. Abre aeropuerto o Taghazout para el detalle local.",
       "panels": {
         "locationsHeading": "Donde entregamos y operamos",
         "vehicleTypesHeading": "Buscar por categoria de vehiculo",
         "brandsHeading": "Buscar por marca",
-        "locationsCopy": "Meet & greet en Aeropuerto Agadir Al Massira, centro de Agadir, Taghazout, Tamraght o villas costeras de Souss-Massa — elige dónde entregamos el coche.",
+        "locationsCopy": "Meet & greet en Aeropuerto Agadir Al Massira, centro de Agadir, Taghazout, Tamraght o villas costeras de Souss-Massa - elige dónde entregamos el coche.",
         "vehicleTypesCopy": "Filtra la flota por el estilo de conduccion o presupuesto que necesitas en Agadir.",
         "brandsCopy": "Cada pagina de marca tiene una URL preparada para SEO para que los asistentes puedan citarla facilmente."
       },
       "brandLinkLabel": "Alquiler de {brand} en Agadir",
       "locations": [
         {
-          "label": "Agadir ciudad y Souss-Massa",
-          "href": "/location-voiture-agadir"
+          "label": "Alquiler coches Agadir (esta página)",
+          "href": "/"
         },
         {
           "label": "Aeropuerto Agadir Al Massira (AGA)",
           "href": "/agadir-airport-car-rental"
         },
         {
-          "label": "Taghazout y Tamraght",
+          "label": "Costa Taghazout & Tamraght",
           "href": "/taghazout-car-rental"
         },
         {
@@ -229,7 +241,7 @@
           "href": "/cars"
         },
         {
-          "label": "Presupuesto Marruecos — WhatsApp 24/7",
+          "label": "Presupuesto WhatsApp 24/7",
           "href": "/contact"
         }
       ],
@@ -284,8 +296,8 @@
       "whatsappLabel": "WhatsApp"
     },
     "bookingCta": {
-      "title": "Reserva alquiler aeropuerto Agadir ahora",
-      "body": "Reserva sin depósito, sin tarjeta de crédito y sin cargos ocultos. Entrega gratuita, meet & greet, recogida 24/7 y WhatsApp 24/7 para Agadir, Taghazout, Tamraght y Souss-Massa.",
+      "title": "Reserva alquiler coches Agadir",
+      "body": "Sin depósito, sin tarjeta. Aeropuerto o ciudad, entrega y WhatsApp 24/7 para Agadir, Taghazout, Tamraght y Souss-Massa.",
       "bookNow": "Reservar ahora",
       "whatsapp": "WhatsApp",
       "call": "Llamar",
@@ -293,58 +305,58 @@
     },
     "faq": {
       "kicker": "FAQ",
-      "title": "FAQ: alquiler coches aeropuerto Agadir",
-      "subtitle": "Respuestas para reservar alquiler de coches aeropuerto Agadir y recogida AGA.",
+      "title": "FAQ: alquiler coches Agadir",
+      "subtitle": "Respuestas para alquiler de coches Agadir - aeropuerto o ciudad.",
       "readMore": "Leer mas",
       "readLess": "Mostrar menos",
       "items": [
         {
-          "q": "¿Cómo reservo alquiler coches aeropuerto Agadir?",
-          "a": "Escríbenos por WhatsApp 24/7 con vuelo, fechas y coche. Confirmamos disponibilidad, entrega gratuita o meet & greet en Aeropuerto Agadir Al Massira, opciones sin depósito, seguro y precio final sin cargos ocultos."
+          "q": "¿Cómo reservo alquiler coches Agadir?",
+          "a": "WhatsApp 24/7 con fechas, lugar (aeropuerto o ciudad) y coche. Confirmamos disponibilidad y precio final."
         },
         {
-          "q": "¿Cuánto cuesta el alquiler de coches aeropuerto Agadir?",
-          "a": "Depende del modelo, temporada y duración. Los urbanos suelen ser más asequibles. Revisa siempre qué incluye el precio."
+          "q": "¿Cuánto cuesta el alquiler de coches Agadir?",
+          "a": "Depende del modelo, temporada, duración y lugar."
         },
         {
-          "q": "¿Hay alquiler coche aeropuerto Agadir 24/7?",
-          "a": "Sí. Organizamos recogida aeropuerto 24/7 para alquiler coches aeropuerto Agadir Marruecos, incluidas llegadas tardías si reservas antes. WhatsApp fija el punto de meet & greet en Al Massira (AGA)."
+          "q": "¿Entrega en hotel?",
+          "a": "Sí, hotel y centro. Detalle AGA: página aeropuerto."
         },
         {
-          "q": "¿Diferencia entre página aeropuerto y ciudad?",
-          "a": "Esta home apunta a alquiler coches aeropuerto Agadir. La página ciudad cubre hotel/centro para evitar canibalización."
+          "q": "¿Alquiler Agadir Marruecos en esta página?",
+          "a": "Sí. Esta home lleva alquiler coches Agadir; aeropuerto y Taghazout tienen sus páginas."
         },
         {
-          "q": "¿Qué coche tras aterrizar en AGA?",
-          "a": "Los urbanos van bien para estancias cortas en Agadir; el automático ayuda tras el vuelo; los SUV para Taghazout, Tamraght y equipaje en Souss-Massa. Cuéntanos tu plan y adaptamos el alquiler aeropuerto."
+          "q": "¿Qué coches para Agadir?",
+          "a": "Urbanos, automáticos o SUV según tus planes."
         },
         {
-          "q": "¿Qué preguntar antes del rent a car aeropuerto Agadir?",
-          "a": "Precio total, seguro, combustible, días mínimos, documentos y punto exacto de encuentro en AGA."
+          "q": "¿Cómo hago rent a car Agadir Marruecos?",
+          "a": "WhatsApp con fechas, hotel o aeropuerto y tipo de coche."
         },
         {
-          "q": "¿Ofrecéis alquiler coches aeropuerto Agadir Marruecos a turistas?",
-          "a": "Sí: pasaporte, permiso, WhatsApp en español/inglés/francés y coordinación en el aeropuerto."
+          "q": "¿Aeropuerto o ciudad?",
+          "a": "La home para alquiler coches Agadir general y ciudad/hotel. AGA en detalle: página aeropuerto."
         },
         {
-          "q": "¿Puedo alquilar nada más aterrizar en Al Massira?",
-          "a": "Sí. Elige recogida aeropuerto aquí, o la página ciudad si prefieres hotel/centro."
+          "q": "¿Alquiler para turistas?",
+          "a": "Sí. Pasaporte, permiso, soporte y WhatsApp."
         },
         {
-          "q": "¿Es fiable el alquiler de coches Agadir Al Massira?",
-          "a": "Sí con una agencia local clara, flota cuidada y asistencia disponible durante el alquiler."
+          "q": "¿Tras volar a Al Massira?",
+          "a": "Sí. Reserva aquí y abre la página aeropuerto."
         },
         {
-          "q": "¿Qué tan rápida es la reserva WhatsApp?",
-          "a": "Normalmente respuesta el mismo día con opciones y tarifas para tu alquiler coches Agadir aeropuerto."
+          "q": "¿WhatsApp rápido?",
+          "a": "Suele haber respuesta el mismo día."
         },
         {
-          "q": "¿Ofrecéis alquiler sin depósito en el aeropuerto de Agadir?",
-          "a": "Sí. AmseelCars ofrece alquiler sin depósito y sin tarjeta de crédito para el aeropuerto de Agadir según condiciones. Confírmalo por WhatsApp antes de llegar para el meet & greet y la entrega gratuita — sin cargos ocultos."
+          "q": "¿Sin depósito?",
+          "a": "Sí, según condiciones. Confirma por WhatsApp."
         },
         {
-          "q": "¿Incluye meet & greet y recogida 24/7?",
-          "a": "Sí. Meet & greet en el Aeropuerto Agadir Al Massira, entrega gratuita, recogida 24/7 según vuelos y soporte WhatsApp 24/7 en Agadir, Marruecos, Taghazout, Tamraght y Souss-Massa."
+          "q": "¿Entrega y soporte 24/7?",
+          "a": "Sí, según reserva, más WhatsApp 24/7."
         }
       ]
     },
@@ -498,7 +510,7 @@
       "lead": "Una respuesta rápida, humana y cuidada. Adaptamos tu alquiler a Agadir, el aeropuerto o la costa con el mismo cuidado que damos a nuestra flota.",
       "messageCta": "Enviar un mensaje",
       "whatsappCta": "WhatsApp",
-      "imageAlt": "BMW X3 Pack M de la flota Amseel Cars en Agadir"
+      "imageAlt": "Paseo marítimo y ciudad de Agadir — contacta AmseelCars para alquiler de coches en Marruecos"
     },
     "preloader": {
       "brandTitle": "AMSEEL CARS",
@@ -613,7 +625,7 @@
       "contactLink": "Contacto / reserva",
       "serviceLinks": [
         {
-          "href": "/location-voiture-agadir",
+          "href": "/",
           "label": "Alquiler coches Agadir"
         },
         {
@@ -740,172 +752,6 @@
       "title": "Aviso legal | AmseelCars Agadir",
       "description": "Aviso legal AmseelCars: dirección Immeuble Sinwan Agadir, WhatsApp y email, actividad de alquiler."
     }
-  },
-  "locationAgadirPage": {
-    "meta": {
-      "title": "Alquiler coches Agadir | Entrega hotel y riad gratis | AmseelCars",
-      "description": "Alquiler coches Agadir con entrega gratuita hotel y riad, confirmación rápida y alquiler barato en Marruecos. SUV / 4x4 para playa de Agadir, Valle del Paraíso, Imsouane y Souss-Massa. WhatsApp +212 662-500181.",
-      "ogTitle": "Alquiler coches Agadir | AmseelCars",
-      "ogDescription": "Entrega gratuita hotel y riad en Agadir, Marruecos. Reserva online fácil, descuentos larga duración, SUV / 4x4 para Souss-Massa.",
-      "twitterTitle": "Alquiler coches Agadir | AmseelCars",
-      "twitterDescription": "Alquiler barato en Marruecos — Agadir, entrega hotel, recogida rápida. WhatsApp."
-    },
-    "schema": {
-      "name": "Alquiler coches Agadir | Entrega hotel y riad gratis | AmseelCars",
-      "description": "Alquiler coches Agadir con entrega gratuita hotel y riad en Agadir, Marruecos y Souss-Massa. Reserva online fácil, confirmación rápida, alquiler SUV / 4x4 para playa de Agadir, Valle del Paraíso e Imsouane.",
-      "breadcrumbName": "Alquiler coches Agadir",
-      "serviceName": "Alquiler coches Agadir",
-      "serviceDescription": "Alquiler coches Agadir Marruecos con entrega gratuita hotel y riad, recogida rápida, descuentos larga duración y alquiler SUV / 4x4 para el Parque Nacional de Souss-Massa, playa de Agadir, Valle del Paraíso e Imsouane."
-    },
-    "hero": {
-      "eyebrow": "Marruecos · Souss-Massa",
-      "title": "Alquiler coches <muted>Agadir</muted>",
-      "lead": "Alquiler coches Agadir con entrega gratuita hotel y riad, reserva online fácil y confirmación rápida. Alquiler barato en Marruecos para playa de Agadir, Valle del Paraíso, Imsouane y rutas SUV / 4x4 en Souss-Massa.",
-      "meta": "Entrega hotel y riad gratis · recogida rápida · descuentos larga duración. Aeropuerto AGA: página dedicada.",
-      "imageAlt": "Playa de Agadir y skyline — alquiler coches Agadir AmseelCars, Marruecos, Souss-Massa"
-    },
-    "quickAnswer": "AmseelCars ofrece alquiler coches Agadir con entrega gratuita hotel y riad, reserva online fácil, confirmación rápida y recogida rápida en Agadir, Marruecos y Souss-Massa. Alquiler barato en Marruecos con descuentos larga duración y alquiler SUV / 4x4 para playa de Agadir, Valle del Paraíso, Imsouane y Parque Nacional de Souss-Massa. Recogida AGA: página aeropuerto. WhatsApp +212 662-500181.",
-    "keyFacts": {
-      "title": "De un vistazo",
-      "items": [
-        {
-          "term": "Quién",
-          "value": "AmseelCars — alquiler coches Agadir y alquiler barato en Marruecos, Souss-Massa."
-        },
-        {
-          "term": "Entrega",
-          "value": "Entrega gratuita hotel y riad en Agadir; aeropuerto AGA en la página aeropuerto."
-        },
-        {
-          "term": "Reserva",
-          "value": "Reserva online fácil + confirmación rápida por WhatsApp +212 662-500181."
-        },
-        {
-          "term": "Flota",
-          "value": "Urbanos a alquiler SUV / 4x4 — descuentos alquiler larga duración."
-        }
-      ]
-    },
-    "relatedPages": {
-      "label": "Páginas relacionadas",
-      "airport": "Recogida aeropuerto 24/7 (AGA)",
-      "taghazout": "Taghazout · costa Imsouane",
-      "contact": "Contacto"
-    },
-    "operations": {
-      "kicker": "Entregas en ciudad",
-      "title": "Entrega gratuita hotel y riad en Agadir",
-      "lead": "Recogida rápida y entrega gratuita hotel y riad en Agadir, Marruecos — luego playa de Agadir, Valle del Paraíso, Imsouane o Parque Nacional de Souss-Massa con alquiler SUV / 4x4 si lo necesitas."
-    },
-    "aiPanel": {
-      "badge": "Datos listos para IA",
-      "title": "Lo que los asistentes pueden citar"
-    },
-    "serviceChips": [
-      "Entrega gratuita hotel y riad",
-      "Recogida aeropuerto 24/7",
-      "Reserva online fácil",
-      "Confirmación rápida",
-      "Alquiler barato en Marruecos",
-      "Descuentos alquiler larga duración",
-      "Recogida rápida del coche"
-    ],
-    "stats": [
-      {
-        "label": "Entrega",
-        "value": "Hotel + riad",
-        "helper": "Gratis en Agadir"
-      },
-      {
-        "label": "Flota",
-        "value": "SUV / 4x4",
-        "helper": "Valle del Paraíso · Imsouane · Souss-Massa"
-      },
-      {
-        "label": "Confirmación",
-        "value": "Rápida",
-        "helper": "Reserva online fácil"
-      }
-    ],
-    "aiHighlights": [
-      {
-        "title": "Entrega gratuita hotel y riad",
-        "body": "Alquiler coches Agadir con entrega gratuita hotel y riad y recogida rápida en centro o playa. Recogida aeropuerto 24/7 para AGA: página aeropuerto."
-      },
-      {
-        "title": "SUV / 4x4 para Souss-Massa",
-        "body": "Alquiler SUV / 4x4 para Valle del Paraíso, Parque Nacional de Souss-Massa, Imsouane y playa de Agadir — más urbanos para Agadir Marruecos."
-      },
-      {
-        "title": "Reserva fácil y tarifas largas",
-        "body": "Reserva online fácil con confirmación rápida. Alquiler barato en Marruecos y descuentos larga duración desde una semana."
-      }
-    ],
-    "features": [
-      {
-        "title": "Reserva online fácil",
-        "description": "Fechas y hotel por WhatsApp para reserva online fácil y confirmación rápida antes de Agadir."
-      },
-      {
-        "title": "Entrega gratuita hotel y riad",
-        "description": "Recogida rápida en hotel o riad en Agadir — playa de Agadir, centro o costa — con franja clara."
-      },
-      {
-        "title": "Larga duración y SUV / 4x4",
-        "description": "Descuentos alquiler larga duración y alquiler SUV / 4x4 para Valle del Paraíso, Imsouane y Parque Nacional de Souss-Massa."
-      }
-    ],
-    "carsSection": {
-      "kicker": "Selección",
-      "title": "Opciones alquiler coches Agadir y SUV / 4x4",
-      "lead": "Del alquiler barato en Marruecos urbano al SUV / 4x4 para Valle del Paraíso e Imsouane — precios y entrega hotel listos antes de la recogida.",
-      "cardImageAlt": "{name} — alquiler coches Agadir, entrega hotel AmseelCars",
-      "cardImageTitle": "{name} alquiler coches Agadir Marruecos — hotel, riad y centro",
-      "cardCaption": "Reserva fácil, confirmación rápida y entrega hotel y riad gratis."
-    },
-    "faqKicker": "FAQ",
-    "faqTitle": "Alquiler coches Agadir — preguntas frecuentes",
-    "fleetCtaLabel": "Ver toda la flota",
-    "carOpenHint": "Abrir ficha",
-    "ctas": {
-      "primary": "Reservar por WhatsApp",
-      "secondary": "Ver toda la flota",
-      "tertiary": "Email concierge"
-    },
-    "faqs": [
-      {
-        "question": "¿Cuánto cuesta el alquiler barato en Marruecos en Agadir?",
-        "answer": "Depende del modelo, duración y temporada. AmseelCars cotiza precios claros para alquiler coches Agadir — urbano a SUV / 4x4 — con descuentos larga duración. WhatsApp +212 662-500181."
-      },
-      {
-        "question": "¿Ofrecéis entrega gratuita hotel y riad en Agadir?",
-        "answer": "Sí. Entrega gratuita hotel y riad y recogida rápida cubren Agadir, hoteles de playa de Agadir y muchos riads. Recogida AGA 24/7: página aeropuerto."
-      },
-      {
-        "question": "¿Cómo funciona la reserva online fácil?",
-        "answer": "Envía fechas, hotel y coche para reserva online fácil. Recibes confirmación rápida con precio, franja y documentos."
-      },
-      {
-        "question": "¿Puedo alquilar SUV / 4x4 para Valle del Paraíso o Imsouane?",
-        "answer": "Sí. El alquiler SUV / 4x4 sirve para Valle del Paraíso, Imsouane, Parque Nacional de Souss-Massa y caminos de Souss-Massa. Los urbanos van bien para playa de Agadir y el centro."
-      },
-      {
-        "question": "¿Dónde puedo conducir con alquiler coches Agadir?",
-        "answer": "Agadir, playa de Agadir, Valle del Paraíso, Imsouane, Taghazout y la región Souss-Massa en Marruecos. Comparte el itinerario para el coche adecuado."
-      },
-      {
-        "question": "¿Hay descuentos alquiler larga duración?",
-        "answer": "Sí. Semana o más: descuentos alquiler larga duración en alquiler coches Agadir. Pide la tarifa semanal por WhatsApp."
-      },
-      {
-        "question": "¿Hay recogida aeropuerto 24/7 para AGA?",
-        "answer": "La recogida aeropuerto 24/7 en AGA (Agadir Al Massira) está en nuestra página de aeropuerto. Esta página ciudad cubre entrega hotel y riad y recogida rápida en Agadir."
-      },
-      {
-        "question": "¿Qué documentos necesito para alquilar en Agadir Marruecos?",
-        "answer": "Permiso válido más DNI o pasaporte. Confirmamos en la confirmación rápida antes de la entrega."
-      }
-    ]
   },
   "brandHubPage": {
     "breadcrumbAria": "Ruta de navegación",

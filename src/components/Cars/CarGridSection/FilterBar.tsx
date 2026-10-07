@@ -21,6 +21,7 @@ interface FilterBarProps {
   onFilterChange: (filters: FilterState) => void
   currency: 'MAD' | 'EUR' | 'USD'
   onCurrencyChange: (currency: 'MAD' | 'EUR' | 'USD') => void
+  centerLabel?: string
 }
 
 export default function FilterBar({ 
@@ -28,7 +29,8 @@ export default function FilterBar({
   filters,
   onFilterChange,
   currency,
-  onCurrencyChange 
+  onCurrencyChange,
+  centerLabel,
 }: FilterBarProps) {
   const t = useTranslations('carsPage.filters')
   const tCars = useTranslations('carsPage')
@@ -79,6 +81,12 @@ export default function FilterBar({
           <span>{t('title')}</span>
           {hasActiveFilters && <span className={styles.badge}>{Object.values(filters).filter(v => v && v !== currency).length}</span>}
         </button>
+
+        {centerLabel ? (
+          <p className={styles.centerLabel}>{centerLabel}</p>
+        ) : (
+          <span className={styles.centerSpacer} aria-hidden />
+        )}
         
         <div className={styles.currencySelector}>
           <button
