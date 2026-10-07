@@ -11,7 +11,7 @@ export const reviews: Review[] = [
     datePublished: '2024-01-15',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -24,7 +24,7 @@ export const reviews: Review[] = [
     datePublished: '2025-01-01',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -37,7 +37,7 @@ export const reviews: Review[] = [
     datePublished: '2025-01-01',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -50,7 +50,7 @@ export const reviews: Review[] = [
     datePublished: '2024-01-15',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -63,7 +63,7 @@ export const reviews: Review[] = [
     datePublished: '2025-01-01',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -76,7 +76,7 @@ export const reviews: Review[] = [
     datePublished: '2025-01-01',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -89,7 +89,7 @@ export const reviews: Review[] = [
     datePublished: '2024-02-15',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -102,7 +102,7 @@ export const reviews: Review[] = [
     datePublished: '2025-09-15',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   },
   {
@@ -115,7 +115,7 @@ export const reviews: Review[] = [
     datePublished: '2025-01-01',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },  
 },
 {
@@ -128,7 +128,7 @@ export const reviews: Review[] = [
     datePublished: '2025-09-15',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   }
   ,
@@ -142,7 +142,7 @@ export const reviews: Review[] = [
     datePublished: '2025-05-15',
     publisher: {
       name: 'Google Reviews',
-      url: 'https://www.google.com/maps/place/Amseel+cars',
+      url: 'https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0',
     },
   }
 ];

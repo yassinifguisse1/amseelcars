@@ -5,10 +5,16 @@
 
 import {
   BUSINESS_EMAIL,
+  BUSINESS_GBP_CATEGORY,
+  BUSINESS_GBP_NAME,
   BUSINESS_GEO,
+  BUSINESS_GOOGLE_MAPS_CID,
+  BUSINESS_GOOGLE_MAPS_CID_URL,
+  BUSINESS_GOOGLE_MAPS_FEATURE_ID,
   BUSINESS_GOOGLE_MAPS_PLACE_URL,
   BUSINESS_GOOGLE_MAPS_URL,
   BUSINESS_GOOGLE_PLACE_ID,
+  BUSINESS_PLUS_CODE,
   BUSINESS_POSTAL_ADDRESS,
   BUSINESS_SAME_AS,
   BUSINESS_TELEPHONE_E164,
@@ -30,8 +36,10 @@ export function generateOrganizationSchema() {
     '@type': 'Organization',
     '@id': `${siteUrl}#org`,
     name: siteName,
+    alternateName: ['Amseel Cars', BUSINESS_GBP_NAME],
     url: siteUrl,
     logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
+    // Same entity as LocalBusiness / GBP — Maps URLs in sameAs help disambiguate.
     sameAs: [...BUSINESS_SAME_AS],
   };
 }
@@ -51,7 +59,8 @@ export function generateWebSiteSchema() {
 }
 
 /**
- * LocalBusiness (AutoRental) schema - used on homepage and contact page
+ * LocalBusiness (AutoRental) schema - used on homepage and contact page.
+ * NAP + geo + Maps identifiers intentionally mirror the live GBP listing.
  */
 export function generateLocalBusinessSchema() {
   return {
@@ -63,7 +72,10 @@ export function generateLocalBusinessSchema() {
       'Amseel Cars',
       'AmseelCars Agadir',
       'Amseel Cars - Location voiture agadir aéroport',
+      BUSINESS_GBP_NAME,
     ],
+    description:
+      'Car rental agency in Agadir, Morocco: airport (AGA) and city pickup, WhatsApp booking, economy to premium fleet. Same business as the Google Maps listing Amseel Cars.',
     url: siteUrl,
     image: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
@@ -79,14 +91,40 @@ export function generateLocalBusinessSchema() {
       longitude: BUSINESS_GEO.longitude,
     },
     // Links the site entity to the Google Business / Maps pin for local SEO.
-    hasMap: [BUSINESS_GOOGLE_MAPS_URL, BUSINESS_GOOGLE_MAPS_PLACE_URL],
-    identifier: {
-      '@type': 'PropertyValue',
-      name: 'Google Place ID',
-      value: BUSINESS_GOOGLE_PLACE_ID,
-    },
+    hasMap: [
+      BUSINESS_GOOGLE_MAPS_PLACE_URL,
+      BUSINESS_GOOGLE_MAPS_URL,
+      BUSINESS_GOOGLE_MAPS_CID_URL,
+    ],
+    identifier: [
+      {
+        '@type': 'PropertyValue',
+        name: 'Google Place ID',
+        value: BUSINESS_GOOGLE_PLACE_ID,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Google Maps CID',
+        value: BUSINESS_GOOGLE_MAPS_CID,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Google Maps Feature ID',
+        value: BUSINESS_GOOGLE_MAPS_FEATURE_ID,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Plus Code',
+        value: BUSINESS_PLUS_CODE,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Google Business Category',
+        value: BUSINESS_GBP_CATEGORY,
+      },
+    ],
     priceRange: '$$',
-    currenciesAccepted: 'MAD',
+    currenciesAccepted: 'MAD, EUR',
     paymentAccepted: 'Cash, Credit Card',
     // Some validators are picky with arrays here; keep one ContactPoint and
     // expose WhatsApp via `sameAs` (and the URL on this contact point).

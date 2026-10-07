@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
-import { BUSINESS_GOOGLE_PLACE_ID } from '@/lib/business';
+import {
+  BUSINESS_GOOGLE_MAPS_PLACE_URL,
+  BUSINESS_GOOGLE_PLACE_ID,
+} from '@/lib/business';
 
 // Your Google Business Place ID
 const PLACE_ID = BUSINESS_GOOGLE_PLACE_ID;
@@ -64,7 +67,7 @@ export async function GET() {
         : new Date().toISOString().split('T')[0],
       publisher: {
         name: 'Google Reviews',
-        url: 'https://www.google.com/maps/place/Amseel+cars',
+        url: BUSINESS_GOOGLE_MAPS_PLACE_URL,
       },
     }));
 
