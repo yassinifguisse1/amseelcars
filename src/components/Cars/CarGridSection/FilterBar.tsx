@@ -3,6 +3,10 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Search, X, Filter } from 'lucide-react'
+import {
+  currencyCodeLabel,
+  type DisplayCurrency,
+} from '@/lib/currency'
 import styles from './FilterBar.module.scss'
 
 export interface FilterState {
@@ -10,7 +14,7 @@ export interface FilterState {
   name: string
   minPrice: string
   maxPrice: string
-  currency: 'MAD' | 'EUR' | 'USD'
+  currency: DisplayCurrency
   /** Fleet category slug from URL (?category=) — not shown in filter UI */
   category: string
 }
@@ -19,8 +23,8 @@ interface FilterBarProps {
   brands: string[]
   filters: FilterState
   onFilterChange: (filters: FilterState) => void
-  currency: 'MAD' | 'EUR' | 'USD'
-  onCurrencyChange: (currency: 'MAD' | 'EUR' | 'USD') => void
+  currency: DisplayCurrency
+  onCurrencyChange: (currency: DisplayCurrency) => void
   centerLabel?: string
 }
 
@@ -37,29 +41,27 @@ export default function FilterBar({
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleFilterChange = <K extends keyof FilterState>(key: K, value: FilterState[K]) => {
-    const newFilters: FilterState = {
+    onFilterChange({
       ...filters,
       [key]: value,
-      currency: key === 'currency' ? (value as FilterState['currency']) : filters.currency,
-    }
-    onFilterChange(newFilters)
+      currency: key === 'currency' ? (value as DisplayCurrency) : filters.currency,
+    })
   }
 
-  const handleCurrencyChange = (newCurrency: 'MAD' | 'EUR' | 'USD') => {
+  const handleCurrencyChange = (newCurrency: DisplayCurrency) => {
     onCurrencyChange(newCurrency)
     onFilterChange({ ...filters, currency: newCurrency })
   }
 
   const clearFilters = () => {
-    const clearedFilters: FilterState = {
+    onFilterChange({
       brand: '',
       name: '',
       minPrice: '',
       maxPrice: '',
-      currency: currency,
+      currency,
       category: '',
-    }
-    onFilterChange(clearedFilters)
+    })
   }
 
   const hasActiveFilters =
@@ -79,7 +81,11 @@ export default function FilterBar({
         >
           <Filter className={styles.filterIcon} />
           <span>{t('title')}</span>
-          {hasActiveFilters && <span className={styles.badge}>{Object.values(filters).filter(v => v && v !== currency).length}</span>}
+          {hasActiveFilters && (
+            <span className={styles.badge}>
+              {[filters.brand, filters.name, filters.minPrice, filters.maxPrice, filters.category].filter(Boolean).length}
+            </span>
+          )}
         </button>
 
         {centerLabel ? (
@@ -88,20 +94,16 @@ export default function FilterBar({
           <span className={styles.centerSpacer} aria-hidden />
         )}
         
-        <div className={styles.currencySelector}>
+        <div className={styles.currencySelector} aria-label="Currency">
           <button
-            className={`${styles.currencyButton} ${currency === 'MAD' ? styles.active : ''}`}
-            onClick={() => handleCurrencyChange('MAD')}
-          >
-            MAD
-          </button>
-          <button
+            type="button"
             className={`${styles.currencyButton} ${currency === 'EUR' ? styles.active : ''}`}
             onClick={() => handleCurrencyChange('EUR')}
           >
             €
           </button>
           <button
+            type="button"
             className={`${styles.currencyButton} ${currency === 'USD' ? styles.active : ''}`}
             onClick={() => handleCurrencyChange('USD')}
           >
@@ -161,7 +163,9 @@ export default function FilterBar({
 
           {/* Price Range */}
           <div className={styles.filterGroup}>
-            <label className={styles.label}>{t('pricePerDay', { currency })}</label>
+            <label className={styles.label}>
+              {t('pricePerDay', { currency: currencyCodeLabel(currency) })}
+            </label>
             <div className={styles.priceRange}>
               <input
                 type="number"
@@ -198,4 +202,3 @@ export default function FilterBar({
     </div>
   )
 }
-

@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
 import { Link, useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import type { AppLocale } from '@/i18n/routing'
 import { toAppLocale } from '@/i18n/locale-utils'
-import { useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   ArrowLeft,
@@ -22,7 +22,13 @@ import {
 } from 'lucide-react'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { MenuStyleButton } from '@/components/Header/Button'
-import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
+import {
+  convertCarPrice,
+  formatCarPriceLabel,
+  isDisplayCurrency,
+  resolveDisplayCurrency,
+  type DisplayCurrency,
+} from '@/lib/currency'
 import { trackEvent } from '@/lib/trackEvent'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
@@ -86,13 +92,6 @@ interface CarDetailClientProps {
 
 const RESERVATION_FORM_ID = 'reservation-form'
 
-const VALID_CURRENCIES = ['MAD', 'EUR', 'USD'] as const
-type ValidCurrency = (typeof VALID_CURRENCIES)[number]
-
-function isValidCurrency(v: string | null): v is ValidCurrency {
-  return v === 'MAD' || v === 'EUR' || v === 'USD'
-}
-
 /**
  * Renders a client-side car details page with image gallery, pricing, specifications, features, booking UI, and a sticky reservation shortcut.
  *
@@ -105,11 +104,12 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const tNav = useTranslations('nav')
   const t = useTranslations('carDetail')
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
-  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('MAD')
+  const [currency, setCurrency] = useState<DisplayCurrency>('EUR')
   const [isReservationFormInView, setIsReservationFormInView] = useState(true)
   const mobileGalleryRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const galleryImages =
     car.images.length > 0
       ? car.images
@@ -134,12 +134,11 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
       idx !== prev && idx >= 0 && idx < galleryImages.length ? idx : prev,
     )
   }, [galleryImages.length])
-  const searchParams = useSearchParams()
 
-  // Resolve currency on client only: URL wins, then localStorage, default MAD (avoids SSR/hydration mismatch)
+  // Resolve currency on client only: URL wins, then localStorage, default EUR
   useEffect(() => {
     const fromUrl = searchParams.get('currency')
-    if (isValidCurrency(fromUrl)) {
+    if (isDisplayCurrency(fromUrl)) {
       setCurrency(fromUrl)
       try {
         localStorage.setItem('carRentalCurrency', fromUrl)
@@ -147,8 +146,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
       return
     }
     try {
-      const saved = localStorage.getItem('carRentalCurrency')
-      if (isValidCurrency(saved)) setCurrency(saved)
+      setCurrency(resolveDisplayCurrency(localStorage.getItem('carRentalCurrency')))
     } catch (_) {}
   }, [searchParams])
 
@@ -405,8 +403,20 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               inline
               carName={car.carName}
               carSlug={car.slug}
-              carPrice={car.pricing?.shortTerm ?? car.pricePerDay}
-              pricing={car.pricing}
+              currency={currency}
+              carPrice={convertCarPrice(
+                car.pricing?.shortTerm ?? car.pricePerDay,
+                currency,
+              )}
+              pricing={
+                car.pricing
+                  ? {
+                      shortTerm: convertCarPrice(car.pricing.shortTerm, currency),
+                      longTerm: convertCarPrice(car.pricing.longTerm, currency),
+                      hasDiscount: car.pricing.hasDiscount,
+                    }
+                  : undefined
+              }
               priceLabel={`${formatCarPriceLabel(
                 convertCarPrice(
                   car.pricing?.shortTerm ?? car.pricePerDay,
@@ -433,7 +443,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                     const message = t('waInquiry', {
                       carName: car.carName,
                       price: formatCarPriceLabel(priceInCurrency, currency),
-                      currency: currency === 'EUR' ? '€' : currency,
+                      currency: '',
                     })
                     const encodedMessage = encodeURIComponent(message);
                     const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;

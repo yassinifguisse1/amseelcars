@@ -9,7 +9,7 @@ import { Car, Users, Fuel, Settings } from "lucide-react"
 import Image from "next/image"
 import { trackEvent } from "@/lib/trackEvent"
 import { carBrandScopedHref } from "@/lib/carPublicHref"
-import { formatCarPriceLabel, type CarCurrency } from "@/lib/currency"
+import { formatCarPriceLabel, type DisplayCurrency } from "@/lib/currency"
 
 interface CarRentalCardProps {
   carName: string
@@ -28,7 +28,7 @@ interface CarRentalCardProps {
   /** With `slug`, builds brand-scoped car URL (`/cars/brand/...`) for SEO */
   brand?: string
   href?: string // Optional custom href
-  currency?: CarCurrency // Currency for price display
+  currency?: DisplayCurrency // Currency for price display
   onBook: () => void
   onWhatsapp: () => void
   /** Prefer LCP on dense grids (e.g. first row on /cars). */
@@ -53,7 +53,7 @@ export function CarRentalCard({
   slug,
   brand,
   href,
-  currency = 'MAD',
+  currency = 'EUR',
   onBook,
   onWhatsapp,
   imagePriority = false,

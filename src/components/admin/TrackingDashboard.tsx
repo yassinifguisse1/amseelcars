@@ -379,7 +379,7 @@ function EventDetail({ event }: { event: TrackEventRow }) {
       ['Lieu départ', formatLocation(event.pickupLocation)],
       ['Lieu retour', formatLocation(event.returnLocation)],
       ['Jours', event.rentalDays],
-      ['Prix', event.totalPrice != null ? `${event.totalPrice} MAD` : null],
+      ['Prix', event.totalPrice != null ? `${event.totalPrice} €` : null],
     );
   }
   if (event.message) rows.push(['Message', event.message]);
@@ -511,7 +511,7 @@ function ContactLeadCard({
   const days = journey.rentalDays;
   const total =
     journey.totalPrice != null
-      ? `${Math.round(journey.totalPrice).toLocaleString('fr-FR')} MAD`
+      ? `${Math.round(journey.totalPrice).toLocaleString('fr-FR')} €`
       : null;
   const waClicks = (journey.events ?? []).filter((e) => e.event === 'whatsapp').length;
 

@@ -18,6 +18,7 @@ import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import { buildPageMetadata, SITE_URL } from "@/lib/seo/site-meta";
 import type { AppLocale } from "@/i18n/routing";
 import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
+import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
 import Footer from "@/components/Footer/Footer";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL;
@@ -118,18 +119,15 @@ export default async function CarBrandHubPage({ params }: Props) {
     { name: brand, url: brandPath },
   ]);
 
-  const currencyFormatter = new Intl.NumberFormat(localeToLanguageTag(l), {
-    style: "currency",
-    currency: "MAD",
-    maximumFractionDigits: 0,
-  });
-
   const averageRating = cars.length
     ? cars.reduce((acc, car) => acc + (car.rating ?? 0), 0) / cars.length
     : 0;
-  const lowestDailyRate = cars.length
+  const lowestDailyRateMad = cars.length
     ? Math.min(...cars.map((car) => car.pricing?.shortTerm ?? car.pricePerDay))
     : 0;
+  const lowestDailyRate = convertCarPrice(lowestDailyRateMad, "EUR");
+  const formatEur = (mad: number) =>
+    formatCarPriceLabel(convertCarPrice(mad, "EUR"), "EUR");
   const newestModelYear = cars.length ? Math.max(...cars.map((car) => car.year)) : 0;
   const fuelMix = Array.from(new Set(cars.map((car) => car.fuelType.toLowerCase())));
   const segments = Array.from(new Set(cars.map((car) => car.category)));
@@ -153,7 +151,7 @@ export default async function CarBrandHubPage({ params }: Props) {
     {
       label: t("metrics.rate.label"),
       helper: t("metrics.rate.helper"),
-      value: t("metrics.rate.value", { price: currencyFormatter.format(lowestDailyRate) }),
+      value: t("metrics.rate.value", { price: formatCarPriceLabel(lowestDailyRate, "EUR") }),
     },
   ];
 
@@ -247,7 +245,7 @@ export default async function CarBrandHubPage({ params }: Props) {
     },
     {
       label: t("factsRateLabel"),
-      value: currencyFormatter.format(lowestDailyRate),
+      value: formatCarPriceLabel(lowestDailyRate, "EUR"),
     },
     {
       label: t("factsFuelLabel"),
@@ -419,7 +417,7 @@ export default async function CarBrandHubPage({ params }: Props) {
               const display = carForLocale(car, l);
               const slug = carSlugForLocale(car.slug, l);
               const price = car.pricing?.shortTerm ?? car.pricePerDay;
-              const formattedPrice = currencyFormatter.format(price);
+              const formattedPrice = formatEur(price);
               return (
                 <li key={car.slug}>
                   <Link

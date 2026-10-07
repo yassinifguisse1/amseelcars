@@ -81,6 +81,8 @@ interface BookingDialogProps {
   priceLabel?: string;
   /** Guarantee / terms line under the price in the inline header */
   priceTagline?: string;
+  /** Display currency for booking emails / totals (`EUR` default) */
+  currency?: 'EUR' | 'USD';
 }
 
 /**
@@ -108,6 +110,7 @@ export default function BookingDialog({
   extraActions,
   priceLabel,
   priceTagline,
+  currency = 'EUR',
 }: BookingDialogProps) {
   const locale = useLocale();
   const t = useTranslations('booking');
@@ -258,6 +261,7 @@ export default function BookingDialog({
           carPrice: pricePerDay,
           rentalDays,
           totalPrice,
+          currency,
           website: honeypotWebsite,
           formOpenedAt: formOpenedAtRef.current,
         }),
@@ -598,11 +602,11 @@ export default function BookingDialog({
                           </div>
                           <div className="flex justify-between">
                             <span>Prix par jour:</span>
-                            <span className="font-medium">MAD {carPrice}</span>
+                            <span className="font-medium">{carPrice} €</span>
                           </div>
                           <div className="flex justify-between text-lg font-semibold border-t pt-2">
                             <span>Prix total:</span>
-                            <span className="text-blue-600">MAD {total}</span>
+                            <span className="text-blue-600">{total} €</span>
                           </div>
                         </div>
                       </div>

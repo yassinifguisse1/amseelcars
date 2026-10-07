@@ -374,7 +374,7 @@ export async function POST(request: NextRequest) {
         ...(body.pickupLocation ? [row('Lieu départ', fmtLoc(body.pickupLocation))] : []),
         ...(body.returnLocation ? [row('Lieu retour', fmtLoc(body.returnLocation))] : []),
         ...(body.rentalDays != null ? [row('Jours', String(body.rentalDays))] : []),
-        ...(body.totalPrice != null ? [row('Prix estimé', `${body.totalPrice} MAD`)] : []),
+        ...(body.totalPrice != null ? [row('Prix estimé', `${body.totalPrice} €`)] : []),
         ...(body.message ? [row('Message', body.message.slice(0, 500))] : []),
         ...(body.metadata && typeof body.metadata === 'object' && 'reason' in body.metadata
           ? [row('Raison', String((body.metadata as Record<string, unknown>).reason))]

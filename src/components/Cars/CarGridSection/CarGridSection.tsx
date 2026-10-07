@@ -11,7 +11,12 @@ import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/l
 import { getAllCars, Car } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import FilterBar, { FilterState } from './FilterBar'
-import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
+import {
+  convertCarPrice,
+  formatCarPriceLabel,
+  resolveDisplayCurrency,
+  type DisplayCurrency,
+} from '@/lib/currency'
 import { parseBookingSearchParams, hasActiveBookingSearch } from '@/lib/bookingSearchParams'
 import { trackEvent } from '@/lib/trackEvent'
 import styles from './CarGridSection.module.scss'
@@ -69,7 +74,7 @@ const CarGridSection = ({
     category: '',
   })
 
-  const [currency, setCurrency] = useState<'MAD' | 'EUR' | 'USD'>('EUR')
+  const [currency, setCurrency] = useState<DisplayCurrency>('EUR')
 
   // Get all cars
   const allCars = getAllCars()
@@ -153,9 +158,10 @@ const CarGridSection = ({
         carSlug: car.slug,
         carName: car.carName,
       })
+      const dailyMad = car.pricing?.shortTerm || car.pricePerDay
       setSelectedCar({
         name: car.carName,
-        price: car.pricing?.shortTerm || car.pricePerDay,
+        price: convertCarPrice(dailyMad, currency),
         image: car.carImage,
         slug: car.slug,
       })
@@ -181,7 +187,7 @@ const CarGridSection = ({
       const message = t('waInquiry', {
         carName: car.carName,
         price: priceStr,
-        currency: currency === 'EUR' ? '€' : currency,
+        currency: '',
       })
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'
@@ -205,7 +211,7 @@ const CarGridSection = ({
     })
   }
 
-  const handleCurrencyChange = (newCurrency: 'MAD' | 'EUR' | 'USD') => {
+  const handleCurrencyChange = (newCurrency: DisplayCurrency) => {
     setCurrency(newCurrency)
     setFilters({ ...filters, currency: newCurrency })
     trackEvent({
@@ -214,21 +220,17 @@ const CarGridSection = ({
       source: 'car-listing',
       ctaLabel: newCurrency,
     })
-    // Store currency preference in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('carRentalCurrency', newCurrency)
     }
   }
 
-  // Load currency from localStorage on mount
+  // Load currency from localStorage on mount (legacy MAD → EUR)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedCurrency = localStorage.getItem('carRentalCurrency') as 'MAD' | 'EUR' | 'USD' | null
-      if (savedCurrency && (savedCurrency === 'MAD' || savedCurrency === 'EUR' || savedCurrency === 'USD')) {
-        setCurrency(savedCurrency)
-        setFilters(prev => ({ ...prev, currency: savedCurrency }))
-      }
-    }
+    if (typeof window === 'undefined') return
+    const saved = resolveDisplayCurrency(localStorage.getItem('carRentalCurrency'))
+    setCurrency(saved)
+    setFilters((prev) => ({ ...prev, currency: saved }))
   }, [])
 
   return (
@@ -361,6 +363,7 @@ const CarGridSection = ({
           carName={selectedCar.name}
           carPrice={selectedCar.price}
           carSlug={selectedCar.slug}
+          currency={currency}
         />
       )}
     </section>

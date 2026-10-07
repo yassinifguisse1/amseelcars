@@ -22,6 +22,7 @@ import {
   SITE_NAME,
   SITE_URL,
 } from "./business";
+import { convertCarPrice } from "./currency";
 
 const siteUrl = SITE_URL;
 const siteName = SITE_NAME;
@@ -124,7 +125,7 @@ export function generateLocalBusinessSchema() {
       },
     ],
     priceRange: '$$',
-    currenciesAccepted: 'MAD, EUR',
+    currenciesAccepted: 'EUR, USD',
     paymentAccepted: 'Cash, Credit Card',
     // Some validators are picky with arrays here; keep one ContactPoint and
     // expose WhatsApp via `sameAs` (and the URL on this contact point).
@@ -476,13 +477,13 @@ export function generateCarProductSchema(
     offers: {
       '@type': 'Offer',
       url: carUrl,
-      priceCurrency: 'MAD',
-      price: car.pricePerDay.toString(),
+      priceCurrency: 'EUR',
+      price: convertCarPrice(car.pricePerDay, 'EUR').toString(),
       availability: 'https://schema.org/InStock',
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
-        price: car.pricePerDay.toString(),
-        priceCurrency: 'MAD',
+        price: convertCarPrice(car.pricePerDay, 'EUR').toString(),
+        priceCurrency: 'EUR',
         unitText: 'per day',
       },
     },

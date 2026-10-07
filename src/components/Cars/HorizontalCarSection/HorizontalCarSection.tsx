@@ -11,6 +11,7 @@ import { CarRentalCard } from '@/components/CarList/CarRentalCard'
 import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/lib/carImageAlt'
 import { getAllCars } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
+import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
 import { trackEvent } from '@/lib/trackEvent'
 import styles from './HorizontalCarSection.module.scss'
 
@@ -123,9 +124,10 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
         carSlug: car.slug,
         carName: car.carName,
       })
+      const dailyMad = car.pricing?.shortTerm || car.pricePerDay
       setSelectedCar({
         name: car.carName,
-        price: car.pricing?.shortTerm || car.pricePerDay,
+        price: convertCarPrice(dailyMad, 'EUR'),
         image: car.carImage,
         slug: car.slug,
       })
@@ -142,8 +144,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
         carSlug: car.slug,
         carName: car.carName,
       })
-      const daily = car.pricing?.shortTerm || car.pricePerDay
-      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${daily} MAD/jour (minimum 5 jours). Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
+      const daily = convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')
+      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatCarPriceLabel(daily, 'EUR')}/jour (minimum 5 jours). Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL
       const encodedMessage = encodeURIComponent(message);
@@ -493,7 +495,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     imageAlt={carListingImageAlt(displayCar, l)}
                     imageTitle={carListingImageTitle(displayCar, l)}
                     imageCaption={carListingCaption(displayCar, l)}
-                    pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
+                    pricePerDay={convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')}
+                    currency="EUR"
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
@@ -522,7 +525,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     imageAlt={carListingImageAlt(displayCar, l)}
                     imageTitle={carListingImageTitle(displayCar, l)}
                     imageCaption={carListingCaption(displayCar, l)}
-                    pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
+                    pricePerDay={convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')}
+                    currency="EUR"
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
@@ -553,7 +557,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       imageAlt={carListingImageAlt(displayCar, l)}
                       imageTitle={carListingImageTitle(displayCar, l)}
                       imageCaption={carListingCaption(displayCar, l)}
-                      pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
+                      pricePerDay={convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')}
+                      currency="EUR"
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
@@ -582,7 +587,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       imageAlt={carListingImageAlt(displayCar, l)}
                       imageTitle={carListingImageTitle(displayCar, l)}
                       imageCaption={carListingCaption(displayCar, l)}
-                      pricePerDay={car.pricing?.shortTerm || car.pricePerDay}
+                      pricePerDay={convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')}
+                      currency="EUR"
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
@@ -612,6 +618,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
           carName={selectedCar.name}
           carPrice={selectedCar.price}
           carSlug={selectedCar.slug}
+          currency="EUR"
         />
       )}
     </section>
