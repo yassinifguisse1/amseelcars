@@ -60,19 +60,19 @@ export function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-50 overflow-hidden rounded-3xl border border-stone-200/90 bg-white/95 shadow-[0_8px_28px_rgba(0,0,0,0.12)] backdrop-blur-md md:hidden"
+      className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-3 right-3 z-50 max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-3xl border-2 border-[#b11226]/80 bg-white/55 text-[#b11226] shadow-[0_8px_28px_rgba(0,0,0,0.1)] backdrop-blur-xl backdrop-saturate-150 md:hidden"
       aria-label={t("ariaLabel")}
     >
-      <ul className="mx-auto grid h-14 max-w-lg grid-cols-4 items-stretch px-1">
+      <ul className="mx-auto grid h-14 max-w-lg grid-cols-4 items-stretch px-1 [&_svg]:!fill-none [&_svg]:!stroke-[#b11226] [&_svg]:!text-[#b11226]">
         <li>
           <Link
             href="/"
             className={cn(
-              "flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-medium",
-              homeActive ? "text-[#b11226]" : "text-stone-600",
+              "flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-semibold text-[#b11226]",
+              homeActive && "font-bold",
             )}
           >
-            <Home className="h-5 w-5" strokeWidth={homeActive ? 2.4 : 2} aria-hidden />
+            <Home className="h-5 w-5" strokeWidth={homeActive ? 2.5 : 2.25} aria-hidden />
             <span>{t("home")}</span>
           </Link>
         </li>
@@ -80,11 +80,11 @@ export function MobileBottomNav() {
           <Link
             href="/cars"
             className={cn(
-              "flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-medium",
-              carsActive ? "text-[#b11226]" : "text-stone-600",
+              "flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-semibold text-[#b11226]",
+              carsActive && "font-bold",
             )}
           >
-            <Car className="h-5 w-5" strokeWidth={carsActive ? 2.4 : 2} aria-hidden />
+            <Car className="h-5 w-5" strokeWidth={carsActive ? 2.5 : 2.25} aria-hidden />
             <span>{t("cars")}</span>
           </Link>
         </li>
@@ -92,9 +92,9 @@ export function MobileBottomNav() {
           <Link
             href={{ pathname: "/", hash: BOOKING_HASH }}
             onClick={goToBooking}
-            className="flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-medium text-stone-600"
+            className="flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-semibold text-[#b11226]"
           >
-            <CalendarDays className="h-5 w-5" aria-hidden />
+            <CalendarDays className="h-5 w-5" strokeWidth={2.25} aria-hidden />
             <span>{t("dates")}</span>
           </Link>
         </li>
@@ -104,9 +104,9 @@ export function MobileBottomNav() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={onWhatsApp}
-            className="flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-medium text-[#128C7E]"
+            className="flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-semibold text-[#b11226]"
           >
-            <MessageCircle className="h-5 w-5" aria-hidden />
+            <MessageCircle className="h-5 w-5" strokeWidth={2.25} aria-hidden />
             <span>{t("whatsapp")}</span>
           </a>
         </li>

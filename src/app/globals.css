@@ -84,6 +84,13 @@
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
 }
+
+html {
+  /* clip (not hidden) avoids breaking sticky while stopping sideways scroll */
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 body{
   /* font-family: "Saans TRIAL", sans-serif; */
   /* font-family: "Playfair Display", "Playfair Display Fallback"; */
@@ -98,7 +105,8 @@ body{
   margin: 0px;
   /* margin-top: 50vh; */
   /* margin-bottom: 100vh; */
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 
 }
 

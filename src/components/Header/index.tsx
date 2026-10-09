@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
@@ -19,12 +19,23 @@ const menuVariants: Variants = {
     scale: 0.001, // avoids scale=0 issues
     borderRadius: 999,
     transition: { duration: 0.45, ease: [0.76, 0, 0.24, 1] },
-    transitionEnd: { visibility: "hidden" }
-  }
+    // Collapse layout box after close so a 380px panel cannot widen the page
+    transitionEnd: { visibility: "hidden", width: 0, height: 0 },
+  },
 };
 
 export default function Index() {
   const [isActive, setIsActive] = useState(false);
+
+  // Clear collapsed inline size before the open animation so CSS widths apply
+  useEffect(() => {
+    if (!isActive) return;
+    const el = document.getElementById("site-menu");
+    if (!el) return;
+    el.style.width = "";
+    el.style.height = "";
+    el.style.visibility = "visible";
+  }, [isActive]);
 
   return (
     <>
