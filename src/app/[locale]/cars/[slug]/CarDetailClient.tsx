@@ -612,8 +612,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
 
       {/* Sticky "Go to reservation" button - same design as menu button, visible when form is not in view */}
       {!isReservationFormInView && (
-        <div className="fixed bottom-20 left-4 z-40 px-0 py-0 animate-in fade-in slide-in-from-bottom-4 duration-300 md:bottom-4 md:left-6 md:px-12 md:py-4">
-          <div className="relative w-[140px] h-[50px]">
+        <div className="fixed bottom-20 left-1/2 z-40 -translate-x-1/2 px-0 py-0 animate-in fade-in slide-in-from-bottom-4 duration-300 md:bottom-4">
+          <div className="relative h-[50px] w-[140px]">
             <MenuStyleButton label={t('stickyReserve')} onClick={scrollToReservationForm} />
           </div>
         </div>

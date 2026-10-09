@@ -1251,5 +1251,24 @@
     "cars": "Cars",
     "dates": "Dates",
     "whatsapp": "WhatsApp"
+  },
+  "blogPage": {
+    "heroTitleLead": "Our",
+    "heroTitleAccent": "Blog",
+    "heroSubtitle": "Tips, news and guides for your car rental in Agadir",
+    "statArticles": "Articles",
+    "statReaders": "Readers",
+    "statSatisfaction": "Satisfaction",
+    "recentTitle": "Recent Articles",
+    "recentSubtitle": "Discover our latest tips and updates to improve your car rental experience in Agadir",
+    "categorySubtitle": "Explore all our articles about {category}",
+    "filterAll": "All",
+    "ctaTitle": "Need help with your rental?",
+    "ctaText": "Our team is here to help you choose the right vehicle",
+    "ctaButton": "Contact us",
+    "ctaWhatsapp": "Contact us on WhatsApp",
+    "ctaEmail": "Send an email",
+    "relatedTitle": "Related Articles",
+    "relatedSubtitle": "Discover other articles that may interest you"
   }
 }

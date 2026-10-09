@@ -1251,5 +1251,24 @@
     "cars": "Voitures",
     "dates": "Dates",
     "whatsapp": "WhatsApp"
+  },
+  "blogPage": {
+    "heroTitleLead": "Notre",
+    "heroTitleAccent": "Blog",
+    "heroSubtitle": "Conseils, actualités et guides pour votre location de voiture à Agadir",
+    "statArticles": "Articles",
+    "statReaders": "Lecteurs",
+    "statSatisfaction": "Satisfaction",
+    "recentTitle": "Articles Récents",
+    "recentSubtitle": "Découvrez nos derniers conseils et actualités pour optimiser votre expérience de location",
+    "categorySubtitle": "Découvrez tous nos articles sur {category}",
+    "filterAll": "Tous",
+    "ctaTitle": "Besoin d'aide pour votre location ?",
+    "ctaText": "Notre équipe est là pour vous accompagner dans le choix de votre véhicule",
+    "ctaButton": "Contactez-nous",
+    "ctaWhatsapp": "Contactez-nous sur WhatsApp",
+    "ctaEmail": "Envoyer un Email",
+    "relatedTitle": "Articles Similaires",
+    "relatedSubtitle": "Découvrez d'autres articles qui pourraient vous intéresser"
   }
 }

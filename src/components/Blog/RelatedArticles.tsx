@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { BlogArticle } from '@/data/blog';
 import ArticleCard from "./ArticleCard";
 import styles from "./RelatedArticles.module.scss";
@@ -11,6 +12,7 @@ interface RelatedArticlesProps {
 }
 
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {
+  const t = useTranslations("blogPage");
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -34,10 +36,8 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className={styles.title}>Articles Similaires</h2>
-          <p className={styles.subtitle}>
-            Découvrez d&apos;autres articles qui pourraient vous intéresser
-          </p>
+          <h2 className={styles.title}>{t("relatedTitle")}</h2>
+          <p className={styles.subtitle}>{t("relatedSubtitle")}</p>
         </motion.div>
 
         <motion.div 

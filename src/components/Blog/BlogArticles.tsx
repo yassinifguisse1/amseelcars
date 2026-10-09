@@ -8,7 +8,8 @@ import { useArticles, useFeaturedArticles, useCategories } from '@/hooks/useArti
 import { BlogArticlesSkeleton } from './BlogArticlesSkeleton';
 import styles from "./BlogArticles.module.scss";
 import ArticleCard from "./ArticleCard";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { BUSINESS_WHATSAPP_URL } from "@/lib/business";
 import { isArticleLocale, type ArticleLocale } from "@/lib/validations/article";
 
 interface BlogArticlesProps {
@@ -102,6 +103,8 @@ function BlogArticlesContent({
 }) {
   const currentLocale = useLocale();
   const locale: ArticleLocale = isArticleLocale(currentLocale) ? currentLocale : "fr";
+  const t = useTranslations("blogPage");
+  const tFooter = useTranslations("footer");
 
   // Use SWR hooks to fetch data
   const { articles: fetchedArticles, isLoading: articlesLoading } = useArticles(undefined, locale);
@@ -140,17 +143,12 @@ function BlogArticlesContent({
         viewport={{ once: true }}
       >
         <h2 className={styles.title}>
-          {selectedCategory ? `${selectedCategory}` : locale === "en" ? "Recent Articles" : "Articles Récents"}
+          {selectedCategory ? `${selectedCategory}` : t("recentTitle")}
         </h2>
         <p className={styles.subtitle}>
-          {selectedCategory 
-            ? locale === "en"
-              ? `Explore all our articles about ${selectedCategory.toLowerCase()}`
-              : `Découvrez tous nos articles sur ${selectedCategory.toLowerCase()}`
-            : locale === "en"
-              ? "Discover our latest tips and updates to improve your car rental experience in Agadir"
-              : "Découvrez nos derniers conseils et actualités pour optimiser votre expérience de location"
-          }
+          {selectedCategory
+            ? t("categorySubtitle", { category: selectedCategory.toLowerCase() })
+            : t("recentSubtitle")}
         </p>
         
         {showFilter && (
@@ -165,7 +163,7 @@ function BlogArticlesContent({
               className={`${styles.categoryButton} ${!selectedCategory ? styles.active : ''}`}
               onClick={() => setSelectedCategory(null)}
             >
-              {locale === "en" ? "All" : "Tous"}
+              {t("filterAll")}
             </button>
             {categories.map((category) => (
               <Link
@@ -229,17 +227,15 @@ function BlogArticlesContent({
         transition={{ duration: 0.8, delay: 0.6 }}
         viewport={{ once: true }}
       >
-        <h3 className={styles.ctaTitle}>Besoin d&apos;aide pour votre location ?</h3>
-        <p className={styles.ctaText}>
-          Notre équipe est là pour vous accompagner dans le choix de votre véhicule
-        </p>
+        <h3 className={styles.ctaTitle}>{t("ctaTitle")}</h3>
+        <p className={styles.ctaText}>{t("ctaText")}</p>
         <motion.a 
-          href="https://wa.me/212662500181/?text=Bonjour, je souhaite louer une voiture."
+          href={`${BUSINESS_WHATSAPP_URL}/?text=${encodeURIComponent(tFooter("whatsappPrefill"))}`}
           className={styles.ctaButton}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Contactez-nous
+          {t("ctaButton")}
         </motion.a>
       </motion.div>
     </>

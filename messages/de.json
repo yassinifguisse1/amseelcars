@@ -1251,5 +1251,24 @@
     "cars": "Autos",
     "dates": "Termine",
     "whatsapp": "WhatsApp"
+  },
+  "blogPage": {
+    "heroTitleLead": "Unser",
+    "heroTitleAccent": "Blog",
+    "heroSubtitle": "Tipps, Neuigkeiten und Guides für Ihre Autovermietung in Agadir",
+    "statArticles": "Artikel",
+    "statReaders": "Leser",
+    "statSatisfaction": "Zufriedenheit",
+    "recentTitle": "Neueste Artikel",
+    "recentSubtitle": "Entdecken Sie unsere neuesten Tipps und Updates für Ihre Autovermietung in Agadir",
+    "categorySubtitle": "Entdecken Sie alle unsere Artikel über {category}",
+    "filterAll": "Alle",
+    "ctaTitle": "Brauchen Sie Hilfe bei Ihrer Miete?",
+    "ctaText": "Unser Team hilft Ihnen, das passende Fahrzeug zu finden",
+    "ctaButton": "Kontaktieren Sie uns",
+    "ctaWhatsapp": "Kontaktieren Sie uns per WhatsApp",
+    "ctaEmail": "E-Mail senden",
+    "relatedTitle": "Ähnliche Artikel",
+    "relatedSubtitle": "Entdecken Sie weitere Artikel, die Sie interessieren könnten"
   }
 }

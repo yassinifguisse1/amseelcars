@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { useScroll, useTransform } from "framer-motion";
+import { useTranslations } from "next-intl";
 import styles from "./BlogHero.module.scss";
 import { BlogArticle } from "@/data/blog";
 
@@ -12,6 +13,7 @@ interface BlogHeroProps {
   }
 
 export default function BlogHero({ title, subtitle, articles }: BlogHeroProps) {
+  const t = useTranslations("blogPage");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -42,9 +44,9 @@ export default function BlogHero({ title, subtitle, articles }: BlogHeroProps) {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {title ? (
-              <>{title} <span className={styles.accent}>Articles</span></>
+              <>{title} <span className={styles.accent}>{t("statArticles")}</span></>
             ) : (
-              <>Notre <span className={styles.accent}>Blog</span></>
+              <>{t("heroTitleLead")} <span className={styles.accent}>{t("heroTitleAccent")}</span></>
             )}
           </motion.h1>
           
@@ -54,7 +56,7 @@ export default function BlogHero({ title, subtitle, articles }: BlogHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {subtitle || "Conseils, actualités et guides pour votre location de voiture à Agadir"}
+            {subtitle || t("heroSubtitle")}
           </motion.p>
 
           <motion.div 
@@ -64,17 +66,16 @@ export default function BlogHero({ title, subtitle, articles }: BlogHeroProps) {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <div className={styles.stat}>
-              {/* get the number of articles from the blog articles */}
               <span className={styles.number}>{articles?.length}</span>
-              <span className={styles.label}>Articles</span>
+              <span className={styles.label}>{t("statArticles")}</span>
             </div>
             <div className={styles.stat}>
               <span className={styles.number}>10K+</span>
-              <span className={styles.label}>Lecteurs</span>
+              <span className={styles.label}>{t("statReaders")}</span>
             </div>
             <div className={styles.stat}>
               <span className={styles.number}>5★</span>
-              <span className={styles.label}>Satisfaction</span>
+              <span className={styles.label}>{t("statSatisfaction")}</span>
             </div>
           </motion.div>
         </motion.div>

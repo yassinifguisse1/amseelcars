@@ -1251,5 +1251,24 @@
     "cars": "Coches",
     "dates": "Fechas",
     "whatsapp": "WhatsApp"
+  },
+  "blogPage": {
+    "heroTitleLead": "Nuestro",
+    "heroTitleAccent": "Blog",
+    "heroSubtitle": "Consejos, novedades y guías para tu alquiler de coche en Agadir",
+    "statArticles": "Artículos",
+    "statReaders": "Lectores",
+    "statSatisfaction": "Satisfacción",
+    "recentTitle": "Artículos recientes",
+    "recentSubtitle": "Descubre nuestros últimos consejos y novedades para mejorar tu experiencia de alquiler en Agadir",
+    "categorySubtitle": "Explora todos nuestros artículos sobre {category}",
+    "filterAll": "Todos",
+    "ctaTitle": "¿Necesitas ayuda con tu alquiler?",
+    "ctaText": "Nuestro equipo te ayuda a elegir el vehículo adecuado",
+    "ctaButton": "Contáctanos",
+    "ctaWhatsapp": "Contáctanos por WhatsApp",
+    "ctaEmail": "Enviar un email",
+    "relatedTitle": "Artículos relacionados",
+    "relatedSubtitle": "Descubre otros artículos que pueden interesarte"
   }
 }

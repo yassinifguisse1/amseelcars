@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { useScroll, useTransform } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { BlogArticle } from '@/data/blog';
 import { trackEvent } from "@/lib/trackEvent";
 import styles from "./ArticleBody.module.scss";
@@ -14,6 +15,8 @@ interface ArticleBodyProps {
 }
 
 export default function ArticleBody({ article }: ArticleBodyProps) {
+  const t = useTranslations("blogPage");
+  const tFooter = useTranslations("footer");
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -125,18 +128,16 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
           viewport={{ once: true }}
         >
           <div className={styles.ctaContent}>
-            <h3 className={styles.ctaTitle}>Besoin d&apos;aide pour votre location ?</h3>
-            <p className={styles.ctaText}>
-              Notre équipe d&apos;experts est là pour vous accompagner dans le choix de votre véhicule
-            </p>
+            <h3 className={styles.ctaTitle}>{t("ctaTitle")}</h3>
+            <p className={styles.ctaText}>{t("ctaText")}</p>
             <div className={styles.ctaButtons}>
               <motion.a 
-                href={`${BUSINESS_WHATSAPP_URL}/?text=Bonjour, je souhaite louer une voiture.`}
+                href={`${BUSINESS_WHATSAPP_URL}/?text=${encodeURIComponent(tFooter("whatsappPrefill"))}`}
                 className={styles.primaryButton}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Contactez-nous sur WhatsApp
+                {t("ctaWhatsapp")}
               </motion.a>
               <motion.a 
                 href={BUSINESS_MAILTO}
@@ -144,7 +145,7 @@ export default function ArticleBody({ article }: ArticleBodyProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Envoyer un Email
+                {t("ctaEmail")}
               </motion.a>
             </div>
           </div>
