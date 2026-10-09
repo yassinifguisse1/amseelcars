@@ -24,6 +24,8 @@ type BookingFormDateFieldProps = {
   openCalendarAria: string
   locale: string
   error?: string
+  /** Tighter trigger on small screens (home search bar). Desktop unchanged. */
+  compactMobile?: boolean
 }
 
 function parseFormDate(value: string): Date | undefined {
@@ -42,13 +44,14 @@ export function BookingFormDateField({
   openCalendarAria,
   locale,
   error,
+  compactMobile = false,
 }: BookingFormDateFieldProps) {
   const [open, setOpen] = useState(false)
   const dfLocale = locale === "fr" ? fr : enUS
   const selected = parseFormDate(value)
 
   const labelText = selected
-    ? format(selected, "PPP", { locale: dfLocale })
+    ? format(selected, compactMobile ? "PP" : "PPP", { locale: dfLocale })
     : placeholder
 
   return (
@@ -62,22 +65,30 @@ export function BookingFormDateField({
             aria-invalid={error ? true : undefined}
             aria-label={openCalendarAria}
             className={cn(
-              "w-full justify-start text-left font-normal h-auto min-h-[42px] px-3 py-2 border-gray-300 rounded-lg",
+              "w-full justify-start text-left font-normal border-gray-300 rounded-lg",
+              compactMobile
+                ? "h-9 min-h-9 px-2.5 py-1.5 text-xs sm:h-auto sm:min-h-[42px] sm:px-3 sm:py-2 sm:text-sm"
+                : "h-auto min-h-[42px] px-3 py-2",
               !selected && "text-muted-foreground"
             )}
             onBlur={onBlur}
           >
-            <CalendarIcon className="mr-2 h-4 w-4 shrink-0 opacity-70" />
+            <CalendarIcon
+              className={cn(
+                "shrink-0 opacity-70",
+                compactMobile ? "mr-1.5 h-3.5 w-3.5 sm:mr-2 sm:h-4 sm:w-4" : "mr-2 h-4 w-4",
+              )}
+            />
             <span className="truncate">{labelText}</span>
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-auto p-0 border-gray-200 shadow-lg"
+          className="w-auto max-w-[calc(100vw-1.5rem)] border-gray-200 p-0 shadow-lg"
           align="start"
           sideOffset={6}
         >
           <div
-            className="p-2"
+            className={cn("p-2", compactMobile && "max-sm:scale-[0.92] max-sm:origin-top")}
             style={
               { "--rdp-accent-color": "#CB1939" } as CSSProperties & {
                 "--rdp-accent-color": string

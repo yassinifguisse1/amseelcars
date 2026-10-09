@@ -113,7 +113,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
   };
 
   const fieldClass =
-    'h-11 w-full rounded-md border-0 bg-white px-3 text-sm font-medium text-stone-900 shadow-sm ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-white';
+    'h-9 w-full rounded-md border-0 bg-white px-2.5 text-xs font-medium text-stone-900 shadow-sm ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-white sm:h-11 sm:px-3 sm:text-sm';
 
   return (
     <section
@@ -127,8 +127,8 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
         onSubmit={onSearch}
         className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#b11226] text-white shadow-[0_16px_48px_rgba(177,18,38,0.35)] sm:rounded-2xl"
       >
-        <div className="flex items-start gap-2 border-b border-white/20 bg-[#941020] px-3 py-2 text-xs leading-snug text-white sm:items-center sm:px-4 sm:py-2.5 sm:text-sm">
-          <Plane className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white sm:mt-0 sm:h-4 sm:w-4" aria-hidden />
+        <div className="flex items-start gap-1.5 border-b border-white/20 bg-[#941020] px-2.5 py-1.5 text-[11px] leading-snug text-white sm:items-center sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm">
+          <Plane className="mt-0.5 h-3 w-3 shrink-0 text-white sm:mt-0 sm:h-4 sm:w-4" aria-hidden />
           <button
             type="button"
             className="min-w-0 text-left font-medium text-white underline-offset-2 hover:underline"
@@ -141,9 +141,9 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
           </button>
         </div>
 
-        <div className="grid gap-2.5 p-3 sm:grid-cols-2 sm:gap-3 sm:p-4 lg:grid-cols-[1.2fr_1.1fr_1.1fr_auto] lg:items-end lg:p-5">
-          <div className="space-y-1">
-            <label className="text-[10px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
+        <div className="grid gap-1.5 p-2.5 sm:grid-cols-2 sm:gap-3 sm:p-4 lg:grid-cols-[1.2fr_1.1fr_1.1fr_auto] lg:items-end lg:p-5">
+          <div className="space-y-0.5 sm:space-y-1">
+            <label className="text-[9px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
               {t('pickupLocation')}
             </label>
             <select
@@ -161,8 +161,8 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
           </div>
 
           {!values.sameReturn ? (
-            <div className="space-y-1 sm:col-span-2 lg:col-span-1">
-              <label className="text-[10px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
+            <div className="space-y-0.5 sm:col-span-2 sm:space-y-1 lg:col-span-1">
+              <label className="text-[9px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
                 {t('returnLocation')}
               </label>
               <select
@@ -182,11 +182,11 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
             </div>
           ) : null}
 
-          <div className="space-y-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
+          <div className="space-y-0.5 sm:space-y-1">
+            <span className="text-[9px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
               {t('pickupDate')}
             </span>
-            <div className="grid grid-cols-[minmax(0,1fr)_4.75rem] gap-1.5 sm:flex sm:gap-2 [&_button]:h-11 [&_button]:w-full [&_button]:border-0 [&_button]:bg-white [&_button]:text-stone-900 [&_button]:shadow-sm [&_button]:ring-1 [&_button]:ring-black/5 [&_button]:text-[13px] sm:[&_button]:text-sm">
+            <div className="grid grid-cols-[minmax(0,1fr)_4.25rem] gap-1 sm:flex sm:gap-2 sm:[&_button]:h-11 [&_button]:h-9 [&_button]:w-full [&_button]:border-0 [&_button]:bg-white [&_button]:text-stone-900 [&_button]:shadow-sm [&_button]:ring-1 [&_button]:ring-black/5 [&_button]:text-xs sm:[&_button]:text-sm">
               <div className="min-w-0">
                 <BookingFormDateField
                   id="home-pickup-date"
@@ -196,10 +196,11 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
                   placeholder={tBooking('datePlaceholder')}
                   openCalendarAria={tBooking('calendarOpenAria')}
                   locale={locale}
+                  compactMobile
                 />
               </div>
               <select
-                className={cn(fieldClass, 'w-full shrink-0 px-2 sm:w-[5.5rem] sm:px-3')}
+                className={cn(fieldClass, 'w-full shrink-0 px-1.5 sm:w-[5.5rem] sm:px-3')}
                 value={values.pickupTime}
                 onChange={(e) => setField('pickupTime', e.target.value)}
                 aria-label={t('pickupTime')}
@@ -213,11 +214,11 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
             </div>
           </div>
 
-          <div className="space-y-1">
-            <span className="text-[10px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
+          <div className="space-y-0.5 sm:space-y-1">
+            <span className="text-[9px] font-semibold uppercase tracking-wide text-white/90 sm:text-[11px]">
               {t('returnDate')}
             </span>
-            <div className="grid grid-cols-[minmax(0,1fr)_4.75rem] gap-1.5 sm:flex sm:gap-2 [&_button]:h-11 [&_button]:w-full [&_button]:border-0 [&_button]:bg-white [&_button]:text-stone-900 [&_button]:shadow-sm [&_button]:ring-1 [&_button]:ring-black/5 [&_button]:text-[13px] sm:[&_button]:text-sm">
+            <div className="grid grid-cols-[minmax(0,1fr)_4.25rem] gap-1 sm:flex sm:gap-2 sm:[&_button]:h-11 [&_button]:h-9 [&_button]:w-full [&_button]:border-0 [&_button]:bg-white [&_button]:text-stone-900 [&_button]:shadow-sm [&_button]:ring-1 [&_button]:ring-black/5 [&_button]:text-xs sm:[&_button]:text-sm">
               <div className="min-w-0">
                 <BookingFormDateField
                   id="home-return-date"
@@ -228,10 +229,11 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
                   openCalendarAria={tBooking('calendarOpenAria')}
                   locale={locale}
                   disabled={returnDisabled}
+                  compactMobile
                 />
               </div>
               <select
-                className={cn(fieldClass, 'w-full shrink-0 px-2 sm:w-[5.5rem] sm:px-3')}
+                className={cn(fieldClass, 'w-full shrink-0 px-1.5 sm:w-[5.5rem] sm:px-3')}
                 value={values.returnTime}
                 onChange={(e) => setField('returnTime', e.target.value)}
                 aria-label={t('returnTime')}
@@ -247,9 +249,9 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
 
           <Button
             type="submit"
-            className="mt-0.5 h-12 w-full bg-white px-5 text-base font-semibold text-[#b11226] hover:bg-stone-100 sm:mt-0 sm:h-11 sm:text-sm lg:w-auto"
+            className="mt-0.5 h-10 w-full bg-white px-4 text-sm font-semibold text-[#b11226] hover:bg-stone-100 sm:mt-0 sm:h-11 sm:px-5 sm:text-sm lg:w-auto"
           >
-            <Search className="h-4 w-4" />
+            <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             {t('search')}
           </Button>
         </div>
@@ -260,17 +262,17 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
           </p>
         ) : null}
 
-        <div className="flex flex-col gap-1.5 border-t border-white/20 px-3 py-2.5 text-xs text-white/95 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-5 sm:py-3 sm:text-sm">
+        <div className="flex flex-col gap-1 border-t border-white/20 px-2.5 py-2 text-[11px] text-white/95 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-5 sm:py-3 sm:text-sm">
           <label className="inline-flex cursor-pointer items-start gap-2 sm:items-center">
             <input
               type="checkbox"
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/40 bg-white text-[#b11226] focus:ring-white sm:mt-0"
+              className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-white/40 bg-white text-[#b11226] focus:ring-white sm:mt-0 sm:h-4 sm:w-4"
               checked={values.sameReturn}
               onChange={(e) => setField('sameReturn', e.target.checked)}
             />
             <span className="leading-snug">{t('sameReturn')}</span>
           </label>
-          <p className="text-[11px] leading-snug text-white/80 sm:text-xs">{t('driverNote')}</p>
+          <p className="text-[10px] leading-snug text-white/80 sm:text-xs">{t('driverNote')}</p>
         </div>
       </form>
     </section>

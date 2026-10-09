@@ -73,7 +73,7 @@ export function HomeContentLandingPage() {
       <div className="relative">
         <HomeHeroCopyBand>
           <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
-            <HomeBookingSearchBar className="bg-transparent px-2.5 pb-4 pt-1.5 sm:px-6 sm:pb-8 sm:pt-2" />
+            <HomeBookingSearchBar className="bg-transparent px-2 pb-3 pt-1 sm:px-6 sm:pb-8 sm:pt-2" />
           </Suspense>
         </HomeHeroCopyBand>
         <div className="relative bg-white">
