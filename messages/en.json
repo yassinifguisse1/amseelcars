@@ -1244,5 +1244,12 @@
         "answer": "Usually a valid driving licence plus ID or passport. We confirm requirements during fast booking confirmation before your Agadir handover."
       }
     ]
+  },
+  "bottomNav": {
+    "ariaLabel": "Mobile navigation",
+    "home": "Home",
+    "cars": "Cars",
+    "dates": "Dates",
+    "whatsapp": "WhatsApp"
   }
 }

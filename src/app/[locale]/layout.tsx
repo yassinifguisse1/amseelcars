@@ -8,6 +8,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import { MobileBottomNav } from "@/components/MobileBottomNav/MobileBottomNav";
 import { SiteTracker } from "@/components/analytics/SiteTracker";
 import { PublicStatsigProvider } from "@/components/analytics/PublicStatsigProvider";
 import { ArticleLocalePathsProvider } from "@/contexts/ArticleLocalePathsContext";
@@ -43,7 +44,10 @@ export default async function LocaleLayout({ children, params }: Props) {
             <SiteTracker />
           </Suspense>
           <Header />
-          <main id="main-content">{children}</main>
+          <main id="main-content" className="pb-16 md:pb-0">
+            {children}
+          </main>
+          <MobileBottomNav />
         </PublicStatsigProvider>
       </ArticleLocalePathsProvider>
     </NextIntlClientProvider>

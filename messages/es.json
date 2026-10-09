@@ -1244,5 +1244,12 @@
         "answer": "Permiso válido más DNI o pasaporte. Confirmamos en la confirmación rápida antes de la entrega."
       }
     ]
+  },
+  "bottomNav": {
+    "ariaLabel": "Navegación móvil",
+    "home": "Inicio",
+    "cars": "Coches",
+    "dates": "Fechas",
+    "whatsapp": "WhatsApp"
   }
 }

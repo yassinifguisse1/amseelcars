@@ -1244,5 +1244,12 @@
         "answer": "Ważne prawo jazdy plus dowód lub paszport. Potwierdzamy przy szybkim potwierdzeniu przed odbiorem."
       }
     ]
+  },
+  "bottomNav": {
+    "ariaLabel": "Nawigacja mobilna",
+    "home": "Start",
+    "cars": "Samochody",
+    "dates": "Terminy",
+    "whatsapp": "WhatsApp"
   }
 }

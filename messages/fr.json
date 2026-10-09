@@ -1244,5 +1244,12 @@
         "answer": "Permis valide plus pièce d’identité ou passeport. Nous confirmons lors de la confirmation rapide avant la remise."
       }
     ]
+  },
+  "bottomNav": {
+    "ariaLabel": "Navigation mobile",
+    "home": "Accueil",
+    "cars": "Voitures",
+    "dates": "Dates",
+    "whatsapp": "WhatsApp"
   }
 }

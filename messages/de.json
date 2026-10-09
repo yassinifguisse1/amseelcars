@@ -1244,5 +1244,12 @@
         "answer": "Gültiger Führerschein plus Ausweis oder Reisepass. Wir bestätigen das bei der schnellen Buchungsbestätigung vor der Übergabe."
       }
     ]
+  },
+  "bottomNav": {
+    "ariaLabel": "Mobile Navigation",
+    "home": "Startseite",
+    "cars": "Autos",
+    "dates": "Termine",
+    "whatsapp": "WhatsApp"
   }
 }

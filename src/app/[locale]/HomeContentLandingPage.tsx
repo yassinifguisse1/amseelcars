@@ -57,7 +57,18 @@ export function HomeContentLandingPage() {
     document.body.style.height = "auto";
     document.body.style.transform = "none";
     document.documentElement.style.transform = "none";
-    window.scrollTo(0, 0);
+
+    const hash = window.location.hash.replace(/^#/, "");
+    if (hash === "home-booking") {
+      requestAnimationFrame(() => {
+        document.getElementById("home-booking")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    } else if (!hash) {
+      window.scrollTo(0, 0);
+    }
 
     return () => {
       document.body.style.overflow = "";

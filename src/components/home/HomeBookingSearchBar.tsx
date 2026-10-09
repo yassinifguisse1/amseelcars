@@ -117,8 +117,9 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
 
   return (
     <section
+      id="home-booking"
       className={cn(
-        'relative z-10 w-full bg-white px-4 py-6 sm:px-6 sm:py-8',
+        'relative z-10 w-full scroll-mt-20 bg-white px-4 py-6 sm:px-6 sm:py-8',
         className,
       )}
       aria-label={t('ariaLabel')}
