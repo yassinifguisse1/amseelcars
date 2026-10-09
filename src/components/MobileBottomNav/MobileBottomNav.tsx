@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { CalendarDays, Car, Home, MessageCircle } from "lucide-react";
 import { BUSINESS_WHATSAPP_URL } from "@/lib/business";
 import { trackEvent } from "@/lib/trackEvent";
@@ -22,28 +22,31 @@ export function MobileBottomNav() {
   const t = useTranslations("bottomNav");
   const tFooter = useTranslations("footer");
   const pathname = usePathname();
+  const router = useRouter();
 
-  const goToBooking = useCallback(
-    (e: React.MouseEvent) => {
-      trackEvent({
-        event: "scroll-reservation",
-        path: typeof window !== "undefined" ? window.location.pathname : "/",
-        source: "mobile-bottom-nav",
-        ctaLabel: "dates",
+  const goToBooking = useCallback(() => {
+    trackEvent({
+      event: "scroll-reservation",
+      path: typeof window !== "undefined" ? window.location.pathname : "/",
+      source: "mobile-bottom-nav",
+      ctaLabel: "dates",
+    });
+
+    if (pathIsHome(pathname)) {
+      document.getElementById(BOOKING_HASH)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
-
-      if (pathIsHome(pathname)) {
-        e.preventDefault();
-        const el = document.getElementById(BOOKING_HASH);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          return;
-        }
-      }
-      // Cross-page: let the Link navigate to `/#home-booking`
-    },
-    [pathname],
-  );
+      return;
+    }
+    router.push("/");
+    window.setTimeout(() => {
+      document.getElementById(BOOKING_HASH)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 350);
+  }, [pathname, router]);
 
   const onWhatsApp = () => {
     trackEvent({
@@ -89,14 +92,14 @@ export function MobileBottomNav() {
           </Link>
         </li>
         <li>
-          <Link
-            href={{ pathname: "/", hash: BOOKING_HASH }}
+          <button
+            type="button"
             onClick={goToBooking}
-            className="flex h-full flex-col items-center justify-center gap-0.5 text-[10px] font-semibold text-[#b11226]"
+            className="flex h-full w-full flex-col items-center justify-center gap-0.5 text-[10px] font-semibold text-[#b11226]"
           >
             <CalendarDays className="h-5 w-5" strokeWidth={2.25} aria-hidden />
             <span>{t("dates")}</span>
-          </Link>
+          </button>
         </li>
         <li>
           <a

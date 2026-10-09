@@ -36,18 +36,26 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
     [tBooking],
   );
 
+  // Empty dates on first paint when URL has none — avoids SSR/client timezone
+  // mismatches from defaultBookingSearchDates() / startOfToday().
   const [values, setValues] = useState<BookingSearchValues>(() => {
     const parsed = parseBookingSearchParams(searchParams);
-    if (!searchParams.get('pickupDate')) {
-      return { ...parsed, ...defaultBookingSearchDates() };
+    if (!searchParams.get('pickupDate') && !searchParams.get('returnDate')) {
+      return { ...parsed, pickupDate: '', returnDate: '' };
     }
     return parsed;
   });
   const [dateError, setDateError] = useState('');
 
   useEffect(() => {
-    if (!hasBookingQuery(searchParams)) return;
-    setValues(parseBookingSearchParams(searchParams));
+    if (hasBookingQuery(searchParams)) {
+      setValues(parseBookingSearchParams(searchParams));
+      return;
+    }
+    setValues((prev) => {
+      if (prev.pickupDate && prev.returnDate) return prev;
+      return { ...prev, ...defaultBookingSearchDates() };
+    });
   }, [searchParams]);
 
   const setField = <K extends keyof BookingSearchValues>(key: K, value: BookingSearchValues[K]) => {
