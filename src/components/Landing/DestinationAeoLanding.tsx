@@ -76,6 +76,13 @@ export type DestinationTrustSection = {
   reviews: DestinationTrustReview[];
 };
 
+export type DestinationGuideSection = {
+  kicker: string;
+  title: string;
+  lead: string;
+  items: DestinationFeature[];
+};
+
 export type DestinationAeoLandingProps = {
   languageSwitcher: ReactNode;
   variant?: "default" | "airport" | "coast";
@@ -87,12 +94,20 @@ export type DestinationAeoLandingProps = {
   };
   /** Full-bleed visual for first viewport (fleet / place photography). */
   heroVisual?: { src: string; alt: string };
+  /** Optional mid-page place photo for visual richness. */
+  visualBand?: { src: string; alt: string; caption?: string };
+  /** Optional side image opposite the intro copy (desktop). */
+  introVisual?: { src: string; alt: string };
+  /** Optional side image opposite the trust / NAP block (desktop). */
+  trustVisual?: { src: string; alt: string };
   quickAnswer: string;
   keyFacts?: DestinationKeyFact[];
   keyFactsTitle?: string;
   relatedPages?: DestinationRelatedPage[];
   relatedPagesLabel?: string;
   trustSection?: DestinationTrustSection;
+  /** Extra editorial blocks (delivery zones, price bands, etc.). */
+  guideSections?: DestinationGuideSection[];
   serviceChips: string[];
   stats: DestinationStat[];
   aiHighlights: DestinationHighlight[];
@@ -161,12 +176,16 @@ export function DestinationAeoLanding({
   variant = "default",
   hero,
   heroVisual,
+  visualBand,
+  introVisual,
+  trustVisual,
   quickAnswer,
   keyFacts,
   keyFactsTitle = "At a glance",
   relatedPages,
   relatedPagesLabel = "Related pages",
   trustSection,
+  guideSections,
   serviceChips,
   stats,
   aiHighlights,
@@ -291,25 +310,41 @@ export function DestinationAeoLanding({
 
       <article className={styles.body} itemScope itemType="https://schema.org/WebPage">
         {/* Crawlable intro — plain type, no callout box */}
-        <section className={styles.intro} aria-labelledby="aeo-main-heading">
-          <p id="quick-answer" className={styles.quickAnswer}>
-            {quickAnswer}
-          </p>
-          <p className={styles.meta}>{hero.meta}</p>
-          {serviceChips.length ? (
-            <p className={styles.chipLine}>
-              {serviceChips.map((chip, i) => (
-                <span key={chip}>
-                  {i > 0 ? <span className={styles.chipSep} aria-hidden> · </span> : null}
-                  {chip}
-                </span>
-              ))}
+        <section
+          className={clsx(styles.intro, introVisual && styles.splitBlock)}
+          aria-labelledby="aeo-main-heading"
+        >
+          <div className={styles.splitCopy}>
+            <p id="quick-answer" className={styles.quickAnswer}>
+              {quickAnswer}
             </p>
-          ) : null}
-          {ctas.tertiary ? (
-            <p className={styles.tertiaryWrap}>
-              <CtaLink cta={ctas.tertiary} />
-            </p>
+            <p className={styles.meta}>{hero.meta}</p>
+            {serviceChips.length ? (
+              <p className={styles.chipLine}>
+                {serviceChips.map((chip, i) => (
+                  <span key={chip}>
+                    {i > 0 ? <span className={styles.chipSep} aria-hidden> · </span> : null}
+                    {chip}
+                  </span>
+                ))}
+              </p>
+            ) : null}
+            {ctas.tertiary ? (
+              <p className={styles.tertiaryWrap}>
+                <CtaLink cta={ctas.tertiary} />
+              </p>
+            ) : null}
+          </div>
+          {introVisual ? (
+            <figure className={styles.splitVisual}>
+              <Image
+                src={introVisual.src}
+                alt={introVisual.alt}
+                fill
+                sizes="(max-width: 900px) 100vw, 42vw"
+                className={styles.splitVisualImg}
+              />
+            </figure>
           ) : null}
         </section>
 
@@ -394,59 +429,116 @@ export function DestinationAeoLanding({
           </div>
         </section>
 
-        {trustSection ? (
-          <section className={styles.trust} aria-labelledby="trust-heading">
-            <p className={styles.kicker}>{trustSection.company}</p>
-            <h2 id="trust-heading" className={styles.h2}>
-              {trustSection.title}
+        {visualBand ? (
+          <figure className={styles.visualBand}>
+            <div className={styles.visualBandMedia}>
+              <Image
+                src={visualBand.src}
+                alt={visualBand.alt}
+                fill
+                sizes="100vw"
+                className={styles.visualBandImg}
+              />
+            </div>
+            {visualBand.caption ? (
+              <figcaption className={styles.visualBandCaption}>
+                {visualBand.caption}
+              </figcaption>
+            ) : null}
+          </figure>
+        ) : null}
+
+        {guideSections?.map((section) => (
+          <section
+            key={section.title}
+            className={styles.editorial}
+            aria-labelledby={`guide-${section.title}`}
+          >
+            <p className={styles.kicker}>{section.kicker}</p>
+            <h2 id={`guide-${section.title}`} className={styles.h2}>
+              {section.title}
             </h2>
-            <p className={styles.lead}>{trustSection.body}</p>
-            <address className={styles.trustNap}>
-              <p className={styles.trustCompany}>{trustSection.company}</p>
-              <p>{trustSection.address}</p>
-              <ul className={styles.trustLinks}>
-                <li>
-                  <a href={trustSection.phoneHref}>{trustSection.phoneLabel}</a>
-                </li>
-                <li>
-                  <a
-                    href={trustSection.whatsappHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {trustSection.whatsappLabel}
-                  </a>
-                </li>
-                <li>
-                  <a href={trustSection.emailHref}>{trustSection.emailLabel}</a>
-                </li>
-                <li>
-                  <NextLink href={trustSection.contactHref}>
-                    {trustSection.contactLabel}
-                  </NextLink>
-                </li>
-              </ul>
-            </address>
-            {trustSection.reviews.length ? (
-              <div className={styles.trustReviews}>
-                <h3 className={styles.h2Sm}>{trustSection.reviewsTitle}</h3>
-                <ul className={styles.trustReviewList}>
-                  {trustSection.reviews.map((review) => (
-                    <li key={review.author} className={styles.trustReview}>
-                      <p className={styles.trustReviewBody}>&ldquo;{review.body}&rdquo;</p>
-                      <p className={styles.trustReviewAuthor}>
-                        {review.author}
-                        {review.rating ? (
-                          <span aria-label={`${review.rating} out of 5`}>
-                            {" "}
-                            · {"★".repeat(Math.min(5, Math.max(1, review.rating)))}
-                          </span>
-                        ) : null}
-                      </p>
-                    </li>
-                  ))}
+            <p className={styles.lead}>{section.lead}</p>
+            <div className={styles.featureRows}>
+              {section.items.map((item) => (
+                <article key={item.title} className={styles.featureRow}>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        {trustSection ? (
+          <section
+            className={clsx(styles.trust, trustVisual && styles.splitBlock)}
+            aria-labelledby="trust-heading"
+          >
+            <div className={styles.splitCopy}>
+              <p className={styles.kicker}>{trustSection.company}</p>
+              <h2 id="trust-heading" className={styles.h2}>
+                {trustSection.title}
+              </h2>
+              <p className={styles.lead}>{trustSection.body}</p>
+              <address className={styles.trustNap}>
+                <p className={styles.trustCompany}>{trustSection.company}</p>
+                <p>{trustSection.address}</p>
+                <ul className={styles.trustLinks}>
+                  <li>
+                    <a href={trustSection.phoneHref}>{trustSection.phoneLabel}</a>
+                  </li>
+                  <li>
+                    <a
+                      href={trustSection.whatsappHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {trustSection.whatsappLabel}
+                    </a>
+                  </li>
+                  <li>
+                    <a href={trustSection.emailHref}>{trustSection.emailLabel}</a>
+                  </li>
+                  <li>
+                    <NextLink href={trustSection.contactHref}>
+                      {trustSection.contactLabel}
+                    </NextLink>
+                  </li>
                 </ul>
-              </div>
+              </address>
+              {trustSection.reviews.length ? (
+                <div className={styles.trustReviews}>
+                  <h3 className={styles.h2Sm}>{trustSection.reviewsTitle}</h3>
+                  <ul className={styles.trustReviewList}>
+                    {trustSection.reviews.map((review) => (
+                      <li key={review.author} className={styles.trustReview}>
+                        <p className={styles.trustReviewBody}>&ldquo;{review.body}&rdquo;</p>
+                        <p className={styles.trustReviewAuthor}>
+                          {review.author}
+                          {review.rating ? (
+                            <span aria-label={`${review.rating} out of 5`}>
+                              {" "}
+                              · {"★".repeat(Math.min(5, Math.max(1, review.rating)))}
+                            </span>
+                          ) : null}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+            {trustVisual ? (
+              <figure className={styles.splitVisual}>
+                <Image
+                  src={trustVisual.src}
+                  alt={trustVisual.alt}
+                  fill
+                  sizes="(max-width: 900px) 100vw, 42vw"
+                  className={styles.splitVisualImg}
+                />
+              </figure>
             ) : null}
           </section>
         ) : null}

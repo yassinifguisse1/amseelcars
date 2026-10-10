@@ -1081,169 +1081,221 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Wynajem samochodów Agadir | Darmowa dostawa hotel i riad | AmseelCars",
-      "description": "Wynajem samochodów Agadir z darmową dostawą hotel i riad, szybkim potwierdzeniem i tanim wynajmem w Maroku. SUV / 4x4 na plażę Agadir, Dolinę Raju, Imsouane i Souss-Massa. WhatsApp +212 662-500181.",
+      "title": "Wynajem samochodów Agadir | Dostawa do hotelu | AmseelCars",
+      "description": "Wynajmij auto w Agadirze z darmową dostawą do hotelu lub riadu, jasnymi stawkami i rezerwacją WhatsApp. Auta miejskie i SUV na plażę i wycieczki. +212 662-500181.",
       "ogTitle": "Wynajem samochodów Agadir | AmseelCars",
-      "ogDescription": "Darmowa dostawa hotel i riad w Agadirze, Maroko. Łatwa rezerwacja online, zniżki długoterminowe, SUV / 4x4 na Souss-Massa.",
+      "ogDescription": "Lokalna agencja w Agadirze: dostawa hotel, uczciwe ceny, potwierdzenie WhatsApp.",
       "twitterTitle": "Wynajem samochodów Agadir | AmseelCars",
-      "twitterDescription": "Tani wynajem w Maroku - Agadir, dostawa hotel, szybki odbiór. WhatsApp."
+      "twitterDescription": "Dostawa hotel, odbiór w mieście, od miejskich po SUV. Rezerwuj AmseelCars na WhatsApp."
     },
     "schema": {
-      "name": "Wynajem samochodów Agadir | Darmowa dostawa hotel i riad | AmseelCars",
-      "description": "Wynajem samochodów Agadir z darmową dostawą hotel i riad w Agadirze, Maroku i Souss-Massa. Łatwa rezerwacja online, szybkie potwierdzenie, wynajem SUV / 4x4 na plażę Agadir, Dolinę Raju i Imsouane.",
+      "name": "Wynajem samochodów Agadir | Dostawa hotel | AmseelCars",
+      "description": "AmseelCars wynajmuje auta w Agadirze z dostawą do hotelu/riadu i rezerwacją WhatsApp.",
       "breadcrumbName": "Wynajem samochodów Agadir",
       "serviceName": "Wynajem samochodów Agadir",
-      "serviceDescription": "Wynajem samochodów Agadir Maroko z darmową dostawą hotel i riad, szybkim odbiorem, zniżkami długoterminowymi i wynajmem SUV / 4x4 na Park Narodowy Souss-Massa, plażę Agadir, Dolinę Raju i Imsouane."
+      "serviceDescription": "Wynajem w Agadirze z dostawą hotel/riad i opcjami SUV na wycieczki."
     },
     "hero": {
-      "eyebrow": "Maroko · Souss-Massa",
+      "eyebrow": "Agadir · Maroko",
       "title": "Wynajem samochodów <muted>Agadir</muted>",
-      "lead": "Wynajem samochodów Agadir z darmową dostawą hotel i riad, łatwą rezerwacją online i szybkim potwierdzeniem. Tani wynajem w Maroku na plażę Agadir, Dolinę Raju, Imsouane i trasy SUV / 4x4 w Souss-Massa.",
-      "meta": "Darmowa dostawa hotel i riad · szybki odbiór · zniżki długoterminowe. Lotnisko AGA: osobna strona.",
-      "imageAlt": "Plaża Agadir i panorama - wynajem samochodów Agadir AmseelCars, Maroko, Souss-Massa"
+      "lead": "Lokalna flota w Agadirze z darmową dostawą do hotelu lub riadu, jasnymi cenami dziennymi i potwierdzeniem WhatsApp. Auta miejskie na plażę - SUV na Paradise Valley lub wybrzeże.",
+      "meta": "Dostawa hotel · odbiór miasto · od ok. 28 €/dzień. Meet & greet AGA na stronie lotniska.",
+      "imageAlt": "Promenada Agadiru - wynajem AmseelCars"
     },
-    "quickAnswer": "AmseelCars oferuje wynajem samochodów Agadir z darmową dostawą hotel i riad, łatwą rezerwacją online, szybkim potwierdzeniem i szybkim odbiorem w Agadirze, Maroku i Souss-Massa. Tani wynajem w Maroku ze zniżkami długoterminowymi i wynajmem SUV / 4x4 na plażę Agadir, Dolinę Raju, Imsouane i Park Narodowy Souss-Massa. Odbiór AGA: strona lotniskowa. WhatsApp +212 662-500181.",
+    "quickAnswer": "AmseelCars to lokalna wypożyczalnia w Agadirze. Dowozimy do hoteli i riadów, potwierdzamy auto i cenę na WhatsApp, a lotnisko AGA zostawiamy na osobnej stronie. Wyślij daty i hotel - odpiszemy z dostępnością, stawką i oknem dostawy.",
     "keyFacts": {
       "title": "W skrócie",
       "items": [
         {
           "term": "Kto",
-          "value": "AmseelCars - wynajem samochodów Agadir i tani wynajem w Maroku, Souss-Massa."
+          "value": "AmseelCars - lokalna agencja, Immeuble Sinwan, Agadir."
         },
         {
           "term": "Dostawa",
-          "value": "Darmowa dostawa hotel i riad w Agadirze; lotnisko AGA na stronie lotniskowej."
+          "value": "Darmowy hotel i riad w Agadirze oraz hotele plażowe."
         },
         {
           "term": "Rezerwacja",
-          "value": "Łatwa rezerwacja online + szybkie potwierdzenie przez WhatsApp +212 662-500181."
+          "value": "WhatsApp +212 662-500181 z ceną przed odbiorem."
         },
         {
           "term": "Flota",
-          "value": "Miejskie do wynajmu SUV / 4x4 - zniżki na wynajem długoterminowy."
+          "value": "Od aut miejskich po automatyczne SUV-y."
         }
       ]
     },
     "relatedPages": {
       "label": "Powiązane strony",
-      "airport": "Odbiór na lotnisku 24/7 (AGA)",
-      "taghazout": "Taghazout · wybrzeże Imsouane",
-      "contact": "Kontakt"
+      "airport": "Lotnisko Agadir (AGA)",
+      "taghazout": "Taghazout i Imsouane",
+      "contact": "Kontakt",
+      "blog": "Przewodniki wynajmu Agadir"
     },
     "operations": {
-      "kicker": "Odbiory w mieście",
-      "title": "Darmowa dostawa hotel i riad w Agadirze",
-      "lead": "Szybki odbiór i darmowa dostawa hotel i riad w Agadirze, Maroko - potem plaża Agadir, Dolina Raju, Imsouane lub Park Narodowy Souss-Massa z wynajmem SUV / 4x4 w razie potrzeby."
+      "kicker": "Dostawa w mieście",
+      "title": "Od WhatsApp do kluczyków w hotelu",
+      "lead": "Większość gości rezerwuje z Europy kilka dni wcześniej. Wysyłasz daty i hotel; blokujemy auto i slot; spotykamy się w lobby lub na parkingu."
     },
     "aiPanel": {
-      "badge": "Fakty pod AI",
-      "title": "Co asystenci mogą cytować"
+      "badge": "Dlaczego my",
+      "title": "Czego możesz oczekiwać w Agadirze"
     },
     "serviceChips": [
-      "Darmowa dostawa hotel i riad",
-      "Odbiór na lotnisku 24/7",
-      "Łatwa rezerwacja online",
-      "Szybkie potwierdzenie",
-      "Tani wynajem w Maroku",
-      "Zniżki na wynajem długoterminowy",
-      "Szybki odbiór auta"
+      "Dostawa hotel",
+      "Rezerwacja WhatsApp",
+      "Jasne stawki",
+      "Hotele miasto i plaża",
+      "SUV na wycieczki",
+      "Bez niespodzianek"
     ],
     "stats": [
       {
         "label": "Dostawa",
-        "value": "Hotel + riad",
-        "helper": "Darmowa w Agadirze"
+        "value": "Hotel / riad",
+        "helper": "Agadir miasto i plaża"
       },
       {
-        "label": "Flota",
-        "value": "SUV / 4x4",
-        "helper": "Dolina Raju · Imsouane · Souss-Massa"
+        "label": "Od",
+        "value": "28 €/dzień",
+        "helper": "Auta miejskie, sezonowo"
       },
       {
-        "label": "Potwierdzenie",
-        "value": "Szybkie",
-        "helper": "Łatwa rezerwacja online"
+        "label": "Odpowiedź",
+        "value": "Szybka",
+        "helper": "Potwierdzenie WhatsApp"
       }
     ],
     "aiHighlights": [
       {
-        "title": "Darmowa dostawa hotel i riad",
-        "body": "Wynajem samochodów Agadir z darmową dostawą hotel i riad oraz szybkim odbiorem w centrum lub przy plaży. Odbiór lotnisko 24/7 dla AGA: strona lotniskowa."
+        "title": "Dostawa do hotelu",
+        "body": "Podstawiamy auto pod hotel lub riad w Agadirze - plaża, centrum lub Founty."
       },
       {
-        "title": "SUV / 4x4 na Souss-Massa",
-        "body": "Wynajem SUV / 4x4 na Dolinę Raju, Park Narodowy Souss-Massa, Imsouane i plażę Agadir - plus miejskie na Agadir Maroko."
+        "title": "Właściwe auto",
+        "body": "Kompaktowe automatyczne na plażę; SUV na Paradise Valley lub Imsouane."
       },
       {
-        "title": "Łatwa rezerwacja i stawki długie",
-        "body": "Łatwa rezerwacja online z szybkim potwierdzeniem. Tani wynajem w Maroku i zniżki długoterminowe od tygodnia."
+        "title": "Cena przed decyzją",
+        "body": "Stawka dzienna, minimum dni i okno dostawy pisemnie na WhatsApp."
       }
     ],
     "features": [
       {
-        "title": "Łatwa rezerwacja online",
-        "description": "Daty i hotel na WhatsApp dla łatwej rezerwacji online i szybkiego potwierdzenia przed Agadirem."
+        "title": "1 · Daty i hotel",
+        "description": "WhatsApp z dniem przyjazdu, zwrotu i nazwą hotelu."
       },
       {
-        "title": "Darmowa dostawa hotel i riad",
-        "description": "Szybki odbiór w hotelu lub riadzie w Agadirze - plaża Agadir, centrum lub wybrzeże - z jasnym oknem czasowym."
+        "title": "2 · Potwierdzenie",
+        "description": "1–2 opcje, cena/dzień i slot dopasowany do check-inu."
       },
       {
-        "title": "Długoterminowy i SUV / 4x4",
-        "description": "Zniżki na wynajem długoterminowy i wynajem SUV / 4x4 na Dolinę Raju, Imsouane i Park Narodowy Souss-Massa."
+        "title": "3 · Odbiór kluczyków",
+        "description": "Przywozimy auto, sprawdzamy stan razem z Tobą i oddajemy kluczyki."
       }
     ],
+    "deliveryZones": {
+      "kicker": "Strefy dostawy",
+      "title": "Gdzie codziennie dowozimy w Agadirze",
+      "lead": "Darmowa dostawa hotel/riad w Wielkim Agadirze. Taghazout lub AGA: osobne strony.",
+      "items": [
+        {
+          "title": "Agadir Beach i Corniche",
+          "description": "Duże hotele plażowe i apartamenty przy morzu."
+        },
+        {
+          "title": "Centrum · Founty · Marina",
+          "description": "Hotele miejskie, apartamenty i marina."
+        },
+        {
+          "title": "Riady i dzielnice",
+          "description": "Wiele riadów i prywatnych lokali. Wyślij pinezkę."
+        }
+      ]
+    },
+    "pricingGuide": {
+      "kicker": "Orientacyjne ceny",
+      "title": "Ile zwykle kosztuje wynajem w Agadirze",
+      "lead": "Ostateczna wycena zależy od sezonu, długości i modelu. Przedziały dla 5+ dni.",
+      "items": [
+        {
+          "title": "Auta miejskie",
+          "description": "Często ok. 28–45 €/dzień (Clio / Picanto / Logan)."
+        },
+        {
+          "title": "Crossovery",
+          "description": "Zazwyczaj 50–80 €/dzień (T-Roc / C3 Aircross)."
+        },
+        {
+          "title": "SUV",
+          "description": "Zwykle 90–140 €+/dzień (Sportage / X3) na wycieczki."
+        }
+      ]
+    },
+    "trust": {
+      "title": "Lokalna, weryfikowalna agencja",
+      "body": "AmseelCars działa z Immeuble Sinwan w Agadirze. Rozmawiasz z tym samym zespołem na WhatsApp przed i w trakcie wynajmu.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, parter, Agadir 80000, Maroko",
+      "phoneLabel": "Zadzwoń +212 662 500 181",
+      "whatsappLabel": "Rezerwacja WhatsApp",
+      "emailLabel": "Email amseelcars5@gmail.com",
+      "contactLabel": "Strona kontaktowa",
+      "reviewsTitle": "Opinie gości"
+    },
     "carsSection": {
-      "kicker": "Wybór",
-      "title": "Popularne modele Agadir i SUV / 4x4",
-      "lead": "Od taniego wynajmu w Maroku po SUV / 4x4 na Dolinę Raju i Imsouane - ceny i dostawa hotel gotowe przed odbiorem.",
-      "cardImageAlt": "{name} - wynajem samochodów Agadir, dostawa hotel AmseelCars",
-      "cardImageTitle": "{name} wynajem Agadir Maroko - hotel, riad i miasto",
-      "cardCaption": "Łatwa rezerwacja, szybkie potwierdzenie i darmowa dostawa hotel i riad."
+      "kicker": "Flota",
+      "title": "Auta często wybierane w Agadirze",
+      "lead": "Otwórz model, by zobaczyć zdjęcia i dane. Ceny w euro orientacyjne - dokładna wycena po datach.",
+      "cardImageAlt": "{name} na wynajem w Agadirze - AmseelCars",
+      "cardImageTitle": "{name} - dostawa hotel Agadir",
+      "cardCaption": "Od {price}/dzień · {seats} miejsc · dostawa hotel"
     },
     "faqKicker": "FAQ",
     "faqTitle": "Wynajem samochodów Agadir - częste pytania",
     "fleetCtaLabel": "Zobacz całą flotę",
-    "carOpenHint": "Otwórz kartę",
+    "carOpenHint": "Szczegóły →",
+    "visualBandCaption": "Promenada Agadiru - większość dostaw hotelowych jest blisko plaży i centrum.",
     "ctas": {
-      "primary": "Rezerwuj przez WhatsApp",
-      "secondary": "Zobacz całą flotę",
-      "tertiary": "E-mail concierge"
+      "primary": "Rezerwuj na WhatsApp",
+      "secondary": "Cała flota",
+      "tertiary": "Napisz do nas"
     },
     "faqs": [
       {
-        "question": "Ile kosztuje tani wynajem w Maroku w Agadirze?",
-        "answer": "Zależy od modelu, długości i sezonu. AmseelCars podaje jasne stawki za wynajem samochodów Agadir - od miejskich po SUV / 4x4 - ze zniżkami długoterminowymi. WhatsApp +212 662-500181."
+        "question": "Ile kosztuje wynajem auta w Agadirze?",
+        "answer": "Auta miejskie często od ok. 28–45 €/dzień przy 5+ dniach poza szczytem. SUV drożej. Jasna wycena na WhatsApp."
       },
       {
-        "question": "Czy jest darmowa dostawa hotel i riad w Agadirze?",
-        "answer": "Tak. Darmowa dostawa hotel i riad oraz szybki odbiór obejmują Agadir, hotele plaży Agadir i wiele riadów. Odbiór AGA 24/7: strona lotniskowa."
+        "question": "Czy dowozicie do hoteli i riadów?",
+        "answer": "Tak, darmowa dostawa do większości hoteli miejskich/plażowych i wielu riadów."
       },
       {
-        "question": "Jak działa łatwa rezerwacja online?",
-        "answer": "Wyślij daty, hotel i model na łatwą rezerwację online. Dostajesz szybkie potwierdzenie z ceną, oknem dostawy i dokumentami."
+        "question": "Czy lotnisko jest na tej stronie?",
+        "answer": "Ta strona to miasto i hotel. Dla AGA użyj strony lotniska."
       },
       {
-        "question": "Czy mogę wynająć SUV / 4x4 na Dolinę Raju lub Imsouane?",
-        "answer": "Tak. Wynajem SUV / 4x4 pasuje do Doliny Raju, Imsouane, Parku Narodowego Souss-Massa i dróg Souss-Massa. Miejskie auta na plażę Agadir i centrum."
+        "question": "Minimalny okres?",
+        "answer": "Zwykle minimum 5 dni. Krótsze terminy pytaj na WhatsApp."
       },
       {
-        "question": "Gdzie mogę jeździć z wynajmem samochodów Agadir?",
-        "answer": "Agadir, plaża Agadir, Dolina Raju, Imsouane, Taghazout i region Souss-Massa w Maroku. Podaj trasę, dobierzemy auto."
+        "question": "Jakie auto na Paradise Valley?",
+        "answer": "SUV lub crossover jest wygodniejszy. Miejskie wystarczą na plażę i centrum."
       },
       {
-        "question": "Czy są zniżki na wynajem długoterminowy?",
-        "answer": "Tak. Od tygodnia często zniżki na wynajem długoterminowy w Agadirze. Zapytaj o stawkę tygodniową na WhatsApp."
+        "question": "Jakie dokumenty?",
+        "answer": "Ważne prawo jazdy + paszport lub dowód. Reszta na WhatsApp."
       },
       {
-        "question": "Czy jest odbiór na lotnisku 24/7 dla AGA?",
-        "answer": "Odbiór 24/7 na AGA (Agadir Al Massira) jest na stronie lotniskowej. Ta strona miasta obejmuje dostawę hotel i riad oraz szybki odbiór w Agadirze."
+        "question": "Zniżka długoterminowa?",
+        "answer": "Tydzień i dłużej często daje lepszą stawkę dzienną."
       },
       {
-        "question": "Jakie dokumenty do wynajmu w Agadirze Maroko?",
-        "answer": "Ważne prawo jazdy plus dowód lub paszport. Potwierdzamy przy szybkim potwierdzeniu przed odbiorem."
+        "question": "Jak szybko odpowiadacie?",
+        "answer": "Większość zapytań tego samego dnia, gdy podasz daty, hotel i klasę auta."
       }
-    ]
+    ],
+    "introVisualAlt": "Kia Sportage AmseelCars gotowy do dostawy do hotelu w Agadirze",
+    "trustVisualAlt": "Promenada i miasto Agadir - lokalna baza AmseelCars"
   },
   "bottomNav": {
     "ariaLabel": "Nawigacja mobilna",

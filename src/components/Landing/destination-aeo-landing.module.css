@@ -366,6 +366,52 @@
   max-width: 42rem;
 }
 
+.intro.splitBlock,
+.trust.splitBlock {
+  max-width: none;
+}
+
+.splitBlock {
+  display: grid;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .splitBlock {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+}
+
+.splitCopy {
+  max-width: 42rem;
+  min-width: 0;
+}
+
+.splitVisual {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  min-height: 14rem;
+  overflow: hidden;
+  background: #141414;
+}
+
+@media (min-width: 900px) {
+  .splitVisual {
+    aspect-ratio: auto;
+    min-height: 22rem;
+    height: 100%;
+  }
+}
+
+.splitVisualImg {
+  object-fit: cover;
+  object-position: center;
+}
+
 .quickAnswer {
   margin: 0;
   font-family: var(--ui);
@@ -843,6 +889,46 @@
   font-size: 1rem;
   line-height: 1.65;
   color: var(--ink-dim);
+}
+
+/* ——— Mid-page place visual ——— */
+.visualBand {
+  margin: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+}
+
+.visualBandMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  min-height: 12rem;
+  max-height: 22rem;
+  overflow: hidden;
+  background: #141414;
+}
+
+.visualBandImg {
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.visualBandCaption {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem 0;
+  font-family: var(--body);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
+@media (min-width: 768px) {
+  .visualBandCaption {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 /* ——— Trust / NAP + reviews ——— */

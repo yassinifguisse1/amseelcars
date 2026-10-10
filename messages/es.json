@@ -1081,169 +1081,221 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Alquiler coches Agadir | Entrega hotel y riad gratis | AmseelCars",
-      "description": "Alquiler coches Agadir con entrega gratuita hotel y riad, confirmación rápida y alquiler barato en Marruecos. SUV / 4x4 para playa de Agadir, Valle del Paraíso, Imsouane y Souss-Massa. WhatsApp +212 662-500181.",
-      "ogTitle": "Alquiler coches Agadir | AmseelCars",
-      "ogDescription": "Entrega gratuita hotel y riad en Agadir, Marruecos. Reserva online fácil, descuentos larga duración, SUV / 4x4 para Souss-Massa.",
-      "twitterTitle": "Alquiler coches Agadir | AmseelCars",
-      "twitterDescription": "Alquiler barato en Marruecos - Agadir, entrega hotel, recogida rápida. WhatsApp."
+      "title": "Alquiler de coches en Agadir | Entrega en hotel | AmseelCars",
+      "description": "Alquila un coche en Agadir con entrega gratis en hotel o riad, precios claros y reserva por WhatsApp. Urbanos y SUV para la playa y excursiones. +212 662-500181.",
+      "ogTitle": "Alquiler de coches Agadir | AmseelCars",
+      "ogDescription": "Agencia local en Agadir: entrega en hotel, tarifas claras, confirmación WhatsApp.",
+      "twitterTitle": "Alquiler de coches Agadir | AmseelCars",
+      "twitterDescription": "Entrega hotel, recogida en ciudad, urbano a SUV. Reserva AmseelCars por WhatsApp."
     },
     "schema": {
-      "name": "Alquiler coches Agadir | Entrega hotel y riad gratis | AmseelCars",
-      "description": "Alquiler coches Agadir con entrega gratuita hotel y riad en Agadir, Marruecos y Souss-Massa. Reserva online fácil, confirmación rápida, alquiler SUV / 4x4 para playa de Agadir, Valle del Paraíso e Imsouane.",
-      "breadcrumbName": "Alquiler coches Agadir",
-      "serviceName": "Alquiler coches Agadir",
-      "serviceDescription": "Alquiler coches Agadir Marruecos con entrega gratuita hotel y riad, recogida rápida, descuentos larga duración y alquiler SUV / 4x4 para el Parque Nacional de Souss-Massa, playa de Agadir, Valle del Paraíso e Imsouane."
+      "name": "Alquiler de coches Agadir | Entrega hotel | AmseelCars",
+      "description": "AmseelCars alquila coches en Agadir con entrega en hotel/riad, recogida en ciudad y reserva WhatsApp.",
+      "breadcrumbName": "Alquiler de coches Agadir",
+      "serviceName": "Alquiler de coches Agadir",
+      "serviceDescription": "Alquiler en Agadir con entrega hotel/riad y opciones SUV para excursiones."
     },
     "hero": {
-      "eyebrow": "Marruecos · Souss-Massa",
-      "title": "Alquiler coches <muted>Agadir</muted>",
-      "lead": "Alquiler coches Agadir con entrega gratuita hotel y riad, reserva online fácil y confirmación rápida. Alquiler barato en Marruecos para playa de Agadir, Valle del Paraíso, Imsouane y rutas SUV / 4x4 en Souss-Massa.",
-      "meta": "Entrega hotel y riad gratis · recogida rápida · descuentos larga duración. Aeropuerto AGA: página dedicada.",
-      "imageAlt": "Playa de Agadir y skyline - alquiler coches Agadir AmseelCars, Marruecos, Souss-Massa"
+      "eyebrow": "Agadir · Marruecos",
+      "title": "Alquiler de coches <muted>Agadir</muted>",
+      "lead": "Flota local en Agadir con entrega gratis en hotel o riad, precios diarios claros y confirmación por WhatsApp. Urbanos para la playa; SUV para Paradise Valley o la costa.",
+      "meta": "Entrega hotel · recogida ciudad · desde ~28 €/día. Meet & greet AGA en la página aeropuerto.",
+      "imageAlt": "Paseo marítimo de Agadir - alquiler AmseelCars"
     },
-    "quickAnswer": "AmseelCars ofrece alquiler coches Agadir con entrega gratuita hotel y riad, reserva online fácil, confirmación rápida y recogida rápida en Agadir, Marruecos y Souss-Massa. Alquiler barato en Marruecos con descuentos larga duración y alquiler SUV / 4x4 para playa de Agadir, Valle del Paraíso, Imsouane y Parque Nacional de Souss-Massa. Recogida AGA: página aeropuerto. WhatsApp +212 662-500181.",
+    "quickAnswer": "AmseelCars es una agencia local en Agadir. Entregamos en hoteles y riads, confirmamos coche y precio por WhatsApp, y dejamos el aeropuerto AGA en su propia página. Envía fechas y hotel: respondemos con disponibilidad, tarifa y ventana de entrega.",
     "keyFacts": {
       "title": "De un vistazo",
       "items": [
         {
           "term": "Quién",
-          "value": "AmseelCars - alquiler coches Agadir y alquiler barato en Marruecos, Souss-Massa."
+          "value": "AmseelCars - agencia local, Immeuble Sinwan, Agadir."
         },
         {
           "term": "Entrega",
-          "value": "Entrega gratuita hotel y riad en Agadir; aeropuerto AGA en la página aeropuerto."
+          "value": "Hotel y riad gratis en Agadir ciudad y playa."
         },
         {
           "term": "Reserva",
-          "value": "Reserva online fácil + confirmación rápida por WhatsApp +212 662-500181."
+          "value": "WhatsApp +212 662-500181 con precio antes de la recogida."
         },
         {
           "term": "Flota",
-          "value": "Urbanos a alquiler SUV / 4x4 - descuentos alquiler larga duración."
+          "value": "Desde urbanos económicos hasta SUV automáticos."
         }
       ]
     },
     "relatedPages": {
       "label": "Páginas relacionadas",
-      "airport": "Recogida aeropuerto 24/7 (AGA)",
-      "taghazout": "Taghazout · costa Imsouane",
-      "contact": "Contacto"
+      "airport": "Aeropuerto Agadir (AGA)",
+      "taghazout": "Taghazout e Imsouane",
+      "contact": "Contacto",
+      "blog": "Guías de alquiler en Agadir"
     },
     "operations": {
-      "kicker": "Entregas en ciudad",
-      "title": "Entrega gratuita hotel y riad en Agadir",
-      "lead": "Recogida rápida y entrega gratuita hotel y riad en Agadir, Marruecos - luego playa de Agadir, Valle del Paraíso, Imsouane o Parque Nacional de Souss-Massa con alquiler SUV / 4x4 si lo necesitas."
+      "kicker": "Entrega en ciudad",
+      "title": "Del WhatsApp a las llaves en el hotel",
+      "lead": "La mayoría reserva desde Europa unos días antes. Envías fechas y hotel; bloqueamos coche y franja; nos vemos en el lobby o parking."
     },
     "aiPanel": {
-      "badge": "Datos listos para IA",
-      "title": "Lo que los asistentes pueden citar"
+      "badge": "Por qué elegirnos",
+      "title": "Qué esperar con AmseelCars en Agadir"
     },
     "serviceChips": [
-      "Entrega gratuita hotel y riad",
-      "Recogida aeropuerto 24/7",
-      "Reserva online fácil",
-      "Confirmación rápida",
-      "Alquiler barato en Marruecos",
-      "Descuentos alquiler larga duración",
-      "Recogida rápida del coche"
+      "Entrega hotel",
+      "Reserva WhatsApp",
+      "Tarifas claras",
+      "Hoteles ciudad y playa",
+      "SUV excursiones",
+      "Sin sorpresas"
     ],
     "stats": [
       {
         "label": "Entrega",
-        "value": "Hotel + riad",
-        "helper": "Gratis en Agadir"
+        "value": "Hotel / riad",
+        "helper": "Agadir ciudad y playa"
       },
       {
-        "label": "Flota",
-        "value": "SUV / 4x4",
-        "helper": "Valle del Paraíso · Imsouane · Souss-Massa"
+        "label": "Desde",
+        "value": "28 €/día",
+        "helper": "Urbanos, según temporada"
       },
       {
-        "label": "Confirmación",
+        "label": "Respuesta",
         "value": "Rápida",
-        "helper": "Reserva online fácil"
+        "helper": "Confirmación WhatsApp"
       }
     ],
     "aiHighlights": [
       {
-        "title": "Entrega gratuita hotel y riad",
-        "body": "Alquiler coches Agadir con entrega gratuita hotel y riad y recogida rápida en centro o playa. Recogida aeropuerto 24/7 para AGA: página aeropuerto."
+        "title": "Entrega en hotel",
+        "body": "Llevamos el coche a tu hotel o riad en Agadir: playa, centro o Founty."
       },
       {
-        "title": "SUV / 4x4 para Souss-Massa",
-        "body": "Alquiler SUV / 4x4 para Valle del Paraíso, Parque Nacional de Souss-Massa, Imsouane y playa de Agadir - más urbanos para Agadir Marruecos."
+        "title": "Coche adecuado",
+        "body": "Automáticos compactos para la playa; SUV para Paradise Valley o Imsouane."
       },
       {
-        "title": "Reserva fácil y tarifas largas",
-        "body": "Reserva online fácil con confirmación rápida. Alquiler barato en Marruecos y descuentos larga duración desde una semana."
+        "title": "Precio antes de decidir",
+        "body": "Tarifa diaria, mínimo de días y franja de entrega por escrito en WhatsApp."
       }
     ],
     "features": [
       {
-        "title": "Reserva online fácil",
-        "description": "Fechas y hotel por WhatsApp para reserva online fácil y confirmación rápida antes de Agadir."
+        "title": "1 · Fechas y hotel",
+        "description": "WhatsApp con llegada, retorno y nombre del hotel."
       },
       {
-        "title": "Entrega gratuita hotel y riad",
-        "description": "Recogida rápida en hotel o riad en Agadir - playa de Agadir, centro o costa - con franja clara."
+        "title": "2 · Confirmación",
+        "description": "Te enviamos 1–2 opciones, precio/día y franja según el check-in."
       },
       {
-        "title": "Larga duración y SUV / 4x4",
-        "description": "Descuentos alquiler larga duración y alquiler SUV / 4x4 para Valle del Paraíso, Imsouane y Parque Nacional de Souss-Massa."
+        "title": "3 · Entrega de llaves",
+        "description": "Traemos el coche, revisamos el estado contigo y entregamos las llaves."
       }
     ],
+    "deliveryZones": {
+      "kicker": "Zonas de entrega",
+      "title": "Dónde entregamos cada día en Agadir",
+      "lead": "Entrega hotel/riad gratis en el Gran Agadir. Taghazout o AGA: usa las páginas dedicadas.",
+      "items": [
+        {
+          "title": "Agadir Beach y Corniche",
+          "description": "Grandes hoteles de playa y residencias frente al mar."
+        },
+        {
+          "title": "Centro · Founty · Marina",
+          "description": "Hoteles urbanos, apartamentos y marina."
+        },
+        {
+          "title": "Riads y barrios",
+          "description": "Muchos riads y alojamientos privados. Envía un pin."
+        }
+      ]
+    },
+    "pricingGuide": {
+      "kicker": "Precios orientativos",
+      "title": "Cuánto cuesta alquilar en Agadir",
+      "lead": "El presupuesto final depende de temporada, duración y modelo. Bandas típicas para 5+ días.",
+      "items": [
+        {
+          "title": "Urbanos",
+          "description": "A menudo unos 28–45 €/día (Clio / Picanto / Logan)."
+        },
+        {
+          "title": "Crossovers",
+          "description": "Típicamente 50–80 €/día (T-Roc / C3 Aircross)."
+        },
+        {
+          "title": "SUV",
+          "description": "Suele ser 90–140 €+/día (Sportage / X3) para excursiones."
+        }
+      ]
+    },
+    "trust": {
+      "title": "Agencia local verificable",
+      "body": "AmseelCars opera desde Immeuble Sinwan en Agadir. Hablas con el mismo equipo en WhatsApp antes y durante el alquiler.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, planta baja, Agadir 80000, Marruecos",
+      "phoneLabel": "Llamar +212 662 500 181",
+      "whatsappLabel": "Reservar por WhatsApp",
+      "emailLabel": "Email amseelcars5@gmail.com",
+      "contactLabel": "Página de contacto",
+      "reviewsTitle": "Opiniones recientes"
+    },
     "carsSection": {
-      "kicker": "Selección",
-      "title": "Opciones alquiler coches Agadir y SUV / 4x4",
-      "lead": "Del alquiler barato en Marruecos urbano al SUV / 4x4 para Valle del Paraíso e Imsouane - precios y entrega hotel listos antes de la recogida.",
-      "cardImageAlt": "{name} - alquiler coches Agadir, entrega hotel AmseelCars",
-      "cardImageTitle": "{name} alquiler coches Agadir Marruecos - hotel, riad y centro",
-      "cardCaption": "Reserva fácil, confirmación rápida y entrega hotel y riad gratis."
+      "kicker": "Flota destacada",
+      "title": "Coches que más se reservan en Agadir",
+      "lead": "Abre un modelo para fotos y ficha. Precios orientativos en euros; presupuesto exacto según fechas.",
+      "cardImageAlt": "{name} en alquiler en Agadir - AmseelCars",
+      "cardImageTitle": "{name} - entrega hotel Agadir",
+      "cardCaption": "Desde {price}/día · {seats} plazas · entrega hotel"
     },
     "faqKicker": "FAQ",
-    "faqTitle": "Alquiler coches Agadir - preguntas frecuentes",
+    "faqTitle": "Alquiler de coches Agadir - preguntas frecuentes",
     "fleetCtaLabel": "Ver toda la flota",
-    "carOpenHint": "Abrir ficha",
+    "carOpenHint": "Ver ficha →",
+    "visualBandCaption": "Paseo marítimo de Agadir - la mayoría de entregas en hotel están cerca de la playa y el centro.",
     "ctas": {
       "primary": "Reservar por WhatsApp",
       "secondary": "Ver toda la flota",
-      "tertiary": "Email concierge"
+      "tertiary": "Escribirnos"
     },
     "faqs": [
       {
-        "question": "¿Cuánto cuesta el alquiler barato en Marruecos en Agadir?",
-        "answer": "Depende del modelo, duración y temporada. AmseelCars cotiza precios claros para alquiler coches Agadir - urbano a SUV / 4x4 - con descuentos larga duración. WhatsApp +212 662-500181."
+        "question": "¿Cuánto cuesta alquilar un coche en Agadir?",
+        "answer": "Los urbanos suelen empezar en torno a 28–45 €/día para 5+ días fuera de picos. Los SUV cuestan más. Presupuesto claro por WhatsApp."
       },
       {
-        "question": "¿Ofrecéis entrega gratuita hotel y riad en Agadir?",
-        "answer": "Sí. Entrega gratuita hotel y riad y recogida rápida cubren Agadir, hoteles de playa de Agadir y muchos riads. Recogida AGA 24/7: página aeropuerto."
+        "question": "¿Entregáis en hoteles y riads?",
+        "answer": "Sí, entrega gratis en la mayoría de hoteles de ciudad/playa y muchos riads."
       },
       {
-        "question": "¿Cómo funciona la reserva online fácil?",
-        "answer": "Envía fechas, hotel y coche para reserva online fácil. Recibes confirmación rápida con precio, franja y documentos."
+        "question": "¿El aeropuerto está en esta página?",
+        "answer": "Esta página es ciudad y hotel. Para AGA usa la página aeropuerto."
       },
       {
-        "question": "¿Puedo alquilar SUV / 4x4 para Valle del Paraíso o Imsouane?",
-        "answer": "Sí. El alquiler SUV / 4x4 sirve para Valle del Paraíso, Imsouane, Parque Nacional de Souss-Massa y caminos de Souss-Massa. Los urbanos van bien para playa de Agadir y el centro."
+        "question": "¿Duración mínima?",
+        "answer": "Normalmente 5 días. Pregunta por WhatsApp si tu estancia es más corta."
       },
       {
-        "question": "¿Dónde puedo conducir con alquiler coches Agadir?",
-        "answer": "Agadir, playa de Agadir, Valle del Paraíso, Imsouane, Taghazout y la región Souss-Massa en Marruecos. Comparte el itinerario para el coche adecuado."
+        "question": "¿Qué coche para Paradise Valley?",
+        "answer": "Un SUV o crossover es más cómodo. Los urbanos valen para playa y centro."
       },
       {
-        "question": "¿Hay descuentos alquiler larga duración?",
-        "answer": "Sí. Semana o más: descuentos alquiler larga duración en alquiler coches Agadir. Pide la tarifa semanal por WhatsApp."
+        "question": "¿Qué documentos necesito?",
+        "answer": "Permiso válido + pasaporte o DNI. Lo demás se confirma por WhatsApp."
       },
       {
-        "question": "¿Hay recogida aeropuerto 24/7 para AGA?",
-        "answer": "La recogida aeropuerto 24/7 en AGA (Agadir Al Massira) está en nuestra página de aeropuerto. Esta página ciudad cubre entrega hotel y riad y recogida rápida en Agadir."
+        "question": "¿Descuento larga estancia?",
+        "answer": "Semana o más suele mejorar el precio diario."
       },
       {
-        "question": "¿Qué documentos necesito para alquilar en Agadir Marruecos?",
-        "answer": "Permiso válido más DNI o pasaporte. Confirmamos en la confirmación rápida antes de la entrega."
+        "question": "¿Qué tan rápido respondéis?",
+        "answer": "La mayoría recibe respuesta el mismo día si incluye fechas, hotel y tipo de coche."
       }
-    ]
+    ],
+    "introVisualAlt": "Kia Sportage de AmseelCars listo para entrega en hotel en Agadir",
+    "trustVisualAlt": "Paseo marítimo y ciudad de Agadir - base local AmseelCars"
   },
   "bottomNav": {
     "ariaLabel": "Navegación móvil",

@@ -1081,169 +1081,221 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Car rental Agadir | Free hotel & riad delivery | AmseelCars",
-      "description": "Car rental Agadir with free hotel & riad delivery, fast booking confirmation and cheap car rental in Morocco. SUV / 4x4 for Agadir Beach, Paradise Valley, Imsouane and Souss-Massa. WhatsApp +212 662-500181.",
+      "title": "Car rental Agadir | Hotel delivery & city pickup | AmseelCars",
+      "description": "Rent a car in Agadir with free hotel or riad delivery, clear daily rates, and WhatsApp booking. City cars and SUVs for Agadir Beach, Paradise Valley and day trips. +212 662-500181.",
       "ogTitle": "Car rental Agadir | AmseelCars",
-      "ogDescription": "Free hotel & riad delivery in Agadir, Morocco. Easy online car booking, long-term discounts, SUV / 4x4 for Souss-Massa trips.",
+      "ogDescription": "Local Agadir agency: free hotel delivery, honest rates, WhatsApp confirmation. Ideal for city stays and Souss-Massa trips.",
       "twitterTitle": "Car rental Agadir | AmseelCars",
-      "twitterDescription": "Cheap car rental in Morocco - Agadir city, hotel delivery, fast car pickup. Book WhatsApp."
+      "twitterDescription": "Hotel delivery, city pickup, economy to SUV. Book AmseelCars on WhatsApp."
     },
     "schema": {
-      "name": "Car rental Agadir | Free hotel & riad delivery | AmseelCars",
-      "description": "Car rental Agadir with free hotel & riad delivery across Agadir, Morocco and Souss-Massa. Easy online car booking, fast confirmation, SUV / 4x4 rental for Agadir Beach, Paradise Valley and Imsouane.",
+      "name": "Car rental Agadir | Hotel delivery | AmseelCars",
+      "description": "AmseelCars rents cars in Agadir with free hotel and riad delivery, city pickup, and WhatsApp booking for Agadir Beach, Paradise Valley and Souss-Massa trips.",
       "breadcrumbName": "Car rental Agadir",
       "serviceName": "Car rental Agadir",
-      "serviceDescription": "Car rental Agadir Morocco with free hotel & riad delivery, fast car pickup, long-term discounts, and SUV / 4x4 rental for Souss-Massa National Park, Agadir Beach, Paradise Valley and Imsouane."
+      "serviceDescription": "Car hire in Agadir with hotel/riad delivery, city handover, and SUV options for coastal and inland day trips."
     },
     "hero": {
-      "eyebrow": "Morocco · Souss-Massa",
+      "eyebrow": "Agadir · Morocco",
       "title": "Car rental <muted>Agadir</muted>",
-      "lead": "Car rental Agadir with free hotel & riad delivery, easy online car booking and fast booking confirmation. Cheap car rental in Morocco for Agadir Beach, Paradise Valley, Imsouane and SUV / 4x4 trips across Souss-Massa.",
-      "meta": "Free hotel & riad delivery · fast car pickup · long-term discounts. AGA airport on our airport page.",
-      "imageAlt": "Agadir Beach and city skyline - car rental Agadir with AmseelCars in Morocco, Souss-Massa"
+      "lead": "A local Agadir fleet with free hotel or riad delivery, clear daily prices, and WhatsApp confirmation before you arrive. City cars for the beach and medina - SUVs when you head to Paradise Valley or the coast.",
+      "meta": "Hotel delivery · city pickup · from about €28/day. Airport meet & greet lives on our AGA page.",
+      "imageAlt": "Agadir seafront and city - car rental with AmseelCars"
     },
-    "quickAnswer": "AmseelCars offers car rental Agadir with free hotel & riad delivery, easy online car booking, fast booking confirmation and fast car pickup across Agadir, Morocco and Souss-Massa. Cheap car rental in Morocco with long-term car rental discounts and SUV / 4x4 rental for Agadir Beach, Paradise Valley, Imsouane and Souss-Massa National Park. For AGA airport pickup, use our airport page. WhatsApp +212 662-500181.",
+    "quickAnswer": "AmseelCars is a local car rental agency in Agadir. We deliver to hotels and riads across the city, confirm the car and price on WhatsApp, and keep airport meet & greet on a dedicated AGA page so this page stays focused on city stays. Share dates and your hotel - we reply with availability, a daily rate, and a delivery window.",
     "keyFacts": {
       "title": "At a glance",
       "items": [
         {
           "term": "Who",
-          "value": "AmseelCars - car rental Agadir and cheap car rental in Morocco, Souss-Massa."
+          "value": "AmseelCars - local agency at Immeuble Sinwan, Agadir."
         },
         {
           "term": "Delivery",
-          "value": "Free hotel & riad delivery in Agadir; AGA airport on the airport page."
+          "value": "Free hotel & riad handover in Agadir city and beach hotels."
         },
         {
           "term": "Booking",
-          "value": "Easy online car booking + fast booking confirmation via WhatsApp +212 662-500181."
+          "value": "WhatsApp +212 662-500181 with price confirmed before pickup."
         },
         {
           "term": "Fleet",
-          "value": "City cars to SUV / 4x4 rental - long-term car rental discounts available."
+          "value": "Economy city cars to automatic SUVs for day trips."
         }
       ]
     },
     "relatedPages": {
       "label": "Related pages",
-      "airport": "24/7 airport pickup (AGA)",
-      "taghazout": "Taghazout · Imsouane coast",
-      "contact": "Contact"
+      "airport": "Agadir airport (AGA) pickup",
+      "taghazout": "Taghazout & Imsouane coast",
+      "contact": "Contact",
+      "blog": "Agadir rental guides"
     },
     "operations": {
-      "kicker": "City handovers",
-      "title": "Free hotel & riad delivery in Agadir",
-      "lead": "Fast car pickup and free hotel & riad delivery across Agadir, Morocco - then drive Agadir Beach, Paradise Valley, Imsouane or Souss-Massa National Park with SUV / 4x4 rental when you need it."
+      "kicker": "How city delivery works",
+      "title": "From WhatsApp to keys at your hotel",
+      "lead": "Most guests book from Europe a few days ahead. You message dates and hotel, we lock a car and a delivery slot, then meet you in the lobby or parking with the paperwork ready."
     },
     "aiPanel": {
-      "badge": "AI-ready facts",
-      "title": "What assistants can cite"
+      "badge": "Why travellers pick us",
+      "title": "What to expect with AmseelCars in Agadir"
     },
     "serviceChips": [
-      "Free Hotel & Riad Delivery",
-      "24/7 Airport Pickup",
-      "Easy Online Car Booking",
-      "Fast Booking Confirmation",
-      "Cheap Car Rental in Morocco",
-      "Long-Term Car Rental Discounts",
-      "Fast Car Pickup"
+      "Free hotel delivery",
+      "WhatsApp booking",
+      "Clear daily rates",
+      "City & beach hotels",
+      "SUV day trips",
+      "No surprise fees"
     ],
     "stats": [
       {
         "label": "Delivery",
-        "value": "Hotel + riad",
-        "helper": "Free delivery across Agadir city"
+        "value": "Hotel / riad",
+        "helper": "Across Agadir city & beach"
       },
       {
-        "label": "Fleet",
-        "value": "SUV / 4x4",
-        "helper": "Paradise Valley · Imsouane · Souss-Massa"
+        "label": "Rates from",
+        "value": "€28/day",
+        "helper": "Economy cars, season dependent"
       },
       {
-        "label": "Confirmation",
+        "label": "Reply time",
         "value": "Fast",
-        "helper": "Easy online car booking reply"
+        "helper": "WhatsApp confirmation"
       }
     ],
     "aiHighlights": [
       {
-        "title": "Free hotel & riad delivery",
-        "body": "Car rental Agadir with free hotel & riad delivery and fast car pickup downtown or beachside. 24/7 airport pickup for AGA stays on our airport page."
+        "title": "Hotel-first delivery",
+        "body": "We stage the car at your hotel or riad in Agadir - beach strip, downtown, or Founty - so you skip taxi hops after landing when you already chose city pickup."
       },
       {
-        "title": "SUV / 4x4 for Souss-Massa",
-        "body": "SUV / 4x4 rental for Paradise Valley, Souss-Massa National Park, Imsouane and Agadir Beach day trips - plus city cars for Agadir Morocco stays."
+        "title": "Right car for the trip",
+        "body": "Compact automatics for Agadir Beach and shopping; SUVs when you want Paradise Valley, Imsouane, or rougher Souss-Massa roads."
       },
       {
-        "title": "Easy booking & long-term rates",
-        "body": "Easy online car booking with fast booking confirmation. Cheap car rental in Morocco and long-term car rental discounts for week-plus hires."
+        "title": "Price before you commit",
+        "body": "You get the daily rate, minimum hire length, and delivery window in writing on WhatsApp before we ask for documents."
       }
     ],
     "features": [
       {
-        "title": "Easy online car booking",
-        "description": "Share dates and hotel on WhatsApp for easy online car booking and fast booking confirmation before you arrive in Agadir."
+        "title": "1 · Send dates & hotel",
+        "description": "WhatsApp your arrival day, return day, and hotel name. Mention if you need an automatic or extra luggage space."
       },
       {
-        "title": "Free hotel & riad delivery",
-        "description": "We stage fast car pickup at your hotel or riad across Agadir - Agadir Beach, downtown or coast - with clear timing."
+        "title": "2 · Confirm the car",
+        "description": "We reply with 1–2 options, the daily price, and a delivery window that matches check-in."
       },
       {
-        "title": "Long-term & SUV / 4x4",
-        "description": "Long-term car rental discounts and SUV / 4x4 rental for Paradise Valley, Imsouane and Souss-Massa National Park routes."
+        "title": "3 · Meet at the lobby",
+        "description": "A team member brings the car, walks the walkaround with you, and hands over the keys - usually within the agreed slot."
       }
     ],
+    "deliveryZones": {
+      "kicker": "Where we deliver",
+      "title": "Agadir delivery zones we cover daily",
+      "lead": "Free hotel and riad delivery inside Greater Agadir. If your stay is on the Taghazout coast or at AGA, use the linked pages - those handovers are planned separately.",
+      "items": [
+        {
+          "title": "Agadir Beach & Corniche",
+          "description": "Large beach hotels and seafront residences. Ideal for first-time visitors who want the promenade and restaurants nearby."
+        },
+        {
+          "title": "Downtown · Founty · Marina",
+          "description": "City hotels, apartments, and the marina. Compact cars are easiest for parking and short city hops."
+        },
+        {
+          "title": "Riads & residential districts",
+          "description": "Many riads and private stays in Agadir. Share a pin or Plus Code so we find the entrance the first time."
+        }
+      ]
+    },
+    "pricingGuide": {
+      "kicker": "Indicative pricing",
+      "title": "What car rental in Agadir usually costs",
+      "lead": "Final quotes depend on season, length, and model. These bands match what we typically confirm for city stays of 5+ days.",
+      "items": [
+        {
+          "title": "Economy city cars",
+          "description": "Often from about €28–€45 per day for Clio / Picanto / Logan-class cars - best for hotel-to-beach driving."
+        },
+        {
+          "title": "Compact crossovers",
+          "description": "Typically €50–€80 per day for T-Roc / C3 Aircross-style cars when you want more comfort and boot space."
+        },
+        {
+          "title": "SUVs for day trips",
+          "description": "Usually €90–€140+ per day for Sportage / X3-class SUVs heading to Paradise Valley or longer coastal roads."
+        }
+      ]
+    },
+    "trust": {
+      "title": "Local Agadir agency you can verify",
+      "body": "AmseelCars operates from Immeuble Sinwan in Agadir. You speak with the same team on WhatsApp before and during the rental - not a marketplace middleman.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, ground floor, Agadir 80000, Morocco",
+      "phoneLabel": "Call +212 662 500 181",
+      "whatsappLabel": "WhatsApp booking",
+      "emailLabel": "Email amseelcars5@gmail.com",
+      "contactLabel": "Contact page",
+      "reviewsTitle": "Recent guest feedback"
+    },
     "carsSection": {
-      "kicker": "Featured cars",
-      "title": "Popular car rental Agadir & SUV / 4x4 choices",
-      "lead": "From cheap car rental in Morocco city cars to SUV / 4x4 rental for Paradise Valley and Imsouane - pricing and free hotel delivery details ready before pickup.",
-      "cardImageAlt": "{name} - car rental Agadir, free hotel delivery AmseelCars",
-      "cardImageTitle": "{name} car hire Agadir Morocco - hotel, riad and city pickup",
-      "cardCaption": "Easy online booking, fast confirmation and free hotel & riad delivery."
+      "kicker": "Featured fleet",
+      "title": "Cars guests book for Agadir stays",
+      "lead": "Pick a model for photos and specs. Prices below are typical short-stay daily rates in euro - we confirm the exact quote for your dates.",
+      "cardImageAlt": "{name} for rent in Agadir with AmseelCars",
+      "cardImageTitle": "{name} - hotel delivery car hire Agadir",
+      "cardCaption": "From {price}/day · {seats} seats · hotel delivery"
     },
     "faqKicker": "FAQ",
     "faqTitle": "Car rental Agadir - common questions",
-    "fleetCtaLabel": "Browse full fleet",
-    "carOpenHint": "Open car briefing",
+    "fleetCtaLabel": "Browse the full fleet",
+    "carOpenHint": "View details →",
+    "visualBandCaption": "Agadir seafront - most hotel deliveries are a short drive from the beach strip and downtown.",
     "ctas": {
-      "primary": "Book via WhatsApp",
+      "primary": "Book on WhatsApp",
       "secondary": "View entire fleet",
-      "tertiary": "Email concierge"
+      "tertiary": "Email us"
     },
     "faqs": [
       {
-        "question": "How much does cheap car rental in Morocco cost in Agadir?",
-        "answer": "Rates depend on category, length and season. AmseelCars quotes clear daily prices for car rental Agadir - economy to SUV / 4x4 - with long-term car rental discounts on longer hires. WhatsApp +212 662-500181."
+        "question": "How much does car rental in Agadir cost?",
+        "answer": "Economy cars often start around €28–€45 per day for 5+ days outside peak weeks. SUVs cost more. We send a clear daily total on WhatsApp before you book."
       },
       {
-        "question": "Do you offer free hotel & riad delivery in Agadir?",
-        "answer": "Yes. Free hotel & riad delivery and fast car pickup cover Agadir city, Agadir Beach hotels and many riads. For AGA 24/7 airport pickup, use our dedicated airport page."
+        "question": "Do you deliver to hotels and riads in Agadir?",
+        "answer": "Yes. Free delivery covers most Agadir city and beach hotels plus many riads. Share the property name or a map pin when you message us."
       },
       {
-        "question": "How does easy online car booking work?",
-        "answer": "Message dates, hotel and preferred car for easy online car booking. You get fast booking confirmation with price, delivery window and documents for car hire Agadir Morocco."
+        "question": "Is airport pickup included on this page?",
+        "answer": "This page is for city and hotel delivery. For Agadir Al Massira (AGA) meet & greet, use our airport rental page so timing follows your flight."
       },
       {
-        "question": "Can I get SUV / 4x4 rental for Paradise Valley or Imsouane?",
-        "answer": "Yes. SUV / 4x4 rental suits Paradise Valley, Imsouane, Souss-Massa National Park and rougher Souss-Massa roads. City cars work well for Agadir Beach and downtown."
+        "question": "What is the minimum rental length?",
+        "answer": "We usually work with a 5-day minimum. Ask on WhatsApp if your dates are shorter - availability depends on the season and model."
       },
       {
-        "question": "Where can I drive with car rental Agadir?",
-        "answer": "Explore Agadir, Agadir Beach, Paradise Valley, Imsouane, Taghazout and the wider Souss-Massa region in Morocco. Share your itinerary so we match the right car."
+        "question": "Which car for Paradise Valley or Imsouane?",
+        "answer": "An SUV or higher-clearance crossover is more comfortable for Paradise Valley and some coastal roads. City cars are fine for Agadir Beach and downtown."
       },
       {
-        "question": "Do you offer long-term car rental discounts?",
-        "answer": "Yes. Week-plus and month-style hires often qualify for long-term car rental discounts on car rental Agadir. Ask on WhatsApp for a clear weekly rate."
+        "question": "What documents do I need?",
+        "answer": "A valid driving licence plus passport or national ID. We confirm anything extra (second driver, young driver) during WhatsApp confirmation."
       },
       {
-        "question": "Is 24/7 airport pickup available for AGA?",
-        "answer": "24/7 airport pickup at AGA (Agadir Al Massira) is covered on our airport rental page. This city page focuses on free hotel & riad delivery and fast car pickup in Agadir."
+        "question": "Can I get a long-stay discount?",
+        "answer": "Week-plus and month-style hires often get a better daily rate. Tell us the full length when you enquire."
       },
       {
-        "question": "What documents do I need for car hire Morocco Agadir?",
-        "answer": "Usually a valid driving licence plus ID or passport. We confirm requirements during fast booking confirmation before your Agadir handover."
+        "question": "How fast do you reply on WhatsApp?",
+        "answer": "Most booking messages get a same-day reply with options. Include dates, hotel, and preferred car class to speed things up."
       }
-    ]
+    ],
+    "introVisualAlt": "Kia Sportage from AmseelCars ready for hotel delivery in Agadir",
+    "trustVisualAlt": "Agadir seafront and city - local AmseelCars car rental base"
   },
   "bottomNav": {
     "ariaLabel": "Mobile navigation",

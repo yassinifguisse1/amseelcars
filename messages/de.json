@@ -1081,169 +1081,221 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Mietwagen Agadir | Kostenlose Hotel- & Riad-Lieferung | AmseelCars",
-      "description": "Mietwagen Agadir mit kostenloser Hotel- & Riad-Lieferung, schneller Bestätigung und günstigem Mietwagen in Marokko. SUV / 4x4 für Agadir Strand, Paradise Valley, Imsouane und Souss-Massa. WhatsApp +212 662-500181.",
+      "title": "Mietwagen Agadir | Hotel-Lieferung & Stadt | AmseelCars",
+      "description": "Mietwagen in Agadir mit kostenloser Hotel- oder Riad-Lieferung, klaren Tagespreisen und WhatsApp-Buchung. Stadt- und SUV-Autos für Strand und Ausflüge. +212 662-500181.",
       "ogTitle": "Mietwagen Agadir | AmseelCars",
-      "ogDescription": "Kostenlose Hotel- & Riad-Lieferung in Agadir, Marokko. Einfache Online-Buchung, Langzeit-Rabatte, SUV / 4x4 für Souss-Massa.",
+      "ogDescription": "Lokale Agentur in Agadir: Hotel-Lieferung, ehrliche Preise, WhatsApp-Bestätigung.",
       "twitterTitle": "Mietwagen Agadir | AmseelCars",
-      "twitterDescription": "Günstiger Mietwagen in Marokko - Agadir, Hotelübergabe, schnelle Abholung. WhatsApp."
+      "twitterDescription": "Hotel-Lieferung, Stadtübergabe, Kleinwagen bis SUV. AmseelCars per WhatsApp buchen."
     },
     "schema": {
-      "name": "Mietwagen Agadir | Kostenlose Hotel- & Riad-Lieferung | AmseelCars",
-      "description": "Mietwagen Agadir mit kostenloser Hotel- & Riad-Lieferung in Agadir, Marokko und Souss-Massa. Einfache Online-Buchung, schnelle Bestätigung, SUV-/4x4-Vermietung für Agadir Strand, Paradise Valley und Imsouane.",
+      "name": "Mietwagen Agadir | Hotel-Lieferung | AmseelCars",
+      "description": "AmseelCars vermietet Autos in Agadir mit Hotel-/Riad-Lieferung und WhatsApp-Buchung.",
       "breadcrumbName": "Mietwagen Agadir",
       "serviceName": "Mietwagen Agadir",
-      "serviceDescription": "Mietwagen Agadir Marokko mit kostenloser Hotel- & Riad-Lieferung, schneller Übergabe, Langzeit-Rabatten und SUV-/4x4-Vermietung für Nationalpark Souss-Massa, Agadir Strand, Paradise Valley und Imsouane."
+      "serviceDescription": "Autovermietung in Agadir mit Hotel-Lieferung und SUV-Optionen für Ausflüge."
     },
     "hero": {
-      "eyebrow": "Marokko · Souss-Massa",
+      "eyebrow": "Agadir · Marokko",
       "title": "Mietwagen <muted>Agadir</muted>",
-      "lead": "Mietwagen Agadir mit kostenloser Hotel- & Riad-Lieferung, einfacher Online-Buchung und schneller Buchungsbestätigung. Günstiger Mietwagen in Marokko für Agadir Strand, Paradise Valley, Imsouane und SUV-/4x4-Touren in Souss-Massa.",
-      "meta": "Kostenlose Hotel- & Riad-Lieferung · schnelle Übergabe · Langzeit-Rabatte. Flughafen AGA: eigene Seite.",
-      "imageAlt": "Agadir Strand und Skyline - Mietwagen Agadir AmseelCars, Marokko, Souss-Massa"
+      "lead": "Lokale Flotte in Agadir mit kostenloser Hotel- oder Riad-Lieferung, klaren Tagespreisen und WhatsApp-Bestätigung. Stadtautos für den Strand - SUVs für Paradise Valley oder die Küste.",
+      "meta": "Hotel-Lieferung · Stadtübergabe · ab ca. 28 €/Tag. AGA Meet & Greet auf der Flughafen-Seite.",
+      "imageAlt": "Agadir Strandpromenade - Mietwagen AmseelCars"
     },
-    "quickAnswer": "AmseelCars bietet Mietwagen Agadir mit kostenloser Hotel- & Riad-Lieferung, einfacher Online-Buchung, schneller Bestätigung und schneller Fahrzeugübergabe in Agadir, Marokko und Souss-Massa. Günstiger Mietwagen in Marokko mit Langzeitmietwagen-Rabatten und SUV-/4x4-Vermietung für Agadir Strand, Paradise Valley, Imsouane und Nationalpark Souss-Massa. AGA-Abholung: Flughafenseite. WhatsApp +212 662-500181.",
+    "quickAnswer": "AmseelCars ist eine lokale Autovermietung in Agadir. Wir liefern an Hotels und Riads, bestätigen Auto und Preis per WhatsApp und behandeln den Flughafen AGA auf einer eigenen Seite. Senden Sie Daten und Hotel - wir antworten mit Verfügbarkeit, Preis und Lieferfenster.",
     "keyFacts": {
       "title": "Auf einen Blick",
       "items": [
         {
           "term": "Wer",
-          "value": "AmseelCars - Mietwagen Agadir und günstiger Mietwagen in Marokko, Souss-Massa."
+          "value": "AmseelCars - lokale Agentur, Immeuble Sinwan, Agadir."
         },
         {
           "term": "Lieferung",
-          "value": "Kostenlose Hotel- & Riad-Lieferung in Agadir; Flughafen AGA auf der Flughafenseite."
+          "value": "Kostenlose Hotel- & Riad-Übergabe in Agadir."
         },
         {
           "term": "Buchung",
-          "value": "Einfache Online-Buchung + schnelle Bestätigung per WhatsApp +212 662-500181."
+          "value": "WhatsApp +212 662-500181 mit Preis vor Abholung."
         },
         {
           "term": "Flotte",
-          "value": "Citycars bis SUV-/4x4-Vermietung - Langzeitmietwagen-Rabatte."
+          "value": "Vom Spar-Stadtauto bis Automatik-SUV."
         }
       ]
     },
     "relatedPages": {
       "label": "Verwandte Seiten",
-      "airport": "24/7 Flughafenabholung (AGA)",
-      "taghazout": "Taghazout · Imsouane-Küste",
-      "contact": "Kontakt"
+      "airport": "Flughafen Agadir (AGA)",
+      "taghazout": "Taghazout & Imsouane",
+      "contact": "Kontakt",
+      "blog": "Agadir Mietwagen-Guides"
     },
     "operations": {
-      "kicker": "Stadtübergaben",
-      "title": "Kostenlose Hotel- & Riad-Lieferung in Agadir",
-      "lead": "Schnelle Fahrzeugübergabe und kostenlose Hotel- & Riad-Lieferung in Agadir, Marokko - danach Agadir Strand, Paradise Valley, Imsouane oder Nationalpark Souss-Massa mit SUV-/4x4-Vermietung bei Bedarf."
+      "kicker": "Stadt-Lieferung",
+      "title": "Von WhatsApp zu den Schlüsseln im Hotel",
+      "lead": "Die meisten Gäste buchen aus Europa einige Tage vorher. Sie senden Daten und Hotel; wir reservieren Auto und Slot und treffen Sie in der Lobby."
     },
     "aiPanel": {
-      "badge": "KI-fähige Fakten",
-      "title": "Was Assistenten zitieren können"
+      "badge": "Warum wir",
+      "title": "Was Sie in Agadir erwarten können"
     },
     "serviceChips": [
-      "Kostenlose Hotel- & Riad-Lieferung",
-      "24/7 Flughafenabholung",
-      "Einfache Online-Buchung",
-      "Schnelle Buchungsbestätigung",
-      "Günstiger Mietwagen in Marokko",
-      "Langzeitmietwagen-Rabatte",
-      "Schnelle Fahrzeugübergabe"
+      "Hotel-Lieferung",
+      "WhatsApp-Buchung",
+      "Klare Preise",
+      "Stadt- & Strandhotels",
+      "SUV-Ausflüge",
+      "Keine Überraschungen"
     ],
     "stats": [
       {
         "label": "Lieferung",
-        "value": "Hotel + Riad",
-        "helper": "Kostenlos in Agadir"
+        "value": "Hotel / Riad",
+        "helper": "Agadir Stadt & Strand"
       },
       {
-        "label": "Flotte",
-        "value": "SUV / 4x4",
-        "helper": "Paradise Valley · Imsouane · Souss-Massa"
+        "label": "Ab",
+        "value": "28 €/Tag",
+        "helper": "Kleinwagen, saisonabhängig"
       },
       {
-        "label": "Bestätigung",
+        "label": "Antwort",
         "value": "Schnell",
-        "helper": "Einfache Online-Buchung"
+        "helper": "WhatsApp-Bestätigung"
       }
     ],
     "aiHighlights": [
       {
-        "title": "Kostenlose Hotel- & Riad-Lieferung",
-        "body": "Mietwagen Agadir mit kostenloser Hotel- & Riad-Lieferung und schneller Übergabe in der Stadt oder am Strand. 24/7 Flughafenabholung für AGA: Flughafenseite."
+        "title": "Hotel-Lieferung",
+        "body": "Wir bringen das Auto zu Ihrem Hotel oder Riad in Agadir - Strand, Zentrum oder Founty."
       },
       {
-        "title": "SUV / 4x4 für Souss-Massa",
-        "body": "SUV-/4x4-Vermietung für Paradise Valley, Nationalpark Souss-Massa, Imsouane und Agadir Strand - plus Citycars für Agadir Marokko."
+        "title": "Passendes Auto",
+        "body": "Kompakte Automatik für den Strand; SUV für Paradise Valley oder Imsouane."
       },
       {
-        "title": "Einfache Buchung & Langzeittarife",
-        "body": "Einfache Online-Buchung mit schneller Bestätigung. Günstiger Mietwagen in Marokko und Langzeitmietwagen-Rabatte ab einer Woche."
+        "title": "Preis vor der Zusage",
+        "body": "Tagespreis, Mindestdauer und Lieferfenster schriftlich per WhatsApp."
       }
     ],
     "features": [
       {
-        "title": "Einfache Online-Buchung",
-        "description": "Daten und Hotel per WhatsApp für einfache Online-Buchung und schnelle Bestätigung vor Agadir."
+        "title": "1 · Daten & Hotel",
+        "description": "WhatsApp mit Anreise, Rückgabe und Hotelname."
       },
       {
-        "title": "Kostenlose Hotel- & Riad-Lieferung",
-        "description": "Schnelle Übergabe am Hotel oder Riad in Agadir - Agadir Strand, Innenstadt oder Küste - mit klarem Zeitfenster."
+        "title": "2 · Bestätigung",
+        "description": "1–2 Optionen, Tagespreis und Slot passend zum Check-in."
       },
       {
-        "title": "Langzeit & SUV / 4x4",
-        "description": "Langzeitmietwagen-Rabatte und SUV-/4x4-Vermietung für Paradise Valley, Imsouane und Nationalpark Souss-Massa."
+        "title": "3 · Schlüsselübergabe",
+        "description": "Wir bringen das Auto, prüfen den Zustand mit Ihnen und übergeben die Schlüssel."
       }
     ],
+    "deliveryZones": {
+      "kicker": "Lieferzonen",
+      "title": "Wohin wir in Agadir täglich liefern",
+      "lead": "Kostenlose Hotel-/Riad-Lieferung im Großraum Agadir. Taghazout oder AGA: eigene Seiten nutzen.",
+      "items": [
+        {
+          "title": "Agadir Beach & Corniche",
+          "description": "Große Strandhotels und Meerresidences."
+        },
+        {
+          "title": "Zentrum · Founty · Marina",
+          "description": "Stadthotels, Apartments und Marina."
+        },
+        {
+          "title": "Riads & Wohnviertel",
+          "description": "Viele Riads und private Unterkünfte. Pin schicken."
+        }
+      ]
+    },
+    "pricingGuide": {
+      "kicker": "Richtpreise",
+      "title": "Was Mietwagen in Agadir typisch kostet",
+      "lead": "Endpreise hängen von Saison, Dauer und Modell ab. Spannen für 5+ Tage.",
+      "items": [
+        {
+          "title": "Kleinwagen",
+          "description": "Oft ca. 28–45 €/Tag (Clio / Picanto / Logan)."
+        },
+        {
+          "title": "Crossover",
+          "description": "Typisch 50–80 €/Tag (T-Roc / C3 Aircross)."
+        },
+        {
+          "title": "SUV",
+          "description": "Meist 90–140 €+/Tag (Sportage / X3) für Ausflüge."
+        }
+      ]
+    },
+    "trust": {
+      "title": "Lokale, überprüfbare Agentur",
+      "body": "AmseelCars arbeitet vom Immeuble Sinwan in Agadir. Sie sprechen vor und während der Miete mit demselben Team auf WhatsApp.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, Erdgeschoss, Agadir 80000, Marokko",
+      "phoneLabel": "Anrufen +212 662 500 181",
+      "whatsappLabel": "Per WhatsApp buchen",
+      "emailLabel": "E-Mail amseelcars5@gmail.com",
+      "contactLabel": "Kontaktseite",
+      "reviewsTitle": "Aktuelle Gästestimmen"
+    },
     "carsSection": {
-      "kicker": "Auswahl",
-      "title": "Beliebte Mietwagen Agadir & SUV / 4x4",
-      "lead": "Vom günstigen Mietwagen in Marokko bis SUV / 4x4 für Paradise Valley und Imsouane - Preise und Hotellieferung vor der Abholung bereit.",
-      "cardImageAlt": "{name} - Mietwagen Agadir, Hotelübergabe AmseelCars",
-      "cardImageTitle": "{name} Mietwagen Agadir Marokko - Hotel, Riad und Stadt",
-      "cardCaption": "Einfache Buchung, schnelle Bestätigung und kostenlose Hotel- & Riad-Lieferung."
+      "kicker": "Flotte",
+      "title": "Beliebte Autos für Agadir-Aufenthalte",
+      "lead": "Modell öffnen für Fotos und Daten. Preise in Euro als Orientierung - Exactes Angebot nach Daten.",
+      "cardImageAlt": "{name} zur Miete in Agadir - AmseelCars",
+      "cardImageTitle": "{name} - Hotel-Lieferung Agadir",
+      "cardCaption": "Ab {price}/Tag · {seats} Sitze · Hotel-Lieferung"
     },
     "faqKicker": "FAQ",
     "faqTitle": "Mietwagen Agadir - häufige Fragen",
     "fleetCtaLabel": "Gesamte Flotte ansehen",
-    "carOpenHint": "Fahrzeug öffnen",
+    "carOpenHint": "Details →",
+    "visualBandCaption": "Agadir Strandpromenade - die meisten Hotel-Lieferungen liegen nah am Strand und Zentrum.",
     "ctas": {
       "primary": "Per WhatsApp buchen",
-      "secondary": "Gesamte Flotte ansehen",
-      "tertiary": "E-Mail Concierge"
+      "secondary": "Gesamte Flotte",
+      "tertiary": "E-Mail schreiben"
     },
     "faqs": [
       {
-        "question": "Was kostet günstiger Mietwagen in Marokko in Agadir?",
-        "answer": "Je nach Modell, Dauer und Saison. AmseelCars nennt klare Tagessätze für Mietwagen Agadir - Citycar bis SUV / 4x4 - mit Langzeit-Rabatten. WhatsApp +212 662-500181."
+        "question": "Was kostet ein Mietwagen in Agadir?",
+        "answer": "Kleinwagen oft ca. 28–45 €/Tag bei 5+ Tagen außerhalb der Spitze. SUVs mehr. Klares Angebot per WhatsApp."
       },
       {
-        "question": "Gibt es kostenlose Hotel- & Riad-Lieferung in Agadir?",
-        "answer": "Ja. Kostenlose Hotel- & Riad-Lieferung und schnelle Übergabe decken Agadir, Agadir-Strand-Hotels und viele Riads ab. AGA 24/7: Flughafenseite."
+        "question": "Liefern Sie zu Hotels und Riads?",
+        "answer": "Ja, kostenlose Lieferung zu den meisten Stadt-/Strandhotels und vielen Riads."
       },
       {
-        "question": "Wie funktioniert die einfache Online-Buchung?",
-        "answer": "Senden Sie Daten, Hotel und Wunschauto für einfache Online-Buchung. Sie erhalten schnelle Bestätigung mit Preis, Zeitfenster und Dokumenten."
+        "question": "Ist der Flughafen auf dieser Seite?",
+        "answer": "Diese Seite ist Stadt und Hotel. Für AGA die Flughafen-Seite nutzen."
       },
       {
-        "question": "Kann ich SUV / 4x4 für Paradise Valley oder Imsouane mieten?",
-        "answer": "Ja. SUV-/4x4-Vermietung eignet sich für Paradise Valley, Imsouane, Nationalpark Souss-Massa und Souss-Massa-Straßen. Citycars passen zu Agadir Strand und Downtown."
+        "question": "Mindestdauer?",
+        "answer": "Meist 5 Tage. Kürzer per WhatsApp anfragen."
       },
       {
-        "question": "Wohin kann ich mit Mietwagen Agadir fahren?",
-        "answer": "Agadir, Agadir Strand, Paradise Valley, Imsouane, Taghazout und die Region Souss-Massa in Marokko. Nennen Sie die Route für das passende Auto."
+        "question": "Welches Auto für Paradise Valley?",
+        "answer": "SUV oder Crossover ist komfortabler. Stadtautos reichen für Strand und Zentrum."
       },
       {
-        "question": "Gibt es Langzeitmietwagen-Rabatte?",
-        "answer": "Ja. Ab einer Woche oft Langzeitmietwagen-Rabatte auf Mietwagen Agadir. Fragen Sie den Wochentarif per WhatsApp."
+        "question": "Welche Dokumente?",
+        "answer": "Gültiger Führerschein plus Pass oder Ausweis. Rest per WhatsApp."
       },
       {
-        "question": "Gibt es 24/7 Flughafenabholung für AGA?",
-        "answer": "24/7 Flughafenabholung an AGA (Agadir Al Massira) steht auf unserer Flughafenseite. Diese Stadtseite deckt Hotel- & Riad-Lieferung und schnelle Übergabe in Agadir ab."
+        "question": "Langzeitrabatt?",
+        "answer": "Ab einer Woche oft besserer Tagespreis."
       },
       {
-        "question": "Welche Dokumente brauche ich für Mietwagen Agadir Marokko?",
-        "answer": "Gültiger Führerschein plus Ausweis oder Reisepass. Wir bestätigen das bei der schnellen Buchungsbestätigung vor der Übergabe."
+        "question": "Antwortzeit WhatsApp?",
+        "answer": "Meist am selben Tag, wenn Daten, Hotel und Autoklasse dabei sind."
       }
-    ]
+    ],
+    "introVisualAlt": "Kia Sportage von AmseelCars bereit zur Hotel-Lieferung in Agadir",
+    "trustVisualAlt": "Agadir Strand und Stadt - lokale AmseelCars Mietwagenbasis"
   },
   "bottomNav": {
     "ariaLabel": "Mobile Navigation",

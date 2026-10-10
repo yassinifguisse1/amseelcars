@@ -21,6 +21,9 @@ import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 import { BUSINESS_MAILTO } from "@/lib/business";
+import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
+import { reviews } from "@/data/reviews";
+import { blogIndexPath } from "@/lib/seo/blog-paths";
 
 type FaqContent = {
   question: string;
@@ -46,6 +49,13 @@ type HighlightContent = {
 type FeatureContent = {
   title: string;
   description: string;
+};
+
+type GuideBlockContent = {
+  kicker: string;
+  title: string;
+  lead: string;
+  items: FeatureContent[];
 };
 
 export async function generateMetadata({
@@ -84,6 +94,7 @@ export default async function LocationVoitureAgadirPage() {
   const l = toAppLocale(locale);
   const t = await getTranslations({ locale: l, namespace: "locationAgadirPage" });
   const tNav = await getTranslations({ locale: l, namespace: "nav" });
+  const tFooter = await getTranslations({ locale: l, namespace: "footer" });
 
   const faqs = t.raw("faqs") as FaqContent[];
   const keyFacts = t.raw("keyFacts.items") as KeyFactContent[];
@@ -91,16 +102,27 @@ export default async function LocationVoitureAgadirPage() {
   const aiHighlights = t.raw("aiHighlights") as HighlightContent[];
   const features = t.raw("features") as FeatureContent[];
   const serviceChips = t.raw("serviceChips") as string[];
+  const deliveryZones = t.raw("deliveryZones") as GuideBlockContent;
+  const pricingGuide = t.raw("pricingGuide") as GuideBlockContent;
   const path = getPathname({ locale: l, href: "/location-voiture-agadir" });
   const inLanguage = localeToLanguageTag(l);
   const homePath = getPathname({ locale: l, href: "/" });
   const carsPath = getPathname({ locale: l, href: "/cars" });
+  const contactPath = getPathname({ locale: l, href: "/contact" });
   const fleetHref = carsPath;
+  const waPrefill = encodeURIComponent(tFooter("whatsappPrefill"));
   const relatedPages = [
     { label: t("relatedPages.airport"), href: getPathname({ locale: l, href: "/agadir-airport-car-rental" }) },
     { label: t("relatedPages.taghazout"), href: getPathname({ locale: l, href: "/taghazout-car-rental" }) },
-    { label: t("relatedPages.contact"), href: getPathname({ locale: l, href: "/contact" }) },
+    { label: t("relatedPages.blog"), href: blogIndexPath(l) },
+    { label: t("relatedPages.contact"), href: contactPath },
   ];
+
+  const featuredReviews = reviews.slice(0, 2).map((r) => ({
+    author: r.author.name,
+    body: r.reviewBody.length > 180 ? `${r.reviewBody.slice(0, 177).trim()}…` : r.reviewBody,
+    rating: r.rating,
+  }));
 
   const structuredData = generateLocalSeoLandingGraphSchema({
     path,
@@ -127,12 +149,16 @@ export default async function LocationVoitureAgadirPage() {
         locale: l,
         href: carBrandScopedHref(car.brand, localizedSlug),
       });
+      const dailyEur = convertCarPrice(car.pricing?.shortTerm ?? car.pricePerDay, "EUR");
       return {
         name: c.carName,
         image: c.carImage,
         imageAlt: t("carsSection.cardImageAlt", { name: c.carName }),
         imageTitle: t("carsSection.cardImageTitle", { name: c.carName }),
-        imageCaption: t("carsSection.cardCaption"),
+        imageCaption: t("carsSection.cardCaption", {
+          price: formatCarPriceLabel(dailyEur, "EUR"),
+          seats: car.seats,
+        }),
         href,
         badge: `${car.brand} ${car.model}`,
       };
@@ -179,28 +205,54 @@ export default async function LocationVoitureAgadirPage() {
           src: "/images/agadir-city-hero.webp",
           alt: t("hero.imageAlt"),
         }}
+        visualBand={{
+          src: "/images/airport-flight-band-agadir.webp",
+          alt: t("hero.imageAlt"),
+          caption: t("visualBandCaption"),
+        }}
+        introVisual={{
+          src: "/images/Kia-sportage-gris-clair-face-card-amseel-agadir.webp",
+          alt: t("introVisualAlt"),
+        }}
+        trustVisual={{
+          src: "/images/agadir-city-hero.webp",
+          alt: t("trustVisualAlt"),
+        }}
         quickAnswer={t("quickAnswer")}
         keyFactsTitle={t("keyFacts.title")}
         keyFacts={keyFacts}
         relatedPagesLabel={t("relatedPages.label")}
         relatedPages={relatedPages}
-        operationsSection={
-          {
-            kicker: t("operations.kicker"),
-            title: t("operations.title"),
-            lead: t("operations.lead"),
-          }
-        }
-        aiPanel={
-          {
-            badge: t("aiPanel.badge"),
-            title: t("aiPanel.title"),
-          }
-        }
+        operationsSection={{
+          kicker: t("operations.kicker"),
+          title: t("operations.title"),
+          lead: t("operations.lead"),
+        }}
+        aiPanel={{
+          badge: t("aiPanel.badge"),
+          title: t("aiPanel.title"),
+        }}
         serviceChips={serviceChips}
         stats={stats}
         aiHighlights={aiHighlights}
         features={features}
+        guideSections={[deliveryZones, pricingGuide]}
+        trustSection={{
+          title: t("trust.title"),
+          body: t("trust.body"),
+          company: t("trust.company"),
+          address: t("trust.address"),
+          phoneLabel: t("trust.phoneLabel"),
+          phoneHref: "tel:+212662500181",
+          whatsappLabel: t("trust.whatsappLabel"),
+          whatsappHref: `https://wa.me/212662500181/?text=${waPrefill}`,
+          emailLabel: t("trust.emailLabel"),
+          emailHref: BUSINESS_MAILTO,
+          contactLabel: t("trust.contactLabel"),
+          contactHref: contactPath,
+          reviewsTitle: t("trust.reviewsTitle"),
+          reviews: featuredReviews,
+        }}
         carsSection={{
           kicker: t("carsSection.kicker"),
           title: t("carsSection.title"),
