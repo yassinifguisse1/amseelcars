@@ -43,10 +43,45 @@ export async function POST(request: NextRequest) {
       carPrice,
       rentalDays,
       totalPrice,
+      addonsTotal,
+      addons,
       currency: currencyRaw,
       website,
       formOpenedAt,
     } = body;
+
+    const addonLabels: Record<string, string> = {
+      'full-insurance': 'Assurance complète',
+      'extra-child-seat': 'Siège enfant supplémentaire',
+      'additional-driver': 'Conducteur supplémentaire (gratuit)',
+      'surfboard-roof-racks': 'Barres de toit / planche de surf',
+      'child-seat': 'Siège enfant',
+      'rooftop-cargo': 'Coffre de toit',
+    };
+
+    const addonsList = Array.isArray(addons)
+      ? addons
+          .filter(
+            (item: unknown): item is { id: string; quantity: number; priceEur?: number } =>
+              !!item &&
+              typeof item === 'object' &&
+              typeof (item as { id?: unknown }).id === 'string' &&
+              typeof (item as { quantity?: unknown }).quantity === 'number' &&
+              (item as { quantity: number }).quantity > 0,
+          )
+          .slice(0, 8)
+      : [];
+
+    const addonsHtml =
+      addonsList.length > 0
+        ? `<ul style="margin: 8px 0 0 18px; padding: 0;">${addonsList
+            .map((item) => {
+              const label = escapeHtml(addonLabels[item.id] || item.id);
+              const qty = escapeHtml(String(Math.min(99, Math.floor(item.quantity))));
+              return `<li>${label} × ${qty}</li>`;
+            })
+            .join('')}</ul>`
+        : '<p style="margin: 8px 0 0 0;">Aucun</p>';
 
     const currencySymbol =
       currencyRaw === 'USD' || currencyRaw === '$'
@@ -168,6 +203,13 @@ export async function POST(request: NextRequest) {
               <p><strong>Car:</strong> ${safe.carName}</p>
               <p><strong>Price par jour:</strong>${safe.carPrice} ${currencySymbol}</p>
               <p><strong>Durée de location:</strong> ${safe.rentalDays} jour${Number(rentalDays) > 1 ? 's' : ''}</p>
+              <p><strong>Options:</strong></p>
+              ${addonsHtml}
+              ${
+                Number(addonsTotal) > 0
+                  ? `<p><strong>Total options:</strong> ${escapeHtml(String(addonsTotal))} ${currencySymbol}</p>`
+                  : ''
+              }
               <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${safe.totalPrice} ${currencySymbol}</span></p>
             </div>
 
@@ -214,6 +256,8 @@ export async function POST(request: NextRequest) {
               <p><strong>Car:</strong> ${safe.carName}</p>
               <p><strong>Date de retrait:</strong> ${safe.pickupDate}${pickupTime ? ` à ${safe.pickupTime}` : ''}</p>
               <p><strong>Date de retour:</strong> ${safe.returnDate}${returnTime ? ` à ${safe.returnTime}` : ''}</p>
+              <p><strong>Options:</strong></p>
+              ${addonsHtml}
               <p><strong>Total Price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${safe.totalPrice} ${currencySymbol}</span></p>
               <p><strong>Lieu de retrait:</strong> ${safe.pickupLocation}</p>
               <p><strong>Lieu de retour:</strong> ${safe.returnLocation}</p>

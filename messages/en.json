@@ -518,7 +518,51 @@
     "pickupTime": "Pick-up time *",
     "returnTime": "Return time *",
     "errPickupTime": "Please select a pick-up time",
-    "errReturnTime": "Please select a return time"
+    "errReturnTime": "Please select a return time",
+    "addons": {
+      "title": "Add-ons",
+      "moreInfo": "More information",
+      "moreInfoAria": "More information about {name}",
+      "closeInfoAria": "Close information",
+      "priceFree": "Free",
+      "pricePerDay": "{price}/day",
+      "pricePerItem": "{price}",
+      "max": "(Max {max})",
+      "increaseAria": "Add {name}",
+      "decreaseAria": "Remove {name}",
+      "items": {
+        "fullInsurance": {
+          "title": "Full Insurance",
+          "shortTitle": "Insurance",
+          "description": "Optional daily cover that reduces your excess. Exact inclusions, exclusions, and conditions are confirmed on WhatsApp before pickup."
+        },
+        "extraChildSeat": {
+          "title": "Extra Child Seat",
+          "shortTitle": "Extra seat",
+          "description": "An additional child seat for a second child. Subject to availability; tell us ages and weights on WhatsApp."
+        },
+        "additionalDriver": {
+          "title": "Free Additional Driver",
+          "shortTitle": "Extra driver",
+          "description": "Add one extra licensed driver to the rental agreement at no charge. Documents are checked at pickup."
+        },
+        "surfboardRoofRacks": {
+          "title": "Surfboard Roof Racks",
+          "shortTitle": "Roof racks",
+          "description": "Roof racks to carry surfboards securely between spots. Subject to availability for your car model."
+        },
+        "childSeat": {
+          "title": "Child Seat",
+          "shortTitle": "Child seat",
+          "description": "A child seat for safer travel with young passengers. Subject to availability; confirm age and weight on WhatsApp."
+        },
+        "rooftopCargo": {
+          "title": "Rooftop Cargo",
+          "shortTitle": "Cargo box",
+          "description": "Need extra space for luggage? Add a roof top cargo box — useful for family trips, longer journeys, surf gear, and extra bags. Subject to availability for your car model."
+        }
+      }
+    }
   },
   "contactPage": {
     "hero": {

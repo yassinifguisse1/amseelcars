@@ -18,6 +18,13 @@ import { BookingFormDateField } from './BookingFormDateField';
 import { BOOKING_TIME_SLOTS } from '@/lib/bookingLocations';
 import { parseBookingSearchParams } from '@/lib/bookingSearchParams';
 import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
+import {
+  addonSelectionTotal,
+  emptyAddonSelection,
+  selectedAddonsList,
+  type BookingAddonSelection,
+} from '@/lib/bookingAddons';
+import { BookingAddons } from './BookingAddons';
 
 type BookingFormData = {
   fullName: string;
@@ -131,6 +138,9 @@ export default function BookingDialog({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [honeypotWebsite, setHoneypotWebsite] = useState('');
+  const [addonSelection, setAddonSelection] = useState<BookingAddonSelection>(() =>
+    emptyAddonSelection(),
+  );
   const contentRef = useRef<HTMLDivElement>(null);
   const formOpenedAtRef = useRef(Date.now());
 
@@ -138,6 +148,7 @@ export default function BookingDialog({
     if (inline || isOpen) {
       formOpenedAtRef.current = Date.now();
       setHoneypotWebsite('');
+      setAddonSelection(emptyAddonSelection());
     }
   }, [inline, isOpen, carName]);
 
@@ -232,7 +243,9 @@ export default function BookingDialog({
     const path = typeof window !== 'undefined' ? window.location.pathname : '/';
     markSubmitted();
     const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
-    const totalPrice = rentalDays * pricePerDay;
+    const addons = selectedAddonsList(addonSelection);
+    const addonsTotal = addonSelectionTotal(addonSelection, currency, rentalDays);
+    const totalPrice = rentalDays * pricePerDay + addonsTotal;
     trackEvent({
       event: 'booking-submit',
       path,
@@ -247,6 +260,7 @@ export default function BookingDialog({
       returnLocation: data.returnLocation,
       rentalDays,
       totalPrice,
+      metadata: { addons: addons.map((a) => `${a.id}:${a.quantity}`).join(',') },
     });
 
     try {
@@ -261,6 +275,8 @@ export default function BookingDialog({
           carPrice: pricePerDay,
           rentalDays,
           totalPrice,
+          addonsTotal,
+          addons,
           currency,
           website: honeypotWebsite,
           formOpenedAt: formOpenedAtRef.current,
@@ -282,6 +298,7 @@ export default function BookingDialog({
           returnLocation: data.returnLocation,
           rentalDays,
           totalPrice,
+          metadata: { addons: addons.map((a) => `${a.id}:${a.quantity}`).join(',') },
         });
         track('Booking Confirmed', {
           car: carName,
@@ -291,6 +308,7 @@ export default function BookingDialog({
         });
         setSubmitStatus('success');
         reset();
+        setAddonSelection(emptyAddonSelection());
         // Auto close after 3 seconds only when in modal mode
         if (!inline) {
           setTimeout(() => {
@@ -331,6 +349,7 @@ export default function BookingDialog({
       onClose?.();
       setSubmitStatus('idle');
       reset();
+      setAddonSelection(emptyAddonSelection());
     }
   };
 
@@ -542,16 +561,16 @@ export default function BookingDialog({
                         {t('sectionPersonal')}
                       </h3>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                        <div className="sm:col-span-2">
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Nom complet *
+                            {t('fullName')}
                           </label>
                           <input
                             {...register('fullName')}
                             type="text"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Entrez votre nom complet"
+                            className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EC1C25]/40 focus:border-[#EC1C25] sm:py-2"
+                            placeholder={t('placeholderName')}
                           />
                           {errors.fullName && (
                             <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
@@ -565,7 +584,7 @@ export default function BookingDialog({
                           <input
                             {...register('email')}
                             type="email"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EC1C25]/40 focus:border-[#EC1C25] sm:py-2"
                             placeholder={t('placeholderEmail')}
                           />
                           {errors.email && (
@@ -580,15 +599,20 @@ export default function BookingDialog({
                           <input
                             {...register('phone')}
                             type="tel"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EC1C25]/40 focus:border-[#EC1C25] sm:py-2"
                             placeholder={t('placeholderPhone')}
                           />
                           {errors.phone && (
                             <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
                           )}
                         </div>
-
                       </div>
+
+                      <BookingAddons
+                        selection={addonSelection}
+                        onChange={setAddonSelection}
+                        currency={currency}
+                      />
                     </div>
 
                     {/* Rental Summary */}

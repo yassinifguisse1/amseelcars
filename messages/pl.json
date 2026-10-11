@@ -518,7 +518,51 @@
     "pickupTime": "Godzina odbioru *",
     "returnTime": "Godzina zwrotu *",
     "errPickupTime": "Wybierz godzinę odbioru",
-    "errReturnTime": "Wybierz godzinę zwrotu"
+    "errReturnTime": "Wybierz godzinę zwrotu",
+    "addons": {
+      "title": "Dodatki",
+      "moreInfo": "Więcej informacji",
+      "moreInfoAria": "Więcej informacji o {name}",
+      "closeInfoAria": "Zamknij informacje",
+      "priceFree": "Gratis",
+      "pricePerDay": "{price}/dzień",
+      "pricePerItem": "{price}",
+      "max": "(Maks {max})",
+      "increaseAria": "Dodaj {name}",
+      "decreaseAria": "Usuń {name}",
+      "items": {
+        "fullInsurance": {
+          "title": "Pełne ubezpieczenie",
+          "shortTitle": "Ubezpieczenie",
+          "description": "Opcjonalna dzienna ochrona obniżająca udział własny. Dokładny zakres, wyłączenia i warunki potwierdzamy na WhatsApp przed odbiorem."
+        },
+        "extraChildSeat": {
+          "title": "Dodatkowy fotelik dziecięcy",
+          "shortTitle": "Fotelik +",
+          "description": "Dodatkowy fotelik dla drugiego dziecka. Zależnie od dostępności; podaj wiek i wagę na WhatsApp."
+        },
+        "additionalDriver": {
+          "title": "Darmowy dodatkowy kierowca",
+          "shortTitle": "2. kierowca",
+          "description": "Dodaj jednego dodatkowego kierowcę z prawem jazdy do umowy bez opłat. Dokumenty sprawdzamy przy odbiorze."
+        },
+        "surfboardRoofRacks": {
+          "title": "Bagażnik dachowy / deski surfingowe",
+          "shortTitle": "Bagażnik",
+          "description": "Bagażnik dachowy do bezpiecznego przewozu desek. Zależnie od dostępności i modelu auta."
+        },
+        "childSeat": {
+          "title": "Fotelik dziecięcy",
+          "shortTitle": "Fotelik",
+          "description": "Fotelik dla bezpieczniejszej jazdy z dzieckiem. Zależnie od dostępności; potwierdź wiek i wagę na WhatsApp."
+        },
+        "rooftopCargo": {
+          "title": "Box dachowy",
+          "shortTitle": "Box dachowy",
+          "description": "Potrzebujesz więcej miejsca na bagaż? Dodaj box dachowy — przydatny dla rodzin, dłuższych tras, sprzętu surfingowego i dodatkowych toreb. Zależnie od dostępności i modelu auta."
+        }
+      }
+    }
   },
   "contactPage": {
     "hero": {

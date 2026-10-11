@@ -518,7 +518,51 @@
     "pickupTime": "Abholzeit *",
     "returnTime": "Rückgabezeit *",
     "errPickupTime": "Bitte Abholzeit wählen",
-    "errReturnTime": "Bitte Rückgabezeit wählen"
+    "errReturnTime": "Bitte Rückgabezeit wählen",
+    "addons": {
+      "title": "Extras",
+      "moreInfo": "Mehr Infos",
+      "moreInfoAria": "Mehr Infos zu {name}",
+      "closeInfoAria": "Info schließen",
+      "priceFree": "Gratis",
+      "pricePerDay": "{price}/Tag",
+      "pricePerItem": "{price}",
+      "max": "(Max {max})",
+      "increaseAria": "{name} hinzufügen",
+      "decreaseAria": "{name} entfernen",
+      "items": {
+        "fullInsurance": {
+          "title": "Vollversicherung",
+          "shortTitle": "Versicherung",
+          "description": "Optionale Tagesdeckung, die den Selbstbehalt senkt. Genaue Leistungen, Ausschlüsse und Bedingungen werden vor Abholung per WhatsApp bestätigt."
+        },
+        "extraChildSeat": {
+          "title": "Zusätzlicher Kindersitz",
+          "shortTitle": "Sitz +",
+          "description": "Ein weiterer Kindersitz für ein zweites Kind. Nach Verfügbarkeit; Alter und Gewicht per WhatsApp angeben."
+        },
+        "additionalDriver": {
+          "title": "Kostenloser zusätzlicher Fahrer",
+          "shortTitle": "2. Fahrer",
+          "description": "Einen weiteren führerscheininhabenden Fahrer kostenlos in den Vertrag aufnehmen. Unterlagen werden bei der Übergabe geprüft."
+        },
+        "surfboardRoofRacks": {
+          "title": "Surfbrett-Dachträger",
+          "shortTitle": "Dachträger",
+          "description": "Dachträger zum sicheren Transport von Surfbrettern. Nach Verfügbarkeit und Fahrzeugmodell."
+        },
+        "childSeat": {
+          "title": "Kindersitz",
+          "shortTitle": "Kindersitz",
+          "description": "Kindersitz für sichereres Reisen mit Kindern. Nach Verfügbarkeit; Alter und Gewicht per WhatsApp bestätigen."
+        },
+        "rooftopCargo": {
+          "title": "Dachbox",
+          "shortTitle": "Dachbox",
+          "description": "Mehr Platz für Gepäck? Eine Dachbox ist praktisch für Familien, längere Fahrten, Surfausrüstung und Extra-Taschen. Nach Verfügbarkeit und Fahrzeugmodell."
+        }
+      }
+    }
   },
   "contactPage": {
     "hero": {

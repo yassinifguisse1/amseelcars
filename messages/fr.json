@@ -518,7 +518,51 @@
     "pickupTime": "Heure de récupération *",
     "returnTime": "Heure de retour *",
     "errPickupTime": "Veuillez sélectionner l’heure de récupération",
-    "errReturnTime": "Veuillez sélectionner l’heure de retour"
+    "errReturnTime": "Veuillez sélectionner l’heure de retour",
+    "addons": {
+      "title": "Options",
+      "moreInfo": "Plus d'informations",
+      "moreInfoAria": "Plus d'informations sur {name}",
+      "closeInfoAria": "Fermer les informations",
+      "priceFree": "Gratuit",
+      "pricePerDay": "{price}/jour",
+      "pricePerItem": "{price}",
+      "max": "(Max {max})",
+      "increaseAria": "Ajouter {name}",
+      "decreaseAria": "Retirer {name}",
+      "items": {
+        "fullInsurance": {
+          "title": "Assurance complète",
+          "shortTitle": "Assurance",
+          "description": "Couverture journalière optionnelle qui réduit la franchise. Inclusions, exclusions et conditions exactes confirmées sur WhatsApp avant la prise en charge."
+        },
+        "extraChildSeat": {
+          "title": "Siège enfant supplémentaire",
+          "shortTitle": "Siège +",
+          "description": "Un siège enfant en plus pour un second enfant. Sous réserve de disponibilité ; indiquez âges et poids sur WhatsApp."
+        },
+        "additionalDriver": {
+          "title": "Conducteur supplémentaire gratuit",
+          "shortTitle": "2e conducteur",
+          "description": "Ajoutez un conducteur supplémentaire titulaire du permis au contrat, sans frais. Documents vérifiés à la prise en charge."
+        },
+        "surfboardRoofRacks": {
+          "title": "Barres de toit / planche de surf",
+          "shortTitle": "Barres toit",
+          "description": "Barres de toit pour transporter des planches de surf en sécurité. Sous réserve de disponibilité selon le modèle."
+        },
+        "childSeat": {
+          "title": "Siège enfant",
+          "shortTitle": "Siège bébé",
+          "description": "Siège enfant pour voyager plus sereinement avec un jeune passager. Sous réserve de disponibilité ; confirmez âge et poids sur WhatsApp."
+        },
+        "rooftopCargo": {
+          "title": "Coffre de toit",
+          "shortTitle": "Coffre toit",
+          "description": "Besoin de plus d’espace bagages ? Ajoutez un coffre de toit — pratique pour les familles, les longs trajets, le matos de surf et les sacs en plus. Sous réserve de disponibilité selon le modèle."
+        }
+      }
+    }
   },
   "contactPage": {
     "hero": {

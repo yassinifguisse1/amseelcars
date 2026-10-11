@@ -518,7 +518,51 @@
     "pickupTime": "Hora de recogida *",
     "returnTime": "Hora de devolución *",
     "errPickupTime": "Seleccione la hora de recogida",
-    "errReturnTime": "Seleccione la hora de devolución"
+    "errReturnTime": "Seleccione la hora de devolución",
+    "addons": {
+      "title": "Extras",
+      "moreInfo": "Más información",
+      "moreInfoAria": "Más información sobre {name}",
+      "closeInfoAria": "Cerrar información",
+      "priceFree": "Gratis",
+      "pricePerDay": "{price}/día",
+      "pricePerItem": "{price}",
+      "max": "(Máx {max})",
+      "increaseAria": "Añadir {name}",
+      "decreaseAria": "Quitar {name}",
+      "items": {
+        "fullInsurance": {
+          "title": "Seguro completo",
+          "shortTitle": "Seguro",
+          "description": "Cobertura diaria opcional que reduce la franquicia. Inclusiones, exclusiones y condiciones exactas se confirman por WhatsApp antes de la entrega."
+        },
+        "extraChildSeat": {
+          "title": "Silla infantil extra",
+          "shortTitle": "Silla +",
+          "description": "Una silla adicional para un segundo niño. Sujeto a disponibilidad; indícanos edades y pesos por WhatsApp."
+        },
+        "additionalDriver": {
+          "title": "Conductor adicional gratis",
+          "shortTitle": "2.º conductor",
+          "description": "Añade un conductor extra con permiso al contrato sin coste. Documentos comprobados en la entrega."
+        },
+        "surfboardRoofRacks": {
+          "title": "Baca / tablas de surf",
+          "shortTitle": "Baca",
+          "description": "Baca para llevar tablas de surf con seguridad. Sujeto a disponibilidad según el modelo."
+        },
+        "childSeat": {
+          "title": "Silla infantil",
+          "shortTitle": "Silla bebé",
+          "description": "Silla infantil para viajar más seguros con un niño. Sujeto a disponibilidad; confirma edad y peso por WhatsApp."
+        },
+        "rooftopCargo": {
+          "title": "Cofre de techo",
+          "shortTitle": "Cofre",
+          "description": "¿Necesitas más espacio? Añade un cofre de techo — útil para familias, viajes largos, material de surf y maletas extra. Sujeto a disponibilidad según el modelo."
+        }
+      }
+    }
   },
   "contactPage": {
     "hero": {
