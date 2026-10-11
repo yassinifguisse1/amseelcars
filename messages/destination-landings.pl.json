@@ -1,12 +1,12 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Wynajem auta lotnisko Agadir | Odbór AGA | AmseelCars",
-      "description": "Wynajmij auto na lotnisku Agadir Al Massira (AGA) z meet & greet pod lot, jasnymi stawkami w euro i rezerwacją WhatsApp. Odbiór i zwrot na lotnisku. +212 662 500 181.",
+      "title": "Wynajem lotnisko Agadir | Bez kaucji · AGA | AmseelCars",
+      "description": "Wynajem na lotnisku Agadir Al Massira (AGA): meet & greet, bez kaucji, od ~25 €/dzień. WhatsApp. +212 662 500 181.",
       "ogTitle": "Wynajem lotnisko Agadir | AmseelCars",
-      "ogDescription": "Meet & greet AGA, sync lotu, uczciwe stawki. Zarezerwuj AmseelCars na WhatsApp przed lądowaniem.",
+      "ogDescription": "Meet & greet AGA, bez kaucji, jasne ceny.",
       "twitterTitle": "Wynajem lotnisko Agadir | AmseelCars",
-      "twitterDescription": "Meet & greet na Al Massira (AGA). Jasne ceny. WhatsApp."
+      "twitterDescription": "AGA · bez kaucji · od ~25 €/dzień."
     },
     "schema": {
       "name": "Wynajem auta lotnisko Agadir | Odbór AGA | AmseelCars",
@@ -18,8 +18,8 @@
     "hero": {
       "eyebrow": "Al Massira (AGA)",
       "title": "Wynajem auta <muted>lotnisko Agadir</muted>",
-      "lead": "Meet & greet pod Twój lot w Al Massira, jasne stawki dzienne i aktualizacje WhatsApp przy zmianie lądowania. Bez kolejki przy ladzie - auto czeka.",
-      "meta": "Odbiór AGA · zwrot na lotnisku · od ok. 28 €/dzień. Dostawa do hotelu jest na stronie miasta.",
+      "lead": "Meet & greet zsynchronizowany z lotem w Al Massira, bez kaucji, od ~25 €/dzień. Aktualizacje WhatsApp przy opóźnieniu.",
+      "meta": "Odbiór AGA · od ~25 €/dzień · bez kaucji. Dostawa hotel → strona miasta.",
       "imageAlt": "Lotnisko Agadir Al Massira (AGA) - wynajem AmseelCars"
     },
     "quickAnswer": "AmseelCars odbiera Cię na lotnisku Agadir Al Massira (AGA). Wyślij numer lotu, daty i typ auta na WhatsApp - potwierdzimy punkt spotkania, pojazd i stawkę przed lądowaniem. Spóźnione przyloty możliwe przy wcześniejszej rezerwacji. Na dostawę do hotelu w mieście użyj strony Agadir.",
@@ -61,12 +61,12 @@
       "title": "Czego się spodziewać na lotnisku Agadir"
     },
     "serviceChips": [
-      "Meet & greet pod lot",
-      "Rezerwacja WhatsApp",
-      "Jasne stawki dzienne",
-      "Późne przyloty",
-      "Zwrot na lotnisku",
-      "Bez kolejki przy ladzie"
+      "Bez kaucji",
+      "Meet & greet AGA",
+      "Sync lotu",
+      "Od ~25 €/dzień",
+      "WhatsApp 24/7",
+      "Zwrot na lotnisku"
     ],
     "stats": [
       {

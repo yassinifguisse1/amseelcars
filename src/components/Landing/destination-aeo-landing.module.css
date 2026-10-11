@@ -215,6 +215,16 @@
   text-align: left;
 }
 
+.heroReview {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1.1rem;
+}
+
+.heroWithBooking .heroReview {
+  justify-content: center;
+}
+
 .heroBooking {
   position: absolute;
   z-index: 3;

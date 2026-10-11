@@ -66,6 +66,14 @@ export const BUSINESS_PLUS_CODE = "CC2C+8X Agadir";
 /** Places API / Maps place_id for Amseel Cars GBP */
 export const BUSINESS_GOOGLE_PLACE_ID = "ChIJ6UYIlG63sw0Rkl2swhA3p08";
 
+/**
+ * Live Google Business Profile rating panel (Maps).
+ * Update when the GBP count/rating moves materially — do not use the
+ * curated `src/data/reviews.ts` sample length for public proof.
+ */
+export const BUSINESS_GOOGLE_RATING = 5;
+export const BUSINESS_GOOGLE_REVIEW_COUNT = 262;
+
 /** Google Maps feature cid (from 0x4fa73710c2ac5d92 in the place URL) */
 export const BUSINESS_GOOGLE_MAPS_CID = "5739616795232066962";
 

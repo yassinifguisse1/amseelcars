@@ -145,7 +145,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
         carName: car.carName,
       })
       const daily = convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')
-      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatCarPriceLabel(daily, 'EUR')}/jour (minimum 5 jours). Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
+      const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatCarPriceLabel(daily, 'EUR')}/jour (minimum 3 jours). Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL
       const encodedMessage = encodeURIComponent(message);

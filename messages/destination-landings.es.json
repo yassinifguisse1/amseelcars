@@ -1,12 +1,12 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Alquiler de coches aeropuerto Agadir | Recogida AGA | AmseelCars",
-      "description": "Alquila un coche en el aeropuerto Agadir Al Massira (AGA) con meet & greet según tu vuelo, tarifas claras en euros y reserva por WhatsApp. Recogida y devolución en el aeropuerto. +212 662 500 181.",
+      "title": "Alquiler coches aeropuerto Agadir | Sin depósito · AGA | AmseelCars",
+      "description": "Alquiler en aeropuerto Agadir Al Massira (AGA): meet & greet, sin depósito, desde ~25 €/día. WhatsApp. +212 662 500 181.",
       "ogTitle": "Alquiler aeropuerto Agadir | AmseelCars",
-      "ogDescription": "Meet & greet en AGA, sync de vuelo, tarifas claras. Reserva AmseelCars por WhatsApp antes de aterrizar.",
+      "ogDescription": "Meet & greet AGA, sin depósito, tarifas claras.",
       "twitterTitle": "Alquiler aeropuerto Agadir | AmseelCars",
-      "twitterDescription": "Meet & greet en Al Massira (AGA). Precios claros. WhatsApp."
+      "twitterDescription": "AGA · sin depósito · desde ~25 €/día."
     },
     "schema": {
       "name": "Alquiler de coches aeropuerto Agadir | Recogida AGA | AmseelCars",
@@ -18,8 +18,8 @@
     "hero": {
       "eyebrow": "Al Massira (AGA)",
       "title": "Alquiler de coches <muted>aeropuerto Agadir</muted>",
-      "lead": "Meet & greet sincronizado a tu vuelo en Al Massira, precios diarios claros y avisos WhatsApp si cambia el aterrizaje. Sin cola en el mostrador - el coche te espera.",
-      "meta": "Recogida AGA · devolución aeropuerto · desde unos 28 €/día. La entrega en hotel está en nuestra página de ciudad.",
+      "lead": "Meet & greet sincronizado con tu vuelo en Al Massira, sin depósito, desde ~25 €/día. Actualizaciones WhatsApp si cambia la hora.",
+      "meta": "Recogida AGA · desde ~25 €/día · sin depósito. Entrega hotel → página ciudad.",
       "imageAlt": "Aeropuerto Agadir Al Massira (AGA) - alquiler de coches AmseelCars"
     },
     "quickAnswer": "AmseelCars te recibe en Agadir Al Massira (AGA) para el alquiler en aeropuerto. Envía número de vuelo, fechas y tipo de coche por WhatsApp - confirmamos punto de encuentro, vehículo y tarifa antes de aterrizar. Llegadas tarde posibles si reservas con antelación. Para entrega en hotel en la ciudad, usa nuestra página de Agadir.",
@@ -61,12 +61,12 @@
       "title": "Qué esperar en el aeropuerto de Agadir"
     },
     "serviceChips": [
-      "Meet & greet según vuelo",
-      "Reserva WhatsApp",
-      "Tarifas diarias claras",
-      "Llegadas tarde",
-      "Devolución aeropuerto",
-      "Sin cola en mostrador"
+      "Sin depósito",
+      "Meet & greet AGA",
+      "Sync vuelo",
+      "Desde ~25 €/día",
+      "WhatsApp 24/7",
+      "Devolución aeropuerto"
     ],
     "stats": [
       {

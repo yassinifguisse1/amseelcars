@@ -67,16 +67,22 @@
   },
   "home": {
     "meta": {
-      "title": "AmseelCars | Hub wynajmu Agadir | Lotnisko i miasto",
-      "description": "AmseelCars w Agadirze: rezerwuj na WhatsApp, przeglądaj flotę, potem otwórz stronę wynajmu Agadir dla słów kluczowych miasta, stronę lotniska dla AGA lub Taghazout dla wybrzeża. Bez kaucji, wsparcie 24/7."
+      "title": "AMSEEL CARS | Hub wynajmu Agadir | Flota i rezerwacja",
+      "description": "AMSEEL CARS w Agadirze: nowoczesna flota, bez kaucji, darmowa dostawa, WhatsApp 24/7. Przeglądaj auta tutaj; szczegóły miasta na stronie wynajmu Agadir, AGA na stronie lotniska."
     },
     "breadcrumb": "Start",
     "hero": {
-      "title": "AmseelCars - wynajem w Agadirze z darmową dostawą",
-      "intro": "AMSEEL CARS to lokalny partner w Agadirze: odbiór lotnisko lub miasto, darmowa dostawa hotel i WhatsApp 24/7. Dla wynajem samochodów Agadir (miasto/hotel) otwórz stronę miasta. Szczegóły AGA na stronie lotniska; wybrzeże na Taghazout.",
-      "ariaLabel": "Przegląd AmseelCars, wynajem w Agadirze z ubezpieczeniem i dostawą",
-      "fleetCta": "Zobacz nasze samochody",
-      "airportImageAlt": "Agadir miasto i promenada - wynajem samochodów Agadir ceny AmseelCars"
+      "title": "Lokalna wypożyczalnia w Agadirze - bez kaucji, darmowa dostawa",
+      "intro": "Od ~25 €/dzień · bez karty · WhatsApp 24/7. Wybierz daty poniżej albo otwórz stronę miasta / lotniska według odbioru.",
+      "ariaLabel": "AMSEEL CARS, wypożyczalnia w Agadirze",
+      "fleetCta": "Zobacz nasze auta",
+      "whatsappCta": "WhatsApp",
+      "whatsappPrefill": "Cześć, chcę zarezerwować auto w Amseel Cars.",
+      "reviewProof": "{rating} · {count} opinii Google",
+      "cityLink": "Dostawa hotel / miasto",
+      "airportLink": "Odbiór lotnisko AGA",
+      "imageAlt": "Agadir i wybrzeże - AMSEEL CARS wynajem samochodów",
+      "reviewCount": "{count} opinii"
     },
     "preloader": {
       "title": "AMSEEL CARS",
@@ -107,19 +113,19 @@
       "aboutAriaLabel": "O nas"
     },
     "trustBar": {
-      "ariaLabel": "Zalety AMSEEL CARS - wynajem samochodów Agadir",
+      "ariaLabel": "Zalety AMSEEL CARS w Agadirze",
       "items": [
         "Bez kaucji",
-        "Bez karty",
+        "Bez karty kredytowej",
         "Bez ukrytych opłat",
-        "Lotnisko lub miasto",
         "Darmowa dostawa Agadir",
+        "Lotnisko lub miasto",
         "WhatsApp 24/7",
-        "Lokalny zespół AmseelCars"
+        "Ocena Google 5,0"
       ]
     },
     "mainIntro": {
-      "headline": "Wynajem samochodów Agadir z <accent>AmseelCars</accent>",
+      "headline": "Wynajmij z <accent>AMSEEL CARS</accent> w Agadirze",
       "body": "Wypożyczalnia Agadir lub rent a car Agadir po lądowaniu albo w mieście? AMSEEL CARS: lotnisko lub miasto, dostawa hotel, bez kaucji, WhatsApp 24/7. Przewodnik AGA: strona lotniska. Wybrzeże: Taghazout.",
       "bullets": [
         "Wynajem samochodów Agadir · bez kaucji · bez karty",
@@ -393,8 +399,8 @@
     },
     "card": {
       "altFallback": "{carName}, wynajem samochodu w Agadirze, AmseelCars",
-      "daysShort": "5+ dni",
-      "daysLong": "5+ dni",
+      "daysShort": "3+ dni",
+      "daysLong": "3+ dni",
       "seats": "{count} miejsc",
       "premium": "Premium",
       "bookNow": "Zarezerwuj teraz",
@@ -423,9 +429,9 @@
     }
   },
   "carDetail": {
-    "priceShortTerm": "(5+ dni)",
-    "priceLongTerm": "(5+ dni)",
-    "priceTagline": "Gwarancja najlepszej ceny • Bezpłatne anulowanie • Minimum 5 dni",
+    "priceShortTerm": "(3+ dni)",
+    "priceLongTerm": "(3+ dni)",
+    "priceTagline": "Bez kaucji · Bez karty · Darmowa dostawa",
     "perDay": "/ dzień",
     "seats": "{count} miejsc",
     "capacity": "Liczba miejsc",
@@ -445,8 +451,8 @@
     "defaultAboutTitle": "O tym samochodzie",
     "faqHeading": "Najczęściej zadawane pytania",
     "stickyReserve": "Rezerwuj",
-    "waButton": "WhatsApp",
-    "waInquiry": "Dzień dobry, chciałbym wynająć {carName} w cenie {price} {currency}/dzień. Czy mogą Państwo potwierdzić dostępność i wyjaśnić proces rezerwacji? Dziękuję.",
+    "waButton": "Dostępność na WhatsApp",
+    "waInquiry": "Cześć, chcę wynająć {carName} za {price}/dzień (bez kaucji). Czy możecie potwierdzić dostępność i terminy? Dziękuję.",
     "categories": {
       "luxury": "Luksusowe",
       "sports": "Sportowe",
@@ -458,7 +464,12 @@
     },
     "galleryAria": "Zdjęcia {carName}",
     "galleryPrev": "Poprzednie zdjęcie",
-    "galleryNext": "Następne zdjęcie"
+    "galleryNext": "Następne zdjęcie",
+    "fromPrice": "Od {price}",
+    "weekEstimate": "{days} dni ≈ {total}",
+    "trustNoDeposit": "Bez kaucji",
+    "trustNoCard": "Bez karty kredytowej",
+    "trustFreeDelivery": "Darmowa dostawa Agadir"
   },
   "booking": {
     "introBlurb": "Odbiór możliwy na lotnisku Al Massira, w centrum Agadiru, w Taghazout lub w naszym biurze. Dostępność i warunki potwierdzimy e-mailem lub WhatsApp.",
@@ -499,7 +510,7 @@
     "errPickupLoc": "Wybierz miejsce odbioru",
     "errReturnLoc": "Wybierz miejsce zwrotu",
     "errReturnAfterPickup": "Data zwrotu musi być późniejsza niż data odbioru",
-    "errMinRentalDays": "Nie możemy przyjąć wypożyczenia na mniej niż 5 dni.",
+    "errMinRentalDays": "Nie możemy przyjąć wypożyczenia na mniej niż 3 dni.",
     "minRentalHint": "Wybrany okres: {selected} dzień/dni. Minimum: {days} dni.",
     "pickupTime": "Godzina odbioru *",
     "returnTime": "Godzina zwrotu *",
@@ -697,7 +708,7 @@
         },
         {
           "question": "Czy jest minimalny okres wynajmu?",
-          "answer": "Tak, minimum 5 dni. Szczegóły (paliwo, dokumenty, anulowanie) są w warunkach i potwierdzane przy rezerwacji."
+          "answer": "Tak, minimum 3 dni. Szczegóły (paliwo, dokumenty, anulowanie) są w warunkach i potwierdzane przy rezerwacji."
         }
       ]
     }
@@ -745,7 +756,7 @@
     },
     "rentalTerms": {
       "title": "Warunki wynajmu Agadir | AmseelCars",
-      "description": "Warunki AmseelCars w Agadirze: wiek minimalny, minimum 5 dni, odbiór lotnisko lub miasto, assistance WhatsApp."
+      "description": "Warunki AmseelCars w Agadirze: wiek minimalny, minimum 3 dni, odbiór lotnisko lub miasto, assistance WhatsApp."
     },
     "privacy": {
       "title": "Polityka prywatności | AmseelCars",
@@ -1081,12 +1092,12 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Wynajem samochodów Agadir | Dostawa do hotelu | AmseelCars",
-      "description": "Wynajmij auto w Agadirze z darmową dostawą do hotelu lub riadu, jasnymi stawkami i rezerwacją WhatsApp. Auta miejskie i SUV na plażę i wycieczki. +212 662 500 181.",
-      "ogTitle": "Wynajem samochodów Agadir | AmseelCars",
-      "ogDescription": "Lokalna agencja w Agadirze: dostawa hotel, uczciwe ceny, potwierdzenie WhatsApp.",
+      "title": "Wynajem samochodów Agadir | Bez kaucji · od 25 € | AmseelCars",
+      "description": "Wynajem samochodów w Agadirze z darmową dostawą do hotelu, bez kaucji, bez karty. Od ~25 €/dzień, rezerwacja WhatsApp. +212 662 500 181.",
+      "ogTitle": "Wynajem samochodów Agadir | Bez kaucji | AmseelCars",
+      "ogDescription": "Dostawa hotel, bez kaucji, jasne ceny. Potwierdzenie na WhatsApp.",
       "twitterTitle": "Wynajem samochodów Agadir | AmseelCars",
-      "twitterDescription": "Dostawa hotel, odbiór w mieście, od miejskich po SUV. Rezerwuj AmseelCars na WhatsApp."
+      "twitterDescription": "Bez kaucji · dostawa hotel · od ~25 €/dzień."
     },
     "schema": {
       "name": "Wynajem samochodów Agadir | Dostawa hotel | AmseelCars",
@@ -1098,8 +1109,8 @@
     "hero": {
       "eyebrow": "Agadir · Maroko",
       "title": "Wynajem samochodów <muted>Agadir</muted>",
-      "lead": "Lokalna flota w Agadirze z darmową dostawą do hotelu lub riadu, jasnymi cenami dziennymi i potwierdzeniem WhatsApp. Auta miejskie na plażę - SUV na Paradise Valley lub wybrzeże.",
-      "meta": "Dostawa hotel · odbiór miasto · od ok. 28 €/dzień. Meet & greet AGA na stronie lotniska.",
+      "lead": "Darmowa dostawa do hotelu lub riadu, bez kaucji, bez karty. Jasne ceny od ~25 €/dzień i potwierdzenie WhatsApp przed przyjazdem.",
+      "meta": "Miasto i hotel · od ~25 €/dzień · bez kaucji. Meet & greet AGA → strona lotniska.",
       "imageAlt": "Promenada Agadiru - wynajem AmseelCars"
     },
     "quickAnswer": "AmseelCars to lokalna wypożyczalnia w Agadirze. Dowozimy do hoteli i riadów, potwierdzamy auto i cenę na WhatsApp, a lotnisko AGA zostawiamy na osobnej stronie. Wyślij daty i hotel - odpiszemy z dostępnością, stawką i oknem dostawy.",
@@ -1141,12 +1152,12 @@
       "title": "Czego możesz oczekiwać w Agadirze"
     },
     "serviceChips": [
-      "Dostawa hotel",
-      "Rezerwacja WhatsApp",
-      "Jasne stawki",
-      "Hotele miasto i plaża",
-      "SUV na wycieczki",
-      "Bez niespodzianek"
+      "Bez kaucji",
+      "Bez karty",
+      "Darmowa dostawa hotel",
+      "Od ~25 €/dzień",
+      "WhatsApp 24/7",
+      "Hotele miasto i plaża"
     ],
     "stats": [
       {
@@ -1156,13 +1167,13 @@
       },
       {
         "label": "Od",
-        "value": "28 €/dzień",
-        "helper": "Auta miejskie, sezonowo"
+        "value": "25 €/dzień",
+        "helper": "Miejskie, zależnie od sezonu"
       },
       {
-        "label": "Odpowiedź",
-        "value": "Szybka",
-        "helper": "Potwierdzenie WhatsApp"
+        "label": "Google",
+        "value": "5,0",
+        "helper": "262 opinie"
       }
     ],
     "aiHighlights": [
@@ -1215,7 +1226,7 @@
     "pricingGuide": {
       "kicker": "Orientacyjne ceny",
       "title": "Ile zwykle kosztuje wynajem w Agadirze",
-      "lead": "Ostateczna wycena zależy od sezonu, długości i modelu. Przedziały dla 5+ dni.",
+      "lead": "Ostateczna wycena zależy od sezonu, długości i modelu. Przedziały dla 3+ dni.",
       "items": [
         {
           "title": "Auta miejskie",
@@ -1263,7 +1274,7 @@
     "faqs": [
       {
         "question": "Ile kosztuje wynajem auta w Agadirze?",
-        "answer": "Auta miejskie często od ok. 28–45 €/dzień przy 5+ dniach poza szczytem. SUV drożej. Jasna wycena na WhatsApp."
+        "answer": "Auta miejskie często od ok. 28–45 €/dzień przy 3+ dniach poza szczytem. SUV drożej. Jasna wycena na WhatsApp."
       },
       {
         "question": "Czy dowozicie do hoteli i riadów?",
@@ -1275,7 +1286,7 @@
       },
       {
         "question": "Minimalny okres?",
-        "answer": "Zwykle minimum 5 dni. Krótsze terminy pytaj na WhatsApp."
+        "answer": "Zwykle minimum 3 dni. Krótsze terminy pytaj na WhatsApp."
       },
       {
         "question": "Jakie auto na Paradise Valley?",

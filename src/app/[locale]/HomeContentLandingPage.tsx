@@ -3,7 +3,7 @@ import { useEffect, Suspense } from "react";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 
-import { HomeHeroCopyBand, HomeFleetCtaButton } from "@/components/home/HomeHeroCopyBand";
+import { HomeHeroCopyBand, HomeHeroCtaBand } from "@/components/home/HomeHeroCopyBand";
 import { HomeAirportFlightBand } from "@/components/home/HomeAirportFlightBand";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 import CarsGridLoadingFallback from "@/components/Cars/CarsGridLoadingFallback";
@@ -88,7 +88,7 @@ export function HomeContentLandingPage() {
           </Suspense>
         </HomeHeroCopyBand>
         <div className="relative bg-white">
-          <HomeFleetCtaButton />
+          <HomeHeroCtaBand />
         </div>
       </div>
       <Suspense fallback={<CarsGridLoadingFallback />}>

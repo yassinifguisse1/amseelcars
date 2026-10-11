@@ -1,12 +1,12 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Mietwagen Flughafen Agadir | AGA Meet & Greet | AmseelCars",
-      "description": "Mieten Sie ein Auto am Flughafen Agadir Al Massira (AGA) mit flugsynchronem Meet & Greet, klaren Euro-Preisen und WhatsApp-Buchung. Abholung und Rückgabe am Flughafen. +212 662 500 181.",
+      "title": "Mietwagen Flughafen Agadir | Ohne Kaution · AGA | AmseelCars",
+      "description": "Mietwagen am Flughafen Agadir Al Massira (AGA): Meet & Greet, ohne Kaution, ab ca. 25 €/Tag. WhatsApp. +212 662 500 181.",
       "ogTitle": "Mietwagen Flughafen Agadir | AmseelCars",
-      "ogDescription": "AGA Meet & Greet, Flug-Sync, ehrliche Preise. Vor der Landung per WhatsApp bei AmseelCars buchen.",
+      "ogDescription": "AGA Meet & Greet, ohne Kaution, klare Preise.",
       "twitterTitle": "Mietwagen Flughafen Agadir | AmseelCars",
-      "twitterDescription": "Meet & Greet am Al Massira (AGA). Klare Preise. WhatsApp."
+      "twitterDescription": "AGA · ohne Kaution · ab ca. 25 €/Tag."
     },
     "schema": {
       "name": "Mietwagen Flughafen Agadir | AGA Meet & Greet | AmseelCars",
@@ -18,8 +18,8 @@
     "hero": {
       "eyebrow": "Al Massira (AGA)",
       "title": "Mietwagen <muted>Flughafen Agadir</muted>",
-      "lead": "Flugsynchrones Meet & Greet in Al Massira, klare Tagespreise und WhatsApp-Updates bei Verspätung. Keine Schalterschlange - das Auto wartet auf Sie.",
-      "meta": "AGA-Abholung · Flughafen-Rückgabe · ab ca. 28 €/Tag. Hotel-Lieferung finden Sie auf unserer Stadtseite.",
+      "lead": "Flugzeit-synchrones Meet & Greet in Al Massira, ohne Kaution, ab ca. 25 €/Tag. WhatsApp-Updates bei Verspätung.",
+      "meta": "AGA Abholung · ab ca. 25 €/Tag · ohne Kaution. Hotellieferung → Stadtseite.",
       "imageAlt": "Flughafen Agadir Al Massira (AGA) - Mietwagen-Abholung AmseelCars"
     },
     "quickAnswer": "AmseelCars holt Sie am Flughafen Agadir Al Massira (AGA) ab. Senden Sie Flugnummer, Daten und Wunschfahrzeug per WhatsApp - wir bestätigen Treffpunkt, Auto und Tagespreis vor der Landung. Späte Ankünfte sind möglich bei Vorabbuchung. Für Hotel-Lieferung in der Stadt nutzen Sie unsere Agadir-Seite.",
@@ -61,12 +61,12 @@
       "title": "Was Sie am Flughafen Agadir erwarten können"
     },
     "serviceChips": [
-      "Flugsynchrones Meet & Greet",
-      "WhatsApp-Buchung",
-      "Klare Tagespreise",
-      "Späte Ankünfte",
-      "Flughafen-Rückgabe",
-      "Ohne Schalterschlange"
+      "Ohne Kaution",
+      "AGA Meet & Greet",
+      "Flug-Sync",
+      "Ab ca. 25 €/Tag",
+      "WhatsApp 24/7",
+      "Rückgabe Flughafen"
     ],
     "stats": [
       {
@@ -135,7 +135,7 @@
     "pricingGuide": {
       "kicker": "Richtpreise",
       "title": "Was Flughafen-Mietwagen meist kostet",
-      "lead": "Das Endangebot hängt von Saison, Dauer und Modell ab. Diese Bänder passen zu typischen AGA-Abholungen ab 5 Tagen.",
+      "lead": "Das Endangebot hängt von Saison, Dauer und Modell ab. Diese Bänder passen zu typischen AGA-Abholungen ab 3 Tagen.",
       "items": [
         {
           "title": "Economy nach der Landung",

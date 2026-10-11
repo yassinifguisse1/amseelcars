@@ -67,7 +67,7 @@ interface BookingDialogProps {
   carName: string;
   carPrice: number;
   carSlug?: string;
-  /** Optional pricing. Min rental is 5 days; rate uses the former short-term (1–4 day) price. */
+  /** Optional pricing. Min rental is MIN_RENTAL_DAYS; rate uses shortTerm daily price. */
   pricing?: {
     shortTerm: number;
     longTerm: number;

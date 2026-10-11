@@ -14,6 +14,8 @@ import {
   BUSINESS_GOOGLE_MAPS_PLACE_URL,
   BUSINESS_GOOGLE_MAPS_URL,
   BUSINESS_GOOGLE_PLACE_ID,
+  BUSINESS_GOOGLE_RATING,
+  BUSINESS_GOOGLE_REVIEW_COUNT,
   BUSINESS_PLUS_CODE,
   BUSINESS_POSTAL_ADDRESS,
   BUSINESS_SAME_AS,
@@ -554,20 +556,19 @@ export function generateReviewSchema(review: {
 }
 
 /**
- * AggregateRating schema for LocalBusiness - used on homepage
- * Combines all reviews into an aggregate rating
+ * AggregateRating schema for LocalBusiness - used on homepage.
+ * Uses live GBP totals from business.ts (not the curated sample in reviews.ts).
  */
-export function generateAggregateRatingSchema(reviews: Array<{ rating: number }>) {
-  const ratingCount = reviews.length;
-  const ratingValue = reviews.reduce((sum, review) => sum + review.rating, 0) / ratingCount;
-
+export function generateAggregateRatingSchema(
+  _reviews?: Array<{ rating: number }>,
+) {
   return {
     '@type': 'AggregateRating',
     // Some validators expect this even when nested under LocalBusiness.
     itemReviewed: { '@id': `${siteUrl}#business` },
-    ratingValue: Number(ratingValue.toFixed(1)),
-    ratingCount,
-    reviewCount: ratingCount,
+    ratingValue: BUSINESS_GOOGLE_RATING,
+    ratingCount: BUSINESS_GOOGLE_REVIEW_COUNT,
+    reviewCount: BUSINESS_GOOGLE_REVIEW_COUNT,
     bestRating: 5,
     worstRating: 1,
   };

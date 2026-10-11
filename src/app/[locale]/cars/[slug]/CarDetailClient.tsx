@@ -16,7 +16,7 @@ import {
   Fuel,
   Settings,
   Shield,
-  Phone,
+  MessageCircle,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
@@ -174,6 +174,14 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
     document.getElementById(RESERVATION_FORM_ID)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  const dailyMad = car.pricing?.shortTerm ?? car.pricePerDay
+  const dailyDisplay = convertCarPrice(dailyMad, currency)
+  const dailyLabel = formatCarPriceLabel(dailyDisplay, currency)
+  const weekLabel = formatCarPriceLabel(dailyDisplay * 7, currency)
+  const quickFacts = [car.transmission, car.fuelType, t('seats', { count: car.seats })]
+    .filter(Boolean)
+    .join(' · ')
+
   const handleBackToCars = () => {
     const p = pathname as string
     if (p === '/cars' || p === '/voitures') {
@@ -288,6 +296,19 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4" />
               <span>{car.location}</span>
             </div>
+
+            <div className="mt-3 space-y-2 md:mt-4">
+              <p className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+                {t('fromPrice', { price: dailyLabel })}
+                <span className="ml-1.5 text-sm font-medium text-muted-foreground md:text-base">
+                  {t('perDay')}
+                </span>
+              </p>
+              <p className="text-sm text-muted-foreground md:text-base">
+                {t('weekEstimate', { days: 7, total: weekLabel })}
+              </p>
+              <p className="text-sm text-muted-foreground">{quickFacts}</p>
+            </div>
           </header>
 
           {/* Image Gallery — second on mobile; left column on desktop */}
@@ -396,10 +417,45 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 </div>
               )}
             </div>
+
+            {/* Key specs under photos */}
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
+              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
+                <Users className="h-5 w-5 shrink-0 text-primary" />
+                <div>
+                  <p className="font-medium">{t('seats', { count: car.seats })}</p>
+                  <p className="text-sm text-muted-foreground">{t('capacity')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
+                <Fuel className="h-5 w-5 shrink-0 text-primary" />
+                <div>
+                  <p className="font-medium">{car.fuelType}</p>
+                  <p className="text-sm text-muted-foreground">{t('fuelTypeLabel')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
+                <Settings className="h-5 w-5 shrink-0 text-primary" />
+                <div>
+                  <p className="font-medium">{car.transmission}</p>
+                  <p className="text-sm text-muted-foreground">{t('transmissionLabel')}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
+                <Calendar className="h-5 w-5 shrink-0 text-primary" />
+                <div>
+                  <p className="font-medium">{car.year}</p>
+                  <p className="text-sm text-muted-foreground">{t('modelYear')}</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Booking — third on mobile; under title on desktop */}
-          <div className="space-y-8 lg:col-start-2 lg:row-start-2">
+          <div className="lg:col-start-2 lg:row-start-2">
             <BookingDialog
               inline
               carName={car.carName}
@@ -430,7 +486,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 <Button
                   type="button"
                   size="lg"
-                  className="w-full bg-green-600 text-white hover:bg-green-700 cursor-pointer rounded-[25px] h-10"
+                  className="h-11 w-full cursor-pointer rounded-[25px] bg-[#25D366] text-base font-semibold text-white hover:bg-[#1ebe57]"
                   onClick={() => {
                     trackEvent({
                       event: 'whatsapp',
@@ -451,46 +507,11 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                     window.open(whatsappUrl, '_blank');
                   }}
                 >
-                  <Phone className="h-5 w-5 mr-2" />
+                  <MessageCircle className="mr-2 h-5 w-5" />
                   {t('waButton')}
                 </Button>
               }
             />
-
-            {/* Key specs under the booking form */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Users className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{t('seats', { count: car.seats })}</p>
-                  <p className="text-sm text-muted-foreground">{t('capacity')}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Fuel className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{car.fuelType}</p>
-                  <p className="text-sm text-muted-foreground">{t('fuelTypeLabel')}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Settings className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{car.transmission}</p>
-                  <p className="text-sm text-muted-foreground">{t('transmissionLabel')}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                <Calendar className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">{car.year}</p>
-                  <p className="text-sm text-muted-foreground">{t('modelYear')}</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 

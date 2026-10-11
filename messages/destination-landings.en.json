@@ -1,12 +1,12 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Car rental Agadir airport | AGA meet & greet | AmseelCars",
-      "description": "Rent a car at Agadir Al Massira (AGA) with flight-timed meet & greet, clear euro rates, and WhatsApp booking. Pickup and drop-off at the airport. +212 662 500 181.",
+      "title": "Car rental Agadir airport | No deposit · AGA | AmseelCars",
+      "description": "Car rental at Agadir Al Massira (AGA): flight-timed meet & greet, no deposit, from ~€25/day. WhatsApp before you land. +212 662 500 181.",
       "ogTitle": "Car rental Agadir airport | AmseelCars",
-      "ogDescription": "AGA meet & greet, flight sync, honest rates. Book AmseelCars on WhatsApp before you land.",
+      "ogDescription": "AGA meet & greet, no deposit, clear rates. WhatsApp.",
       "twitterTitle": "Car rental Agadir airport | AmseelCars",
-      "twitterDescription": "Meet & greet at Al Massira (AGA). Clear prices. WhatsApp booking."
+      "twitterDescription": "AGA · no deposit · from ~€25/day. WhatsApp."
     },
     "schema": {
       "name": "Car rental Agadir airport | AGA meet & greet | AmseelCars",
@@ -18,8 +18,8 @@
     "hero": {
       "eyebrow": "Al Massira (AGA)",
       "title": "Car rental <muted>Agadir airport</muted>",
-      "lead": "Flight-timed meet & greet at Agadir Al Massira, clear daily prices, and WhatsApp updates if your landing shifts. Skip the desk queue - we meet you with the car ready.",
-      "meta": "AGA pickup · return drop-off · from about €28/day. Hotel delivery lives on our city page.",
+      "lead": "Flight-timed meet & greet at Al Massira, no deposit, rates from ~€25/day. WhatsApp updates if your landing shifts.",
+      "meta": "AGA pickup · from ~€25/day · no deposit. Hotel delivery → city page.",
       "imageAlt": "Agadir Al Massira Airport (AGA) - airport car rental pickup with AmseelCars"
     },
     "quickAnswer": "AmseelCars meets you at Agadir Al Massira (AGA) for airport car rental. Send your flight number, dates, and preferred car on WhatsApp - we confirm the meeting point, vehicle, and daily rate before you land. Late arrivals are fine when booked ahead. For hotel delivery in the city, use our Agadir city page instead.",
@@ -61,12 +61,12 @@
       "title": "What to expect at Agadir airport"
     },
     "serviceChips": [
-      "Flight-timed meet & greet",
-      "WhatsApp booking",
-      "Clear daily rates",
-      "Late arrival support",
-      "Airport return drop-off",
-      "No desk queue"
+      "No deposit",
+      "AGA meet & greet",
+      "Flight sync",
+      "From ~€25/day",
+      "WhatsApp 24/7",
+      "Airport return"
     ],
     "stats": [
       {
@@ -135,7 +135,7 @@
     "pricingGuide": {
       "kicker": "Indicative pricing",
       "title": "What airport car rental usually costs",
-      "lead": "Final quotes depend on season, length, and model. These bands match typical AGA pickups of 5+ days.",
+      "lead": "Final quotes depend on season, length, and model. These bands match typical AGA pickups of 3+ days.",
       "items": [
         {
           "title": "Economy after landing",
@@ -189,7 +189,7 @@
       },
       {
         "question": "How much does airport car rental cost?",
-        "answer": "Economy cars often start around €28-€45 per day for 5+ days outside peak weeks. SUVs cost more. We send a clear daily total before you book."
+        "answer": "Economy cars often start around €28-€45 per day for 3+ days outside peak weeks. SUVs cost more. We send a clear daily total before you book."
       },
       {
         "question": "How do I book pickup at AGA?",

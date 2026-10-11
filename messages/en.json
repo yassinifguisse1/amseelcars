@@ -67,16 +67,22 @@
   },
   "home": {
     "meta": {
-      "title": "AmseelCars | Agadir car rental hub | Airport & city",
-      "description": "AmseelCars in Agadir: book via WhatsApp, browse the fleet, then open our Agadir city page for car rental Agadir, the airport page for AGA meet & greet, or Taghazout for the coast. No deposit, 24/7 support."
+      "title": "AMSEEL CARS | Agadir rental hub | Fleet & booking",
+      "description": "AMSEEL CARS in Agadir: recent fleet, no deposit, free delivery, 24/7 WhatsApp. Browse cars and book here; city details on our Agadir car rental page, AGA meet & greet on the airport page."
     },
     "breadcrumb": "Home",
     "hero": {
-      "title": "AmseelCars - Agadir car hire with free delivery",
-      "intro": "AMSEEL CARS is your local Agadir partner: airport or city pickup, free hotel delivery, and 24/7 WhatsApp. For car rental Agadir keywords and city/hotel delivery details, open our Agadir city page. Deep AGA on the airport page; surf coast on Taghazout.",
-      "ariaLabel": "Overview, car rental Agadir with full insurance and free delivery",
+      "title": "Local Agadir car hire agency - no deposit, free delivery",
+      "intro": "From ~€25/day · no credit card · WhatsApp 24/7. Pick dates below, or open the city / airport page for your pickup type.",
+      "ariaLabel": "AMSEEL CARS, car rental agency in Agadir",
       "fleetCta": "View our cars",
-      "airportImageAlt": "Agadir city and seafront - car rental Agadir with AmseelCars"
+      "whatsappCta": "WhatsApp",
+      "whatsappPrefill": "Hello, I would like to book a car with Amseel Cars.",
+      "reviewProof": "{rating} · {count} Google reviews",
+      "cityLink": "Hotel / city delivery",
+      "airportLink": "AGA airport pickup",
+      "imageAlt": "Agadir seafront - AMSEEL CARS car rental",
+      "reviewCount": "{count} reviews"
     },
     "preloader": {
       "title": "AMSEEL CARS",
@@ -107,19 +113,19 @@
       "aboutAriaLabel": "About us"
     },
     "trustBar": {
-      "ariaLabel": "AMSEEL CARS USPs - car rental Agadir",
+      "ariaLabel": "AMSEEL CARS advantages in Agadir",
       "items": [
-        "No Deposit Car Rental",
-        "No Credit Card Required",
-        "No Hidden Fees",
-        "Airport or City Pickup",
-        "Free Delivery Agadir",
-        "24/7 WhatsApp Support",
-        "Local AmseelCars Team"
+        "No deposit",
+        "No credit card",
+        "No hidden fees",
+        "Free delivery Agadir",
+        "Airport or city pickup",
+        "WhatsApp 24/7",
+        "Google rating 5.0"
       ]
     },
     "mainIntro": {
-      "headline": "Car rental Agadir with <accent>AmseelCars</accent>",
+      "headline": "Rent with <accent>AMSEEL CARS</accent> in Agadir",
       "body": "Looking for car hire Agadir or rent a car Agadir after landing or for a city stay? AMSEEL CARS is your local car rental Agadir Morocco partner: airport or city pickup, free hotel delivery, no deposit, no credit card, WhatsApp 24/7. Dedicated AGA guide: airport page. Surf coast: Taghazout page.",
       "bullets": [
         "Car rental Agadir · no deposit · no credit card",
@@ -393,8 +399,8 @@
     },
     "card": {
       "altFallback": "{carName}, car rental in Agadir, AmseelCars",
-      "daysShort": "5+ days",
-      "daysLong": "5+ days",
+      "daysShort": "3+ days",
+      "daysLong": "3+ days",
       "seats": "{count} seats",
       "premium": "Premium",
       "bookNow": "Book now",
@@ -423,9 +429,9 @@
     }
   },
   "carDetail": {
-    "priceShortTerm": "(5+ days)",
-    "priceLongTerm": "(5+ days)",
-    "priceTagline": "Best price guarantee • Free cancellation • 5-day minimum",
+    "priceShortTerm": "(3+ days)",
+    "priceLongTerm": "(3+ days)",
+    "priceTagline": "No deposit · No credit card · Free delivery",
     "perDay": "/ day",
     "seats": "{count} seats",
     "capacity": "Capacity",
@@ -445,8 +451,8 @@
     "defaultAboutTitle": "About this car",
     "faqHeading": "Frequently asked questions",
     "stickyReserve": "Book",
-    "waButton": "WhatsApp",
-    "waInquiry": "Hello, I’d like to rent the {carName} at {price} {currency}/day. Could you confirm availability and explain how to book? Thank you.",
+    "waButton": "Check availability on WhatsApp",
+    "waInquiry": "Hello, I would like to rent the {carName} at {price}/day (no deposit). Can you confirm availability and dates? Thank you.",
     "categories": {
       "luxury": "Luxury",
       "sports": "Sports",
@@ -458,7 +464,12 @@
     },
     "galleryAria": "Photos of {carName}",
     "galleryPrev": "Previous photo",
-    "galleryNext": "Next photo"
+    "galleryNext": "Next photo",
+    "fromPrice": "From {price}",
+    "weekEstimate": "{days} days ≈ {total}",
+    "trustNoDeposit": "No deposit",
+    "trustNoCard": "No credit card",
+    "trustFreeDelivery": "Free delivery Agadir"
   },
   "booking": {
     "introBlurb": "Pickup is available at Al Massira Airport, downtown Agadir, Taghazout, or at our office. We’ll confirm availability and terms by email or WhatsApp.",
@@ -499,7 +510,7 @@
     "errPickupLoc": "Please select a pickup location",
     "errReturnLoc": "Please select a return location",
     "errReturnAfterPickup": "Return date must be after pickup date",
-    "errMinRentalDays": "We cannot accept rentals shorter than 5 days.",
+    "errMinRentalDays": "We cannot accept rentals shorter than 3 days.",
     "minRentalHint": "Selected duration: {selected} day(s). Minimum required: {days} days.",
     "pickupTime": "Pick-up time *",
     "returnTime": "Return time *",
@@ -697,7 +708,7 @@
         },
         {
           "question": "Is there a minimum rental period?",
-          "answer": "Yes, the minimum hire is 5 days. Details (fuel, documents, cancellation) are in the rental terms and confirmed at booking."
+          "answer": "Yes, the minimum hire is 3 days. Details (fuel, documents, cancellation) are in the rental terms and confirmed at booking."
         }
       ]
     }
@@ -745,7 +756,7 @@
     },
     "rentalTerms": {
       "title": "Agadir car rental terms | AmseelCars",
-      "description": "AmseelCars rental terms in Agadir: minimum age, 5-day minimum hire, airport or city pickup, fuel policy and WhatsApp assistance."
+      "description": "AmseelCars rental terms in Agadir: minimum age, 3-day minimum hire, airport or city pickup, fuel policy and WhatsApp assistance."
     },
     "privacy": {
       "title": "Privacy policy | AmseelCars",
@@ -970,7 +981,7 @@
         {
           "title": "Minimum rental length",
           "paragraphs": [
-            "The minimum rental period is 5 days. Rentals of 1–4 days are not accepted.",
+            "The minimum rental period is 3 days. Rentals shorter than 3 days are not accepted.",
             "Duration is calculated from the confirmed pickup and return dates."
           ]
         },
@@ -1081,12 +1092,12 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Car rental Agadir | Hotel delivery & city pickup | AmseelCars",
-      "description": "Rent a car in Agadir with free hotel or riad delivery, clear daily rates, and WhatsApp booking. City cars and SUVs for Agadir Beach, Paradise Valley and day trips. +212 662 500 181.",
-      "ogTitle": "Car rental Agadir | AmseelCars",
-      "ogDescription": "Local Agadir agency: free hotel delivery, honest rates, WhatsApp confirmation. Ideal for city stays and Souss-Massa trips.",
+      "title": "Car rental Agadir | No deposit · from €25 | AmseelCars",
+      "description": "Car rental Agadir with free hotel delivery, no deposit, no credit card. From ~€25/day, WhatsApp booking. City cars and SUVs for beach and day trips. +212 662 500 181.",
+      "ogTitle": "Car rental Agadir | No deposit | AmseelCars",
+      "ogDescription": "Free hotel delivery, no deposit, clear rates. Confirm on WhatsApp.",
       "twitterTitle": "Car rental Agadir | AmseelCars",
-      "twitterDescription": "Hotel delivery, city pickup, economy to SUV. Book AmseelCars on WhatsApp."
+      "twitterDescription": "No deposit · hotel delivery · from ~€25/day. WhatsApp."
     },
     "schema": {
       "name": "Car rental Agadir | Hotel delivery | AmseelCars",
@@ -1098,8 +1109,8 @@
     "hero": {
       "eyebrow": "Agadir · Morocco",
       "title": "Car rental <muted>Agadir</muted>",
-      "lead": "A local Agadir fleet with free hotel or riad delivery, clear daily prices, and WhatsApp confirmation before you arrive. City cars for the beach and medina - SUVs when you head to Paradise Valley or the coast.",
-      "meta": "Hotel delivery · city pickup · from about €28/day. Airport meet & greet lives on our AGA page.",
+      "lead": "Free hotel or riad delivery, no deposit, no credit card. Clear rates from ~€25/day and WhatsApp confirmation before you arrive.",
+      "meta": "City & hotel · from ~€25/day · no deposit. AGA meet & greet → airport page.",
       "imageAlt": "Agadir seafront and city - car rental with AmseelCars"
     },
     "quickAnswer": "AmseelCars is a local car rental agency in Agadir. We deliver to hotels and riads across the city, confirm the car and price on WhatsApp, and keep airport meet & greet on a dedicated AGA page so this page stays focused on city stays. Share dates and your hotel - we reply with availability, a daily rate, and a delivery window.",
@@ -1141,12 +1152,12 @@
       "title": "What to expect with AmseelCars in Agadir"
     },
     "serviceChips": [
+      "No deposit",
+      "No credit card",
       "Free hotel delivery",
-      "WhatsApp booking",
-      "Clear daily rates",
-      "City & beach hotels",
-      "SUV day trips",
-      "No surprise fees"
+      "From ~€25/day",
+      "WhatsApp 24/7",
+      "City & beach hotels"
     ],
     "stats": [
       {
@@ -1156,13 +1167,13 @@
       },
       {
         "label": "Rates from",
-        "value": "€28/day",
+        "value": "€25/day",
         "helper": "Economy cars, season dependent"
       },
       {
-        "label": "Reply time",
-        "value": "Fast",
-        "helper": "WhatsApp confirmation"
+        "label": "Google rating",
+        "value": "5.0",
+        "helper": "262 reviews"
       }
     ],
     "aiHighlights": [
@@ -1215,7 +1226,7 @@
     "pricingGuide": {
       "kicker": "Indicative pricing",
       "title": "What car rental in Agadir usually costs",
-      "lead": "Final quotes depend on season, length, and model. These bands match what we typically confirm for city stays of 5+ days.",
+      "lead": "Final quotes depend on season, length, and model. These bands match what we typically confirm for city stays of 3+ days.",
       "items": [
         {
           "title": "Economy city cars",
@@ -1263,7 +1274,7 @@
     "faqs": [
       {
         "question": "How much does car rental in Agadir cost?",
-        "answer": "Economy cars often start around €28–€45 per day for 5+ days outside peak weeks. SUVs cost more. We send a clear daily total on WhatsApp before you book."
+        "answer": "Economy cars often start around €28–€45 per day for 3+ days outside peak weeks. SUVs cost more. We send a clear daily total on WhatsApp before you book."
       },
       {
         "question": "Do you deliver to hotels and riads in Agadir?",
@@ -1275,7 +1286,7 @@
       },
       {
         "question": "What is the minimum rental length?",
-        "answer": "We usually work with a 5-day minimum. Ask on WhatsApp if your dates are shorter - availability depends on the season and model."
+        "answer": "We usually work with a 3-day minimum. Ask on WhatsApp if your dates are shorter - availability depends on the season and model."
       },
       {
         "question": "Which car for Paradise Valley or Imsouane?",

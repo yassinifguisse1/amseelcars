@@ -2,45 +2,65 @@
 
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { MessageCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import {
+  BUSINESS_GOOGLE_RATING,
+  BUSINESS_GOOGLE_REVIEW_COUNT,
+  BUSINESS_WHATSAPP_URL,
+  SITE_NAME,
+} from "@/lib/business";
+import { GoogleReviewBadge } from "@/components/shared/GoogleReviewBadge";
 import { trackEvent } from "@/lib/trackEvent";
 
 /**
- * Homepage hero: Agadir city photo continues behind the booking bar
- * so the page body black never shows through the overlap.
+ * Homepage hero: brand hub only - city/airport money keywords live on
+ * their dedicated landings (see KEYWORD_PAGE_OWNERSHIP).
  */
 export function HomeHeroCopyBand({ children }: { children?: ReactNode }) {
   const t = useTranslations("home.hero");
+  const ratingLabel = BUSINESS_GOOGLE_RATING.toFixed(1);
+  const reviewCountLabel = BUSINESS_GOOGLE_REVIEW_COUNT.toLocaleString("en-US");
 
   return (
     <section className="relative z-0 w-full" aria-label={t("ariaLabel")}>
       <div className="absolute inset-0 overflow-hidden">
         <Image
           src="/images/agadir-city-hero.webp"
-          alt={t("airportImageAlt")}
+          alt={t("imageAlt")}
           fill
           priority
           sizes="100vw"
           className="object-cover object-[center_36%] sm:object-[center_40%] md:object-[center_42%]"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/15" aria-hidden />
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/20"
+          aria-hidden
+        />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-start px-3 pb-2 pt-[5.25rem] text-center sm:px-6 sm:pb-8 sm:pt-10 md:pt-12">
-        <div className="mx-auto w-full max-w-4xl">
-          <h1 className="mx-auto max-w-[22ch] font-[family-name:var(--font-heading)] text-[1.15rem] font-semibold leading-[1.2] tracking-tight text-white sm:max-w-4xl sm:text-3xl sm:leading-[1.18] md:text-4xl lg:text-[2.65rem]">
-            {t.rich("title", {
-              brand: (chunks) => (
-                <span className="mt-1 block text-[0.9em] font-bold tracking-[0.12em] text-white drop-shadow sm:mt-2">
-                  {chunks}
-                </span>
-              ),
-            })}
+      <div className="relative z-10 flex flex-col items-center justify-start px-3 pb-1 pt-[5.25rem] text-center sm:px-6 sm:pb-2 sm:pt-10 md:pt-12">
+        <div className="mx-auto w-full max-w-3xl">
+          <p className="text-[0.7rem] font-bold tracking-[0.22em] text-white sm:text-xs md:text-sm">
+            {SITE_NAME}
+          </p>
+          <h1 className="mx-auto mt-2 max-w-[20ch] font-[family-name:var(--font-heading)] text-[1.35rem] font-semibold leading-[1.15] tracking-tight text-white sm:mt-3 sm:max-w-2xl sm:text-3xl sm:leading-[1.12] md:text-4xl lg:text-[2.55rem]">
+            {t("title")}
           </h1>
-          <p className="mx-auto mt-2 max-w-3xl rounded-xl border border-white/35 bg-white/20 px-3 py-2 text-pretty text-[0.72rem] leading-snug text-white shadow-[0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-md sm:mt-4 sm:rounded-[2rem] sm:px-7 sm:py-4 sm:text-sm sm:leading-relaxed md:bg-white/25 md:px-8 md:text-[0.9375rem] md:leading-relaxed md:backdrop-blur-lg">
+          <p className="mx-auto mt-3 max-w-xl text-pretty text-[0.8rem] leading-snug text-white/90 sm:mt-4 sm:text-base sm:leading-relaxed md:text-lg">
             {t("intro")}
           </p>
+          <div className="mt-4 flex justify-center sm:mt-5">
+            <GoogleReviewBadge
+              source="home"
+              ariaLabel={t("reviewProof", {
+                rating: ratingLabel,
+                count: BUSINESS_GOOGLE_REVIEW_COUNT,
+              })}
+              countLabel={t("reviewCount", { count: reviewCountLabel })}
+            />
+          </div>
         </div>
       </div>
 
@@ -49,34 +69,69 @@ export function HomeHeroCopyBand({ children }: { children?: ReactNode }) {
   );
 }
 
-/** Fleet CTA — rendered below the booking search bar on the homepage. */
-export function HomeFleetCtaButton() {
+/** Fleet / WhatsApp CTAs below the booking search bar. */
+export function HomeHeroCtaBand() {
   const t = useTranslations("home.hero");
+  const waHref = `${BUSINESS_WHATSAPP_URL}/?text=${encodeURIComponent(t("whatsappPrefill"))}`;
 
   return (
-    <div className="flex justify-center bg-white px-4 pb-2 pt-4 sm:pb-3 sm:pt-5">
-      <Link
-        href="/cars"
-        onClick={() => {
-          trackEvent({
-            event: "hero-cta",
-            path: typeof window !== "undefined" ? window.location.pathname : "/",
-            source: "home",
-            ctaLabel: "fleet-cta",
-          });
-        }}
-        className="group relative inline-flex rounded-full border-2 border-[#CB1939] bg-[#CB1939] px-5 py-2.5 text-sm font-bold text-white shadow-lg no-underline transition-colors duration-300 ease-out hover:border-black hover:bg-black hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#CB1939] sm:px-6 sm:py-3 sm:text-base md:px-7 md:text-lg"
-      >
-        <span className="relative z-10 flex items-center gap-2">
-          {t("fleetCta")}
-          <span
-            className="inline-block transition-transform duration-300 group-hover:translate-x-1"
-            aria-hidden
+    <div className="bg-white px-4 pb-5 pt-4 sm:pb-6 sm:pt-5">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-4">
+        <div className="flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4">
+          <Link
+            href="/cars"
+            onClick={() => {
+              trackEvent({
+                event: "hero-cta",
+                path: typeof window !== "undefined" ? window.location.pathname : "/",
+                source: "home",
+                ctaLabel: "fleet-cta",
+              });
+            }}
+            className="inline-flex min-w-[10.5rem] items-center justify-center rounded-full border-2 border-[#CB1939] bg-[#CB1939] px-6 py-2.5 text-sm font-bold text-white no-underline transition hover:border-neutral-900 hover:bg-neutral-900 sm:min-w-[12rem] sm:px-7 sm:py-3 sm:text-base"
           >
-            →
-          </span>
-        </span>
-      </Link>
+            {t("fleetCta")}
+          </Link>
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => {
+              trackEvent({
+                event: "whatsapp",
+                path: typeof window !== "undefined" ? window.location.pathname : "/",
+                source: "home",
+                ctaLabel: "hero-whatsapp",
+              });
+            }}
+            className="inline-flex min-w-[10.5rem] items-center justify-center gap-2 rounded-full border-2 border-neutral-900 bg-white px-6 py-2.5 text-sm font-bold text-neutral-900 no-underline transition hover:bg-neutral-900 hover:text-white sm:min-w-[12rem] sm:px-7 sm:py-3 sm:text-base"
+          >
+            <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
+            {t("whatsappCta")}
+          </a>
+        </div>
+
+        <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center text-xs text-neutral-500 sm:text-sm">
+          <Link
+            href="/location-voiture-agadir"
+            className="underline-offset-2 hover:text-[#CB1939] hover:underline"
+          >
+            {t("cityLink")}
+          </Link>
+          <span aria-hidden>·</span>
+          <Link
+            href="/agadir-airport-car-rental"
+            className="underline-offset-2 hover:text-[#CB1939] hover:underline"
+          >
+            {t("airportLink")}
+          </Link>
+        </p>
+      </div>
     </div>
   );
+}
+
+/** @deprecated Use HomeHeroCtaBand */
+export function HomeFleetCtaButton() {
+  return <HomeHeroCtaBand />;
 }

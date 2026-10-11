@@ -72,6 +72,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
     });
   };
 
+  const pickupDisabled = { before: startOfToday() };
   const returnDisabled = values.pickupDate
     ? {
         before: addDays(parse(values.pickupDate, 'yyyy-MM-dd', new Date()), MIN_RENTAL_DAYS),
@@ -200,11 +201,22 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
                 <BookingFormDateField
                   id="home-pickup-date"
                   value={values.pickupDate}
-                  onChange={(iso) => setField('pickupDate', iso)}
+                  onChange={(iso) => {
+                    setField('pickupDate', iso);
+                    if (iso && values.returnDate) {
+                      const minReturn = addDays(
+                        parse(iso, 'yyyy-MM-dd', new Date()),
+                        MIN_RENTAL_DAYS,
+                      );
+                      const ret = parse(values.returnDate, 'yyyy-MM-dd', new Date());
+                      if (ret < minReturn) setField('returnDate', '');
+                    }
+                  }}
                   onBlur={() => {}}
                   placeholder={tBooking('datePlaceholder')}
                   openCalendarAria={tBooking('calendarOpenAria')}
                   locale={locale}
+                  disabled={pickupDisabled}
                   compactMobile
                 />
               </div>

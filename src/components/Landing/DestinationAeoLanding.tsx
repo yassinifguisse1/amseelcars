@@ -3,6 +3,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 import clsx from "clsx";
 import Footer from "@/components/Footer/Footer";
+import { LandingGoogleReviewBadge } from "@/components/Landing/LandingGoogleReviewBadge";
 import { SITE_NAME } from "@/lib/business";
 import styles from "./destination-aeo-landing.module.css";
 
@@ -241,6 +242,10 @@ export function DestinationAeoLanding({
           </h1>
 
           <p className={styles.heroLead}>{hero.lead}</p>
+
+          <div className={styles.heroReview}>
+            <LandingGoogleReviewBadge />
+          </div>
 
           {!bookingSearch ? (
             <>

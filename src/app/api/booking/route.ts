@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
     if (!meetsMinRentalDays(days)) {
       return NextResponse.json(
         {
-          error: `La location minimale est de ${MIN_RENTAL_DAYS} jours. Les locations de 1 à 4 jours ne sont pas acceptées.`,
+          error: `La location minimale est de ${MIN_RENTAL_DAYS} jours. Les locations de moins de ${MIN_RENTAL_DAYS} jours ne sont pas acceptées.`,
         },
         { status: 400 },
       );

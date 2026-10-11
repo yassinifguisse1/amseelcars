@@ -67,16 +67,22 @@
   },
   "home": {
     "meta": {
-      "title": "AmseelCars | Agadir Mietwagen-Hub | Flughafen & Stadt",
-      "description": "AmseelCars in Agadir: per WhatsApp buchen, Flotte ansehen, dann die Mietwagen-Agadir-Stadtseite für Stadtkw öffnen, die Flughafenseite für AGA oder Taghazout für die Küste. Ohne Kaution, Support 24/7."
+      "title": "AMSEEL CARS | Mietwagen-Hub Agadir | Flotte & Buchung",
+      "description": "AMSEEL CARS in Agadir: moderne Flotte, ohne Kaution, kostenlose Lieferung, WhatsApp 24/7. Flotte hier browsen; Stadtdetails auf der Agadir-Mietwagen-Seite, AGA auf der Flughafenseite."
     },
     "breadcrumb": "Startseite",
     "hero": {
-      "title": "AmseelCars - Mieten in Agadir mit kostenloser Lieferung",
-      "intro": "AMSEEL CARS ist Ihr lokaler Partner in Agadir: Abholung Flughafen oder Stadt, kostenlose Hotellieferung und WhatsApp 24/7. Für Mietwagen Agadir (Stadt/Hotel) öffnen Sie unsere Stadtseite. AGA-Details auf der Flughafenseite; Küste auf Taghazout.",
-      "ariaLabel": "Überblick AmseelCars, Mieten in Agadir mit Versicherung und Lieferung",
+      "title": "Lokale Mietwagen-Agentur in Agadir - ohne Kaution, gratis Lieferung",
+      "intro": "Ab ca. 25 €/Tag · ohne Kreditkarte · WhatsApp 24/7. Daten unten wählen - oder Stadt-/Flughafenseite je nach Abholung öffnen.",
+      "ariaLabel": "AMSEEL CARS, Autovermietung in Agadir",
       "fleetCta": "Unsere Autos ansehen",
-      "airportImageAlt": "Agadir Stadt und Strandpromenade - Mietwagen Agadir AmseelCars"
+      "whatsappCta": "WhatsApp",
+      "whatsappPrefill": "Hallo, ich möchte ein Auto bei Amseel Cars buchen.",
+      "reviewProof": "{rating} · {count} Google-Bewertungen",
+      "cityLink": "Hotel-/Stadtlieferung",
+      "airportLink": "AGA Flughafenabholung",
+      "imageAlt": "Agadir und Küste - AMSEEL CARS Mietwagen",
+      "reviewCount": "{count} Bewertungen"
     },
     "preloader": {
       "title": "AMSEEL CARS",
@@ -107,19 +113,19 @@
       "aboutAriaLabel": "Uber uns"
     },
     "trustBar": {
-      "ariaLabel": "AMSEEL CARS Vorteile - Mietwagen Agadir",
+      "ariaLabel": "AMSEEL CARS Vorteile in Agadir",
       "items": [
         "Ohne Kaution",
         "Ohne Kreditkarte",
-        "Ohne versteckte Gebühren",
+        "Keine versteckten Gebühren",
+        "Gratis Lieferung Agadir",
         "Flughafen oder Stadt",
-        "Kostenlose Lieferung Agadir",
         "WhatsApp 24/7",
-        "Lokales AmseelCars-Team"
+        "Google-Note 5,0"
       ]
     },
     "mainIntro": {
-      "headline": "Mietwagen Agadir mit <accent>AmseelCars</accent>",
+      "headline": "Mieten mit <accent>AMSEEL CARS</accent> in Agadir",
       "body": "Autovermietung Agadir nach der Landung oder für die Stadt? AMSEEL CARS: Flughafen oder Stadt, Hotellieferung, ohne Kaution, WhatsApp 24/7. AGA-Guide: Flughafenseite. Küste: Taghazout.",
       "bullets": [
         "Mietwagen Agadir · ohne Kaution · ohne Kreditkarte",
@@ -393,8 +399,8 @@
     },
     "card": {
       "altFallback": "{carName}, Mietwagen in Agadir, AmseelCars",
-      "daysShort": "5+ Tage",
-      "daysLong": "5+ Tage",
+      "daysShort": "3+ Tage",
+      "daysLong": "3+ Tage",
       "seats": "{count} Sitze",
       "premium": "Premium",
       "bookNow": "Jetzt buchen",
@@ -423,9 +429,9 @@
     }
   },
   "carDetail": {
-    "priceShortTerm": "(5+ Tage)",
-    "priceLongTerm": "(5+ Tage)",
-    "priceTagline": "Bestpreisgarantie • Kostenlose Stornierung • Mindestmietdauer 5 Tage",
+    "priceShortTerm": "(3+ Tage)",
+    "priceLongTerm": "(3+ Tage)",
+    "priceTagline": "Ohne Kaution · Ohne Kreditkarte · Gratis Lieferung",
     "perDay": "/ Tag",
     "seats": "{count} Sitze",
     "capacity": "Kapazität",
@@ -445,8 +451,8 @@
     "defaultAboutTitle": "Über dieses Auto",
     "faqHeading": "Häufige Fragen",
     "stickyReserve": "Buchen",
-    "waButton": "WhatsApp",
-    "waInquiry": "Hallo, ich möchte den {carName} für {price} {currency}/Tag mieten. Können Sie die Verfügbarkeit bestätigen und die Buchung erklären? Danke.",
+    "waButton": "Verfügbarkeit per WhatsApp",
+    "waInquiry": "Hallo, ich möchte den {carName} für {price}/Tag mieten (ohne Kaution). Können Sie Verfügbarkeit und Daten bestätigen? Danke.",
     "categories": {
       "luxury": "Luxus",
       "sports": "Sport",
@@ -458,7 +464,12 @@
     },
     "galleryAria": "Fotos von {carName}",
     "galleryPrev": "Vorheriges Foto",
-    "galleryNext": "Nächstes Foto"
+    "galleryNext": "Nächstes Foto",
+    "fromPrice": "Ab {price}",
+    "weekEstimate": "{days} Tage ≈ {total}",
+    "trustNoDeposit": "Ohne Kaution",
+    "trustNoCard": "Ohne Kreditkarte",
+    "trustFreeDelivery": "Gratis Lieferung Agadir"
   },
   "booking": {
     "introBlurb": "Abholung am Flughafen Al Massira, in der Innenstadt von Agadir, in Taghazout oder in unserem Büro möglich. Verfügbarkeit und Konditionen bestätigen wir per E-Mail oder WhatsApp.",
@@ -499,7 +510,7 @@
     "errPickupLoc": "Bitte wählen Sie einen Abholort",
     "errReturnLoc": "Bitte wählen Sie einen Rückgabeort",
     "errReturnAfterPickup": "Das Rückgabedatum muss nach dem Abholdatum liegen",
-    "errMinRentalDays": "Wir können Mietzeiten unter 5 Tagen nicht akzeptieren.",
+    "errMinRentalDays": "Wir können Mietzeiten unter 3 Tagen nicht annehmen.",
     "minRentalHint": "Gewählte Dauer: {selected} Tag(e). Mindestlaufzeit: {days} Tage.",
     "pickupTime": "Abholzeit *",
     "returnTime": "Rückgabezeit *",
@@ -1081,12 +1092,12 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Mietwagen Agadir | Hotel-Lieferung & Stadt | AmseelCars",
-      "description": "Mietwagen in Agadir mit kostenloser Hotel- oder Riad-Lieferung, klaren Tagespreisen und WhatsApp-Buchung. Stadt- und SUV-Autos für Strand und Ausflüge. +212 662 500 181.",
-      "ogTitle": "Mietwagen Agadir | AmseelCars",
-      "ogDescription": "Lokale Agentur in Agadir: Hotel-Lieferung, ehrliche Preise, WhatsApp-Bestätigung.",
+      "title": "Mietwagen Agadir | Ohne Kaution · ab 25 € | AmseelCars",
+      "description": "Mietwagen Agadir mit gratis Hotellieferung, ohne Kaution, ohne Kreditkarte. Ab ca. 25 €/Tag, WhatsApp-Buchung. +212 662 500 181.",
+      "ogTitle": "Mietwagen Agadir | Ohne Kaution | AmseelCars",
+      "ogDescription": "Hotellieferung, ohne Kaution, klare Preise. Bestätigung per WhatsApp.",
       "twitterTitle": "Mietwagen Agadir | AmseelCars",
-      "twitterDescription": "Hotel-Lieferung, Stadtübergabe, Kleinwagen bis SUV. AmseelCars per WhatsApp buchen."
+      "twitterDescription": "Ohne Kaution · Hotellieferung · ab ca. 25 €/Tag."
     },
     "schema": {
       "name": "Mietwagen Agadir | Hotel-Lieferung | AmseelCars",
@@ -1098,8 +1109,8 @@
     "hero": {
       "eyebrow": "Agadir · Marokko",
       "title": "Mietwagen <muted>Agadir</muted>",
-      "lead": "Lokale Flotte in Agadir mit kostenloser Hotel- oder Riad-Lieferung, klaren Tagespreisen und WhatsApp-Bestätigung. Stadtautos für den Strand - SUVs für Paradise Valley oder die Küste.",
-      "meta": "Hotel-Lieferung · Stadtübergabe · ab ca. 28 €/Tag. AGA Meet & Greet auf der Flughafen-Seite.",
+      "lead": "Kostenlose Hotel- oder Riad-Lieferung, ohne Kaution, ohne Kreditkarte. Klare Preise ab ca. 25 €/Tag und WhatsApp-Bestätigung vor Ankunft.",
+      "meta": "Stadt & Hotel · ab ca. 25 €/Tag · ohne Kaution. AGA Meet & Greet → Flughafenseite.",
       "imageAlt": "Agadir Strandpromenade - Mietwagen AmseelCars"
     },
     "quickAnswer": "AmseelCars ist eine lokale Autovermietung in Agadir. Wir liefern an Hotels und Riads, bestätigen Auto und Preis per WhatsApp und behandeln den Flughafen AGA auf einer eigenen Seite. Senden Sie Daten und Hotel - wir antworten mit Verfügbarkeit, Preis und Lieferfenster.",
@@ -1141,12 +1152,12 @@
       "title": "Was Sie in Agadir erwarten können"
     },
     "serviceChips": [
-      "Hotel-Lieferung",
-      "WhatsApp-Buchung",
-      "Klare Preise",
-      "Stadt- & Strandhotels",
-      "SUV-Ausflüge",
-      "Keine Überraschungen"
+      "Ohne Kaution",
+      "Ohne Kreditkarte",
+      "Gratis Hotellieferung",
+      "Ab ca. 25 €/Tag",
+      "WhatsApp 24/7",
+      "Stadt- & Strandhotels"
     ],
     "stats": [
       {
@@ -1156,13 +1167,13 @@
       },
       {
         "label": "Ab",
-        "value": "28 €/Tag",
-        "helper": "Kleinwagen, saisonabhängig"
+        "value": "25 €/Tag",
+        "helper": "Kleinwagen, je nach Saison"
       },
       {
-        "label": "Antwort",
-        "value": "Schnell",
-        "helper": "WhatsApp-Bestätigung"
+        "label": "Google",
+        "value": "5,0",
+        "helper": "262 Bewertungen"
       }
     ],
     "aiHighlights": [
@@ -1215,7 +1226,7 @@
     "pricingGuide": {
       "kicker": "Richtpreise",
       "title": "Was Mietwagen in Agadir typisch kostet",
-      "lead": "Endpreise hängen von Saison, Dauer und Modell ab. Spannen für 5+ Tage.",
+      "lead": "Endpreise hängen von Saison, Dauer und Modell ab. Spannen für 3+ Tage.",
       "items": [
         {
           "title": "Kleinwagen",
@@ -1263,7 +1274,7 @@
     "faqs": [
       {
         "question": "Was kostet ein Mietwagen in Agadir?",
-        "answer": "Kleinwagen oft ca. 28–45 €/Tag bei 5+ Tagen außerhalb der Spitze. SUVs mehr. Klares Angebot per WhatsApp."
+        "answer": "Kleinwagen oft ca. 28–45 €/Tag bei 3+ Tagen außerhalb der Spitze. SUVs mehr. Klares Angebot per WhatsApp."
       },
       {
         "question": "Liefern Sie zu Hotels und Riads?",

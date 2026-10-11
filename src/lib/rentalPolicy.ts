@@ -1,5 +1,5 @@
-/** Minimum rental length in days (5+ only; short 1–4 day hires are not accepted). */
-export const MIN_RENTAL_DAYS = 5;
+/** Minimum rental length in days (3+ only; shorter hires are not accepted). */
+export const MIN_RENTAL_DAYS = 3;
 
 export function rentalDayCount(pickupDate: string, returnDate: string): number {
   if (!pickupDate || !returnDate) return 0;

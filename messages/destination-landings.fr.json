@@ -1,12 +1,12 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Location voiture Agadir aéroport | Accueil AGA | AmseelCars",
-      "description": "Louez une voiture à l'aéroport Agadir Al Massira (AGA) avec accueil synchronisé au vol, tarifs clairs en euro et réservation WhatsApp. Retrait et retour sur place. +212 662 500 181.",
+      "title": "Location voiture Agadir aéroport | Sans caution · AGA | AmseelCars",
+      "description": "Location voiture aéroport Agadir Al Massira (AGA) : meet & greet, sans caution, dès ~25 €/jour. WhatsApp avant l’atterrissage. +212 662 500 181.",
       "ogTitle": "Location voiture Agadir aéroport | AmseelCars",
-      "ogDescription": "Accueil AGA, sync vol, tarifs honnêtes. Réservez AmseelCars sur WhatsApp avant l'atterrissage.",
+      "ogDescription": "Meet & greet AGA, sans caution, tarifs clairs. WhatsApp.",
       "twitterTitle": "Location voiture Agadir aéroport | AmseelCars",
-      "twitterDescription": "Meet & greet à Al Massira (AGA). Prix clairs. WhatsApp."
+      "twitterDescription": "AGA · sans caution · dès ~25 €/jour. WhatsApp."
     },
     "schema": {
       "name": "Location voiture Agadir aéroport | Accueil AGA | AmseelCars",
@@ -18,8 +18,8 @@
     "hero": {
       "eyebrow": "Al Massira (AGA)",
       "title": "Location voiture <muted>Agadir aéroport</muted>",
-      "lead": "Accueil synchronisé à votre vol à Al Massira, tarifs journaliers clairs et mises à jour WhatsApp si l'horaire bouge. Pas de file au comptoir - la voiture vous attend.",
-      "meta": "Retrait AGA · retour aéroport · dès environ 28 €/jour. La livraison hôtel est sur notre page ville.",
+      "lead": "Meet & greet synchronisé à votre vol à Al Massira, sans caution, tarifs dès ~25 €/jour. Mises à jour WhatsApp si l’horaire bouge.",
+      "meta": "Retrait AGA · dès ~25 €/jour · sans caution. Livraison hôtel → page ville.",
       "imageAlt": "Aéroport Agadir Al Massira (AGA) - location voiture aéroport AmseelCars"
     },
     "quickAnswer": "AmseelCars vous accueille à Agadir Al Massira (AGA) pour la location aéroport. Envoyez numéro de vol, dates et type de voiture sur WhatsApp - nous confirmons le rendez-vous, le véhicule et le tarif avant l'atterrissage. Arrivées tardives possibles si réservées à l'avance. Pour une livraison hôtel en ville, utilisez notre page Agadir.",
@@ -61,12 +61,12 @@
       "title": "À attendre à l'aéroport d'Agadir"
     },
     "serviceChips": [
-      "Accueil synchronisé au vol",
-      "Réservation WhatsApp",
-      "Tarifs journaliers clairs",
-      "Arrivées tardives",
-      "Retour aéroport",
-      "Sans file au comptoir"
+      "Sans caution",
+      "Meet & greet AGA",
+      "Sync vol",
+      "Dès ~25 €/jour",
+      "WhatsApp 24/7",
+      "Retour aéroport"
     ],
     "stats": [
       {
@@ -135,7 +135,7 @@
     "pricingGuide": {
       "kicker": "Tarifs indicatifs",
       "title": "Combien coûte la location aéroport",
-      "lead": "Le devis final dépend de la saison, de la durée et du modèle. Ces fourchettes correspondent aux retraits AGA de 5 jours et plus.",
+      "lead": "Le devis final dépend de la saison, de la durée et du modèle. Ces fourchettes correspondent aux retraits AGA de 3 jours et plus.",
       "items": [
         {
           "title": "Économiques après l'arrivée",
@@ -189,7 +189,7 @@
       },
       {
         "question": "Combien coûte la location aéroport ?",
-        "answer": "Les économiques commencent souvent autour de 28-45 €/jour pour 5 jours et plus hors pics. Les SUV coûtent plus. Nous envoyons un total journalier clair avant réservation."
+        "answer": "Les économiques commencent souvent autour de 28-45 €/jour pour 3 jours et plus hors pics. Les SUV coûtent plus. Nous envoyons un total journalier clair avant réservation."
       },
       {
         "question": "Comment réserver un retrait à AGA ?",
