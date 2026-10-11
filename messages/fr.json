@@ -72,8 +72,8 @@
     },
     "breadcrumb": "Accueil",
     "hero": {
-      "title": "Agence locale de location à Agadir - sans caution, livraison gratuite",
-      "intro": "Dès ~25 €/jour · sans CB · WhatsApp 24/7. Choisissez vos dates ci-dessous, ou ouvrez la page ville / aéroport selon votre prise en charge.",
+      "title": "Agence locale de location voiture à Agadir - sans caution, livraison gratuite",
+      "intro": "Dès ~25 €/jour · sans carte bancaire · WhatsApp 24/7. Choisissez vos dates ci-dessous, ou ouvrez la page ville / aéroport selon votre prise en charge.",
       "ariaLabel": "AMSEEL CARS, agence de location à Agadir",
       "fleetCta": "Voir nos voitures",
       "whatsappCta": "WhatsApp",
@@ -105,7 +105,7 @@
       "heading": "AMSEEL CARS",
       "description": "est votre agence locale à Agadir : retrait aéroport ou ville, livraison gratuite, flotte récente et WhatsApp 24/7 sur Agadir, Taghazout, Tamraght et le Souss-Massa. La page Location voiture Agadir détaille les mots-clés ville.",
       "bullets": [
-        "Location voiture Agadir sans caution, sans CB, sans frais cachés.",
+        "Location voiture Agadir sans caution, sans carte bancaire, sans frais cachés.",
         "Aéroport ou ville avec livraison pour AGA ou hôtel / centre.",
         "De la citadine au SUV : Agadir, Taghazout et Tamraght avec WhatsApp 24/7."
       ],
@@ -128,7 +128,7 @@
       "headline": "Louez avec <accent>AMSEEL CARS</accent> à Agadir",
       "body": "Location auto Agadir ou louer une voiture Agadir après l'atterrissage ou en ville ? AMSEEL CARS : aéroport ou ville, livraison hôtel, sans caution, WhatsApp 24/7. Guide AGA : page aéroport. Côte : Taghazout.",
       "bullets": [
-        "Location voiture Agadir · sans caution · sans CB",
+        "Location voiture Agadir · sans caution · sans carte bancaire",
         "Aéroport ou ville · livraison",
         "WhatsApp · support 24/7",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
@@ -136,7 +136,7 @@
     },
     "airport": {
       "title": "Aéroport ou ville - choisissez la prise en charge",
-      "body": "Réservez la location voiture Agadir ici, puis ouvrez la page adaptée : accueil AGA sur la <airport>page aéroport</airport>, hôtel ou centre sur la page Location voiture Agadir, ou côte sur <taghazout>Taghazout</taghazout>. Sans caution, sans CB, WhatsApp 24/7.",
+      "body": "Réservez la location voiture Agadir ici, puis ouvrez la page adaptée : accueil AGA sur la <airport>page aéroport</airport>, hôtel ou centre sur la page Location voiture Agadir, ou côte sur <taghazout>Taghazout</taghazout>. Sans caution, sans carte bancaire, WhatsApp 24/7.",
       "bullets": [
         {
           "text": "Prise en charge AGA - voir page aéroport",
@@ -151,7 +151,7 @@
           "href": "/taghazout-car-rental"
         },
         {
-          "text": "Sans caution · sans CB · WhatsApp 24/7"
+          "text": "Sans caution · sans carte bancaire · WhatsApp 24/7"
         }
       ],
       "flightBandAlt": "Avion au-dessus de l’Atlantique près d’Agadir - arrivées location AmseelCars"
@@ -303,7 +303,7 @@
     },
     "bookingCta": {
       "title": "Réserver une location voiture Agadir",
-      "body": "Sans caution, sans CB. Aéroport ou ville, livraison et WhatsApp 24/7 pour Agadir, Taghazout, Tamraght et Souss-Massa.",
+      "body": "Sans caution, sans carte bancaire. Aéroport ou ville, livraison et WhatsApp 24/7 pour Agadir, Taghazout, Tamraght et Souss-Massa.",
       "bookNow": "Réserver maintenant",
       "whatsapp": "WhatsApp",
       "call": "Appeler",
@@ -381,6 +381,7 @@
     "noResults": "Aucun véhicule ne correspond à vos critères de recherche.",
     "resetFilters": "Réinitialiser les filtres",
     "waInquiry": "Bonjour, je souhaite louer la {carName} au tarif de {price} {currency}/jour. Pourriez-vous me confirmer les disponibilités et m'indiquer la procédure de réservation ? Merci.",
+    "waInquiryPeriod": "Bonjour, je souhaite louer la {carName} pour {days} jours ({pickup} → {return}) au total de {total}. Pouvez-vous confirmer la disponibilité ? Merci.",
     "hero": {
       "posterAria": "Aperçu de la flotte AmseelCars",
       "videoNotSupported": "Votre navigateur ne prend pas en charge la lecture vidéo."
@@ -401,6 +402,8 @@
       "altFallback": "{carName}, location de voiture à Agadir, AmseelCars",
       "daysShort": "5+ jours",
       "daysLong": "5+ jours",
+      "periodDays": "· {days} jours",
+      "periodDaily": "{daily}/jour",
       "seats": "{count} sièges",
       "premium": "Premium",
       "bookNow": "Réserver maintenant",
@@ -431,7 +434,7 @@
   "carDetail": {
     "priceShortTerm": "(3+ jours)",
     "priceLongTerm": "(3+ jours)",
-    "priceTagline": "Sans caution · Sans CB · Livraison gratuite",
+    "priceTagline": "Sans caution · Sans carte bancaire · Livraison gratuite",
     "perDay": "/ jour",
     "seats": "{count} sièges",
     "capacity": "Capacité",
@@ -961,7 +964,8 @@
     "sameReturn": "Retourner la voiture au même endroit",
     "driverNote": "Pays de résidence du conducteur : Maroc · âge 30–65",
     "searchAppliedTitle": "Vos dates de location",
-    "searchAppliedHint": "Ces informations seront préremplies quand vous cliquez sur Réserver."
+    "searchAppliedHint": "Ces informations seront préremplies quand vous cliquez sur Réserver.",
+    "searchAppliedHintWithDays": "Les prix ci-dessous correspondent à {days} jours. Les dates seront préremplies quand vous cliquez sur Réserver."
   },
   "legalPages": {
     "lastUpdatedLabel": "Dernière mise à jour",
@@ -1093,7 +1097,7 @@
   "locationAgadirPage": {
     "meta": {
       "title": "Location voiture Agadir | Sans caution · dès 25 € | AmseelCars",
-      "description": "Location voiture Agadir avec livraison hôtel gratuite, sans caution, sans CB. Tarifs dès ~25 €/jour, réservation WhatsApp. Citadines et SUV pour plage et excursions. +212 662 500 181.",
+      "description": "Location voiture Agadir avec livraison hôtel gratuite, sans caution, sans carte bancaire. Tarifs dès ~25 €/jour, réservation WhatsApp. Citadines et SUV pour plage et excursions. +212 662 500 181.",
       "ogTitle": "Location voiture Agadir | Sans caution | AmseelCars",
       "ogDescription": "Livraison hôtel, sans caution, tarifs clairs. Confirmez sur WhatsApp.",
       "twitterTitle": "Location voiture Agadir | AmseelCars",

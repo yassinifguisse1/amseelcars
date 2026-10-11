@@ -20,6 +20,8 @@ interface CarRentalCardProps {
     longTerm: number
     hasDiscount: boolean
   }
+  /** When set (>0), show period total instead of daily rate. */
+  rentalDays?: number
   seats: number
   fuelType: string
   transmission: string
@@ -46,6 +48,7 @@ export function CarRentalCard({
   carImage,
   pricePerDay,
   pricing,
+  rentalDays,
   seats,
   fuelType,
   transmission,
@@ -65,6 +68,9 @@ export function CarRentalCard({
   const resolvedAlt =
     imageAlt?.trim() || t("altFallback", { carName })
   const resolvedTitle = (imageTitle?.trim() || resolvedAlt).slice(0, 200)
+  const dailyRate = pricing?.shortTerm ?? pricePerDay
+  const showPeriod = typeof rentalDays === 'number' && rentalDays > 0
+  const displayPrice = showPeriod ? dailyRate * rentalDays : dailyRate
 
   const cardContent = (
     <div className="flex cursor-pointer flex-col items-stretch rounded-xl sm:rounded-2xl border bg-card p-3 sm:p-4 shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -98,8 +104,20 @@ export function CarRentalCard({
             <h3 className="text-base sm:text-lg font-semibold text-foreground leading-tight">{carName}</h3>
             <div className="text-right flex-shrink-0">
               <p className="text-lg sm:text-xl font-bold text-primary">
-                {formatCarPriceLabel(pricing?.shortTerm ?? pricePerDay, currency)}
+                {formatCarPriceLabel(displayPrice, currency)}
+                {showPeriod ? (
+                  <span className="ml-1.5 text-sm font-semibold text-muted-foreground sm:text-base">
+                    {t("periodDays", { days: rentalDays })}
+                  </span>
+                ) : null}
               </p>
+              {showPeriod ? (
+                <p className="text-[0.65rem] leading-tight text-muted-foreground sm:text-xs">
+                  {t("periodDaily", {
+                    daily: formatCarPriceLabel(dailyRate, currency),
+                  })}
+                </p>
+              ) : null}
             </div>
           </div>
 

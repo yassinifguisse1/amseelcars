@@ -72,7 +72,7 @@
     },
     "breadcrumb": "Start",
     "hero": {
-      "title": "Lokalna wypożyczalnia w Agadirze - bez kaucji, darmowa dostawa",
+      "title": "Lokalna wypożyczalnia samochodów w Agadirze - bez kaucji, darmowa dostawa",
       "intro": "Od ~25 €/dzień · bez karty · WhatsApp 24/7. Wybierz daty poniżej albo otwórz stronę miasta / lotniska według odbioru.",
       "ariaLabel": "AMSEEL CARS, wypożyczalnia w Agadirze",
       "fleetCta": "Zobacz nasze auta",
@@ -381,6 +381,7 @@
     "noResults": "Żaden pojazd nie spełnia kryteriów wyszukiwania.",
     "resetFilters": "Resetuj filtry",
     "waInquiry": "Dzień dobry, chciałbym wynająć {carName} w cenie {price} {currency}/dzień. Czy mogą Państwo potwierdzić dostępność i wyjaśnić proces rezerwacji? Dziękuję.",
+    "waInquiryPeriod": "Dzień dobry, chciałbym wynająć {carName} na {days} dni ({pickup} → {return}) za łącznie {total}. Czy mogą Państwo potwierdzić dostępność? Dziękuję.",
     "hero": {
       "posterAria": "Podgląd floty AmseelCars",
       "videoNotSupported": "Twoja przeglądarka nie obsługuje znacznika wideo."
@@ -401,6 +402,8 @@
       "altFallback": "{carName}, wynajem samochodu w Agadirze, AmseelCars",
       "daysShort": "3+ dni",
       "daysLong": "3+ dni",
+      "periodDays": "· {days} dni",
+      "periodDaily": "{daily}/dzień",
       "seats": "{count} miejsc",
       "premium": "Premium",
       "bookNow": "Zarezerwuj teraz",
@@ -961,7 +964,8 @@
     "sameReturn": "Zwrot auta w tym samym miejscu",
     "driverNote": "Kraj zamieszkania kierowcy: Maroko · wiek 30–65",
     "searchAppliedTitle": "Twoje daty wynajmu",
-    "searchAppliedHint": "Te dane wypełnią się automatycznie po kliknięciu Rezerwuj."
+    "searchAppliedHint": "Te dane wypełnią się automatycznie po kliknięciu Rezerwuj.",
+    "searchAppliedHintWithDays": "Ceny poniżej są za {days} dni. Daty wypełnią się po kliknięciu Rezerwuj."
   },
   "legalPages": {
     "lastUpdatedLabel": "Ostatnia aktualizacja",

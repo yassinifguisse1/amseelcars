@@ -72,7 +72,7 @@
     },
     "breadcrumb": "Inicio",
     "hero": {
-      "title": "Agencia local de alquiler en Agadir - sin depósito, entrega gratis",
+      "title": "Agencia local de alquiler de coches en Agadir - sin depósito, entrega gratis",
       "intro": "Desde ~25 €/día · sin tarjeta · WhatsApp 24/7. Elige fechas abajo, o abre la página ciudad / aeropuerto según tu recogida.",
       "ariaLabel": "AMSEEL CARS, agencia de alquiler en Agadir",
       "fleetCta": "Ver nuestros coches",
@@ -381,6 +381,7 @@
     "noResults": "Ningún vehículo coincide con tus criterios de búsqueda.",
     "resetFilters": "Restablecer filtros",
     "waInquiry": "Hola, me gustaría alquilar el {carName} por {price} {currency}/día. ¿Podrían confirmar disponibilidad y explicarme cómo reservar? Gracias.",
+    "waInquiryPeriod": "Hola, me gustaría alquilar el {carName} durante {days} días ({pickup} → {return}) por un total de {total}. ¿Pueden confirmar disponibilidad? Gracias.",
     "hero": {
       "posterAria": "Vista previa de la flota AmseelCars",
       "videoNotSupported": "Tu navegador no admite la etiqueta de vídeo."
@@ -401,6 +402,8 @@
       "altFallback": "{carName}, alquiler de coches en Agadir, AmseelCars",
       "daysShort": "3+ días",
       "daysLong": "3+ días",
+      "periodDays": "· {days} días",
+      "periodDaily": "{daily}/día",
       "seats": "{count} plazas",
       "premium": "Premium",
       "bookNow": "Reservar ahora",
@@ -961,7 +964,8 @@
     "sameReturn": "Devolver el coche en el mismo lugar",
     "driverNote": "País de residencia del conductor: Marruecos · edad 30–65",
     "searchAppliedTitle": "Sus fechas de alquiler",
-    "searchAppliedHint": "Estos datos se rellenan al pulsar Reservar."
+    "searchAppliedHint": "Estos datos se rellenan al pulsar Reservar.",
+    "searchAppliedHintWithDays": "Los precios de abajo son para {days} días. Las fechas se rellenan al pulsar Reservar."
   },
   "legalPages": {
     "lastUpdatedLabel": "Última actualización",

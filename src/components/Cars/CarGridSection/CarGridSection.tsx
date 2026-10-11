@@ -18,6 +18,7 @@ import {
   type DisplayCurrency,
 } from '@/lib/currency'
 import { parseBookingSearchParams, hasActiveBookingSearch } from '@/lib/bookingSearchParams'
+import { rentalDayCount } from '@/lib/rentalPolicy'
 import { trackEvent } from '@/lib/trackEvent'
 import styles from './CarGridSection.module.scss'
 
@@ -52,6 +53,10 @@ const CarGridSection = ({
   const searchParams = useSearchParams()
   const bookingSearch = useMemo(() => parseBookingSearchParams(searchParams), [searchParams])
   const searchActive = hasActiveBookingSearch(searchParams)
+  const rentalDays = useMemo(() => {
+    if (!searchActive) return 0
+    return rentalDayCount(bookingSearch.pickupDate, bookingSearch.returnDate)
+  }, [searchActive, bookingSearch.pickupDate, bookingSearch.returnDate])
   const displayTitle = title ?? t('gridTitle')
   const displaySubtitle = subtitle ?? t('gridSubtitle')
 
@@ -184,11 +189,20 @@ const CarGridSection = ({
       const price = car.pricing?.shortTerm || car.pricePerDay
       const priceInCurrency = convertCarPrice(price, currency)
       const priceStr = formatCarPriceLabel(priceInCurrency, currency)
-      const message = t('waInquiry', {
-        carName: car.carName,
-        price: priceStr,
-        currency: '',
-      })
+      const message =
+        rentalDays > 0
+          ? t('waInquiryPeriod', {
+              carName: car.carName,
+              days: rentalDays,
+              total: formatCarPriceLabel(priceInCurrency * rentalDays, currency),
+              pickup: `${bookingSearch.pickupDate} ${bookingSearch.pickupTime}`,
+              return: `${bookingSearch.returnDate} ${bookingSearch.returnTime}`,
+            })
+          : t('waInquiry', {
+              carName: car.carName,
+              price: priceStr,
+              currency: '',
+            })
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
@@ -272,7 +286,11 @@ const CarGridSection = ({
                   )}`
                 : ''}
             </p>
-            <p className="mt-2 text-sm text-stone-600 sm:text-base">{tSearch('searchAppliedHint')}</p>
+            <p className="mt-2 text-sm text-stone-600 sm:text-base">
+              {rentalDays > 0
+                ? tSearch('searchAppliedHintWithDays', { days: rentalDays })
+                : tSearch('searchAppliedHint')}
+            </p>
           </div>
         ) : null}
 
@@ -316,6 +334,7 @@ const CarGridSection = ({
                       longTerm: priceInCurrency,
                       hasDiscount: false
                     } : undefined}
+                    rentalDays={rentalDays > 0 ? rentalDays : undefined}
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}

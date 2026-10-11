@@ -3401,11 +3401,11 @@ export const cars: Car[] = [
        { src: "/images/C3-normal-manuel-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
        { src: "/images/C3-normal-manuel-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
      ],
-     pricePerDay: 350,
+     pricePerDay: 300,
      pricing: {
-       shortTerm: 350, // 1-4 days
-       longTerm: 300,  // 5+ days 
-       hasDiscount: true
+       shortTerm: 300,
+       longTerm: 300,
+       hasDiscount: false
      },
      seats: 5,
      fuelType: "Diesel",

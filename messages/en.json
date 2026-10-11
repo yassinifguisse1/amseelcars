@@ -381,6 +381,7 @@
     "noResults": "No vehicles match your search criteria.",
     "resetFilters": "Reset filters",
     "waInquiry": "Hello, I’d like to rent the {carName} at {price} {currency}/day. Could you confirm availability and explain how to book? Thank you.",
+    "waInquiryPeriod": "Hello, I’d like to rent the {carName} for {days} days ({pickup} → {return}) at {total} total. Could you confirm availability? Thank you.",
     "hero": {
       "posterAria": "AmseelCars fleet preview",
       "videoNotSupported": "Your browser does not support the video tag."
@@ -401,6 +402,8 @@
       "altFallback": "{carName}, car rental in Agadir, AmseelCars",
       "daysShort": "3+ days",
       "daysLong": "3+ days",
+      "periodDays": "· {days} days",
+      "periodDaily": "{daily}/day",
       "seats": "{count} seats",
       "premium": "Premium",
       "bookNow": "Book now",
@@ -961,7 +964,8 @@
     "sameReturn": "Return the car to the same location",
     "driverNote": "Driver’s country of residence is Morocco · age 30–65",
     "searchAppliedTitle": "Your rental dates",
-    "searchAppliedHint": "These details are prefilled when you click Book."
+    "searchAppliedHint": "These details are prefilled when you click Book.",
+    "searchAppliedHintWithDays": "Prices below are for {days} days. Dates are prefilled when you click Book."
   },
   "legalPages": {
     "lastUpdatedLabel": "Last updated",

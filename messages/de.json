@@ -381,6 +381,7 @@
     "noResults": "Kein Fahrzeug entspricht Ihren Suchkriterien.",
     "resetFilters": "Filter zurücksetzen",
     "waInquiry": "Hallo, ich möchte den {carName} für {price} {currency}/Tag mieten. Können Sie die Verfügbarkeit bestätigen und die Buchung erklären? Danke.",
+    "waInquiryPeriod": "Hallo, ich möchte den {carName} für {days} Tage ({pickup} → {return}) für insgesamt {total} mieten. Können Sie die Verfügbarkeit bestätigen? Danke.",
     "hero": {
       "posterAria": "Vorschau der AmseelCars-Flotte",
       "videoNotSupported": "Ihr Browser unterstützt das Video-Tag nicht."
@@ -401,6 +402,8 @@
       "altFallback": "{carName}, Mietwagen in Agadir, AmseelCars",
       "daysShort": "3+ Tage",
       "daysLong": "3+ Tage",
+      "periodDays": "· {days} Tage",
+      "periodDaily": "{daily}/Tag",
       "seats": "{count} Sitze",
       "premium": "Premium",
       "bookNow": "Jetzt buchen",
@@ -961,7 +964,8 @@
     "sameReturn": "Fahrzeug am gleichen Ort zurückgeben",
     "driverNote": "Wohnsitzland des Fahrers: Marokko · Alter 30–65",
     "searchAppliedTitle": "Ihre Mietdaten",
-    "searchAppliedHint": "Diese Angaben werden beim Klick auf Buchen vorausgefüllt."
+    "searchAppliedHint": "Diese Angaben werden beim Klick auf Buchen vorausgefüllt.",
+    "searchAppliedHintWithDays": "Die Preise unten gelten für {days} Tage. Daten werden beim Klick auf Buchen vorausgefüllt."
   },
   "legalPages": {
     "lastUpdatedLabel": "Zuletzt aktualisiert",
