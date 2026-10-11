@@ -80,6 +80,117 @@ const nextConfig: NextConfig = {
         destination: "/voitures/:path*",
         permanent: true,
       },
+      // Fleet image filename corrections (wrong diesel/auto labels) — keep indexed URLs alive.
+      {
+        source: "/images/C3-aircross-blanche-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-aircross-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-aircross-gris-automatique-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-aircross-gris-automatique-essence-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-aircross-gris-automatique-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-aircross-gris-automatique-essence-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-aircross-gris-automatique-diesel-2024-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-aircross-gris-automatique-essence-2024-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-aircross-gris-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-aircross-gris-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-aircross-gris-automatique-diesel-2024-vue-iinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-aircross-gris-automatique-essence-2024-vue-iinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-normal-automatique-blanche-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-normal-manuel-blanche-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-normal-automatique-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-normal-manuel-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-normal-automatique-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-normal-manuel-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/C3-normal-automatique-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/C3-normal-manuel-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arrieere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/Golf-8-style-automatique-gris-essence-2024-vue-arrieere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arri%C3%A8re-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/Golf-8-style-automatique-gris-essence-2024-vue-arri%C3%A8re-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-d'int%C3%A9rieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/Golf-8-style-automatique-gris-essence-2024-vue-d'int%C3%A9rieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-de-c%C3%B4t%C3%A9-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/Golf-8-style-automatique-gris-essence-2024-vue-de-c%C3%B4t%C3%A9-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/Golf-8-style-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/Golf-8-style-automatique-gris-essence-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/T-roc-automatique-gris-diesel-2024-vue-arriere-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/T-roc-automatique-gris-essence-2024-vue-arriere-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/T-roc-automatique-gris-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/T-roc-automatique-gris-essence-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/T-roc-automatique-gris-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/T-roc-automatique-gris-essence-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/T-roc-automatique-gris-diesel-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/T-roc-automatique-gris-essence-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/T-roc-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/T-roc-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
+      {
+        source: "/images/T-roc-automatique-gris-diesel-2024-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        destination: "/images/T-roc-automatique-gris-essence-2024-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp",
+        permanent: true,
+      },
       // Note: do not 301 /cars → /voitures — /cars is the English canonical URL (pair with /voitures via hreflang).
       // Legacy monolithic sitemaps → index (per-locale lives at sitemap-pages-{locale}.xml).
       {

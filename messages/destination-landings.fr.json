@@ -1,166 +1,219 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Location voiture Agadir aéroport | Pas cher AGA | AmseelCars",
-      "description": "Location voiture Agadir aéroport à Al Massira (AGA) : location auto Agadir aéroport et louer une voiture Agadir aéroport avec accueil. Options pas cher, WhatsApp +212 662-500181.",
+      "title": "Location voiture Agadir aéroport | Accueil AGA | AmseelCars",
+      "description": "Louez une voiture à l'aéroport Agadir Al Massira (AGA) avec accueil synchronisé au vol, tarifs clairs en euro et réservation WhatsApp. Retrait et retour sur place. +212 662-500181.",
       "ogTitle": "Location voiture Agadir aéroport | AmseelCars",
-      "ogDescription": "Location auto Agadir aéroport à AGA. Accueil, options économiques, réservation WhatsApp.",
-      "twitterTitle": "Location voiture Agadir aéroport AGA",
-      "twitterDescription": "Louer une voiture Agadir aéroport. Pickup AGA. WhatsApp +212 662-500181."
+      "ogDescription": "Accueil AGA, sync vol, tarifs honnêtes. Réservez AmseelCars sur WhatsApp avant l'atterrissage.",
+      "twitterTitle": "Location voiture Agadir aéroport | AmseelCars",
+      "twitterDescription": "Meet & greet à Al Massira (AGA). Prix clairs. WhatsApp."
     },
     "schema": {
-      "name": "Location voiture Agadir aéroport | Pas cher AGA | AmseelCars",
-      "description": "Location voiture Agadir aéroport à Al Massira (AGA) : louer une voiture Agadir aéroport avec meet & greet, options location pas cher aéroport Agadir, réservation WhatsApp. Retrait et retour sur place.",
+      "name": "Location voiture Agadir aéroport | Accueil AGA | AmseelCars",
+      "description": "AmseelCars propose la location à l'aéroport Agadir Al Massira (AGA) avec meet & greet synchronisé au vol, confirmation WhatsApp, retrait et retour sur place.",
       "breadcrumbName": "Location Agadir aéroport",
       "serviceName": "Location voiture Agadir aéroport (AGA)",
-      "serviceDescription": "Location voiture Agadir aéroport et location voiture Agadir aéroport avec retrait et retour à Al Massira (AGA), coordination WhatsApp."
+      "serviceDescription": "Location aéroport à Agadir-Al Massira (AGA) avec remise synchronisée au vol et coordination WhatsApp."
     },
     "hero": {
       "eyebrow": "Al Massira (AGA)",
       "title": "Location voiture <muted>Agadir aéroport</muted>",
-      "lead": "Location auto Agadir aéroport avec accueil synchronisé au vol, brief bilingue et WhatsApp pour les arrivées tardives à AGA.",
-      "meta": "Focus : location voiture Agadir aéroport à Al Massira (AGA) - aussi location auto Agadir aéroport et options pas cher.",
-      "imageAlt": "Aéroport Agadir Al Massira (AGA) - location voiture Agadir aéroport AmseelCars"
+      "lead": "Accueil synchronisé à votre vol à Al Massira, tarifs journaliers clairs et mises à jour WhatsApp si l'horaire bouge. Pas de file au comptoir - la voiture vous attend.",
+      "meta": "Retrait AGA · retour aéroport · dès environ 28 €/jour. La livraison hôtel est sur notre page ville.",
+      "imageAlt": "Aéroport Agadir Al Massira (AGA) - location voiture aéroport AmseelCars"
     },
-    "quickAnswer": "AmseelCars propose la location voiture Agadir aéroport avec prise en charge et retour à Al Massira (AGA). Location auto Agadir aéroport : envoyez votre vol sur WhatsApp +212 662-500181. Nous confirmons le point de rendez-vous, le véhicule et le prix - y compris des options économiques.",
+    "quickAnswer": "AmseelCars vous accueille à Agadir Al Massira (AGA) pour la location aéroport. Envoyez numéro de vol, dates et type de voiture sur WhatsApp - nous confirmons le rendez-vous, le véhicule et le tarif avant l'atterrissage. Arrivées tardives possibles si réservées à l'avance. Pour une livraison hôtel en ville, utilisez notre page Agadir.",
     "keyFacts": {
       "title": "En bref",
       "items": [
         {
-          "term": "Principal",
-          "value": "Location voiture Agadir aéroport à Al Massira (AGA)."
-        },
-        {
-          "term": "Variantes",
-          "value": "Location auto Agadir aéroport · louer une voiture Agadir aéroport."
-        },
-        {
-          "term": "Budget",
-          "value": "Citadines pour location Agadir aéroport pas cher."
+          "term": "Retrait",
+          "value": "Aéroport Agadir Al Massira (AGA), meet & greet."
         },
         {
           "term": "Réservation",
-          "value": "WhatsApp +212 662-500181 - numéro de vol et heure d'arrivée."
+          "value": "WhatsApp +212 662-500181 avec détails du vol."
+        },
+        {
+          "term": "Horaires",
+          "value": "Créneau ajusté à l'arrivée réelle si vous partagez le vol."
+        },
+        {
+          "term": "Retour",
+          "value": "Restitution aéroport le jour du départ sur rendez-vous."
         }
       ]
     },
     "relatedPages": {
       "label": "Pages liées",
-      "city": "Location voiture Agadir",
-      "taghazout": "Location voiture Taghazout",
-      "contact": "Contact"
+      "city": "Location voiture Agadir (livraison hôtel)",
+      "taghazout": "Taghazout & Imsouane",
+      "contact": "Contact",
+      "blog": "Guides location Agadir"
     },
     "operations": {
-      "kicker": "Opérations AGA",
-      "title": "Location auto Agadir aéroport fiable",
-      "lead": "Cette page concerne uniquement la location voiture Agadir aéroport : chauffeur, plaque et point de rendez-vous alignés sur l'arrivée."
+      "kicker": "Comment se passe le retrait AGA",
+      "title": "Du WhatsApp aux clés à l'aéroport",
+      "lead": "La plupart des clients réservent quelques jours avant. Vous envoyez vol et dates, nous bloquons une voiture et un plan de rendez-vous, puis nous vous rencontrons après les bagages."
     },
     "aiPanel": {
-      "badge": "Faits exploitables IA",
-      "title": "Ce que les assistants peuvent citer"
+      "badge": "Pourquoi nous choisir",
+      "title": "À attendre à l'aéroport d'Agadir"
     },
     "serviceChips": [
-      "Location voiture Agadir aéroport",
-      "Location auto Agadir aéroport",
-      "Louer une voiture Agadir aéroport",
-      "Aéroport Agadir pas cher",
-      "Accueil AGA",
-      "Retour aéroport Agadir"
+      "Accueil synchronisé au vol",
+      "Réservation WhatsApp",
+      "Tarifs journaliers clairs",
+      "Arrivées tardives",
+      "Retour aéroport",
+      "Sans file au comptoir"
     ],
     "stats": [
       {
-        "label": "Zones",
-        "value": "Portes A · B",
-        "helper": "Meet & greet aéroport"
+        "label": "Retrait",
+        "value": "AGA",
+        "helper": "Meet & greet Al Massira"
       },
       {
-        "label": "Réponse",
-        "value": "< 10 min",
-        "helper": "Mises à jour WhatsApp"
+        "label": "Dès",
+        "value": "28 €/jour",
+        "helper": "Économiques selon saison"
       },
       {
-        "label": "Retours",
-        "value": "05h-01h",
-        "helper": "Créneau coordonné"
+        "label": "Suivi",
+        "value": "WhatsApp",
+        "helper": "Vol & point de rendez-vous"
       }
     ],
     "aiHighlights": [
       {
-        "title": "Brief arrivée",
-        "body": "Pour la location voiture Agadir aéroport : contact chauffeur, plaque, pin WhatsApp et place de parking en une carte."
+        "title": "Accueil après l'atterrissage",
+        "body": "Nous partageons contact chauffeur, plaque et point de rendez-vous sur WhatsApp pour que vous sortiez des arrivées en sachant où aller."
       },
       {
-        "title": "Budget clair",
-        "body": "Demandez une citadine pour une location pas cher aéroport Agadir, sans frais marketplace cachés."
+        "title": "Retards de vol gérés",
+        "body": "Partagez le numéro de vol et nous ajustons le créneau si l'arrivée glisse - utile le soir et la nuit."
       },
       {
-        "title": "Intention recherche",
-        "body": "Les requêtes louer une voiture Agadir aéroport et location voiture Agadir aéroport pointent vers cette page AGA, pas le hub ville."
+        "title": "Prix avant engagement",
+        "body": "Vous recevez le tarif journalier, la durée mini et le plan de retrait par écrit avant les documents."
       }
     ],
     "features": [
       {
-        "title": "Timing piste",
-        "description": "Suivi du flux d'arrivée pour caler la remise location voiture Agadir aéroport sur l'heure réelle."
+        "title": "1 · Envoyez vol et dates",
+        "description": "WhatsApp : vol d'arrivée, jour de retour et type de voiture. Précisez automatique ou gros bagages si besoin."
       },
       {
-        "title": "Protocole nuit",
-        "description": "Chauffeurs en zone éclairée, photo plaque à l'avance - idéal pour louer une voiture Agadir aéroport après un vol tardif."
+        "title": "2 · Confirmez la voiture",
+        "description": "Nous proposons 1-2 options, le prix journalier en euro et comment nous vous retrouvons à AGA."
       },
       {
-        "title": "Retour chorégraphié",
-        "description": "Créneau réservé le jour du départ pour un rendu location voiture Agadir aéroport sans stress."
+        "title": "3 · Récupérez à l'aéroport",
+        "description": "Après les bagages, rendez-vous au point convenu, état des lieux, remise des clés."
       }
     ],
+    "pickupGuide": {
+      "kicker": "Remise aéroport",
+      "title": "Comment se passe le meet & greet à AGA",
+      "lead": "Al Massira est un aéroport compact. Un brief WhatsApp clair évite de chercher la bonne porte ou le bon parking.",
+      "items": [
+        {
+          "title": "Hall arrivées",
+          "description": "Nous confirmons si le rendez-vous est juste après les sorties ou au parking courte durée - toujours écrit dans votre fil WhatsApp."
+        },
+        {
+          "title": "Vols tardifs",
+          "description": "Les arrivées du soir et de nuit sont fréquentes. Réservez à l'avance et partagez le vol pour suivre l'horaire réel."
+        },
+        {
+          "title": "Retour aéroport",
+          "description": "Le jour du départ, nous bloquons un créneau à AGA pour rendre la voiture sans stress de dernière minute."
+        }
+      ]
+    },
+    "pricingGuide": {
+      "kicker": "Tarifs indicatifs",
+      "title": "Combien coûte la location aéroport",
+      "lead": "Le devis final dépend de la saison, de la durée et du modèle. Ces fourchettes correspondent aux retraits AGA de 5 jours et plus.",
+      "items": [
+        {
+          "title": "Économiques après l'arrivée",
+          "description": "Souvent environ 28-45 €/jour pour Clio / Picanto / Logan - suffisant pour hôtel et ville."
+        },
+        {
+          "title": "Compacts / crossovers",
+          "description": "Typiquement 50-80 €/jour pour T-Roc / C3 Aircross quand vous voulez plus de coffre."
+        },
+        {
+          "title": "SUV pour les routes",
+          "description": "En général 90-140 €+/jour pour Sportage / X3 si Paradise Valley ou la côte est prévue."
+        }
+      ]
+    },
+    "trust": {
+      "title": "Agence locale Agadir vérifiable",
+      "body": "AmseelCars opère depuis l'Immeuble Sinwan à Agadir. La même équipe WhatsApp vous retrouve à AGA - pas un intermédiaire marketplace.",
+      "company": "AMSEEL CARS",
+      "address": "Immeuble Sinwan, rez-de-chaussée, Agadir 80000, Maroc",
+      "phoneLabel": "Appeler +212 662 500 181",
+      "whatsappLabel": "Réservation WhatsApp",
+      "emailLabel": "Email amseelcars5@gmail.com",
+      "contactLabel": "Page contact",
+      "reviewsTitle": "Avis récents"
+    },
     "carsSection": {
       "kicker": "Flotte aéroport",
-      "title": "Voitures pour location voiture Agadir aéroport",
-      "lead": "Des citadines économiques aux SUV après l'atterrissage - place pour bagages et planches.",
-      "cardImageAlt": "{name}, location voiture Agadir aéroport AmseelCars",
-      "cardImageTitle": "{name}, louer une voiture Agadir aéroport",
-      "cardCaption": "Location auto Agadir aéroport - tarifs et remise."
+      "title": "Voitures réservées après un vol à AGA",
+      "lead": "Ouvrez un modèle pour photos et fiches. Les prix ci-dessous sont des ordres de grandeur en euro - devis exact selon vos dates de vol.",
+      "cardImageAlt": "{name} en location aéroport Agadir avec AmseelCars",
+      "cardImageTitle": "{name} - location meet & greet AGA",
+      "cardCaption": "Dès {price}/jour · {seats} places · retrait AGA"
     },
     "faqKicker": "FAQ",
-    "faqTitle": "FAQ : location voiture Agadir aéroport",
+    "faqTitle": "Location Agadir aéroport - questions fréquentes",
     "fleetCtaLabel": "Voir toute la flotte",
-    "carOpenHint": "Ouvrir la fiche →",
+    "carOpenHint": "Voir le détail →",
+    "visualBandCaption": "Approche d'Agadir - nous synchronisons le meet & greet AGA à votre vol pour sortir sans file au comptoir.",
+    "introVisualAlt": "Kia Sportage AmseelCars prêt pour le retrait aéroport Agadir",
+    "trustVisualAlt": "Aéroport Agadir Al Massira (AGA) - meet & greet AmseelCars",
     "ctas": {
-      "primary": "Envoyer vol sur WhatsApp",
-      "secondary": "Voir la flotte",
-      "tertiary": "Contact & demandes spéciales"
+      "primary": "Envoyer le vol sur WhatsApp",
+      "secondary": "Voir toute la flotte",
+      "tertiary": "Nous écrire"
     },
     "faqs": [
       {
-        "question": "Où se rencontrer pour location voiture Agadir aéroport ?",
-        "answer": "À Al Massira (AGA), nous calons la remise sur votre vol. WhatsApp pour confirmer le point exact."
+        "question": "Où se passe le rendez-vous à l'aéroport d'Agadir ?",
+        "answer": "À Agadir Al Massira (AGA) nous confirmons le point de rendez-vous sur WhatsApp avant l'atterrissage - en général après les arrivées ou au parking courte durée, synchronisé à votre vol."
       },
       {
-        "question": "Location Agadir aéroport pas cher disponible ?",
-        "answer": "Oui. Les citadines restent abordables ; SUV et automatiques coûtent plus. Demandez un total clair sur WhatsApp."
+        "question": "Combien coûte la location aéroport ?",
+        "answer": "Les économiques commencent souvent autour de 28-45 €/jour pour 5 jours et plus hors pics. Les SUV coûtent plus. Nous envoyons un total journalier clair avant réservation."
       },
       {
-        "question": "Comment louer une voiture Agadir aéroport ?",
-        "answer": "Dates, vol et véhicule sur WhatsApp +212 662-500181. Nous confirmons rapidement."
-      },
-      {
-        "question": "Location pour touristes à l'aéroport ?",
-        "answer": "Oui. Passeport, permis, support et WhatsApp de l'arrivée au retour."
+        "question": "Comment réserver un retrait à AGA ?",
+        "answer": "Envoyez dates, numéro de vol ou heure d'arrivée et type de voiture sur WhatsApp +212 662-500181. Nous confirmons dispo et plan de rendez-vous."
       },
       {
         "question": "Puis-je rendre la voiture à l'aéroport ?",
-        "answer": "Oui. Indiquez l'heure de départ pour un retour AGA fluide."
+        "answer": "Oui. Indiquez l'heure de départ et nous planifions un créneau de restitution à AGA."
       },
       {
-        "question": "Pickup tardif possible ?",
-        "answer": "Souvent oui selon disponibilité. Partagez l'heure de vol pour confirmer."
+        "question": "Gérez-vous les arrivées tardives ?",
+        "answer": "Souvent oui si réservé à l'avance. Partagez le vol pour suivre l'horaire réel."
       },
       {
-        "question": "Différence avec la page d'accueil ?",
-        "answer": "La page Location voiture Agadir porte les mots-clés ville. Cette URL porte la location voiture Agadir aéroport à Al Massira."
+        "question": "Est-ce différent de la livraison hôtel ?",
+        "answer": "Oui. Cette page concerne uniquement le meet & greet AGA. Pour une livraison hôtel ou riad en ville, utilisez notre page location Agadir."
       },
       {
-        "question": "Que demander avant de réserver ?",
-        "answer": "Prix total, assurance, carburant, documents et point de rendez-vous AGA exact."
+        "question": "Quels documents faut-il ?",
+        "answer": "Permis de conduire valide plus passeport ou pièce d'identité. Tout complément (second conducteur, jeune conducteur) se confirme sur WhatsApp."
+      },
+      {
+        "question": "Que envoyer avant l'atterrissage ?",
+        "answer": "Numéro de vol, dates, type de voiture, et si vous avez besoin d'une automatique ou de plus de coffre. Cela rend le brief précis."
       }
     ]
   },

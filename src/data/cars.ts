@@ -215,7 +215,7 @@ export const cars: Car[] = [
      ],
      // french specs
      specs: {
-       engine: "2.0L diesel TwinPower Turbo (20 xDrive, MHEV 48V)",
+       engine: "2.0L diesel TwinPower Turbo (xDrive, MHEV 48V)",
        horsepower: "208 ch",
        acceleration: "0-100 km/h en 7,8 s",
        topSpeed: "215 km/h",
@@ -234,14 +234,14 @@ export const cars: Car[] = [
      brand: "Volkswagen",
      model: "Golf 8 1.5 eTSI 150 DSG",
      year: 2024,
-     carImage: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+     carImage: "/images/Golf-8-style-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
-       { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
-       { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - intérieur" },
-       { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue latérale" },
-       { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
-       { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-d'intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" },
-       { src: "/images/Golf-8-style-automatique-gris-diesel-2024-vue-arrieere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
+       { src: "/images/Golf-8-style-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue avant", isPrimary: true },
+       { src: "/images/Golf-8-style-automatique-gris-essence-2024-vue-arrière-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - intérieur" },
+       { src: "/images/Golf-8-style-automatique-gris-essence-2024-vue-de-côté-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue latérale" },
+       { src: "/images/Golf-8-style-automatique-gris-essence-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - tableau de bord" },
+       { src: "/images/Golf-8-style-automatique-gris-essence-2024-vue-d'intérieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" },
+       { src: "/images/Golf-8-style-automatique-gris-essence-2024-vue-arrieere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen Golf 8 - vue arrière" }
   
      ],
      pricePerDay: 749,
@@ -251,7 +251,7 @@ export const cars: Car[] = [
        hasDiscount: true
      },
      seats: 5,
-     fuelType: "Diesel",
+     fuelType: "Essence",
      transmission: "Automatique DSG 7",
      rating: 4.9,
      description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch  48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
@@ -351,19 +351,19 @@ export const cars: Car[] = [
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
-       { icon: "🔋", name: "Carburant", value: "Diesel" },
+       { icon: "🔋", name: "Carburant", value: "Essence" },
        { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DSG 7" },
        { icon: "🛡️", name: "Sécurité", value: "5 étoiles Euro NCAP (Golf 8)" },
        { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
      ],
      specs: {
-       engine: "1.5L eTSI turbo essence  cylindres",
-       horsepower: "150 ch",
-       acceleration: "0-100 km/h en 8,4 s",
-       topSpeed: "224 km/h",
-       fuelEfficiency: "5,3-5,4 l/100 km (WLTP)",
-       drivetrain: "Traction (roues avant)"
+       engine: "1.5L eTSI turbo essence 4 cylindres (MHEV 48V)",
+       horsepower: "150 ch",
+       acceleration: "0-100 km/h en ~8,5-8,7 s",
+       topSpeed: "≈ 224 km/h",
+       fuelEfficiency: "≈ 4,6-6,7 l/100 km (selon cycle)",
+       drivetrain: "Traction (roues avant)"
      },
      category: 'luxury',
      availability: true,
@@ -375,16 +375,16 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-t-roc',
      carName: "T-Roc",
      brand: "Volkswagen",
-     model: "T-Roc 1.5 TSI 150 BVM6",
+     model: "T-Roc 1.5 TSI 150 DSG7",
      year: 2024,
-     carImage: "/images/T-roc-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+     carImage: "/images/T-roc-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
-       { src: "/images/T-roc-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue avant", isPrimary: true },
-       { src: "/images/T-roc-automatique-gris-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - intérieur" },
-       { src: "/images/T-roc-automatique-gris-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue latérale" },
-       { src: "/images/T-roc-automatique-gris-diesel-2024-vue-arriere-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - tableau de bord" },
-       { src: "/images/T-roc-automatique-gris-diesel-2024-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - détails habitacle" },
-       { src: "/images/T-roc-automatique-gris-diesel-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue arrière" },
+       { src: "/images/T-roc-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue avant", isPrimary: true },
+       { src: "/images/T-roc-automatique-gris-essence-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - intérieur" },
+       { src: "/images/T-roc-automatique-gris-essence-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue latérale" },
+       { src: "/images/T-roc-automatique-gris-essence-2024-vue-arriere-coffre-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - tableau de bord" },
+       { src: "/images/T-roc-automatique-gris-essence-2024-vue-interieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - détails habitacle" },
+       { src: "/images/T-roc-automatique-gris-essence-2024-vue-de-linterieure-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Volkswagen T-Roc - vue arrière" },
      ],
      pricePerDay: 642,
      pricing: {
@@ -393,11 +393,11 @@ export const cars: Car[] = [
        hasDiscount: true
      },
      seats: 5,
-     fuelType: "Diesel",
-     transmission: "Automatique",
+     fuelType: "Essence",
+     transmission: "Automatique DSG 7",
      rating: 4.7,
     
-     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte manuelle 6 rapports) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien, idéal pour Agadir et ses environs.",
+     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte automatique DSG 7) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien, idéal pour Agadir et ses environs.",
   richContent: {
     h1Title: "Location T-Roc Agadir | SUV compact confortable | AmseelCars",
     seoTitle: "T-Roc en location à Agadir | AmseelCars",
@@ -495,19 +495,19 @@ export const cars: Car[] = [
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
-       { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⛽", name: "Carburant", value: "Essence" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique DSG 7" },
        { icon: "🛡️", name: "Sécurité", value: "5 étoiles Euro NCAP (2017)" },
        { icon: "❄️", name: "Climatisation", value: "Bi-zone" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
      ],
      specs: {
-       engine: "1.5L TSI (ACT) 4 cylindres Diesel",
-       horsepower: "150 ch",
-       acceleration: "0-100 km/h en 8,6 s",
-       topSpeed: "205 km/h",
-       fuelEfficiency: "6,2 l/100 km (WLTP combiné)",
-       drivetrain: "Traction (roues avant)"
+       engine: "1.5L TSI (ACT) 4 cylindres essence",
+       horsepower: "150 ch",
+       acceleration: "0-100 km/h en ~8,4 s",
+       topSpeed: "≈ 205 km/h",
+       fuelEfficiency: "≈ 5,6-6,4 l/100 km (selon cycle)",
+       drivetrain: "Traction (roues avant)"
      },
      category: 'premium',
      availability: true,
@@ -632,14 +632,14 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "🔄", name: "Boîte de vitesses", value: "Manuelle" },
+       { icon: "🔄", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
        { icon: "🛡️", name: "Sécurité", value: "AEB, maintien de voie, reconnaissance panneaux (Euro NCAP 5★)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (EASY LINK)" }
      ],
      specs: {
        engine: "1.5L Blue dCi (diesel) - 4 cylindres",
-       horsepower: "101 ch",
+       horsepower: "100 ch",
        acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "174 km/h",
        fuelEfficiency: "4,1 l/100 km (WLTP combiné)",
@@ -775,14 +775,14 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
        { icon: "🛡️", name: "Sécurité", value: "AEB, maintien de voie, lecture panneaux (Euro NCAP 5★)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (EASY LINK)" }
      ],
      specs: {
        engine: "1.5L Blue dCi (diesel) - 4 cylindres",
-       horsepower: "101 ch",
+       horsepower: "100 ch",
        acceleration: "0-100 km/h en 11,4 s",
        topSpeed: "174 km/h",
        fuelEfficiency: "4,1 l/100 km (WLTP combiné)",
@@ -819,7 +819,7 @@ export const cars: Car[] = [
      fuelType: "Essence",
      transmission: "Automatique EAT8",
      rating: 4.6,
-     description: "Confortable et technologique, la Citroën C4 1.2 PureTech 130 ch avec boîte automatique EAT8 offre une conduite souple, une bonne efficience et une connectivité complète (Apple CarPlay / Android Auto sans fil). Idéale pour la ville de Fès comme pour les trajets interurbains.",
+     description: "Confortable et technologique, la Citroën C4 1.2 PureTech 130 ch avec boîte automatique EAT8 offre une conduite souple, une bonne efficience et une connectivité complète (Apple CarPlay / Android Auto sans fil). Idéale pour la ville d'Agadir comme pour les trajets interurbains.",
   richContent: {
     h1Title: "Location Citroen C4 Agadir | Confort & boîte auto | AmseelCars",
     seoTitle: "Citroen C4 en location à Agadir | AmseelCars",
@@ -931,7 +931,7 @@ export const cars: Car[] = [
        fuelEfficiency: "5,9 l/100 km (WLTP combiné)",
        drivetrain: "Traction (roues avant)"
      },
-     category: 'suv',
+     category: 'crossover',
      availability: true,
      location: "Agadir, Morocco"
    }
@@ -941,11 +941,11 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-c3-aircross',
      carName: "C3 Aircross",
      brand: "Citroën",
-     model: "C3 Aircross",
+     model: "C3 Aircross 1.2 PureTech Hybrid 136 e-DCS6",
      year: 2024,
-     carImage: "/images/C3-aircross-blanche-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+     carImage: "/images/C3-aircross-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
-       { src: "/images/C3-aircross-blanche-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
+       { src: "/images/C3-aircross-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
        { src: "/images/clipboard-image-1757626620.webp", alt: "Citroën C3 Aircross - intérieur" },
        { src: "/images/clipboard-image-1757626720.webp", alt: "Citroën C3 Aircross - vue latérale" },
        { src: "/images/clipboard-image-1757626807.webp", alt: "Citroën C3 Aircross - tableau de bord" }
@@ -957,10 +957,10 @@ export const cars: Car[] = [
        hasDiscount: true
      },
      seats: 5,
-     fuelType: "Diesel",
-     transmission: "Automatique",
+     fuelType: "Essence",
+     transmission: "Automatique e-DCS6",
      rating: 5.0,
-     description: "SUV compact confortable et polyvalent, la nouvelle Citroën C3 Aircross   offre une conduite souple, une faible consommation WLTP et une connectivité moderne (écran 10,25\" avec Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
+     description: "SUV compact confortable et polyvalent, la Citroën C3 Aircross en 1.2 PureTech Hybrid 136 ch e-DCS6 (essence, hybridation légère 48V) offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
   richContent: {
     h1Title: "Location C3 Aircross Agadir | SUV compact confortable | AmseelCars",
     seoTitle: "C3 Aircross en location à Agadir | AmseelCars",
@@ -1058,19 +1058,19 @@ export const cars: Car[] = [
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
-       { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⛽", name: "Carburant", value: "Essence (hybride légère)" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique e-DCS6" },
        { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d'urgence, maintien de voie, régulateur" },
-       { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
+       { icon: "❄️", name: "Climatisation", value: "Clim. automatique (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.2L PureTech  (48V) - 3 cylindres Diesel",
-       horsepower: "136 ch",
-       acceleration: "0-100 km/h en 8,8 s",
-       topSpeed: "192 km/h",
-       fuelEfficiency: "5,6 l/100 km (WLTP)",
-       drivetrain: "Traction (roues avant)"
+       engine: "1.2L PureTech turbo 3 cylindres + MHEV 48V",
+       horsepower: "136 ch (système)",
+       acceleration: "0-100 km/h en ~9,1 s",
+       topSpeed: "≈ 192 km/h",
+       fuelEfficiency: "≈ 5,3-5,6 l/100 km (WLTP)",
+       drivetrain: "Traction (roues avant)"
      },
      category: 'suv',
      availability: true,
@@ -1082,15 +1082,15 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-c3-aircross-gris',
      carName: "C3 Aircross",
      brand: "Citroën",
-     model: "C3 Aircross",
+     model: "C3 Aircross 1.2 PureTech Hybrid 136 e-DCS6",
      year: 2024,
-     carImage: "/images/C3-aircross-gris-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+     carImage: "/images/C3-aircross-gris-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
-       { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
-       { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - intérieur" },
-       { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
-       { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
-       { src: "/images/C3-aircross-gris-automatique-diesel-2024-vue-iinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" }
+       { src: "/images/C3-aircross-gris-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue avant", isPrimary: true },
+       { src: "/images/C3-aircross-gris-automatique-essence-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - intérieur" },
+       { src: "/images/C3-aircross-gris-automatique-essence-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
+       { src: "/images/C3-aircross-gris-automatique-essence-2024-vue-de-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" },
+       { src: "/images/C3-aircross-gris-automatique-essence-2024-vue-iinterieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 Aircross - vue latérale" }
   
   
      ],
@@ -1101,10 +1101,10 @@ export const cars: Car[] = [
        hasDiscount: true
      },
      seats: 5,
-     fuelType: "Diesel",
-     transmission: "Automatique",
+     fuelType: "Essence",
+     transmission: "Automatique e-DCS6",
      rating: 5.0,
-     description: "SUV compact confortable et polyvalent, la nouvelle C3 Aircross  136 e-DSC6 offre une conduite souple, une faible consommation WLTP et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d'Agadir comme pour les trajets interurbains.",
+     description: "SUV compact confortable et polyvalent, la C3 Aircross gris en 1.2 PureTech Hybrid 136 ch e-DCS6 (essence, hybridation légère 48V) offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d'Agadir comme pour les trajets interurbains.",
   richContent: {
     h1Title: "Location C3 Aircross gris Agadir | SUV compact confortable | AmseelCars",
     seoTitle: "C3 Aircross gris en location à Agadir | AmseelCars",
@@ -1202,21 +1202,21 @@ export const cars: Car[] = [
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
-       { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⛽", name: "Carburant", value: "Essence (hybride légère)" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique e-DCS6" },
        { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d'urgence, maintien de voie, régulateur" },
-       { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
+       { icon: "❄️", name: "Climatisation", value: "Clim. automatique (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.2L PureTech (48V) - 3 cylindres Diesel",
-       horsepower: "136 ch",
-       acceleration: "0-60 mph en 8,8 s",
-       topSpeed: "125 mph",
-       fuelEfficiency: "5,6 l/100 km (WLTP)",
-       drivetrain: "Traction (roues avant)"
+       engine: "1.2L PureTech turbo 3 cylindres + MHEV 48V",
+       horsepower: "136 ch (système)",
+       acceleration: "0-100 km/h en ~9,1 s",
+       topSpeed: "≈ 192 km/h",
+       fuelEfficiency: "≈ 5,3-5,6 l/100 km (WLTP)",
+       drivetrain: "Traction (roues avant)"
      },
-     category: 'sports',
+     category: 'suv',
      availability: true,
      location: "Agadir, Morocco"
    }
@@ -1226,7 +1226,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-citroen-c3',
      carName: "C3 Normal",
      brand: "Citroën",
-     model: "C3",
+     model: "C3 1.5 BlueHDi 100 BVM6",
      year: 2024,
      carImage: "/images/C3-manuel-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp",
      images: [
@@ -1242,7 +1242,7 @@ export const cars: Car[] = [
      pricePerDay: 300,
      seats: 5,
      fuelType: "Diesel",
-     transmission: "Manuelle",
+     transmission: "Manuelle 6 rapports",
      rating: 4.7,
      description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
   richContent: {
@@ -1335,22 +1335,22 @@ export const cars: Car[] = [
         answer: "Parmi les points parfois cités, on retrouve des performances modestes sur certaines motorisations. En revanche, son confort, sa maniabilité et son économie restent ses principaux atouts."
       },
       {
-        question: "Quel est le prix d'une Citroën C3 automatique ?",
-        answer: "Le prix d'une Citroën C3 automatique dépend de la finition et du marché. En location à Agadir, la version automatique est appréciée pour son confort, notamment en conduite urbaine."
+        question: "Cette C3 est-elle automatique ?",
+        answer: "Non, cette C3 BlueHDi 100 du parc AmseelCars est en boîte manuelle 6 rapports, conforme au catalogue diesel Maroc. Pour une boîte auto, demandez une autre disponibilité (ex. C3 Aircross PureTech Hybrid)."
       }
     ]
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
        { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
        engine: "1.5L BlueHDi (4 cylindres, diesel)",
-       horsepower: "102 ch",
+       horsepower: "100 ch",
        acceleration: "0-100 km/h en 10,2 s",
        topSpeed: "188 km/h",
        fuelEfficiency: "4,4-4,5 l/100 km (WLTP)",
@@ -1366,7 +1366,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-hyundai-i10',
      carName: "Hyundai i10",
      brand: "Hyundai",
-     model: "i10",
+     model: "i10 1.0 MPi 63 AMT5",
      year: 2024,
      carImage: "/images/hyundai-i10-automatique-blanche-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseelcars.webp",
      images: [
@@ -1387,7 +1387,7 @@ export const cars: Car[] = [
      },
      seats: 4,
      fuelType: "Essence",
-     transmission: "Automatique",
+     transmission: "Automatique robotisée (AMT 5)",
      rating: 5.0,
      description: "Citadine agile et économique, la Hyundai i10 1.0 MPi 63 ch avec boîte robotisée (BVR 5) est idéale pour la ville. Elle offre une faible consommation WLTP, les aides à la conduite essentielles et une connectivité moderne via écran 8\" (Apple CarPlay / Android Auto).",
   richContent: {
@@ -1503,7 +1503,7 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "4" },
        { icon: "⛽", name: "Carburant", value: "Essence" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique robotisée (AMT 5)" },
        { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d'urgence, maintien/suivi de voie" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (écran 8\")" }
@@ -1526,7 +1526,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-kia-picanto',
      carName: "Kia Picanto",
      brand: "Kia",
-     model: "Picanto",
+     model: "Picanto 1.0 MPi AMT5",
      year: 2025,
      carImage: "/images/kia-picanto-blanche-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -1543,7 +1543,7 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Essence",
-     transmission: "Automatique ",
+     transmission: "Automatique robotisée (AMT 5)",
      rating: 4.9,
      description: "Citadine agile et économique, la Kia Picanto 1.0 MPi avec boîte automatique robotisée (AMT 5) offre une consommation contenue, des aides à la conduite essentielles (freinage d'urgence, aide au maintien de voie) et une connectivité moderne via écran 8\" avec Apple CarPlay / Android Auto (selon finition).",
   richContent: {
@@ -1662,7 +1662,7 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Essence" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique robotisée (AMT 5)" },
        { icon: "🛡️", name: "Sécurité", value: "AEB, maintien de voie (selon version)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -1857,7 +1857,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-sandero-stepway',
      carName: "Stepway",
      brand: "Dacia",
-     model: "Sandero Stepway",
+     model: "Sandero Stepway TCe 90 X-Tronic",
      year: 2025,
      carImage: "/images/Sandero-Stepway-automatique-essence-gris-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -1875,7 +1875,7 @@ export const cars: Car[] = [
   
      seats: 5,
      fuelType: "Essence",
-     transmission: "Automatique",
+     transmission: "Automatique (CVT X-Tronic)",
      rating: 4.8,
      description: "Crossover polyvalent et confortable, la Dacia Sandero Stepway TCe 90 X-Tronic offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Parfaite pour la ville comme pour les trajets interurbains à agadir.",
   richContent: {
@@ -2006,7 +2006,7 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Essence" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique CVT (X-Tronic)" },
        { icon: "🛡️", name: "Aides à la conduite", value: "Freinage d'urgence, maintien de voie" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle/auto selon finition" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -2029,7 +2029,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-touareg',
      carName: "Touareg",
      brand: "Volkswagen",
-     model: "Touareg",
+     model: "Touareg V6 TDI 286 Tiptronic 8",
      year: 2025,
      carImage: "/images/Touareg-noire-automatique-diesel-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -2048,7 +2048,7 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Diesel",
-     transmission: "Automatique",
+     transmission: "Automatique Tiptronic 8",
      rating: 4.8,
      description: "SUV haut de gamme confortable et puissant, le Volkswagen Touareg V6 TDI 286 ch associe transmission intégrale 4MOTION, boîte automatique Tiptronic à 8 rapports et technologies de pointe (IQ.LIGHT HD Matrix, Innovision Cockpit 15\"). Idéal pour les longs trajets comme pour la ville.",
   richContent: {
@@ -2172,7 +2172,7 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique Tiptronic 8" },
        { icon: "🧭", name: "Transmission", value: "4MOTION (intégrale)" },
        { icon: "💡", name: "Éclairage", value: "IQ.LIGHT HD Matrix" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
@@ -2195,7 +2195,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-dacia-logan',
      carName: "Dacia Logan",
      brand: "Dacia",
-     model: "Logan",
+     model: "Logan 1.5 Blue dCi 95 BVM5",
      year: 2024,
      carImage: "/images/dacia-logan-blanche-manuel-diesel-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -2213,7 +2213,7 @@ export const cars: Car[] = [
    
      seats: 5,
      fuelType: "Diesel",
-     transmission: "Manuelle",
+     transmission: "Manuelle 5 rapports",
      rating: 4.8,
      description: "Berline économique et spacieuse, la Dacia Logan 1.5 Blue dCi 95 ch (boîte manuelle 5 rapports) allie sobriété, fiabilité et coffre généreux (528 L). Équipements modernes selon finition : écran 8\" Media Display, aides à la conduite essentielles, et connectivité Apple CarPlay / Android Auto.",
   richContent: {
@@ -2322,7 +2322,7 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 5 rapports" },
        { icon: "🛡️", name: "Sécurité", value: "ABS, ESP, aide au démarrage en côte" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Media Display 8\" (Apple CarPlay / Android Auto selon version)" }
@@ -2544,7 +2544,7 @@ export const cars: Car[] = [
      fuelType: "Diesel",
      transmission: "Automatique ",
      rating: 4.8,
-     description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch ( avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+     description: "SUV familial moderne, le Kia Sportage 1.6 CRDi 136 ch avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
   richContent: {
     h1Title: "Location Kia Sportage vert Agadir | SUV diesel automatique 2025 | AmseelCars",
     seoTitle: "Kia Sportage vert en location à Agadir | AmseelCars",
@@ -2681,12 +2681,12 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.6L CRDi (4 cyl., turbo diesel, ",
-       horsepower: "136 ch",
-       acceleration: "0-100 km/h en 11,4 s",
-       topSpeed: "180 km/h",
-       fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
-       drivetrain: "Traction (2 roues motrices)"
+       engine: "1.6L CRDi (4 cylindres, turbo diesel)",
+       horsepower: "136 ch",
+       acceleration: "0-100 km/h en 11,4 s",
+       topSpeed: "180 km/h",
+       fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
+       drivetrain: "Traction (2 roues motrices)"
      },
      category: 'suv',
      availability: true,
@@ -2698,8 +2698,8 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-clio-5-gris',
      carName: "Clio 5",
      brand: "Renault",
-     model: "Clio 5",
-     year: 2024,
+     model: "Clio 5 1.0 TCe 100 X-Tronic",
+     year: 2025,
      carImage: "/images/clio-5-gris-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
        { src: "/images/clio-5-gris-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Clio 5 - vue avant", isPrimary: true },
@@ -2715,9 +2715,9 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Essence",
-     transmission: "Automatique",
+     transmission: "Automatique X-Tronic (CVT)",
      rating: 4.8,
-     description: "SUV familial moderne, le Clio 5 1.5 Blue dCi 100 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+     description: "Citadine moderne, la Renault Clio 5 gris en 1.0 TCe 100 ch essence avec boîte automatique offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et une conduite simple au quotidien à Agadir.",
   richContent: {
     h1Title: "Location Clio 5 gris Agadir | Boîte automatique, confort & technologie | AmseelCars",
     seoTitle: "Clio 5 gris en location à Agadir | Boîte automatique & confort - AmseelCars",
@@ -2848,20 +2848,20 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Essence" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique X-Tronic (CVT)" },
        { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie (selon finition)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.6L CRDi (4 cyl., turbo essence, ",
-       horsepower: "136 ch",
-       acceleration: "0-100 km/h en 11,4 s",
-       topSpeed: "180 km/h",
-       fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
-       drivetrain: "Traction (2 roues motrices)"
+       engine: "1.0L TCe turbo 3 cylindres essence",
+       horsepower: "100 ch",
+       acceleration: "0-100 km/h en ~11,8 s",
+       topSpeed: "≈ 187 km/h",
+       fuelEfficiency: "≈ 5,9 l/100 km (mixte catalogue MA)",
+       drivetrain: "Traction (roues avant)"
      },
-     category: 'suv',
+     category: 'economy',
      availability: true,
      location: "Agadir, Morocco"
    } ,
@@ -2870,7 +2870,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-kia-picanto-2025',
      carName: "Kia Picanto",
      brand: "Kia",
-     model: "Kia Picanto",
+     model: "Picanto 1.0 MPi AMT5",
      year: 2025,
      carImage: "/images/kia-picanto-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -2887,9 +2887,9 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Essence",
-     transmission: "Automatique",
+     transmission: "Automatique robotisée (AMT 5)",
      rating: 4.8,
-     description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+     description: "Citadine agile et économique, la Kia Picanto 1.0 MPi avec boîte automatique offre une consommation contenue, des aides à la conduite essentielles et une connectivité moderne via Apple CarPlay / Android Auto (selon finition).",
   richContent: {
     h1Title: "Location Kia Picanto 2025 Agadir | Citadine automatique, économique & moderne | AmseelCars",
     seoTitle: "Kia Picanto 2025 en location à Agadir | AmseelCars",
@@ -3020,29 +3020,29 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Essence" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique " },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique robotisée (AMT 5)" },
        { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie (selon finition)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.6L CRDi (4 cyl., turbo diesel",
-       horsepower: "136 ch",
-       acceleration: "0-100 km/h en 11,4 s",
-       topSpeed: "180 km/h",
-       fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
-       drivetrain: "Traction (2 roues motrices)"
+       engine: "1.0L MPi (3 cylindres, essence)",
+       horsepower: "63 ch",
+       acceleration: "0-100 km/h en ~16,8 s",
+       topSpeed: "145 km/h",
+       fuelEfficiency: "≈ 5,5 l/100 km (WLTP combiné)",
+       drivetrain: "Traction (roues avant)"
      },
-     category: 'suv',
+     category: 'economy',
      availability: true,
      location: "Agadir, Morocco"
    },
    {
      id: 20,
-     slug: 'location-voiture-agadir-kia-picanto-noir',
+     slug: 'location-voiture-agadir-kia-picanto-bleu',
      carName: "Kia Picanto",
      brand: "Kia",
-     model: "Kia Picanto",
+     model: "Picanto 1.0 MPi AMT5",
      year: 2025,
      carImage: "/images/kia-picanto-blue-automatique-essence-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -3060,19 +3060,19 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Essence",
-     transmission: "Automatique",
+     transmission: "Automatique robotisée (AMT 5)",
      rating: 4.8,
-     description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+     description: "Citadine agile et économique, la Kia Picanto 1.0 MPi avec boîte automatique offre une consommation contenue, des aides à la conduite essentielles et une connectivité moderne via Apple CarPlay / Android Auto (selon finition).",
   richContent: {
-    h1Title: "Location Kia Picanto noir Agadir | Citadine automatique, économique & facile au quotidien | AmseelCars",
-    seoTitle: "Kia Picanto noir en location à Agadir | AmseelCars",
-    seoMetaDescription: "Louez une Kia Picanto noir à Agadir : citadine essence, boîte auto, faible consommation, climatisation, Apple CarPlay/Android Auto. Réservez vite.",
+    h1Title: "Location Kia Picanto bleue Agadir | Citadine automatique, économique & facile au quotidien | AmseelCars",
+    seoTitle: "Kia Picanto bleue en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Kia Picanto bleue à Agadir : citadine essence, boîte auto, faible consommation, climatisation, Apple CarPlay/Android Auto. Réservez vite.",
     sections: [
       {
-        h2: "Présentation de la Kia Picanto noir en location à Agadir",
+        h2: "Présentation de la Kia Picanto bleue en location à Agadir",
         paragraphs: [
-          "La Kia Picanto noir est une excellente solution pour une location voiture Agadir simple, économique et moderne. Compacte et facile à conduire, elle est parfaitement adaptée aux déplacements urbains et aux trajets du quotidien.",
-          "Chez AmseelCars, la Kia Picanto noir est proposée avec boîte automatique, ce qui garantit une conduite fluide et sans stress, idéale pour la circulation à Agadir."
+          "La Kia Picanto bleue est une excellente solution pour une location voiture Agadir simple, économique et moderne. Compacte et facile à conduire, elle est parfaitement adaptée aux déplacements urbains et aux trajets du quotidien.",
+          "Chez AmseelCars, la Kia Picanto bleue est proposée avec boîte automatique, ce qui garantit une conduite fluide et sans stress, idéale pour la circulation à Agadir."
         ]
       },
       {
@@ -3086,7 +3086,7 @@ export const cars: Car[] = [
       {
         h2: "Une citadine pensée pour la ville",
         paragraphs: [
-          "Grâce à son format compact, la Kia Picanto noir est idéale pour circuler facilement dans Agadir.",
+          "Grâce à son format compact, la Kia Picanto bleue est idéale pour circuler facilement dans Agadir.",
           "Elle est maniable, légère et simple à stationner, même dans les zones très fréquentées.",
           "Pour une location voiture Agadir, c'est un vrai avantage au quotidien."
         ]
@@ -3094,7 +3094,7 @@ export const cars: Car[] = [
       {
         h2: "5 places : polyvalence au quotidien",
         paragraphs: [
-          "La Kia Picanto noir dispose de 5 places, ce qui la rend plus polyvalente qu'une micro-citadine.",
+          "La Kia Picanto bleue dispose de 5 places, ce qui la rend plus polyvalente qu'une micro-citadine.",
           "Elle convient à un couple, à de petits groupes ou à une petite famille pour des trajets courts.",
           "En location voiture Agadir, cette flexibilité est très pratique."
         ]
@@ -3102,7 +3102,7 @@ export const cars: Car[] = [
       {
         h2: "Boîte automatique : conduite simple et sans fatigue",
         paragraphs: [
-          "La boîte automatique est l'un des grands atouts de la Kia Picanto noir.",
+          "La boîte automatique est l'un des grands atouts de la Kia Picanto bleue.",
           "Elle permet une conduite fluide, idéale dans la circulation urbaine et les embouteillages.",
           "En location voiture Agadir, elle réduit la fatigue et rend les trajets plus agréables."
         ]
@@ -3110,7 +3110,7 @@ export const cars: Car[] = [
       {
         h2: "Motorisation essence : simple et économique",
         paragraphs: [
-          "La Kia Picanto noir est équipée d'une motorisation essence parfaitement adaptée à la ville.",
+          "La Kia Picanto bleue est équipée d'une motorisation essence parfaitement adaptée à la ville.",
           "Elle offre une conduite souple, facile et économique pour les déplacements quotidiens.",
           "C'est un choix idéal pour une location voiture Agadir orientée praticité et budget maîtrisé."
         ]
@@ -3127,14 +3127,14 @@ export const cars: Car[] = [
         h2: "Climatisation : indispensable à Agadir",
         paragraphs: [
           "À Agadir, la climatisation est essentielle, surtout pendant les périodes chaudes.",
-          "La Kia Picanto noir est équipée de la climatisation pour garantir un confort optimal à bord.",
+          "La Kia Picanto bleue est équipée de la climatisation pour garantir un confort optimal à bord.",
           "Cela rend chaque trajet plus agréable, même en plein soleil."
         ]
       },
       {
         h2: "Connectivité : Apple CarPlay et Android Auto",
         paragraphs: [
-          "La Kia Picanto noir propose Apple CarPlay et Android Auto selon finition.",
+          "La Kia Picanto bleue propose Apple CarPlay et Android Auto selon finition.",
           "Vous pouvez connecter votre smartphone pour utiliser la navigation, la musique et les appels.",
           "En location voiture Agadir, cette connectivité simplifie les déplacements et améliore la sécurité."
         ]
@@ -3148,9 +3148,9 @@ export const cars: Car[] = [
         ]
       },
       {
-        h2: "Pourquoi choisir la Kia Picanto noir pour une location voiture Agadir ?",
+        h2: "Pourquoi choisir la Kia Picanto bleue pour une location voiture Agadir ?",
         paragraphs: [
-          "La Kia Picanto noir combine format compact, boîte automatique, faible consommation et équipements modernes.",
+          "La Kia Picanto bleue combine format compact, boîte automatique, faible consommation et équipements modernes.",
           "Elle est parfaite pour la ville, facile à conduire et simple à garer.",
           "Pour une location voiture Agadir, c'est un choix pratique, économique et efficace."
         ]
@@ -3158,24 +3158,24 @@ export const cars: Car[] = [
       {
         h2: "À qui s'adresse ce modèle ?",
         paragraphs: [
-          "La Kia Picanto noir est idéale pour les touristes qui veulent une citadine compacte et facile.",
+          "La Kia Picanto bleue est idéale pour les touristes qui veulent une citadine compacte et facile.",
           "Elle convient aux couples, aux petits budgets et aux conducteurs qui privilégient la boîte automatique.",
           "C'est aussi un excellent choix pour les séjours courte ou longue durée."
         ]
       },
       {
-        h2: "Louer une Kia Picanto noir à Agadir avec AmseelCars",
+        h2: "Louer une Kia Picanto bleue à Agadir avec AmseelCars",
         paragraphs: [
           "Chez AmseelCars, nous proposons une location voiture Agadir simple, rapide et transparente.",
-          "La Kia Picanto noir est disponible selon les dates et la disponibilité.",
+          "La Kia Picanto bleue est disponible selon les dates et la disponibilité.",
           "Notre équipe vous accompagne pour une réservation fluide et sans stress."
         ]
       },
       {
         h2: "Conclusion",
         paragraphs: [
-          "La Kia Picanto noir est une citadine moderne, élégante et économique, idéale pour une location voiture Agadir.",
-          "Avec sa boîte automatique, sa faible consommation et sa connectivité moderne, elle rend la conduite simple et agréable. Contactez AmseelCars pour réserver votre Kia Picanto noir à Agadir."
+          "La Kia Picanto bleue est une citadine moderne, élégante et économique, idéale pour une location voiture Agadir.",
+          "Avec sa boîte automatique, sa faible consommation et sa connectivité moderne, elle rend la conduite simple et agréable. Contactez AmseelCars pour réserver votre Kia Picanto bleue à Agadir."
         ]
       }
     ],
@@ -3201,20 +3201,20 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Essence" },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique robotisée (AMT 5)" },
        { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie (selon finition)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.6L CRDi (4 cyl., turbo diesel",
-       horsepower: "136 ch",
-       acceleration: "0-100 km/h en 11,4 s",
-       topSpeed: "180 km/h",
-       fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
-       drivetrain: "Traction (2 roues motrices)"
+       engine: "1.0L MPi (3 cylindres, essence)",
+       horsepower: "63 ch",
+       acceleration: "0-100 km/h en ~16,8 s",
+       topSpeed: "145 km/h",
+       fuelEfficiency: "≈ 5,5 l/100 km (WLTP combiné)",
+       drivetrain: "Traction (roues avant)"
      },
-     category: 'suv',
+     category: 'economy',
      availability: true,
      location: "Agadir, Morocco"
    },
@@ -3223,7 +3223,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-kia-picanto-gris',
      carName: "Kia Picanto",
      brand: "Kia",
-     model: "Kia Picanto",
+     model: "Picanto 1.0 MPi AMT5",
      year: 2025,
      carImage: "/images/kia-picanto-automatique-essence-gris-2025-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -3241,9 +3241,9 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Essence",
-     transmission: "Automatique",
+     transmission: "Automatique robotisée (AMT 5)",
      rating: 4.8,
-     description: "SUV familial moderne, le Kia Picanto 1.0 GDI 66 ch  avec boîte automatique DCT à 7 rapports offre confort, technologies utiles (Apple CarPlay/Android Auto selon finition) et sobriété au quotidien.",
+     description: "Citadine agile et économique, la Kia Picanto 1.0 MPi avec boîte automatique offre une consommation contenue, des aides à la conduite essentielles et une connectivité moderne via Apple CarPlay / Android Auto (selon finition).",
   richContent: {
     h1Title: "Location Kia Picanto gris Agadir | Citadine automatique 2025, pratique & moderne | AmseelCars",
     seoTitle: "Kia Picanto gris 2025 en location à Agadir | AmseelCars",
@@ -3370,20 +3370,20 @@ export const cars: Car[] = [
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Essence " },
-       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+       { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique robotisée (AMT 5)" },
        { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie (selon finition)" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle/bi-zone (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.6L CRDi (4 cyl., turbo diesel",
-       horsepower: "136 ch",
-       acceleration: "0-100 km/h en 11,4 s",
-       topSpeed: "180 km/h",
-       fuelEfficiency: "5,6 l/100 km (WLTP combiné)",
-       drivetrain: "Traction (2 roues motrices)"
+       engine: "1.0L MPi (3 cylindres, essence)",
+       horsepower: "63 ch",
+       acceleration: "0-100 km/h en ~16,8 s",
+       topSpeed: "145 km/h",
+       fuelEfficiency: "≈ 5,5 l/100 km (WLTP combiné)",
+       drivetrain: "Traction (roues avant)"
      },
-     category: 'suv',
+     category: 'economy',
      availability: true,
      location: "Agadir, Morocco"
    },
@@ -3392,14 +3392,14 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-citroen-c3-2024',
      carName: "C3 Normal",
      brand: "Citroën",
-     model: "C3",
+     model: "C3 1.5 BlueHDi 100 BVM6",
      year: 2024,
-     carImage: "/images/C3-normal-automatique-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+     carImage: "/images/C3-normal-manuel-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
-       { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
-       { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - intérieur" },
-       { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
-       { src: "/images/C3-normal-automatique-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
+       { src: "/images/C3-normal-manuel-blanche-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue avant", isPrimary: true },
+       { src: "/images/C3-normal-manuel-blanche-diesel-2024-vue-arriere-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - intérieur" },
+       { src: "/images/C3-normal-manuel-blanche-diesel-2024-vue-de-cote-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
+       { src: "/images/C3-normal-manuel-blanche-diesel-2024-vue-interieur-location-de-voiture-agadir-maroc-amseel-cars.webp", alt: "Citroën C3 - vue latérale" },
      ],
      pricePerDay: 350,
      pricing: {
@@ -3409,88 +3409,81 @@ export const cars: Car[] = [
      },
      seats: 5,
      fuelType: "Diesel",
-     transmission: "Automatique",
+     transmission: "Manuelle 6 rapports",
      rating: 4.7,
-      description: "Dacia Logan 2026 diesel manuelle : berline spacieuse, économique et fiable. Idéale pour Agadir, l'aéroport et les excursions avec un bon volume de coffre.",
+      description: "Citadine polyvalente et économique, la Citroën C3 1.5 BlueHDi 100 ch (boîte manuelle 6 rapports) offre une consommation maîtrisée, des aides à la conduite essentielles et la connectivité Apple CarPlay / Android Auto (selon finition). Idéale pour Agadir et les trajets autour.",
    richContent: {
-   h1Title: "Dacia Logan 2026 : location diesel manuelle à Agadir | AmseelCars",
-   seoTitle: "Location Dacia Logan 2026 à Agadir | AmseelCars",
-   seoMetaDescription: "Louez la Dacia Logan 2026 à Agadir : diesel, boîte manuelle, 5 places, grand coffre et budget maîtrisé.",
-   sections: [
-     {
-       h2: "Dacia Logan 2026 en location à Agadir",
-       paragraphs: [
-         "La Dacia Logan 2026 est un excellent choix si vous recherchez une voiture simple, fiable et économique.",
-         "Son format berline offre plus d'espace de coffre qu'une citadine classique, pratique pour les transferts aéroport et les séjours avec bagages."
-       ]
-     },
-     {
-       h2: "Diesel + boîte manuelle : maîtrise et autonomie",
-       paragraphs: [
-         "La motorisation diesel convient très bien aux longs trajets et aux kilométrages plus élevés pendant votre séjour.",
-         "La boîte manuelle est idéale pour les conducteurs qui préfèrent une conduite directe et un meilleur contrôle."
-       ]
-     },
-     {
-       h2: "Confort, 5 places et usage polyvalent",
-       paragraphs: [
-         "Avec 5 places et un habitacle pratique, la Logan convient aux couples, petites familles et déplacements professionnels.",
-         "Elle reste agréable en ville tout en étant efficace sur route pour les sorties autour d'Agadir."
-       ]
-     },
-     {
-       h2: "Pourquoi louer une Dacia Logan à Agadir ?",
-       paragraphs: [
-         "Parce qu'elle combine budget, espace et sobriété en carburant.",
-         "Une solution pertinente pour l'aéroport, le centre-ville, la corniche et les excursions."
-       ]
-     }
-   ],
-   faqs: [
-     {
-       question: "Quel est le prix de location d'une Dacia Logan ?",
-       answer: "Le tarif dépend de la saison, de la durée et des options. Contactez-nous avec vos dates pour un devis précis."
-     },
-     {
-       question: "La Dacia Logan est-elle adaptée aux longs trajets ?",
-       answer: "Oui, son moteur diesel et son confort en font une bonne option pour les trajets interurbains."
-     },
-     {
-       question: "Boîte manuelle ou automatique pour Agadir ?",
-       answer: "La manuelle convient très bien si vous êtes habitué à ce type de conduite et souhaitez garder un bon contrôle."
-     },
-     {
-       question: "La Logan est-elle adaptée aux familles ?",
-       answer: "Oui, pour une petite famille, grâce aux 5 places et au coffre généreux."
-     }
-   ]
-   },
+    h1Title: "Location Citroën C3 Agadir | Diesel économique | AmseelCars",
+    seoTitle: "Citroën C3 diesel en location à Agadir | AmseelCars",
+    seoMetaDescription: "Louez une Citroën C3 diesel à Agadir avec AmseelCars : citadine confortable, climatisation et CarPlay/Android Auto. Réservation rapide.",
+    sections: [
+      {
+        h2: "Présentation de la Citroën C3 en location à Agadir",
+        paragraphs: [
+          "La Citroën C3 est une citadine pratique, économique et facile à conduire pour une location voiture Agadir.",
+          "Chez AmseelCars, nous la proposons en diesel 1.5 BlueHDi 100 ch (boîte manuelle 6 rapports) pour une conduite économique en ville et vers l'aéroport."
+        ]
+      },
+      {
+        h2: "Diesel économique et usage quotidien",
+        paragraphs: [
+          "La motorisation diesel BlueHDi 100 ch offre une bonne autonomie et une consommation contenue pour les trajets hôtel-plage-centre-ville.",
+          "Son format compact facilite le stationnement à Agadir tout en restant confortable pour Taghazout ou Tamraght."
+        ]
+      },
+      {
+        h2: "Pourquoi choisir la C3 diesel ?",
+        paragraphs: [
+          "Parce qu'elle combine budget maîtrisé, consommation diesel contenue et équipements utiles (climatisation, connectivité selon finition).",
+          "Un choix sûr pour les touristes et les séjours mixtes ville / côte."
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: "La Citroën C3 automatique est-elle adaptée à Agadir ?",
+        answer: "Oui. Son gabarit citadin et la boîte automatique la rendent très confortable en ville et pour les trajets côtiers."
+      },
+      {
+        question: "Diesel automatique : pour quel usage ?",
+        answer: "Idéal si vous cumulez ville et trajets plus longs pendant le séjour, avec une consommation souvent maîtrisée."
+      },
+      {
+        question: "Quelle est la différence avec une C3 manuelle ?",
+        answer: "La version automatique évite l'embrayage et est plus reposante dans la circulation ; la manuelle peut convenir si vous préférez ce type de conduite."
+      },
+      {
+        question: "Comment réserver cette C3 ?",
+        answer: "Contactez AmseelCars sur WhatsApp avec vos dates et le lieu de remise (aéroport ou hôtel) pour confirmer la disponibilité."
+      }
+    ]
+  },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
        { icon: "⛽", name: "Carburant", value: "Diesel" },
-        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
         { icon: "🛡️", name: "Sécurité", value: "ABS, airbags, aides essentielles (selon finition)" },
         { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-        engine: "1.5L diesel (selon version)",
-        horsepower: "environ 95-100 ch",
-        acceleration: "0-100 km/h (selon version)",
-        topSpeed: "vitesse max (selon version)",
-        fuelEfficiency: "consommation maîtrisée (selon cycle)",
-       drivetrain: "Traction (roues avant)"
+       engine: "1.5L BlueHDi (4 cylindres, diesel)",
+       horsepower: "100 ch",
+       acceleration: "0-100 km/h en ~10,4 s (réf. manuelle catalogue)",
+       topSpeed: "≈ 188 km/h",
+       fuelEfficiency: "≈ 4,5 l/100 km (mixte catalogue MA)",
+       drivetrain: "Traction (roues avant)"
      },
      category: 'economy',
      availability: true,
      location: "Agadir, Maroc"
    },
   {
-       id: 22,
+       id: 24,
        slug: 'location-voiture-agadir-dacia-logan-2026',
        carName: "Dacia Logan",
        brand: "Dacia",
-       model: "Logan",
+       model: "Logan 1.5 Blue dCi 95 BVM5",
        year: 2026,
        carImage: "/images/Logan-dacia-model-2026-Manuel-diesel.webp",
        images: [
@@ -3508,7 +3501,7 @@ export const cars: Car[] = [
        },
        seats: 5,
        fuelType: "Diesel",
-       transmission: "manuelle",
+       transmission: "Manuelle 5 rapports",
       rating: 4.7,
       description: "Dacia Logan 2026 diesel manuelle : berline spacieuse, économique et fiable. Idéale pour Agadir, l'aéroport et les excursions avec un bon volume de coffre.",
    richContent: {
@@ -3567,29 +3560,29 @@ export const cars: Car[] = [
        features: [
          { icon: "🚗", name: "Sièges", value: "5" },
          { icon: "⛽", name: "Carburant", value: "Diesel" },
-        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle" },
+        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 5 rapports" },
         { icon: "🛡️", name: "Sécurité", value: "ABS, airbags, aides essentielles (selon finition)" },
         { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
          { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
        ],
        specs: {
-        engine: "1.5L diesel (selon version)",
-        horsepower: "environ 95-100 ch",
-        acceleration: "0-100 km/h (selon version)",
-        topSpeed: "vitesse max (selon version)",
-        fuelEfficiency: "consommation maîtrisée (selon cycle)",
-         drivetrain: "Traction (roues avant)"
+         engine: "1.5L Blue dCi (4 cylindres, turbo diesel)",
+         horsepower: "95 ch",
+         acceleration: "0-100 km/h en 11,7 s",
+         topSpeed: "180 km/h",
+         fuelEfficiency: "≈ 3,8 l/100 km (WLTP combiné)",
+         drivetrain: "Traction (roues avant)"
        },
        category: 'economy',
        availability: true,
        location: "Agadir, Maroc"
      },
     {
-         id: 22,
+         id: 25,
          slug: 'location-voiture-agadir-Clio-5-2025',
          carName: "Clio 5",
          brand: "Renault",
-         model: "Clio 5",
+         model: "Clio 5 1.0 TCe 100 X-Tronic",
          year: 2026,
          carImage: "/images/Clio 5-auto-2026-Essence-img01.png",
          images: [
@@ -3608,7 +3601,7 @@ export const cars: Car[] = [
          },
          seats: 5,
          fuelType: "Essence",
-         transmission: "Automatique",
+         transmission: "Automatique X-Tronic (CVT)",
          rating: 4.7,
         description: "Renault Clio 5 automatique essence : citadine moderne, facile à conduire, 5 places, climatisation et connectivité Apple CarPlay / Android Auto selon finition.",
      richContent: {
@@ -3667,18 +3660,18 @@ export const cars: Car[] = [
          features: [
            { icon: "🚗", name: "Sièges", value: "5" },
           { icon: "⛽", name: "Carburant", value: "Essence" },
-           { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique" },
+           { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique X-Tronic (CVT)" },
           { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie (selon finition)" },
-           { icon: "❄️", name: "Climatisation", value: "Automatique (selon finition)" },
+           { icon: "❄️", name: "Climatisation", value: "Clim. automatique (selon finition)" },
            { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
          ],
          specs: {
-          engine: "1.0L essence turbo (selon version)",
-          horsepower: "environ 90-100 ch",
-          acceleration: "0-100 km/h (selon version)",
-          topSpeed: "vitesse max (selon version)",
-          fuelEfficiency: "consommation urbaine/interurbaine maîtrisée",
-           drivetrain: "Traction (roues avant)"
+           engine: "1.0L TCe turbo 3 cylindres essence",
+           horsepower: "100 ch",
+           acceleration: "0-100 km/h en ~11,8 s",
+           topSpeed: "≈ 187 km/h",
+           fuelEfficiency: "≈ 5,9 l/100 km (mixte catalogue MA)",
+           drivetrain: "Traction (roues avant)"
          },
          category: 'economy',
          availability: true,

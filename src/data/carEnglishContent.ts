@@ -231,7 +231,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-t-roc': {
     description:
-      'Compact and tech-forward, the Volkswagen T-Roc 2024 with 1.5 TSI 150 hp (6-speed manual) offers balanced performance, low fuel use and strong safety. Apple CarPlay / Android Auto via App-Connect, comprehensive driver assists and everyday comfort, ideal for Agadir and the surrounding area.',
+      'Compact and tech-forward, the Volkswagen T-Roc 2024 with 1.5 TSI 150 hp petrol (7-speed DSG automatic) offers balanced performance, low fuel use and strong safety. Apple CarPlay / Android Auto via App-Connect, comprehensive driver assists and everyday comfort, ideal for Agadir and the surrounding area.',
 
     richContent: {
       h1Title: 'T-Roc rental Agadir | Comfortable compact SUV | AmseelCars',
@@ -660,7 +660,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-c3-aircross': {
     description:
-      'A comfortable, versatile compact SUV, the new Citroën C3 Aircross offers smooth driving, low WLTP fuel use and modern connectivity (10.25" display with Apple CarPlay / Android Auto on selected trims). Ideal for the city and longer trips.',
+      'Comfortable, versatile compact SUV: the Citroën C3 Aircross 1.2 PureTech Hybrid 136 hp (petrol mild-hybrid 48V, e-DCS6 automatic) offers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
 
     richContent: {
       h1Title: 'C3 Aircross rental Agadir | Comfortable compact SUV | AmseelCars',
@@ -766,7 +766,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-c3-aircross-gris': {
     description:
-      'Comfortable, versatile compact SUV: the grey Citroën C3 Aircross 136 e-DSC6 delivers smooth driving, low WLTP fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
+      'Comfortable, versatile compact SUV: the grey Citroën C3 Aircross 1.2 PureTech Hybrid 136 hp (petrol mild-hybrid 48V, e-DCS6 automatic) delivers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
 
     richContent: {
       h1Title: 'Grey C3 Aircross rental Agadir | Comfortable compact SUV | AmseelCars',
@@ -2352,28 +2352,28 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
     },
   },
 
-  'location-voiture-agadir-kia-picanto-noir': {
+  'location-voiture-agadir-kia-picanto-bleu': {
     description:
-      'Black Kia Picanto city car with automatic gearbox: compact, economical petrol engine, low running costs and modern connectivity (Apple CarPlay / Android Auto, trim dependent) for easy Agadir driving.',
+      'Blue Kia Picanto city car with automatic gearbox: compact, economical petrol engine, low running costs and modern connectivity (Apple CarPlay / Android Auto, trim dependent) for easy Agadir driving.',
 
     richContent: {
-      h1Title: 'Black Kia Picanto rental Agadir | Automatic city car | AmseelCars',
-      seoTitle: 'Black Kia Picanto car rental in Agadir | AmseelCars',
+      h1Title: 'Blue Kia Picanto rental Agadir | Automatic city car | AmseelCars',
+      seoTitle: 'Blue Kia Picanto car rental in Agadir | AmseelCars',
       seoMetaDescription:
-        'Rent a black Kia Picanto in Agadir: petrol city car, automatic, low consumption, A/C, Apple CarPlay/Android Auto. Book quickly.',
+        'Rent a blue Kia Picanto in Agadir: petrol city car, automatic, low consumption, A/C, Apple CarPlay/Android Auto. Book quickly.',
       sections: [
         {
-          h2: 'Black Kia Picanto rental in Agadir, overview',
+          h2: 'Blue Kia Picanto rental in Agadir, overview',
           paragraphs: [
-            'The black Kia Picanto is a strong option for simple, economical, modern car rental in Agadir. Compact and easy to drive, it suits urban trips and daily errands.',
-            'At AmseelCars the black Picanto comes with automatic gearbox for smooth, low-stress progress in Agadir traffic.',
+            'The blue Kia Picanto is a strong option for simple, economical, modern car rental in Agadir. Compact and easy to drive, it suits urban trips and daily errands.',
+            'At AmseelCars the blue Picanto comes with automatic gearbox for smooth, low-stress progress in Agadir traffic.',
           ],
         },
         {
-          h2: 'Modern design in black',
+          h2: 'Modern design in blue',
           paragraphs: [
             'The Picanto looks modern with an expressive front and compact silhouette.',
-            'Black adds an elegant, discreet touch that feels a bit more premium on rental.',
+            'Blue adds an elegant, discreet touch that feels a bit more premium on rental.',
             'It fits city centres, tourist areas and busy districts alike.',
           ],
         },
@@ -2435,7 +2435,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Why choose the black Picanto in Agadir?',
+          h2: 'Why choose the blue Picanto in Agadir?',
           paragraphs: [
             'Combines compact size, automatic gearbox, low consumption and modern kit.',
             'Perfect for the city, easy to drive and park.',
@@ -2450,18 +2450,18 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           ],
         },
         {
-          h2: 'Rent a black Kia Picanto in Agadir with AmseelCars',
+          h2: 'Rent a blue Kia Picanto in Agadir with AmseelCars',
           paragraphs: [
             'Simple, fast, transparent Agadir car rental.',
-            'Black Picanto subject to date and availability.',
+            'Blue Picanto subject to date and availability.',
             'Our team helps with a smooth booking.',
           ],
         },
         {
           h2: 'Conclusion',
           paragraphs: [
-            'The black Kia Picanto is a modern, elegant, economical city car for Agadir.',
-            'Automatic gearbox, low consumption and modern connectivity keep driving simple and pleasant. Contact AmseelCars to book your black Kia Picanto in Agadir.',
+            'The blue Kia Picanto is a modern, elegant, economical city car for Agadir.',
+            'Automatic gearbox, low consumption and modern connectivity keep driving simple and pleasant. Contact AmseelCars to book your blue Kia Picanto in Agadir.',
           ],
         },
       ],

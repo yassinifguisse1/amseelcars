@@ -23,7 +23,7 @@ export const sampleBrands: Brand[] = [
     name: "VOLKSWAGEN",
     logo: "/images/VOLKSWAGEN.webp",
     preview:
-      "/images/T-roc-automatique-gris-diesel-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
+      "/images/T-roc-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
     href: "/cars/location-voiture-agadir-t-roc",
   },
   {

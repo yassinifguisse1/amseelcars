@@ -23,7 +23,7 @@ export const CAR_CANONICAL_SLUGS = [
   "location-voiture-agadir-kia-sportage-vert",
   "location-voiture-agadir-clio-5-gris",
   "location-voiture-agadir-kia-picanto-2025",
-  "location-voiture-agadir-kia-picanto-noir",
+  "location-voiture-agadir-kia-picanto-bleu",
   "location-voiture-agadir-kia-picanto-gris",
   "location-voiture-agadir-citroen-c3-2024",
   "location-voiture-agadir-dacia-logan-2026",
