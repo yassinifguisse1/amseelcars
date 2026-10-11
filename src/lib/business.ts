@@ -7,7 +7,18 @@
  */
 
 export const SITE_URL = "https://www.amseelcars.com";
-export const SITE_NAME = "AmseelCars";
+
+/**
+ * Canonical public brand (schema `name`, footer, OG siteName, title template).
+ * Keep prose variants in alternateName / copy — do not invent a fourth legal name.
+ */
+export const SITE_NAME = "AMSEEL CARS";
+
+/** Compact form used in domain-style UI and historical product titles. */
+export const SITE_NAME_COMPACT = "AmseelCars";
+
+/** Natural spaced form (matches GBP short name / Maps “Amseel Cars”). */
+export const SITE_NAME_SPACED = "Amseel Cars";
 
 /**
  * Exact Google Business Profile title (Maps). Used as alternateName so the

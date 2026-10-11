@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { SITE_NAME_SPACED } from "@/lib/business";
 import styles from "./LogoFloatPreloader.module.css";
 
 const SESSION_KEY = "amseel-preloader-seen";
@@ -127,7 +128,7 @@ export function LogoFloatPreloader({
         <div className={styles.logoWrap}>
           <Image
             src="/images/amseel-cars-logo-01.svg"
-            alt="Amseel Cars"
+            alt={SITE_NAME_SPACED}
             width={220}
             height={174}
             priority={false}

@@ -3,7 +3,13 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { useTranslations } from "next-intl";
-import { BUSINESS_GEO, BUSINESS_GOOGLE_MAPS_PLACE_URL, BUSINESS_SOCIAL } from "@/lib/business";
+import {
+  BUSINESS_GEO,
+  BUSINESS_GOOGLE_MAPS_PLACE_URL,
+  BUSINESS_SOCIAL,
+  BUSINESS_WHATSAPP_URL,
+  SITE_NAME,
+} from "@/lib/business";
 import styles from "./contact.module.css";
 
 const mapContainerStyle = { width: "100%", height: "100%" };
@@ -33,7 +39,7 @@ export function ContactReach() {
       {
         label: t("cardWhatsapp"),
         value: t("phoneValue"),
-        href: "https://wa.me/212662500181",
+        href: BUSINESS_WHATSAPP_URL,
       },
       {
         label: t("cardEmail"),
@@ -51,7 +57,7 @@ export function ContactReach() {
 
   return (
     <section className={styles.reachSection} aria-labelledby="contact-reach-heading">
-      <p className={styles.kicker}>Amseel Cars</p>
+      <p className={styles.kicker}>{SITE_NAME}</p>
       <h2 id="contact-reach-heading" className={styles.h2}>
         {t("sectionTitle")}
       </h2>

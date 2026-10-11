@@ -12,6 +12,13 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { Phone, MessageCircle, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_MAILTO,
+  BUSINESS_TELEPHONE_DISPLAY,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/business";
 import { generateFAQSchema } from "@/lib/faqSchema";
 import { cn } from "@/lib/utils";
 
@@ -353,14 +360,14 @@ export function HomeSeoLocationNapBlock() {
           <ul className="mt-7 space-y-4 text-lg text-neutral-800 md:mt-8 md:text-xl">
             <li className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
               <Phone className="h-5 w-5 shrink-0 text-[#CB1939] md:h-6 md:w-6" aria-hidden />
-              <a href="tel:+212662500181" className="hover:underline">
-                +212 662 500 181
+              <a href={`tel:${BUSINESS_TELEPHONE_E164}`} className="hover:underline">
+                {BUSINESS_TELEPHONE_DISPLAY}
               </a>
             </li>
             <li className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
               <MessageCircle className="h-5 w-5 shrink-0 text-[#CB1939] md:h-6 md:w-6" aria-hidden />
               <a
-                href={`https://wa.me/212662500181/?text=${waPrefill}`}
+                href={`${BUSINESS_WHATSAPP_URL}/?text=${waPrefill}`}
                 className="hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -370,8 +377,8 @@ export function HomeSeoLocationNapBlock() {
             </li>
             <li className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
               <Mail className="h-5 w-5 shrink-0 text-[#CB1939] md:h-6 md:w-6" aria-hidden />
-              <a href="mailto:amseelcars5@gmail.com" className="hover:underline">
-                amseelcars5@gmail.com
+              <a href={BUSINESS_MAILTO} className="hover:underline">
+                {BUSINESS_EMAIL}
               </a>
             </li>
           </ul>
@@ -404,7 +411,7 @@ export function HomeSeoBookingCtaBlock() {
             {t("bookNow")}
           </Link>
           <a
-            href={`https://wa.me/212662500181/?text=${waReserve}`}
+            href={`${BUSINESS_WHATSAPP_URL}/?text=${waReserve}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-w-[200px] items-center justify-center rounded-full border-2 border-neutral-900 px-9 py-3.5 text-base font-semibold text-neutral-900 transition hover:bg-neutral-900 hover:text-white md:min-w-[220px] md:px-10 md:py-4"
@@ -412,7 +419,7 @@ export function HomeSeoBookingCtaBlock() {
             {t("whatsapp")}
           </a>
           <a
-            href="tel:+212662500181"
+            href={`tel:${BUSINESS_TELEPHONE_E164}`}
             className="inline-flex min-w-[200px] items-center justify-center rounded-full border-2 border-neutral-300 px-9 py-3.5 text-base font-semibold text-neutral-900 transition hover:border-neutral-900 md:min-w-[220px] md:px-10 md:py-4"
           >
             {t("call")}

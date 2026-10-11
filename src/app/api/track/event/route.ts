@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { SITE_NAME_COMPACT, SITE_NAME_SPACED } from '@/lib/business';
 import { saveTrackEvent } from '@/lib/saveTrackEvent';
 import {
   EMAIL_TRACK_EVENTS,
@@ -389,9 +390,9 @@ export async function POST(request: NextRequest) {
       ].join('');
 
       const { error } = await resend.emails.send({
-        from: 'Amseel Cars <noreply@amseelcars.com>',
+        from: `${SITE_NAME_SPACED} <noreply@amseelcars.com>`,
         to: trackEmailTo,
-        subject: `[AmseelCars] ${emailConfig.subjectPrefix} – ${carDisplay !== '–' ? carDisplay : body.path}`,
+        subject: `[${SITE_NAME_COMPACT}] ${emailConfig.subjectPrefix} – ${carDisplay !== '–' ? carDisplay : body.path}`,
         html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:24px"><div style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:24px;border-radius:12px 12px 0 0;text-align:center"><h1 style="margin:0;font-size:22px">${escapeHtml(emailConfig.title)}</h1></div><div style="background:#fff;padding:24px;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 12px 12px">${rows}<p style="text-align:center;margin-top:20px;color:#94a3b8;font-size:12px">${escapeHtml(emailConfig.footerNote)}.</p></div></div>`,
       });
       if (error) console.error('[track/event] Resend error:', error);

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/business";
 
-export const SITE_URL = "https://www.amseelcars.com";
-export const SITE_NAME = "AmseelCars";
+export { SITE_NAME, SITE_URL };
 
 /** Canonical social / OG image (exists under /public/og). */
 export const DEFAULT_OG_IMAGE =
   "/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp";
 
 export const DEFAULT_OG_IMAGE_ALT =
-  "AmseelCars location voiture Agadir, flotte BMW, Golf 8, T-Roc";
+  "AMSEEL CARS location voiture Agadir, flotte BMW, Golf 8, T-Roc";
 
 export function defaultOgImages(alt?: string): NonNullable<
   NonNullable<Metadata["openGraph"]>["images"]
@@ -23,7 +23,7 @@ export function defaultOgImages(alt?: string): NonNullable<
   ];
 }
 
-/** Bypass root `%s | AmseelCars` template when the title is already fully branded. */
+/** Bypass root `%s | AMSEEL CARS` template when the title is already fully branded. */
 export function absoluteTitle(title: string): Metadata["title"] {
   return { absolute: title };
 }

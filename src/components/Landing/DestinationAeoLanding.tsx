@@ -3,6 +3,7 @@ import Image from "next/image";
 import NextLink from "next/link";
 import clsx from "clsx";
 import Footer from "@/components/Footer/Footer";
+import { SITE_NAME } from "@/lib/business";
 import styles from "./destination-aeo-landing.module.css";
 
 export type DestinationStat = {
@@ -231,7 +232,7 @@ export function DestinationAeoLanding({
           <div className={styles.heroLang}>{languageSwitcher}</div>
 
           <div className={styles.heroBrand}>
-            <p className={styles.brandMark}>AMSEEL CARS</p>
+            <p className={styles.brandMark}>{SITE_NAME}</p>
             <p className={styles.heroPlace}>{hero.eyebrow}</p>
           </div>
 

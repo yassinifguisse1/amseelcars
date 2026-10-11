@@ -6,6 +6,7 @@ import ContactForm from "@/components/Contact/ContactForm";
 import { ContactReach, ContactMap } from "@/components/Contact/ContactInfo";
 import { LogoFloatPreloader } from "@/components/Preloader/LogoFloatPreloader";
 import { useTranslations } from "next-intl";
+import { BUSINESS_WHATSAPP_URL, SITE_NAME } from "@/lib/business";
 import styles from "@/components/Contact/contact.module.css";
 
 const HERO_IMAGE = "/images/agadir-city-hero.webp";
@@ -34,7 +35,7 @@ export function ContactContent() {
 
           <div className={styles.heroInner}>
             <div className={styles.heroBrand}>
-              <p className={styles.brandMark}>AMSEEL CARS</p>
+              <p className={styles.brandMark}>{SITE_NAME}</p>
               <p className={styles.heroPlace}>{tHero("place")}</p>
             </div>
 
@@ -43,7 +44,7 @@ export function ContactContent() {
 
             <div className={styles.heroActions}>
               <a
-                href="https://wa.me/212662500181"
+                href={BUSINESS_WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.cta} ${styles.ctaPrimary}`}
@@ -69,7 +70,7 @@ export function ContactContent() {
 
           <section className={styles.formSection} aria-labelledby="contact-form-heading">
             <div className={styles.formIntro}>
-              <p className={styles.kicker}>Amseel Cars</p>
+              <p className={styles.kicker}>{SITE_NAME}</p>
               <h2 id="contact-form-heading" className={styles.h2}>
                 {tForm("title")}
               </h2>

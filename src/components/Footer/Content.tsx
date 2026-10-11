@@ -2,6 +2,15 @@
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {
+  BUSINESS_ADDRESS_DISPLAY_FR,
+  BUSINESS_EMAIL,
+  BUSINESS_MAILTO,
+  BUSINESS_TELEPHONE_DISPLAY,
+  BUSINESS_TELEPHONE_E164,
+  SITE_NAME,
+  SITE_NAME_SPACED,
+} from '@/lib/business'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -102,7 +111,7 @@ const MainSection = () => {
               </svg>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-white">Amseel Cars</h2>
+              <h2 className="text-3xl font-bold text-white">{SITE_NAME}</h2>
               <p className="text-blue-400 font-medium">Premium Car Rental</p>
             </div>
           </div>
@@ -147,19 +156,19 @@ const MainSection = () => {
             <div className="w-5 h-5 bg-blue-500 rounded-full mt-1 flex-shrink-0"></div>
             <div>
               <p className="text-gray-300">Agadir, Morocco</p>
-              <p className="text-gray-400 text-sm">Immeuble Sinwan, RDC, Agadir 80000, Maroc</p>
+              <p className="text-gray-400 text-sm">{BUSINESS_ADDRESS_DISPLAY_FR}</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
             <div className="w-5 h-5 bg-blue-500 rounded-full flex-shrink-0"></div>
-            <a href="tel:+212662500181" className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
-              +212 662 500 181
+            <a href={`tel:${BUSINESS_TELEPHONE_E164}`} className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
+              {BUSINESS_TELEPHONE_DISPLAY}
             </a>
           </div>
           <div className="flex items-center space-x-3">
             <div className="w-5 h-5 bg-blue-500 rounded-full flex-shrink-0"></div>
-            <a href="mailto:amseelcars5@gmail.com" className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
-              amseelcars5@gmail.com
+            <a href={BUSINESS_MAILTO} className="footer-link text-gray-300 hover:text-blue-400 transition-colors duration-300">
+              {BUSINESS_EMAIL}
             </a>
           </div>
         </div>
@@ -174,7 +183,7 @@ const BottomSection = () => {
       <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8">
           <p className="text-gray-400 text-sm">
-            © 2024 Amseel Cars. All rights reserved.
+            © 2024 {SITE_NAME_SPACED}. All rights reserved.
           </p>
           <div className="flex space-x-6">
             {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (

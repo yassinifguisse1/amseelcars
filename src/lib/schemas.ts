@@ -18,9 +18,11 @@ import {
   BUSINESS_POSTAL_ADDRESS,
   BUSINESS_SAME_AS,
   BUSINESS_TELEPHONE_E164,
-  BUSINESS_WHATSAPP_URL,
   SITE_NAME,
+  SITE_NAME_COMPACT,
+  SITE_NAME_SPACED,
   SITE_URL,
+  BUSINESS_WHATSAPP_URL,
 } from "./business";
 import { convertCarPrice } from "./currency";
 
@@ -28,6 +30,13 @@ const siteUrl = SITE_URL;
 const siteName = SITE_NAME;
 const businessTelephone = BUSINESS_TELEPHONE_E164;
 const businessPostalAddress = BUSINESS_POSTAL_ADDRESS;
+
+/** Recognized brand aliases — same legal entity as SITE_NAME / GBP. */
+const BRAND_ALTERNATE_NAMES = [
+  SITE_NAME_SPACED,
+  SITE_NAME_COMPACT,
+  BUSINESS_GBP_NAME,
+] as const;
 
 /**
  * Organization schema - used sitewide
@@ -37,8 +46,10 @@ export function generateOrganizationSchema() {
     '@type': 'Organization',
     '@id': `${siteUrl}#org`,
     name: siteName,
-    alternateName: ['Amseel Cars', BUSINESS_GBP_NAME],
+    alternateName: [...BRAND_ALTERNATE_NAMES],
     url: siteUrl,
+    email: BUSINESS_EMAIL,
+    telephone: businessTelephone,
     logo: `${siteUrl}/og/location-voiture-agadir-logo-opengraph-amseel-cars-bmw-golf8-turoc-touareg.webp`,
     // Same entity as LocalBusiness / GBP — Maps URLs in sameAs help disambiguate.
     sameAs: [...BUSINESS_SAME_AS],
@@ -70,10 +81,9 @@ export function generateLocalBusinessSchema() {
     '@id': `${siteUrl}#business`,
     name: siteName,
     alternateName: [
-      'Amseel Cars',
-      'AmseelCars Agadir',
+      ...BRAND_ALTERNATE_NAMES,
+      `${SITE_NAME_COMPACT} Agadir`,
       'Amseel Cars - Location voiture agadir aéroport',
-      BUSINESS_GBP_NAME,
     ],
     description:
       'Car rental agency in Agadir, Morocco: airport (AGA) and city pickup, WhatsApp booking, economy to premium fleet. Same business as the Google Maps listing Amseel Cars.',
@@ -455,36 +465,48 @@ export function generateCarProductSchema(
     img.src.startsWith('http') ? img.src : `${siteUrl}${img.src}`
   );
 
+  const priceEur = convertCarPrice(car.pricePerDay, 'EUR').toString();
+
   return {
     '@context': 'https://schema.org',
     // Product for commerce + Car for vehicle-specific properties (doors, fuel, transmission, etc.).
     '@type': ['Product', 'Car'],
     '@id': `${carUrl}#product`,
-    name: car.carName,
+    name: `${car.brand} ${car.carName}`,
+    model: car.model,
     description: car.description,
+    url: carUrl,
     image: images,
+    sku: stableId,
     brand: {
       '@type': 'Brand',
       name: car.brand,
     },
     category: car.category,
-    vehicleIdentificationNumber: stableId,
     vehicleModelDate: car.year.toString(),
-    numberOfDoors: '5', // Default, update if you track this
+    numberOfDoors: 5,
     fuelType: car.fuelType,
     vehicleTransmission: car.transmission,
     seatingCapacity: car.seats,
     offers: {
       '@type': 'Offer',
+      '@id': `${carUrl}#offer`,
       url: carUrl,
       priceCurrency: 'EUR',
-      price: convertCarPrice(car.pricePerDay, 'EUR').toString(),
+      price: priceEur,
       availability: 'https://schema.org/InStock',
+      seller: { '@id': `${siteUrl}#business` },
+      businessFunction: 'https://schema.org/LeaseOut',
       priceSpecification: {
         '@type': 'UnitPriceSpecification',
-        price: convertCarPrice(car.pricePerDay, 'EUR').toString(),
+        price: priceEur,
         priceCurrency: 'EUR',
-        unitText: 'per day',
+        unitText: 'DAY',
+        referenceQuantity: {
+          '@type': 'QuantitativeValue',
+          value: 1,
+          unitCode: 'DAY',
+        },
       },
     },
   };

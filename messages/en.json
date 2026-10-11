@@ -712,7 +712,7 @@
       "description": "AmseelCars is a local Agadir agency (Sinwan building): car rental, AGA airport or city pickup, WhatsApp +212 662 500 181, recent fleet and clear terms."
     },
     "contact": {
-      "title": "Contact Agadir car rental | WhatsApp +212 662-500181",
+      "title": "Contact Agadir car rental | WhatsApp +212 662 500 181",
       "description": "Book Agadir car rental via WhatsApp, email or form. Pickup at Al Massira Airport (AGA) or in town with fast personal replies."
     },
     "carNotFound": {
@@ -1082,7 +1082,7 @@
   "locationAgadirPage": {
     "meta": {
       "title": "Car rental Agadir | Hotel delivery & city pickup | AmseelCars",
-      "description": "Rent a car in Agadir with free hotel or riad delivery, clear daily rates, and WhatsApp booking. City cars and SUVs for Agadir Beach, Paradise Valley and day trips. +212 662-500181.",
+      "description": "Rent a car in Agadir with free hotel or riad delivery, clear daily rates, and WhatsApp booking. City cars and SUVs for Agadir Beach, Paradise Valley and day trips. +212 662 500 181.",
       "ogTitle": "Car rental Agadir | AmseelCars",
       "ogDescription": "Local Agadir agency: free hotel delivery, honest rates, WhatsApp confirmation. Ideal for city stays and Souss-Massa trips.",
       "twitterTitle": "Car rental Agadir | AmseelCars",
@@ -1116,7 +1116,7 @@
         },
         {
           "term": "Booking",
-          "value": "WhatsApp +212 662-500181 with price confirmed before pickup."
+          "value": "WhatsApp +212 662 500 181 with price confirmed before pickup."
         },
         {
           "term": "Fleet",

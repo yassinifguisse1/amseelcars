@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { BUSINESS_EMAIL, SITE_NAME_COMPACT } from '@/lib/business'
 import {
   checkFormRateLimit,
   escapeHtml,
@@ -85,14 +86,14 @@ export async function POST(request: NextRequest) {
     const safeMessage = escapeHtml(message)
 
     const { data, error } = await resend.emails.send({
-      from: 'AmseelCars Contact <onboarding@resend.dev>',
-      to: ['amseelcars5@gmail.com'],
+      from: `${SITE_NAME_COMPACT} Contact <onboarding@resend.dev>`,
+      to: [BUSINESS_EMAIL],
       subject: `Nouveau message de contact de ${String(name)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div style="background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
             <h2 style="color: #CB1939; margin-bottom: 20px; text-align: center;">
-              Nouveau Message de Contact - AmseelCars
+              Nouveau Message de Contact - ${SITE_NAME_COMPACT}
             </h2>
             
             <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">

@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import {
+  BUSINESS_EMAIL,
+  BUSINESS_TELEPHONE_DISPLAY,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+  SITE_NAME_SPACED,
+} from '@/lib/business';
+import {
   checkFormRateLimit,
   escapeHtml,
   getClientIp,
@@ -144,15 +151,15 @@ export async function POST(request: NextRequest) {
     };
 
     const businessEmail = await resend.emails.send({
-      from: 'Amseel Cars <noreply@amseelcars.com>',
+      from: `${SITE_NAME_SPACED} <noreply@amseelcars.com>`,
       replyTo: String(email),
-      to: ['amseelcars5@gmail.com'],
+      to: [BUSINESS_EMAIL],
       subject: `Nouvelle demande de réservation - ${String(carName)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
             <h1 style="margin: 0; font-size: 28px;">Nouvelle demande de réservation</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">Amseel Cars</p>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">${SITE_NAME_SPACED}</p>
           </div>
           
           <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
@@ -190,15 +197,15 @@ export async function POST(request: NextRequest) {
     });
 
     const customerEmail = await resend.emails.send({
-      from: 'Amseel Cars <noreply@amseelcars.com>',
-      replyTo: 'amseelcars5@gmail.com',
+      from: `${SITE_NAME_SPACED} <noreply@amseelcars.com>`,
+      replyTo: BUSINESS_EMAIL,
       to: [String(email)],
       subject: `Demande de réservation reçue - ${String(carName)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
             <h1 style="margin: 0; font-size: 28px;">Demande de réservation reçue</h1>
-            <p style="margin: 10px 0 0 0; opacity: 0.9;">Merci pour votre choix Amseel Cars</p>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">Merci pour votre choix ${SITE_NAME_SPACED}</p>
           </div>
           
           <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
@@ -219,9 +226,9 @@ export async function POST(request: NextRequest) {
 
             <div style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
               <h3 style="color: #333; margin-top: 0;">Informations de contact</h3>
-              <p><strong>Téléphone:</strong> <a href="tel:+212662500181" style="color: #667eea;">+212 662 500 181</a></p>
-              <p><strong>WhatsApp:</strong> <a href="https://wa.me/212662500181" style="color: #667eea;">+212 662 500 181</a></p>
-              <p><strong>Email:</strong> <a href="mailto:amseelcars5@gmail.com" style="color: #667eea;">amseelcars5@gmail.com</a></p>
+              <p><strong>Téléphone:</strong> <a href="tel:${BUSINESS_TELEPHONE_E164}" style="color: #667eea;">${BUSINESS_TELEPHONE_DISPLAY}</a></p>
+              <p><strong>WhatsApp:</strong> <a href="${BUSINESS_WHATSAPP_URL}" style="color: #667eea;">${BUSINESS_TELEPHONE_DISPLAY}</a></p>
+              <p><strong>Email:</strong> <a href="mailto:${BUSINESS_EMAIL}" style="color: #667eea;">${BUSINESS_EMAIL}</a></p>
             </div>
           </div>
         </div>

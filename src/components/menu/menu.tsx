@@ -10,7 +10,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Magnetic from "@/common/Magnetic";
 import { Facebook, Instagram, Mail, Phone } from "lucide-react";
-import { BUSINESS_MAILTO, BUSINESS_SOCIAL, BUSINESS_WHATSAPP_URL } from "@/lib/business";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_MAILTO,
+  BUSINESS_SOCIAL,
+  BUSINESS_TELEPHONE_DISPLAY,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/business";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -191,18 +198,17 @@ export default function Menu() {
               >
                 <div className="flex items-center gap-2">
                   <Mail className="w-7 h-7 text-black bg-black rounded-full p-1" />
-                  <p className="menu-link">amseelcars5@gmail.com</p>
+                  <p className="menu-link">{BUSINESS_EMAIL}</p>
                 </div>
               </Link>
 
               <Link
-                href="tel:+212662500181"
-                target="_blank"
+                href={`tel:${BUSINESS_TELEPHONE_E164}`}
                 className="menu-link"
               >
                 <div className="flex items-center gap-2">
                   <Phone className="w-7 h-7 text-black bg-black rounded-full p-1" />
-                  <p className="menu-link">+212 662 500 181</p>
+                  <p className="menu-link">{BUSINESS_TELEPHONE_DISPLAY}</p>
                 </div>
               </Link>
             </div>

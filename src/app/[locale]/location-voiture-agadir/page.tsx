@@ -20,7 +20,11 @@ import { carBrandScopedHref } from "@/lib/carPublicHref";
 import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
-import { BUSINESS_MAILTO } from "@/lib/business";
+import {
+  BUSINESS_MAILTO,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/business";
 import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
 import { reviews } from "@/data/reviews";
 import { blogIndexPath } from "@/lib/seo/blog-paths";
@@ -243,9 +247,9 @@ export default async function LocationVoitureAgadirPage() {
           company: t("trust.company"),
           address: t("trust.address"),
           phoneLabel: t("trust.phoneLabel"),
-          phoneHref: "tel:+212662500181",
+          phoneHref: `tel:${BUSINESS_TELEPHONE_E164}`,
           whatsappLabel: t("trust.whatsappLabel"),
-          whatsappHref: `https://wa.me/212662500181/?text=${waPrefill}`,
+          whatsappHref: `${BUSINESS_WHATSAPP_URL}/?text=${waPrefill}`,
           emailLabel: t("trust.emailLabel"),
           emailHref: BUSINESS_MAILTO,
           contactLabel: t("trust.contactLabel"),
@@ -270,7 +274,7 @@ export default async function LocationVoitureAgadirPage() {
         fleetCtaLabel={t("fleetCtaLabel")}
         carOpenHint={t("carOpenHint")}
         ctas={{
-          primary: { label: t("ctas.primary"), href: "https://wa.me/212662500181", variant: "primary", external: true },
+          primary: { label: t("ctas.primary"), href: BUSINESS_WHATSAPP_URL, variant: "primary", external: true },
           secondary: { label: t("ctas.secondary"), href: carsPath, variant: "secondary" },
           tertiary: { label: t("ctas.tertiary"), href: BUSINESS_MAILTO, variant: "ghost", external: true },
         }}

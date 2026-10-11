@@ -33,6 +33,7 @@ import { trackEvent } from '@/lib/trackEvent'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 import Footer from '@/components/Footer/Footer'
+import { BUSINESS_WHATSAPP_URL } from '@/lib/business'
 
 interface CarDetailClientProps {
   /** Optional brand hub crumb: Home / Fleet / Brand / Model */
@@ -446,7 +447,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                       currency: '',
                     })
                     const encodedMessage = encodeURIComponent(message);
-                    const whatsappUrl = `https://wa.me/212662500181?text=${encodedMessage}`;
+                    const whatsappUrl = `${BUSINESS_WHATSAPP_URL}?text=${encodedMessage}`;
                     window.open(whatsappUrl, '_blank');
                   }}
                 >

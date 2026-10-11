@@ -712,7 +712,7 @@
       "description": "AmseelCars, lokalna agencja w Agadirze (budynek Sinwan): wynajem aut, odbiór lotnisko AGA lub miasto, WhatsApp +212 662 500 181, nowoczesna flota i jasne warunki."
     },
     "contact": {
-      "title": "Kontakt wynajem samochodów Agadir | WhatsApp +212 662-500181",
+      "title": "Kontakt wynajem samochodów Agadir | WhatsApp +212 662 500 181",
       "description": "Zarezerwuj wynajem samochodu w Agadirze przez WhatsApp, e-mail lub formularz. Odbiór Al Massira (AGA) lub miasto, szybka odpowiedź."
     },
     "carNotFound": {
@@ -1082,7 +1082,7 @@
   "locationAgadirPage": {
     "meta": {
       "title": "Wynajem samochodów Agadir | Dostawa do hotelu | AmseelCars",
-      "description": "Wynajmij auto w Agadirze z darmową dostawą do hotelu lub riadu, jasnymi stawkami i rezerwacją WhatsApp. Auta miejskie i SUV na plażę i wycieczki. +212 662-500181.",
+      "description": "Wynajmij auto w Agadirze z darmową dostawą do hotelu lub riadu, jasnymi stawkami i rezerwacją WhatsApp. Auta miejskie i SUV na plażę i wycieczki. +212 662 500 181.",
       "ogTitle": "Wynajem samochodów Agadir | AmseelCars",
       "ogDescription": "Lokalna agencja w Agadirze: dostawa hotel, uczciwe ceny, potwierdzenie WhatsApp.",
       "twitterTitle": "Wynajem samochodów Agadir | AmseelCars",
@@ -1116,7 +1116,7 @@
         },
         {
           "term": "Rezerwacja",
-          "value": "WhatsApp +212 662-500181 z ceną przed odbiorem."
+          "value": "WhatsApp +212 662 500 181 z ceną przed odbiorem."
         },
         {
           "term": "Flota",

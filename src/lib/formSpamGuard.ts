@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { Resend } from 'resend';
+import { BUSINESS_EMAIL, SITE_NAME_SPACED } from '@/lib/business';
 
 const MIN_FORM_OPEN_MS = 3_000;
 const RATE_LIMIT_WINDOW_MS = 15 * 60_000;
@@ -14,7 +15,7 @@ const notifyLimitMap = new Map<string, { count: number; windowStart: number }>()
 const VOWELS = /[aeiouyàáâäãåèéêëìíîïòóôöõùúûüýÿæœ]/i;
 const LETTERS = /[a-zàáâäãåèéêëìíîïòóôöõùúûüýÿæœ]/gi;
 
-const SPAM_NOTIFY_TO = 'amseelcars5@gmail.com';
+const SPAM_NOTIFY_TO = BUSINESS_EMAIL;
 
 export type SpamBlockReason =
   | 'honeypot'
@@ -187,14 +188,14 @@ export async function notifySpamBlocked(input: {
       .join('');
 
     await resend.emails.send({
-      from: 'Amseel Cars <noreply@amseelcars.com>',
+      from: `${SITE_NAME_SPACED} <noreply@amseelcars.com>`,
       to: [SPAM_NOTIFY_TO],
       subject: `[Spam bloqué] ${formLabel} — ${reasonText}`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:20px">
           <div style="background:#7f1d1d;color:#fff;padding:20px;border-radius:10px 10px 0 0">
             <h1 style="margin:0;font-size:20px">Tentative spam bloquée</h1>
-            <p style="margin:8px 0 0;opacity:.9">Amseel Cars — aucune email client envoyée</p>
+            <p style="margin:8px 0 0;opacity:.9">${SITE_NAME_SPACED} — aucune email client envoyée</p>
           </div>
           <div style="background:#fff;border:1px solid #e5e5e5;border-top:0;padding:20px;border-radius:0 0 10px 10px">
             <p><strong>Formulaire:</strong> ${escapeHtml(formLabel)}</p>

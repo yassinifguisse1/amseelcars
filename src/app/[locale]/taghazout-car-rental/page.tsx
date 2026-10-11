@@ -21,6 +21,11 @@ import { carSlugForLocale } from "@/lib/carSlugLocale";
 import { DestinationAeoLanding } from "@/components/Landing/DestinationAeoLanding";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 import { reviews } from "@/data/reviews";
+import {
+  BUSINESS_MAILTO,
+  BUSINESS_TELEPHONE_E164,
+  BUSINESS_WHATSAPP_URL,
+} from "@/lib/business";
 
 const TAGHAZOUT_HERO_IMAGE = "/images/taghazout-hero.webp";
 
@@ -180,11 +185,11 @@ export default async function TaghazoutCarRentalPage() {
           company: t("trust.company"),
           address: t("trust.address"),
           phoneLabel: t("trust.phoneLabel"),
-          phoneHref: "tel:+212662500181",
+          phoneHref: `tel:${BUSINESS_TELEPHONE_E164}`,
           whatsappLabel: t("trust.whatsappLabel"),
-          whatsappHref: `https://wa.me/212662500181/?text=${waPrefill}`,
+          whatsappHref: `${BUSINESS_WHATSAPP_URL}/?text=${waPrefill}`,
           emailLabel: t("trust.emailLabel"),
-          emailHref: "mailto:amseelcars5@gmail.com",
+          emailHref: BUSINESS_MAILTO,
           contactLabel: t("trust.contactLabel"),
           contactHref: contactPath,
           reviewsTitle: t("trust.reviewsTitle"),
@@ -217,7 +222,7 @@ export default async function TaghazoutCarRentalPage() {
         ctas={{
           primary: {
             label: t("ctas.primary"),
-            href: "https://wa.me/212662500181",
+            href: BUSINESS_WHATSAPP_URL,
             variant: "primary",
             external: true,
           },
