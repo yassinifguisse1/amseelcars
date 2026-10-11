@@ -6,7 +6,7 @@ import { format, isValid, parse } from "date-fns"
 import { enUS, fr } from "date-fns/locale"
 import { Calendar as CalendarIcon } from "lucide-react"
 import type { Matcher } from "react-day-picker"
-import { DayPicker } from "react-day-picker"
+import { DayPicker, getDefaultClassNames } from "react-day-picker"
 
 import "react-day-picker/style.css"
 
@@ -49,6 +49,7 @@ export function BookingFormDateField({
   const [open, setOpen] = useState(false)
   const dfLocale = locale === "fr" ? fr : enUS
   const selected = parseFormDate(value)
+  const defaultClassNames = getDefaultClassNames()
 
   const labelText = selected
     ? format(selected, compactMobile ? "PP" : "PPP", { locale: dfLocale })
@@ -65,7 +66,7 @@ export function BookingFormDateField({
             aria-invalid={error ? true : undefined}
             aria-label={openCalendarAria}
             className={cn(
-              "w-full justify-start text-left font-normal border-gray-300 rounded-lg",
+              "w-full cursor-pointer justify-start text-left font-normal border-gray-300 rounded-lg",
               compactMobile
                 ? "h-9 min-h-9 px-2.5 py-1.5 text-xs sm:h-auto sm:min-h-[42px] sm:px-3 sm:py-2 sm:text-sm"
                 : "h-auto min-h-[42px] px-3 py-2",
@@ -106,6 +107,11 @@ export function BookingFormDateField({
               locale={dfLocale}
               defaultMonth={selected ?? new Date()}
               autoFocus
+              classNames={{
+                day_button: cn(defaultClassNames.day_button, "cursor-pointer"),
+                button_previous: cn(defaultClassNames.button_previous, "cursor-pointer"),
+                button_next: cn(defaultClassNames.button_next, "cursor-pointer"),
+              }}
             />
           </div>
         </PopoverContent>

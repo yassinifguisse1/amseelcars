@@ -7,7 +7,6 @@ import { Link, useRouter, usePathname } from '@/i18n/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import type { AppLocale } from '@/i18n/routing'
 import { toAppLocale } from '@/i18n/locale-utils'
-import { Button } from '@/components/ui/button'
 import {
   ArrowLeft,
   MapPin,
@@ -16,7 +15,6 @@ import {
   Fuel,
   Settings,
   Shield,
-  MessageCircle,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
@@ -29,11 +27,15 @@ import {
   resolveDisplayCurrency,
   type DisplayCurrency,
 } from '@/lib/currency'
+import {
+  hasActiveBookingSearch,
+  parseBookingSearchParams,
+} from '@/lib/bookingSearchParams'
+import { meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy'
 import { trackEvent } from '@/lib/trackEvent'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 import Footer from '@/components/Footer/Footer'
-import { BUSINESS_WHATSAPP_URL } from '@/lib/business'
 
 interface CarDetailClientProps {
   /** Optional brand hub crumb: Home / Fleet / Brand / Model */
@@ -177,10 +179,35 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const dailyMad = car.pricing?.shortTerm ?? car.pricePerDay
   const dailyDisplay = convertCarPrice(dailyMad, currency)
   const dailyLabel = formatCarPriceLabel(dailyDisplay, currency)
-  const weekLabel = formatCarPriceLabel(dailyDisplay * 7, currency)
+  const bookingFromUrl = parseBookingSearchParams(searchParams)
+  const tripDays = hasActiveBookingSearch(searchParams)
+    ? rentalDayCount(bookingFromUrl.pickupDate, bookingFromUrl.returnDate)
+    : 0
+  const showTripEstimate = tripDays > 0 && meetsMinRentalDays(tripDays)
+  const tripLabel = formatCarPriceLabel(
+    dailyDisplay * (showTripEstimate ? tripDays : 7),
+    currency,
+  )
   const quickFacts = [car.transmission, car.fuelType, t('seats', { count: car.seats })]
     .filter(Boolean)
     .join(' · ')
+
+  /** Drop seats / fuel / gearbox rows already shown in the key-specs strip. */
+  const amenityFeatures = car.features.filter((feature) => {
+    const name = feature.name.trim().toLowerCase()
+    const value = feature.value.trim().toLowerCase()
+    const duplicateName =
+      /^(si[eè]ges?|seats?|places?|carburant|fuel|essence|diesel|bo[iî]te(?:\s+de\s+vitesses)?|gearbox|transmission|getriebe)$/i.test(
+        name,
+      ) ||
+      name.includes('boîte de vitesses') ||
+      name.includes('boite de vitesses')
+    const duplicateValue =
+      value === String(car.seats) ||
+      value === car.fuelType.trim().toLowerCase() ||
+      value === car.transmission.trim().toLowerCase()
+    return !(duplicateName || duplicateValue)
+  })
 
   const handleBackToCars = () => {
     const p = pathname as string
@@ -272,7 +299,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-12">
           {/* Title — first on mobile (above photos), top-right on desktop */}
           <header className="lg:col-start-2 lg:row-start-1">
-            <div className="mb-1.5 flex items-center gap-2 text-sm text-muted-foreground md:mb-2">
+            <div className="mb-1.5 flex items-center gap-2 text-sm text-muted-foreground lg:mb-2">
               <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase text-primary md:py-1 md:text-xs">
                 {
                   {
@@ -288,26 +315,38 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               </span>
             </div>
 
-            <h1 className="mb-1 !font-sans text-2xl font-semibold tracking-normal text-foreground md:mb-2 md:text-4xl [font-family:ui-sans-serif,system-ui,sans-serif]">
-              {car.carName}
-            </h1>
+            {/* Mobile: stacked. Desktop: title/location | price facts side-by-side. */}
+            <div className="lg:flex lg:items-stretch lg:gap-4">
+              <div className="min-w-0 lg:max-w-[55%]">
+                <h1 className="mb-1 !font-sans text-2xl font-semibold tracking-normal text-foreground lg:mb-1.5 lg:text-3xl [font-family:ui-sans-serif,system-ui,sans-serif]">
+                  {car.carName}
+                </h1>
+                <div className="flex items-center gap-1.5 text-sm text-muted-foreground md:text-base">
+                  <MapPin className="h-3.5 w-3.5 shrink-0 md:h-4 md:w-4" />
+                  <span>{car.location}</span>
+                </div>
+              </div>
 
-            <div className="flex items-center gap-1.5 text-sm text-muted-foreground md:gap-2 md:text-base">
-              <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4" />
-              <span>{car.location}</span>
-            </div>
-
-            <div className="mt-3 space-y-2 md:mt-4">
-              <p className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-                {t('fromPrice', { price: dailyLabel })}
-                <span className="ml-1.5 text-sm font-medium text-muted-foreground md:text-base">
-                  {t('perDay')}
-                </span>
-              </p>
-              <p className="text-sm text-muted-foreground md:text-base">
-                {t('weekEstimate', { days: 7, total: weekLabel })}
-              </p>
-              <p className="text-sm text-muted-foreground">{quickFacts}</p>
+              <div
+                className="mt-3 space-y-1.5 lg:mt-0 lg:shrink-0 lg:border-l lg:border-border lg:pl-4 lg:text-left"
+                aria-label={t('fromPrice', { price: dailyLabel })}
+              >
+                <p className="text-2xl font-bold tracking-tight text-foreground lg:text-xl">
+                  {t('fromPrice', { price: dailyLabel })}
+                  <span className="ml-1.5 text-sm font-medium text-muted-foreground">
+                    {t('perDay')}
+                  </span>
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {t('weekEstimate', {
+                    days: showTripEstimate ? tripDays : 7,
+                    total: tripLabel,
+                  })}
+                </p>
+                <p className="text-sm text-muted-foreground lg:text-xs lg:leading-snug">
+                  {quickFacts}
+                </p>
+              </div>
             </div>
           </header>
 
@@ -452,6 +491,35 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 </div>
               </div>
             </div>
+
+            {/* Features under specs — desktop only (fills space beside booking card) */}
+            {amenityFeatures.length > 0 ? (
+              <div className="mt-6 hidden lg:block">
+                <h2 className="mb-4 text-xl font-bold text-foreground">
+                  {t('featuresHeading')}
+                </h2>
+                <div className="grid grid-cols-2 gap-3">
+                  {amenityFeatures.map((feature, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 rounded-lg bg-muted/30 p-3"
+                    >
+                      <span className="text-xl" aria-hidden>
+                        {feature.icon}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate font-medium text-foreground">
+                          {feature.name}
+                        </p>
+                        <p className="truncate text-sm text-muted-foreground">
+                          {feature.value}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           {/* Booking — third on mobile; under title on desktop */}
@@ -482,35 +550,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 currency,
               )} ${t('perDay')}`}
               priceTagline={t('priceTagline')}
-              extraActions={
-                <Button
-                  type="button"
-                  size="lg"
-                  className="h-11 w-full cursor-pointer rounded-[25px] bg-[#25D366] text-base font-semibold text-white hover:bg-[#1ebe57]"
-                  onClick={() => {
-                    trackEvent({
-                      event: 'whatsapp',
-                      path: typeof window !== 'undefined' ? window.location.pathname : '',
-                      source: 'car-detail',
-                      carSlug: car.slug,
-                      carName: car.carName,
-                    })
-                    const price = car.pricing?.shortTerm || car.pricePerDay
-                    const priceInCurrency = convertCarPrice(price, currency)
-                    const message = t('waInquiry', {
-                      carName: car.carName,
-                      price: formatCarPriceLabel(priceInCurrency, currency),
-                      currency: '',
-                    })
-                    const encodedMessage = encodeURIComponent(message);
-                    const whatsappUrl = `${BUSINESS_WHATSAPP_URL}?text=${encodedMessage}`;
-                    window.open(whatsappUrl, '_blank');
-                  }}
-                >
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  {t('waButton')}
-                </Button>
-              }
+              showWhatsApp
             />
           </div>
         </div>
@@ -519,21 +559,30 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
         <div className="mt-12 space-y-8">
          
 
-          {/* Features Grid */}
-          <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">{t('featuresHeading')}</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {car.features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg">
-                  <span className="text-2xl">{feature.icon}</span>
-                  <div>
-                    <p className="font-medium text-foreground">{feature.name}</p>
-                    <p className="text-sm text-muted-foreground">{feature.value}</p>
+          {/* Features Grid — mobile / tablet (desktop version sits under specs) */}
+          {amenityFeatures.length > 0 ? (
+            <div className="lg:hidden">
+              <h2 className="mb-6 text-2xl font-bold text-foreground">
+                {t('featuresHeading')}
+              </h2>
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                {amenityFeatures.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 rounded-lg bg-muted/30 p-4"
+                  >
+                    <span className="text-2xl" aria-hidden>
+                      {feature.icon}
+                    </span>
+                    <div>
+                      <p className="font-medium text-foreground">{feature.name}</p>
+                      <p className="text-sm text-muted-foreground">{feature.value}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
 
           {/* Specifications */}
           <div>

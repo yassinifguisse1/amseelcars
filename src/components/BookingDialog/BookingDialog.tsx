@@ -6,7 +6,7 @@ import { addDays, parse, startOfToday } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, User, MapPin, CreditCard } from 'lucide-react';
+import { X, Calendar, User, MapPin, CreditCard, MessageCircle } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -19,11 +19,14 @@ import { BOOKING_TIME_SLOTS } from '@/lib/bookingLocations';
 import { parseBookingSearchParams } from '@/lib/bookingSearchParams';
 import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
 import {
+  BOOKING_ADDON_MESSAGE_KEYS,
   addonSelectionTotal,
   emptyAddonSelection,
   selectedAddonsList,
   type BookingAddonSelection,
 } from '@/lib/bookingAddons';
+import { formatCarPriceLabel } from '@/lib/currency';
+import { BUSINESS_WHATSAPP_URL } from '@/lib/business';
 import { BookingAddons } from './BookingAddons';
 
 type BookingFormData = {
@@ -82,8 +85,10 @@ interface BookingDialogProps {
   };
   /** When true, render the form inline on the page instead of in a modal */
   inline?: boolean;
-  /** Optional content rendered below the submit button when inline (e.g. WhatsApp button) */
+  /** Optional content rendered below the submit button when inline */
   extraActions?: React.ReactNode;
+  /** Built-in WhatsApp CTA with trip total + selected add-ons (inline form) */
+  showWhatsApp?: boolean;
   /** Formatted daily price for the inline red header (e.g. `130€`) */
   priceLabel?: string;
   /** Guarantee / terms line under the price in the inline header */
@@ -104,6 +109,7 @@ interface BookingDialogProps {
  * @param pricing - Optional tiered pricing object. If `hasDiscount` is true and the rental duration is 5 or more days, `longTerm` is used as the per-day rate; otherwise `shortTerm` is used when available.
  * @param inline - When true, render a compact inline reservation card instead of a modal; defaults to `false`.
  * @param extraActions - Optional React node rendered below the submit controls in inline mode.
+ * @param showWhatsApp - When true (inline), shows a WhatsApp CTA with trip total and selected add-ons.
  * @returns The dialog or inline reservation form as a React element.
  */
 export default function BookingDialog({ 
@@ -115,12 +121,14 @@ export default function BookingDialog({
   pricing,
   inline = false,
   extraActions,
+  showWhatsApp = false,
   priceLabel,
   priceTagline,
   currency = 'EUR',
 }: BookingDialogProps) {
   const locale = useLocale();
   const t = useTranslations('booking');
+  const tAddons = useTranslations('booking.addons');
   const searchParams = useSearchParams();
   const bookingDefaults = useMemo(() => parseBookingSearchParams(searchParams), [searchParams]);
   const bookingSchema = useMemo(() => buildBookingSchema((k) => t(k as Parameters<typeof t>[0])), [t]);
@@ -198,26 +206,31 @@ export default function BookingDialog({
   const watchedPickupDate = watch('pickupDate');
   const watchedReturnDate = watch('returnDate');
 
+  const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
+
   const calculateRentalDetails = () => {
-    if (!watchedPickupDate || !watchedReturnDate) return { days: 0, total: 0, tooShort: false };
+    if (!watchedPickupDate || !watchedReturnDate) {
+      return { days: 0, carTotal: 0, tooShort: false };
+    }
 
     const days = rentalDayCount(watchedPickupDate, watchedReturnDate);
     if (!meetsMinRentalDays(days)) {
-      return { days, total: 0, tooShort: days > 0 };
+      return { days, carTotal: 0, tooShort: days > 0 };
     }
-    const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
-    const total = days * pricePerDay;
-    return { days, total, tooShort: false };
+    return { days, carTotal: days * pricePerDay, tooShort: false };
   };
 
-  const { days, total, tooShort } = calculateRentalDetails();
+  const { days, carTotal, tooShort } = calculateRentalDetails();
+  const addonsTotalLive = addonSelectionTotal(addonSelection, currency, Math.max(days, 1));
+  const grandTotalLive = carTotal + (days > 0 && !tooShort ? addonsTotalLive : 0);
+  const hasValidDates = days > 0 && !tooShort;
 
   const { sendAbandoned, markSubmitted } = useBookingAbandonTracking({
     carName,
     carSlug,
     isActive: inline || isOpen,
     rentalDays: days,
-    totalPrice: total,
+    totalPrice: hasValidDates ? grandTotalLive : carTotal,
     getValues,
     watchValues: formValues,
     isSubmitting,
@@ -353,6 +366,52 @@ export default function BookingDialog({
     }
   };
 
+  const openWhatsAppInquiry = () => {
+    const path = typeof window !== 'undefined' ? window.location.pathname : '';
+    const selected = selectedAddonsList(addonSelection);
+    const addonLabels = selected
+      .map((item) => {
+        const title = tAddons(`items.${BOOKING_ADDON_MESSAGE_KEYS[item.id]}.title`);
+        return item.quantity > 1 ? `${title} ×${item.quantity}` : title;
+      })
+      .join(', ');
+
+    const baseMessage = hasValidDates
+      ? t('waInquiryTrip', {
+          carName,
+          days,
+          pickup: `${formValues.pickupDate} ${formValues.pickupTime}`,
+          return: `${formValues.returnDate} ${formValues.returnTime}`,
+          total: formatCarPriceLabel(grandTotalLive, currency),
+        })
+      : t('waInquiryDaily', {
+          carName,
+          price: formatCarPriceLabel(pricePerDay, currency),
+        });
+    const message = addonLabels
+      ? `${baseMessage} ${t('waAddonsSuffix', { addons: addonLabels })}`
+      : baseMessage;
+
+    trackEvent({
+      event: 'whatsapp',
+      path,
+      source: 'car-detail',
+      carSlug,
+      carName,
+      rentalDays: hasValidDates ? days : undefined,
+      totalPrice: hasValidDates ? grandTotalLive : undefined,
+      message,
+      metadata: {
+        addons: selected.map((a) => `${a.id}:${a.quantity}`).join(','),
+      },
+    });
+
+    window.open(
+      `${BUSINESS_WHATSAPP_URL}?text=${encodeURIComponent(message)}`,
+      '_blank',
+    );
+  };
+
   // Non-passive wheel listener so preventDefault() works when at scroll bounds (React's onWheel is passive)
   useEffect(() => {
     if (!isOpen) return;
@@ -446,7 +505,7 @@ export default function BookingDialog({
                             <select
                               {...register('pickupTime')}
                               aria-label={t('pickupTime')}
-                              className="w-[5.75rem] shrink-0 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                              className="w-[5.75rem] shrink-0 cursor-pointer rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             >
                               {BOOKING_TIME_SLOTS.map((slot) => (
                                 <option key={slot} value={slot}>
@@ -490,7 +549,7 @@ export default function BookingDialog({
                             <select
                               {...register('returnTime')}
                               aria-label={t('returnTime')}
-                              className="w-[5.75rem] shrink-0 rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                              className="w-[5.75rem] shrink-0 cursor-pointer rounded-lg border border-gray-300 bg-white px-2 py-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500"
                             >
                               {BOOKING_TIME_SLOTS.map((slot) => (
                                 <option key={slot} value={slot}>
@@ -520,7 +579,7 @@ export default function BookingDialog({
                           </label>
                           <select
                             {...register('pickupLocation')}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                            className="w-full cursor-pointer px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
                           >
                             {locationOptions.map((option) => (
                               <option key={option.value} value={option.value}>
@@ -539,7 +598,7 @@ export default function BookingDialog({
                           </label>
                           <select
                             {...register('returnLocation')}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                            className="w-full cursor-pointer px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
                           >
                             {locationOptions.map((option) => (
                               <option key={option.value} value={option.value}>
@@ -613,28 +672,53 @@ export default function BookingDialog({
                         onChange={setAddonSelection}
                         currency={currency}
                       />
-                    </div>
 
-                    {/* Rental Summary */}
-                    {/* {days > 0 && (
-                      <div className="bg-gray-50 rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3">Résumé de la location</h3>
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span>Durée de la location:</span>
-                            <span className="font-medium">{days} day{days > 1 ? 's' : ''}</span>
+                      <div className="mt-3 rounded-xl border border-gray-200 bg-stone-50 px-3 py-3 sm:px-4">
+                        {hasValidDates ? (
+                          <div className="space-y-1.5 text-sm">
+                            <div className="flex items-center justify-between gap-3 text-gray-700">
+                              <span>{t('priceCarLine', { days })}</span>
+                              <span className="font-medium tabular-nums">
+                                {formatCarPriceLabel(carTotal, currency)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between gap-3 text-gray-700">
+                              <span>{t('priceAddonsLine')}</span>
+                              <span className="font-medium tabular-nums">
+                                {formatCarPriceLabel(addonsTotalLive, currency)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between gap-3 border-t border-gray-200 pt-2 text-base font-semibold text-gray-900">
+                              <span>{t('priceTotalLine')}</span>
+                              <span className="tabular-nums text-[#EC1C25]">
+                                {formatCarPriceLabel(grandTotalLive, currency)}
+                              </span>
+                            </div>
                           </div>
-                          <div className="flex justify-between">
-                            <span>Prix par jour:</span>
-                            <span className="font-medium">{carPrice} €</span>
+                        ) : (
+                          <div className="space-y-1 text-sm text-gray-700">
+                            <div className="flex items-center justify-between gap-3">
+                              <span>{t('pricePerDayLine')}</span>
+                              <span className="font-medium tabular-nums">
+                                {formatCarPriceLabel(pricePerDay, currency)}
+                              </span>
+                            </div>
+                            {addonsTotalLive > 0 ? (
+                              <div className="flex items-center justify-between gap-3">
+                                <span>{t('priceAddonsPerDayLine')}</span>
+                                <span className="font-medium tabular-nums">
+                                  {formatCarPriceLabel(
+                                    addonSelectionTotal(addonSelection, currency, 1),
+                                    currency,
+                                  )}
+                                </span>
+                              </div>
+                            ) : null}
+                            <p className="pt-1 text-xs text-gray-500">{t('pricePickDatesHint')}</p>
                           </div>
-                          <div className="flex justify-between text-lg font-semibold border-t pt-2">
-                            <span>Prix total:</span>
-                            <span className="text-blue-600">{total} €</span>
-                          </div>
-                        </div>
+                        )}
                       </div>
-                    )} */}
+                    </div>
 
                     {/* Min rental notice */}
                     {tooShort && (
@@ -685,6 +769,19 @@ export default function BookingDialog({
                         )}
                       </Button>
                     </div>
+                    {inline && showWhatsApp && (
+                      <div className="pt-0">
+                        <Button
+                          type="button"
+                          size="lg"
+                          className="h-11 w-full cursor-pointer rounded-[25px] bg-[#25D366] text-base font-semibold text-white hover:bg-[#1ebe57]"
+                          onClick={openWhatsAppInquiry}
+                        >
+                          <MessageCircle className="mr-2 h-5 w-5" />
+                          {t('waButton')}
+                        </Button>
+                      </div>
+                    )}
                     {inline && extraActions && (
                       <div className="pt-0">
                         {extraActions}
@@ -712,7 +809,22 @@ export default function BookingDialog({
           </div>
           <div className="relative bg-[#EC1C25] px-5 py-6 text-white md:px-7 md:py-7">
             <div className="flex flex-col items-center justify-center gap-2 text-center">
-              {priceLabel ? (
+              {hasValidDates ? (
+                <>
+                  <p className="font-sans text-sm font-semibold uppercase tracking-wide text-white/90 md:text-base">
+                    {t('headerTotalForDays', { days })}
+                  </p>
+                  <p className="font-sans text-3xl font-bold tracking-tight text-white md:text-3xl">
+                    {formatCarPriceLabel(grandTotalLive, currency)}
+                  </p>
+                  <p className="font-sans text-sm font-medium text-white/90">
+                    {t('headerTripHint', {
+                      days,
+                      daily: formatCarPriceLabel(pricePerDay, currency),
+                    })}
+                  </p>
+                </>
+              ) : priceLabel ? (
                 <p className="font-sans text-3xl font-bold tracking-tight text-white md:text-3xl">
                   {priceLabel}
                 </p>

@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button';
 import { BOOKING_TIME_SLOTS } from '@/lib/bookingLocations';
 import {
   bookingSearchToQuery,
-  defaultBookingSearchDates,
   parseBookingSearchParams,
   type BookingSearchValues,
 } from '@/lib/bookingSearchParams';
@@ -36,15 +35,10 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
     [tBooking],
   );
 
-  // Empty dates on first paint when URL has none — avoids SSR/client timezone
-  // mismatches from defaultBookingSearchDates() / startOfToday().
-  const [values, setValues] = useState<BookingSearchValues>(() => {
-    const parsed = parseBookingSearchParams(searchParams);
-    if (!searchParams.get('pickupDate') && !searchParams.get('returnDate')) {
-      return { ...parsed, pickupDate: '', returnDate: '' };
-    }
-    return parsed;
-  });
+  // Empty dates until the user picks (calendar starts from today).
+  const [values, setValues] = useState<BookingSearchValues>(() =>
+    parseBookingSearchParams(searchParams),
+  );
   const [dateError, setDateError] = useState('');
 
   useEffect(() => {
@@ -52,10 +46,11 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
       setValues(parseBookingSearchParams(searchParams));
       return;
     }
-    setValues((prev) => {
-      if (prev.pickupDate && prev.returnDate) return prev;
-      return { ...prev, ...defaultBookingSearchDates() };
-    });
+    setValues((prev) => ({
+      ...prev,
+      pickupDate: '',
+      returnDate: '',
+    }));
   }, [searchParams]);
 
   const setField = <K extends keyof BookingSearchValues>(key: K, value: BookingSearchValues[K]) => {
@@ -122,7 +117,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
   };
 
   const fieldClass =
-    'h-9 w-full rounded-md border-0 bg-white px-2.5 text-xs font-medium text-stone-900 shadow-sm ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-white sm:h-11 sm:px-3 sm:text-sm';
+    'h-9 w-full cursor-pointer rounded-md border-0 bg-white px-2.5 text-xs font-medium text-stone-900 shadow-sm ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-white sm:h-11 sm:px-3 sm:text-sm';
 
   return (
     <section
@@ -141,7 +136,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
           <Plane className="mt-0.5 h-3 w-3 shrink-0 text-white sm:mt-0 sm:h-4 sm:w-4" aria-hidden />
           <button
             type="button"
-            className="min-w-0 text-left font-medium text-white underline-offset-2 hover:underline"
+            className="min-w-0 cursor-pointer text-left font-medium text-white underline-offset-2 hover:underline"
             onClick={() => {
               setField('pickupLocation', 'aeroport-al-massira');
               if (values.sameReturn) setField('returnLocation', 'aeroport-al-massira');
@@ -270,7 +265,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
 
           <Button
             type="submit"
-            className="mt-0.5 h-10 w-full bg-white px-4 text-sm font-semibold text-[#b11226] hover:bg-stone-100 sm:mt-0 sm:h-11 sm:px-5 sm:text-sm lg:w-auto"
+            className="mt-0.5 h-10 w-full cursor-pointer bg-white px-4 text-sm font-semibold text-[#b11226] hover:bg-stone-100 sm:mt-0 sm:h-11 sm:px-5 sm:text-sm lg:w-auto"
           >
             <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             {t('search')}

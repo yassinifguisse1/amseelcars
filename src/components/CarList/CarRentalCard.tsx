@@ -1,6 +1,8 @@
 "use client"
 
+import { useMemo } from "react"
 import NextLink from "next/link"
+import { useSearchParams } from "next/navigation"
 import { Link } from "@/i18n/navigation"
 import { useTranslations } from "next-intl"
 import { CometCard } from "@/components/ui/comet-card"
@@ -9,6 +11,7 @@ import { Car, Users, Fuel, Settings } from "lucide-react"
 import Image from "next/image"
 import { trackEvent } from "@/lib/trackEvent"
 import { carBrandScopedHref } from "@/lib/carPublicHref"
+import { bookingQueryForLinks } from "@/lib/bookingSearchParams"
 import { formatCarPriceLabel, type DisplayCurrency } from "@/lib/currency"
 
 interface CarRentalCardProps {
@@ -65,6 +68,11 @@ export function CarRentalCard({
   imageCaption,
 }: CarRentalCardProps) {
   const t = useTranslations("carsPage.card")
+  const searchParams = useSearchParams()
+  const detailQuery = useMemo(
+    () => bookingQueryForLinks(searchParams, { currency }),
+    [searchParams, currency],
+  )
   const resolvedAlt =
     imageAlt?.trim() || t("altFallback", { carName })
   const resolvedTitle = (imageTitle?.trim() || resolvedAlt).slice(0, 200)
@@ -190,12 +198,12 @@ export function CarRentalCard({
       brand != null && brand.length > 0
         ? {
             ...carBrandScopedHref(brand, slug),
-            query: { currency },
+            query: detailQuery,
           }
         : {
             pathname: "/cars/[slug]" as const,
             params: { slug },
-            query: { currency },
+            query: detailQuery,
           };
     return (
       <CometCard className="w-full max-w-full sm:max-w-[320px] md:max-w-[350px] lg:max-w-[380px]">

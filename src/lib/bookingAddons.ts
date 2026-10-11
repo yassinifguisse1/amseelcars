@@ -8,6 +8,23 @@ export type BookingAddonId =
   | 'child-seat'
   | 'rooftop-cargo'
 
+export type BookingAddonMessageKey =
+  | 'fullInsurance'
+  | 'extraChildSeat'
+  | 'additionalDriver'
+  | 'surfboardRoofRacks'
+  | 'childSeat'
+  | 'rooftopCargo'
+
+export const BOOKING_ADDON_MESSAGE_KEYS: Record<BookingAddonId, BookingAddonMessageKey> = {
+  'full-insurance': 'fullInsurance',
+  'extra-child-seat': 'extraChildSeat',
+  'additional-driver': 'additionalDriver',
+  'surfboard-roof-racks': 'surfboardRoofRacks',
+  'child-seat': 'childSeat',
+  'rooftop-cargo': 'rooftopCargo',
+}
+
 export type BookingAddonBilling = 'perDay' | 'flat'
 
 export type BookingAddonDef = {
@@ -20,10 +37,10 @@ export type BookingAddonDef = {
 
 export const BOOKING_ADDONS: BookingAddonDef[] = [
   { id: 'full-insurance', max: 1, priceEur: 10, billing: 'perDay' },
-  { id: 'extra-child-seat', max: 2, priceEur: 2, billing: 'perDay' },
+  { id: 'child-seat', max: 1, priceEur: 2, billing: 'perDay' },
+  { id: 'extra-child-seat', max: 1, priceEur: 2, billing: 'perDay' },
   { id: 'additional-driver', max: 1, priceEur: 0, billing: 'flat' },
   { id: 'surfboard-roof-racks', max: 1, priceEur: 2, billing: 'perDay' },
-  { id: 'child-seat', max: 2, priceEur: 2, billing: 'perDay' },
   { id: 'rooftop-cargo', max: 1, priceEur: 3, billing: 'perDay' },
 ]
 

@@ -21,8 +21,9 @@ export const BOOKING_SEARCH_DEFAULTS: BookingSearchValues = {
   sameReturn: true,
 };
 
+/** Optional suggested range (pickup = today). Prefer empty fields until the user picks. */
 export function defaultBookingSearchDates(): Pick<BookingSearchValues, 'pickupDate' | 'returnDate'> {
-  const pickup = addDays(startOfToday(), 1);
+  const pickup = startOfToday();
   const ret = addDays(pickup, 7);
   return {
     pickupDate: format(pickup, 'yyyy-MM-dd'),
@@ -45,7 +46,6 @@ function sanitizeTime(raw: string | null | undefined): string {
 export function parseBookingSearchParams(
   searchParams: URLSearchParams | { get: (key: string) => string | null },
 ): BookingSearchValues {
-  const dates = defaultBookingSearchDates();
   const pickupRaw = searchParams.get('pickup')?.trim() || '';
   const returnRaw = searchParams.get('return')?.trim() || '';
   const sameRaw = searchParams.get('sameReturn');
@@ -61,8 +61,8 @@ export function parseBookingSearchParams(
   return {
     pickupLocation,
     returnLocation,
-    pickupDate: sanitizeDate(searchParams.get('pickupDate')) || dates.pickupDate,
-    returnDate: sanitizeDate(searchParams.get('returnDate')) || dates.returnDate,
+    pickupDate: sanitizeDate(searchParams.get('pickupDate')),
+    returnDate: sanitizeDate(searchParams.get('returnDate')),
     pickupTime: sanitizeTime(searchParams.get('pickupTime')) || BOOKING_SEARCH_DEFAULTS.pickupTime,
     returnTime: sanitizeTime(searchParams.get('returnTime')) || BOOKING_SEARCH_DEFAULTS.returnTime,
     sameReturn,
@@ -85,10 +85,17 @@ export function bookingSearchToQuery(values: BookingSearchValues): Record<string
 }
 
 export function hasActiveBookingSearch(searchParams: URLSearchParams): boolean {
-  return Boolean(
-    searchParams.get('pickupDate') ||
-      searchParams.get('returnDate') ||
-      searchParams.get('pickup') ||
-      searchParams.get('pickupTime'),
-  );
+  return Boolean(searchParams.get('pickupDate') || searchParams.get('returnDate'));
+}
+
+/** Booking query keys to keep when navigating home/fleet → car detail. */
+export function bookingQueryForLinks(
+  searchParams: URLSearchParams,
+  extra: Record<string, string> = {},
+): Record<string, string> {
+  if (!hasActiveBookingSearch(searchParams)) return { ...extra };
+  return {
+    ...bookingSearchToQuery(parseBookingSearchParams(searchParams)),
+    ...extra,
+  };
 }

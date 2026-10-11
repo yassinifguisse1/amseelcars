@@ -1,9 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { CircleHelp, Minus, Plus, X } from "lucide-react";
+import { useState, type ComponentType } from "react";
+import {
+  Baby,
+  CircleHelp,
+  Minus,
+  Package,
+  Plus,
+  ShieldCheck,
+  Users,
+  Waves,
+  X,
+  type LucideProps,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import {
+  BOOKING_ADDON_MESSAGE_KEYS,
   BOOKING_ADDONS,
   type BookingAddonId,
   type BookingAddonSelection,
@@ -11,21 +23,13 @@ import {
 } from "@/lib/bookingAddons";
 import { formatCarPriceLabel, type DisplayCurrency } from "@/lib/currency";
 
-const ADDON_MESSAGE_KEYS: Record<
-  BookingAddonId,
-  | "fullInsurance"
-  | "extraChildSeat"
-  | "additionalDriver"
-  | "surfboardRoofRacks"
-  | "childSeat"
-  | "rooftopCargo"
-> = {
-  "full-insurance": "fullInsurance",
-  "extra-child-seat": "extraChildSeat",
-  "additional-driver": "additionalDriver",
-  "surfboard-roof-racks": "surfboardRoofRacks",
-  "child-seat": "childSeat",
-  "rooftop-cargo": "rooftopCargo",
+const ADDON_ICONS: Record<BookingAddonId, ComponentType<LucideProps>> = {
+  "full-insurance": ShieldCheck,
+  "extra-child-seat": Baby,
+  "additional-driver": Users,
+  "surfboard-roof-racks": Waves,
+  "child-seat": Baby,
+  "rooftop-cargo": Package,
 };
 
 type BookingAddonsProps = {
@@ -43,14 +47,15 @@ export function BookingAddons({ selection, onChange, currency }: BookingAddonsPr
     onChange({ ...selection, [id]: nextQty });
   };
 
-  const expandedKey = expanded ? ADDON_MESSAGE_KEYS[expanded] : null;
+  const expandedKey = expanded ? BOOKING_ADDON_MESSAGE_KEYS[expanded] : null;
+  const ExpandedIcon = expanded ? ADDON_ICONS[expanded] : null;
 
   return (
     <div className="space-y-2.5 pt-2">
       <h4 className="text-sm font-semibold text-gray-900 sm:text-base">{t("title")}</h4>
       <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {BOOKING_ADDONS.map((addon) => {
-          const msgKey = ADDON_MESSAGE_KEYS[addon.id];
+          const msgKey = BOOKING_ADDON_MESSAGE_KEYS[addon.id];
           const qty = selection[addon.id] ?? 0;
           const unitPrice = addonUnitPrice(addon.priceEur, currency);
           const priceLabel = formatCarPriceLabel(unitPrice, currency);
@@ -63,6 +68,7 @@ export function BookingAddons({ selection, onChange, currency }: BookingAddonsPr
                 ? t("pricePerDay", { price: priceLabel })
                 : t("pricePerItem", { price: priceLabel });
           const title = t(`items.${msgKey}.title`);
+          const Icon = ADDON_ICONS[addon.id];
 
           return (
             <li
@@ -73,10 +79,22 @@ export function BookingAddons({ selection, onChange, currency }: BookingAddonsPr
                   : "border-gray-200"
               }`}
             >
-              <div className="flex items-start justify-between gap-1">
-                <p className="min-w-0 text-[0.8rem] font-semibold leading-snug text-gray-900 sm:text-sm">
-                  {title}
-                </p>
+              <div className="flex items-start justify-between gap-1.5">
+                <div className="flex min-w-0 items-start gap-2">
+                  <span
+                    className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                      selected
+                        ? "bg-[#EC1C25]/10 text-[#EC1C25]"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                    aria-hidden
+                  >
+                    <Icon className="h-4 w-4" strokeWidth={2} />
+                  </span>
+                  <p className="min-w-0 pt-0.5 text-[0.8rem] font-semibold leading-snug text-gray-900 sm:text-sm">
+                    {title}
+                  </p>
+                </div>
                 <button
                   type="button"
                   onClick={() => setExpanded(isOpen ? null : addon.id)}
@@ -125,12 +143,17 @@ export function BookingAddons({ selection, onChange, currency }: BookingAddonsPr
         })}
       </ul>
 
-      {expanded && expandedKey ? (
+      {expanded && expandedKey && ExpandedIcon ? (
         <div className="rounded-xl border border-gray-200 bg-stone-50 px-3 py-2.5">
           <div className="flex items-start justify-between gap-2">
-            <p className="text-xs font-semibold text-gray-900 sm:text-sm">
-              {t(`items.${expandedKey}.title`)}
-            </p>
+            <div className="flex min-w-0 items-center gap-2">
+              <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-gray-700" aria-hidden>
+                <ExpandedIcon className="h-3.5 w-3.5" strokeWidth={2} />
+              </span>
+              <p className="text-xs font-semibold text-gray-900 sm:text-sm">
+                {t(`items.${expandedKey}.title`)}
+              </p>
+            </div>
             <button
               type="button"
               onClick={() => setExpanded(null)}
