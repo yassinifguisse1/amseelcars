@@ -250,6 +250,16 @@ function readKeywords(value: unknown) {
   return readStringArray(value);
 }
 
+/** Publish unless Nexus/admin explicitly marks the payload as draft. */
+function readPublishFlag(record: Record<string, unknown>, fallback = true) {
+  if (typeof record.publish === 'boolean') return record.publish;
+  if (typeof record.published === 'boolean') return record.published;
+  const status = readString(record, 'status').toLowerCase();
+  if (status === 'published' || status === 'live') return true;
+  if (status === 'draft' || status === 'unpublished') return false;
+  return fallback;
+}
+
 function shopyAdsArticleToNative(input: {
   record: Record<string, unknown>;
   locale: ArticleLocale;
@@ -298,7 +308,9 @@ function normalizeIncomingArticles(body: unknown): { articles: IncomingArticle[]
   const record = readRecord(body);
   if ('locale' in record && 'coverImage' in record) {
     const article = normalizeSeoArticleImport(record);
-    return { articles: [{ article, publish: article.locale === 'fr' }], sourceLocale: article.locale };
+    // Previously EN native imports were forced to draft (locale === 'fr' only).
+    const publish = readPublishFlag(record, true);
+    return { articles: [{ article, publish }], sourceLocale: article.locale };
   }
 
   const sourceLocaleValue = readString(record, 'language') || 'en';
@@ -308,7 +320,7 @@ function normalizeIncomingArticles(body: unknown): { articles: IncomingArticle[]
   const sourceSlug = readString(record, 'slug');
   const externalId = readString(record, 'externalId') || sourceSlug;
   if (!externalId) throw new Error('slug or externalId is required.');
-  const publish = record.publish === true;
+  const publish = readPublishFlag(record, true);
   const publishedAt = readString(record, 'publishedAt') || undefined;
   const sourceArticle = shopyAdsArticleToNative({
     record,
@@ -415,8 +427,9 @@ async function importNormalizedArticle(
     imageDescription: normalizedArticle.coverImage.description,
     description: normalizedArticle.description,
     featured: normalizedArticle.featured,
-    published: existingImportedArticle?.published ?? input.publish,
-    indexable: normalizedArticle.indexable,
+    // Always sync publish from the payload so re-imports can promote drafts.
+    published: input.publish,
+    indexable: normalizedArticle.indexable ?? input.publish,
     tags: normalizedArticle.tags,
     author: normalizedArticle.author,
     seo: normalizedArticle.seo,

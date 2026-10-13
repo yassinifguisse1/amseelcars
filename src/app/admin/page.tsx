@@ -141,10 +141,12 @@ function groupArticleFamilies(articles: ArticleSummary[]): ArticleFamily[] {
       familyArticles.find((article) => article.locale === 'fr') ??
       familyArticles[0];
     const publishedArticles = familyArticles.filter((article) => article.published);
+    // Prefer a live public URL; fall back to source so View still works for drafts (opens 404 until published).
     const previewArticle =
       publishedArticles.find((article) => article.locale === sourceArticle.locale) ??
       publishedArticles.find((article) => article.locale === 'fr') ??
-      publishedArticles[0];
+      publishedArticles[0] ??
+      sourceArticle;
 
     return {
       key,
@@ -161,7 +163,9 @@ function groupArticleFamilies(articles: ArticleSummary[]): ArticleFamily[] {
 function familyLocaleStatus(family: ArticleFamily, locale: ArticleLocale) {
   const article = family.articles.find((entry) => entry.locale === locale);
   if (!article) return 'Missing';
-  if (locale === family.sourceLocale) return 'Source';
+  if (locale === family.sourceLocale) {
+    return article.published ? 'Source' : 'Draft';
+  }
   return article.published ? 'Published' : 'Draft';
 }
 
@@ -2891,10 +2895,12 @@ export default function AdminPage() {
                           const language = languageOptions.find((option) => option.value === locale);
                           const article = translationGroupArticles.find((entry) => entry.locale === locale);
                           const isSource = locale === translationSourceLocale;
-                          const status = isSource
-                            ? 'Source'
-                            : !article
-                              ? 'Missing'
+                          const status = !article
+                            ? 'Missing'
+                            : isSource
+                              ? article.published
+                                ? 'Source'
+                                : 'Draft'
                               : article.published
                                 ? 'Published'
                                 : 'Draft';
