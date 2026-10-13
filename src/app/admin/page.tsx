@@ -337,6 +337,7 @@ export default function AdminPage() {
   const [lastSuccessOperation, setLastSuccessOperation] = useState<'create' | 'update' | 'delete' | null>(null);
   const [lastSuccessTarget, setLastSuccessTarget] = useState<'article' | 'page' | 'media asset' | 'media folder'>('article');
   const [generatingTranslationLocales, setGeneratingTranslationLocales] = useState<ArticleLocale[]>([]);
+  const [publishingTranslations, setPublishingTranslations] = useState(false);
   const [translationError, setTranslationError] = useState<string | null>(null);
   const [translationMessage, setTranslationMessage] = useState<string | null>(null);
 
@@ -1353,6 +1354,12 @@ export default function AdminPage() {
       locale !== translationSourceLocale &&
       !translationGroupArticles.some((article) => article.locale === locale),
   );
+  const draftTranslationLocales = translationGroupArticles
+    .filter(
+      (article) =>
+        article.locale !== translationSourceLocale && article.published !== true,
+    )
+    .map((article) => article.locale);
 
   const appendContentSnippet = (snippet: string) => {
     const current = form.getValues('content')?.trim();
@@ -1504,7 +1511,50 @@ export default function AdminPage() {
       setTranslationError(failures.join(' '));
       return;
     }
-    setTranslationMessage('Missing translations generated successfully. Review each draft before publishing.');
+    setTranslationMessage(
+      'All missing translations created as drafts. Next: Publish all translations, then publish the EN source with the Published checkbox.',
+    );
+  };
+
+  const handlePublishAllTranslations = async () => {
+    const translationGroup = activeArticleFamily?.translationGroup;
+    if (!translationGroup || draftTranslationLocales.length === 0) return;
+
+    const confirmed = window.confirm(
+      `Publish ${draftTranslationLocales.length} translation locale(s) (${draftTranslationLocales
+        .map((locale) => locale.toUpperCase())
+        .join(', ')}) now?\n\nThe ${translationSourceLocale.toUpperCase()} source stays as-is — publish it separately with the Published checkbox.`,
+    );
+    if (!confirmed) return;
+
+    setPublishingTranslations(true);
+    setTranslationError(null);
+    setTranslationMessage(null);
+    try {
+      const response = await fetch('/api/admin/articles/publish-translations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+        cache: 'no-store',
+        body: JSON.stringify({ translationGroup, excludeSourceLocale: true }),
+      });
+      const result = await readJsonResponse(response);
+      if (!response.ok) {
+        throw new Error(result.error || result.message || 'Failed to publish translations.');
+      }
+      await refreshTranslationData();
+      setTranslationMessage(
+        result.message ||
+          'Translations published. Now check Published on the EN source and Update Article.',
+      );
+    } catch (error: unknown) {
+      setTranslationError(error instanceof Error ? error.message : 'Failed to publish translations.');
+    } finally {
+      setPublishingTranslations(false);
+    }
   };
 
   const handleRegenerateTranslation = async (targetLocale: ArticleLocale) => {
@@ -2859,35 +2909,57 @@ export default function AdminPage() {
                   />
                   {canManageImportedTranslations && (
                     <div className="space-y-4 rounded-2xl border border-indigo-200 bg-indigo-50/60 p-4">
-                      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                         <div>
                           <h3 className="flex items-center gap-2 text-lg font-semibold text-slate-950">
                             <Languages className="h-4 w-4 text-indigo-600" />
                             Translations
                           </h3>
                           <p className="mt-1 text-sm text-slate-600">
-                            Generate missing language drafts from the original {translationSourceLocale.toUpperCase()} SEO Nexus article.
-                            Review and publish each locale separately.
+                            Workflow: (1) Translate all missing locales as drafts, (2) Publish all translation pages,
+                            (3) Publish the {translationSourceLocale.toUpperCase()} source with the Published checkbox below.
                           </p>
                         </div>
-                        <Button
-                          type="button"
-                          onClick={handleGenerateMissingTranslations}
-                          disabled={
-                            missingTranslationLocales.length === 0 ||
-                            generatingTranslationLocales.length > 0
-                          }
-                          className="bg-indigo-600 text-white hover:bg-indigo-700"
-                        >
-                          {generatingTranslationLocales.length > 0 ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            <Languages className="h-4 w-4" />
-                          )}
-                          {missingTranslationLocales.length > 0
-                            ? `Generate missing (${missingTranslationLocales.length})`
-                            : 'All translations created'}
-                        </Button>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
+                          <Button
+                            type="button"
+                            onClick={handleGenerateMissingTranslations}
+                            disabled={
+                              missingTranslationLocales.length === 0 ||
+                              generatingTranslationLocales.length > 0 ||
+                              publishingTranslations
+                            }
+                            className="bg-indigo-600 text-white hover:bg-indigo-700"
+                          >
+                            {generatingTranslationLocales.length > 0 ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Languages className="h-4 w-4" />
+                            )}
+                            {missingTranslationLocales.length > 0
+                              ? `Translate all (${missingTranslationLocales.length})`
+                              : 'All translations created'}
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={handlePublishAllTranslations}
+                            disabled={
+                              draftTranslationLocales.length === 0 ||
+                              generatingTranslationLocales.length > 0 ||
+                              publishingTranslations
+                            }
+                            className="bg-emerald-600 text-white hover:bg-emerald-700"
+                          >
+                            {publishingTranslations ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <CheckCircle2 className="h-4 w-4" />
+                            )}
+                            {draftTranslationLocales.length > 0
+                              ? `Publish all translations (${draftTranslationLocales.length})`
+                              : 'Translations already published'}
+                          </Button>
+                        </div>
                       </div>
 
                       <div className="grid gap-2 md:grid-cols-5">
