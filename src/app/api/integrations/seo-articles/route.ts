@@ -17,10 +17,12 @@ import {
   type SeoArticleImportImage,
 } from '@/lib/seoArticleImport';
 import { isValidSeoArticleImportAuthorization } from '@/lib/seoArticleImportAuth';
+import { generateMissingLocalesForImport } from '@/lib/seoArticleAutoTranslate';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+export const maxDuration = 300;
 
 const utapi = new UTApi();
 const AMSEEL_TRANSLATION_LOCALES = ['fr', 'es', 'de', 'pl'] as const;
@@ -449,11 +451,13 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const normalizedPackage = normalizeIncomingArticles(body);
     const createdBy = getCreatedBy();
+    // Nexus imports go live immediately (source + translations), not as drafts.
+    const publishAll = true;
     const imported: Awaited<ReturnType<typeof importNormalizedArticle>>[] = [];
     for (const incomingArticle of normalizedPackage.articles) {
       imported.push(
         await importNormalizedArticle(
-          incomingArticle,
+          { ...incomingArticle, publish: publishAll },
           normalizedPackage.sourceLocale,
           createdBy,
           imported[0]?.article.translationGroup ?? undefined,
@@ -461,8 +465,48 @@ export async function POST(request: NextRequest) {
       );
     }
     const sourceResult = imported[0];
-    const sourceArticle = sourceResult.article;
-    const articleUrl = (article: typeof sourceArticle) =>
+    let sourceArticle = sourceResult.article;
+    const translationGroup = sourceArticle.translationGroup;
+
+    const existingLocales = new Set(imported.map(({ article }) => article.locale));
+    const missingLocales = articleLocales.filter(
+      (locale) => locale !== normalizedPackage.sourceLocale && !existingLocales.has(locale),
+    );
+
+    const autoTranslations =
+      translationGroup && missingLocales.length > 0
+        ? await generateMissingLocalesForImport({
+            sourceArticleId: sourceArticle.id,
+            sourceLocale: normalizedPackage.sourceLocale,
+            targetLocales: missingLocales,
+            published: true,
+            createdBy,
+            concurrency: 2,
+          })
+        : [];
+
+    if (translationGroup) {
+      await prisma.blogArticle.updateMany({
+        where: { translationGroup },
+        data: { published: true, indexable: true },
+      });
+      const refreshed = await prisma.blogArticle.findUnique({ where: { id: sourceArticle.id } });
+      if (refreshed) sourceArticle = refreshed;
+    }
+
+    const failedAuto = autoTranslations.filter((entry) => !entry.ok);
+    if (failedAuto.length > 0) {
+      console.error('[seo-articles import] Some auto-translations failed:', failedAuto);
+    }
+
+    const translationRows = await prisma.blogArticle.findMany({
+      where: translationGroup
+        ? { translationGroup, NOT: { id: sourceArticle.id } }
+        : { id: { in: [] } },
+      select: { id: true, slug: true, locale: true, category: true, published: true },
+    });
+
+    const articleUrl = (article: { locale: string; category: string; slug: string }) =>
       new URL(`/${article.locale}/blog/${slugify(article.category)}/${article.slug}`, request.nextUrl.origin).toString();
 
     return createNoCacheResponse(
@@ -474,12 +518,24 @@ export async function POST(request: NextRequest) {
         status: sourceArticle.published ? 'published' : 'draft',
         url: articleUrl(sourceArticle),
         created: sourceResult.created,
-        translations: imported.slice(1).map(({ article }) => ({
+        translations: translationRows.map((article) => ({
           language: article.locale,
           slug: article.slug,
+          published: article.published,
           url: articleUrl(article),
         })),
-        message: `Imported ${imported.length} linked article locale${imported.length === 1 ? '' : 's'} successfully.`,
+        autoTranslations: autoTranslations.map((entry) => ({
+          language: entry.locale,
+          ok: entry.ok,
+          created: entry.created ?? false,
+          error: entry.error,
+          slug: entry.article?.slug,
+          published: entry.article?.published,
+        })),
+        message:
+          failedAuto.length > 0
+            ? `Imported and published source; ${autoTranslations.length - failedAuto.length}/${autoTranslations.length} auto-translations succeeded.`
+            : `Imported and published ${1 + translationRows.length} locale${1 + translationRows.length === 1 ? '' : 's'} successfully.`,
         article: {
           id: sourceArticle.id,
           slug: sourceArticle.slug,
