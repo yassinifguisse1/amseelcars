@@ -50,12 +50,17 @@ function bypassCachedArticleRedirect(path: string) {
 
 interface HeaderLocaleSelectProps {
   closeMenu?: () => void;
+  /** `header` = red pill next to MENU; `panel` = light style for inside menus */
+  variant?: "header" | "panel";
 }
 
-function FlagWrap({ children }: { children: ReactNode }) {
+function FlagWrap({ children, compact }: { children: ReactNode; compact?: boolean }) {
   return (
     <span
-      className="flex h-[22px] w-7 shrink-0 items-center justify-center overflow-hidden rounded-[5px] shadow-[0_0_0_1px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.08)]"
+      className={cn(
+        "flex shrink-0 items-center justify-center overflow-hidden rounded-[5px] shadow-[0_0_0_1px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.12)]",
+        compact ? "h-[18px] w-6" : "h-[22px] w-7",
+      )}
       aria-hidden
     >
       {children}
@@ -64,10 +69,13 @@ function FlagWrap({ children }: { children: ReactNode }) {
 }
 
 /**
- * Language switcher next to MENU: shadcn DropdownMenu + flags + Playfair label.
+ * Language switcher next to MENU: shadcn DropdownMenu + flags.
  * Default locale remains `fr` via `routing.defaultLocale`.
  */
-export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
+export function HeaderLocaleSelect({
+  closeMenu,
+  variant = "panel",
+}: HeaderLocaleSelectProps) {
   const t = useTranslations("nav");
   const locale = useLocale() as AppLocale;
   const pathname = usePathname();
@@ -182,41 +190,66 @@ export function HeaderLocaleSelect({ closeMenu }: HeaderLocaleSelectProps) {
     [locale, pathname, params, router, closeMenu, articleLocalePaths, switchingLocale],
   );
 
+  const isHeader = variant === "header";
+
   return (
-    <div className="relative shrink-0">
+    <div className={cn("relative shrink-0", isHeader && "z-[2]")}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
             type="button"
             className={cn(
-              "inline-flex h-[50px] min-w-[7.5rem] items-center justify-center gap-2 rounded-full border-0 px-3 pr-3.5 outline-none",
-              "bg-gradient-to-br from-white to-neutral-100 text-neutral-950 shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_2px_12px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.06)]",
-              "font-[family-name:var(--font-heading)] text-[0.8125rem] font-semibold tracking-[0.04em]",
-              "transition-[box-shadow,transform] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
-              "hover:-translate-y-px hover:shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_4px_16px_rgba(0,0,0,0.1),0_12px_32px_rgba(236,28,37,0.12)]",
-              "focus-visible:shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_0_0_3px_rgba(236,28,37,0.35),0_4px_20px_rgba(0,0,0,0.1)]",
-              "data-[state=open]:translate-y-0 data-[state=open]:shadow-[0_1px_0_rgba(255,255,255,0.75)_inset,0_2px_8px_rgba(0,0,0,0.06)]",
-              "data-[state=open]:[&_.locale-chevron]:rotate-180 data-[state=open]:[&_.locale-chevron]:opacity-85",
-              "before:pointer-events-none before:absolute before:inset-0 before:rounded-full before:p-px before:content-['']",
-              "before:bg-gradient-to-br before:from-white/95 before:to-black/10 before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[mask-composite:xor] before:[-webkit-mask-composite:xor]",
+              "inline-flex items-center justify-center gap-1.5 border-0 outline-none",
+              "font-[family-name:var(--font-heading)] font-bold uppercase tracking-[0.04em]",
+              "transition-[transform,background-color,box-shadow] duration-300 ease-[cubic-bezier(0.76,0,0.24,1)]",
+              "data-[state=open]:[&_.locale-chevron]:rotate-180",
+              isHeader
+                ? cn(
+                    "h-[50px] min-w-[50px] rounded-[25px] bg-[#a8142f] px-3 text-white",
+                    "hover:bg-[#EC1C25] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+                    "max-[480px]:h-[42px] max-[480px]:min-w-[42px] max-[480px]:px-2.5",
+                  )
+                : cn(
+                    "h-[50px] min-w-[7.5rem] rounded-full bg-gradient-to-br from-white to-neutral-100 px-3 pr-3.5 text-neutral-950",
+                    "shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_2px_12px_rgba(0,0,0,0.08)]",
+                    "hover:-translate-y-px focus-visible:shadow-[0_0_0_3px_rgba(236,28,37,0.35)]",
+                  ),
             )}
             aria-label={t("languageSelectAria")}
             aria-busy={switchingLocale}
             disabled={switchingLocale}
           >
-            <span className="relative z-[1] inline-flex items-center gap-2">
-              <FlagWrap>
+            <span className="relative z-[1] inline-flex items-center gap-1.5">
+              <FlagWrap compact={isHeader}>
                 {switchingLocale ? (
-                  <Loader2 className="size-4 animate-spin text-neutral-600" aria-hidden />
+                  <Loader2
+                    className={cn(
+                      "size-3.5 animate-spin",
+                      isHeader ? "text-white" : "text-neutral-600",
+                    )}
+                    aria-hidden
+                  />
                 ) : (
                   <ActiveFlag />
                 )}
               </FlagWrap>
-              <span className="whitespace-nowrap max-[380px]:text-xs">
-                {t(active.labelKey)}
-              </span>
+              {!isHeader && (
+                <span className="whitespace-nowrap text-[0.8125rem] max-[380px]:text-xs">
+                  {t(active.labelKey)}
+                </span>
+              )}
+              {isHeader && (
+                <span className="text-[0.7rem] text-white max-[380px]:hidden sm:text-[0.75rem]">
+                  {active.code.toUpperCase()}
+                </span>
+              )}
               <ChevronDown
-                className="locale-chevron size-4 shrink-0 opacity-55 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                className={cn(
+                  "locale-chevron shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
+                  isHeader
+                    ? "size-3.5 text-white/85"
+                    : "size-4 opacity-55 text-neutral-800",
+                )}
                 strokeWidth={2.25}
                 aria-hidden
               />

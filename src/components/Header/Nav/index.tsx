@@ -1,6 +1,5 @@
 import { perspective, slideIn } from "./anim";
 import { mainNavItems, socialNavItems } from "./data";
-import { HeaderLocaleSelect } from "@/components/Header/LocaleSelect";
 import styles from "./style.module.scss";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -43,9 +42,6 @@ export default function Nav({ closeMenu }: NavProps) {
             </motion.div>
           </div>
         ))}
-      </div>
-      <div className={styles.localeRow}>
-        <HeaderLocaleSelect closeMenu={closeMenu} />
       </div>
       <motion.div className={styles.footer}>
         {socialNavItems.map((item, i) => (

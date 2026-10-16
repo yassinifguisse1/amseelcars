@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import Button from "./Button";
+import { HeaderLocaleSelect } from "./LocaleSelect";
 import styles from "./style.module.scss";
 import Nav from "./Nav";
 
@@ -77,6 +78,7 @@ export default function Index() {
         )}
 
         <div className={styles.bar}>
+          <HeaderLocaleSelect variant="header" />
           <div className={styles.menuButtonWrap}>
             <Button
               isActive={isActive}
