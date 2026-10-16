@@ -9,9 +9,9 @@ import {
 import { trackEvent } from "@/lib/trackEvent";
 
 type GoogleReviewBadgeProps = {
-  /** Accessible label, e.g. "5.0 · 252 Google reviews" */
+  /** Accessible label, e.g. "5.0 · 253 Google reviews" */
   ariaLabel: string;
-  /** Visible count label, e.g. "252 reviews" */
+  /** Visible count label, e.g. "253 reviews" */
   countLabel: string;
   source?: string;
   className?: string;
