@@ -24,16 +24,20 @@
 
   .bar {
     height: 42px;
+    gap: 0.35rem;
+    max-width: calc(100vw - 5.25rem);
   }
 
   .menuButtonWrap {
-    width: 108px;
+    width: 100px;
     height: 42px;
   }
 
   .header {
-    right: 1rem !important;
+    /* Keep MENU + locale fully inside the screen (safe area + logo clearance) */
+    right: max(0.75rem, env(safe-area-inset-right, 0px)) !important;
     top: 0.85rem !important;
+    max-width: calc(100vw - 5rem) !important;
   }
 }
 
@@ -55,10 +59,13 @@
 .bar {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
   position: relative;
   z-index: 2;
   height: 50px;
+  width: max-content;
+  max-width: 100%;
 }
 
 .menuButtonWrap {
@@ -118,11 +125,11 @@
 @media (max-width: 400px) {
     .header{
      position: fixed;
-     right: 1rem;
+     right: max(0.75rem, env(safe-area-inset-right, 0px));
      top: 0.85rem;
      z-index: 1001;
      pointer-events: auto;
-     max-width: calc(100vw - 1rem);
+     max-width: calc(100vw - 5rem);
      .menu{
          position: absolute;
          top: 0;

@@ -194,23 +194,25 @@ export function HeaderLocaleSelect({
 
   return (
     <div className={cn("relative shrink-0", isHeader && "z-[2]")}>
-      <DropdownMenu>
+      {/* modal={false} avoids body scroll-lock padding that shows a black strip on mobile */}
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <button
             type="button"
             className={cn(
-              "inline-flex items-center justify-center gap-1.5 border-0 outline-none",
+              "inline-flex items-center justify-center border-0 outline-none",
               "font-[family-name:var(--font-heading)] font-bold uppercase tracking-[0.04em]",
               "transition-[transform,background-color,box-shadow] duration-300 ease-[cubic-bezier(0.76,0,0.24,1)]",
               "data-[state=open]:[&_.locale-chevron]:rotate-180",
               isHeader
                 ? cn(
-                    "h-[50px] min-w-[50px] rounded-[25px] bg-[#a8142f] px-3 text-white",
-                    "hover:bg-[#EC1C25] focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
-                    "max-[480px]:h-[42px] max-[480px]:min-w-[42px] max-[480px]:px-2.5",
+                    "h-[50px] w-[50px] gap-0 rounded-[25px] bg-[#a8142f] p-0 text-white",
+                    "hover:bg-[#EC1C25] focus-visible:ring-2 focus-visible:ring-white/70",
+                    "max-[480px]:h-[42px] max-[480px]:w-[42px]",
+                    "sm:w-auto sm:gap-1.5 sm:px-3",
                   )
                 : cn(
-                    "h-[50px] min-w-[7.5rem] rounded-full bg-gradient-to-br from-white to-neutral-100 px-3 pr-3.5 text-neutral-950",
+                    "h-[50px] min-w-[7.5rem] gap-1.5 rounded-full bg-gradient-to-br from-white to-neutral-100 px-3 pr-3.5 text-neutral-950",
                     "shadow-[0_1px_0_rgba(255,255,255,0.85)_inset,0_2px_12px_rgba(0,0,0,0.08)]",
                     "hover:-translate-y-px focus-visible:shadow-[0_0_0_3px_rgba(236,28,37,0.35)]",
                   ),
@@ -239,7 +241,7 @@ export function HeaderLocaleSelect({
                 </span>
               )}
               {isHeader && (
-                <span className="text-[0.7rem] text-white max-[380px]:hidden sm:text-[0.75rem]">
+                <span className="hidden text-[0.75rem] text-white sm:inline">
                   {active.code.toUpperCase()}
                 </span>
               )}
@@ -247,7 +249,7 @@ export function HeaderLocaleSelect({
                 className={cn(
                   "locale-chevron shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]",
                   isHeader
-                    ? "size-3.5 text-white/85"
+                    ? "hidden size-3.5 text-white/85 sm:block"
                     : "size-4 opacity-55 text-neutral-800",
                 )}
                 strokeWidth={2.25}
@@ -258,8 +260,10 @@ export function HeaderLocaleSelect({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          sideOffset={10}
-          className="z-[1102] min-w-[12.5rem] rounded-2xl border border-white/65 bg-white/90 p-2 shadow-xl backdrop-blur-xl backdrop-saturate-[1.35]"
+          side="bottom"
+          sideOffset={8}
+          collisionPadding={12}
+          className="z-[1102] max-w-[calc(100vw-1.5rem)] min-w-[11.5rem] rounded-2xl border border-white/65 bg-white/95 p-2 shadow-xl backdrop-blur-xl backdrop-saturate-[1.35]"
         >
           {LOCALE_ENTRIES.map((entry) => {
             const Flag = entry.Flag;
