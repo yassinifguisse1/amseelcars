@@ -13,6 +13,8 @@ type GoogleReviewBadgeProps = {
   ariaLabel: string;
   /** Visible count label, e.g. "253 reviews" */
   countLabel: string;
+  /** Star rating value (defaults to BUSINESS_GOOGLE_RATING) */
+  rating?: number;
   source?: string;
   className?: string;
 };
@@ -36,10 +38,11 @@ function GoogleWordmark() {
 export function GoogleReviewBadge({
   ariaLabel,
   countLabel,
+  rating = BUSINESS_GOOGLE_RATING,
   source = "landing",
   className,
 }: GoogleReviewBadgeProps) {
-  const ratingLabel = BUSINESS_GOOGLE_RATING.toFixed(1);
+  const ratingLabel = Number.isFinite(rating) ? rating.toFixed(1) : BUSINESS_GOOGLE_RATING.toFixed(1);
 
   return (
     <a

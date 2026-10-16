@@ -67,9 +67,9 @@ export const BUSINESS_PLUS_CODE = "CC2C+8X Agadir";
 export const BUSINESS_GOOGLE_PLACE_ID = "ChIJ6UYIlG63sw0Rkl2swhA3p08";
 
 /**
- * Live Google Business Profile rating panel (Maps).
- * Update when the GBP count/rating moves materially — do not use the
- * curated `src/data/reviews.ts` sample length for public proof.
+ * Fallback Google Business Profile rating panel (Maps).
+ * Live totals come from Places via `getGooglePlaceRatingSummary()` /
+ * `/api/reviews`. Keep these in sync as a safe fallback only.
  */
 export const BUSINESS_GOOGLE_RATING = 5;
 export const BUSINESS_GOOGLE_REVIEW_COUNT = 253;

@@ -6,12 +6,11 @@ import { MessageCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
-  BUSINESS_GOOGLE_RATING,
-  BUSINESS_GOOGLE_REVIEW_COUNT,
   BUSINESS_WHATSAPP_URL,
   SITE_NAME,
 } from "@/lib/business";
 import { GoogleReviewBadge } from "@/components/shared/GoogleReviewBadge";
+import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 import { trackEvent } from "@/lib/trackEvent";
 
 /**
@@ -20,8 +19,9 @@ import { trackEvent } from "@/lib/trackEvent";
  */
 export function HomeHeroCopyBand({ children }: { children?: ReactNode }) {
   const t = useTranslations("home.hero");
-  const ratingLabel = BUSINESS_GOOGLE_RATING.toFixed(1);
-  const reviewCountLabel = BUSINESS_GOOGLE_REVIEW_COUNT.toLocaleString("en-US");
+  const { aggregateRating, totalReviews } = useGoogleReviews();
+  const ratingLabel = aggregateRating.toFixed(1);
+  const reviewCountLabel = totalReviews.toLocaleString("en-US");
 
   return (
     <section className="relative z-0 w-full" aria-label={t("ariaLabel")}>
@@ -54,9 +54,10 @@ export function HomeHeroCopyBand({ children }: { children?: ReactNode }) {
           <div className="mt-4 flex justify-center sm:mt-5">
             <GoogleReviewBadge
               source="home"
+              rating={aggregateRating}
               ariaLabel={t("reviewProof", {
                 rating: ratingLabel,
-                count: BUSINESS_GOOGLE_REVIEW_COUNT,
+                count: totalReviews,
               })}
               countLabel={t("reviewCount", { count: reviewCountLabel })}
             />

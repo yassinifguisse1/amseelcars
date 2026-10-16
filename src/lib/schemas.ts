@@ -557,18 +557,28 @@ export function generateReviewSchema(review: {
 
 /**
  * AggregateRating schema for LocalBusiness - used on homepage.
- * Uses live GBP totals from business.ts (not the curated sample in reviews.ts).
+ * Prefer live GBP totals from Places; fall back to BUSINESS_GOOGLE_* constants.
  */
 export function generateAggregateRatingSchema(
   _reviews?: Array<{ rating: number }>,
+  totals?: { rating?: number; reviewCount?: number },
 ) {
+  const rating =
+    typeof totals?.rating === 'number' && totals.rating > 0
+      ? totals.rating
+      : BUSINESS_GOOGLE_RATING;
+  const reviewCount =
+    typeof totals?.reviewCount === 'number' && totals.reviewCount > 0
+      ? Math.round(totals.reviewCount)
+      : BUSINESS_GOOGLE_REVIEW_COUNT;
+
   return {
     '@type': 'AggregateRating',
     // Some validators expect this even when nested under LocalBusiness.
     itemReviewed: { '@id': `${siteUrl}#business` },
-    ratingValue: BUSINESS_GOOGLE_RATING,
-    ratingCount: BUSINESS_GOOGLE_REVIEW_COUNT,
-    reviewCount: BUSINESS_GOOGLE_REVIEW_COUNT,
+    ratingValue: rating,
+    ratingCount: reviewCount,
+    reviewCount,
     bestRating: 5,
     worstRating: 1,
   };

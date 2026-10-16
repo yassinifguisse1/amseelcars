@@ -12,6 +12,7 @@ import {
 } from "@/lib/schemas";
 import { reviews } from "@/data/reviews";
 import { getAllCars } from "@/data/cars";
+import { getGooglePlaceRatingSummary } from "@/lib/googlePlaceRating";
 import { localizedAlternates } from "@/lib/seo/localized-alternates";
 import { buildPageMetadata } from "@/lib/seo/site-meta";
 import { routing, type AppLocale } from "@/i18n/routing";
@@ -60,10 +61,14 @@ export default async function Home({
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: tHome("breadcrumb"), url: homePath },
   ]);
+  const googleRating = await getGooglePlaceRatingSummary();
 
   const localBusinessWithRating = {
     ...localBusinessSchema,
-    aggregateRating: generateAggregateRatingSchema(reviews),
+    aggregateRating: generateAggregateRatingSchema(reviews, {
+      rating: googleRating.rating,
+      reviewCount: googleRating.reviewCount,
+    }),
   };
 
   const firstCarImage = getAllCars()[0]?.carImage;
