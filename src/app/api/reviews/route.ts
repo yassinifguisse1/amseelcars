@@ -34,15 +34,7 @@ export async function GET() {
       );
     }
 
-    interface GoogleReview {
-      time?: number;
-      author_name?: string;
-      profile_photo_url?: string;
-      rating?: number;
-      text?: string;
-    }
-
-    const reviews = (data.result?.reviews || []).map((review: GoogleReview) => ({
+    const reviews = (data.result?.reviews ?? []).map((review) => ({
       id: review.time?.toString() || `review-${Date.now()}-${Math.random()}`,
       author: {
         name: review.author_name || 'Anonymous',

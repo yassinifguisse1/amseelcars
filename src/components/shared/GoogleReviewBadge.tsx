@@ -4,7 +4,6 @@ import { Star } from "lucide-react";
 import {
   BUSINESS_GOOGLE_MAPS_PLACE_URL,
   BUSINESS_GOOGLE_RATING,
-  BUSINESS_GOOGLE_REVIEW_COUNT,
 } from "@/lib/business";
 import { trackEvent } from "@/lib/trackEvent";
 

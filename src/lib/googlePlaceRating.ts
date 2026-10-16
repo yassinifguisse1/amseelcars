@@ -10,6 +10,14 @@ export type GooglePlaceRatingSummary = {
   source: 'live' | 'fallback';
 };
 
+export type GooglePlaceReview = {
+  time?: number;
+  author_name?: string;
+  profile_photo_url?: string;
+  rating?: number;
+  text?: string;
+};
+
 type PlaceDetailsResult = {
   status?: string;
   error_message?: string;
@@ -17,7 +25,7 @@ type PlaceDetailsResult = {
     rating?: number;
     user_ratings_total?: number;
     name?: string;
-    reviews?: unknown[];
+    reviews?: GooglePlaceReview[];
   };
 };
 
