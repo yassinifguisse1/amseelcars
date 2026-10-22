@@ -1402,7 +1402,7 @@
   "wheelOfChance": {
     "eyebrow": "Cadeau visiteur",
     "title": "Tournez pour une option offerte",
-    "subtitle": "Un tour. Une option offerte pour votre prochaine location à Agadir — appliquée à la réservation.",
+    "subtitle": "Un tour. Une option offerte pour votre prochaine location à Agadir, appliquée à la réservation.",
     "spin": "Tourner la roue",
     "spinning": "Bonne chance…",
     "wonTitle": "Vous avez gagné !",
@@ -1417,6 +1417,6 @@
     "closeAria": "Fermer la roue cadeau",
     "legalHint": "Un tour par visiteur. Lot confirmé à la réservation.",
     "giftBadge": "2j offerts",
-    "giftRuleNote": "Tout lot : 2 jours offerts si vous réservez 7 jours ou plus."
+    "giftRuleNote": "2 jours offerts sur l’option gagnée si vous réservez 7 jours ou plus."
   }
 }

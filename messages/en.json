@@ -1402,7 +1402,7 @@
   "wheelOfChance": {
     "eyebrow": "Visitor gift",
     "title": "Spin for a free add-on",
-    "subtitle": "One spin. One complimentary add-on for your next Agadir rental — applied when you book.",
+    "subtitle": "One spin. One complimentary add-on for your next Agadir rental, applied when you book.",
     "spin": "Spin the wheel",
     "spinning": "Good luck…",
     "wonTitle": "You won!",
@@ -1417,6 +1417,6 @@
     "closeAria": "Close gift wheel",
     "legalHint": "One spin per visitor. Prize confirmed when you book.",
     "giftBadge": "2d free",
-    "giftRuleNote": "Any prize: 2 days free if you book 7 days or more."
+    "giftRuleNote": "2 days free on the won add-on if you book 7 days or more."
   }
 }

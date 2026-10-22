@@ -1402,7 +1402,7 @@
   "wheelOfChance": {
     "eyebrow": "Prezent dla gościa",
     "title": "Zakręć i wygraj darmowy dodatek",
-    "subtitle": "Jeden spin. Jeden darmowy dodatek do wynajmu w Agadirze — dodawany przy rezerwacji.",
+    "subtitle": "Jeden spin. Jeden darmowy dodatek do wynajmu w Agadirze, dodawany przy rezerwacji.",
     "spin": "Zakręć kołem",
     "spinning": "Powodzenia…",
     "wonTitle": "Wygrywasz!",
@@ -1417,6 +1417,6 @@
     "closeAria": "Zamknij koło nagród",
     "legalHint": "Jeden spin na gościa. Nagroda potwierdzana przy rezerwacji.",
     "giftBadge": "2d gratis",
-    "giftRuleNote": "Każda nagroda: 2 dni gratis przy rezerwacji na 7 dni lub dłużej."
+    "giftRuleNote": "2 dni gratis na wygrany dodatek przy rezerwacji na 7 dni lub dłużej."
   }
 }

@@ -69,11 +69,8 @@ export function BookingAddons({
           const isOpen = expanded === addon.id;
           const selected = qty > 0;
           const isWheelGift = freeAddonId === addon.id;
-          const priceText = isWheelGift
-            ? addon.priceEur === 0
-              ? t("priceFree")
-              : t("priceWheelGift")
-            : addon.priceEur === 0
+          const priceText =
+            addon.priceEur === 0
               ? t("priceFree")
               : addon.billing === "perDay"
                 ? t("pricePerDay", { price: priceLabel })
@@ -127,6 +124,11 @@ export function BookingAddons({
                   {t("max", { max: addon.max })}
                 </span>
               </p>
+              {isWheelGift && addon.priceEur > 0 ? (
+                <p className="mt-0.5 text-[0.65rem] font-semibold leading-tight text-[#8a6a14] sm:text-xs">
+                  {t("priceWheelGift")}
+                </p>
+              ) : null}
 
               <div className="mt-2 flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50">
                 <button

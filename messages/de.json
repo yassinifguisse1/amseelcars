@@ -1402,7 +1402,7 @@
   "wheelOfChance": {
     "eyebrow": "Besucher-Geschenk",
     "title": "Drehen Sie für ein gratis Extra",
-    "subtitle": "Ein Dreh. Ein kostenloses Extra für Ihre nächste Miete in Agadir — bei der Buchung angewendet.",
+    "subtitle": "Ein Dreh. Ein kostenloses Extra für Ihre nächste Miete in Agadir, bei der Buchung angewendet.",
     "spin": "Rad drehen",
     "spinning": "Viel Glück…",
     "wonTitle": "Sie haben gewonnen!",
@@ -1417,6 +1417,6 @@
     "closeAria": "Geschenk-Rad schließen",
     "legalHint": "Ein Dreh pro Besucher. Gewinn wird bei Buchung bestätigt.",
     "giftBadge": "2T gratis",
-    "giftRuleNote": "Jeder Gewinn: 2 Tage gratis bei Buchung ab 7 Tagen."
+    "giftRuleNote": "2 Tage gratis auf das gewonnene Extra bei Buchung ab 7 Tagen."
   }
 }

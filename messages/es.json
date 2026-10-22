@@ -1402,7 +1402,7 @@
   "wheelOfChance": {
     "eyebrow": "Regalo visitante",
     "title": "Gira y gana un extra gratis",
-    "subtitle": "Un giro. Un extra gratis para tu próximo alquiler en Agadir — se aplica al reservar.",
+    "subtitle": "Un giro. Un extra gratis para tu próximo alquiler en Agadir, se aplica al reservar.",
     "spin": "Girar la ruleta",
     "spinning": "Buena suerte…",
     "wonTitle": "¡Has ganado!",
@@ -1417,6 +1417,6 @@
     "closeAria": "Cerrar la ruleta",
     "legalHint": "Un giro por visitante. Premio confirmado al reservar.",
     "giftBadge": "2d gratis",
-    "giftRuleNote": "Cualquier premio: 2 días gratis si reservas 7 días o más."
+    "giftRuleNote": "2 días gratis en el extra ganado si reservas 7 días o más."
   }
 }
