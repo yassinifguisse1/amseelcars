@@ -532,17 +532,16 @@
     "waInquiryTrip": "Hallo, ich möchte den {carName} für {days} Tage ({pickup} → {return}) für insgesamt {total} mieten. Können Sie die Verfügbarkeit bestätigen? Danke.",
     "waAddonsSuffix": "Extras: {addons}.",
     "waWheelSuffix": "Glücksrad-Code: {code} ({prize}) — bitte das gratis Extra anwenden.",
-    "waWheelGiftTag": "Glücksrad · gratis",
+    "waWheelGiftTag": "Glücksrad · 2 Tage gratis ab 7 Tagen",
     "wheelPrizeBanner": "Glücksrad-Geschenk: {prize} · Code {code}",
-    "wheelPrizeBannerHint": "Bereits gratis in Ihrer Summe — wird mit der Buchung bestätigt.",
+    "wheelPrizeBannerHint": "2 Tage gratis bei Buchung ab 7 Tagen — in der Summe unten verrechnet.",
     "addons": {
       "title": "Extras",
       "moreInfo": "Mehr Infos",
       "moreInfoAria": "Mehr Infos zu {name}",
       "closeInfoAria": "Info schließen",
       "priceFree": "Gratis",
-      "priceWheelGift": "Gratis (Glücksrad)",
-      "priceWheelInsurance": "2 Tage gratis ab 7 Tagen",
+      "priceWheelGift": "2 Tage gratis ab 7 Tagen",
       "pricePerDay": "{price}/Tag",
       "pricePerItem": "{price}",
       "max": "(Max {max})",
@@ -1409,7 +1408,7 @@
     "wonTitle": "Sie haben gewonnen!",
     "wonBody": "Ihr gratis Extra: {prize}. Speichern Sie Ihren Code — er wird bei der Buchung automatisch hinzugefügt.",
     "prizeLabel": "Ihr Gewinn",
-    "prizeHint": "Gratis mit Ihrer nächsten Buchung · je nach Verfügbarkeit",
+    "prizeHint": "2 Tage gratis bei Buchung ab 7 Tagen · je nach Verfügbarkeit",
     "claimCodeLabel": "Ihr Einlösecode",
     "claimCodeHint": "Kein Konto nötig — dieser Code wird dem Buchungsformular und der WhatsApp-Nachricht angehängt.",
     "copyCode": "Kopieren",
@@ -1417,7 +1416,7 @@
     "browseCars": "Flotte ansehen",
     "closeAria": "Geschenk-Rad schließen",
     "legalHint": "Ein Dreh pro Besucher. Gewinn wird bei Buchung bestätigt.",
-    "insuranceBadge": "2T gratis",
-    "insuranceNote": "Versicherung: 2 Tage gratis bei Buchung ab 7 Tagen."
+    "giftBadge": "2T gratis",
+    "giftRuleNote": "Jeder Gewinn: 2 Tage gratis bei Buchung ab 7 Tagen."
   }
 }

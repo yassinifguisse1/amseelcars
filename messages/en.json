@@ -532,17 +532,16 @@
     "waInquiryTrip": "Hello, I would like to rent the {carName} for {days} days ({pickup} → {return}) for a total of {total}. Can you confirm availability? Thank you.",
     "waAddonsSuffix": "Add-ons: {addons}.",
     "waWheelSuffix": "Wheel gift code: {code} ({prize}) — please apply the free add-on.",
-    "waWheelGiftTag": "wheel gift · free",
+    "waWheelGiftTag": "wheel gift · 2 days free if 7+",
     "wheelPrizeBanner": "Wheel gift: {prize} · code {code}",
-    "wheelPrizeBannerHint": "Already free in your total — confirmed with your booking.",
+    "wheelPrizeBannerHint": "2 days free when you book 7 days or more — applied in the total below.",
     "addons": {
       "title": "Add-ons",
       "moreInfo": "More information",
       "moreInfoAria": "More information about {name}",
       "closeInfoAria": "Close information",
       "priceFree": "Free",
-      "priceWheelGift": "Free (wheel gift)",
-      "priceWheelInsurance": "2 days free if 7+ days",
+      "priceWheelGift": "2 days free if 7+ days",
       "pricePerDay": "{price}/day",
       "pricePerItem": "{price}",
       "max": "(Max {max})",
@@ -1409,7 +1408,7 @@
     "wonTitle": "You won!",
     "wonBody": "Your free add-on: {prize}. Save your claim code — it is added automatically when you book.",
     "prizeLabel": "Your prize",
-    "prizeHint": "Free with your next booking · subject to availability",
+    "prizeHint": "2 days free if you book 7 days or more · subject to availability",
     "claimCodeLabel": "Your claim code",
     "claimCodeHint": "No account needed — this code is attached to your booking form and WhatsApp message.",
     "copyCode": "Copy",
@@ -1417,7 +1416,7 @@
     "browseCars": "Browse the fleet",
     "closeAria": "Close gift wheel",
     "legalHint": "One spin per visitor. Prize confirmed when you book.",
-    "insuranceBadge": "2d free",
-    "insuranceNote": "Insurance: 2 days free if you book 7 days or more."
+    "giftBadge": "2d free",
+    "giftRuleNote": "Any prize: 2 days free if you book 7 days or more."
   }
 }
