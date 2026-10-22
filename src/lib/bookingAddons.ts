@@ -79,27 +79,74 @@ export function addonLineTotal(
   return quantity * unit
 }
 
+/**
+ * Price for one addon after applying a wheel gift.
+ * - Most prizes: 1 unit fully free.
+ * - Insurance: 2 days free when the trip is 7+ days (otherwise charged normally).
+ */
+export function addonLineTotalWithWheelGift(
+  addon: BookingAddonDef,
+  quantity: number,
+  rentalDays: number,
+  currency: DisplayCurrency,
+  freeAddonId?: BookingAddonId | null,
+): number {
+  const full = addonLineTotal(addon, quantity, rentalDays, currency)
+  if (!freeAddonId || addon.id !== freeAddonId || quantity <= 0 || full <= 0) {
+    return full
+  }
+
+  if (addon.id === 'full-insurance') {
+    const days = Math.max(1, rentalDays)
+    if (days < 7) return full
+    const freeDays = Math.min(2, days)
+    const unit = addonUnitPrice(addon.priceEur, currency)
+    return Math.max(0, quantity * unit * (days - freeDays))
+  }
+
+  // One free unit of the won add-on
+  return addonLineTotal(addon, Math.max(0, quantity - 1), rentalDays, currency)
+}
+
 export function addonSelectionTotal(
   selection: BookingAddonSelection,
   currency: DisplayCurrency,
   rentalDays: number,
+  freeAddonId?: BookingAddonId | null,
 ): number {
   return BOOKING_ADDONS.reduce(
-    (sum, addon) => sum + addonLineTotal(addon, selection[addon.id] ?? 0, rentalDays, currency),
+    (sum, addon) =>
+      sum +
+      addonLineTotalWithWheelGift(
+        addon,
+        selection[addon.id] ?? 0,
+        rentalDays,
+        currency,
+        freeAddonId,
+      ),
     0,
   )
 }
 
-export function selectedAddonsList(selection: BookingAddonSelection): {
+export function selectedAddonsList(
+  selection: BookingAddonSelection,
+  freeAddonId?: BookingAddonId | null,
+): {
   id: BookingAddonId
   quantity: number
   priceEur: number
   billing: BookingAddonBilling
+  wheelGift?: boolean
 }[] {
-  return BOOKING_ADDONS.filter((addon) => (selection[addon.id] ?? 0) > 0).map((addon) => ({
-    id: addon.id,
-    quantity: selection[addon.id],
-    priceEur: addon.priceEur,
-    billing: addon.billing,
-  }))
+  return BOOKING_ADDONS.filter((addon) => (selection[addon.id] ?? 0) > 0).map((addon) => {
+    const isGift = freeAddonId === addon.id
+    return {
+      id: addon.id,
+      quantity: selection[addon.id],
+      // Gift unit is free for staff/email; insurance still lists base rate + wheel note
+      priceEur: isGift && addon.id !== 'full-insurance' ? 0 : addon.priceEur,
+      billing: addon.billing,
+      ...(isGift ? { wheelGift: true } : {}),
+    }
+  })
 }

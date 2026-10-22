@@ -36,9 +36,16 @@ type BookingAddonsProps = {
   selection: BookingAddonSelection;
   onChange: (next: BookingAddonSelection) => void;
   currency: DisplayCurrency;
+  /** Wheel-of-chance prize: shown as free and excluded from totals. */
+  freeAddonId?: BookingAddonId | null;
 };
 
-export function BookingAddons({ selection, onChange, currency }: BookingAddonsProps) {
+export function BookingAddons({
+  selection,
+  onChange,
+  currency,
+  freeAddonId = null,
+}: BookingAddonsProps) {
   const t = useTranslations("booking.addons");
   const [expanded, setExpanded] = useState<BookingAddonId | null>(null);
 
@@ -61,8 +68,12 @@ export function BookingAddons({ selection, onChange, currency }: BookingAddonsPr
           const priceLabel = formatCarPriceLabel(unitPrice, currency);
           const isOpen = expanded === addon.id;
           const selected = qty > 0;
-          const priceText =
-            addon.priceEur === 0
+          const isWheelGift = freeAddonId === addon.id;
+          const priceText = isWheelGift
+            ? addon.id === "full-insurance"
+              ? t("priceWheelInsurance")
+              : t("priceWheelGift")
+            : addon.priceEur === 0
               ? t("priceFree")
               : addon.billing === "perDay"
                 ? t("pricePerDay", { price: priceLabel })
@@ -75,7 +86,9 @@ export function BookingAddons({ selection, onChange, currency }: BookingAddonsPr
               key={addon.id}
               className={`flex flex-col rounded-xl border bg-white p-2.5 transition-colors ${
                 selected
-                  ? "border-[#EC1C25]/55 ring-1 ring-[#EC1C25]/20"
+                  ? isWheelGift
+                    ? "border-[#c9a227]/70 ring-1 ring-[#c9a227]/35"
+                    : "border-[#EC1C25]/55 ring-1 ring-[#EC1C25]/20"
                   : "border-gray-200"
               }`}
             >

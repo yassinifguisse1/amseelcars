@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "AMSEEL CARS | Hub wynajmu Agadir | Flota i rezerwacja",
-      "description": "AMSEEL CARS w Agadirze: nowoczesna flota, bez kaucji, darmowa dostawa, WhatsApp 24/7. Przeglądaj auta tutaj; szczegóły miasta na stronie wynajmu Agadir, AGA na stronie lotniska."
+      "title": "Wynajem samochodów Agadir | Bez kaucji · Lotnisko i miasto | AmseelCars",
+      "description": "Wynajem samochodów Agadir bez kaucji, darmowa dostawa, lotnisko Al Massira (AGA) lub miasto. Od ~25 €/dzień, bez karty, WhatsApp 24/7. +212 662 500 181."
     },
     "breadcrumb": "Start",
     "hero": {
@@ -531,12 +531,18 @@
     "waInquiryDaily": "Cześć, chcę wynająć {carName} za {price}/dzień. Czy możecie potwierdzić dostępność i terminy? Dziękuję.",
     "waInquiryTrip": "Cześć, chcę wynająć {carName} na {days} dni ({pickup} → {return}) za łącznie {total}. Czy możecie potwierdzić dostępność? Dziękuję.",
     "waAddonsSuffix": "Dodatki: {addons}.",
+    "waWheelSuffix": "Kod z koła: {code} ({prize}) — proszę dodać darmowy dodatek.",
+    "waWheelGiftTag": "prezent z koła · gratis",
+    "wheelPrizeBanner": "Prezent z koła: {prize} · kod {code}",
+    "wheelPrizeBannerHint": "Już gratis w sumie — potwierdzane przy rezerwacji.",
     "addons": {
       "title": "Dodatki",
       "moreInfo": "Więcej informacji",
       "moreInfoAria": "Więcej informacji o {name}",
       "closeInfoAria": "Zamknij informacje",
       "priceFree": "Gratis",
+      "priceWheelGift": "Gratis (prezent z koła)",
+      "priceWheelInsurance": "2 dni gratis przy 7+ dniach",
       "pricePerDay": "{price}/dzień",
       "pricePerItem": "{price}",
       "max": "(Maks {max})",
@@ -1233,7 +1239,7 @@
       {
         "label": "Google",
         "value": "5,0",
-        "helper": "253 opinie"
+        "helper": "254 opinie"
       }
     ],
     "aiHighlights": [
@@ -1393,5 +1399,25 @@
     "ctaEmail": "Wyślij e-mail",
     "relatedTitle": "Powiązane artykuły",
     "relatedSubtitle": "Odkryj inne artykuły, które mogą Cię zainteresować"
+  },
+  "wheelOfChance": {
+    "eyebrow": "Prezent dla gościa",
+    "title": "Zakręć i wygraj darmowy dodatek",
+    "subtitle": "Jeden spin. Jeden darmowy dodatek do wynajmu w Agadirze — dodawany przy rezerwacji.",
+    "spin": "Zakręć kołem",
+    "spinning": "Powodzenia…",
+    "wonTitle": "Wygrywasz!",
+    "wonBody": "Twój darmowy dodatek: {prize}. Zapisz kod — zostanie dodany automatycznie przy rezerwacji.",
+    "prizeLabel": "Twoja nagroda",
+    "prizeHint": "Gratis przy następnej rezerwacji · w zależności od dostępności",
+    "claimCodeLabel": "Twój kod nagrody",
+    "claimCodeHint": "Bez konta — kod dołączany jest do formularza i wiadomości WhatsApp rezerwacji.",
+    "copyCode": "Kopiuj",
+    "copied": "Skopiowano",
+    "browseCars": "Zobacz flotę",
+    "closeAria": "Zamknij koło nagród",
+    "legalHint": "Jeden spin na gościa. Nagroda potwierdzana przy rezerwacji.",
+    "insuranceBadge": "2d gratis",
+    "insuranceNote": "Ubezpieczenie: 2 dni gratis przy rezerwacji na 7 dni lub dłużej."
   }
 }

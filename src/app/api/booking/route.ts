@@ -48,6 +48,8 @@ export async function POST(request: NextRequest) {
       currency: currencyRaw,
       website,
       formOpenedAt,
+      wheelPrizeId,
+      wheelClaimCode,
     } = body;
 
     const addonLabels: Record<string, string> = {
@@ -62,7 +64,12 @@ export async function POST(request: NextRequest) {
     const addonsList = Array.isArray(addons)
       ? addons
           .filter(
-            (item: unknown): item is { id: string; quantity: number; priceEur?: number } =>
+            (item: unknown): item is {
+              id: string
+              quantity: number
+              priceEur?: number
+              wheelGift?: boolean
+            } =>
               !!item &&
               typeof item === 'object' &&
               typeof (item as { id?: unknown }).id === 'string' &&
@@ -78,7 +85,12 @@ export async function POST(request: NextRequest) {
             .map((item) => {
               const label = escapeHtml(addonLabels[item.id] || item.id);
               const qty = escapeHtml(String(Math.min(99, Math.floor(item.quantity))));
-              return `<li>${label} × ${qty}</li>`;
+              const gift =
+                item.wheelGift ||
+                (typeof wheelPrizeId === 'string' && item.id === wheelPrizeId)
+                  ? ' <strong style="color:#b45309;">(cadeau roue · offert)</strong>'
+                  : '';
+              return `<li>${label} × ${qty}${gift}</li>`;
             })
             .join('')}</ul>`
         : '<p style="margin: 8px 0 0 0;">Aucun</p>';
@@ -208,6 +220,11 @@ export async function POST(request: NextRequest) {
               ${
                 Number(addonsTotal) > 0
                   ? `<p><strong>Total options:</strong> ${escapeHtml(String(addonsTotal))} ${currencySymbol}</p>`
+                  : ''
+              }
+              ${
+                typeof wheelClaimCode === 'string' && wheelClaimCode.trim()
+                  ? `<p style="margin-top: 12px; padding: 12px; background: #fff8e6; border: 1px solid #c9a227; border-radius: 6px;"><strong>🎁 Cadeau roue:</strong> ${escapeHtml(addonLabels[String(wheelPrizeId)] || String(wheelPrizeId || 'option'))}<br/><strong>Code:</strong> <code style="font-size: 16px; letter-spacing: 0.06em;">${escapeHtml(String(wheelClaimCode).trim().slice(0, 24))}</code></p>`
                   : ''
               }
               <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${safe.totalPrice} ${currencySymbol}</span></p>

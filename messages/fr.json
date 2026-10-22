@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "AMSEEL CARS | Hub location Agadir | Flotte & réservation",
-      "description": "AMSEEL CARS à Agadir : flotte récente, sans caution, livraison gratuite, WhatsApp 24/7. Parcourez les voitures et réservez ici ; détails ville sur la page Location voiture Agadir, aéroport AGA sur la page aéroport."
+      "title": "Location voiture Agadir | Sans caution · Aéroport & ville | AmseelCars",
+      "description": "Location voiture Agadir sans caution, livraison gratuite, aéroport Al Massira (AGA) ou centre-ville. Dès ~25 €/jour, sans carte bancaire, WhatsApp 24/7. +212 662 500 181."
     },
     "breadcrumb": "Accueil",
     "hero": {
@@ -531,12 +531,18 @@
     "waInquiryDaily": "Bonjour, je souhaite louer la {carName} à {price}/jour. Pouvez-vous confirmer la disponibilité et les dates ? Merci.",
     "waInquiryTrip": "Bonjour, je souhaite louer la {carName} pour {days} jours ({pickup} → {return}) pour un total de {total}. Pouvez-vous confirmer la disponibilité ? Merci.",
     "waAddonsSuffix": "Options : {addons}.",
+    "waWheelSuffix": "Code cadeau roue : {code} ({prize}) — merci d'appliquer l'option offerte.",
+    "waWheelGiftTag": "cadeau roue · offert",
+    "wheelPrizeBanner": "Cadeau roue : {prize} · code {code}",
+    "wheelPrizeBannerHint": "Déjà offert dans votre total — confirmé avec la réservation.",
     "addons": {
       "title": "Options",
       "moreInfo": "Plus d'informations",
       "moreInfoAria": "Plus d'informations sur {name}",
       "closeInfoAria": "Fermer les informations",
       "priceFree": "Gratuit",
+      "priceWheelGift": "Offert (cadeau roue)",
+      "priceWheelInsurance": "2 jours offerts si 7j+",
       "pricePerDay": "{price}/jour",
       "pricePerItem": "{price}",
       "max": "(Max {max})",
@@ -1233,7 +1239,7 @@
       {
         "label": "Avis Google",
         "value": "5,0",
-        "helper": "253 avis"
+        "helper": "254 avis"
       }
     ],
     "aiHighlights": [
@@ -1393,5 +1399,25 @@
     "ctaEmail": "Envoyer un Email",
     "relatedTitle": "Articles Similaires",
     "relatedSubtitle": "Découvrez d'autres articles qui pourraient vous intéresser"
+  },
+  "wheelOfChance": {
+    "eyebrow": "Cadeau visiteur",
+    "title": "Tournez pour une option offerte",
+    "subtitle": "Un tour. Une option offerte pour votre prochaine location à Agadir — appliquée à la réservation.",
+    "spin": "Tourner la roue",
+    "spinning": "Bonne chance…",
+    "wonTitle": "Vous avez gagné !",
+    "wonBody": "Votre option offerte : {prize}. Gardez votre code — il est ajouté automatiquement à la réservation.",
+    "prizeLabel": "Votre lot",
+    "prizeHint": "Offert avec votre prochaine réservation · selon disponibilité",
+    "claimCodeLabel": "Votre code cadeau",
+    "claimCodeHint": "Pas de compte — ce code est joint au formulaire et au message WhatsApp de réservation.",
+    "copyCode": "Copier",
+    "copied": "Copié",
+    "browseCars": "Voir la flotte",
+    "closeAria": "Fermer la roue cadeau",
+    "legalHint": "Un tour par visiteur. Lot confirmé à la réservation.",
+    "insuranceBadge": "2j offerts",
+    "insuranceNote": "Assurance : 2 jours offerts si vous réservez 7 jours ou plus."
   }
 }
