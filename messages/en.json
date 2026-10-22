@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "AMSEEL CARS | Agadir rental hub | Fleet & booking",
-      "description": "AMSEEL CARS in Agadir: recent fleet, no deposit, free delivery, 24/7 WhatsApp. Browse cars and book here; city details on our Agadir car rental page, AGA meet & greet on the airport page."
+      "title": "Car Rental Agadir | No Deposit · Airport & City | AmseelCars",
+      "description": "Car rental Agadir with no deposit, free delivery, Agadir airport (AGA) or city pickup. From ~€25/day, no credit card, WhatsApp 24/7. +212 662 500 181."
     },
     "breadcrumb": "Home",
     "hero": {
@@ -531,12 +531,18 @@
     "waInquiryDaily": "Hello, I would like to rent the {carName} at {price}/day. Can you confirm availability and dates? Thank you.",
     "waInquiryTrip": "Hello, I would like to rent the {carName} for {days} days ({pickup} → {return}) for a total of {total}. Can you confirm availability? Thank you.",
     "waAddonsSuffix": "Add-ons: {addons}.",
+    "waWheelSuffix": "Wheel gift code: {code} ({prize}) — please apply the free add-on.",
+    "waWheelGiftTag": "wheel gift · free",
+    "wheelPrizeBanner": "Wheel gift: {prize} · code {code}",
+    "wheelPrizeBannerHint": "Already free in your total — confirmed with your booking.",
     "addons": {
       "title": "Add-ons",
       "moreInfo": "More information",
       "moreInfoAria": "More information about {name}",
       "closeInfoAria": "Close information",
       "priceFree": "Free",
+      "priceWheelGift": "Free (wheel gift)",
+      "priceWheelInsurance": "2 days free if 7+ days",
       "pricePerDay": "{price}/day",
       "pricePerItem": "{price}",
       "max": "(Max {max})",
@@ -774,8 +780,8 @@
   },
   "seo": {
     "cars": {
-      "title": "Agadir car rental fleet | Rates and availability",
-      "description": "Browse AmseelCars Agadir fleet: economy, automatic, SUV, premium. Clear daily prices. Pickup at Al Massira Airport or in the city."
+      "title": "Car Rental Agadir Fleet | Prices & Availability | AmseelCars",
+      "description": "Browse AmseelCars Agadir fleet: economy, automatic, SUV, premium. Clear daily prices. Pickup at Al Massira Airport or in the city. No deposit."
     },
     "about": {
       "title": "About AmseelCars | Agadir car rental local agency",
@@ -1233,7 +1239,7 @@
       {
         "label": "Google rating",
         "value": "5.0",
-        "helper": "253 reviews"
+        "helper": "254 reviews"
       }
     ],
     "aiHighlights": [
@@ -1393,5 +1399,25 @@
     "ctaEmail": "Send an email",
     "relatedTitle": "Related Articles",
     "relatedSubtitle": "Discover other articles that may interest you"
+  },
+  "wheelOfChance": {
+    "eyebrow": "Visitor gift",
+    "title": "Spin for a free add-on",
+    "subtitle": "One spin. One complimentary add-on for your next Agadir rental — applied when you book.",
+    "spin": "Spin the wheel",
+    "spinning": "Good luck…",
+    "wonTitle": "You won!",
+    "wonBody": "Your free add-on: {prize}. Save your claim code — it is added automatically when you book.",
+    "prizeLabel": "Your prize",
+    "prizeHint": "Free with your next booking · subject to availability",
+    "claimCodeLabel": "Your claim code",
+    "claimCodeHint": "No account needed — this code is attached to your booking form and WhatsApp message.",
+    "copyCode": "Copy",
+    "copied": "Copied",
+    "browseCars": "Browse the fleet",
+    "closeAria": "Close gift wheel",
+    "legalHint": "One spin per visitor. Prize confirmed when you book.",
+    "insuranceBadge": "2d free",
+    "insuranceNote": "Insurance: 2 days free if you book 7 days or more."
   }
 }

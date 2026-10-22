@@ -11,6 +11,7 @@ import Header from "@/components/Header";
 import { MobileBottomNav } from "@/components/MobileBottomNav/MobileBottomNav";
 import { SiteTracker } from "@/components/analytics/SiteTracker";
 import { PublicStatsigProvider } from "@/components/analytics/PublicStatsigProvider";
+import { WheelOfChance } from "@/components/WheelOfChance/WheelOfChance";
 import { ArticleLocalePathsProvider } from "@/contexts/ArticleLocalePathsContext";
 import { getStatsigClientKey, isStatsigConfigured } from "@/lib/statsig/config";
 import { routing } from "@/i18n/routing";
@@ -48,6 +49,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             {children}
           </main>
           <MobileBottomNav />
+          <WheelOfChance />
         </PublicStatsigProvider>
       </ArticleLocalePathsProvider>
     </NextIntlClientProvider>

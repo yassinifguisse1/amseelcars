@@ -27,6 +27,7 @@ import {
 } from '@/lib/bookingAddons';
 import { formatCarPriceLabel } from '@/lib/currency';
 import { BUSINESS_WHATSAPP_URL } from '@/lib/business';
+import { readWheelClaim, type WheelClaim } from '@/lib/wheelOfChance';
 import { BookingAddons } from './BookingAddons';
 
 type BookingFormData = {
@@ -149,6 +150,7 @@ export default function BookingDialog({
   const [addonSelection, setAddonSelection] = useState<BookingAddonSelection>(() =>
     emptyAddonSelection(),
   );
+  const [wheelClaim, setWheelClaim] = useState<WheelClaim | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const formOpenedAtRef = useRef(Date.now());
 
@@ -156,7 +158,11 @@ export default function BookingDialog({
     if (inline || isOpen) {
       formOpenedAtRef.current = Date.now();
       setHoneypotWebsite('');
-      setAddonSelection(emptyAddonSelection());
+      const claim = readWheelClaim();
+      setWheelClaim(claim);
+      const next = emptyAddonSelection();
+      if (claim) next[claim.prizeId] = 1;
+      setAddonSelection(next);
     }
   }, [inline, isOpen, carName]);
 
@@ -221,7 +227,13 @@ export default function BookingDialog({
   };
 
   const { days, carTotal, tooShort } = calculateRentalDetails();
-  const addonsTotalLive = addonSelectionTotal(addonSelection, currency, Math.max(days, 1));
+  const wheelFreeAddonId = wheelClaim?.prizeId ?? null;
+  const addonsTotalLive = addonSelectionTotal(
+    addonSelection,
+    currency,
+    Math.max(days, 1),
+    wheelFreeAddonId,
+  );
   const grandTotalLive = carTotal + (days > 0 && !tooShort ? addonsTotalLive : 0);
   const hasValidDates = days > 0 && !tooShort;
 
@@ -256,8 +268,13 @@ export default function BookingDialog({
     const path = typeof window !== 'undefined' ? window.location.pathname : '/';
     markSubmitted();
     const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
-    const addons = selectedAddonsList(addonSelection);
-    const addonsTotal = addonSelectionTotal(addonSelection, currency, rentalDays);
+    const addons = selectedAddonsList(addonSelection, wheelClaim?.prizeId);
+    const addonsTotal = addonSelectionTotal(
+      addonSelection,
+      currency,
+      rentalDays,
+      wheelClaim?.prizeId,
+    );
     const totalPrice = rentalDays * pricePerDay + addonsTotal;
     trackEvent({
       event: 'booking-submit',
@@ -273,7 +290,12 @@ export default function BookingDialog({
       returnLocation: data.returnLocation,
       rentalDays,
       totalPrice,
-      metadata: { addons: addons.map((a) => `${a.id}:${a.quantity}`).join(',') },
+      metadata: {
+        addons: addons.map((a) => `${a.id}:${a.quantity}`).join(','),
+        ...(wheelClaim
+          ? { wheelPrize: wheelClaim.prizeId, wheelClaimCode: wheelClaim.claimCode }
+          : {}),
+      },
     });
 
     try {
@@ -293,6 +315,12 @@ export default function BookingDialog({
           currency,
           website: honeypotWebsite,
           formOpenedAt: formOpenedAtRef.current,
+          ...(wheelClaim
+            ? {
+                wheelPrizeId: wheelClaim.prizeId,
+                wheelClaimCode: wheelClaim.claimCode,
+              }
+            : {}),
         }),
       });
 
@@ -368,11 +396,12 @@ export default function BookingDialog({
 
   const openWhatsAppInquiry = () => {
     const path = typeof window !== 'undefined' ? window.location.pathname : '';
-    const selected = selectedAddonsList(addonSelection);
+    const selected = selectedAddonsList(addonSelection, wheelClaim?.prizeId);
     const addonLabels = selected
       .map((item) => {
         const title = tAddons(`items.${BOOKING_ADDON_MESSAGE_KEYS[item.id]}.title`);
-        return item.quantity > 1 ? `${title} ×${item.quantity}` : title;
+        const base = item.quantity > 1 ? `${title} ×${item.quantity}` : title;
+        return item.wheelGift ? `${base} (${t('waWheelGiftTag')})` : base;
       })
       .join(', ');
 
@@ -388,9 +417,18 @@ export default function BookingDialog({
           carName,
           price: formatCarPriceLabel(pricePerDay, currency),
         });
-    const message = addonLabels
+    const withAddons = addonLabels
       ? `${baseMessage} ${t('waAddonsSuffix', { addons: addonLabels })}`
       : baseMessage;
+    const wheelPrizeTitle = wheelClaim
+      ? tAddons(`items.${BOOKING_ADDON_MESSAGE_KEYS[wheelClaim.prizeId]}.title`)
+      : '';
+    const message = wheelClaim
+      ? `${withAddons} ${t('waWheelSuffix', {
+          code: wheelClaim.claimCode,
+          prize: wheelPrizeTitle,
+        })}`
+      : withAddons;
 
     trackEvent({
       event: 'whatsapp',
@@ -403,6 +441,9 @@ export default function BookingDialog({
       message,
       metadata: {
         addons: selected.map((a) => `${a.id}:${a.quantity}`).join(','),
+        ...(wheelClaim
+          ? { wheelPrize: wheelClaim.prizeId, wheelClaimCode: wheelClaim.claimCode }
+          : {}),
       },
     });
 
@@ -667,10 +708,27 @@ export default function BookingDialog({
                         </div>
                       </div>
 
+                      {wheelClaim ? (
+                        <div className="rounded-xl border border-[#c9a227]/40 bg-[#c9a227]/10 px-3 py-2.5 text-sm text-[#5c4810]">
+                          <p className="font-semibold">
+                            {t('wheelPrizeBanner', {
+                              prize: tAddons(
+                                `items.${BOOKING_ADDON_MESSAGE_KEYS[wheelClaim.prizeId]}.title`,
+                              ),
+                              code: wheelClaim.claimCode,
+                            })}
+                          </p>
+                          <p className="mt-0.5 text-xs leading-snug text-[#5c4810]/85">
+                            {t('wheelPrizeBannerHint')}
+                          </p>
+                        </div>
+                      ) : null}
+
                       <BookingAddons
                         selection={addonSelection}
                         onChange={setAddonSelection}
                         currency={currency}
+                        freeAddonId={wheelFreeAddonId}
                       />
 
                       <div className="mt-3 rounded-xl border border-gray-200 bg-stone-50 px-3 py-3 sm:px-4">
@@ -708,7 +766,12 @@ export default function BookingDialog({
                                 <span>{t('priceAddonsPerDayLine')}</span>
                                 <span className="font-medium tabular-nums">
                                   {formatCarPriceLabel(
-                                    addonSelectionTotal(addonSelection, currency, 1),
+                                    addonSelectionTotal(
+                                      addonSelection,
+                                      currency,
+                                      1,
+                                      wheelFreeAddonId,
+                                    ),
                                     currency,
                                   )}
                                 </span>
