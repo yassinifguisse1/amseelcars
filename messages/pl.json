@@ -532,17 +532,16 @@
     "waInquiryTrip": "Cześć, chcę wynająć {carName} na {days} dni ({pickup} → {return}) za łącznie {total}. Czy możecie potwierdzić dostępność? Dziękuję.",
     "waAddonsSuffix": "Dodatki: {addons}.",
     "waWheelSuffix": "Kod z koła: {code} ({prize}) — proszę dodać darmowy dodatek.",
-    "waWheelGiftTag": "prezent z koła · gratis",
+    "waWheelGiftTag": "prezent z koła · 2 dni gratis przy 7+",
     "wheelPrizeBanner": "Prezent z koła: {prize} · kod {code}",
-    "wheelPrizeBannerHint": "Już gratis w sumie — potwierdzane przy rezerwacji.",
+    "wheelPrizeBannerHint": "2 dni gratis przy rezerwacji na 7 dni lub dłużej — w sumie poniżej.",
     "addons": {
       "title": "Dodatki",
       "moreInfo": "Więcej informacji",
       "moreInfoAria": "Więcej informacji o {name}",
       "closeInfoAria": "Zamknij informacje",
       "priceFree": "Gratis",
-      "priceWheelGift": "Gratis (prezent z koła)",
-      "priceWheelInsurance": "2 dni gratis przy 7+ dniach",
+      "priceWheelGift": "2 dni gratis przy 7+ dniach",
       "pricePerDay": "{price}/dzień",
       "pricePerItem": "{price}",
       "max": "(Maks {max})",
@@ -1409,7 +1408,7 @@
     "wonTitle": "Wygrywasz!",
     "wonBody": "Twój darmowy dodatek: {prize}. Zapisz kod — zostanie dodany automatycznie przy rezerwacji.",
     "prizeLabel": "Twoja nagroda",
-    "prizeHint": "Gratis przy następnej rezerwacji · w zależności od dostępności",
+    "prizeHint": "2 dni gratis przy rezerwacji na 7 dni lub dłużej · w zależności od dostępności",
     "claimCodeLabel": "Twój kod nagrody",
     "claimCodeHint": "Bez konta — kod dołączany jest do formularza i wiadomości WhatsApp rezerwacji.",
     "copyCode": "Kopiuj",
@@ -1417,7 +1416,7 @@
     "browseCars": "Zobacz flotę",
     "closeAria": "Zamknij koło nagród",
     "legalHint": "Jeden spin na gościa. Nagroda potwierdzana przy rezerwacji.",
-    "insuranceBadge": "2d gratis",
-    "insuranceNote": "Ubezpieczenie: 2 dni gratis przy rezerwacji na 7 dni lub dłużej."
+    "giftBadge": "2d gratis",
+    "giftRuleNote": "Każda nagroda: 2 dni gratis przy rezerwacji na 7 dni lub dłużej."
   }
 }

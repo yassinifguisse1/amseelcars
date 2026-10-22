@@ -279,9 +279,8 @@ export function WheelOfChance() {
                       {WHEEL_SEGMENTS.map((id, i) => {
                         const mid = i * segmentAngle + segmentAngle / 2;
                         const rad = ((mid - 90) * Math.PI) / 180;
-                        const isInsurance = id === "full-insurance";
-                        // Pull insurance inward — taller stack (label + 2j badge) would clip the icon at the rim
-                        const radiusPct = isInsurance ? 28 : 32;
+                        // Slightly inward — label + “2d free” badge need room inside the rim
+                        const radiusPct = 28;
                         const left = 50 + radiusPct * Math.cos(rad);
                         const top = 50 + radiusPct * Math.sin(rad);
                         const Icon = ADDON_ICONS[id];
@@ -301,11 +300,9 @@ export function WheelOfChance() {
                             <span className="max-w-[4.2rem] rounded-full bg-[#140e0c]/75 px-1.5 py-0.5 text-center text-[0.58rem] font-bold leading-tight tracking-wide text-white shadow-sm backdrop-blur-[2px] sm:text-[0.62rem]">
                               {segmentLabels[i]}
                             </span>
-                            {isInsurance ? (
-                              <span className="w-max max-w-[4.5rem] rounded-full bg-[#EC1C25] px-1.5 py-0.5 text-center text-[0.5rem] font-extrabold leading-none tracking-wide text-white shadow-md sm:text-[0.55rem]">
-                                {t("insuranceBadge")}
-                              </span>
-                            ) : null}
+                            <span className="w-max max-w-[4.5rem] rounded-full bg-[#EC1C25] px-1.5 py-0.5 text-center text-[0.5rem] font-extrabold leading-none tracking-wide text-white shadow-md sm:text-[0.55rem]">
+                              {t("giftBadge")}
+                            </span>
                           </div>
                         );
                       })}
@@ -314,7 +311,7 @@ export function WheelOfChance() {
                 </div>
 
                 <p className="mt-3 rounded-xl border border-[#c9a227]/30 bg-[#c9a227]/10 px-3 py-2 text-center text-[0.72rem] font-medium leading-snug text-[#e8d5a3] sm:text-xs">
-                  {t("insuranceNote")}
+                  {t("giftRuleNote")}
                 </p>
               </div>
 
@@ -333,7 +330,7 @@ export function WheelOfChance() {
                           {prizeTitle}
                         </p>
                         <p className="text-xs text-white/65">
-                          {prizeId === "full-insurance" ? t("insuranceNote") : t("prizeHint")}
+                          {t("giftRuleNote")}
                         </p>
                       </div>
                     </div>

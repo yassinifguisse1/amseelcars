@@ -70,8 +70,8 @@ export function BookingAddons({
           const selected = qty > 0;
           const isWheelGift = freeAddonId === addon.id;
           const priceText = isWheelGift
-            ? addon.id === "full-insurance"
-              ? t("priceWheelInsurance")
+            ? addon.priceEur === 0
+              ? t("priceFree")
               : t("priceWheelGift")
             : addon.priceEur === 0
               ? t("priceFree")

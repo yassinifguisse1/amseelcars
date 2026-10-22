@@ -532,17 +532,16 @@
     "waInquiryTrip": "Hola, quiero alquilar el {carName} durante {days} días ({pickup} → {return}) por un total de {total}. ¿Pueden confirmar disponibilidad? Gracias.",
     "waAddonsSuffix": "Extras: {addons}.",
     "waWheelSuffix": "Código de la ruleta: {code} ({prize}) — por favor apliquen el extra gratis.",
-    "waWheelGiftTag": "regalo ruleta · gratis",
+    "waWheelGiftTag": "regalo ruleta · 2 días gratis si 7+",
     "wheelPrizeBanner": "Regalo ruleta: {prize} · código {code}",
-    "wheelPrizeBannerHint": "Ya gratis en tu total — se confirma con la reserva.",
+    "wheelPrizeBannerHint": "2 días gratis si reservas 7 días o más — aplicado en el total abajo.",
     "addons": {
       "title": "Extras",
       "moreInfo": "Más información",
       "moreInfoAria": "Más información sobre {name}",
       "closeInfoAria": "Cerrar información",
       "priceFree": "Gratis",
-      "priceWheelGift": "Gratis (regalo ruleta)",
-      "priceWheelInsurance": "2 días gratis si 7+ días",
+      "priceWheelGift": "2 días gratis si 7+ días",
       "pricePerDay": "{price}/día",
       "pricePerItem": "{price}",
       "max": "(Máx {max})",
@@ -1409,7 +1408,7 @@
     "wonTitle": "¡Has ganado!",
     "wonBody": "Tu extra gratis: {prize}. Guarda tu código — se añade automáticamente al reservar.",
     "prizeLabel": "Tu premio",
-    "prizeHint": "Gratis con tu próxima reserva · según disponibilidad",
+    "prizeHint": "2 días gratis si reservas 7 días o más · según disponibilidad",
     "claimCodeLabel": "Tu código de regalo",
     "claimCodeHint": "Sin cuenta — este código se adjunta al formulario y al mensaje de WhatsApp de reserva.",
     "copyCode": "Copiar",
@@ -1417,7 +1416,7 @@
     "browseCars": "Ver la flota",
     "closeAria": "Cerrar la ruleta",
     "legalHint": "Un giro por visitante. Premio confirmado al reservar.",
-    "insuranceBadge": "2d gratis",
-    "insuranceNote": "Seguro: 2 días gratis si reservas 7 días o más."
+    "giftBadge": "2d gratis",
+    "giftRuleNote": "Cualquier premio: 2 días gratis si reservas 7 días o más."
   }
 }

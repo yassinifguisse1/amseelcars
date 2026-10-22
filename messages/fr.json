@@ -532,17 +532,16 @@
     "waInquiryTrip": "Bonjour, je souhaite louer la {carName} pour {days} jours ({pickup} → {return}) pour un total de {total}. Pouvez-vous confirmer la disponibilité ? Merci.",
     "waAddonsSuffix": "Options : {addons}.",
     "waWheelSuffix": "Code cadeau roue : {code} ({prize}) — merci d'appliquer l'option offerte.",
-    "waWheelGiftTag": "cadeau roue · offert",
+    "waWheelGiftTag": "cadeau roue · 2j offerts si 7j+",
     "wheelPrizeBanner": "Cadeau roue : {prize} · code {code}",
-    "wheelPrizeBannerHint": "Déjà offert dans votre total — confirmé avec la réservation.",
+    "wheelPrizeBannerHint": "2 jours offerts si vous réservez 7 jours ou plus — appliqué dans le total ci-dessous.",
     "addons": {
       "title": "Options",
       "moreInfo": "Plus d'informations",
       "moreInfoAria": "Plus d'informations sur {name}",
       "closeInfoAria": "Fermer les informations",
       "priceFree": "Gratuit",
-      "priceWheelGift": "Offert (cadeau roue)",
-      "priceWheelInsurance": "2 jours offerts si 7j+",
+      "priceWheelGift": "2 jours offerts si 7j+",
       "pricePerDay": "{price}/jour",
       "pricePerItem": "{price}",
       "max": "(Max {max})",
@@ -1409,7 +1408,7 @@
     "wonTitle": "Vous avez gagné !",
     "wonBody": "Votre option offerte : {prize}. Gardez votre code — il est ajouté automatiquement à la réservation.",
     "prizeLabel": "Votre lot",
-    "prizeHint": "Offert avec votre prochaine réservation · selon disponibilité",
+    "prizeHint": "2 jours offerts si vous réservez 7 jours ou plus · selon disponibilité",
     "claimCodeLabel": "Votre code cadeau",
     "claimCodeHint": "Pas de compte — ce code est joint au formulaire et au message WhatsApp de réservation.",
     "copyCode": "Copier",
@@ -1417,7 +1416,7 @@
     "browseCars": "Voir la flotte",
     "closeAria": "Fermer la roue cadeau",
     "legalHint": "Un tour par visiteur. Lot confirmé à la réservation.",
-    "insuranceBadge": "2j offerts",
-    "insuranceNote": "Assurance : 2 jours offerts si vous réservez 7 jours ou plus."
+    "giftBadge": "2j offerts",
+    "giftRuleNote": "Tout lot : 2 jours offerts si vous réservez 7 jours ou plus."
   }
 }

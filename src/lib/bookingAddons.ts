@@ -79,10 +79,14 @@ export function addonLineTotal(
   return quantity * unit
 }
 
+/** Wheel gifts: 2 days free when the trip is 7+ days (same rule for every prize). */
+export const WHEEL_GIFT_FREE_DAYS = 2
+export const WHEEL_GIFT_MIN_RENTAL_DAYS = 7
+
 /**
  * Price for one addon after applying a wheel gift.
- * - Most prizes: 1 unit fully free.
- * - Insurance: 2 days free when the trip is 7+ days (otherwise charged normally).
+ * All wheel prizes: 2 days free if rental is 7+ days; otherwise charged normally.
+ * Flat / already-free add-ons stay €0.
  */
 export function addonLineTotalWithWheelGift(
   addon: BookingAddonDef,
@@ -96,16 +100,17 @@ export function addonLineTotalWithWheelGift(
     return full
   }
 
-  if (addon.id === 'full-insurance') {
-    const days = Math.max(1, rentalDays)
-    if (days < 7) return full
-    const freeDays = Math.min(2, days)
+  const days = Math.max(1, rentalDays)
+  if (days < WHEEL_GIFT_MIN_RENTAL_DAYS) return full
+
+  if (addon.billing === 'perDay') {
+    const freeDays = Math.min(WHEEL_GIFT_FREE_DAYS, days)
     const unit = addonUnitPrice(addon.priceEur, currency)
     return Math.max(0, quantity * unit * (days - freeDays))
   }
 
-  // One free unit of the won add-on
-  return addonLineTotal(addon, Math.max(0, quantity - 1), rentalDays, currency)
+  // Flat-priced gift (e.g. already-free additional driver): no charge
+  return 0
 }
 
 export function addonSelectionTotal(
@@ -143,8 +148,8 @@ export function selectedAddonsList(
     return {
       id: addon.id,
       quantity: selection[addon.id],
-      // Gift unit is free for staff/email; insurance still lists base rate + wheel note
-      priceEur: isGift && addon.id !== 'full-insurance' ? 0 : addon.priceEur,
+      // Keep list price; booking total applies 2 free days when trip is 7+
+      priceEur: addon.priceEur,
       billing: addon.billing,
       ...(isGift ? { wheelGift: true } : {}),
     }
