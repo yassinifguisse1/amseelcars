@@ -1,11 +1,11 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Wynajem lotnisko Agadir | Bez kaucji · AGA | AmseelCars",
-      "description": "Wynajem na lotnisku Agadir Al Massira (AGA): meet & greet, bez kaucji, od ~25 €/dzień. WhatsApp. +212 662 500 181.",
-      "ogTitle": "Wynajem lotnisko Agadir | AmseelCars",
+      "title": "Wynajem lotnisko Agadir | Bez kaucji · AGA",
+      "description": "Wynajem na lotnisku Agadir Al Massira (AGA): meet & greet, bez kaucji, od ~25 €/dzień. WhatsApp.",
+      "ogTitle": "Wynajem lotnisko Agadir",
       "ogDescription": "Meet & greet AGA, bez kaucji, jasne ceny.",
-      "twitterTitle": "Wynajem lotnisko Agadir | AmseelCars",
+      "twitterTitle": "Wynajem lotnisko Agadir",
       "twitterDescription": "AGA · bez kaucji · od ~25 €/dzień."
     },
     "schema": {
@@ -219,12 +219,12 @@
   },
   "landingTaghazoutPage": {
     "meta": {
-      "title": "Wynajem samochodów Taghazout | Z Agadiru i lotniska | AmseelCars",
-      "description": "Wynajem samochodów Taghazout i wypożyczalnia Taghazout na wybrzeże surf. Rent a car Taghazout z odbiorem w Agadirze lub na lotnisku AGA. WhatsApp +212 662 500 181.",
-      "ogTitle": "Wynajem samochodów Taghazout | AmseelCars",
+      "title": "Wynajem Taghazout | Agadir i lotnisko",
+      "description": "Wynajem samochodów Taghazout na wybrzeże surf. Odbiór w Agadirze lub na lotnisku AGA. WhatsApp.",
+      "ogTitle": "Wynajem samochodów Taghazout",
       "ogDescription": "Wypożyczalnia Taghazout z Agadiru lub AGA. Droga wzdłuż wybrzeża. Rezerwacja WhatsApp.",
       "twitterTitle": "Wynajem samochodów Taghazout",
-      "twitterDescription": "Rent a car Taghazout z Agadiru lub AGA. WhatsApp +212 662 500 181."
+      "twitterDescription": "Wynajem Taghazout z Agadiru lub AGA. WhatsApp."
     },
     "schema": {
       "name": "Wynajem samochodów Taghazout | Z Agadiru i lotniska | AmseelCars",

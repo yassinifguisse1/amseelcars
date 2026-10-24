@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "Wynajem samochodów Agadir | Bez kaucji · Lotnisko i miasto | AmseelCars",
-      "description": "Wynajem samochodów Agadir bez kaucji, darmowa dostawa, lotnisko Al Massira (AGA) lub miasto. Od ~25 €/dzień, bez karty, WhatsApp 24/7. +212 662 500 181."
+      "title": "Wynajem samochodów Agadir | Bez kaucji · Lotnisko",
+      "description": "Wynajem samochodów Agadir bez kaucji, darmowa dostawa, lotnisko AGA lub miasto. Od ~25 €/dzień, bez karty, WhatsApp 24/7."
     },
     "breadcrumb": "Start",
     "hero": {
@@ -783,12 +783,12 @@
       "description": "Flota AmseelCars w Agadirze: ekonomiczne, automat, SUV, premium. Jasne ceny za dzień. Odbiór Al Massira lub centrum."
     },
     "about": {
-      "title": "O AmseelCars | Lokalna wypożyczalnia w Agadirze",
-      "description": "AmseelCars, lokalna agencja w Agadirze (budynek Sinwan): wynajem aut, odbiór lotnisko AGA lub miasto, WhatsApp +212 662 500 181, nowoczesna flota i jasne warunki."
+      "title": "O nas | Wynajem samochodów Agadir",
+      "description": "Lokalna agencja w Agadirze (Sinwan): wynajem aut, odbiór AGA lub miasto, nowoczesna flota, jasne warunki."
     },
     "contact": {
-      "title": "Kontakt wynajem samochodów Agadir | WhatsApp +212 662 500 181",
-      "description": "Zarezerwuj wynajem samochodu w Agadirze przez WhatsApp, e-mail lub formularz. Odbiór Al Massira (AGA) lub miasto, szybka odpowiedź."
+      "title": "Kontakt wynajem Agadir | WhatsApp",
+      "description": "Zarezerwuj auto w Agadirze przez WhatsApp, e-mail lub formularz. Odbiór AGA lub w mieście."
     },
     "carNotFound": {
       "title": "Nie znaleziono samochodu",
@@ -1157,11 +1157,11 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Wynajem samochodów Agadir | Bez kaucji · od 25 € | AmseelCars",
-      "description": "Wynajem samochodów w Agadirze z darmową dostawą do hotelu, bez kaucji, bez karty. Od ~25 €/dzień, rezerwacja WhatsApp. +212 662 500 181.",
-      "ogTitle": "Wynajem samochodów Agadir | Bez kaucji | AmseelCars",
+      "title": "Wynajem samochodów Agadir | Bez kaucji · od 25 €",
+      "description": "Wynajem w Agadirze z dostawą do hotelu, bez kaucji i karty. Od ~25 €/dzień, rezerwacja WhatsApp.",
+      "ogTitle": "Wynajem samochodów Agadir | Bez kaucji",
       "ogDescription": "Dostawa hotel, bez kaucji, jasne ceny. Potwierdzenie na WhatsApp.",
-      "twitterTitle": "Wynajem samochodów Agadir | AmseelCars",
+      "twitterTitle": "Wynajem samochodów Agadir",
       "twitterDescription": "Bez kaucji · dostawa hotel · od ~25 €/dzień."
     },
     "schema": {

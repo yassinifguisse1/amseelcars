@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "Location voiture Agadir | Sans caution · Aéroport & ville | AmseelCars",
-      "description": "Location voiture Agadir sans caution, livraison gratuite, aéroport Al Massira (AGA) ou centre-ville. Dès ~25 €/jour, sans carte bancaire, WhatsApp 24/7. +212 662 500 181."
+      "title": "Location voiture Agadir | Sans caution · Aéroport",
+      "description": "Location voiture Agadir sans caution, livraison gratuite, aéroport AGA ou centre-ville. Dès ~25 €/jour, sans carte, WhatsApp 24/7."
     },
     "breadcrumb": "Accueil",
     "hero": {
@@ -779,16 +779,16 @@
   },
   "seo": {
     "cars": {
-      "title": "Location voiture Agadir | Flotte, tarifs et disponibilité",
-      "description": "Comparez la flotte AmseelCars à Agadir: économique, automatique, SUV, premium. Prix par jour, retrait aéroport Al Massira ou centre-ville."
+      "title": "Location voiture Agadir | Flotte et tarifs",
+      "description": "Flotte AmseelCars à Agadir : économique, auto, SUV, premium. Prix/jour, retrait AGA ou centre-ville."
     },
     "about": {
-      "title": "À propos AmseelCars | Location voiture Agadir (agence locale)",
-      "description": "AmseelCars, agence locale à Agadir (Immeuble Sinwan) : location de voiture, remise aéroport AGA ou ville, WhatsApp +212 662 500 181, flotte récente et conditions claires."
+      "title": "À propos | Location voiture Agadir",
+      "description": "Agence locale à Agadir (Immeuble Sinwan) : location voiture, remise AGA ou ville, flotte récente, conditions claires."
     },
     "contact": {
-      "title": "Contact location voiture Agadir | WhatsApp +212 662 500 181",
-      "description": "Réservez une location de voiture à Agadir par WhatsApp, e-mail ou formulaire. Remise aéroport Al Massira (AGA) ou en ville, réponse rapide."
+      "title": "Contact location voiture Agadir | WhatsApp",
+      "description": "Réservez une voiture à Agadir par WhatsApp, e-mail ou formulaire. Remise aéroport AGA ou en ville."
     },
     "carNotFound": {
       "title": "Voiture introuvable",
@@ -1157,11 +1157,11 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Location voiture Agadir | Sans caution · dès 25 € | AmseelCars",
-      "description": "Location voiture Agadir avec livraison hôtel gratuite, sans caution, sans carte bancaire. Tarifs dès ~25 €/jour, réservation WhatsApp. Citadines et SUV pour plage et excursions. +212 662 500 181.",
-      "ogTitle": "Location voiture Agadir | Sans caution | AmseelCars",
+      "title": "Location voiture Agadir | Sans caution · dès 25 €",
+      "description": "Location voiture Agadir, livraison hôtel gratuite, sans caution ni carte. Dès ~25 €/jour, réservation WhatsApp.",
+      "ogTitle": "Location voiture Agadir | Sans caution",
       "ogDescription": "Livraison hôtel, sans caution, tarifs clairs. Confirmez sur WhatsApp.",
-      "twitterTitle": "Location voiture Agadir | AmseelCars",
+      "twitterTitle": "Location voiture Agadir",
       "twitterDescription": "Sans caution · livraison hôtel · dès ~25 €/jour. WhatsApp."
     },
     "schema": {

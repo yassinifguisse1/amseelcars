@@ -1,11 +1,11 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Mietwagen Flughafen Agadir | Ohne Kaution · AGA | AmseelCars",
-      "description": "Mietwagen am Flughafen Agadir Al Massira (AGA): Meet & Greet, ohne Kaution, ab ca. 25 €/Tag. WhatsApp. +212 662 500 181.",
-      "ogTitle": "Mietwagen Flughafen Agadir | AmseelCars",
+      "title": "Mietwagen Flughafen Agadir | Ohne Kaution",
+      "description": "Mietwagen am Flughafen Agadir Al Massira (AGA): Meet & Greet, ohne Kaution, ab ca. 25 €/Tag. WhatsApp.",
+      "ogTitle": "Mietwagen Flughafen Agadir",
       "ogDescription": "AGA Meet & Greet, ohne Kaution, klare Preise.",
-      "twitterTitle": "Mietwagen Flughafen Agadir | AmseelCars",
+      "twitterTitle": "Mietwagen Flughafen Agadir",
       "twitterDescription": "AGA · ohne Kaution · ab ca. 25 €/Tag."
     },
     "schema": {
@@ -219,12 +219,12 @@
   },
   "landingTaghazoutPage": {
     "meta": {
-      "title": "Mietwagen Taghazout | Ab Agadir & Flughafen | AmseelCars",
-      "description": "Mietwagen Taghazout und Autovermietung Taghazout für die Surfküste. Auto mieten Taghazout mit Abholung in Agadir oder am Flughafen AGA. WhatsApp +212 662 500 181.",
-      "ogTitle": "Mietwagen Taghazout | AmseelCars",
+      "title": "Mietwagen Taghazout | Agadir & Flughafen",
+      "description": "Mietwagen Taghazout für die Surfküste. Abholung in Agadir oder am Flughafen AGA. Buchung per WhatsApp.",
+      "ogTitle": "Mietwagen Taghazout",
       "ogDescription": "Autovermietung Taghazout ab Agadir oder AGA. Küstenstraße. WhatsApp-Buchung.",
       "twitterTitle": "Mietwagen Taghazout",
-      "twitterDescription": "Auto mieten Taghazout ab Agadir oder AGA. WhatsApp +212 662 500 181."
+      "twitterDescription": "Auto mieten Taghazout ab Agadir oder AGA. WhatsApp."
     },
     "schema": {
       "name": "Mietwagen Taghazout | Ab Agadir und Flughafen | AmseelCars",

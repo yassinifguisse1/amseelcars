@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "Mietwagen Agadir | Ohne Kaution · Flughafen & Stadt | AmseelCars",
-      "description": "Mietwagen Agadir ohne Kaution, kostenlose Lieferung, Flughafen Al Massira (AGA) oder Stadt. Ab ca. 25 €/Tag, ohne Kreditkarte, WhatsApp 24/7. +212 662 500 181."
+      "title": "Mietwagen Agadir | Ohne Kaution · Flughafen & Stadt",
+      "description": "Mietwagen Agadir ohne Kaution, kostenlose Lieferung, Flughafen AGA oder Stadt. Ab ca. 25 €/Tag, ohne Kreditkarte, WhatsApp 24/7."
     },
     "breadcrumb": "Startseite",
     "hero": {
@@ -783,12 +783,12 @@
       "description": "AmseelCars-Flotte in Agadir: Economy, Automatik, SUV, Premium. Klare Tagespreise. Abholung am Flughafen Al Massira oder in der Stadt."
     },
     "about": {
-      "title": "Über AmseelCars | Lokale Autovermietung Agadir",
-      "description": "AmseelCars, lokale Agentur in Agadir (Sinwan-Gebäude): Autovermietung, Abholung Flughafen AGA oder Stadt, WhatsApp +212 662 500 181, aktuelle Flotte und klare Konditionen."
+      "title": "Über uns | Mietwagen Agadir",
+      "description": "Lokale Agentur in Agadir (Sinwan): Mietwagen, Abholung Flughafen AGA oder Stadt, klare Konditionen."
     },
     "contact": {
-      "title": "Kontakt Mietwagen Agadir | WhatsApp +212 662 500 181",
-      "description": "Buchen Sie Mietwagen in Agadir per WhatsApp, E-Mail oder Formular. Abholung Flughafen Al Massira (AGA) oder Stadt, schnelle Antwort."
+      "title": "Kontakt Mietwagen Agadir | WhatsApp",
+      "description": "Mietwagen in Agadir per WhatsApp, E-Mail oder Formular buchen. Abholung AGA oder Stadt."
     },
     "carNotFound": {
       "title": "Auto nicht gefunden",
@@ -1157,11 +1157,11 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Mietwagen Agadir | Ohne Kaution · ab 25 € | AmseelCars",
-      "description": "Mietwagen Agadir mit gratis Hotellieferung, ohne Kaution, ohne Kreditkarte. Ab ca. 25 €/Tag, WhatsApp-Buchung. +212 662 500 181.",
-      "ogTitle": "Mietwagen Agadir | Ohne Kaution | AmseelCars",
+      "title": "Mietwagen Agadir | Ohne Kaution · ab 25 €",
+      "description": "Mietwagen Agadir mit Hotellieferung, ohne Kaution, ohne Kreditkarte. Ab ca. 25 €/Tag, WhatsApp.",
+      "ogTitle": "Mietwagen Agadir | Ohne Kaution",
       "ogDescription": "Hotellieferung, ohne Kaution, klare Preise. Bestätigung per WhatsApp.",
-      "twitterTitle": "Mietwagen Agadir | AmseelCars",
+      "twitterTitle": "Mietwagen Agadir",
       "twitterDescription": "Ohne Kaution · Hotellieferung · ab ca. 25 €/Tag."
     },
     "schema": {

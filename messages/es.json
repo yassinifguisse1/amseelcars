@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "Alquiler de coches Agadir | Sin depósito · Aeropuerto y ciudad | AmseelCars",
-      "description": "Alquiler de coches en Agadir sin depósito, entrega gratis, aeropuerto Al Massira (AGA) o ciudad. Desde ~25 €/día, sin tarjeta, WhatsApp 24/7. +212 662 500 181."
+      "title": "Alquiler coches Agadir | Sin depósito · Aeropuerto",
+      "description": "Alquiler de coches en Agadir sin depósito, entrega gratis, aeropuerto AGA o ciudad. Desde ~25 €/día, sin tarjeta, WhatsApp 24/7."
     },
     "breadcrumb": "Inicio",
     "hero": {
@@ -779,16 +779,16 @@
   },
   "seo": {
     "cars": {
-      "title": "Alquiler de coches Agadir | Flota, tarifas y disponibilidad",
-      "description": "Flota AmseelCars en Agadir: económico, automático, SUV, premium. Precios por día. Recogida en Al Massira o en el centro."
+      "title": "Alquiler coches Agadir | Flota y precios",
+      "description": "Flota AmseelCars en Agadir: económico, automático, SUV, premium. Precio/día. Recogida AGA o centro."
     },
     "about": {
-      "title": "Sobre AmseelCars | Agencia local de alquiler en Agadir",
-      "description": "AmseelCars, agencia local en Agadir (edificio Sinwan): alquiler de coches, recogida aeropuerto AGA o ciudad, WhatsApp +212 662 500 181 y condiciones claras."
+      "title": "Sobre nosotros | Alquiler Agadir",
+      "description": "Agencia local en Agadir (Sinwan): alquiler de coches, recogida AGA o ciudad, flota reciente y condiciones claras."
     },
     "contact": {
-      "title": "Contacto alquiler de coches Agadir | WhatsApp +212 662 500 181",
-      "description": "Reserva alquiler de coches en Agadir por WhatsApp, email o formulario. Recogida en Al Massira (AGA) o ciudad, respuesta rápida."
+      "title": "Contacto alquiler coches Agadir | WhatsApp",
+      "description": "Reserva alquiler en Agadir por WhatsApp, email o formulario. Recogida en AGA o en la ciudad."
     },
     "carNotFound": {
       "title": "Coche no encontrado",
@@ -1157,11 +1157,11 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Alquiler de coches Agadir | Sin depósito · desde 25 € | AmseelCars",
-      "description": "Alquiler de coches en Agadir con entrega hotel gratis, sin depósito, sin tarjeta. Desde ~25 €/día, reserva WhatsApp. +212 662 500 181.",
-      "ogTitle": "Alquiler de coches Agadir | Sin depósito | AmseelCars",
+      "title": "Alquiler coches Agadir | Sin depósito · desde 25 €",
+      "description": "Alquiler en Agadir con entrega hotel gratis, sin depósito ni tarjeta. Desde ~25 €/día, reserva WhatsApp.",
+      "ogTitle": "Alquiler coches Agadir | Sin depósito",
       "ogDescription": "Entrega hotel, sin depósito, tarifas claras. Confirma por WhatsApp.",
-      "twitterTitle": "Alquiler de coches Agadir | AmseelCars",
+      "twitterTitle": "Alquiler coches Agadir",
       "twitterDescription": "Sin depósito · entrega hotel · desde ~25 €/día."
     },
     "schema": {

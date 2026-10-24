@@ -67,8 +67,8 @@
   },
   "home": {
     "meta": {
-      "title": "Car Rental Agadir | No Deposit · Airport & City | AmseelCars",
-      "description": "Car rental Agadir with no deposit, free delivery, Agadir airport (AGA) or city pickup. From ~€25/day, no credit card, WhatsApp 24/7. +212 662 500 181."
+      "title": "Car Rental Agadir | No Deposit · Airport & City",
+      "description": "Car rental Agadir with no deposit, free delivery, airport (AGA) or city pickup. From ~€25/day, no credit card, WhatsApp 24/7."
     },
     "breadcrumb": "Home",
     "hero": {
@@ -779,16 +779,16 @@
   },
   "seo": {
     "cars": {
-      "title": "Car Rental Agadir Fleet | Prices & Availability | AmseelCars",
-      "description": "Browse AmseelCars Agadir fleet: economy, automatic, SUV, premium. Clear daily prices. Pickup at Al Massira Airport or in the city. No deposit."
+      "title": "Car rental Agadir fleet | Prices",
+      "description": "Browse AmseelCars Agadir: economy, automatic, SUV, premium. Clear daily prices. AGA or city pickup."
     },
     "about": {
-      "title": "About AmseelCars | Agadir car rental local agency",
-      "description": "AmseelCars is a local Agadir agency (Sinwan building): car rental, AGA airport or city pickup, WhatsApp +212 662 500 181, recent fleet and clear terms."
+      "title": "About | Car rental Agadir agency",
+      "description": "Local Agadir agency (Sinwan): car rental, AGA airport or city pickup, recent fleet, clear terms."
     },
     "contact": {
-      "title": "Contact Agadir car rental | WhatsApp +212 662 500 181",
-      "description": "Book Agadir car rental via WhatsApp, email or form. Pickup at Al Massira Airport (AGA) or in town with fast personal replies."
+      "title": "Contact car rental Agadir | WhatsApp",
+      "description": "Book Agadir car rental via WhatsApp, email or form. Pickup at AGA airport or in town."
     },
     "carNotFound": {
       "title": "Car not found",
@@ -1157,11 +1157,11 @@
   },
   "locationAgadirPage": {
     "meta": {
-      "title": "Car rental Agadir | No deposit · from €25 | AmseelCars",
-      "description": "Car rental Agadir with free hotel delivery, no deposit, no credit card. From ~€25/day, WhatsApp booking. City cars and SUVs for beach and day trips. +212 662 500 181.",
-      "ogTitle": "Car rental Agadir | No deposit | AmseelCars",
+      "title": "Car rental Agadir | No deposit · from €25",
+      "description": "Car rental Agadir with free hotel delivery, no deposit, no credit card. From ~€25/day, WhatsApp booking.",
+      "ogTitle": "Car rental Agadir | No deposit",
       "ogDescription": "Free hotel delivery, no deposit, clear rates. Confirm on WhatsApp.",
-      "twitterTitle": "Car rental Agadir | AmseelCars",
+      "twitterTitle": "Car rental Agadir",
       "twitterDescription": "No deposit · hotel delivery · from ~€25/day. WhatsApp."
     },
     "schema": {

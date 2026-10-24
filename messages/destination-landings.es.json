@@ -1,11 +1,11 @@
 {
   "landingAgadirAirportPage": {
     "meta": {
-      "title": "Alquiler coches aeropuerto Agadir | Sin depósito · AGA | AmseelCars",
-      "description": "Alquiler en aeropuerto Agadir Al Massira (AGA): meet & greet, sin depósito, desde ~25 €/día. WhatsApp. +212 662 500 181.",
-      "ogTitle": "Alquiler aeropuerto Agadir | AmseelCars",
+      "title": "Alquiler aeropuerto Agadir | Sin depósito",
+      "description": "Alquiler en aeropuerto Agadir Al Massira (AGA): meet & greet, sin depósito, desde ~25 €/día. WhatsApp.",
+      "ogTitle": "Alquiler aeropuerto Agadir",
       "ogDescription": "Meet & greet AGA, sin depósito, tarifas claras.",
-      "twitterTitle": "Alquiler aeropuerto Agadir | AmseelCars",
+      "twitterTitle": "Alquiler aeropuerto Agadir",
       "twitterDescription": "AGA · sin depósito · desde ~25 €/día."
     },
     "schema": {
@@ -219,12 +219,12 @@
   },
   "landingTaghazoutPage": {
     "meta": {
-      "title": "Alquiler coches Taghazout | Desde Agadir y aeropuerto | AmseelCars",
-      "description": "Alquiler coches Taghazout y alquiler de coches Taghazout para la costa surf. Rent a car Taghazout con recogida en Agadir o en el aeropuerto AGA. WhatsApp +212 662 500 181.",
-      "ogTitle": "Alquiler coches Taghazout | AmseelCars",
+      "title": "Alquiler coches Taghazout | Agadir y aeropuerto",
+      "description": "Alquiler en Taghazout para la costa surf. Recogida en Agadir o aeropuerto AGA. Reserva por WhatsApp.",
+      "ogTitle": "Alquiler coches Taghazout",
       "ogDescription": "Alquiler de coches Taghazout desde Agadir o AGA. Costa surf. Reserva WhatsApp.",
       "twitterTitle": "Alquiler coches Taghazout",
-      "twitterDescription": "Rent a car Taghazout desde Agadir o AGA. WhatsApp +212 662 500 181."
+      "twitterDescription": "Alquiler Taghazout desde Agadir o AGA. WhatsApp."
     },
     "schema": {
       "name": "Alquiler de coches Taghazout | Desde Agadir y aeropuerto | AmseelCars",
