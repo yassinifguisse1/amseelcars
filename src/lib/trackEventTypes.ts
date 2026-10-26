@@ -93,4 +93,5 @@ export const SOURCE_LABELS: Record<string, string> = {
   'contact-form-server': 'Formulaire contact (serveur)',
   'contact-info': 'Infos contact',
   'auto-tracker': 'Détection automatique',
+  'wheel-of-chance': 'Roue cadeau',
 };

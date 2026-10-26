@@ -34,6 +34,7 @@ import {
   type WheelPrizeId,
 } from "@/lib/wheelOfChance";
 import { cn } from "@/lib/utils";
+import { WheelConfetti } from "./WheelConfetti";
 
 const ADDON_ICONS: Record<BookingAddonId, ComponentType<LucideProps>> = {
   "full-insurance": ShieldCheck,
@@ -44,7 +45,7 @@ const ADDON_ICONS: Record<BookingAddonId, ComponentType<LucideProps>> = {
   "rooftop-cargo": Package,
 };
 
-const SHOW_DELAY_MS = 1400;
+const SHOW_DELAY_MS = 4000;
 
 function polar(cx: number, cy: number, r: number, angleDeg: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
@@ -58,6 +59,10 @@ function slicePath(cx: number, cy: number, r: number, start: number, end: number
   return `M ${cx} ${cy} L ${a.x} ${a.y} A ${r} ${r} 0 ${large} 1 ${b.x} ${b.y} Z`;
 }
 
+function isLightSlice(fill: string) {
+  return fill === "#F7EBD4" || fill === "#FFF8EE" || fill === "#e8d5a3";
+}
+
 export function WheelOfChance() {
   const t = useTranslations("wheelOfChance");
   const tAddons = useTranslations("booking.addons");
@@ -68,6 +73,7 @@ export function WheelOfChance() {
   const [claimCode, setClaimCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [phase, setPhase] = useState<"idle" | "spinning" | "won">("idle");
+  const [celebrate, setCelebrate] = useState(false);
 
   useEffect(() => {
     if (!shouldShowWheelOfChance()) return;
@@ -108,6 +114,7 @@ export function WheelOfChance() {
       dismissedAt: new Date().toISOString(),
     });
     setOpen(false);
+    setCelebrate(false);
     trackEvent({
       event: "link-click",
       path: typeof window !== "undefined" ? window.location.pathname : "/",
@@ -125,6 +132,7 @@ export function WheelOfChance() {
 
     setSpinning(true);
     setPhase("spinning");
+    setCelebrate(false);
     setRotation(nextRotation);
     trackEvent({
       event: "hero-cta",
@@ -140,6 +148,7 @@ export function WheelOfChance() {
       persistWheelPrize(nextPrize, nextCode);
       setSpinning(false);
       setPhase("won");
+      setCelebrate(true);
       trackEvent({
         event: "hero-cta",
         path: typeof window !== "undefined" ? window.location.pathname : "/",
@@ -147,6 +156,7 @@ export function WheelOfChance() {
         ctaLabel: "wheel-win",
         metadata: { prize: nextPrize, claimCode: nextCode },
       });
+      window.setTimeout(() => setCelebrate(false), 4500);
     }, 5200);
   }, [phase, rotation, spinning]);
 
@@ -180,41 +190,31 @@ export function WheelOfChance() {
         >
           <button
             type="button"
-            className="absolute inset-0 bg-[#0c0908]/78 backdrop-blur-[6px]"
+            className="absolute inset-0 bg-black/55 backdrop-blur-[4px]"
             aria-label={t("closeAria")}
             onClick={dismiss}
           />
 
-          <motion.div
-            initial={{ opacity: 0, y: 36, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.96 }}
-            transition={{ type: "spring", stiffness: 280, damping: 24 }}
-            className="relative z-[1] w-full max-w-[26rem] overflow-hidden rounded-[28px] border border-[#c9a227]/35 bg-[linear-gradient(165deg,#1a1210_0%,#2a1814_42%,#140e0c_100%)] shadow-[0_30px_80px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.08)]"
-          >
-            <div
-              className="pointer-events-none absolute -left-16 -top-20 h-48 w-48 rounded-full bg-[#EC1C25]/25 blur-3xl"
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none absolute -bottom-24 -right-10 h-52 w-52 rounded-full bg-[#c9a227]/20 blur-3xl"
-              aria-hidden
-            />
+          {/* Full-screen party layer (above backdrop, around the card) */}
+          <WheelConfetti active={celebrate} />
 
-            <div className="relative px-5 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
-              <div className="mb-3 flex items-start justify-between gap-3">
-                <div>
-                  <p className="inline-flex items-center gap-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-[#e8d5a3]">
-                    <Sparkles className="size-3.5 text-[#c9a227]" aria-hidden />
-                    {t("eyebrow")}
-                  </p>
+          <motion.div
+            initial={{ opacity: 0, y: 36, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300, damping: 26 }}
+            className="relative z-10 w-full max-w-[24.5rem] overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-[0_24px_64px_rgba(0,0,0,0.28)]"
+          >
+            <div className="relative bg-[#EC1C25] px-5 pb-4 pt-4 text-white sm:px-6">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
                   <h2
                     id="wheel-of-chance-title"
-                    className="mt-1.5 font-[family-name:var(--font-heading)] text-[1.35rem] font-semibold leading-tight text-white sm:text-2xl"
+                    className="font-[family-name:var(--font-heading)] text-[1.4rem] font-semibold leading-tight sm:text-[1.55rem]"
                   >
                     {phase === "won" ? t("wonTitle") : t("title")}
                   </h2>
-                  <p className="mt-1.5 max-w-[34ch] text-sm leading-snug text-white/70">
+                  <p className="mt-1.5 max-w-[36ch] text-sm leading-snug text-white/90">
                     {phase === "won"
                       ? t("wonBody", { prize: prizeTitle })
                       : t("subtitle")}
@@ -223,30 +223,32 @@ export function WheelOfChance() {
                 <button
                   type="button"
                   onClick={dismiss}
-                  className="rounded-full border border-white/15 bg-white/5 p-2 text-white/80 transition hover:bg-white/10 hover:text-white"
+                  className="rounded-full bg-white/15 p-2 text-white transition hover:bg-white/25"
                   aria-label={t("closeAria")}
                 >
                   <X className="size-4" />
                 </button>
               </div>
+            </div>
 
-              <div className="relative mx-auto mt-2 flex w-full max-w-[19.5rem] flex-col items-center">
+            <div className="relative px-5 pb-5 pt-4 sm:px-6 sm:pb-6">
+              <div className="relative mx-auto flex w-full max-w-[18.5rem] flex-col items-center">
+                {/* Pointer peg */}
                 <div
-                  className="absolute -top-1 z-20 h-0 w-0 border-l-[10px] border-r-[10px] border-t-[18px] border-l-transparent border-r-transparent border-t-[#c9a227] drop-shadow-[0_4px_10px_rgba(201,162,39,0.55)]"
+                  className="absolute -top-0.5 z-20 flex flex-col items-center"
                   aria-hidden
-                />
+                >
+                  <span className="h-3 w-3 rounded-full border-2 border-white bg-[#EC1C25] shadow-md" />
+                  <span className="-mt-0.5 h-0 w-0 border-l-[9px] border-r-[9px] border-t-[14px] border-l-transparent border-r-transparent border-t-[#EC1C25]" />
+                </div>
 
-                <div className="relative aspect-square w-full overflow-visible">
+                <div className="relative mt-3 aspect-square w-full">
                   <div
-                    className="absolute inset-0 rounded-full opacity-80 blur-md"
-                    style={{
-                      background:
-                        "radial-gradient(circle, rgba(201,162,39,0.45) 0%, transparent 68%)",
-                    }}
+                    className="absolute -inset-2 rounded-full bg-stone-100"
                     aria-hidden
                   />
                   <motion.div
-                    className="relative h-full w-full overflow-visible rounded-full border-[3px] border-[#c9a227]/80 shadow-[0_0_0_6px_rgba(236,28,37,0.18),0_12px_40px_rgba(0,0,0,0.45)]"
+                    className="relative h-full w-full overflow-visible rounded-full border-[6px] border-stone-800 shadow-[inset_0_0_0_3px_#c9a227,0_10px_28px_rgba(0,0,0,0.18)]"
                     animate={{ rotate: rotation }}
                     transition={
                       spinning
@@ -255,7 +257,7 @@ export function WheelOfChance() {
                     }
                     style={{ willChange: "transform" }}
                   >
-                    <svg viewBox="0 0 200 200" className="h-full w-full overflow-visible" aria-hidden>
+                    <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden>
                       {WHEEL_SEGMENTS.map((id, i) => {
                         const start = i * segmentAngle;
                         const end = start + segmentAngle;
@@ -263,45 +265,48 @@ export function WheelOfChance() {
                         return (
                           <path
                             key={id}
-                            d={slicePath(100, 100, 98, start, end)}
+                            d={slicePath(100, 100, 96, start, end)}
                             fill={fill}
-                            stroke="rgba(255,255,255,0.18)"
-                            strokeWidth="0.8"
+                            stroke="#1a1210"
+                            strokeWidth="1.2"
                           />
                         );
                       })}
-                      <circle cx="100" cy="100" r="22" fill="#140e0c" stroke="#c9a227" strokeWidth="2.5" />
+                      <circle cx="100" cy="100" r="20" fill="#1a1210" stroke="#c9a227" strokeWidth="3" />
                       <circle cx="100" cy="100" r="8" fill="#EC1C25" />
                     </svg>
 
-                    {/* HTML badges (same Lucide icons as booking add-ons) — clearer than SVG foreignObject */}
-                    <div className="pointer-events-none absolute inset-0 overflow-visible">
+                    <div className="pointer-events-none absolute inset-0">
                       {WHEEL_SEGMENTS.map((id, i) => {
                         const mid = i * segmentAngle + segmentAngle / 2;
                         const rad = ((mid - 90) * Math.PI) / 180;
-                        // Slightly inward — label + “2d free” badge need room inside the rim
-                        const radiusPct = 28;
+                        const radiusPct = 31;
                         const left = 50 + radiusPct * Math.cos(rad);
                         const top = 50 + radiusPct * Math.sin(rad);
                         const Icon = ADDON_ICONS[id];
+                        const fill = WHEEL_SEGMENT_COLORS[i % WHEEL_SEGMENT_COLORS.length]!;
+                        const light = isLightSlice(fill);
                         return (
                           <div
                             key={id}
                             className="absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5"
                             style={{ left: `${left}%`, top: `${top}%` }}
                           >
-                            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white shadow-[0_4px_14px_rgba(0,0,0,0.35)] ring-2 ring-[#c9a227]/70 sm:size-10">
-                              <Icon
-                                className="size-[1.15rem] text-[#1a1210] sm:size-5"
-                                strokeWidth={2.35}
-                                aria-hidden
-                              />
+                            <span
+                              className={cn(
+                                "flex size-8 items-center justify-center rounded-full shadow-sm sm:size-9",
+                                light ? "bg-[#1a1210] text-white" : "bg-white text-[#1a1210]",
+                              )}
+                            >
+                              <Icon className="size-4 sm:size-[1.05rem]" strokeWidth={2.4} aria-hidden />
                             </span>
-                            <span className="max-w-[4.2rem] rounded-full bg-[#140e0c]/75 px-1.5 py-0.5 text-center text-[0.58rem] font-bold leading-tight tracking-wide text-white shadow-sm backdrop-blur-[2px] sm:text-[0.62rem]">
+                            <span
+                              className={cn(
+                                "max-w-[4rem] text-center text-[0.58rem] font-bold leading-tight sm:text-[0.62rem]",
+                                light ? "text-[#1a1210]" : "text-white",
+                              )}
+                            >
                               {segmentLabels[i]}
-                            </span>
-                            <span className="w-max max-w-[4.5rem] rounded-full bg-[#EC1C25] px-1.5 py-0.5 text-center text-[0.5rem] font-extrabold leading-none tracking-wide text-white shadow-md sm:text-[0.55rem]">
-                              {t("giftBadge")}
                             </span>
                           </div>
                         );
@@ -310,7 +315,7 @@ export function WheelOfChance() {
                   </motion.div>
                 </div>
 
-                <p className="mt-3 rounded-xl border border-[#c9a227]/30 bg-[#c9a227]/10 px-3 py-2 text-center text-[0.72rem] font-medium leading-snug text-[#e8d5a3] sm:text-xs">
+                <p className="mt-3 text-center text-[0.78rem] font-medium leading-snug text-stone-600">
                   {t("giftRuleNote")}
                 </p>
               </div>
@@ -318,35 +323,37 @@ export function WheelOfChance() {
               <div className="mt-4 space-y-2.5">
                 {phase === "won" && prizeId ? (
                   <>
-                    <div className="flex items-center gap-3 rounded-2xl border border-[#c9a227]/35 bg-black/25 px-3.5 py-3">
-                      <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white text-[#1a1210] shadow-[0_8px_24px_rgba(236,28,37,0.35)] ring-2 ring-[#c9a227]/70">
+                    <motion.div
+                      initial={{ scale: 0.92, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="flex items-center gap-3 rounded-2xl border border-[#c9a227]/50 bg-[#fff8e8] px-3.5 py-3"
+                    >
+                      <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white text-[#1a1210] shadow ring-2 ring-[#c9a227]/60">
                         <PrizeIcon key={prizeId} className="size-6" strokeWidth={2.35} aria-hidden />
                       </span>
                       <div className="min-w-0">
-                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#e8d5a3]">
+                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[#8a6a14]">
                           {t("prizeLabel")}
                         </p>
-                        <p className="truncate font-[family-name:var(--font-heading)] text-lg font-semibold text-white">
+                        <p className="truncate font-[family-name:var(--font-heading)] text-lg font-semibold text-stone-900">
                           {prizeTitle}
                         </p>
-                        <p className="text-xs text-white/65">
-                          {t("giftRuleNote")}
-                        </p>
+                        <p className="text-xs text-stone-600">{t("giftRuleNote")}</p>
                       </div>
-                    </div>
+                    </motion.div>
                     {claimCode ? (
-                      <div className="rounded-2xl border border-white/15 bg-black/30 px-3.5 py-3">
-                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[#e8d5a3]">
+                      <div className="rounded-2xl border border-stone-200 bg-stone-50 px-3.5 py-3">
+                        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-stone-500">
                           {t("claimCodeLabel")}
                         </p>
                         <div className="mt-1.5 flex items-center gap-2">
-                          <code className="min-w-0 flex-1 truncate font-mono text-lg font-bold tracking-wider text-white">
+                          <code className="min-w-0 flex-1 truncate font-mono text-lg font-bold tracking-wider text-stone-900">
                             {claimCode}
                           </code>
                           <button
                             type="button"
                             onClick={copyClaimCode}
-                            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/15"
+                            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-stone-300 bg-white px-3 py-1.5 text-xs font-semibold text-stone-800 transition hover:bg-stone-100"
                           >
                             {copied ? (
                               <Check className="size-3.5 text-[#25D366]" aria-hidden />
@@ -356,19 +363,34 @@ export function WheelOfChance() {
                             {copied ? t("copied") : t("copyCode")}
                           </button>
                         </div>
-                        <p className="mt-1.5 text-xs leading-snug text-white/55">
+                        <p className="mt-1.5 text-xs leading-snug text-stone-500">
                           {t("claimCodeHint")}
                         </p>
                       </div>
                     ) : null}
                     <Link
                       href="/cars"
-                      onClick={() => setOpen(false)}
-                      className="flex h-12 w-full items-center justify-center rounded-full bg-[#EC1C25] text-sm font-bold uppercase tracking-wide text-white shadow-[0_10px_30px_rgba(236,28,37,0.45)] transition hover:bg-[#d41820]"
+                      onClick={() => {
+                        trackEvent({
+                          event: "link-click",
+                          path:
+                            typeof window !== "undefined"
+                              ? window.location.pathname
+                              : "/",
+                          source: "wheel-of-chance",
+                          ctaLabel: "wheel-browse-fleet",
+                          metadata: {
+                            ...(prizeId ? { prize: prizeId } : {}),
+                            ...(claimCode ? { claimCode } : {}),
+                          },
+                        });
+                        setOpen(false);
+                      }}
+                      className="flex h-12 w-full items-center justify-center rounded-full bg-[#EC1C25] text-sm font-bold text-white transition hover:bg-[#d41820]"
                     >
                       {t("browseCars")}
                     </Link>
-                    <p className="text-center text-[0.7rem] leading-snug text-white/45">
+                    <p className="text-center text-[0.7rem] leading-snug text-stone-400">
                       {t("legalHint")}
                     </p>
                   </>
@@ -379,23 +401,15 @@ export function WheelOfChance() {
                       onClick={spin}
                       disabled={spinning}
                       className={cn(
-                        "relative flex h-12 w-full items-center justify-center overflow-hidden rounded-full text-sm font-bold uppercase tracking-[0.14em] text-white transition",
+                        "flex h-12 w-full items-center justify-center rounded-full text-sm font-bold uppercase tracking-[0.12em] text-white transition",
                         spinning
-                          ? "cursor-wait bg-[#7a1018]"
-                          : "bg-[#EC1C25] shadow-[0_10px_30px_rgba(236,28,37,0.45)] hover:bg-[#d41820]",
+                          ? "cursor-wait bg-stone-400"
+                          : "bg-[#EC1C25] shadow-[0_8px_24px_rgba(236,28,37,0.35)] hover:bg-[#d41820]",
                       )}
                     >
-                      {!spinning && (
-                        <span
-                          className="pointer-events-none absolute inset-0 animate-pulse bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.22),transparent_55%)]"
-                          aria-hidden
-                        />
-                      )}
-                      <span className="relative z-[1]">
-                        {spinning ? t("spinning") : t("spin")}
-                      </span>
+                      {spinning ? t("spinning") : t("spin")}
                     </button>
-                    <p className="text-center text-[0.7rem] leading-snug text-white/45">
+                    <p className="text-center text-[0.7rem] leading-snug text-stone-400">
                       {t("legalHint")}
                     </p>
                   </>

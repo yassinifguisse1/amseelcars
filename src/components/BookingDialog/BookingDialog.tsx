@@ -339,7 +339,12 @@ export default function BookingDialog({
           returnLocation: data.returnLocation,
           rentalDays,
           totalPrice,
-          metadata: { addons: addons.map((a) => `${a.id}:${a.quantity}`).join(',') },
+          metadata: {
+            addons: addons.map((a) => `${a.id}:${a.quantity}`).join(','),
+            ...(wheelClaim
+              ? { wheelPrize: wheelClaim.prizeId, wheelClaimCode: wheelClaim.claimCode }
+              : {}),
+          },
         });
         track('Booking Confirmed', {
           car: carName,

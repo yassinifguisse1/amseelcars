@@ -1400,23 +1400,22 @@
     "relatedSubtitle": "Discover other articles that may interest you"
   },
   "wheelOfChance": {
-    "eyebrow": "Visitor gift",
-    "title": "Spin for a free add-on",
-    "subtitle": "One spin. One complimentary add-on for your next Agadir rental, applied when you book.",
+    "title": "Try your luck",
+    "subtitle": "Spin once and unlock a free extra for your Agadir rental when you book.",
     "spin": "Spin the wheel",
-    "spinning": "Good luck…",
-    "wonTitle": "You won!",
-    "wonBody": "Your free add-on: {prize}. Save your claim code — it is added automatically when you book.",
-    "prizeLabel": "Your prize",
-    "prizeHint": "2 days free if you book 7 days or more · subject to availability",
-    "claimCodeLabel": "Your claim code",
-    "claimCodeHint": "No account needed — this code is attached to your booking form and WhatsApp message.",
+    "spinning": "Spinning…",
+    "wonTitle": "Nice — you won!",
+    "wonBody": "You got {prize}. Keep your code; we add it when you book.",
+    "prizeLabel": "Your extra",
+    "prizeHint": "2 days free if you book 7 days or more",
+    "claimCodeLabel": "Your code",
+    "claimCodeHint": "Saved on this device. It goes with your booking form and WhatsApp message.",
     "copyCode": "Copy",
     "copied": "Copied",
-    "browseCars": "Browse the fleet",
-    "closeAria": "Close gift wheel",
-    "legalHint": "One spin per visitor. Prize confirmed when you book.",
+    "browseCars": "See the cars",
+    "closeAria": "Close",
+    "legalHint": "One spin per visit. Confirmed when you book.",
     "giftBadge": "2d free",
-    "giftRuleNote": "2 days free on the won add-on if you book 7 days or more."
+    "giftRuleNote": "2 days free on what you win if you book 7 days or more."
   }
 }
