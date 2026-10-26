@@ -34,13 +34,13 @@ export const WHEEL_SEGMENTS: WheelPrizeId[] = BOOKING_ADDONS.filter(
   (addon) => addon.id !== 'extra-child-seat',
 ).map((addon) => addon.id);
 
+/** Classic prize-wheel palette: red / cream (easy to read, clear slices). */
 export const WHEEL_SEGMENT_COLORS = [
   '#EC1C25',
-  '#1c1410',
-  '#c9a227',
-  '#8b1520',
-  '#2a221c',
-  '#e8d5a3',
+  '#F7EBD4',
+  '#B01018',
+  '#FFF8EE',
+  '#8B1520',
 ] as const;
 
 const DISMISS_COOLDOWN_MS = 1000 * 60 * 60 * 24 * 7; // 7 days
