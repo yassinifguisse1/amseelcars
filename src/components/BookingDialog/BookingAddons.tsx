@@ -178,9 +178,49 @@ export function BookingAddons({
               <X className="h-3.5 w-3.5" aria-hidden />
             </button>
           </div>
-          <p className="mt-1 text-xs leading-relaxed text-gray-600 sm:text-sm">
-            {t(`items.${expandedKey}.description`)}
-          </p>
+
+          {expanded === "full-insurance" ? (
+            <div className="mt-2 space-y-2.5">
+              <div>
+                <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+                  {t("items.fullInsurance.infoStandardHeading")}
+                </p>
+                <div className="mt-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex rounded-full bg-emerald-600 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
+                      {t("items.fullInsurance.infoStandardBadge")}
+                    </span>
+                    <p className="text-xs font-semibold text-gray-900 sm:text-sm">
+                      {t("items.fullInsurance.infoStandardTitle")}
+                    </p>
+                  </div>
+                  <div className="mt-2 space-y-1.5 text-xs leading-relaxed text-gray-600 sm:text-sm">
+                    <p>{t("items.fullInsurance.infoStandardP1")}</p>
+                    <p>{t("items.fullInsurance.infoStandardP2")}</p>
+                    <p>{t("items.fullInsurance.infoStandardP3")}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
+                  {t("items.fullInsurance.infoOptionHeading")}
+                </p>
+                <div className="mt-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5">
+                  <p className="text-xs font-semibold text-gray-900 sm:text-sm">
+                    {t("items.fullInsurance.infoOptionTitle")}
+                  </p>
+                  <div className="mt-2 space-y-1.5 text-xs leading-relaxed text-gray-600 sm:text-sm">
+                    <p>{t("items.fullInsurance.infoOptionP1")}</p>
+                    <p>{t("items.fullInsurance.infoOptionP2")}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <p className="mt-1 text-xs leading-relaxed text-gray-600 sm:text-sm">
+              {t(`items.${expandedKey}.description`)}
+            </p>
+          )}
         </div>
       ) : null}
     </div>

@@ -551,7 +551,17 @@
         "fullInsurance": {
           "title": "Full Insurance",
           "shortTitle": "Insurance",
-          "description": "Optional daily cover that reduces your excess. Exact inclusions, exclusions, and conditions are confirmed on WhatsApp before pickup."
+          "description": "Standard insurance with excess is included free. No-deposit option at €10/day: no security deposit required; insurance excess still applies if you are at fault.",
+          "infoStandardHeading": "Standard insurance — Included free",
+          "infoStandardBadge": "Included",
+          "infoStandardTitle": "Insurance with excess",
+          "infoStandardP1": "Standard insurance is included in the rental price, with no extra charge.",
+          "infoStandardP2": "If you are not at fault in an accident, no excess is payable, subject to the contract terms.",
+          "infoStandardP3": "If you are at fault, an excess applies according to the vehicle category.",
+          "infoOptionHeading": "No-deposit option — €10/day",
+          "infoOptionTitle": "Rental without deposit",
+          "infoOptionP1": "Enjoy your rental with no security deposit required.",
+          "infoOptionP2": "This option removes the deposit requirement, but does not remove the insurance excess if you are at fault in an accident."
         },
         "extraChildSeat": {
           "title": "Extra Child Seat",

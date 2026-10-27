@@ -551,7 +551,17 @@
         "fullInsurance": {
           "title": "Pełne ubezpieczenie",
           "shortTitle": "Ubezpieczenie",
-          "description": "Opcjonalna dzienna ochrona obniżająca udział własny. Dokładny zakres, wyłączenia i warunki potwierdzamy na WhatsApp przed odbiorem."
+          "description": "Ubezpieczenie standardowe z udziałem własnym jest wliczone w cenę. Opcja bez kaucji za 10 €/dzień: bez depozytu; udział własny nadal obowiązuje przy winie kierowcy.",
+          "infoStandardHeading": "Ubezpieczenie standardowe — Wliczone za darmo",
+          "infoStandardBadge": "Wliczone",
+          "infoStandardTitle": "Ubezpieczenie z udziałem własnym",
+          "infoStandardP1": "Ubezpieczenie standardowe jest wliczone w cenę wynajmu, bez dodatkowych opłat.",
+          "infoStandardP2": "Przy wypadku bez Twojej winy udział własny nie jest należny, z zastrzeżeniem warunków umowy.",
+          "infoStandardP3": "Przy wypadku z Twojej winy udział własny zależy od kategorii pojazdu.",
+          "infoOptionHeading": "Opcja bez kaucji — 10 €/dzień",
+          "infoOptionTitle": "Wynajem bez kaucji",
+          "infoOptionP1": "Ciesz się wynajmem bez wpłaty kaucji.",
+          "infoOptionP2": "Ta opcja znosi obowiązek wpłaty kaucji, ale nie znosi udziału własnego przy wypadku z Twojej winy."
         },
         "extraChildSeat": {
           "title": "Dodatkowy fotelik dziecięcy",
