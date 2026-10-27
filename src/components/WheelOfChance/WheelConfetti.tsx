@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
 const CONFETTI_COLORS = ["#EC1C25", "#c9a227", "#ffffff", "#e8d5a3", "#25D366", "#ff6b6b", "#60a5fa"];
@@ -82,12 +83,14 @@ function buildBurst(seed: number) {
 export function WheelConfetti({ active }: { active: boolean }) {
   const burst = useMemo(() => buildBurst(Date.now() % 100000), [active]);
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <AnimatePresence>
       {active ? (
         <motion.div
           key="wheel-party"
-          className="pointer-events-none absolute inset-0 z-[5] overflow-hidden"
+          className="pointer-events-none fixed inset-0 z-[1300] overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -201,6 +204,7 @@ export function WheelConfetti({ active }: { active: boolean }) {
           ))}
         </motion.div>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

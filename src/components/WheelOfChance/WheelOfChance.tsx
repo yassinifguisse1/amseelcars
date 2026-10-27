@@ -190,13 +190,10 @@ export function WheelOfChance() {
         >
           <button
             type="button"
-            className="absolute inset-0 bg-black/55 backdrop-blur-[4px]"
+            className="absolute inset-0 z-0 bg-black/55 backdrop-blur-[4px]"
             aria-label={t("closeAria")}
             onClick={dismiss}
           />
-
-          {/* Full-screen party layer (above backdrop, around the card) */}
-          <WheelConfetti active={celebrate} />
 
           <motion.div
             initial={{ opacity: 0, y: 36, scale: 0.96 }}
@@ -417,6 +414,9 @@ export function WheelOfChance() {
               </div>
             </div>
           </motion.div>
+
+          {/* Above the form on all viewports (esp. mobile full-bleed card) */}
+          <WheelConfetti active={celebrate} />
         </motion.div>
       ) : null}
     </AnimatePresence>
