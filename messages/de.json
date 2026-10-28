@@ -219,14 +219,14 @@
     "browseServices": {
       "kicker": "Mietwagen",
       "title": "Agadir-Seiten entdecken",
-      "subtitle": "AmseelCars entdecken: die Mietwagen-Agadir-Stadtseite trägt die Stadtkw, Flughafen für AGA, Taghazout für die Küste.",
+      "subtitle": "Entdecken Sie AmseelCars-Seiten für Stadtübergabe, Flughafen-Meet-&-Greet in Agadir, Taghazout-Küste und jedes Auto der Flotte.",
       "panels": {
         "locationsHeading": "Wo wir liefern und arbeiten",
         "vehicleTypesHeading": "Nach Fahrzeugkategorie suchen",
         "brandsHeading": "Nach Marke suchen",
         "locationsCopy": "Meet & Greet am Flughafen Agadir Al Massira, Innenstadt Agadir, Taghazout, Tamraght oder Küstenvillen in Souss-Massa - wählen Sie den Übergabeort.",
         "vehicleTypesCopy": "Filtere die Flotte nach Fahrstil oder Budget, das du in Agadir brauchst.",
-        "brandsCopy": "Jede Markenseite hat eine SEO-fertige URL, damit Assistenten sie einfach zitieren konnen."
+        "brandsCopy": "Öffnen Sie eine Markenseite, um Modelle in Agadir zu sehen und Tagespreise zu vergleichen."
       },
       "brandLinkLabel": "{brand} Mietwagen in Agadir",
       "locations": [
@@ -329,8 +329,8 @@
           "a": "Ja, Hotel und Zentrum. AGA-Details: Flughafenseite."
         },
         {
-          "q": "Mietwagen Agadir Marokko auf dieser Seite?",
-          "a": "Die Mietwagen-Agadir-Stadtseite trägt die Stadt-/Hotel-Keywords. Die Startseite stellt AmseelCars vor; Flughafen und Taghazout haben eigene Seiten."
+          "q": "Welche Seite für Stadt, Flughafen oder Taghazout?",
+          "a": "Nutzen Sie die Agadir-Stadtseite für Hotel und Zentrum, die Flughafenseite für AGA Meet & Greet und Taghazout für die Küste. Diese Startseite stellt AmseelCars vor und verlinkt dorthin."
         },
         {
           "q": "Welche Autos für Agadir?",
@@ -407,7 +407,11 @@
       "seats": "{count} Sitze",
       "premium": "Premium",
       "bookNow": "Jetzt buchen",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "trustLine": "Ohne Kaution · Ohne Kreditkarte · Gratis Lieferung",
+      "trustNoDeposit": "Ohne Kaution",
+      "trustNoCard": "Ohne Kreditkarte",
+      "trustFreeDelivery": "Gratis Lieferung"
     },
     "schema": {
       "itemListName": "Mietwagenflotte in Agadir",
@@ -449,8 +453,8 @@
     "specTopSpeed": "Höchstgeschwindigkeit",
     "specFuelEfficiency": "Kraftstoffverbrauch",
     "specDrivetrain": "Antrieb",
-    "availabilityTitle": "Zur Miete verfügbar",
-    "availabilityBody": "Dieses Fahrzeug ist derzeit verfügbar und bereit für Ihre nächste Fahrt.",
+    "availabilityTitle": "Dieses Auto anfragen",
+    "availabilityBody": "Die Verfügbarkeit hängt von Ihren Daten ab. Senden Sie eine Anfrage oder WhatsApp — wir bestätigen vor der Abholung.",
     "defaultAboutTitle": "Über dieses Auto",
     "faqHeading": "Häufige Fragen",
     "stickyReserve": "Buchen",
@@ -472,7 +476,7 @@
     "weekEstimate": "{days} Tage ≈ {total}",
     "trustNoDeposit": "Ohne Kaution",
     "trustNoCard": "Ohne Kreditkarte",
-    "trustFreeDelivery": "Gratis Lieferung Agadir"
+    "trustFreeDelivery": "Gratis Lieferung"
   },
   "booking": {
     "introBlurb": "Abholung am Flughafen Al Massira, in der Innenstadt von Agadir, in Taghazout oder in unserem Büro möglich. Verfügbarkeit und Konditionen bestätigen wir per E-Mail oder WhatsApp.",
@@ -531,10 +535,10 @@
     "waInquiryDaily": "Hallo, ich möchte den {carName} für {price}/Tag mieten. Können Sie Verfügbarkeit und Daten bestätigen? Danke.",
     "waInquiryTrip": "Hallo, ich möchte den {carName} für {days} Tage ({pickup} → {return}) für insgesamt {total} mieten. Können Sie die Verfügbarkeit bestätigen? Danke.",
     "waAddonsSuffix": "Extras: {addons}.",
-    "waWheelSuffix": "Glücksrad-Code: {code} ({prize}) — bitte das gratis Extra anwenden.",
+    "waWheelSuffix": "Glücksrad-Code: {code} ({prize}) - bitte das gratis Extra anwenden.",
     "waWheelGiftTag": "Glücksrad · 2 Tage gratis ab 7 Tagen",
     "wheelPrizeBanner": "Glücksrad-Geschenk: {prize} · Code {code}",
-    "wheelPrizeBannerHint": "2 Tage gratis bei Buchung ab 7 Tagen — in der Summe unten verrechnet.",
+    "wheelPrizeBannerHint": "2 Tage gratis bei Buchung ab 7 Tagen - in der Summe unten verrechnet.",
     "addons": {
       "title": "Extras",
       "moreInfo": "Mehr Infos",
@@ -589,7 +593,13 @@
           "description": "Mehr Platz für Gepäck? Eine Dachbox ist praktisch für Familien, längere Fahrten, Surfausrüstung und Extra-Taschen. Nach Verfügbarkeit und Fahrzeugmodell."
         }
       }
-    }
+    },
+    "priceDepositLine": "Kaution",
+    "priceDepositValue": "0 € wenn berechtigt",
+    "priceInsuranceLine": "Versicherung",
+    "priceInsuranceValue": "Standard inklusive",
+    "priceConfirmNote": "Richtwert. Endbetrag und Verfügbarkeit werden auf Anfrage vor Abholung bestätigt.",
+    "priceTaglineFallback": "Ohne Kaution · Ohne Kreditkarte · Gratis Lieferung"
   },
   "contactPage": {
     "hero": {
@@ -671,15 +681,15 @@
     "introP3": "AmseelCars (auch Amseel Cars) ist eine unabhängige Agentur in Agadir — kein Aggregator. Sie sprechen direkt mit dem lokalen Team über Fahrzeug, Daten, Übergabeort (Stadt, Flughafen AGA oder Taghazout) und Konditionen vor der Abfahrt.",
     "introP4": "Lokale Erfahrung in Agadir und an der Küste hilft uns, echte Bedürfnisse zu antizipieren: Mietdokumente, Mindestdauer, Kraftstoff und WhatsApp-Support während des Aufenthalts. Transparenz und Nähe sind die Basis des Vertrauens bei AmseelCars.",
     "fleetImageAlt": "Premiumflotte, Amseel Cars",
-    "fleetTitle": "Premium-Flottenerlebnis",
-    "fleetP1": "Erleben Sie neu interpretierten Luxus mit unserer handverlesenen Premiumflotte. Jedes Fahrzeug steht für starke Technik, moderne Technologie und zeitloses Design.",
-    "fleetP2": "Vom Flughafentransfer bis zum besonderen Anlass wird jedes Fahrzeug sorgfältig gepflegt, damit die Fahrt genauso eindrucksvoll ist wie das Ziel.",
-    "fleetP3": "Unser Anspruch geht über das Auto hinaus: professionelle Fahrer, reibungslose Buchung und 24/7-Support für eine entspannte Miete.",
+    "fleetTitle": "Unsere Flotte in Agadir",
+    "fleetP1": "Wir vermieten aktuelle Economy-, Automatik-, SUV- und Premiumwagen für Agadir, Flughafenabholung und Fahrten nach Taghazout.",
+    "fleetP2": "Jedes Fahrzeug wird vor Übergabe gereinigt und geprüft. Sie fahren selbst — wir sind eine Self-Drive-Vermietung, kein Chauffeur-Service.",
+    "fleetP3": "Buchung zuerst per WhatsApp: Auto, Daten, Preis und Versicherung vor Abholung bestätigt, Support während der Miete.",
     "brandWordAmseel": "Amseel",
     "brandWordCars": "Cars",
     "headerInfo": "AmseelCars Agadir: WhatsApp-Buchung, Abholung Flughafen oder Zentrum, transparente Preise und 24/7 Support in Marokko.",
-    "brandsHeading": "(Unsere",
-    "brandsHeading2": " Marken)",
+    "brandsHeading": "Unsere",
+    "brandsHeading2": " Marken",
     "brandTileAria": "{name}, Vorschau",
     "brandLogoAlt": "{name} Logo",
     "brandCarAlt": "{name} Fahrzeug",
@@ -690,12 +700,12 @@
     "splitLine3Right": "IHRE MARKE",
     "splitLine4Left": "KURZ- ODER",
     "splitLine4Right": "LANGZEIT",
-    "textHoverLine1": "MIETEN & LOS",
-    "textHoverLine1Span": "AMSEEL CAR",
-    "textHoverLine2": "SCHNELLE ABHOLUNG",
-    "textHoverLine2Span": "FLUGHAFEN & STADT",
-    "textHoverLine3": "BUCHUNG",
-    "textHoverLine3Span": "IN 2 MINUTEN",
+    "textHoverLine1": "SELF-DRIVE",
+    "textHoverLine1Span": "AMSEEL CARS",
+    "textHoverLine2": "FLUGHAFEN ODER",
+    "textHoverLine2Span": "STADTÜBERGABE",
+    "textHoverLine3": "KLARE BEDINGUNGEN",
+    "textHoverLine3Span": "VOR ABFAHRT",
     "showCarsLoading": "Fahrzeugbilder werden geladen…",
     "showCarsProgress": "{loaded} / {total} Bilder geladen",
     "showCarsImageAlt": "Mietwagen, Bild {n}",
@@ -865,8 +875,8 @@
         "value": "{count, plural, one {# Modell} other {# Modelle}}"
       },
       "rating": {
-        "label": "Ø Bewertung",
-        "helper": "Neueste Übergaben in {year}",
+        "label": "Google-Bewertung",
+        "helper": "Agentur-Bewertung auf Google Maps",
         "value": "{rating} / 5"
       },
       "segments": {
@@ -894,7 +904,8 @@
       "transmission": "Getriebe",
       "fuel": "Kraftstoff",
       "fromPrice": "Ab {price}/Tag",
-      "deliveryLabel": "24/7-Lieferung"
+      "deliveryLabel": "24/7-Lieferung",
+      "trustLine": "Ohne Kaution · Ohne Kreditkarte · Gratis Lieferung"
     },
     "insightsFallbackHeading": "Warum einen {brand} bei AMSEEL CARS mieten",
     "insights": {
@@ -1040,7 +1051,7 @@
   },
   "legalPages": {
     "lastUpdatedLabel": "Zuletzt aktualisiert",
-    "lastUpdatedDate": "20. September 2026",
+    "lastUpdatedDate": "29. Oktober 2026",
     "relatedNavAria": "Rechtliche Seiten und Kontakt",
     "rentalTerms": {
       "h1": "Mietbedingungen",
@@ -1056,7 +1067,7 @@
         {
           "title": "Mindestdauer",
           "paragraphs": [
-            "Die Mindestmietdauer beträgt 5 Tage. Mietzeiten von 1–4 Tagen werden nicht akzeptiert.",
+            "Die Mindestmietdauer beträgt 5 Tage. Mietzeiten von 1-4 Tagen werden nicht akzeptiert.",
             "Die Dauer berechnet sich aus den bestätigten Abhol- und Rückgabedaten."
           ]
         },
@@ -1064,7 +1075,17 @@
           "title": "Buchung und Zahlung",
           "paragraphs": [
             "Buchung vor allem per WhatsApp (+212 662 500 181) oder Website-Formular. E-Mail: amseelcars5@gmail.com.",
-            "Der Preis hängt von Fahrzeug, Saison und Dauer ab. Inklusivleistungen werden vor der Bestätigung geklärt."
+            "Der Preis hängt von Fahrzeug, Saison und Dauer ab. Was enthalten ist (Kilometer, Standardversicherung, Extras), wird vor der Buchung bestätigt - siehe Abschnitt Versicherung unten."
+          ]
+        },
+        {
+          "title": "Versicherung und Selbstbeteiligung",
+          "paragraphs": [
+            "Die Standardversicherung ist im Mietpreis enthalten, ohne zusätzliche Kosten.",
+            "Bei einem unverschuldeten Unfall ist keine Selbstbeteiligung zu zahlen, vorbehaltlich der vor Abholung bestätigten Vertragsbedingungen.",
+            "Bei einem selbstverschuldeten Unfall gilt eine Selbstbeteiligung je nach Fahrzeugkategorie. Genaue Beträge werden vor der Buchung per WhatsApp bestätigt.",
+            "Die Option ohne Kaution (10 €/Tag) entfernt die Kautionspflicht, hebt aber die Selbstbeteiligung bei selbstverschuldetem Unfall nicht auf.",
+            "Ausschlüsse und Sonderbedingungen (z. B. Reifen, Glas, Unterboden oder Fehlgebrauch) werden bei der Buchung bestätigt. Lesen Sie immer die vor Abholung übermittelten Bedingungen."
           ]
         },
         {

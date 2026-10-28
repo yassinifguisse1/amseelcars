@@ -70,11 +70,7 @@ export default function BlogHero({ title, subtitle, articles }: BlogHeroProps) {
               <span className={styles.label}>{t("statArticles")}</span>
             </div>
             <div className={styles.stat}>
-              <span className={styles.number}>10K+</span>
-              <span className={styles.label}>{t("statReaders")}</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.number}>5★</span>
+              <span className={styles.number}>5.0</span>
               <span className={styles.label}>{t("statSatisfaction")}</span>
             </div>
           </motion.div>

@@ -103,7 +103,7 @@
     },
     "story": {
       "heading": "AMSEEL CARS",
-      "description": "est votre agence locale à Agadir : retrait aéroport ou ville, livraison gratuite, flotte récente et WhatsApp 24/7 sur Agadir, Taghazout, Tamraght et le Souss-Massa. La page Location voiture Agadir détaille les mots-clés ville.",
+      "description": "est votre agence locale à Agadir : retrait aéroport ou ville, livraison gratuite, flotte récente et WhatsApp 24/7 sur Agadir, Taghazout, Tamraght et le Souss-Massa. Ouvrez la page Location voiture Agadir pour le détail ville et hôtel.",
       "bullets": [
         "Location voiture Agadir sans caution, sans carte bancaire, sans frais cachés.",
         "Aéroport ou ville avec livraison pour AGA ou hôtel / centre.",
@@ -219,14 +219,14 @@
     "browseServices": {
       "kicker": "Location de voiture",
       "title": "Explorer les pages Agadir",
-      "subtitle": "Parcourez AmseelCars : la page Location voiture Agadir porte les mots-clés ville, aéroport pour AGA, Taghazout pour la côte.",
+      "subtitle": "Parcourez les pages AmseelCars : remise en ville, meet & greet aéroport d’Agadir, livraison Taghazout, et chaque voiture de la flotte.",
       "panels": {
         "locationsHeading": "Zones & livraison",
         "vehicleTypesHeading": "Par catégorie de véhicule",
         "brandsHeading": "Par marque",
         "locationsCopy": "Meet & greet aéroport Agadir Al Massira, centre d’Agadir, Taghazout, Tamraght ou villas côtières du Souss-Massa - choisissez le lieu de remise.",
         "vehicleTypesCopy": "Filtrez la flotte selon le style de conduite ou le budget voulu.",
-        "brandsCopy": "Chaque marque dispose d'une page optimisée pour la recherche et les assistants."
+        "brandsCopy": "Ouvrez une page marque pour voir les modèles loués à Agadir et comparer les tarifs journaliers."
       },
       "brandLinkLabel": "Location {brand} à Agadir",
       "locations": [
@@ -329,8 +329,8 @@
           "a": "Oui, hôtel et centre-ville. Détail AGA : page aéroport."
         },
         {
-          "q": "Location Agadir Maroc sur cette page ?",
-          "a": "La page Location voiture Agadir porte les mots-clés ville/hôtel. L'accueil présente AmseelCars ; aéroport et Taghazout ont leurs pages."
+          "q": "Quelle page pour ville, aéroport ou Taghazout ?",
+          "a": "Utilisez la page Agadir pour hôtel et centre-ville, la page aéroport pour le meet & greet AGA, et Taghazout pour la côte. Cette page d’accueil présente AmseelCars et vous y mène."
         },
         {
           "q": "Quelles voitures pour Agadir ?",
@@ -407,7 +407,11 @@
       "seats": "{count} sièges",
       "premium": "Premium",
       "bookNow": "Réserver maintenant",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "trustLine": "Sans caution · Sans carte bancaire · Livraison gratuite",
+      "trustNoDeposit": "Sans caution",
+      "trustNoCard": "Sans carte bancaire",
+      "trustFreeDelivery": "Livraison gratuite"
     },
     "schema": {
       "itemListName": "Flotte location voiture Agadir",
@@ -449,8 +453,8 @@
     "specTopSpeed": "Vitesse maximale",
     "specFuelEfficiency": "Consommation",
     "specDrivetrain": "Transmission",
-    "availabilityTitle": "Disponible pour la location",
-    "availabilityBody": "Cette voiture est actuellement disponible et prête pour votre prochaine aventure.",
+    "availabilityTitle": "Demander ce véhicule",
+    "availabilityBody": "La disponibilité dépend de vos dates. Envoyez une demande ou un WhatsApp : nous confirmons avant la prise en charge.",
     "defaultAboutTitle": "À propos de cette voiture",
     "faqHeading": "Questions fréquentes",
     "stickyReserve": "Réserver",
@@ -472,7 +476,7 @@
     "weekEstimate": "{days} jours ≈ {total}",
     "trustNoDeposit": "Sans caution",
     "trustNoCard": "Sans carte bancaire",
-    "trustFreeDelivery": "Livraison gratuite Agadir"
+    "trustFreeDelivery": "Livraison gratuite"
   },
   "booking": {
     "introBlurb": "Retrait possible à l’aéroport Al Massira, en centre-ville, à Taghazout ou à l’agence. Nous vous confirmons la disponibilité et les conditions par e-mail ou WhatsApp.",
@@ -531,10 +535,10 @@
     "waInquiryDaily": "Bonjour, je souhaite louer la {carName} à {price}/jour. Pouvez-vous confirmer la disponibilité et les dates ? Merci.",
     "waInquiryTrip": "Bonjour, je souhaite louer la {carName} pour {days} jours ({pickup} → {return}) pour un total de {total}. Pouvez-vous confirmer la disponibilité ? Merci.",
     "waAddonsSuffix": "Options : {addons}.",
-    "waWheelSuffix": "Code cadeau roue : {code} ({prize}) — merci d'appliquer l'option offerte.",
+    "waWheelSuffix": "Code cadeau roue : {code} ({prize}) - merci d'appliquer l'option offerte.",
     "waWheelGiftTag": "cadeau roue · 2j offerts si 7j+",
     "wheelPrizeBanner": "Cadeau roue : {prize} · code {code}",
-    "wheelPrizeBannerHint": "2 jours offerts si vous réservez 7 jours ou plus — appliqué dans le total ci-dessous.",
+    "wheelPrizeBannerHint": "2 jours offerts si vous réservez 7 jours ou plus - appliqué dans le total ci-dessous.",
     "addons": {
       "title": "Options",
       "moreInfo": "Plus d'informations",
@@ -589,7 +593,13 @@
           "description": "Besoin de plus d’espace bagages ? Ajoutez un coffre de toit — pratique pour les familles, les longs trajets, le matos de surf et les sacs en plus. Sous réserve de disponibilité selon le modèle."
         }
       }
-    }
+    },
+    "priceDepositLine": "Caution",
+    "priceDepositValue": "0 € si éligible",
+    "priceInsuranceLine": "Assurance",
+    "priceInsuranceValue": "Standard incluse",
+    "priceConfirmNote": "Total indicatif. Montant final et disponibilité confirmés sur demande avant la prise en charge.",
+    "priceTaglineFallback": "Sans caution · Sans carte bancaire · Livraison gratuite"
   },
   "contactPage": {
     "hero": {
@@ -671,15 +681,15 @@
     "introP3": "AmseelCars (aussi écrite Amseel Cars) est une agence indépendante à Agadir, pas un agrégateur. Vous parlez directement à l’équipe locale pour le véhicule, les dates, le lieu de remise (ville, aéroport AGA ou Taghazout) et les conditions avant de partir.",
     "introP4": "Notre expérience du terrain à Agadir et sur la côte nous sert à anticiper les besoins réels : documents de location, durée minimale, carburant, et assistance WhatsApp pendant le séjour. Transparence et proximité : c’est la base de la confiance AmseelCars.",
     "fleetImageAlt": "Flotte de véhicules premium, Amseel Cars",
-    "fleetTitle": "Une flotte premium d’exception",
-    "fleetP1": "Vivez un luxe réinventé grâce à notre flotte soigneusement sélectionnée de véhicules premium. Chaque voiture de notre collection incarne le summum de l’excellence automobile, alliant technologies de pointe et design intemporel.",
-    "fleetP2": "Des transferts aéroport aux occasions spéciales, nos véhicules sont entretenus avec un soin méticuleux pour que votre trajet soit aussi mémorable que votre destination. Nous ne vous offrons pas seulement un moyen de transport, mais une expérience qui sublime chaque instant.",
-    "fleetP3": "Notre engagement envers l’excellence dépasse le simple véhicule : chauffeurs professionnels, réservation fluide et assistance client 24h/24 et 7j/7 vous assurent une tranquillité d’esprit totale tout au long de votre location.",
+    "fleetTitle": "Notre flotte à Agadir",
+    "fleetP1": "Nous louons des voitures récentes (économie, automatique, SUV, premium) adaptées à Agadir, à l’aéroport et aux trajets vers Taghazout.",
+    "fleetP2": "Chaque véhicule est nettoyé et contrôlé avant la remise. Vous conduisez vous-même — nous sommes une agence de location en libre-service, pas un service avec chauffeur.",
+    "fleetP3": "Réservation d’abord sur WhatsApp : véhicule, dates, tarif et assurance confirmés avant départ, avec assistance pendant la location.",
     "brandWordAmseel": "Amseel",
     "brandWordCars": "Cars",
     "headerInfo": "AmseelCars Agadir : réservation WhatsApp, retrait aéroport ou centre-ville, tarifs transparents et assistance 24/7 pour voyager au Maroc.",
-    "brandsHeading": "(Nos",
-    "brandsHeading2": " Marques)",
+    "brandsHeading": "Nos",
+    "brandsHeading2": " marques",
     "brandTileAria": "{name}, aperçu",
     "brandLogoAlt": "Logo {name}",
     "brandCarAlt": "Voiture {name}",
@@ -690,12 +700,12 @@
     "splitLine3Right": "VOTRE MARQUE",
     "splitLine4Left": "COURTE OU",
     "splitLine4Right": "LONGUE DURÉE",
-    "textHoverLine1": "LOUEZ & PARTEZ",
-    "textHoverLine1Span": "AMSEEL CAR",
-    "textHoverLine2": "RETRAIT RAPIDE",
-    "textHoverLine2Span": "AÉROPORT & VILLE",
-    "textHoverLine3": "RÉSERVATION",
-    "textHoverLine3Span": "EN 2 MINUTES",
+    "textHoverLine1": "LIBRE-SERVICE",
+    "textHoverLine1Span": "AMSEEL CARS",
+    "textHoverLine2": "AÉROPORT OU",
+    "textHoverLine2Span": "REMISE EN VILLE",
+    "textHoverLine3": "CONDITIONS CLAIRES",
+    "textHoverLine3Span": "AVANT LE DÉPART",
     "showCarsLoading": "Chargement des images…",
     "showCarsProgress": "{loaded} / {total} images chargées",
     "showCarsImageAlt": "Voiture de location, image {n}",
@@ -865,8 +875,8 @@
         "value": "{count, plural, one {# modèle} other {# modèles}}"
       },
       "rating": {
-        "label": "Note moyenne",
-        "helper": "Dernières livraisons en {year}",
+        "label": "Note Google",
+        "helper": "Note de l'agence sur Google Maps",
         "value": "{rating} / 5"
       },
       "segments": {
@@ -894,7 +904,8 @@
       "transmission": "Boîte",
       "fuel": "Carburant",
       "fromPrice": "À partir de {price}/jour",
-      "deliveryLabel": "Livraison 24/7"
+      "deliveryLabel": "Livraison 24/7",
+      "trustLine": "Sans caution · Sans carte bancaire · Livraison gratuite"
     },
     "insightsFallbackHeading": "Pourquoi louer une {brand} chez AMSEEL CARS",
     "insights": {
@@ -1040,7 +1051,7 @@
   },
   "legalPages": {
     "lastUpdatedLabel": "Dernière mise à jour",
-    "lastUpdatedDate": "20 septembre 2026",
+    "lastUpdatedDate": "29 octobre 2026",
     "relatedNavAria": "Pages légales et contact",
     "rentalTerms": {
       "h1": "Conditions de location",
@@ -1064,7 +1075,17 @@
           "title": "Réservation et paiement",
           "paragraphs": [
             "La réservation se fait principalement via WhatsApp (+212 662 500 181) ou le formulaire du site. Un e-mail de confirmation peut être envoyé à amseelcars5@gmail.com.",
-            "Le tarif annoncé dépend du véhicule, de la saison et de la durée. Ce qui est inclus (kilométrage, assurances de base, options) est précisé avant confirmation."
+            "Le tarif dépend du véhicule, de la saison et de la durée. Ce qui est inclus (kilométrage, assurance standard, options) est précisé avant confirmation - voir la section Assurance ci-dessous."
+          ]
+        },
+        {
+          "title": "Assurance et franchise",
+          "paragraphs": [
+            "L'assurance standard est incluse dans le prix de location, sans frais supplémentaires.",
+            "En cas d'accident non responsable, aucune franchise n'est à payer, sous réserve des conditions du contrat confirmées avant la prise en charge.",
+            "En cas d'accident responsable, une franchise s'applique selon la catégorie du véhicule. Les montants exacts sont confirmés sur WhatsApp avant réservation.",
+            "L'option sans caution (10 €/jour) supprime l'obligation de dépôt de caution, mais ne supprime pas la franchise d'assurance en cas d'accident responsable.",
+            "Les exclusions et conditions particulières (par exemple pneus, vitrages, soubassement ou mauvais usage) sont précisées à la réservation. Lisez toujours les conditions envoyées avant le départ."
           ]
         },
         {

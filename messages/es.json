@@ -219,14 +219,14 @@
     "browseServices": {
       "kicker": "Alquiler de coches",
       "title": "Explora las páginas de Agadir",
-      "subtitle": "Explora AmseelCars: la página Alquiler coche Agadir lleva las keywords de ciudad; aeropuerto para AGA; Taghazout para la costa.",
+      "subtitle": "Explora las páginas AmseelCars: entrega en ciudad, meet & greet en el aeropuerto de Agadir, costa de Taghazout y cada coche de la flota.",
       "panels": {
         "locationsHeading": "Donde entregamos y operamos",
         "vehicleTypesHeading": "Buscar por categoria de vehiculo",
         "brandsHeading": "Buscar por marca",
         "locationsCopy": "Meet & greet en Aeropuerto Agadir Al Massira, centro de Agadir, Taghazout, Tamraght o villas costeras de Souss-Massa - elige dónde entregamos el coche.",
         "vehicleTypesCopy": "Filtra la flota por el estilo de conduccion o presupuesto que necesitas en Agadir.",
-        "brandsCopy": "Cada pagina de marca tiene una URL preparada para SEO para que los asistentes puedan citarla facilmente."
+        "brandsCopy": "Abre una página de marca para ver los modelos que alquilamos en Agadir y comparar tarifas diarias."
       },
       "brandLinkLabel": "Alquiler de {brand} en Agadir",
       "locations": [
@@ -329,8 +329,8 @@
           "a": "Sí, hotel y centro. Detalle AGA: página aeropuerto."
         },
         {
-          "q": "¿Alquiler Agadir Marruecos en esta página?",
-          "a": "La página Alquiler coche Agadir lleva las keywords ciudad/hotel. El inicio presenta AmseelCars; aeropuerto y Taghazout tienen sus páginas."
+          "q": "¿Qué página usar para ciudad, aeropuerto o Taghazout?",
+          "a": "Usa la página de Agadir para hotel y centro, la del aeropuerto para meet & greet en AGA, y Taghazout para la costa. Esta inicio presenta AmseelCars y te lleva allí."
         },
         {
           "q": "¿Qué coches para Agadir?",
@@ -407,7 +407,11 @@
       "seats": "{count} plazas",
       "premium": "Premium",
       "bookNow": "Reservar ahora",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "trustLine": "Sin depósito · Sin tarjeta · Entrega gratis",
+      "trustNoDeposit": "Sin depósito",
+      "trustNoCard": "Sin tarjeta",
+      "trustFreeDelivery": "Entrega gratis"
     },
     "schema": {
       "itemListName": "Flota de alquiler de coches en Agadir",
@@ -449,8 +453,8 @@
     "specTopSpeed": "Velocidad máxima",
     "specFuelEfficiency": "Consumo de combustible",
     "specDrivetrain": "Tracción",
-    "availabilityTitle": "Disponible para alquilar",
-    "availabilityBody": "Este coche está disponible y listo para tu próximo viaje.",
+    "availabilityTitle": "Solicitar este coche",
+    "availabilityBody": "La disponibilidad depende de tus fechas. Envía una solicitud o WhatsApp y confirmamos antes de la entrega.",
     "defaultAboutTitle": "Acerca de este coche",
     "faqHeading": "Preguntas frecuentes",
     "stickyReserve": "Reservar",
@@ -471,8 +475,8 @@
     "fromPrice": "Desde {price}",
     "weekEstimate": "{days} días ≈ {total}",
     "trustNoDeposit": "Sin depósito",
-    "trustNoCard": "Sin tarjeta bancaria",
-    "trustFreeDelivery": "Entrega gratis Agadir"
+    "trustNoCard": "Sin tarjeta",
+    "trustFreeDelivery": "Entrega gratis"
   },
   "booking": {
     "introBlurb": "La recogida está disponible en el aeropuerto Al Massira, en el centro de Agadir, en Taghazout o en nuestra oficina. Confirmamos disponibilidad y condiciones por correo o WhatsApp.",
@@ -531,10 +535,10 @@
     "waInquiryDaily": "Hola, quiero alquilar el {carName} a {price}/día. ¿Pueden confirmar disponibilidad y fechas? Gracias.",
     "waInquiryTrip": "Hola, quiero alquilar el {carName} durante {days} días ({pickup} → {return}) por un total de {total}. ¿Pueden confirmar disponibilidad? Gracias.",
     "waAddonsSuffix": "Extras: {addons}.",
-    "waWheelSuffix": "Código de la ruleta: {code} ({prize}) — por favor apliquen el extra gratis.",
+    "waWheelSuffix": "Código de la ruleta: {code} ({prize}) - por favor apliquen el extra gratis.",
     "waWheelGiftTag": "regalo ruleta · 2 días gratis si 7+",
     "wheelPrizeBanner": "Regalo ruleta: {prize} · código {code}",
-    "wheelPrizeBannerHint": "2 días gratis si reservas 7 días o más — aplicado en el total abajo.",
+    "wheelPrizeBannerHint": "2 días gratis si reservas 7 días o más - aplicado en el total abajo.",
     "addons": {
       "title": "Extras",
       "moreInfo": "Más información",
@@ -589,7 +593,13 @@
           "description": "¿Necesitas más espacio? Añade un cofre de techo — útil para familias, viajes largos, material de surf y maletas extra. Sujeto a disponibilidad según el modelo."
         }
       }
-    }
+    },
+    "priceDepositLine": "Fianza",
+    "priceDepositValue": "0 € si eres elegible",
+    "priceInsuranceLine": "Seguro",
+    "priceInsuranceValue": "Estándar incluido",
+    "priceConfirmNote": "Total orientativo. Importe final y disponibilidad confirmados bajo petición antes de la entrega.",
+    "priceTaglineFallback": "Sin depósito · Sin tarjeta · Entrega gratis"
   },
   "contactPage": {
     "hero": {
@@ -671,15 +681,15 @@
     "introP3": "AmseelCars (también Amseel Cars) es una agencia independiente en Agadir, no un agregador. Hablas directamente con el equipo local sobre el coche, las fechas, el punto de entrega (ciudad, aeropuerto AGA o Taghazout) y las condiciones antes de salir.",
     "introP4": "La experiencia local en Agadir y la costa nos ayuda a anticipar necesidades reales: documentos, mínimo de días, combustible y asistencia WhatsApp durante la estancia. Transparencia y cercanía: la base de la confianza AmseelCars.",
     "fleetImageAlt": "Flota premium, Amseel Cars",
-    "fleetTitle": "Experiencia de flota premium",
-    "fleetP1": "Vive un lujo reinventado con nuestra flota seleccionada de vehículos premium. Cada coche reúne ingeniería, tecnología avanzada y diseño atemporal.",
-    "fleetP2": "Desde traslados al aeropuerto hasta ocasiones especiales, cada vehículo se mantiene con precisión para que el trayecto sea tan memorable como el destino.",
-    "fleetP3": "Nuestro compromiso va más allá del coche: conductores profesionales, reserva fluida y asistencia 24/7 para que disfrutes tu alquiler con tranquilidad.",
+    "fleetTitle": "Nuestra flota en Agadir",
+    "fleetP1": "Alquilamos coches recientes (economía, automático, SUV, premium) para Agadir, aeropuerto y viajes hacia Taghazout.",
+    "fleetP2": "Cada vehículo se limpia y revisa antes de la entrega. Conduces tú — somos alquiler self-drive, no servicio con chófer.",
+    "fleetP3": "Reserva primero por WhatsApp: coche, fechas, precio y seguro confirmados antes de la entrega, con soporte durante el alquiler.",
     "brandWordAmseel": "Amseel",
     "brandWordCars": "Cars",
     "headerInfo": "AmseelCars Agadir: reserva WhatsApp, recogida aeropuerto o centro, tarifas claras y asistencia 24/7 en Marruecos.",
-    "brandsHeading": "(Nuestras",
-    "brandsHeading2": " marcas)",
+    "brandsHeading": "Nuestras",
+    "brandsHeading2": " marcas",
     "brandTileAria": "{name}, vista previa",
     "brandLogoAlt": "Logo {name}",
     "brandCarAlt": "Coche {name}",
@@ -690,12 +700,12 @@
     "splitLine3Right": "TU MARCA",
     "splitLine4Left": "CORTA O",
     "splitLine4Right": "LARGA DURACIÓN",
-    "textHoverLine1": "ALQUILA Y SAL",
-    "textHoverLine1Span": "AMSEEL CAR",
-    "textHoverLine2": "RECOGIDA RÁPIDA",
-    "textHoverLine2Span": "AEROPUERTO Y CIUDAD",
-    "textHoverLine3": "RESERVA",
-    "textHoverLine3Span": "EN 2 MINUTOS",
+    "textHoverLine1": "SELF-DRIVE",
+    "textHoverLine1Span": "AMSEEL CARS",
+    "textHoverLine2": "AEROPUERTO O",
+    "textHoverLine2Span": "ENTREGA EN CIUDAD",
+    "textHoverLine3": "CONDICIONES CLARAS",
+    "textHoverLine3Span": "ANTES DE SALIR",
     "showCarsLoading": "Cargando imágenes de coches…",
     "showCarsProgress": "{loaded} / {total} imágenes cargadas",
     "showCarsImageAlt": "Coche de alquiler, imagen {n}",
@@ -865,8 +875,8 @@
         "value": "{count, plural, one {# modelo} other {# modelos}}"
       },
       "rating": {
-        "label": "Valoración media",
-        "helper": "Últimas entregas en {year}",
+        "label": "Valoración Google",
+        "helper": "Valoración de la agencia en Google Maps",
         "value": "{rating} / 5"
       },
       "segments": {
@@ -894,7 +904,8 @@
       "transmission": "Transmisión",
       "fuel": "Combustible",
       "fromPrice": "Desde {price}/día",
-      "deliveryLabel": "Entrega 24/7"
+      "deliveryLabel": "Entrega 24/7",
+      "trustLine": "Sin depósito · Sin tarjeta · Entrega gratis"
     },
     "insightsFallbackHeading": "Por qué alquilar un {brand} con AMSEEL CARS",
     "insights": {
@@ -1040,7 +1051,7 @@
   },
   "legalPages": {
     "lastUpdatedLabel": "Última actualización",
-    "lastUpdatedDate": "20 de septiembre de 2026",
+    "lastUpdatedDate": "29 de octubre de 2026",
     "relatedNavAria": "Páginas legales y contacto",
     "rentalTerms": {
       "h1": "Condiciones de alquiler",
@@ -1064,7 +1075,17 @@
           "title": "Reserva y pago",
           "paragraphs": [
             "Reserva principalmente por WhatsApp (+212 662 500 181) o el formulario web. También: amseelcars5@gmail.com.",
-            "El precio depende del vehículo, la temporada y la duración. Lo incluido se confirma antes de reservar."
+            "El precio depende del vehículo, la temporada y la duración. Lo incluido (kilometraje, seguro estándar, extras) se confirma antes de reservar - ver la sección Seguro más abajo."
+          ]
+        },
+        {
+          "title": "Seguro y franquicia",
+          "paragraphs": [
+            "El seguro estándar está incluido en el precio del alquiler, sin coste adicional.",
+            "En caso de accidente no culpable, no se paga franquicia, según las condiciones del contrato confirmadas antes de la entrega.",
+            "En caso de accidente culpable, se aplica una franquicia según la categoría del vehículo. Los importes exactos se confirman por WhatsApp antes de reservar.",
+            "La opción sin fianza (10 €/día) elimina el depósito de fianza, pero no elimina la franquicia del seguro si eres responsable del accidente.",
+            "Exclusiones y condiciones especiales (por ejemplo neumáticos, cristales, bajos o mal uso) se confirman al reservar. Lee siempre las condiciones enviadas antes de la entrega."
           ]
         },
         {

@@ -29,6 +29,7 @@ import { formatCarPriceLabel } from '@/lib/currency';
 import { BUSINESS_WHATSAPP_URL } from '@/lib/business';
 import { readWheelClaim, type WheelClaim } from '@/lib/wheelOfChance';
 import { BookingAddons } from './BookingAddons';
+import { LandingGoogleReviewBadge } from '@/components/Landing/LandingGoogleReviewBadge';
 
 type BookingFormData = {
   fullName: string;
@@ -751,12 +752,23 @@ export default function BookingDialog({
                                 {formatCarPriceLabel(addonsTotalLive, currency)}
                               </span>
                             </div>
+                            <div className="flex items-center justify-between gap-3 text-gray-700">
+                              <span>{t('priceDepositLine')}</span>
+                              <span className="font-medium">{t('priceDepositValue')}</span>
+                            </div>
+                            <div className="flex items-center justify-between gap-3 text-gray-700">
+                              <span>{t('priceInsuranceLine')}</span>
+                              <span className="font-medium">{t('priceInsuranceValue')}</span>
+                            </div>
                             <div className="flex items-center justify-between gap-3 border-t border-gray-200 pt-2 text-base font-semibold text-gray-900">
                               <span>{t('priceTotalLine')}</span>
                               <span className="tabular-nums text-[#EC1C25]">
                                 {formatCarPriceLabel(grandTotalLive, currency)}
                               </span>
                             </div>
+                            <p className="pt-1 text-xs leading-snug text-gray-500">
+                              {t('priceConfirmNote')}
+                            </p>
                           </div>
                         ) : (
                           <div className="space-y-1 text-sm text-gray-700">
@@ -782,7 +794,18 @@ export default function BookingDialog({
                                 </span>
                               </div>
                             ) : null}
+                            <div className="flex items-center justify-between gap-3">
+                              <span>{t('priceDepositLine')}</span>
+                              <span className="font-medium">{t('priceDepositValue')}</span>
+                            </div>
+                            <div className="flex items-center justify-between gap-3">
+                              <span>{t('priceInsuranceLine')}</span>
+                              <span className="font-medium">{t('priceInsuranceValue')}</span>
+                            </div>
                             <p className="pt-1 text-xs text-gray-500">{t('pricePickDatesHint')}</p>
+                            <p className="text-xs leading-snug text-gray-500">
+                              {t('priceConfirmNote')}
+                            </p>
                           </div>
                         )}
                       </div>
@@ -876,7 +899,7 @@ export default function BookingDialog({
             {t('inlineBadge')}
           </div>
           <div className="relative bg-[#EC1C25] px-5 py-6 text-white md:px-7 md:py-7">
-            <div className="flex flex-col items-center justify-center gap-2 text-center">
+            <div className="flex flex-col items-center justify-center gap-2.5 text-center">
               {hasValidDates ? (
                 <>
                   <p className="font-sans text-sm font-semibold uppercase tracking-wide text-white/90 md:text-base">
@@ -897,11 +920,12 @@ export default function BookingDialog({
                   {priceLabel}
                 </p>
               ) : null}
-              {priceTagline ? (
-                <p className="max-w-md font-sans text-xs font-normal leading-snug text-white/85 md:text-sm">
-                  {priceTagline}
-                </p>
-              ) : null}
+              <p className="max-w-md font-sans text-sm font-medium leading-snug text-white md:text-[0.95rem]">
+                {priceTagline || t('priceTaglineFallback')}
+              </p>
+              <div className="pt-0.5">
+                <LandingGoogleReviewBadge />
+              </div>
             </div>
           </div>
           <div className={`p-5 md:p-7 ${styles.inlineFormBody}`}>

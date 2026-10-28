@@ -500,7 +500,6 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
-                    rating={car.rating}
                     slug={displayCar.slug}
                     brand={car.brand}
                     onBook={() => handleBookCar(car.carName)}
@@ -530,7 +529,6 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
-                    rating={car.rating}
                     slug={displayCar.slug}
                     brand={car.brand}
                     onBook={() => handleBookCar(car.carName)}
@@ -562,7 +560,6 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
-                      rating={car.rating}
                       slug={displayCar.slug}
                       brand={car.brand}
                       onBook={() => handleBookCar(car.carName)}
@@ -592,7 +589,6 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
                       seats={car.seats}
                       fuelType={car.fuelType}
                       transmission={car.transmission}
-                      rating={car.rating}
                       slug={displayCar.slug}
                       brand={car.brand}
                       onBook={() => handleBookCar(car.carName)}

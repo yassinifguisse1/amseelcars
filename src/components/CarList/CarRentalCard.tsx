@@ -28,7 +28,8 @@ interface CarRentalCardProps {
   seats: number
   fuelType: string
   transmission: string
-  rating: number
+  /** Optional; omitted so we do not show invented per-car scores. */
+  rating?: number
   slug?: string // Optional slug for routing
   /** With `slug`, builds brand-scoped car URL (`/cars/brand/...`) for SEO */
   brand?: string
@@ -95,10 +96,12 @@ export function CarRentalCard({
             className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
             sizes="(max-width: 480px) 260px, (max-width: 768px) 300px, (max-width: 1024px) 340px, 380px"
           />
-          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex items-center gap-1 rounded-full bg-black/70 px-2 py-1 text-xs text-white">
-            <span>⭐</span>
-            <span>{rating}</span>
-          </div>
+          {typeof rating === "number" && rating > 0 ? (
+            <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex items-center gap-1 rounded-full bg-black/70 px-2 py-1 text-xs text-white">
+              <span>⭐</span>
+              <span>{rating}</span>
+            </div>
+          ) : null}
         </div>
         {imageCaption ? (
           <p className="mt-2 line-clamp-2 text-xs leading-snug text-muted-foreground px-0.5">

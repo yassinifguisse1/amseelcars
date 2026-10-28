@@ -219,14 +219,14 @@
     "browseServices": {
       "kicker": "Car rental",
       "title": "Explore Agadir rental pages",
-      "subtitle": "Browse AmseelCars: open the Agadir city page for car rental Agadir keywords, the airport page for AGA pickup, or Taghazout for the coast. Every vehicle has its own URL for search engines and assistants.",
+      "subtitle": "Browse AmseelCars pages for city pickup, Agadir Airport meet & greet, Taghazout coast delivery, and every car in the fleet.",
       "panels": {
         "locationsHeading": "Where we deliver & operate",
         "vehicleTypesHeading": "Shop by vehicle category",
         "brandsHeading": "Shop by brand",
         "locationsCopy": "Agadir Al Massira Airport meet & greet, downtown Agadir, Taghazout, Tamraght, or coastal villas across Souss-Massa - pick where we hand over your car.",
         "vehicleTypesCopy": "Filter the fleet by the driving style or budget you need in Agadir.",
-        "brandsCopy": "Each brand hub has its own SEO-ready URL so assistants can cite it easily."
+        "brandsCopy": "Open a brand page to see the models we rent in Agadir and compare daily rates."
       },
       "brandLinkLabel": "{brand} rental in Agadir",
       "locations": [
@@ -329,8 +329,8 @@
           "a": "Yes. Free hotel and downtown handover for car rental Agadir city stays. For AGA meet & greet details, use our dedicated airport page."
         },
         {
-          "q": "Is car rental Agadir Morocco covered on this page?",
-          "a": "The Agadir city page owns car rental Agadir and car rental Morocco Agadir for city and hotel delivery. This homepage is the brand hub; airport and Taghazout pages cover location-specific intent."
+          "q": "Where should I book for city, airport or Taghazout?",
+          "a": "Use the Agadir city page for hotel and downtown delivery, the airport page for AGA meet & greet, and the Taghazout page for the coast. This homepage introduces AmseelCars and links you there."
         },
         {
           "q": "Which cars work best for Agadir trips?",
@@ -407,7 +407,11 @@
       "seats": "{count} seats",
       "premium": "Premium",
       "bookNow": "Book now",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "trustLine": "No deposit · No credit card · Free delivery",
+      "trustNoDeposit": "No deposit",
+      "trustNoCard": "No credit card",
+      "trustFreeDelivery": "Free delivery"
     },
     "schema": {
       "itemListName": "Car rental fleet in Agadir",
@@ -449,8 +453,8 @@
     "specTopSpeed": "Top speed",
     "specFuelEfficiency": "Fuel efficiency",
     "specDrivetrain": "Drivetrain",
-    "availabilityTitle": "Available to rent",
-    "availabilityBody": "This car is currently available and ready for your next trip.",
+    "availabilityTitle": "Request this car",
+    "availabilityBody": "Availability depends on your dates. Send a booking request or WhatsApp and we confirm before pickup.",
     "defaultAboutTitle": "About this car",
     "faqHeading": "Frequently asked questions",
     "stickyReserve": "Book",
@@ -472,7 +476,7 @@
     "weekEstimate": "{days} days ≈ {total}",
     "trustNoDeposit": "No deposit",
     "trustNoCard": "No credit card",
-    "trustFreeDelivery": "Free delivery Agadir"
+    "trustFreeDelivery": "Free delivery"
   },
   "booking": {
     "introBlurb": "Pickup is available at Al Massira Airport, downtown Agadir, Taghazout, or at our office. We’ll confirm availability and terms by email or WhatsApp.",
@@ -531,10 +535,10 @@
     "waInquiryDaily": "Hello, I would like to rent the {carName} at {price}/day. Can you confirm availability and dates? Thank you.",
     "waInquiryTrip": "Hello, I would like to rent the {carName} for {days} days ({pickup} → {return}) for a total of {total}. Can you confirm availability? Thank you.",
     "waAddonsSuffix": "Add-ons: {addons}.",
-    "waWheelSuffix": "Wheel gift code: {code} ({prize}) — please apply the free add-on.",
+    "waWheelSuffix": "Wheel gift code: {code} ({prize}) - please apply the free add-on.",
     "waWheelGiftTag": "wheel gift · 2 days free if 7+",
     "wheelPrizeBanner": "Wheel gift: {prize} · code {code}",
-    "wheelPrizeBannerHint": "2 days free when you book 7 days or more — applied in the total below.",
+    "wheelPrizeBannerHint": "2 days free when you book 7 days or more - applied in the total below.",
     "addons": {
       "title": "Add-ons",
       "moreInfo": "More information",
@@ -589,7 +593,13 @@
           "description": "Need extra space for luggage? Add a roof top cargo box — useful for family trips, longer journeys, surf gear, and extra bags. Subject to availability for your car model."
         }
       }
-    }
+    },
+    "priceDepositLine": "Deposit",
+    "priceDepositValue": "€0 if eligible",
+    "priceInsuranceLine": "Insurance",
+    "priceInsuranceValue": "Standard included",
+    "priceConfirmNote": "Indicative total. Final amount and availability confirmed on request before pickup.",
+    "priceTaglineFallback": "No deposit · No credit card · Free delivery"
   },
   "contactPage": {
     "hero": {
@@ -671,15 +681,15 @@
     "introP3": "AmseelCars (also written Amseel Cars) is an independent agency in Agadir, not an aggregator. You speak directly with the local team about the car, dates, pickup point (city, AGA airport or Taghazout) and terms before you leave.",
     "introP4": "Local experience in Agadir and along the coast helps us anticipate real needs: rental documents, minimum hire length, fuel, and WhatsApp support during your stay. Transparency and proximity are the foundation of trust at AmseelCars.",
     "fleetImageAlt": "Premium fleet, Amseel Cars",
-    "fleetTitle": "Premium fleet experience",
-    "fleetP1": "Experience reinvented luxury with our hand-picked fleet of premium vehicles. Each car embodies the best in engineering, cutting-edge tech, and timeless design.",
-    "fleetP2": "From airport transfers to special occasions, every vehicle is meticulously maintained so the drive is as memorable as the destination. We don’t just offer transport, we elevate every moment.",
-    "fleetP3": "Our commitment goes beyond the car itself: professional drivers, smooth booking, and 24/7 support so you can relax throughout your rental.",
+    "fleetTitle": "Our fleet in Agadir",
+    "fleetP1": "We rent recent economy, automatic, SUV and premium cars suited to Agadir city, airport pickup and coast trips toward Taghazout.",
+    "fleetP2": "Each vehicle is cleaned and checked before handover. You drive yourself — this is a self-drive rental agency, not a chauffeur service.",
+    "fleetP3": "Booking is WhatsApp-first: we confirm the car, dates, price and insurance terms before pickup, with support during your rental.",
     "brandWordAmseel": "Amseel",
     "brandWordCars": "Cars",
     "headerInfo": "AmseelCars Agadir: WhatsApp booking, airport or city pickup, transparent rates and 24/7 support for travel in Morocco.",
-    "brandsHeading": "(Our",
-    "brandsHeading2": " brands)",
+    "brandsHeading": "Our",
+    "brandsHeading2": " brands",
     "brandTileAria": "{name}, preview",
     "brandLogoAlt": "{name} logo",
     "brandCarAlt": "{name} car",
@@ -690,12 +700,12 @@
     "splitLine3Right": "YOUR BRAND",
     "splitLine4Left": "SHORT OR",
     "splitLine4Right": "LONG TERM",
-    "textHoverLine1": "RENT & GO",
-    "textHoverLine1Span": "AMSEEL CAR",
-    "textHoverLine2": "FAST PICKUP",
-    "textHoverLine2Span": "AIRPORT & CITY",
-    "textHoverLine3": "BOOKING",
-    "textHoverLine3Span": "IN 2 MINUTES",
+    "textHoverLine1": "SELF-DRIVE",
+    "textHoverLine1Span": "AMSEEL CARS",
+    "textHoverLine2": "AIRPORT OR",
+    "textHoverLine2Span": "CITY PICKUP",
+    "textHoverLine3": "CLEAR TERMS",
+    "textHoverLine3Span": "BEFORE YOU GO",
     "showCarsLoading": "Loading car images…",
     "showCarsProgress": "{loaded} / {total} images loaded",
     "showCarsImageAlt": "Rental car, image {n}",
@@ -865,8 +875,8 @@
         "value": "{count, plural, one {# model} other {# models}}"
       },
       "rating": {
-        "label": "Avg. rating",
-        "helper": "Latest deliveries in {year}",
+        "label": "Google rating",
+        "helper": "Agency rating on Google Maps",
         "value": "{rating} / 5"
       },
       "segments": {
@@ -894,7 +904,8 @@
       "transmission": "Transmission",
       "fuel": "Fuel",
       "fromPrice": "From {price}/day",
-      "deliveryLabel": "24/7 delivery"
+      "deliveryLabel": "24/7 delivery",
+      "trustLine": "No deposit · No credit card · Free delivery"
     },
     "insightsFallbackHeading": "Why rent a {brand} with AMSEEL CARS",
     "insights": {
@@ -1040,7 +1051,7 @@
   },
   "legalPages": {
     "lastUpdatedLabel": "Last updated",
-    "lastUpdatedDate": "20 September 2026",
+    "lastUpdatedDate": "29 October 2026",
     "relatedNavAria": "Legal pages and contact",
     "rentalTerms": {
       "h1": "Rental terms",
@@ -1064,7 +1075,17 @@
           "title": "Booking and payment",
           "paragraphs": [
             "Book mainly via WhatsApp (+212 662 500 181) or the website form. You can also email amseelcars5@gmail.com.",
-            "Price depends on vehicle, season and length. What is included (mileage, basic cover, extras) is confirmed before you book."
+            "Price depends on vehicle, season and length. What is included (mileage, standard insurance, extras) is confirmed before you book - see the Insurance section below."
+          ]
+        },
+        {
+          "title": "Insurance and excess",
+          "paragraphs": [
+            "Standard insurance is included in the rental price at no extra charge.",
+            "If you are not at fault in an accident, no excess is payable, subject to the contract terms confirmed before pickup.",
+            "If you are at fault, an excess (franchise) applies according to the vehicle category. Exact amounts are confirmed on WhatsApp before you book.",
+            "Optional no-deposit cover (€10/day) removes the security deposit requirement but does not remove the insurance excess if you are at fault.",
+            "Exclusions and special conditions (for example tyres, glass, underbody, or misuse) are confirmed with your booking. Always read the terms shared before pickup."
           ]
         },
         {

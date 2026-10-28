@@ -338,7 +338,6 @@ const CarGridSection = ({
                     seats={car.seats}
                     fuelType={car.fuelType}
                     transmission={car.transmission}
-                    rating={car.rating}
                     slug={displayCar.slug}
                     brand={car.brand}
                     currency={currency}

@@ -219,14 +219,14 @@
     "browseServices": {
       "kicker": "Wynajem samochodow",
       "title": "Poznaj strony Agadir",
-      "subtitle": "Przeglądaj AmseelCars: strona wynajmu Agadir niesie słowa kluczowe miasta, lotnisko AGA, Taghazout wybrzeże.",
+      "subtitle": "Przeglądaj strony AmseelCars: odbiór w mieście, meet & greet na lotnisku w Agadirze, wybrzeże Taghazout i każde auto floty.",
       "panels": {
         "locationsHeading": "Gdzie dostarczamy i dzialamy",
         "vehicleTypesHeading": "Szukaj wedlug kategorii pojazdu",
         "brandsHeading": "Szukaj wedlug marki",
         "locationsCopy": "Meet & greet na lotnisku Agadir Al Massira, centrum Agadiru, Taghazout, Tamraght lub wille nadmorskie Souss-Massa - wybierz miejsce odbioru.",
         "vehicleTypesCopy": "Filtruj flote wedlug stylu jazdy lub budzetu potrzebnego w Agadirze.",
-        "brandsCopy": "Kazda strona marki ma adres URL gotowy pod SEO, aby asystenci mogli latwo ja cytowac."
+        "brandsCopy": "Otwórz stronę marki, by zobaczyć modele w Agadirze i porównać stawki dzienne."
       },
       "brandLinkLabel": "Wynajem {brand} w Agadirze",
       "locations": [
@@ -407,7 +407,11 @@
       "seats": "{count} miejsc",
       "premium": "Premium",
       "bookNow": "Zarezerwuj teraz",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "trustLine": "Bez kaucji · Bez karty · Darmowa dostawa",
+      "trustNoDeposit": "Bez kaucji",
+      "trustNoCard": "Bez karty",
+      "trustFreeDelivery": "Darmowa dostawa"
     },
     "schema": {
       "itemListName": "Flota samochodów na wynajem w Agadirze",
@@ -449,8 +453,8 @@
     "specTopSpeed": "Prędkość maksymalna",
     "specFuelEfficiency": "Zużycie paliwa",
     "specDrivetrain": "Napęd",
-    "availabilityTitle": "Dostępny do wynajęcia",
-    "availabilityBody": "Ten samochód jest obecnie dostępny i gotowy na Twoją następną podróż.",
+    "availabilityTitle": "Zapytaj o to auto",
+    "availabilityBody": "Dostępność zależy od Twoich dat. Wyślij zapytanie lub WhatsApp — potwierdzimy przed odbiorem.",
     "defaultAboutTitle": "O tym samochodzie",
     "faqHeading": "Najczęściej zadawane pytania",
     "stickyReserve": "Rezerwuj",
@@ -471,8 +475,8 @@
     "fromPrice": "Od {price}",
     "weekEstimate": "{days} dni ≈ {total}",
     "trustNoDeposit": "Bez kaucji",
-    "trustNoCard": "Bez karty kredytowej",
-    "trustFreeDelivery": "Darmowa dostawa Agadir"
+    "trustNoCard": "Bez karty",
+    "trustFreeDelivery": "Darmowa dostawa"
   },
   "booking": {
     "introBlurb": "Odbiór możliwy na lotnisku Al Massira, w centrum Agadiru, w Taghazout lub w naszym biurze. Dostępność i warunki potwierdzimy e-mailem lub WhatsApp.",
@@ -531,10 +535,10 @@
     "waInquiryDaily": "Cześć, chcę wynająć {carName} za {price}/dzień. Czy możecie potwierdzić dostępność i terminy? Dziękuję.",
     "waInquiryTrip": "Cześć, chcę wynająć {carName} na {days} dni ({pickup} → {return}) za łącznie {total}. Czy możecie potwierdzić dostępność? Dziękuję.",
     "waAddonsSuffix": "Dodatki: {addons}.",
-    "waWheelSuffix": "Kod z koła: {code} ({prize}) — proszę dodać darmowy dodatek.",
+    "waWheelSuffix": "Kod z koła: {code} ({prize}) - proszę dodać darmowy dodatek.",
     "waWheelGiftTag": "prezent z koła · 2 dni gratis przy 7+",
     "wheelPrizeBanner": "Prezent z koła: {prize} · kod {code}",
-    "wheelPrizeBannerHint": "2 dni gratis przy rezerwacji na 7 dni lub dłużej — w sumie poniżej.",
+    "wheelPrizeBannerHint": "2 dni gratis przy rezerwacji na 7 dni lub dłużej - w sumie poniżej.",
     "addons": {
       "title": "Dodatki",
       "moreInfo": "Więcej informacji",
@@ -589,7 +593,13 @@
           "description": "Potrzebujesz więcej miejsca na bagaż? Dodaj box dachowy — przydatny dla rodzin, dłuższych tras, sprzętu surfingowego i dodatkowych toreb. Zależnie od dostępności i modelu auta."
         }
       }
-    }
+    },
+    "priceDepositLine": "Kaucja",
+    "priceDepositValue": "0 € jeśli kwalifikujesz się",
+    "priceInsuranceLine": "Ubezpieczenie",
+    "priceInsuranceValue": "Standard wliczone",
+    "priceConfirmNote": "Suma orientacyjna. Kwota końcowa i dostępność potwierdzane na życzenie przed odbiorem.",
+    "priceTaglineFallback": "Bez kaucji · Bez karty · Darmowa dostawa"
   },
   "contactPage": {
     "hero": {
@@ -671,15 +681,15 @@
     "introP3": "AmseelCars (też Amseel Cars) to niezależna agencja w Agadirze, nie agregator. Rozmawiasz bezpośrednio z lokalnym zespołem o aucie, datach, miejscu odbioru (miasto, lotnisko AGA lub Taghazout) i warunkach przed wyjazdem.",
     "introP4": "Lokalne doświadczenie w Agadirze i na wybrzeżu pomaga nam przewidywać realne potrzeby: dokumenty, minimum dni, paliwo i wsparcie WhatsApp podczas pobytu. Przejrzystość i bliskość to fundament zaufania AmseelCars.",
     "fleetImageAlt": "Flota premium, Amseel Cars",
-    "fleetTitle": "Doświadczenie floty premium",
-    "fleetP1": "Odkryj luksus w nowej odsłonie dzięki starannie wybranej flocie pojazdów premium. Każdy samochód łączy inżynierię, nowoczesną technologię i ponadczasowy design.",
-    "fleetP2": "Od transferów lotniskowych po wyjątkowe okazje, każdy pojazd jest utrzymany z dbałością, aby przejazd był równie pamiętny jak cel podróży.",
-    "fleetP3": "Nasze podejście wykracza poza samochód: profesjonalni kierowcy, płynna rezerwacja i wsparcie 24/7 pozwalają spokojnie korzystać z wynajmu.",
+    "fleetTitle": "Nasza flota w Agadirze",
+    "fleetP1": "Wynajmujemy nowoczesne auta economy, automatyczne, SUV i premium na Agadir, lotnisko i trasy do Taghazout.",
+    "fleetP2": "Każdy samochód jest myty i sprawdzany przed wydaniem. Jedziesz sam — to wynajem self-drive, nie usługa z kierowcą.",
+    "fleetP3": "Rezerwacja najpierw na WhatsApp: auto, daty, cena i ubezpieczenie potwierdzone przed odbiorem, wsparcie w trakcie wynajmu.",
     "brandWordAmseel": "Amseel",
     "brandWordCars": "Cars",
     "headerInfo": "AmseelCars Agadir: rezerwacja WhatsApp, odbiór lotnisko lub centrum, przejrzyste ceny i wsparcie 24/7 w Maroku.",
-    "brandsHeading": "(Nasze",
-    "brandsHeading2": " marki)",
+    "brandsHeading": "Nasze",
+    "brandsHeading2": " marki",
     "brandTileAria": "{name}, podgląd",
     "brandLogoAlt": "Logo {name}",
     "brandCarAlt": "Samochód {name}",
@@ -690,12 +700,12 @@
     "splitLine3Right": "SWOJĄ MARKĘ",
     "splitLine4Left": "KRÓTKI LUB",
     "splitLine4Right": "DŁUGI TERMIN",
-    "textHoverLine1": "WYNAJMIJ I JEDŹ",
-    "textHoverLine1Span": "AMSEEL CAR",
-    "textHoverLine2": "SZYBKI ODBIÓR",
-    "textHoverLine2Span": "LOTNISKO I MIASTO",
-    "textHoverLine3": "REZERWACJA",
-    "textHoverLine3Span": "W 2 MINUTY",
+    "textHoverLine1": "SELF-DRIVE",
+    "textHoverLine1Span": "AMSEEL CARS",
+    "textHoverLine2": "LOTNISKO LUB",
+    "textHoverLine2Span": "ODBIÓR W MIEŚCIE",
+    "textHoverLine3": "JASNE WARUNKI",
+    "textHoverLine3Span": "PRZED WYJAZDEM",
     "showCarsLoading": "Ładowanie zdjęć samochodów…",
     "showCarsProgress": "{loaded} / {total} zdjęć załadowanych",
     "showCarsImageAlt": "Samochód na wynajem, zdjęcie {n}",
@@ -865,8 +875,8 @@
         "value": "{count, plural, one {# model} other {# modeli}}"
       },
       "rating": {
-        "label": "Śr. ocena",
-        "helper": "Najnowsze przekazania w {year}",
+        "label": "Ocena Google",
+        "helper": "Ocena agencji w Google Maps",
         "value": "{rating} / 5"
       },
       "segments": {
@@ -894,7 +904,8 @@
       "transmission": "Skrzynia",
       "fuel": "Paliwo",
       "fromPrice": "Od {price}/dzień",
-      "deliveryLabel": "Dostawa 24/7"
+      "deliveryLabel": "Dostawa 24/7",
+      "trustLine": "Bez kaucji · Bez karty · Darmowa dostawa"
     },
     "insightsFallbackHeading": "Dlaczego warto wynająć {brand} z AMSEEL CARS",
     "insights": {
@@ -1040,7 +1051,7 @@
   },
   "legalPages": {
     "lastUpdatedLabel": "Ostatnia aktualizacja",
-    "lastUpdatedDate": "20 września 2026",
+    "lastUpdatedDate": "29 października 2026",
     "relatedNavAria": "Strony prawne i kontakt",
     "rentalTerms": {
       "h1": "Warunki wynajmu",
@@ -1056,7 +1067,7 @@
         {
           "title": "Minimalny okres",
           "paragraphs": [
-            "Minimalny okres wynajmu to 5 dni. Wynajmy 1–4 dni nie są przyjmowane.",
+            "Minimalny okres wynajmu to 5 dni. Wynajmy 1-4 dni nie są przyjmowane.",
             "Czas liczony jest od potwierdzonych dat odbioru i zwrotu."
           ]
         },
@@ -1064,7 +1075,17 @@
           "title": "Rezerwacja i płatność",
           "paragraphs": [
             "Rezerwacja głównie przez WhatsApp (+212 662 500 181) lub formularz. E-mail: amseelcars5@gmail.com.",
-            "Cena zależy od auta, sezonu i długości. Zakres usługi jest potwierdzany przed rezerwacją."
+            "Cena zależy od pojazdu, sezonu i długości. Co jest wliczone (kilometry, ubezpieczenie standardowe, dodatki) potwierdzamy przed rezerwacją - zobacz sekcję Ubezpieczenie poniżej."
+          ]
+        },
+        {
+          "title": "Ubezpieczenie i udział własny",
+          "paragraphs": [
+            "Ubezpieczenie standardowe jest wliczone w cenę wynajmu, bez dodatkowych opłat.",
+            "Przy wypadku bez Twojej winy udział własny nie jest należny, z zastrzeżeniem warunków umowy potwierdzonych przed odbiorem.",
+            "Przy wypadku z Twojej winy udział własny zależy od kategorii pojazdu. Dokładne kwoty potwierdzamy na WhatsApp przed rezerwacją.",
+            "Opcja bez kaucji (10 €/dzień) znosi obowiązek wpłaty kaucji, ale nie znosi udziału własnego przy wypadku z Twojej winy.",
+            "Wyłączenia i warunki szczególne (np. opony, szyby, podwozie lub niewłaściwe użytkowanie) potwierdzamy przy rezerwacji. Zawsze przeczytaj warunki przesłane przed odbiorem."
           ]
         },
         {

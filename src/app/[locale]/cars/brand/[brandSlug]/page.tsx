@@ -19,6 +19,7 @@ import { buildPageMetadata, SITE_URL } from "@/lib/seo/site-meta";
 import type { AppLocale } from "@/i18n/routing";
 import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
 import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
+import { BUSINESS_GOOGLE_RATING } from "@/lib/business";
 import Footer from "@/components/Footer/Footer";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? SITE_URL;
@@ -119,9 +120,6 @@ export default async function CarBrandHubPage({ params }: Props) {
     { name: brand, url: brandPath },
   ]);
 
-  const averageRating = cars.length
-    ? cars.reduce((acc, car) => acc + (car.rating ?? 0), 0) / cars.length
-    : 0;
   const lowestDailyRateMad = cars.length
     ? Math.min(...cars.map((car) => car.pricing?.shortTerm ?? car.pricePerDay))
     : 0;
@@ -141,7 +139,9 @@ export default async function CarBrandHubPage({ params }: Props) {
     {
       label: t("metrics.rating.label"),
       helper: t("metrics.rating.helper", { year: newestModelYear }),
-      value: t("metrics.rating.value", { rating: averageRating.toFixed(1) }),
+      value: t("metrics.rating.value", {
+        rating: BUSINESS_GOOGLE_RATING.toFixed(1),
+      }),
     },
     {
       label: t("metrics.segments.label"),
