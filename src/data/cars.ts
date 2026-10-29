@@ -1241,7 +1241,7 @@ export const cars: Car[] = [
      ],
      pricePerDay: 300,
      seats: 5,
-     fuelType: "Essence",
+     fuelType: "Diesel",
      transmission: "Manuelle 6 rapports",
      rating: 4.7,
      description: "Citadine polyvalente et économique, la Citroën C3 BlueHDi 100 (BVM6) offre une consommation réduite, des aides à la conduite essentielles et une bonne connectivité (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
@@ -1342,7 +1342,7 @@ export const cars: Car[] = [
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
-       { icon: "⛽", name: "Carburant", value: "Essence" },
+       { icon: "⛽", name: "Carburant", value: "Diesel" },
        { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
        { icon: "🛡️", name: "Sécurité", value: "Freinage d'urgence, maintien de voie" },
        { icon: "❄️", name: "Climatisation", value: "Manuelle (selon finition)" },
@@ -3408,7 +3408,7 @@ export const cars: Car[] = [
        hasDiscount: false
      },
      seats: 5,
-     fuelType: "Essence",
+     fuelType: "Diesel",
      transmission: "Manuelle 6 rapports",
      rating: 4.7,
       description: "Citadine polyvalente et économique, la Citroën C3 1.5 BlueHDi 100 ch (boîte manuelle 6 rapports) offre une consommation maîtrisée, des aides à la conduite essentielles et la connectivité Apple CarPlay / Android Auto (selon finition). Idéale pour Agadir et les trajets autour.",
@@ -3460,7 +3460,7 @@ export const cars: Car[] = [
   },
      features: [
        { icon: "🚗", name: "Sièges", value: "5" },
-       { icon: "⛽", name: "Carburant", value: "Essence" },
+       { icon: "⛽", name: "Carburant", value: "Diesel" },
         { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 6 rapports" },
         { icon: "🛡️", name: "Sécurité", value: "ABS, airbags, aides essentielles (selon finition)" },
         { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
