@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ComponentType } from "react";
+import { useMemo, useState, type ComponentType } from "react";
 import {
   Baby,
   CircleHelp,
@@ -16,9 +16,12 @@ import {
 import { useTranslations } from "next-intl";
 import {
   BOOKING_ADDON_MESSAGE_KEYS,
-  BOOKING_ADDONS,
+  FULL_INSURANCE_MIN_DAYS,
+  bookingAddonsForCar,
+  fullInsurancePriceEur,
   type BookingAddonId,
   type BookingAddonSelection,
+  type InsurancePriceCar,
   addonUnitPrice,
 } from "@/lib/bookingAddons";
 import { formatCarPriceLabel, type DisplayCurrency } from "@/lib/currency";
@@ -38,6 +41,10 @@ type BookingAddonsProps = {
   currency: DisplayCurrency;
   /** Wheel-of-chance prize: shown as free and excluded from totals. */
   freeAddonId?: BookingAddonId | null;
+  /** Used to price full insurance by vehicle class. */
+  car?: InsurancePriceCar | null;
+  /** Selected rental length (for the 7-day insurance minimum note). */
+  rentalDays?: number;
 };
 
 export function BookingAddons({
@@ -45,9 +52,21 @@ export function BookingAddons({
   onChange,
   currency,
   freeAddonId = null,
+  car = null,
+  rentalDays = 0,
 }: BookingAddonsProps) {
   const t = useTranslations("booking.addons");
   const [expanded, setExpanded] = useState<BookingAddonId | null>(null);
+  const addons = useMemo(() => bookingAddonsForCar(car), [car]);
+  const insurancePriceLabel = formatCarPriceLabel(
+    addonUnitPrice(fullInsurancePriceEur(car), currency),
+    currency,
+  );
+  const insuranceExclusions = t.raw(
+    "items.fullInsurance.infoExclusions",
+  ) as string[];
+  const showInsuranceMinShortNote =
+    rentalDays > 0 && rentalDays < FULL_INSURANCE_MIN_DAYS;
 
   const setQty = (id: BookingAddonId, qty: number, max: number) => {
     const nextQty = Math.max(0, Math.min(max, qty));
@@ -61,7 +80,7 @@ export function BookingAddons({
     <div className="space-y-2.5 pt-2">
       <h4 className="text-sm font-semibold text-gray-900 sm:text-base">{t("title")}</h4>
       <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {BOOKING_ADDONS.map((addon) => {
+        {addons.map((addon) => {
           const msgKey = BOOKING_ADDON_MESSAGE_KEYS[addon.id];
           const qty = selection[addon.id] ?? 0;
           const unitPrice = addonUnitPrice(addon.priceEur, currency);
@@ -180,41 +199,32 @@ export function BookingAddons({
           </div>
 
           {expanded === "full-insurance" ? (
-            <div className="mt-2 space-y-2.5">
+            <div className="mt-2 space-y-2 text-xs leading-relaxed text-gray-600 sm:text-sm">
+              <p className="font-medium text-gray-900">
+                {t("items.fullInsurance.infoPriceNote", {
+                  price: insurancePriceLabel,
+                })}
+              </p>
+              <p>{t("items.fullInsurance.infoCoverP1")}</p>
+              <p>{t("items.fullInsurance.infoCoverP2")}</p>
               <div>
-                <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
-                  {t("items.fullInsurance.infoStandardHeading")}
+                <p className="font-semibold text-gray-900">
+                  {t("items.fullInsurance.infoExclusionsTitle")}
                 </p>
-                <div className="mt-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="inline-flex rounded-full bg-emerald-600 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
-                      {t("items.fullInsurance.infoStandardBadge")}
-                    </span>
-                    <p className="text-xs font-semibold text-gray-900 sm:text-sm">
-                      {t("items.fullInsurance.infoStandardTitle")}
-                    </p>
-                  </div>
-                  <div className="mt-2 space-y-1.5 text-xs leading-relaxed text-gray-600 sm:text-sm">
-                    <p>{t("items.fullInsurance.infoStandardP1")}</p>
-                    <p>{t("items.fullInsurance.infoStandardP2")}</p>
-                    <p>{t("items.fullInsurance.infoStandardP3")}</p>
-                  </div>
-                </div>
+                <ul className="mt-1.5 list-disc space-y-1 pl-4">
+                  {insuranceExclusions.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
               </div>
-              <div>
-                <p className="text-[0.7rem] font-semibold uppercase tracking-wide text-gray-500 sm:text-xs">
-                  {t("items.fullInsurance.infoOptionHeading")}
+              <p className="font-medium text-gray-800">
+                {t("items.fullInsurance.infoMinDays")}
+              </p>
+              {showInsuranceMinShortNote ? (
+                <p className="rounded-lg border border-amber-200 bg-amber-50 px-2.5 py-2 text-amber-900">
+                  {t("items.fullInsurance.infoMinDaysShortRental")}
                 </p>
-                <div className="mt-1.5 rounded-lg border border-gray-200 bg-white px-3 py-2.5">
-                  <p className="text-xs font-semibold text-gray-900 sm:text-sm">
-                    {t("items.fullInsurance.infoOptionTitle")}
-                  </p>
-                  <div className="mt-2 space-y-1.5 text-xs leading-relaxed text-gray-600 sm:text-sm">
-                    <p>{t("items.fullInsurance.infoOptionP1")}</p>
-                    <p>{t("items.fullInsurance.infoOptionP2")}</p>
-                  </div>
-                </div>
-              </div>
+              ) : null}
             </div>
           ) : (
             <p className="mt-1 text-xs leading-relaxed text-gray-600 sm:text-sm">

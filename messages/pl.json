@@ -555,17 +555,21 @@
         "fullInsurance": {
           "title": "Pełne ubezpieczenie",
           "shortTitle": "Ubezpieczenie",
-          "description": "Ubezpieczenie standardowe z udziałem własnym jest wliczone w cenę. Opcja bez kaucji za 10 €/dzień: bez depozytu; udział własny nadal obowiązuje przy winie kierowcy.",
-          "infoStandardHeading": "Ubezpieczenie standardowe - Wliczone za darmo",
-          "infoStandardBadge": "Wliczone",
-          "infoStandardTitle": "Ubezpieczenie z udziałem własnym",
-          "infoStandardP1": "Ubezpieczenie standardowe jest wliczone w cenę wynajmu, bez dodatkowych opłat.",
-          "infoStandardP2": "Przy wypadku bez Twojej winy udział własny nie jest należny, z zastrzeżeniem warunków umowy.",
-          "infoStandardP3": "Przy wypadku z Twojej winy udział własny zależy od kategorii pojazdu.",
-          "infoOptionHeading": "Opcja bez kaucji - 10 €/dzień",
-          "infoOptionTitle": "Wynajem bez kaucji",
-          "infoOptionP1": "Ciesz się wynajmem bez wpłaty kaucji.",
-          "infoOptionP2": "Ta opcja znosi obowiązek wpłaty kaucji, ale nie znosi udziału własnego przy wypadku z Twojej winy."
+          "description": "Ubezpieczenie kompleksowe: udział własny obniżony do 0 € (wg warunków). Obejmuje jedną szybę czołową i jedną oponę. Min. okres rozliczeniowy: 7 dni.",
+          "infoCoverP1": "Dzięki naszemu pełnemu ubezpieczeniu udział własny jest obniżony do 0 € w razie uszkodzenia lub wypadku, zgodnie z warunkami wynajmu i ubezpieczenia.",
+          "infoCoverP2": "Ubezpieczenie obejmuje stłuczenie jednej szyby czołowej i jednej opony w okresie wynajmu.",
+          "infoExclusionsTitle": "Jednak nie obejmuje:",
+          "infoExclusions": [
+            "Dalszych uszkodzeń szyby czołowej lub szyb",
+            "Dodatkowych kół, opon lub przebić",
+            "Szkód spowodowanych przez kierowcę niewpisanego do umowy wynajmu",
+            "Szkód spowodowanych niewłaściwym paliwem",
+            "Zagubionych lub uszkodzonych kluczyków",
+            "Zagubionych lub uszkodzonych dokumentów pojazdu"
+          ],
+          "infoMinDays": "Minimalny okres ubezpieczenia wynosi 7 dni.",
+          "infoMinDaysShortRental": "Ponieważ Twój wynajem jest krótszy, ubezpieczenie zostanie naliczone za 7 dni.",
+          "infoPriceNote": "Stawka: {price}/dzień (zależnie od auta)."
         },
         "extraChildSeat": {
           "title": "Dodatkowy fotelik dziecięcy",
@@ -1084,7 +1088,7 @@
             "Ubezpieczenie standardowe jest wliczone w cenę wynajmu, bez dodatkowych opłat.",
             "Przy wypadku bez Twojej winy udział własny nie jest należny, z zastrzeżeniem warunków umowy potwierdzonych przed odbiorem.",
             "Przy wypadku z Twojej winy udział własny zależy od kategorii pojazdu. Dokładne kwoty potwierdzamy na WhatsApp przed rezerwacją.",
-            "Opcja bez kaucji (10 €/dzień) znosi obowiązek wpłaty kaucji, ale nie znosi udziału własnego przy wypadku z Twojej winy.",
+            "Opcja bez kaucji (od 10 €/dzień zależnie od auta: 10 € małe auta, 15 € większe, 20 € BMW / Golf 8) znosi obowiązek wpłaty kaucji, ale nie znosi udziału własnego przy wypadku z Twojej winy.",
             "Wyłączenia i warunki szczególne (np. opony, szyby, podwozie lub niewłaściwe użytkowanie) potwierdzamy przy rezerwacji. Zawsze przeczytaj warunki przesłane przed odbiorem."
           ]
         },

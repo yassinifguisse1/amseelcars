@@ -555,17 +555,21 @@
         "fullInsurance": {
           "title": "Seguro completo",
           "shortTitle": "Seguro",
-          "description": "El seguro estándar con franquicia está incluido gratis. Opción sin fianza a 10 €/día: sin depósito; la franquicia sigue aplicando si es responsable del accidente.",
-          "infoStandardHeading": "Seguro estándar - Incluido gratis",
-          "infoStandardBadge": "Incluida",
-          "infoStandardTitle": "Seguro con franquicia",
-          "infoStandardP1": "El seguro estándar está incluido en el precio del alquiler, sin coste adicional.",
-          "infoStandardP2": "En caso de accidente no culpable, no se paga franquicia, según las condiciones del contrato.",
-          "infoStandardP3": "En caso de accidente culpable, se aplica una franquicia según la categoría del vehículo.",
-          "infoOptionHeading": "Opción sin fianza - 10 €/día",
-          "infoOptionTitle": "Alquiler sin fianza",
-          "infoOptionP1": "Disfruta de tu alquiler sin depositar una fianza.",
-          "infoOptionP2": "Esta opción elimina la obligación de depositar una fianza, pero no elimina la franquicia del seguro en caso de accidente culpable."
+          "description": "Seguro a todo riesgo: franquicia reducida a 0 € (según condiciones). Cubre un parabrisas y un neumático. Periodo mínimo facturado: 7 días.",
+          "infoCoverP1": "Con nuestro seguro a todo riesgo, la franquicia se reduce a 0 € en caso de daños o accidente, según las condiciones de alquiler y seguro.",
+          "infoCoverP2": "El seguro cubre la rotura de un solo parabrisas y de un solo neumático durante el periodo de alquiler.",
+          "infoExclusionsTitle": "Sin embargo, no cubre:",
+          "infoExclusions": [
+            "Cualquier daño adicional al parabrisas o a los cristales",
+            "Ruedas, neumáticos o pinchazos adicionales",
+            "Daños causados por un conductor no inscrito en el contrato de alquiler",
+            "Daños causados por el uso de un combustible inadecuado",
+            "Llaves del coche perdidas o dañadas",
+            "Documentos del vehículo perdidos o dañados"
+          ],
+          "infoMinDays": "La duración mínima del seguro es de 7 días.",
+          "infoMinDaysShortRental": "Como tu alquiler es más corto, el seguro se facturará por 7 días.",
+          "infoPriceNote": "Tarifa: {price}/día (según el vehículo)."
         },
         "extraChildSeat": {
           "title": "Silla infantil extra",
@@ -1084,7 +1088,7 @@
             "El seguro estándar está incluido en el precio del alquiler, sin coste adicional.",
             "En caso de accidente no culpable, no se paga franquicia, según las condiciones del contrato confirmadas antes de la entrega.",
             "En caso de accidente culpable, se aplica una franquicia según la categoría del vehículo. Los importes exactos se confirman por WhatsApp antes de reservar.",
-            "La opción sin fianza (10 €/día) elimina el depósito de fianza, pero no elimina la franquicia del seguro si eres responsable del accidente.",
+            "La opción sin fianza (desde 10 €/día según el vehículo: 10 € coches pequeños, 15 € más grandes, 20 € BMW / Golf 8) elimina el depósito de fianza, pero no elimina la franquicia del seguro si eres responsable del accidente.",
             "Exclusiones y condiciones especiales (por ejemplo neumáticos, cristales, bajos o mal uso) se confirman al reservar. Lee siempre las condiciones enviadas antes de la entrega."
           ]
         },

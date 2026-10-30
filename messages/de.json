@@ -555,17 +555,21 @@
         "fullInsurance": {
           "title": "Vollversicherung",
           "shortTitle": "Versicherung",
-          "description": "Standardversicherung mit Selbstbeteiligung ist kostenlos inklusive. Option ohne Kaution für 10 €/Tag: keine Kaution; die Selbstbeteiligung bleibt bei selbstverschuldetem Unfall bestehen.",
-          "infoStandardHeading": "Standardversicherung - Kostenlos inklusive",
-          "infoStandardBadge": "Inklusive",
-          "infoStandardTitle": "Versicherung mit Selbstbeteiligung",
-          "infoStandardP1": "Die Standardversicherung ist im Mietpreis enthalten, ohne zusätzliche Kosten.",
-          "infoStandardP2": "Bei einem unverschuldeten Unfall ist keine Selbstbeteiligung zu zahlen, vorbehaltlich der Vertragsbedingungen.",
-          "infoStandardP3": "Bei einem selbstverschuldeten Unfall gilt eine Selbstbeteiligung je nach Fahrzeugkategorie.",
-          "infoOptionHeading": "Option ohne Kaution - 10 €/Tag",
-          "infoOptionTitle": "Miete ohne Kaution",
-          "infoOptionP1": "Genießen Sie Ihre Miete ohne Kautionseinzahlung.",
-          "infoOptionP2": "Diese Option hebt die Kautionspflicht auf, nicht aber die Selbstbeteiligung bei einem selbstverschuldeten Unfall."
+          "description": "Vollkasko: Selbstbeteiligung auf 0 € reduziert (laut Bedingungen). Deckt eine Windschutzscheibe und einen Reifen. Mindestabrechnung: 7 Tage.",
+          "infoCoverP1": "Mit unserer Vollversicherung wird die Selbstbeteiligung bei Schäden oder Unfall auf 0 € reduziert, gemäß Miet- und Versicherungsbedingungen.",
+          "infoCoverP2": "Die Versicherung deckt den Bruch einer Windschutzscheibe und eines Reifens während der Mietdauer.",
+          "infoExclusionsTitle": "Sie deckt jedoch nicht ab:",
+          "infoExclusions": [
+            "Weitere Schäden an Windschutzscheibe oder Glas",
+            "Zusätzliche Räder, Reifen oder Reifenpannen",
+            "Schäden durch einen nicht im Mietvertrag eingetragenen Fahrer",
+            "Schäden durch falschen Kraftstoff",
+            "Verlorene oder beschädigte Autoschlüssel",
+            "Verlorene oder beschädigte Fahrzeugdokumente"
+          ],
+          "infoMinDays": "Die Mindestversicherungsdauer beträgt 7 Tage.",
+          "infoMinDaysShortRental": "Da Ihre Miete kürzer ist, wird die Versicherung für 7 Tage berechnet.",
+          "infoPriceNote": "Tarif: {price}/Tag (je nach Fahrzeug)."
         },
         "extraChildSeat": {
           "title": "Zusätzlicher Kindersitz",
@@ -1084,7 +1088,7 @@
             "Die Standardversicherung ist im Mietpreis enthalten, ohne zusätzliche Kosten.",
             "Bei einem unverschuldeten Unfall ist keine Selbstbeteiligung zu zahlen, vorbehaltlich der vor Abholung bestätigten Vertragsbedingungen.",
             "Bei einem selbstverschuldeten Unfall gilt eine Selbstbeteiligung je nach Fahrzeugkategorie. Genaue Beträge werden vor der Buchung per WhatsApp bestätigt.",
-            "Die Option ohne Kaution (10 €/Tag) entfernt die Kautionspflicht, hebt aber die Selbstbeteiligung bei selbstverschuldetem Unfall nicht auf.",
+            "Die Option ohne Kaution (ab 10 €/Tag je nach Fahrzeug: 10 € Kleinwagen, 15 € größere Autos, 20 € BMW / Golf 8) hebt die Kautionspflicht auf, nicht aber die Selbstbeteiligung bei einem selbstverschuldeten Unfall.",
             "Ausschlüsse und Sonderbedingungen (z. B. Reifen, Glas, Unterboden oder Fehlgebrauch) werden bei der Buchung bestätigt. Lesen Sie immer die vor Abholung übermittelten Bedingungen."
           ]
         },

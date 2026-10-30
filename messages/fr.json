@@ -555,17 +555,21 @@
         "fullInsurance": {
           "title": "Assurance complète",
           "shortTitle": "Assurance",
-          "description": "Assurance standard incluse gratuitement (avec franchise). Option sans caution à 10 €/jour : pas de dépôt de caution ; la franchise reste due en cas d'accident responsable.",
-          "infoStandardHeading": "Assurance standard - Incluse gratuitement",
-          "infoStandardBadge": "Incluse",
-          "infoStandardTitle": "Assurance avec franchise",
-          "infoStandardP1": "L'assurance standard est incluse dans le prix de location, sans frais supplémentaires.",
-          "infoStandardP2": "En cas d'accident non responsable, aucune franchise n'est à payer, sous réserve des conditions du contrat.",
-          "infoStandardP3": "En cas d'accident responsable, une franchise s'applique selon la catégorie du véhicule.",
-          "infoOptionHeading": "Option sans caution - 10 €/jour",
-          "infoOptionTitle": "Location sans caution",
-          "infoOptionP1": "Profitez de votre location sans dépôt de caution.",
-          "infoOptionP2": "Cette option supprime l'obligation de déposer une caution, mais ne supprime pas la franchise d'assurance en cas d'accident responsable."
+          "description": "Assurance tous risques : franchise réduite à 0 € (selon conditions). Couvre un pare-brise et un pneu. Durée minimale facturée : 7 jours.",
+          "infoCoverP1": "Avec notre assurance tous risques, la franchise est réduite à 0 euro en cas de dommages ou d'accident, conformément aux conditions de location et d'assurance.",
+          "infoCoverP2": "L'assurance couvre la casse d'un seul pare-brise et d'un seul pneu pendant la période de location.",
+          "infoExclusionsTitle": "Toutefois, elle ne couvre pas :",
+          "infoExclusions": [
+            "Tout dommage supplémentaire au pare-brise ou aux vitres",
+            "Roues, pneus ou crevaisons supplémentaires",
+            "Dommages causés par un conducteur non inscrit sur le contrat de location",
+            "Dommages causés par l'utilisation d'un carburant inapproprié",
+            "Clés de voiture perdues ou endommagées",
+            "Documents de véhicule perdus ou endommagés"
+          ],
+          "infoMinDays": "La durée minimale d'assurance est de 7 jours.",
+          "infoMinDaysShortRental": "Votre location étant plus courte, l'assurance sera facturée pour 7 jours.",
+          "infoPriceNote": "Tarif : {price}/jour (selon le véhicule)."
         },
         "extraChildSeat": {
           "title": "Siège enfant supplémentaire",
@@ -1084,7 +1088,7 @@
             "L'assurance standard est incluse dans le prix de location, sans frais supplémentaires.",
             "En cas d'accident non responsable, aucune franchise n'est à payer, sous réserve des conditions du contrat confirmées avant la prise en charge.",
             "En cas d'accident responsable, une franchise s'applique selon la catégorie du véhicule. Les montants exacts sont confirmés sur WhatsApp avant réservation.",
-            "L'option sans caution (10 €/jour) supprime l'obligation de dépôt de caution, mais ne supprime pas la franchise d'assurance en cas d'accident responsable.",
+            "L'option sans caution (dès 10 €/jour selon le véhicule : 10 € petites voitures, 15 € plus grandes, 20 € BMW / Golf 8) supprime l'obligation de dépôt de caution, mais ne supprime pas la franchise d'assurance en cas d'accident responsable.",
             "Les exclusions et conditions particulières (par exemple pneus, vitrages, soubassement ou mauvais usage) sont précisées à la réservation. Lisez toujours les conditions envoyées avant le départ."
           ]
         },

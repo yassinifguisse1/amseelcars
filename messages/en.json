@@ -555,17 +555,21 @@
         "fullInsurance": {
           "title": "Full Insurance",
           "shortTitle": "Insurance",
-          "description": "Standard insurance with excess is included free. No-deposit option at €10/day: no security deposit required; insurance excess still applies if you are at fault.",
-          "infoStandardHeading": "Standard insurance - Included free",
-          "infoStandardBadge": "Included",
-          "infoStandardTitle": "Insurance with excess",
-          "infoStandardP1": "Standard insurance is included in the rental price, with no extra charge.",
-          "infoStandardP2": "If you are not at fault in an accident, no excess is payable, subject to the contract terms.",
-          "infoStandardP3": "If you are at fault, an excess applies according to the vehicle category.",
-          "infoOptionHeading": "No-deposit option - €10/day",
-          "infoOptionTitle": "Rental without deposit",
-          "infoOptionP1": "Enjoy your rental with no security deposit required.",
-          "infoOptionP2": "This option removes the deposit requirement, but does not remove the insurance excess if you are at fault in an accident."
+          "description": "Comprehensive cover: excess reduced to €0 (subject to terms). Covers one windscreen and one tyre. Minimum billed period: 7 days.",
+          "infoCoverP1": "With our comprehensive insurance, the excess is reduced to €0 in case of damage or an accident, subject to the rental and insurance conditions.",
+          "infoCoverP2": "The insurance covers breakage of one windscreen and one tyre during the rental period.",
+          "infoExclusionsTitle": "However, it does not cover:",
+          "infoExclusions": [
+            "Any further damage to the windscreen or glass",
+            "Additional wheels, tyres or punctures",
+            "Damage caused by a driver not named on the rental contract",
+            "Damage caused by using the wrong fuel",
+            "Lost or damaged car keys",
+            "Lost or damaged vehicle documents"
+          ],
+          "infoMinDays": "The minimum insurance period is 7 days.",
+          "infoMinDaysShortRental": "Because your rental is shorter, insurance will be charged for 7 days.",
+          "infoPriceNote": "Rate: {price}/day (depends on the vehicle)."
         },
         "extraChildSeat": {
           "title": "Extra Child Seat",
@@ -1084,7 +1088,7 @@
             "Standard insurance is included in the rental price at no extra charge.",
             "If you are not at fault in an accident, no excess is payable, subject to the contract terms confirmed before pickup.",
             "If you are at fault, an excess (franchise) applies according to the vehicle category. Exact amounts are confirmed on WhatsApp before you book.",
-            "Optional no-deposit cover (€10/day) removes the security deposit requirement but does not remove the insurance excess if you are at fault.",
+            "Optional no-deposit cover (from €10/day depending on the vehicle: €10 small cars, €15 larger cars, €20 BMW / Golf 8) removes the security deposit requirement but does not remove the insurance excess if you are at fault.",
             "Exclusions and special conditions (for example tyres, glass, underbody, or misuse) are confirmed with your booking. Always read the terms shared before pickup."
           ]
         },

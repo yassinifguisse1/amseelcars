@@ -44,6 +44,87 @@ export const BOOKING_ADDONS: BookingAddonDef[] = [
   { id: 'rooftop-cargo', max: 1, priceEur: 3, billing: 'perDay' },
 ]
 
+/** Car fields used to pick the no-deposit / insurance daily rate. */
+export type InsurancePriceCar = {
+  carName?: string | null
+  brand?: string | null
+  category?: string | null
+  slug?: string | null
+  model?: string | null
+}
+
+/**
+ * Full insurance / sans-caution daily price by vehicle class:
+ * - €20: BMW, Golf 8
+ * - €15: larger cars (T-Roc, SUV, Sportage, Aircross, Touareg, …)
+ * - €10: small cars (Dacia, Clio, Picanto, C3, …)
+ */
+export function fullInsurancePriceEur(car?: InsurancePriceCar | null): number {
+  const blob = [
+    car?.carName,
+    car?.brand,
+    car?.slug,
+    car?.model,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+  const category = (car?.category ?? '').toLowerCase()
+
+  if (
+    /\bbmw\b/.test(blob) ||
+    /golf[\s_-]*8/.test(blob) ||
+    blob.includes('golf8')
+  ) {
+    return 20
+  }
+
+  const isSmall =
+    category === 'economy' ||
+    blob.includes('dacia') ||
+    blob.includes('logan') ||
+    blob.includes('stepway') ||
+    blob.includes('picanto') ||
+    blob.includes('i10') ||
+    blob.includes('clio') ||
+    blob.includes('c3-normal') ||
+    blob.includes('c3 normal') ||
+    (/(citro[eë]n|citroen)/.test(blob) &&
+      blob.includes('c3') &&
+      !blob.includes('aircross'))
+
+  if (isSmall) return 10
+
+  if (
+    category === 'suv' ||
+    category === 'premium' ||
+    category === 'luxury' ||
+    category === 'crossover' ||
+    blob.includes('t-roc') ||
+    blob.includes('troc') ||
+    blob.includes('touareg') ||
+    blob.includes('sportage') ||
+    blob.includes('aircross') ||
+    blob.includes('c4')
+  ) {
+    return 15
+  }
+
+  return 10
+}
+
+/** Addon catalog with insurance price set for this car. */
+export function bookingAddonsForCar(
+  car?: InsurancePriceCar | null,
+): BookingAddonDef[] {
+  const insurancePrice = fullInsurancePriceEur(car)
+  return BOOKING_ADDONS.map((addon) =>
+    addon.id === 'full-insurance'
+      ? { ...addon, priceEur: insurancePrice }
+      : addon,
+  )
+}
+
 export type BookingAddonSelection = Record<BookingAddonId, number>
 
 export function emptyAddonSelection(): BookingAddonSelection {
@@ -64,6 +145,20 @@ export function addonUnitPrice(priceEur: number, currency: DisplayCurrency): num
   return priceEur
 }
 
+/** Full insurance is always billed for at least 7 days. */
+export const FULL_INSURANCE_MIN_DAYS = 7
+
+export function addonBillableDays(
+  addon: BookingAddonDef,
+  rentalDays: number,
+): number {
+  const days = Math.max(1, rentalDays)
+  if (addon.id === 'full-insurance') {
+    return Math.max(days, FULL_INSURANCE_MIN_DAYS)
+  }
+  return days
+}
+
 export function addonLineTotal(
   addon: BookingAddonDef,
   quantity: number,
@@ -73,8 +168,7 @@ export function addonLineTotal(
   if (quantity <= 0) return 0
   const unit = addonUnitPrice(addon.priceEur, currency)
   if (addon.billing === 'perDay') {
-    const days = Math.max(1, rentalDays)
-    return quantity * unit * days
+    return quantity * unit * addonBillableDays(addon, rentalDays)
   }
   return quantity * unit
 }
@@ -100,13 +194,14 @@ export function addonLineTotalWithWheelGift(
     return full
   }
 
-  const days = Math.max(1, rentalDays)
-  if (days < WHEEL_GIFT_MIN_RENTAL_DAYS) return full
+  const rental = Math.max(1, rentalDays)
+  if (rental < WHEEL_GIFT_MIN_RENTAL_DAYS) return full
 
   if (addon.billing === 'perDay') {
-    const freeDays = Math.min(WHEEL_GIFT_FREE_DAYS, days)
+    const billable = addonBillableDays(addon, rentalDays)
+    const freeDays = Math.min(WHEEL_GIFT_FREE_DAYS, billable)
     const unit = addonUnitPrice(addon.priceEur, currency)
-    return Math.max(0, quantity * unit * (days - freeDays))
+    return Math.max(0, quantity * unit * (billable - freeDays))
   }
 
   // Flat-priced gift (e.g. already-free additional driver): no charge
@@ -118,8 +213,9 @@ export function addonSelectionTotal(
   currency: DisplayCurrency,
   rentalDays: number,
   freeAddonId?: BookingAddonId | null,
+  car?: InsurancePriceCar | null,
 ): number {
-  return BOOKING_ADDONS.reduce(
+  return bookingAddonsForCar(car).reduce(
     (sum, addon) =>
       sum +
       addonLineTotalWithWheelGift(
@@ -136,6 +232,7 @@ export function addonSelectionTotal(
 export function selectedAddonsList(
   selection: BookingAddonSelection,
   freeAddonId?: BookingAddonId | null,
+  car?: InsurancePriceCar | null,
 ): {
   id: BookingAddonId
   quantity: number
@@ -143,15 +240,17 @@ export function selectedAddonsList(
   billing: BookingAddonBilling
   wheelGift?: boolean
 }[] {
-  return BOOKING_ADDONS.filter((addon) => (selection[addon.id] ?? 0) > 0).map((addon) => {
-    const isGift = freeAddonId === addon.id
-    return {
-      id: addon.id,
-      quantity: selection[addon.id],
-      // Keep list price; booking total applies 2 free days when trip is 7+
-      priceEur: addon.priceEur,
-      billing: addon.billing,
-      ...(isGift ? { wheelGift: true } : {}),
-    }
-  })
+  return bookingAddonsForCar(car)
+    .filter((addon) => (selection[addon.id] ?? 0) > 0)
+    .map((addon) => {
+      const isGift = freeAddonId === addon.id
+      return {
+        id: addon.id,
+        quantity: selection[addon.id],
+        // Keep list price; booking total applies 2 free days when trip is 7+
+        priceEur: addon.priceEur,
+        billing: addon.billing,
+        ...(isGift ? { wheelGift: true } : {}),
+      }
+    })
 }

@@ -79,6 +79,8 @@ interface BookingDialogProps {
   carName: string;
   carPrice: number;
   carSlug?: string;
+  carBrand?: string;
+  carCategory?: string;
   /** Optional pricing. Min rental is MIN_RENTAL_DAYS; rate uses shortTerm daily price. */
   pricing?: {
     shortTerm: number;
@@ -120,6 +122,8 @@ export default function BookingDialog({
   carName, 
   carPrice,
   carSlug,
+  carBrand,
+  carCategory,
   pricing,
   inline = false,
   extraActions,
@@ -133,6 +137,15 @@ export default function BookingDialog({
   const tAddons = useTranslations('booking.addons');
   const searchParams = useSearchParams();
   const bookingDefaults = useMemo(() => parseBookingSearchParams(searchParams), [searchParams]);
+  const insuranceCar = useMemo(
+    () => ({
+      carName,
+      brand: carBrand,
+      category: carCategory,
+      slug: carSlug,
+    }),
+    [carName, carBrand, carCategory, carSlug],
+  );
   const bookingSchema = useMemo(() => buildBookingSchema((k) => t(k as Parameters<typeof t>[0])), [t]);
   const locationOptions = useMemo(
     () => [
@@ -234,6 +247,7 @@ export default function BookingDialog({
     currency,
     Math.max(days, 1),
     wheelFreeAddonId,
+    insuranceCar,
   );
   const grandTotalLive = carTotal + (days > 0 && !tooShort ? addonsTotalLive : 0);
   const hasValidDates = days > 0 && !tooShort;
@@ -269,12 +283,17 @@ export default function BookingDialog({
     const path = typeof window !== 'undefined' ? window.location.pathname : '/';
     markSubmitted();
     const pricePerDay = pricing?.shortTerm ?? pricing?.longTerm ?? carPrice;
-    const addons = selectedAddonsList(addonSelection, wheelClaim?.prizeId);
+    const addons = selectedAddonsList(
+      addonSelection,
+      wheelClaim?.prizeId,
+      insuranceCar,
+    );
     const addonsTotal = addonSelectionTotal(
       addonSelection,
       currency,
       rentalDays,
       wheelClaim?.prizeId,
+      insuranceCar,
     );
     const totalPrice = rentalDays * pricePerDay + addonsTotal;
     trackEvent({
@@ -402,7 +421,7 @@ export default function BookingDialog({
 
   const openWhatsAppInquiry = () => {
     const path = typeof window !== 'undefined' ? window.location.pathname : '';
-    const selected = selectedAddonsList(addonSelection, wheelClaim?.prizeId);
+    const selected = selectedAddonsList(addonSelection, wheelClaim?.prizeId, insuranceCar);
     const addonLabels = selected
       .map((item) => {
         const title = tAddons(`items.${BOOKING_ADDON_MESSAGE_KEYS[item.id]}.title`);
@@ -735,6 +754,8 @@ export default function BookingDialog({
                         onChange={setAddonSelection}
                         currency={currency}
                         freeAddonId={wheelFreeAddonId}
+                        car={insuranceCar}
+                        rentalDays={days}
                       />
 
                       <div className="mt-3 rounded-xl border border-gray-200 bg-stone-50 px-3 py-3 sm:px-4">
@@ -788,6 +809,7 @@ export default function BookingDialog({
                                       currency,
                                       1,
                                       wheelFreeAddonId,
+                                      insuranceCar,
                                     ),
                                     currency,
                                   )}

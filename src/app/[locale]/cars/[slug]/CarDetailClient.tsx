@@ -528,6 +528,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               inline
               carName={car.carName}
               carSlug={car.slug}
+              carBrand={car.brand}
+              carCategory={car.category}
               currency={currency}
               carPrice={convertCarPrice(
                 car.pricing?.shortTerm ?? car.pricePerDay,

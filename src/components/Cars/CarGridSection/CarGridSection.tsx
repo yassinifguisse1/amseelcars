@@ -67,6 +67,8 @@ const CarGridSection = ({
     price: number
     image: string
     slug?: string
+    brand?: string
+    category?: string
   } | null>(null)
 
   // Filter state
@@ -169,6 +171,8 @@ const CarGridSection = ({
         price: convertCarPrice(dailyMad, currency),
         image: car.carImage,
         slug: car.slug,
+        brand: car.brand,
+        category: car.category,
       })
       setIsBookingDialogOpen(true)
     }
@@ -381,6 +385,8 @@ const CarGridSection = ({
           carName={selectedCar.name}
           carPrice={selectedCar.price}
           carSlug={selectedCar.slug}
+          carBrand={selectedCar.brand}
+          carCategory={selectedCar.category}
           currency={currency}
         />
       )}

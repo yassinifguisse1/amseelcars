@@ -87,6 +87,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
     price: number
     image: string
     slug?: string
+    brand?: string
+    category?: string
   } | null>(null)
 
   // Get all cars and handle responsive layout
@@ -130,6 +132,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
         price: convertCarPrice(dailyMad, 'EUR'),
         image: car.carImage,
         slug: car.slug,
+        brand: car.brand,
+        category: car.category,
       })
       setIsBookingDialogOpen(true)
     }
@@ -614,6 +618,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
           carName={selectedCar.name}
           carPrice={selectedCar.price}
           carSlug={selectedCar.slug}
+          carBrand={selectedCar.brand}
+          carCategory={selectedCar.category}
           currency="EUR"
         />
       )}
