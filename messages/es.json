@@ -358,7 +358,7 @@
         },
         {
           "q": "¿Sin depósito?",
-          "a": "Sí, según condiciones. Confirma por WhatsApp."
+          "a": "Sí. La mayoría de alquileres sin fianza ni tarjeta cuando documentos y condiciones se confirman por WhatsApp antes de la entrega. La elegibilidad se confirma con tu reserva. El Seguro a todo riesgo opcional (desde 10 €/día) es distinto: reduce la franquicia a 0 € según condiciones; no es una exención de fianza."
         },
         {
           "q": "¿Entrega y soporte 24/7?",
@@ -600,6 +600,7 @@
     },
     "priceDepositLine": "Fianza",
     "priceDepositValue": "0 € si eres elegible",
+    "priceDepositNote": "Sin fianza en la mayoría de reservas cuando documentos y condiciones se confirman por WhatsApp antes de la entrega. La elegibilidad se confirma con tu reserva — distinta del Seguro a todo riesgo opcional (franquicia).",
     "priceInsuranceLine": "Seguro",
     "priceInsuranceValue": "Estándar incluido",
     "priceConfirmNote": "Total orientativo. Importe final y disponibilidad confirmados bajo petición antes de la entrega.",
@@ -1048,14 +1049,14 @@
     "returnTime": "Hora de devolución",
     "search": "Buscar ahora",
     "sameReturn": "Devolver el coche en el mismo lugar",
-    "driverNote": "País de residencia del conductor: Marruecos · edad 30–65",
+    "driverNote": "Conductor principal: 21+ años · permiso válido desde al menos 1 año",
     "searchAppliedTitle": "Sus fechas de alquiler",
     "searchAppliedHint": "Estos datos se rellenan al pulsar Reservar.",
     "searchAppliedHintWithDays": "Los precios de abajo son para {days} días. Las fechas se rellenan al pulsar Reservar."
   },
   "legalPages": {
     "lastUpdatedLabel": "Última actualización",
-    "lastUpdatedDate": "29 de octubre de 2026",
+    "lastUpdatedDate": "31 de octubre de 2026",
     "relatedNavAria": "Páginas legales y contacto",
     "rentalTerms": {
       "h1": "Condiciones de alquiler",
@@ -1088,8 +1089,16 @@
             "El seguro estándar está incluido en el precio del alquiler, sin coste adicional.",
             "En caso de accidente no culpable, no se paga franquicia, según las condiciones del contrato confirmadas antes de la entrega.",
             "En caso de accidente culpable, se aplica una franquicia según la categoría del vehículo. Los importes exactos se confirman por WhatsApp antes de reservar.",
-            "La opción sin fianza (desde 10 €/día según el vehículo: 10 € coches pequeños, 15 € más grandes, 20 € BMW / Golf 8) elimina el depósito de fianza, pero no elimina la franquicia del seguro si eres responsable del accidente.",
-            "Exclusiones y condiciones especiales (por ejemplo neumáticos, cristales, bajos o mal uso) se confirman al reservar. Lee siempre las condiciones enviadas antes de la entrega."
+            "El Seguro a todo riesgo opcional (desde 10 €/día según el vehículo: 10 € coches pequeños, 15 € más grandes, 20 € BMW / Golf 8) reduce la franquicia a 0 € en caso de daño o accidente, según las condiciones de alquiler y seguro. Cubre la rotura de un parabrisas y un neumático. Periodo mínimo facturado: 7 días.",
+            "El Seguro a todo riesgo no cubre más daños de cristales, neumáticos o pinchazos adicionales, conductores no declarados, combustible incorrecto, ni llaves o documentos perdidos/dañados. Otras exclusiones se confirman al reservar. Lee siempre las condiciones enviadas antes de la entrega."
+          ]
+        },
+        {
+          "title": "Fianza",
+          "paragraphs": [
+            "AmseelCars ofrece alquiler sin fianza en la mayoría de reservas: sin depósito de seguridad ni retención de tarjeta cuando se confirma la elegibilidad.",
+            "La elegibilidad depende del vehículo, la duración, los documentos del conductor y las condiciones acordadas por WhatsApp antes de la entrega. Confirmamos si tu reserva cualifica antes del viaje.",
+            "La elegibilidad sin fianza es distinta del Seguro a todo riesgo opcional. El Seguro a todo riesgo reduce la franquicia; no es obligatorio para eximir la fianza, y eximir la fianza no elimina la franquicia si rechazas el Seguro a todo riesgo."
           ]
         },
         {
@@ -1273,7 +1282,7 @@
       {
         "label": "Google",
         "value": "5,0",
-        "helper": "254 reseñas"
+        "helper": "255 reseñas"
       }
     ],
     "aiHighlights": [

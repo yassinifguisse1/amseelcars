@@ -358,7 +358,7 @@
         },
         {
           "q": "Ohne Kaution?",
-          "a": "Ja, unter den Bedingungen. Per WhatsApp bestätigen."
+          "a": "Ja. Die meisten Vermietungen ohne Kaution und ohne Kreditkarte, wenn Dokumente und Konditionen vor Abholung per WhatsApp bestätigt sind. Die Berechtigung wird mit Ihrer Buchung bestätigt. Optionale Vollkasko (ab 10 €/Tag) ist getrennt — sie senkt die Selbstbeteiligung auf 0 € nach Bedingungen, sie ist kein Kautionsverzicht."
         },
         {
           "q": "Lieferung und Support 24/7?",
@@ -600,6 +600,7 @@
     },
     "priceDepositLine": "Kaution",
     "priceDepositValue": "0 € wenn berechtigt",
+    "priceDepositNote": "Für die meisten Buchungen keine Kaution, wenn Dokumente und Konditionen vor Abholung per WhatsApp bestätigt sind. Die Berechtigung wird mit Ihrer Buchung bestätigt — getrennt von der optionalen Vollkasko (Selbstbeteiligung).",
     "priceInsuranceLine": "Versicherung",
     "priceInsuranceValue": "Standard inklusive",
     "priceConfirmNote": "Richtwert. Endbetrag und Verfügbarkeit werden auf Anfrage vor Abholung bestätigt.",
@@ -1048,14 +1049,14 @@
     "returnTime": "Rückgabezeit",
     "search": "Jetzt suchen",
     "sameReturn": "Fahrzeug am gleichen Ort zurückgeben",
-    "driverNote": "Wohnsitzland des Fahrers: Marokko · Alter 30–65",
+    "driverNote": "Hauptfahrer: mindestens 21 Jahre · gültiger Führerschein seit mind. 1 Jahr",
     "searchAppliedTitle": "Ihre Mietdaten",
     "searchAppliedHint": "Diese Angaben werden beim Klick auf Buchen vorausgefüllt.",
     "searchAppliedHintWithDays": "Die Preise unten gelten für {days} Tage. Daten werden beim Klick auf Buchen vorausgefüllt."
   },
   "legalPages": {
     "lastUpdatedLabel": "Zuletzt aktualisiert",
-    "lastUpdatedDate": "29. Oktober 2026",
+    "lastUpdatedDate": "31. Oktober 2026",
     "relatedNavAria": "Rechtliche Seiten und Kontakt",
     "rentalTerms": {
       "h1": "Mietbedingungen",
@@ -1088,8 +1089,16 @@
             "Die Standardversicherung ist im Mietpreis enthalten, ohne zusätzliche Kosten.",
             "Bei einem unverschuldeten Unfall ist keine Selbstbeteiligung zu zahlen, vorbehaltlich der vor Abholung bestätigten Vertragsbedingungen.",
             "Bei einem selbstverschuldeten Unfall gilt eine Selbstbeteiligung je nach Fahrzeugkategorie. Genaue Beträge werden vor der Buchung per WhatsApp bestätigt.",
-            "Die Option ohne Kaution (ab 10 €/Tag je nach Fahrzeug: 10 € Kleinwagen, 15 € größere Autos, 20 € BMW / Golf 8) hebt die Kautionspflicht auf, nicht aber die Selbstbeteiligung bei einem selbstverschuldeten Unfall.",
-            "Ausschlüsse und Sonderbedingungen (z. B. Reifen, Glas, Unterboden oder Fehlgebrauch) werden bei der Buchung bestätigt. Lesen Sie immer die vor Abholung übermittelten Bedingungen."
+            "Optionale Vollkasko (ab 10 €/Tag je nach Fahrzeug: 10 € Kleinwagen, 15 € größere Autos, 20 € BMW / Golf 8) senkt die Selbstbeteiligung bei Schaden oder Unfall auf 0 €, vorbehaltlich Miet- und Versicherungsbedingungen. Sie deckt den Bruch einer Windschutzscheibe und eines Reifens. Mindestabrechnungszeitraum: 7 Tage.",
+            "Vollkasko deckt nicht weiteren Glasschaden, zusätzliche Reifen oder Reifenpannen, nicht genannte Fahrer, falschen Kraftstoff oder verlorene/beschädigte Schlüssel oder Dokumente. Weitere Ausschlüsse werden bei der Buchung bestätigt. Lesen Sie immer die vor Abholung übermittelten Bedingungen."
+          ]
+        },
+        {
+          "title": "Kaution",
+          "paragraphs": [
+            "AmseelCars bietet für die meisten Buchungen Mietwagen ohne Kaution: keine Sicherheitskaution und keine Kreditkartenbelastung, wenn die Berechtigung bestätigt ist.",
+            "Die Berechtigung hängt von Fahrzeug, Mietdauer, Fahrerdokumenten und den per WhatsApp vor Abholung vereinbarten Bedingungen ab. Wir bestätigen vor Ihrer Reise, ob Ihre Buchung qualifiziert.",
+            "Kautionsfreiheit ist getrennt von der optionalen Vollkasko. Vollkasko senkt die Selbstbeteiligung; sie ist nicht nötig, um die Kaution zu erlassen, und ein Kautionserlass entfernt die Selbstbeteiligung nicht, wenn Sie auf Vollkasko verzichten."
           ]
         },
         {
@@ -1273,7 +1282,7 @@
       {
         "label": "Google",
         "value": "5,0",
-        "helper": "254 Bewertungen"
+        "helper": "255 Bewertungen"
       }
     ],
     "aiHighlights": [

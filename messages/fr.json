@@ -358,7 +358,7 @@
         },
         {
           "q": "Sans caution ?",
-          "a": "Oui, selon conditions. Confirmez sur WhatsApp."
+          "a": "Oui. La plupart des locations se font sans caution ni carte bancaire lorsque documents et conditions sont confirmés sur WhatsApp avant le départ. L’éligibilité est confirmée avec votre réservation. L’Assurance tous risques optionnelle (dès 10 €/jour) est distincte : elle réduit la franchise à 0 € selon conditions, ce n’est pas une option « sans caution »."
         },
         {
           "q": "Livraison et support 24/7 ?",
@@ -600,6 +600,7 @@
     },
     "priceDepositLine": "Caution",
     "priceDepositValue": "0 € si éligible",
+    "priceDepositNote": "Pas de caution pour la plupart des locations lorsque documents et conditions sont confirmés sur WhatsApp avant le départ. L’éligibilité est confirmée avec votre réservation — distincte de l’Assurance tous risques optionnelle (franchise).",
     "priceInsuranceLine": "Assurance",
     "priceInsuranceValue": "Standard incluse",
     "priceConfirmNote": "Total indicatif. Montant final et disponibilité confirmés sur demande avant la prise en charge.",
@@ -1048,14 +1049,14 @@
     "returnTime": "Heure de retour",
     "search": "Rechercher",
     "sameReturn": "Retourner la voiture au même endroit",
-    "driverNote": "Pays de résidence du conducteur : Maroc · âge 30–65",
+    "driverNote": "Conducteur principal : 21 ans minimum · permis valide depuis au moins 1 an",
     "searchAppliedTitle": "Vos dates de location",
     "searchAppliedHint": "Ces informations seront préremplies quand vous cliquez sur Réserver.",
     "searchAppliedHintWithDays": "Les prix ci-dessous correspondent à {days} jours. Les dates seront préremplies quand vous cliquez sur Réserver."
   },
   "legalPages": {
     "lastUpdatedLabel": "Dernière mise à jour",
-    "lastUpdatedDate": "29 octobre 2026",
+    "lastUpdatedDate": "31 octobre 2026",
     "relatedNavAria": "Pages légales et contact",
     "rentalTerms": {
       "h1": "Conditions de location",
@@ -1088,8 +1089,16 @@
             "L'assurance standard est incluse dans le prix de location, sans frais supplémentaires.",
             "En cas d'accident non responsable, aucune franchise n'est à payer, sous réserve des conditions du contrat confirmées avant la prise en charge.",
             "En cas d'accident responsable, une franchise s'applique selon la catégorie du véhicule. Les montants exacts sont confirmés sur WhatsApp avant réservation.",
-            "L'option sans caution (dès 10 €/jour selon le véhicule : 10 € petites voitures, 15 € plus grandes, 20 € BMW / Golf 8) supprime l'obligation de dépôt de caution, mais ne supprime pas la franchise d'assurance en cas d'accident responsable.",
-            "Les exclusions et conditions particulières (par exemple pneus, vitrages, soubassement ou mauvais usage) sont précisées à la réservation. Lisez toujours les conditions envoyées avant le départ."
+            "L'Assurance tous risques optionnelle (dès 10 €/jour selon le véhicule : 10 € petites voitures, 15 € plus grandes, 20 € BMW / Golf 8) réduit la franchise à 0 € en cas de dommage ou d'accident, sous réserve des conditions de location et d'assurance. Elle couvre la casse d'un pare-brise et d'un pneu. Période minimale facturée : 7 jours.",
+            "L'Assurance tous risques ne couvre pas les dommages vitrage supplémentaires, pneus ou crevaisons supplémentaires, conducteurs non désignés, mauvais carburant, ni clés ou documents perdus/endommagés. Les autres exclusions sont précisées à la réservation. Lisez toujours les conditions envoyées avant le départ."
+          ]
+        },
+        {
+          "title": "Caution",
+          "paragraphs": [
+            "AmseelCars propose une location sans caution pour la plupart des réservations : pas de dépôt de garantie ni d'empreinte carte lorsque l'éligibilité est confirmée.",
+            "L'éligibilité dépend du véhicule, de la durée, des documents du conducteur et des conditions convenues sur WhatsApp avant le départ. Nous confirmons si votre réservation est éligible avant votre voyage.",
+            "L'éligibilité sans caution est distincte de l'Assurance tous risques optionnelle. L'Assurance tous risques réduit la franchise ; elle n'est pas obligatoire pour supprimer la caution, et supprimer la caution ne supprime pas la franchise si vous refusez l'Assurance tous risques."
           ]
         },
         {
@@ -1273,7 +1282,7 @@
       {
         "label": "Avis Google",
         "value": "5,0",
-        "helper": "254 avis"
+        "helper": "255 avis"
       }
     ],
     "aiHighlights": [

@@ -358,7 +358,7 @@
         },
         {
           "q": "Do you offer no deposit car rental Agadir?",
-          "a": "Yes, no deposit and no credit card required when conditions are met. Confirm on WhatsApp before arrival - with no hidden fees."
+          "a": "Yes. Most rentals need no security deposit and no credit card when your documents and booking terms are confirmed on WhatsApp before pickup. Eligibility is confirmed with your booking. Optional Full Insurance (from €10/day) is separate — it reduces excess to €0 subject to terms, it is not a deposit waiver."
         },
         {
           "q": "Is free delivery and 24/7 support included?",
@@ -599,7 +599,8 @@
       }
     },
     "priceDepositLine": "Deposit",
-    "priceDepositValue": "€0 if eligible",
+    "priceDepositValue": "€0 when eligible",
+    "priceDepositNote": "No security deposit for most bookings when documents and terms are confirmed on WhatsApp before pickup. Eligibility is confirmed with your booking — separate from optional Full Insurance (excess cover).",
     "priceInsuranceLine": "Insurance",
     "priceInsuranceValue": "Standard included",
     "priceConfirmNote": "Indicative total. Final amount and availability confirmed on request before pickup.",
@@ -1048,14 +1049,14 @@
     "returnTime": "Return time",
     "search": "Search now",
     "sameReturn": "Return the car to the same location",
-    "driverNote": "Driver’s country of residence is Morocco · age 30–65",
+    "driverNote": "Main driver: age 21+ · valid licence for at least 1 year",
     "searchAppliedTitle": "Your rental dates",
     "searchAppliedHint": "These details are prefilled when you click Book.",
     "searchAppliedHintWithDays": "Prices below are for {days} days. Dates are prefilled when you click Book."
   },
   "legalPages": {
     "lastUpdatedLabel": "Last updated",
-    "lastUpdatedDate": "29 October 2026",
+    "lastUpdatedDate": "31 October 2026",
     "relatedNavAria": "Legal pages and contact",
     "rentalTerms": {
       "h1": "Rental terms",
@@ -1088,8 +1089,16 @@
             "Standard insurance is included in the rental price at no extra charge.",
             "If you are not at fault in an accident, no excess is payable, subject to the contract terms confirmed before pickup.",
             "If you are at fault, an excess (franchise) applies according to the vehicle category. Exact amounts are confirmed on WhatsApp before you book.",
-            "Optional no-deposit cover (from €10/day depending on the vehicle: €10 small cars, €15 larger cars, €20 BMW / Golf 8) removes the security deposit requirement but does not remove the insurance excess if you are at fault.",
-            "Exclusions and special conditions (for example tyres, glass, underbody, or misuse) are confirmed with your booking. Always read the terms shared before pickup."
+            "Optional Full Insurance (from €10/day depending on the vehicle: €10 small cars, €15 larger cars, €20 BMW / Golf 8) reduces the excess to €0 in case of damage or an accident, subject to rental and insurance conditions. It covers breakage of one windscreen and one tyre. Minimum billed period: 7 days.",
+            "Full Insurance does not cover further glass damage, additional tyres or punctures, unnamed drivers, wrong fuel, or lost/damaged keys or documents. Other exclusions are confirmed with your booking. Always read the terms shared before pickup."
+          ]
+        },
+        {
+          "title": "Deposit",
+          "paragraphs": [
+            "AmseelCars offers no-deposit rental for most bookings: no security deposit and no credit card hold when eligibility is confirmed.",
+            "Eligibility depends on the vehicle, rental length, driver documents and terms agreed on WhatsApp before pickup. We confirm whether your booking qualifies before you travel.",
+            "No-deposit eligibility is separate from optional Full Insurance. Full Insurance reduces excess; it is not required to waive a deposit, and waiving a deposit does not remove excess if you decline Full Insurance."
           ]
         },
         {
@@ -1273,7 +1282,7 @@
       {
         "label": "Google rating",
         "value": "5.0",
-        "helper": "254 reviews"
+        "helper": "255 reviews"
       }
     ],
     "aiHighlights": [

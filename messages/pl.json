@@ -358,7 +358,7 @@
         },
         {
           "q": "Bez kaucji?",
-          "a": "Tak, przy spełnieniu warunków. Potwierdź na WhatsApp."
+          "a": "Tak. Większość wynajmów bez kaucji i bez karty, gdy dokumenty i warunki potwierdzimy na WhatsApp przed odbiorem. Kwalifikację potwierdzamy przy rezerwacji. Opcjonalne pełne ubezpieczenie (od 10 €/dzień) jest osobne — obniża udział własny do 0 € według warunków; to nie jest zwolnienie z kaucji."
         },
         {
           "q": "Dostawa i wsparcie 24/7?",
@@ -600,6 +600,7 @@
     },
     "priceDepositLine": "Kaucja",
     "priceDepositValue": "0 € jeśli kwalifikujesz się",
+    "priceDepositNote": "Bez kaucji przy większości rezerwacji, gdy dokumenty i warunki potwierdzimy na WhatsApp przed odbiorem. Kwalifikację potwierdzamy przy rezerwacji — osobno od opcjonalnego pełnego ubezpieczenia (udział własny).",
     "priceInsuranceLine": "Ubezpieczenie",
     "priceInsuranceValue": "Standard wliczone",
     "priceConfirmNote": "Suma orientacyjna. Kwota końcowa i dostępność potwierdzane na życzenie przed odbiorem.",
@@ -1048,14 +1049,14 @@
     "returnTime": "Godzina zwrotu",
     "search": "Szukaj teraz",
     "sameReturn": "Zwrot auta w tym samym miejscu",
-    "driverNote": "Kraj zamieszkania kierowcy: Maroko · wiek 30–65",
+    "driverNote": "Główny kierowca: min. 21 lat · ważne prawo jazdy od co najmniej 1 roku",
     "searchAppliedTitle": "Twoje daty wynajmu",
     "searchAppliedHint": "Te dane wypełnią się automatycznie po kliknięciu Rezerwuj.",
     "searchAppliedHintWithDays": "Ceny poniżej są za {days} dni. Daty wypełnią się po kliknięciu Rezerwuj."
   },
   "legalPages": {
     "lastUpdatedLabel": "Ostatnia aktualizacja",
-    "lastUpdatedDate": "29 października 2026",
+    "lastUpdatedDate": "31 października 2026",
     "relatedNavAria": "Strony prawne i kontakt",
     "rentalTerms": {
       "h1": "Warunki wynajmu",
@@ -1088,8 +1089,16 @@
             "Ubezpieczenie standardowe jest wliczone w cenę wynajmu, bez dodatkowych opłat.",
             "Przy wypadku bez Twojej winy udział własny nie jest należny, z zastrzeżeniem warunków umowy potwierdzonych przed odbiorem.",
             "Przy wypadku z Twojej winy udział własny zależy od kategorii pojazdu. Dokładne kwoty potwierdzamy na WhatsApp przed rezerwacją.",
-            "Opcja bez kaucji (od 10 €/dzień zależnie od auta: 10 € małe auta, 15 € większe, 20 € BMW / Golf 8) znosi obowiązek wpłaty kaucji, ale nie znosi udziału własnego przy wypadku z Twojej winy.",
-            "Wyłączenia i warunki szczególne (np. opony, szyby, podwozie lub niewłaściwe użytkowanie) potwierdzamy przy rezerwacji. Zawsze przeczytaj warunki przesłane przed odbiorem."
+            "Opcjonalne pełne ubezpieczenie (od 10 €/dzień zależnie od auta: 10 € małe auta, 15 € większe, 20 € BMW / Golf 8) obniża udział własny do 0 € w razie uszkodzenia lub wypadku, z zastrzeżeniem warunków wynajmu i ubezpieczenia. Obejmuje stłuczenie jednej szyby i jednej opony. Minimalny okres rozliczeniowy: 7 dni.",
+            "Pełne ubezpieczenie nie obejmuje dalszych uszkodzeń szyb, dodatkowych opon lub przebić, niezgłoszonych kierowców, złego paliwa ani zgubionych/uszkodzonych kluczy lub dokumentów. Inne wyłączenia potwierdzamy przy rezerwacji. Zawsze przeczytaj warunki przesłane przed odbiorem."
+          ]
+        },
+        {
+          "title": "Kaucja",
+          "paragraphs": [
+            "AmseelCars oferuje wynajem bez kaucji przy większości rezerwacji: bez depozytu zabezpieczającego i bez blokady na karcie, gdy kwalifikacja jest potwierdzona.",
+            "Kwalifikacja zależy od pojazdu, długości wynajmu, dokumentów kierowcy i warunków uzgodnionych na WhatsApp przed odbiorem. Potwierdzamy przed podróżą, czy Twoja rezerwacja się kwalifikuje.",
+            "Brak kaucji jest osobny od opcjonalnego pełnego ubezpieczenia. Pełne ubezpieczenie obniża udział własny; nie jest wymagane, by znieść kaucję, a zniesienie kaucji nie usuwa udziału własnego, jeśli odrzucisz pełne ubezpieczenie."
           ]
         },
         {
@@ -1273,7 +1282,7 @@
       {
         "label": "Google",
         "value": "5,0",
-        "helper": "254 opinie"
+        "helper": "255 opinie"
       }
     ],
     "aiHighlights": [

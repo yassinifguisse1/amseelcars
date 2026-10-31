@@ -777,6 +777,9 @@ export default function BookingDialog({
                               <span>{t('priceDepositLine')}</span>
                               <span className="font-medium">{t('priceDepositValue')}</span>
                             </div>
+                            <p className="text-xs leading-snug text-gray-500">
+                              {t('priceDepositNote')}
+                            </p>
                             <div className="flex items-center justify-between gap-3 text-gray-700">
                               <span>{t('priceInsuranceLine')}</span>
                               <span className="font-medium">{t('priceInsuranceValue')}</span>
@@ -820,6 +823,9 @@ export default function BookingDialog({
                               <span>{t('priceDepositLine')}</span>
                               <span className="font-medium">{t('priceDepositValue')}</span>
                             </div>
+                            <p className="text-xs leading-snug text-gray-500">
+                              {t('priceDepositNote')}
+                            </p>
                             <div className="flex items-center justify-between gap-3">
                               <span>{t('priceInsuranceLine')}</span>
                               <span className="font-medium">{t('priceInsuranceValue')}</span>

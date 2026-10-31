@@ -72,7 +72,7 @@ export const BUSINESS_GOOGLE_PLACE_ID = "ChIJ6UYIlG63sw0Rkl2swhA3p08";
  * `/api/reviews`. Keep these in sync as a safe fallback only.
  */
 export const BUSINESS_GOOGLE_RATING = 5;
-export const BUSINESS_GOOGLE_REVIEW_COUNT = 254;
+export const BUSINESS_GOOGLE_REVIEW_COUNT = 255;
 
 /** Google Maps feature cid (from 0x4fa73710c2ac5d92 in the place URL) */
 export const BUSINESS_GOOGLE_MAPS_CID = "5739616795232066962";

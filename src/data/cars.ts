@@ -232,7 +232,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-golf-8',
      carName: "Golf 8",
      brand: "Volkswagen",
-     model: "Golf 8 1.5 eTSI 150 DSG",
+     model: "Golf 8 DSG diesel",
      year: 2024,
      carImage: "/images/Golf-8-style-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -254,7 +254,7 @@ export const cars: Car[] = [
      fuelType: "Diesel",
      transmission: "Automatique DSG 7",
      rating: 4.9,
-     description: "La Golf 8 allie compacité et technologie. Avec le moteur 1.5 eTSI 150 ch  48V et la boîte DSG à 7 rapports, elle offre des performances souples, une consommation contenue et une connectivité moderne (App-Connect Apple CarPlay/Android Auto).",
+     description: "La Golf 8 allie compacité et technologie. Motorisation diesel avec boîte automatique DSG 7 rapports : conduite souple, consommation maîtrisée et connectivité moderne (App-Connect Apple CarPlay/Android Auto). Idéale pour Agadir et les trajets autour.",
   richContent: {
     h1Title: "Location Golf 8 Agadir | Boîte auto, confort & technologie | AmseelCars",
     seoTitle: "Golf 8 en location à Agadir | AmseelCars",
@@ -358,11 +358,11 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
      ],
      specs: {
-       engine: "1.5L eTSI turbo essence 4 cylindres (MHEV 48V)",
-       horsepower: "150 ch",
-       acceleration: "0-100 km/h en ~8,5-8,7 s",
-       topSpeed: "≈ 224 km/h",
-       fuelEfficiency: "≈ 4,6-6,7 l/100 km (selon cycle)",
+       engine: "Diesel",
+       horsepower: "Selon version",
+       acceleration: "Conduite souple (DSG)",
+       topSpeed: "Selon version",
+       fuelEfficiency: "Consommation diesel contenue",
        drivetrain: "Traction (roues avant)"
      },
      category: 'luxury',
@@ -375,7 +375,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-t-roc',
      carName: "T-Roc",
      brand: "Volkswagen",
-     model: "T-Roc 1.5 TSI 150 DSG7",
+     model: "T-Roc DSG diesel",
      year: 2024,
      carImage: "/images/T-roc-automatique-gris-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -397,7 +397,7 @@ export const cars: Car[] = [
      transmission: "Automatique DSG 7",
      rating: 4.7,
     
-     description: "Compact et technologique, le Volkswagen T-Roc 2024 en 1.5 TSI 150 ch (boîte automatique DSG 7) offre des performances équilibrées, une faible consommation et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite complètes et confort au quotidien, idéal pour Agadir et ses environs.",
+     description: "Compact et technologique, le Volkswagen T-Roc 2024 diesel avec boîte automatique DSG 7 offre une conduite équilibrée, une consommation maîtrisée et une excellente sécurité. Connectivité Apple CarPlay / Android Auto via App-Connect, aides à la conduite et confort au quotidien, idéal pour Agadir et ses environs.",
   richContent: {
     h1Title: "Location T-Roc Agadir | SUV compact confortable | AmseelCars",
     seoTitle: "T-Roc en location à Agadir | AmseelCars",
@@ -502,11 +502,11 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto (App-Connect)" }
      ],
      specs: {
-       engine: "1.5L TSI (ACT) 4 cylindres essence",
-       horsepower: "150 ch",
-       acceleration: "0-100 km/h en ~8,4 s",
-       topSpeed: "≈ 205 km/h",
-       fuelEfficiency: "≈ 5,6-6,4 l/100 km (selon cycle)",
+       engine: "Diesel",
+       horsepower: "Selon version",
+       acceleration: "Conduite souple (DSG)",
+       topSpeed: "Selon version",
+       fuelEfficiency: "Consommation diesel contenue",
        drivetrain: "Traction (roues avant)"
      },
      category: 'premium',
@@ -941,7 +941,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-c3-aircross',
      carName: "C3 Aircross",
      brand: "Citroën",
-     model: "C3 Aircross 1.2 PureTech Hybrid 136 e-DCS6",
+     model: "C3 Aircross diesel e-DCS6",
      year: 2024,
      carImage: "/images/C3-aircross-blanche-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -960,7 +960,7 @@ export const cars: Car[] = [
      fuelType: "Diesel",
      transmission: "Automatique e-DCS6",
      rating: 5.0,
-     description: "SUV compact confortable et polyvalent, la Citroën C3 Aircross en 1.2 PureTech Hybrid 136 ch e-DCS6 (essence, hybridation légère 48V) offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
+     description: "SUV compact confortable et polyvalent, la Citroën C3 Aircross diesel avec boîte automatique e-DCS6 offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville comme pour les trajets interurbains.",
   richContent: {
     h1Title: "Location C3 Aircross Agadir | SUV compact confortable | AmseelCars",
     seoTitle: "C3 Aircross en location à Agadir | AmseelCars",
@@ -1065,11 +1065,11 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.2L PureTech turbo 3 cylindres + MHEV 48V",
-       horsepower: "136 ch (système)",
-       acceleration: "0-100 km/h en ~9,1 s",
-       topSpeed: "≈ 192 km/h",
-       fuelEfficiency: "≈ 5,3-5,6 l/100 km (WLTP)",
+       engine: "Diesel",
+       horsepower: "Selon version",
+       acceleration: "Conduite souple (automatique)",
+       topSpeed: "Selon version",
+       fuelEfficiency: "Consommation diesel contenue",
        drivetrain: "Traction (roues avant)"
      },
      category: 'suv',
@@ -1082,7 +1082,7 @@ export const cars: Car[] = [
      slug: 'location-voiture-agadir-c3-aircross-gris',
      carName: "C3 Aircross",
      brand: "Citroën",
-     model: "C3 Aircross 1.2 PureTech Hybrid 136 e-DCS6",
+     model: "C3 Aircross diesel e-DCS6",
      year: 2024,
      carImage: "/images/C3-aircross-gris-automatique-essence-2024-vue-devant-location-de-voiture-agadir-maroc-amseel-cars.webp",
      images: [
@@ -1104,7 +1104,7 @@ export const cars: Car[] = [
      fuelType: "Diesel",
      transmission: "Automatique e-DCS6",
      rating: 5.0,
-     description: "SUV compact confortable et polyvalent, la C3 Aircross gris en 1.2 PureTech Hybrid 136 ch e-DCS6 (essence, hybridation légère 48V) offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d'Agadir comme pour les trajets interurbains.",
+     description: "SUV compact confortable et polyvalent, la C3 Aircross gris diesel avec boîte automatique e-DCS6 offre une conduite souple, une consommation maîtrisée et une connectivité moderne (Apple CarPlay / Android Auto selon finition). Idéale pour la ville d'Agadir comme pour les trajets interurbains.",
   richContent: {
     h1Title: "Location C3 Aircross gris Agadir | SUV compact confortable | AmseelCars",
     seoTitle: "C3 Aircross gris en location à Agadir | AmseelCars",
@@ -1209,11 +1209,11 @@ export const cars: Car[] = [
        { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
      ],
      specs: {
-       engine: "1.2L PureTech turbo 3 cylindres + MHEV 48V",
-       horsepower: "136 ch (système)",
-       acceleration: "0-100 km/h en ~9,1 s",
-       topSpeed: "≈ 192 km/h",
-       fuelEfficiency: "≈ 5,3-5,6 l/100 km (WLTP)",
+       engine: "Diesel",
+       horsepower: "Selon version",
+       acceleration: "Conduite souple (automatique)",
+       topSpeed: "Selon version",
+       fuelEfficiency: "Consommation diesel contenue",
        drivetrain: "Traction (roues avant)"
      },
      category: 'suv',
@@ -1336,7 +1336,7 @@ export const cars: Car[] = [
       },
       {
         question: "Cette C3 est-elle automatique ?",
-        answer: "Non, cette C3 BlueHDi 100 du parc AmseelCars est en boîte manuelle 6 rapports, conforme au catalogue diesel Maroc. Pour une boîte auto, demandez une autre disponibilité (ex. C3 Aircross PureTech Hybrid)."
+        answer: "Non, cette C3 BlueHDi 100 du parc AmseelCars est en boîte manuelle 6 rapports, conforme au catalogue diesel Maroc. Pour une boîte auto, demandez une autre disponibilité (ex. C3 Aircross automatique)."
       }
     ]
   },
