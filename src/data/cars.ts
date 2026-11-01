@@ -431,7 +431,7 @@ export const cars: Car[] = [
         paragraphs: [
           "Le T-Roc est apprécié pour son bon équilibre entre performances et consommation. Il offre des relances suffisantes pour dépasser en sécurité et s'insérer facilement sur les grands axes.",
           "En conduite quotidienne, il se montre souple et agréable, ce qui correspond parfaitement aux attentes d'une location voiture à Agadir.",
-          "Selon la version, le T-Roc peut être équipé d'une boîte manuelle ou automatique. La boîte automatique est idéale en ville pour plus de confort, tandis que la boîte manuelle conviendra aux conducteurs qui préfèrent garder le contrôle sur route."
+          "Chez AmseelCars, ce T-Roc est proposé en diesel avec boîte automatique DSG 7 rapports : conduite fluide en ville et confortable sur les trajets autour d'Agadir."
         ]
       },
       {
@@ -994,7 +994,7 @@ export const cars: Car[] = [
         paragraphs: [
           "Le C3 Aircross est reconnu pour sa conduite souple et rassurante. En ville, il est maniable, facile à prendre en main et agréable dans la circulation.",
           "Sur route, il reste stable et confortable, ce qui le rend parfaitement adapté aux trajets interurbains et aux sorties vers la côte.",
-          "Selon la version, la présence d'une boîte automatique apporte encore plus de confort, notamment en conduite urbaine. Les relances sont suffisantes pour une conduite fluide et sans stress."
+          "Ce C3 Aircross est équipé d'une boîte automatique e-DCS6, idéale en ville pour plus de confort. Les relances restent suffisantes pour une conduite fluide et sans stress."
         ]
       },
       {

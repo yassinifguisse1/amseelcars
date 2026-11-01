@@ -51,6 +51,29 @@
       "contact": "Contact",
       "blog": "Agadir rental guides"
     },
+    "bookingProcess": {
+      "kicker": "Airport booking path",
+      "title": "From flight details to keys at AGA",
+      "lead": "Designed for Agadir Al Massira arrivals: we sync to your flight, meet you after baggage, and confirm every detail on WhatsApp before you land.",
+      "steps": [
+        {
+          "title": "Send flight and dates",
+          "text": "WhatsApp your arrival flight number, return day, and preferred car class - mention luggage or automatic if needed."
+        },
+        {
+          "title": "Confirm car and meeting plan",
+          "text": "We reply with 1-2 options, the daily EUR rate, driver contact, plate, and the AGA meeting point."
+        },
+        {
+          "title": "Collect after baggage",
+          "text": "We meet at the agreed spot after baggage claim, walk the car with you, and hand over the keys."
+        },
+        {
+          "title": "Return at AGA on departure",
+          "text": "Airport drop-off is booked with your return flight timing so you are not rushing through security."
+        }
+      ]
+    },
     "operations": {
       "kicker": "How AGA pickup works",
       "title": "From WhatsApp to keys at the airport",

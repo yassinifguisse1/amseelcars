@@ -24,6 +24,7 @@ import {
   BUSINESS_MAILTO,
   BUSINESS_TELEPHONE_E164,
   BUSINESS_WHATSAPP_URL,
+  SITE_URL,
 } from "@/lib/business";
 import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
 import { reviews } from "@/data/reviews";
@@ -41,6 +42,13 @@ type GuideBlockContent = {
   title: string;
   lead: string;
   items: FeatureContent[];
+};
+
+type BookingProcessContent = {
+  kicker: string;
+  title: string;
+  lead: string;
+  steps: { title: string; text: string }[];
 };
 
 export async function generateMetadata({
@@ -82,6 +90,7 @@ export default async function AgadirAirportCarRentalPage() {
   const serviceChips = t.raw("serviceChips") as string[];
   const pickupGuide = t.raw("pickupGuide") as GuideBlockContent;
   const pricingGuide = t.raw("pricingGuide") as GuideBlockContent;
+  const bookingProcess = t.raw("bookingProcess") as BookingProcessContent;
 
   const homePath = getPathname({ locale: l, href: "/" });
   const carsPath = getPathname({ locale: l, href: "/cars" });
@@ -203,6 +212,11 @@ export default async function AgadirAirportCarRentalPage() {
           kicker: t("operations.kicker"),
           title: t("operations.title"),
           lead: t("operations.lead"),
+        }}
+        bookingProcess={{
+          ...bookingProcess,
+          layout: "ladder",
+          pageUrl: `${SITE_URL}${selfPath}`,
         }}
         aiPanel={{
           badge: t("aiPanel.badge"),

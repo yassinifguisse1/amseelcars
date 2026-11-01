@@ -51,6 +51,29 @@
       "contact": "Kontakt",
       "blog": "Przewodniki wynajmu Agadir"
     },
+    "bookingProcess": {
+      "kicker": "Ścieżka rezerwacji lotnisko",
+      "title": "Od danych lotu do kluczyków na AGA",
+      "lead": "Dla przylotów na Agadir Al Massira: synchronizujemy się z Twoim lotem, spotykamy się po bagażu i potwierdzamy każdy szczegół na WhatsApp przed lądowaniem.",
+      "steps": [
+        {
+          "title": "Wyślij lot i daty",
+          "text": "WhatsApp: numer lotu przylotowego, dzień zwrotu i preferowana klasa - wspomnij o bagażu lub automacie, jeśli potrzeba."
+        },
+        {
+          "title": "Potwierdź auto i punkt spotkania",
+          "text": "Odpowiadamy 1-2 opcjami, stawką dzienną w euro, kontaktem kierowcy, rejestracją i punktem spotkania na AGA."
+        },
+        {
+          "title": "Odbierz po bagażu",
+          "text": "Spotykamy się w uzgodnionym miejscu po odbiorze bagażu, oglądamy auto razem i przekazujemy kluczyki."
+        },
+        {
+          "title": "Zwrot na AGA przy odlocie",
+          "text": "Zwrot na lotnisku dopasowujemy do Twojego lotu powrotnego, żeby nie spieszyć się do kontroli."
+        }
+      ]
+    },
     "operations": {
       "kicker": "Jak działa odbiór AGA",
       "title": "Od WhatsApp do kluczyków na lotnisku",

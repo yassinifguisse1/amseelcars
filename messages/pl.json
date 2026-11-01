@@ -132,7 +132,29 @@
         "Lotnisko lub miasto · dostawa",
         "WhatsApp · wsparcie 24/7",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
-      ]
+      ],
+      "bookingSteps": {
+        "title": "Jak zarezerwować w AmseelCars",
+        "subtitle": "Cztery jasne kroki - od wyszukiwania do potwierdzonego odbioru. Ten sam proces, którego używamy codziennie w Agadirze.",
+        "steps": [
+          {
+            "title": "Wybierz daty i odbiór",
+            "text": "Użyj wyszukiwarki: miejsce odbioru (miasto, lotnisko AGA lub Taghazout), daty i godziny."
+          },
+          {
+            "title": "Wybierz auto",
+            "text": "Przejrzyj flotę, porównaj ceny od, paliwo i skrzynię, potem otwórz model dopasowany do wyjazdu."
+          },
+          {
+            "title": "Wyślij zapytanie",
+            "text": "Wyślij formularz na stronie auta lub napisz na WhatsApp 24/7 z datami i wybranym modelem."
+          },
+          {
+            "title": "Otrzymaj potwierdzenie",
+            "text": "Potwierdzamy dostępność, cenę końcową, kwalifikację bez kaucji i warunki ubezpieczenia przed podróżą."
+          }
+        ]
+      }
     },
     "airport": {
       "title": "Lotnisko lub miasto - wybierz odbiór",
@@ -358,7 +380,7 @@
         },
         {
           "q": "Bez kaucji?",
-          "a": "Tak. Większość wynajmów bez kaucji i bez karty, gdy dokumenty i warunki potwierdzimy na WhatsApp przed odbiorem. Kwalifikację potwierdzamy przy rezerwacji. Opcjonalne pełne ubezpieczenie (od 10 €/dzień) jest osobne — obniża udział własny do 0 € według warunków; to nie jest zwolnienie z kaucji."
+          "a": "Tak. Większość wynajmów bez kaucji i bez karty, gdy dokumenty i warunki potwierdzimy na WhatsApp przed odbiorem. Kwalifikację potwierdzamy przy rezerwacji. Opcjonalne pełne ubezpieczenie (od 10 €/dzień) jest osobne - obniża udział własny do 0 € według warunków; to nie jest zwolnienie z kaucji."
         },
         {
           "q": "Dostawa i wsparcie 24/7?",
@@ -1250,6 +1272,29 @@
       "taghazout": "Taghazout i Imsouane",
       "contact": "Kontakt",
       "blog": "Przewodniki wynajmu Agadir"
+    },
+    "bookingProcess": {
+      "kicker": "Ścieżka rezerwacji w mieście",
+      "title": "Dostawa do hotelu w czterech krokach",
+      "lead": "Dla pobytów w mieście i przy plaży w Agadirze: Ty zostajesz w hotelu, my dowozimy auto do lobby, a każdy krok najpierw potwierdzamy na WhatsApp.",
+      "steps": [
+        {
+          "title": "Podaj hotel i daty",
+          "text": "WhatsApp: dzień przyjazdu, dzień zwrotu oraz nazwa hotelu lub riadu w Agadirze (plaża, centrum, Founty, marina)."
+        },
+        {
+          "title": "Zablokuj auto i slot",
+          "text": "Odpowiadamy 1-2 modelami, stawką dzienną w euro i oknem dostawy dopasowanym do check-inu."
+        },
+        {
+          "title": "Spotkanie w lobby",
+          "text": "Członek zespołu przywozi auto, robi z Tobą oględziny i przekazuje kluczyki w uzgodnionym terminie."
+        },
+        {
+          "title": "Jazda z wsparciem WhatsApp",
+          "text": "Zachowaj nasz numer podczas wynajmu. Zwrot planujemy z Tobą przed końcem umowy."
+        }
+      ]
     },
     "operations": {
       "kicker": "Dostawa w mieście",

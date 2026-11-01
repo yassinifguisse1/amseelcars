@@ -132,7 +132,29 @@
         "Airport or city pickup · free delivery",
         "WhatsApp car hire Agadir · 24/7 support",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
-      ]
+      ],
+      "bookingSteps": {
+        "title": "How to book with AmseelCars",
+        "subtitle": "Four clear steps from search to confirmed pickup - the same process we use every day for travellers in Agadir.",
+        "steps": [
+          {
+            "title": "Choose dates and pickup",
+            "text": "Use the search bar: pickup place (city, AGA airport, or Taghazout), dates, and times."
+          },
+          {
+            "title": "Pick your car",
+            "text": "Browse the fleet, compare from-prices, fuel type and gearbox, then open the car that fits your trip."
+          },
+          {
+            "title": "Send a booking request",
+            "text": "Submit the form on the car page or message WhatsApp 24/7 with your dates and preferred model."
+          },
+          {
+            "title": "Get confirmation before pickup",
+            "text": "We confirm availability, final price, deposit eligibility and insurance terms before you travel."
+          }
+        ]
+      }
     },
     "airport": {
       "title": "Airport or city - choose your pickup",
@@ -358,7 +380,7 @@
         },
         {
           "q": "Do you offer no deposit car rental Agadir?",
-          "a": "Yes. Most rentals need no security deposit and no credit card when your documents and booking terms are confirmed on WhatsApp before pickup. Eligibility is confirmed with your booking. Optional Full Insurance (from €10/day) is separate — it reduces excess to €0 subject to terms, it is not a deposit waiver."
+          "a": "Yes. Most rentals need no security deposit and no credit card when your documents and booking terms are confirmed on WhatsApp before pickup. Eligibility is confirmed with your booking. Optional Full Insurance (from €10/day) is separate - it reduces excess to €0 subject to terms, it is not a deposit waiver."
         },
         {
           "q": "Is free delivery and 24/7 support included?",
@@ -1250,6 +1272,29 @@
       "taghazout": "Taghazout & Imsouane coast",
       "contact": "Contact",
       "blog": "Agadir rental guides"
+    },
+    "bookingProcess": {
+      "kicker": "City booking path",
+      "title": "Book hotel delivery in four moves",
+      "lead": "Built for Agadir city and beach stays: you stay at the hotel, we bring the car to the lobby, and every step is confirmed on WhatsApp first.",
+      "steps": [
+        {
+          "title": "Share hotel and dates",
+          "text": "WhatsApp your check-in day, return day, and hotel or riad name in Agadir (beach, downtown, Founty, marina)."
+        },
+        {
+          "title": "Lock the car and slot",
+          "text": "We reply with 1-2 models, the daily EUR rate, and a delivery window that matches your check-in."
+        },
+        {
+          "title": "Meet at the lobby",
+          "text": "A team member brings the car, does the walkaround with you, and hands over the keys in the agreed slot."
+        },
+        {
+          "title": "Drive with WhatsApp backup",
+          "text": "Keep our number for support during the rental. Return is planned with you before the hire ends."
+        }
+      ]
     },
     "operations": {
       "kicker": "How city delivery works",

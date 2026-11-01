@@ -17,15 +17,20 @@ const ParallexCards = dynamic(
     ),
   }
 )
-import Script from 'next/script'
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { generateBreadcrumbSchema, generateLocalSeoLandingGraphSchema } from '@/lib/schemas';
+import {
+  generateBreadcrumbSchema,
+  generateFleetOfferItemListSchema,
+  generateLocalSeoLandingGraphSchema,
+} from '@/lib/schemas';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { localizedAlternates } from '@/lib/seo/localized-alternates';
 import { buildPageMetadata, DEFAULT_OG_IMAGE } from '@/lib/seo/site-meta';
 import type { AppLocale } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
 import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from '@/i18n/locale-utils';
+import { SITE_URL } from '@/lib/business';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -58,23 +63,36 @@ export default async function CarsPage() {
     { name: tNav("home"), url: homePath },
     { name: tNav("cars"), url: carsPath },
   ]);
-  const itemListSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: tCars("schema.itemListName"),
-    itemListElement: allCars.slice(0, 24).map((car, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: car.carName,
-      url: `https://www.amseelcars.com${getPathname({
+  const itemListSchema = generateFleetOfferItemListSchema(
+    allCars.map((car) => ({
+      brand: car.brand,
+      carName: car.carName,
+      model: car.model,
+      description: car.description,
+      pricePerDay: car.pricePerDay,
+      carImage: car.carImage,
+      slug: car.slug,
+      year: car.year,
+      fuelType: car.fuelType,
+      transmission: car.transmission,
+      seats: car.seats,
+      productPageUrl: `${SITE_URL}${getPathname({
         locale: l,
         href: {
           pathname: "/cars/brand/[brandSlug]/[carSlug]",
-          params: { brandSlug: brandToSlug(car.brand), carSlug: carSlugForLocale(car.slug, l) },
+          params: {
+            brandSlug: brandToSlug(car.brand),
+            carSlug: carSlugForLocale(car.slug, l),
+          },
         },
       })}`,
     })),
-  };
+    {
+      name: tCars("schema.itemListName"),
+      listUrl: `${SITE_URL}${carsPath}`,
+      listId: `${SITE_URL}${carsPath}#fleet-offers`,
+    },
+  );
   const moneyPageGraphSchema = generateLocalSeoLandingGraphSchema({
     path: carsPath,
     name: tCars("schema.moneyPageName"),
@@ -109,22 +127,9 @@ export default async function CarsPage() {
 
   return (
     <>
-      {/* Breadcrumb Schema */}
-      <Script
-        id="ld-json-breadcrumb-cars"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <Script
-        id="ld-json-cars-itemlist"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
-      />
-      <Script
-        id={`ld-json-cars-money-graph-${l}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(moneyPageGraphSchema) }}
-      />
+      <JsonLd id="ld-json-breadcrumb-cars" data={breadcrumbSchema} />
+      <JsonLd id="ld-json-cars-itemlist" data={itemListSchema} />
+      <JsonLd id={`ld-json-cars-money-graph-${l}`} data={moneyPageGraphSchema} />
     <div>
       <HeroVideo/>
       <section className="mx-auto max-w-6xl px-4 py-8 md:py-10 hidden">

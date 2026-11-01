@@ -126,7 +126,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-golf-8': {
     description:
-      'The Golf 8 blends compact size with modern tech. Its 1.5 eTSI 150 hp mild-hybrid engine and 7-speed DSG deliver smooth performance, efficient running costs, and up-to-date connectivity (Apple CarPlay / Android Auto).',
+      'The Golf 8 blends compact size with modern tech. Its diesel engine and 7-speed DSG automatic deliver smooth driving, controlled fuel use and up-to-date connectivity (Apple CarPlay / Android Auto).',
 
     richContent: {
       h1Title: 'Golf 8 rental Agadir | Automatic, comfort & tech | AmseelCars',
@@ -231,7 +231,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-t-roc': {
     description:
-      'Compact and tech-forward, the Volkswagen T-Roc 2024 with 1.5 TSI 150 hp petrol (7-speed DSG automatic) offers balanced performance, low fuel use and strong safety. Apple CarPlay / Android Auto via App-Connect, comprehensive driver assists and everyday comfort, ideal for Agadir and the surrounding area.',
+      'Compact and tech-forward, the Volkswagen T-Roc 2024 diesel with 7-speed DSG automatic offers balanced driving, controlled fuel use and strong safety. Apple CarPlay / Android Auto via App-Connect, driver assists and everyday comfort — ideal for Agadir and the surrounding area.',
 
     richContent: {
       h1Title: 'T-Roc rental Agadir | Comfortable compact SUV | AmseelCars',
@@ -267,7 +267,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The T-Roc is valued for its balance between performance and fuel economy. It has enough punch for safe overtaking and merging onto main roads.',
             'In daily driving it feels flexible and pleasant, a good match for expectations when renting a car in Agadir.',
-            'Depending on version, the T-Roc can have a manual or automatic gearbox. An automatic is ideal in town for extra comfort; a manual suits drivers who prefer full control on the open road.',
+            'At AmseelCars, this T-Roc is rented as a diesel with 7-speed DSG automatic: smooth in town and comfortable on roads around Agadir.',
           ],
         },
         {
@@ -696,7 +696,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
           paragraphs: [
             'The C3 Aircross is known for supple, reassuring driving. In town it is agile, easy to learn and pleasant in traffic.',
             'On the road it stays stable and comfortable, well suited to longer runs and coastal outings.',
-            'Depending on version, an automatic gearbox adds convenience in urban driving. Performance is enough for relaxed, stress-free progress.',
+            'This C3 Aircross comes with an e-DCS6 automatic gearbox, ideal for comfortable city driving. Performance is enough for relaxed, stress-free progress.',
           ],
         },
         {

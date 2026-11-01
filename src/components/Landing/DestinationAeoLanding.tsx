@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 import Footer from "@/components/Footer/Footer";
 import { LandingGoogleReviewBadge } from "@/components/Landing/LandingGoogleReviewBadge";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_NAME } from "@/lib/business";
 import styles from "./destination-aeo-landing.module.css";
 
@@ -85,6 +86,17 @@ export type DestinationGuideSection = {
   items: DestinationFeature[];
 };
 
+export type DestinationBookingProcess = {
+  kicker: string;
+  title: string;
+  lead: string;
+  /** City = horizontal timeline; airport = vertical ladder (distinct from home boxes). */
+  layout: "timeline" | "ladder";
+  steps: { title: string; text: string }[];
+  /** Absolute page URL for HowTo JSON-LD */
+  pageUrl: string;
+};
+
 export type DestinationAeoLandingProps = {
   languageSwitcher: ReactNode;
   variant?: "default" | "airport" | "coast";
@@ -110,6 +122,8 @@ export type DestinationAeoLandingProps = {
   trustSection?: DestinationTrustSection;
   /** Extra editorial blocks (delivery zones, price bands, etc.). */
   guideSections?: DestinationGuideSection[];
+  /** How-to-book process (city timeline vs airport ladder). */
+  bookingProcess?: DestinationBookingProcess;
   serviceChips: string[];
   stats: DestinationStat[];
   aiHighlights: DestinationHighlight[];
@@ -143,6 +157,44 @@ export type DestinationAeoLandingProps = {
     title: string;
   };
 };
+
+function BookingProcessSection({ process }: { process: DestinationBookingProcess }) {
+  const isTimeline = process.layout === "timeline";
+  return (
+    <section
+      id="booking-process"
+      className={clsx(
+        styles.bookingProcess,
+        isTimeline ? styles.bookingProcessTimeline : styles.bookingProcessLadder,
+      )}
+      aria-labelledby="booking-process-heading"
+    >
+      <p className={styles.kicker}>{process.kicker}</p>
+      <h2 id="booking-process-heading" className={styles.h2}>
+        {process.title}
+      </h2>
+      <p className={styles.lead}>{process.lead}</p>
+      <ol
+        className={clsx(
+          styles.bookingSteps,
+          isTimeline ? styles.bookingStepsTimeline : styles.bookingStepsLadder,
+        )}
+      >
+        {process.steps.map((step, index) => (
+          <li key={step.title} className={styles.bookingStep}>
+            <span className={styles.bookingStepIndex} aria-hidden>
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div className={styles.bookingStepCopy}>
+              <h3 className={styles.bookingStepTitle}>{step.title}</h3>
+              <p className={styles.bookingStepText}>{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
 
 function CtaLink({ cta }: { cta: DestinationCta }) {
   const external =
@@ -188,6 +240,7 @@ export function DestinationAeoLanding({
   relatedPagesLabel = "Related pages",
   trustSection,
   guideSections,
+  bookingProcess,
   serviceChips,
   stats,
   aiHighlights,
@@ -208,9 +261,28 @@ export function DestinationAeoLanding({
   const fleetLabel = fleetCtaLabel ?? "Explore the entire fleet";
   const openHint = carOpenHint ?? "Voir le véhicule →";
   const visual = heroVisual ?? (cars[0] ? { src: cars[0].image, alt: cars[0].imageAlt } : null);
+  const howToSchema = bookingProcess
+    ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "@id": `${bookingProcess.pageUrl}#how-to-book`,
+        name: bookingProcess.title,
+        description: bookingProcess.lead,
+        step: bookingProcess.steps.map((step, index) => ({
+          "@type": "HowToStep",
+          position: index + 1,
+          name: step.title,
+          text: step.text,
+          url: `${bookingProcess.pageUrl}#booking-process`,
+        })),
+      }
+    : null;
 
   return (
     <div className={styles.root} data-variant={variant}>
+      {howToSchema ? (
+        <JsonLd id="ld-json-destination-howto-book" data={howToSchema} />
+      ) : null}
       {/* ——— Hero: one composition ——— */}
       <header className={clsx(styles.hero, bookingSearch && styles.heroWithBooking)}>
         {visual ? (
@@ -364,6 +436,10 @@ export function DestinationAeoLanding({
               </div>
             ))}
           </section>
+        ) : null}
+
+        {bookingProcess ? (
+          <BookingProcessSection process={bookingProcess} />
         ) : null}
 
         {aiHighlights.length ? (

@@ -583,3 +583,87 @@ export function generateAggregateRatingSchema(
     worstRating: 1,
   };
 }
+
+export type FleetOfferListCar = {
+  brand: string;
+  carName: string;
+  model: string;
+  description: string;
+  pricePerDay: number;
+  carImage: string;
+  slug: string;
+  year: number;
+  fuelType: string;
+  transmission: string;
+  seats: number;
+  /** Absolute product page URL for this locale */
+  productPageUrl: string;
+};
+
+/**
+ * ItemList of Product/Car + Offer (EUR/day) — homepage & fleet for agents / Google.
+ */
+export function generateFleetOfferItemListSchema(
+  cars: FleetOfferListCar[],
+  options: { name: string; listUrl: string; listId?: string },
+) {
+  const listId = options.listId ?? `${options.listUrl}#fleet-offers`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    '@id': listId,
+    name: options.name,
+    url: options.listUrl,
+    numberOfItems: cars.length,
+    itemListOrder: 'https://schema.org/ItemListUnordered',
+    itemListElement: cars.map((car, index) => {
+      const priceEur = convertCarPrice(car.pricePerDay, 'EUR').toString();
+      const image = car.carImage.startsWith('http')
+        ? car.carImage
+        : `${siteUrl}${car.carImage}`;
+      const productId = `${car.productPageUrl}#product`;
+
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        url: car.productPageUrl,
+        item: {
+          '@type': ['Product', 'Car'],
+          '@id': productId,
+          name: `${car.brand} ${car.carName}`,
+          model: car.model,
+          description: car.description,
+          url: car.productPageUrl,
+          image,
+          brand: { '@type': 'Brand', name: car.brand },
+          vehicleModelDate: String(car.year),
+          fuelType: car.fuelType,
+          vehicleTransmission: car.transmission,
+          seatingCapacity: car.seats,
+          offers: {
+            '@type': 'Offer',
+            '@id': `${car.productPageUrl}#offer`,
+            url: car.productPageUrl,
+            priceCurrency: 'EUR',
+            price: priceEur,
+            availability: 'https://schema.org/InStock',
+            seller: { '@id': `${siteUrl}#business` },
+            businessFunction: 'https://schema.org/LeaseOut',
+            priceSpecification: {
+              '@type': 'UnitPriceSpecification',
+              price: priceEur,
+              priceCurrency: 'EUR',
+              unitText: 'DAY',
+              referenceQuantity: {
+                '@type': 'QuantitativeValue',
+                value: 1,
+                unitCode: 'DAY',
+              },
+            },
+          },
+        },
+      };
+    }),
+  };
+}

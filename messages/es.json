@@ -132,7 +132,29 @@
         "Aeropuerto o ciudad · entrega",
         "WhatsApp · soporte 24/7",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
-      ]
+      ],
+      "bookingSteps": {
+        "title": "Cómo reservar con AmseelCars",
+        "subtitle": "Cuatro pasos claros, de la búsqueda a la entrega confirmada - el mismo proceso que usamos cada día en Agadir.",
+        "steps": [
+          {
+            "title": "Elige fechas y recogida",
+            "text": "Usa el buscador: lugar de recogida (ciudad, aeropuerto AGA o Taghazout), fechas y horas."
+          },
+          {
+            "title": "Elige tu coche",
+            "text": "Consulta la flota, compara precios desde, combustible y caja, y abre el modelo que encaje con tu viaje."
+          },
+          {
+            "title": "Envía la solicitud",
+            "text": "Envía el formulario en la ficha del coche o escribe por WhatsApp 24/7 con fechas y modelo deseado."
+          },
+          {
+            "title": "Recibe la confirmación",
+            "text": "Confirmamos disponibilidad, precio final, elegibilidad sin fianza y condiciones del seguro antes del viaje."
+          }
+        ]
+      }
     },
     "airport": {
       "title": "Aeropuerto o ciudad - elige la recogida",
@@ -1250,6 +1272,29 @@
       "taghazout": "Taghazout e Imsouane",
       "contact": "Contacto",
       "blog": "Guías de alquiler en Agadir"
+    },
+    "bookingProcess": {
+      "kicker": "Reserva en ciudad",
+      "title": "Entrega en hotel en cuatro pasos",
+      "lead": "Pensado para estancias en ciudad y playa en Agadir: tú te quedas en el hotel, nosotros llevamos el coche al lobby, y cada paso se confirma primero por WhatsApp.",
+      "steps": [
+        {
+          "title": "Indica hotel y fechas",
+          "text": "WhatsApp: día de llegada, día de devolución y nombre del hotel o riad en Agadir (playa, centro, Founty, marina)."
+        },
+        {
+          "title": "Confirma coche y franja",
+          "text": "Respondemos con 1-2 modelos, la tarifa diaria en euros y una franja de entrega alineada con el check-in."
+        },
+        {
+          "title": "Encuentro en el lobby",
+          "text": "Un miembro del equipo trae el coche, hace la revisión contigo y entrega las llaves en la franja acordada."
+        },
+        {
+          "title": "Conduce con soporte WhatsApp",
+          "text": "Guarda nuestro número durante el alquiler. La devolución se planifica contigo antes de que termine el alquiler."
+        }
+      ]
     },
     "operations": {
       "kicker": "Entrega en ciudad",

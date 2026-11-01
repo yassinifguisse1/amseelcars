@@ -55,6 +55,10 @@ const FEATURE_NAMES: Record<Exclude<AppLocale, 'fr'>, Record<string, string>> = 
  */
 const PHRASES: Record<Exclude<AppLocale, 'fr'>, Array<[string, string]>> = {
   en: [
+    ['Consommation diesel contenue', 'Controlled diesel consumption'],
+    ['Conduite souple (automatique)', 'Smooth driving (automatic)'],
+    ['Conduite souple (DSG)', 'Smooth driving (DSG)'],
+    ['Selon version', 'Depending on version'],
     ["Freinage d'urgence, maintien de voie, reconnaissance panneaux (Euro NCAP 5★)", 'Emergency braking, lane keep, traffic-sign recognition (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie, lecture panneaux (Euro NCAP 5★)", 'Emergency braking, lane keep, traffic-sign recognition (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie (selon finition)", 'Emergency braking, lane keep (depending on trim)'],
@@ -128,6 +132,10 @@ const PHRASES: Record<Exclude<AppLocale, 'fr'>, Array<[string, string]>> = {
     [' ch', ' hp'],
   ],
   es: [
+    ['Consommation diesel contenue', 'Consumo diésel contenido'],
+    ['Conduite souple (automatique)', 'Conducción suave (automático)'],
+    ['Conduite souple (DSG)', 'Conducción suave (DSG)'],
+    ['Selon version', 'Según versión'],
     ["Freinage d'urgence, maintien de voie, reconnaissance panneaux (Euro NCAP 5★)", 'Frenado de emergencia, mantenimiento de carril, reconocimiento de señales (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie, lecture panneaux (Euro NCAP 5★)", 'Frenado de emergencia, mantenimiento de carril, reconocimiento de señales (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie (selon finition)", 'Frenado de emergencia, mantenimiento de carril (según acabado)'],
@@ -196,6 +204,10 @@ const PHRASES: Record<Exclude<AppLocale, 'fr'>, Array<[string, string]>> = {
     [' ch', ' CV'],
   ],
   de: [
+    ['Consommation diesel contenue', 'Kontrollierter Dieselverbrauch'],
+    ['Conduite souple (automatique)', 'Geschmeidiges Fahren (Automatik)'],
+    ['Conduite souple (DSG)', 'Geschmeidiges Fahren (DSG)'],
+    ['Selon version', 'Je nach Version'],
     ["Freinage d'urgence, maintien de voie, reconnaissance panneaux (Euro NCAP 5★)", 'Notbremsung, Spurhalteassistent, Verkehrszeichenerkennung (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie, lecture panneaux (Euro NCAP 5★)", 'Notbremsung, Spurhalteassistent, Verkehrszeichenerkennung (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie (selon finition)", 'Notbremsung, Spurhalteassistent (je nach Ausstattung)'],
@@ -264,6 +276,10 @@ const PHRASES: Record<Exclude<AppLocale, 'fr'>, Array<[string, string]>> = {
     [' ch', ' PS'],
   ],
   pl: [
+    ['Consommation diesel contenue', 'Kontrolowane zużycie diesla'],
+    ['Conduite souple (automatique)', 'Płynna jazda (automat)'],
+    ['Conduite souple (DSG)', 'Płynna jazda (DSG)'],
+    ['Selon version', 'Zależnie od wersji'],
     ["Freinage d'urgence, maintien de voie, reconnaissance panneaux (Euro NCAP 5★)", 'Hamowanie awaryjne, utrzymanie pasa, rozpoznawanie znaków (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie, lecture panneaux (Euro NCAP 5★)", 'Hamowanie awaryjne, utrzymanie pasa, rozpoznawanie znaków (Euro NCAP 5★)'],
     ["Freinage d'urgence, maintien de voie (selon finition)", 'Hamowanie awaryjne, utrzymanie pasa (zależnie od wersji)'],

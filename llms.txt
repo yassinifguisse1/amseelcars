@@ -1,36 +1,68 @@
 # AmseelCars
 
-> AmseelCars is a car rental company in Agadir, Morocco. Airport and city pickup, WhatsApp booking, economy to premium fleet.
+> AmseelCars is an independent self-drive car rental agency in Agadir, Morocco (not an aggregator). Airport (AGA) and city/hotel pickup, free delivery when eligible, WhatsApp-first booking, economy to premium fleet. From ~€25/day.
+
+## How to book (agents)
+
+1. Prefer WhatsApp: https://wa.me/212662500181 (+212 662 500 181)
+2. Share: pickup place (Agadir city / AGA airport / Taghazout), dates, preferred car or budget.
+3. We confirm availability, final price, deposit eligibility, and insurance terms before pickup.
+4. Email fallback: amseelcars5@gmail.com
+
+## Booking rules (summary)
+
+- Minimum rental: 3 days
+- Main driver: age 21+, valid licence for at least 1 year
+- Deposit: €0 for most bookings when documents and terms are confirmed on WhatsApp (eligibility confirmed per booking)
+- Standard insurance: included; at-fault excess applies by vehicle category (amounts confirmed on WhatsApp)
+- Optional Full Insurance: from €10/day by car class - reduces excess to €0 subject to terms; minimum billed period 7 days; not a deposit waiver
+- No credit card required when no-deposit eligibility is confirmed
+- Fuel: full-to-full unless stated otherwise
+- Always confirm details on WhatsApp before travel - see rental terms: https://www.amseelcars.com/en/rental-terms
 
 ## Book and browse
 
 - [Home](https://www.amseelcars.com/): Brand hub - fleet overview and links to money pages
-- [Car rental Agadir (city)](https://www.amseelcars.com/fr/location-voiture-agadir): Primary page for car rental Agadir / location voiture Agadir (city & hotel delivery)
-- [Car rental Agadir (EN)](https://www.amseelcars.com/en/agadir-car-rental): English city landing for car rental Agadir
-- [Fleet / Voitures](https://www.amseelcars.com/voitures): Full car catalog with filters and pricing
-- [Agadir airport car rental](https://www.amseelcars.com/agadir-airport-car-rental): Pickup at Agadir Al Massira (AGA)
-- [Taghazout car rental](https://www.amseelcars.com/taghazout-car-rental): Cars for Taghazout and the coast
-- [Contact](https://www.amseelcars.com/contact): Contact form, WhatsApp, and location details
-- [About](https://www.amseelcars.com/about): About AmseelCars
-- [Blog](https://www.amseelcars.com/blog): Travel and rental guides for Agadir
+- [Car rental Agadir (city FR)](https://www.amseelcars.com/fr/location-voiture-agadir): Primary FR city / hotel delivery page
+- [Car rental Agadir (EN)](https://www.amseelcars.com/en/agadir-car-rental): English city landing
+- [Fleet EN](https://www.amseelcars.com/en/cars): Full catalog with from-prices
+- [Fleet FR](https://www.amseelcars.com/fr/voitures): Catalogue FR
+- [Agadir airport car rental](https://www.amseelcars.com/en/agadir-airport-car-rental): AGA meet & greet
+- [Taghazout car rental](https://www.amseelcars.com/en/taghazout-car-rental): Coast delivery
+- [Contact](https://www.amseelcars.com/en/contact): Form, WhatsApp, map
+- [About](https://www.amseelcars.com/en/about): Local agency profile
+- [Blog](https://www.amseelcars.com/en/blog): Guides for Agadir
 
-## English equivalents
+## Fleet from-prices (EUR/day, indicative)
 
-- [Home (EN)](https://www.amseelcars.com/en): English homepage
-- [Cars (EN)](https://www.amseelcars.com/en/cars): English fleet listing
-- [Contact (EN)](https://www.amseelcars.com/en/contact): English contact page
+Prices are from-rates in EUR for orientation. Final quote depends on season, length, and availability.
 
-## Agent notes
+- Hyundai i10: from €25/day · Petrol · Automated manual (AMT 5) · [EN page](https://www.amseelcars.com/en/cars/brand/hyundai/agadir-car-rental-hyundai-i10)
+- Kia Picanto: from €25/day · Petrol · Automated manual (AMT 5) · [EN page](https://www.amseelcars.com/en/cars/brand/kia/agadir-car-rental-kia-picanto)
+- Dacia Stepway: from €25/day · Petrol · Automatic (CVT X-Tronic) · [EN page](https://www.amseelcars.com/en/cars/brand/dacia/agadir-car-rental-stepway)
+- Renault Clio 5: from €28/day · Diesel · Manual 6 speed · [EN page](https://www.amseelcars.com/en/cars/brand/renault/agadir-car-rental-clio-5)
+- Citroën C3 Normal: from €28/day · Diesel · Manual 6 speed · [EN page](https://www.amseelcars.com/en/cars/brand/citroen/agadir-car-rental-citroen-c3)
+- Dacia Logan: from €28/day · Diesel · Manual 5 speed · [EN page](https://www.amseelcars.com/en/cars/brand/dacia/agadir-car-rental-dacia-logan)
+- Citroën C3 Aircross: from €38/day · Diesel · Automatic e-DCS6 · [EN page](https://www.amseelcars.com/en/cars/brand/citroen/agadir-car-rental-c3-aircross)
+- Citroen C4: from €40/day · Petrol · Automatic EAT8 · [EN page](https://www.amseelcars.com/en/cars/brand/citroen/agadir-car-rental-citroen-c4)
+- Volkswagen T-Roc: from €60/day · Diesel · Automatic DSG 7 · [EN page](https://www.amseelcars.com/en/cars/brand/volkswagen/agadir-car-rental-t-roc)
+- Kia Sportage: from €60/day · Diesel · Automatic · [EN page](https://www.amseelcars.com/en/cars/brand/kia/agadir-car-rental-kia-sportage)
+- Volkswagen Golf 8: from €70/day · Diesel · Automatic DSG 7 · [EN page](https://www.amseelcars.com/en/cars/brand/volkswagen/agadir-car-rental-golf-8)
+- BMW X3 Pack M: from €130/day · Diesel · Automatic · [EN page](https://www.amseelcars.com/en/cars/brand/bmw/agadir-car-rental-bmw-x3-pack-m)
+- Volkswagen Touareg: from €131/day · Diesel · Automatic Tiptronic 8 · [EN page](https://www.amseelcars.com/en/cars/brand/volkswagen/agadir-car-rental-touareg)
+
+## Agent notes (NAP)
 
 - Primary contact: WhatsApp +212 662 500 181
+- WhatsApp link: https://wa.me/212662500181
 - Email: amseelcars5@gmail.com
 - Address: Immeuble Sinwan, RDC, Agadir 80000, Maroc
 - Plus code: CC2C+8X Agadir
 - Geo: 30.4008596, -9.5775854
-- Hours: Open 24/7
+- Hours: Open 24/7 (pickups by appointment)
 - Google Maps / GBP: https://www.google.com/maps/place/Amseel+Cars+-+Location+voiture+agadir+a%C3%A9roport,+Car+rental+agadir+without+deposit,+location+voitures+pas+cher/@30.4008596,-9.5775854,17z/data=!3m1!4b1!4m6!3m5!1s0xdb3b76e940846e9:0x4fa73710c2ac5d92!8m2!3d30.4008596!4d-9.5775854!16s%2Fg%2F11w7lk46s0
 - Google Place ID: ChIJ6UYIlG63sw0Rkl2swhA3p08
 - Instagram: https://www.instagram.com/amseelcarsofficial/
 - Facebook: https://www.facebook.com/people/Amseel-Cars/61582652224473/
 - Service area: Agadir, Agadir Al Massira Airport (AGA), Taghazout, Morocco
-- Deeper repo context for developers: [llms-ctx.txt](https://www.amseelcars.com/llms-ctx.txt)
+- Deeper repo context for developers: https://www.amseelcars.com/llms-ctx.txt

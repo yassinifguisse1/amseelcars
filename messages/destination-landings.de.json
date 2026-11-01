@@ -51,6 +51,29 @@
       "contact": "Kontakt",
       "blog": "Agadir Mietwagen-Guides"
     },
+    "bookingProcess": {
+      "kicker": "Flughafen-Buchungsweg",
+      "title": "Von Flugdaten zu den Schlüsseln in AGA",
+      "lead": "Für Ankünfte in Agadir Al Massira: Wir synchronisieren uns mit Ihrem Flug, treffen Sie nach dem Gepäck und bestätigen jedes Detail per WhatsApp vor der Landung.",
+      "steps": [
+        {
+          "title": "Flug und Daten senden",
+          "text": "WhatsApp: Ankunftsflugnummer, Rückgabetag und Wunschklasse - Gepäck oder Automatik erwähnen, falls nötig."
+        },
+        {
+          "title": "Auto und Treffpunkt bestätigen",
+          "text": "Wir antworten mit 1-2 Optionen, Tagespreis in Euro, Fahrerkontakt, Kennzeichen und AGA-Treffpunkt."
+        },
+        {
+          "title": "Abholung nach dem Gepäck",
+          "text": "Treffen am vereinbarten Ort nach der Gepäckausgabe, gemeinsamer Rundgang, Schlüsselübergabe."
+        },
+        {
+          "title": "Rückgabe in AGA bei Abflug",
+          "text": "Die Flughafenrückgabe wird an Ihren Abflug angepasst, damit Sie nicht zur Kontrolle hetzen."
+        }
+      ]
+    },
     "operations": {
       "kicker": "So läuft die AGA-Abholung",
       "title": "Von WhatsApp zu den Schlüsseln am Flughafen",

@@ -18,11 +18,14 @@ import {
   BUSINESS_TELEPHONE_DISPLAY,
   BUSINESS_TELEPHONE_E164,
   BUSINESS_WHATSAPP_URL,
+  SITE_URL,
 } from "@/lib/business";
 import { generateFAQSchema } from "@/lib/faqSchema";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { cn } from "@/lib/utils";
 
 type FaqItem = { q: string; a: string };
+type BookingStep = { title: string; text: string };
 
 /* =============================================================================
    SEO BLOCK: Trust bar (after hero, before BMW/Kia showcase)
@@ -88,19 +91,85 @@ export function HomeSeoMainIntroOverlay({ opacity }: HomeSeoMainIntroOverlayProp
 export function HomeSeoMainIntroBlock() {
   const t = useTranslations("home.mainIntro");
   const bullets = t.raw("bullets") as string[];
+  const steps = t.raw("bookingSteps.steps") as BookingStep[];
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": `${SITE_URL}#how-to-book`,
+    name: t("bookingSteps.title"),
+    description: t("bookingSteps.subtitle"),
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.title,
+      text: step.text,
+      url: `${SITE_URL}/#home-booking-steps`,
+    })),
+  };
+
   return (
-    <motion.section
-      className="bg-gradient-to-b from-gray-100 to-gray-200 py-16 md:py-24 lg:py-28"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      aria-labelledby="home-seo-main-intro"
-    >
-      <div className="mx-auto w-full max-w-[min(100%,58rem)] px-4 text-center sm:max-w-[64rem] md:max-w-[72rem] md:px-8">
-        <MainIntroCopy t={t} bullets={bullets} headingId="home-seo-main-intro" />
-      </div>
-    </motion.section>
+    <>
+      <JsonLd id="ld-json-howto-book" data={howToSchema} />
+      <motion.section
+        className="bg-gradient-to-b from-gray-100 to-gray-200 py-16 md:py-24 lg:py-28"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        aria-labelledby="home-seo-main-intro"
+      >
+        <div className="mx-auto w-full max-w-[min(100%,58rem)] px-4 text-center sm:max-w-[64rem] md:max-w-[72rem] md:px-8">
+          <MainIntroCopy t={t} bullets={bullets} headingId="home-seo-main-intro" />
+          <HomeBookingSteps
+            title={t("bookingSteps.title")}
+            subtitle={t("bookingSteps.subtitle")}
+            steps={steps}
+          />
+        </div>
+      </motion.section>
+    </>
+  );
+}
+
+function HomeBookingSteps({
+  title,
+  subtitle,
+  steps,
+}: {
+  title: string;
+  subtitle: string;
+  steps: BookingStep[];
+}) {
+  return (
+    <div id="home-booking-steps" className="mx-auto mt-12 max-w-5xl text-left sm:mt-14 md:mt-16">
+      <h3 className="text-center text-balance text-xl font-bold tracking-tight text-gray-900 sm:text-2xl md:text-[1.65rem]">
+        {title}
+      </h3>
+      <p className="mx-auto mt-3 max-w-3xl text-center text-pretty text-sm leading-relaxed text-gray-600 sm:text-base sm:leading-relaxed">
+        {subtitle}
+      </p>
+      <ol className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-4">
+        {steps.map((step, index) => (
+          <li
+            key={step.title}
+            className="flex flex-col border border-gray-300/80 bg-white/90 px-4 py-5 sm:px-5 sm:py-6"
+          >
+            <span
+              className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#CB1939]"
+              aria-hidden
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="mt-3 text-base font-semibold leading-snug text-gray-900 sm:text-[1.05rem]">
+              {step.title}
+            </span>
+            <span className="mt-2 text-sm leading-relaxed text-gray-600 sm:text-[0.95rem] sm:leading-relaxed">
+              {step.text}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 

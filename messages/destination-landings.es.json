@@ -51,6 +51,29 @@
       "contact": "Contacto",
       "blog": "Guías de alquiler en Agadir"
     },
+    "bookingProcess": {
+      "kicker": "Reserva aeropuerto",
+      "title": "Del vuelo a las llaves en AGA",
+      "lead": "Pensado para llegadas a Agadir Al Massira: sincronizamos con tu vuelo, te vemos tras el equipaje y confirmamos cada detalle por WhatsApp antes de aterrizar.",
+      "steps": [
+        {
+          "title": "Envía vuelo y fechas",
+          "text": "WhatsApp: número de vuelo de llegada, día de devolución y clase preferida - menciona equipaje o automático si hace falta."
+        },
+        {
+          "title": "Confirma coche y punto de encuentro",
+          "text": "Respondemos con 1-2 opciones, tarifa diaria en euros, contacto del conductor, matrícula y punto de encuentro en AGA."
+        },
+        {
+          "title": "Recoge tras el equipaje",
+          "text": "Quedamos en el punto acordado tras la cinta de equipaje, revisamos el coche juntos y entregamos las llaves."
+        },
+        {
+          "title": "Devuelve en AGA a la salida",
+          "text": "La devolución en aeropuerto se alinea con tu vuelo de salida para no correr hacia el control."
+        }
+      ]
+    },
     "operations": {
       "kicker": "Cómo funciona la recogida AGA",
       "title": "Del WhatsApp a las llaves en el aeropuerto",

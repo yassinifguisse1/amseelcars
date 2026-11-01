@@ -132,7 +132,29 @@
         "Flughafen oder Stadt · Lieferung",
         "WhatsApp · Support 24/7",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
-      ]
+      ],
+      "bookingSteps": {
+        "title": "So buchen Sie bei AmseelCars",
+        "subtitle": "Vier klare Schritte von der Suche bis zur bestätigten Abholung - derselbe Ablauf, den wir täglich in Agadir nutzen.",
+        "steps": [
+          {
+            "title": "Daten und Abholung wählen",
+            "text": "Nutzen Sie die Suche: Abholort (Stadt, AGA-Flughafen oder Taghazout), Daten und Uhrzeiten."
+          },
+          {
+            "title": "Auto auswählen",
+            "text": "Durchstöbern Sie die Flotte, vergleichen Sie ab-Preise, Kraftstoff und Getriebe und öffnen Sie das passende Modell."
+          },
+          {
+            "title": "Anfrage senden",
+            "text": "Senden Sie das Formular auf der Fahrzeugseite oder schreiben Sie per WhatsApp 24/7 mit Daten und Wunschmodell."
+          },
+          {
+            "title": "Bestätigung vor Abholung",
+            "text": "Wir bestätigen Verfügbarkeit, Endpreis, Kautionsfreiheit und Versicherungsbedingungen vor Ihrer Reise."
+          }
+        ]
+      }
     },
     "airport": {
       "title": "Flughafen oder Stadt - Abholung wählen",
@@ -358,7 +380,7 @@
         },
         {
           "q": "Ohne Kaution?",
-          "a": "Ja. Die meisten Vermietungen ohne Kaution und ohne Kreditkarte, wenn Dokumente und Konditionen vor Abholung per WhatsApp bestätigt sind. Die Berechtigung wird mit Ihrer Buchung bestätigt. Optionale Vollkasko (ab 10 €/Tag) ist getrennt — sie senkt die Selbstbeteiligung auf 0 € nach Bedingungen, sie ist kein Kautionsverzicht."
+          "a": "Ja. Die meisten Vermietungen ohne Kaution und ohne Kreditkarte, wenn Dokumente und Konditionen vor Abholung per WhatsApp bestätigt sind. Die Berechtigung wird mit Ihrer Buchung bestätigt. Optionale Vollkasko (ab 10 €/Tag) ist getrennt - sie senkt die Selbstbeteiligung auf 0 € nach Bedingungen, sie ist kein Kautionsverzicht."
         },
         {
           "q": "Lieferung und Support 24/7?",
@@ -1250,6 +1272,29 @@
       "taghazout": "Taghazout & Imsouane",
       "contact": "Kontakt",
       "blog": "Agadir Mietwagen-Guides"
+    },
+    "bookingProcess": {
+      "kicker": "Stadt-Buchungsweg",
+      "title": "Hotellieferung in vier Schritten",
+      "lead": "Für Stadt- und Strandaufenthalte in Agadir: Sie bleiben im Hotel, wir bringen das Auto in die Lobby - jeder Schritt zuerst per WhatsApp bestätigt.",
+      "steps": [
+        {
+          "title": "Hotel und Daten senden",
+          "text": "WhatsApp: Anreisetag, Rückgabetag und Hotel- oder Riad-Name in Agadir (Strand, Zentrum, Founty, Marina)."
+        },
+        {
+          "title": "Auto und Slot fixieren",
+          "text": "Wir antworten mit 1-2 Modellen, dem Tagespreis in Euro und einem Lieferfenster passend zum Check-in."
+        },
+        {
+          "title": "Treffen in der Lobby",
+          "text": "Ein Teammitglied bringt das Auto, macht mit Ihnen den Rundgang und übergibt die Schlüssel im vereinbarten Slot."
+        },
+        {
+          "title": "Fahren mit WhatsApp-Support",
+          "text": "Behalten Sie unsere Nummer während der Miete. Die Rückgabe planen wir mit Ihnen vor Mietende."
+        }
+      ]
     },
     "operations": {
       "kicker": "Stadt-Lieferung",

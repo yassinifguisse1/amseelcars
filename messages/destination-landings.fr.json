@@ -51,6 +51,29 @@
       "contact": "Contact",
       "blog": "Guides location Agadir"
     },
+    "bookingProcess": {
+      "kicker": "Parcours aéroport",
+      "title": "Du numéro de vol aux clés à AGA",
+      "lead": "Conçu pour les arrivées à Agadir Al Massira : nous nous calons sur votre vol, vous rencontrons après les bagages, et confirmons chaque détail sur WhatsApp avant l'atterrissage.",
+      "steps": [
+        {
+          "title": "Envoyez vol et dates",
+          "text": "WhatsApp : numéro de vol d'arrivée, jour de retour et catégorie souhaitée - bagages ou automatique si besoin."
+        },
+        {
+          "title": "Confirmez voiture et rendez-vous",
+          "text": "Nous répondons avec 1-2 options, le tarif journalier en euros, le contact du chauffeur, la plaque et le point de rendez-vous AGA."
+        },
+        {
+          "title": "Récupérez après les bagages",
+          "text": "Rendez-vous au point convenu après les bagages, état des lieux ensemble, puis remise des clés."
+        },
+        {
+          "title": "Restitution à AGA au départ",
+          "text": "Le retour aéroport est calé sur votre vol de départ pour éviter la course aux contrôles."
+        }
+      ]
+    },
     "operations": {
       "kicker": "Comment se passe le retrait AGA",
       "title": "Du WhatsApp aux clés à l'aéroport",

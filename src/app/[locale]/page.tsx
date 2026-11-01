@@ -3,13 +3,14 @@ import { getTranslations } from "next-intl/server";
 import { getImageProps } from "next/image";
 import { preload } from "react-dom";
 import { HomeContentLandingPage } from "./HomeContentLandingPage";
-import Script from "next/script";
 import {
   generateLocalBusinessSchema,
   generateBreadcrumbSchema,
   generateReviewSchema,
   generateAggregateRatingSchema,
+  generateFleetOfferItemListSchema,
 } from "@/lib/schemas";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { reviews } from "@/data/reviews";
 import { getAllCars } from "@/data/cars";
 import { getGooglePlaceRatingSummary } from "@/lib/googlePlaceRating";
@@ -18,6 +19,9 @@ import { buildPageMetadata } from "@/lib/seo/site-meta";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { localeToOpenGraphLocale } from "@/i18n/locale-utils";
+import { brandToSlug } from "@/lib/brandSlug";
+import { carSlugForLocale } from "@/lib/carSlugLocale";
+import { SITE_URL } from "@/lib/business";
 
 function resolveAppLocale(locale: string): AppLocale {
   return routing.locales.includes(locale as AppLocale)
@@ -57,6 +61,7 @@ export default async function Home({
   const l = resolveAppLocale(locale);
   const homePath = getPathname({ locale: l, href: "/" });
   const tHome = await getTranslations({ locale: l, namespace: "home" });
+  const tCars = await getTranslations({ locale: l, namespace: "carsPage" });
   const localBusinessSchema = generateLocalBusinessSchema();
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: tHome("breadcrumb"), url: homePath },
@@ -71,7 +76,39 @@ export default async function Home({
     }),
   };
 
-  const firstCarImage = getAllCars()[0]?.carImage;
+  const allCars = getAllCars();
+  const fleetOfferListSchema = generateFleetOfferItemListSchema(
+    allCars.slice(0, 24).map((car) => ({
+      brand: car.brand,
+      carName: car.carName,
+      model: car.model,
+      description: car.description,
+      pricePerDay: car.pricePerDay,
+      carImage: car.carImage,
+      slug: car.slug,
+      year: car.year,
+      fuelType: car.fuelType,
+      transmission: car.transmission,
+      seats: car.seats,
+      productPageUrl: `${SITE_URL}${getPathname({
+        locale: l,
+        href: {
+          pathname: "/cars/brand/[brandSlug]/[carSlug]",
+          params: {
+            brandSlug: brandToSlug(car.brand),
+            carSlug: carSlugForLocale(car.slug, l),
+          },
+        },
+      })}`,
+    })),
+    {
+      name: tCars("schema.itemListName"),
+      listUrl: `${SITE_URL}${homePath}`,
+      listId: `${SITE_URL}${homePath}#fleet-offers`,
+    },
+  );
+
+  const firstCarImage = allCars[0]?.carImage;
   if (firstCarImage) {
     const { props } = getImageProps({
       src: firstCarImage,
@@ -95,24 +132,14 @@ export default async function Home({
 
   return (
     <>
-      <Script
-        id="ld-json-local-business"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessWithRating) }}
-      />
-
-      <Script
-        id="ld-json-breadcrumb-home"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-
+      <JsonLd id="ld-json-local-business" data={localBusinessWithRating} />
+      <JsonLd id="ld-json-breadcrumb-home" data={breadcrumbSchema} />
+      <JsonLd id="ld-json-home-fleet-offers" data={fleetOfferListSchema} />
       {reviews.map((review) => (
-        <Script
+        <JsonLd
           key={review.id}
           id={`ld-json-review-${review.id}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(generateReviewSchema(review)) }}
+          data={generateReviewSchema(review)}
         />
       ))}
 

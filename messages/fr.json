@@ -132,7 +132,29 @@
         "Aéroport ou ville · livraison",
         "WhatsApp · support 24/7",
         "Agadir · Taghazout · Tamraght · Souss-Massa"
-      ]
+      ],
+      "bookingSteps": {
+        "title": "Comment réserver avec AmseelCars",
+        "subtitle": "Quatre étapes claires, de la recherche à la prise en charge confirmée - le même process que nous suivons chaque jour à Agadir.",
+        "steps": [
+          {
+            "title": "Choisissez dates et lieu",
+            "text": "Utilisez la barre de recherche : lieu de prise en charge (ville, aéroport AGA ou Taghazout), dates et heures."
+          },
+          {
+            "title": "Sélectionnez votre voiture",
+            "text": "Parcourez la flotte, comparez les tarifs dès, le carburant et la boîte, puis ouvrez le modèle adapté à votre séjour."
+          },
+          {
+            "title": "Envoyez une demande",
+            "text": "Validez le formulaire sur la fiche voiture ou écrivez sur WhatsApp 24/7 avec vos dates et le modèle souhaité."
+          },
+          {
+            "title": "Recevez la confirmation",
+            "text": "Nous confirmons disponibilité, prix final, éligibilité sans caution et conditions d'assurance avant votre voyage."
+          }
+        ]
+      }
     },
     "airport": {
       "title": "Aéroport ou ville - choisissez la prise en charge",
@@ -1250,6 +1272,29 @@
       "taghazout": "Taghazout & Imsouane",
       "contact": "Contact",
       "blog": "Guides location Agadir"
+    },
+    "bookingProcess": {
+      "kicker": "Réservation ville",
+      "title": "Livraison hôtel en quatre étapes",
+      "lead": "Pensé pour les séjours en ville et en bord de mer à Agadir : vous restez à l'hôtel, nous amenons la voiture au lobby, chaque étape est confirmée d'abord sur WhatsApp.",
+      "steps": [
+        {
+          "title": "Indiquez hôtel et dates",
+          "text": "WhatsApp : jour d'arrivée, jour de retour, et nom de l'hôtel ou riad à Agadir (plage, centre, Founty, marina)."
+        },
+        {
+          "title": "Bloquez voiture et créneau",
+          "text": "Nous répondons avec 1-2 modèles, le tarif journalier en euros, et un créneau de livraison aligné sur le check-in."
+        },
+        {
+          "title": "Rendez-vous au lobby",
+          "text": "Un membre de l'équipe amène la voiture, fait l'état des lieux avec vous et remet les clés dans le créneau convenu."
+        },
+        {
+          "title": "Roulez avec support WhatsApp",
+          "text": "Gardez notre numéro pendant la location. Le retour est planifié avec vous avant la fin de la location."
+        }
+      ]
     },
     "operations": {
       "kicker": "Livraison en ville",
