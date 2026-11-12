@@ -1,6 +1,5 @@
 "use client";
 
-import { Star } from "lucide-react";
 import {
   BUSINESS_GOOGLE_MAPS_PLACE_URL,
   BUSINESS_GOOGLE_RATING,
@@ -8,15 +7,31 @@ import {
 import { trackEvent } from "@/lib/trackEvent";
 
 type GoogleReviewBadgeProps = {
-  /** Accessible label, e.g. "5.0 · 255 Google reviews" */
+  /** Accessible label, e.g. "5.0 · 626 Google reviews" */
   ariaLabel: string;
-  /** Visible count label, e.g. "255 reviews" */
+  /** Visible count label, e.g. "626 reviews" */
   countLabel: string;
   /** Star rating value (defaults to BUSINESS_GOOGLE_RATING) */
   rating?: number;
   source?: string;
   className?: string;
 };
+
+const STAR_YELLOW = "#FBBC04";
+
+/** Solid Google-yellow star. Inline fill beats global `svg { fill: white }` in globals.css. */
+function GoogleStar({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      style={{ fill: STAR_YELLOW, color: STAR_YELLOW }}
+      aria-hidden
+    >
+      <path d="M12 2.5l2.89 6.12 6.71.74-5.02 4.6 1.4 6.54L12 17.77l-5.98 3.73 1.4-6.54-5.02-4.6 6.71-.74L12 2.5z" />
+    </svg>
+  );
+}
 
 function GoogleWordmark() {
   return (
@@ -68,10 +83,7 @@ export function GoogleReviewBadge({
       </span>
       <span className="inline-flex items-center gap-px sm:gap-0.5" aria-hidden>
         {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className="h-3.5 w-3.5 fill-[#FBBC04] text-[#FBBC04] sm:h-4 sm:w-4"
-          />
+          <GoogleStar key={i} className="h-4 w-4 sm:h-[1.15rem] sm:w-[1.15rem]" />
         ))}
       </span>
       <span className="text-sm font-bold tabular-nums sm:text-[0.95rem]">

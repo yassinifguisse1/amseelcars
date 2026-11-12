@@ -332,20 +332,20 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix de la location d'une Golf 8 R ?",
-        answer: "En général, comptez environ 800 à 1 500 DH par jour (selon ville, agence, caution, saison, kilométrage). Sur un mois, cela tourne souvent autour de 18 000 à 30 000 DH/mois selon les conditions."
+        question: "Quel est le prix pour louer une Golf 8 à Agadir ?",
+        answer: "Le tarif journalier dépend des dates, de la saison et de la durée. Consultez le devis en ligne ou contactez AmseelCars avec vos dates pour un prix exact."
       },
       {
-        question: "Quel est le prix d'un leasing pour une Golf 8 ?",
-        answer: "La plupart des offres se situent entre 3 000 et 6 500 DH/mois au Maroc (selon apport, durée, kilométrage, finition). En Europe, on voit souvent environ 250 à 450 €/mois avec un premier loyer/apport variable."
+        question: "La Golf 8 est-elle diesel et automatique ?",
+        answer: "Oui. La Golf 8 proposée par AmseelCars est en diesel avec boîte automatique DSG 7, confortable en ville à Agadir comme pour les trajets dans la région."
       },
       {
-        question: "Quel est le prix d'une voiture Golf 8 ?",
-        answer: "Au Maroc, le neuf démarre généralement autour de 329 000 DH et peut monter selon la finition et les options. En occasion, la fourchette varie beaucoup selon l'année, le kilométrage et la motorisation."
+        question: "Puis-je récupérer la Golf 8 à l'aéroport d'Agadir ou à l'hôtel ?",
+        answer: "Oui. AmseelCars propose une livraison flexible : aéroport Agadir Al Massira (AGA) ou livraison hôtel / ville selon disponibilité et détails de réservation."
       },
       {
-        question: "Quels sont les défauts de la Golf 8 ?",
-        answer: "Les défauts les plus cités sont : bugs/latences de l'écran et du système multimédia (surtout sur les premiers modèles), petits soucis électroniques (capteurs, messages d'assistance, mises à jour), ergonomie tout tactile jugée moins pratique (commandes tactiles/haptiques), et qualité perçue variable selon versions/années (bruits parasites possibles)."
+        question: "Qu'est-ce qui est inclus pour la location d'une Golf 8 chez AmseelCars ?",
+        answer: "La couverture standard et les options choisies figurent dans votre devis. L'assurance Full Insurance (franchise 0 €) est disponible en option avec un minimum de 7 jours. Demandez-nous les conditions de caution selon votre profil."
       }
     ]
   },
@@ -480,8 +480,8 @@ export const cars: Car[] = [
         answer: "Le prix de location d'un T-Roc dépend de la durée, de la saison et de la disponibilité. Les tarifs varient généralement selon les jours de location et les options choisies. Contactez AmseelCars pour obtenir un devis précis."
       },
       {
-        question: "Quel est le prix d'une Volkswagen T-Roc ?",
-        answer: "Au Maroc, le prix d'un Volkswagen T-Roc neuf varie selon la finition et les options. En général, il se situe dans une gamme moyenne à premium du segment des SUV compacts."
+        question: "Le T-Roc est-il diesel avec boîte DSG automatique ?",
+        answer: "Oui. Chez AmseelCars, ce T-Roc est proposé en diesel avec boîte automatique DSG 7, souple en ville à Agadir et confortable sur la route."
       },
       {
         question: "Est-ce que le T-Roc est une bonne voiture ?",
@@ -620,8 +620,8 @@ export const cars: Car[] = [
         answer: "Le prix de location d'une Clio 5 dépend de la durée, de la saison et de la disponibilité. Les tarifs sont généralement parmi les plus économiques du marché. Contactez AmseelCars pour obtenir un devis précis."
       },
       {
-        question: "Quel est le prix d'une Renault Clio 5 au Maroc ?",
-        answer: "Au Maroc, le prix d'une Renault Clio 5 neuve varie selon la finition et les options. Elle se positionne comme une citadine moderne accessible dans sa catégorie."
+        question: "Puis-je récupérer une Clio 5 à l'aéroport d'Agadir ?",
+        answer: "Oui. AmseelCars peut organiser la prise en charge à l'aéroport Agadir Al Massira (AGA) ou une livraison hôtel / ville selon disponibilité."
       },
       {
         question: "Quelle Clio 5 est la meilleure à choisir ?",
@@ -902,8 +902,8 @@ export const cars: Car[] = [
         answer: "Les tarifs de location de voiture au Maroc varient selon le modèle, la durée, la saison et l'agence. À Agadir, les prix sont généralement attractifs, avec des options adaptées à tous les budgets."
       },
       {
-        question: "Quel est le prix d'une Citroen C4 ?",
-        answer: "Le prix d'une Citroen C4 dépend de la version, de la motorisation et des options. Au Maroc, elle se positionne dans la gamme moyenne des voitures modernes et confortables."
+        question: "Puis-je récupérer une Citroën C4 à l'aéroport d'Agadir ?",
+        answer: "Oui. Selon disponibilité, AmseelCars peut organiser la prise en charge à l'aéroport Agadir Al Massira (AGA) ou une livraison hôtel / ville pour votre location de C4."
       },
       {
         question: "Est-ce que la Citroen C4 est une bonne voiture ?",
@@ -1043,8 +1043,8 @@ export const cars: Car[] = [
         answer: "Le prix de location d'un C3 Aircross dépend de la durée, de la saison et de la disponibilité. Les tarifs varient selon les périodes. Contactez AmseelCars pour obtenir un devis précis."
       },
       {
-        question: "Quel est le prix d'une Citroën C3 Aircross neuve au Maroc ?",
-        answer: "Le prix d'une Citroën C3 Aircross neuve au Maroc varie selon la finition et les options, et se situe généralement dans la gamme des SUV compacts modernes."
+        question: "La C3 Aircross est-elle diesel et automatique ?",
+        answer: "Oui. AmseelCars propose la C3 Aircross en diesel avec boîte automatique e-DCS6, pratique à Agadir et pour les excursions dans la région."
       },
       {
         question: "Quelle est la voiture la moins chère en location longue durée ?",
@@ -1323,8 +1323,8 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix d'une Citroën C3 au Maroc ?",
-        answer: "Le prix d'une Citroën C3 au Maroc varie selon la version, la motorisation et les options. Elle se positionne comme une citadine accessible et économique dans sa catégorie."
+        question: "Quel est le prix pour louer une Citroën C3 à Agadir ?",
+        answer: "Le tarif dépend des dates, de la saison et de la durée. Contactez AmseelCars ou utilisez le formulaire de réservation pour un devis exact."
       },
       {
         question: "Quelle est la différence entre une C3 et une C3 Aircross ?",
@@ -1483,8 +1483,8 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix d'une Hyundai Grand i10 au Maroc ?",
-        answer: "Le prix d'une Hyundai Grand i10 au Maroc varie selon la version et l'année. Elle se positionne comme une citadine accessible et économique sur le marché."
+        question: "La Hyundai i10 est-elle une bonne citadine en location à Agadir ?",
+        answer: "Oui. Compacte, économique et facile à garer, c'est un bon choix pour rouler en ville à Agadir et pour les petits trajets."
       },
       {
         question: "Quel est le tarif d'une location de voiture au Maroc ?",
@@ -1495,8 +1495,8 @@ export const cars: Car[] = [
         answer: "La Hyundai i10 est principalement conçue pour la ville. Ses performances sont modestes sur autoroute, mais elle compense largement par son confort, sa fiabilité et sa faible consommation."
       },
       {
-        question: "Quel est le prix d'une nouvelle Hyundai i10 ?",
-        answer: "Le prix d'une Hyundai i10 neuve dépend de la finition et du marché. Elle reste l'une des citadines automatiques les plus accessibles de sa catégorie."
+        question: "Puis-je récupérer une Hyundai i10 à l'aéroport d'Agadir ?",
+        answer: "Oui. Selon disponibilité, AmseelCars propose la prise en charge à l'aéroport Agadir Al Massira (AGA) ou une livraison hôtel / ville."
       }
     ]
   },
@@ -1986,8 +1986,8 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix d'une Dacia Sandero Stepway au Maroc ?",
-        answer: "Le prix d'une Dacia Sandero Stepway au Maroc varie selon la version, l'année et les options. Elle reste positionnée comme un crossover accessible et économique dans sa catégorie."
+        question: "Quel est le prix pour louer une Dacia Sandero Stepway à Agadir ?",
+        answer: "Le tarif dépend des dates, de la saison et de la durée. Contactez AmseelCars ou utilisez le formulaire de réservation pour un devis exact."
       },
       {
         question: "Quels sont les défauts de la Dacia Sandero Stepway ?",
@@ -2152,20 +2152,20 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix d'un Volkswagen Touareg 2025 neuf ?",
-        answer: "Le prix d'un Volkswagen Touareg 2025 neuf varie selon la motorisation, la finition et les options. Il se positionne dans la catégorie des SUV premium haut de gamme."
+        question: "Quel est le prix pour louer un Touareg à Agadir ?",
+        answer: "Les tarifs SUV premium dépendent des dates, de la saison et de la durée. Contactez AmseelCars ou utilisez le formulaire de réservation pour un devis exact."
       },
       {
-        question: "Quel est le prix d'un Volkswagen Touareg 2025 au Maroc ?",
-        answer: "Au Maroc, le prix du Touareg 2025 dépend de la version et des équipements. Pour un tarif précis, il est recommandé de consulter un concessionnaire officiel."
+        question: "Le Touareg convient-il pour de longs trajets depuis Agadir ?",
+        answer: "Oui. Confort, puissance et espace en font un excellent choix pour les longs trajets et les déplacements premium autour du Maroc au départ d'Agadir."
       },
       {
-        question: "Un nouveau Touareg est-il prévu pour 2026 ?",
-        answer: "Volkswagen renouvelle régulièrement sa gamme, mais aucune annonce officielle définitive n'a encore confirmé un nouveau Touareg pour 2026."
+        question: "Puis-je organiser une prise en charge aéroport pour le Touareg ?",
+        answer: "Oui. Selon disponibilité, AmseelCars propose la prise en charge à l'aéroport Agadir Al Massira (AGA) ou une livraison hôtel / ville."
       },
       {
-        question: "Quand sortira le nouveau Touareg ?",
-        answer: "Les dates de sortie des nouveaux modèles Touareg dépendent des annonces officielles de Volkswagen. Il est conseillé de suivre les communications du constructeur pour les informations à jour."
+        question: "Quel carburant et quelle boîte a le Touareg en location ?",
+        answer: "AmseelCars propose le Touareg en SUV premium diesel automatique. Confirmez la spécification exacte sur votre devis de réservation."
       }
     ]
   },
@@ -2487,8 +2487,8 @@ export const cars: Car[] = [
         answer: "Comme tout SUV, la Kia Sportage peut être un peu plus encombrante qu'une citadine en centre-ville, mais elle reste maniable et confortable pour la majorité des usages."
       },
       {
-        question: "Vaut-il mieux louer ou acheter un Kia Sportage ?",
-        answer: "La location est souvent plus avantageuse pour un séjour à Agadir, car elle évite les coûts d'achat, d'entretien et d'assurance, tout en offrant un véhicule récent et bien équipé."
+        question: "Le Kia Sportage est-il un bon choix pour une location familiale à Agadir ?",
+        answer: "Oui. Le Sportage offre de l'espace, du confort et une position de conduite surélevée, adaptés aux couples et familles pour la ville et les excursions autour d'Agadir."
       },
       {
         question: "Quel est le tarif d'une location de voiture au Maroc ?",
@@ -2655,20 +2655,20 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix du Kia Sportage 2025 au Maroc ?",
-        answer: "Le prix varie selon la finition et le marché. Pour une estimation précise au Maroc, il est conseillé de consulter un concessionnaire ou une agence spécialisée."
+        question: "Quel est le prix pour louer un Kia Sportage vert à Agadir ?",
+        answer: "Le tarif dépend des dates, de la saison et de la durée. Utilisez le formulaire de réservation ou contactez AmseelCars pour un devis exact."
       },
       {
-        question: "Quel est le prix d'un leasing par mois ?",
-        answer: "Le prix d'un leasing dépend du modèle, de la durée et de l'apport initial. Pour une solution flexible à Agadir, la location reste souvent plus simple et avantageuse."
+        question: "Le Sportage vert est-il diesel automatique ?",
+        answer: "Oui. Ce Sportage est proposé en diesel avec boîte automatique, confortable à Agadir et pour les trajets plus longs dans la région."
       },
       {
-        question: "Quel est le prix d'une Kia Sportage ?",
-        answer: "Le prix d'une Kia Sportage dépend de l'année, de la motorisation et de la finition. En location, vous profitez du véhicule sans les contraintes d'achat."
+        question: "Puis-je avoir une livraison aéroport ou hôtel pour le Sportage ?",
+        answer: "Oui. AmseelCars peut organiser la prise en charge à l'aéroport d'Agadir ou une livraison hôtel / ville selon disponibilité et réservation."
       },
       {
-        question: "Quelle voiture pour un budget de 200 euros par mois ?",
-        answer: "Avec un budget mensuel limité, les citadines ou compactes sont souvent plus adaptées. Les SUV comme le Sportage offrent plus de confort mais nécessitent un budget supérieur."
+        question: "Le Sportage convient-il pour des vacances en famille ?",
+        answer: "Oui. Coffre, cinq places et position de conduite surélevée en font un bon choix familial pour Agadir et les excursions."
       }
     ]
   },
@@ -2832,16 +2832,16 @@ export const cars: Car[] = [
         answer: "Le prix dépend de la ville, de la saison, de la durée et des conditions (kilométrage, caution, assurances). Pour un tarif précis à Agadir, contactez AmseelCars avec vos dates."
       },
       {
-        question: "Est-ce rentable de prendre une voiture en location ?",
-        answer: "Oui, surtout pour un séjour : la location évite les coûts d'achat, d'entretien et d'assurance, tout en permettant de choisir un véhicule adapté à la durée et aux besoins du voyage."
+        question: "La Clio 5 grise est-elle automatique ?",
+        answer: "Oui. Cette Clio 5 grise est proposée avec une boîte automatique, idéale pour une conduite détendue dans le trafic à Agadir."
       },
       {
-        question: "Quel est le prix de location d'une Clio RC5 ?",
-        answer: "Le tarif varie selon l'agence, la période et la disponibilité. Pour une offre exacte à Agadir, le mieux est de demander un devis à AmseelCars selon vos dates."
+        question: "Puis-je récupérer la Clio 5 à l'aéroport d'Agadir ou à l'hôtel ?",
+        answer: "Oui. AmseelCars peut organiser la prise en charge à l'aéroport d'Agadir ou une livraison hôtel / ville selon disponibilité."
       },
       {
-        question: "Quelle voiture à 150 € par mois ?",
-        answer: "À ce budget, on trouve généralement des citadines en leasing selon l'apport et les conditions. En location courte durée, le tarif dépend fortement des dates et de la catégorie du véhicule."
+        question: "La Clio 5 est-elle une bonne location économique à Agadir ?",
+        answer: "Oui. Compacte, économique et pratique en ville, ses tarifs journaliers restent généralement parmi les plus accessibles. Demandez-nous un devis pour vos dates."
       }
     ]
   },
@@ -3000,20 +3000,20 @@ export const cars: Car[] = [
     ],
     faqs: [
       {
-        question: "Quel est le prix d'une Kia Picanto 2025 au Maroc ?",
-        answer: "Le prix dépend de la finition et du marché. Pour un tarif précis au Maroc, il est conseillé de consulter un concessionnaire ou une agence spécialisée."
+        question: "Quel est le prix pour louer une Kia Picanto 2025 à Agadir ?",
+        answer: "Le tarif dépend des dates, de la saison et de la durée. Contactez AmseelCars ou utilisez le formulaire de réservation pour un devis exact."
       },
       {
-        question: "Quand sortira la nouvelle Kia Picanto ?",
-        answer: "La Kia Picanto 2025 est déjà disponible sur certains marchés. Les dates exactes peuvent varier selon les pays."
+        question: "La Picanto 2025 est-elle automatique ?",
+        answer: "Oui. AmseelCars propose la Picanto 2025 avec boîte automatique, pratique pour la ville à Agadir."
       },
       {
-        question: "Quel est le prix d'une Kia Seltos 2025 au Maroc ?",
-        answer: "Le prix de la Kia Seltos 2025 varie selon la version et les options. Pour une information précise, il est préférable de se renseigner auprès d'un distributeur local."
+        question: "Puis-je récupérer la Picanto à l'aéroport d'Agadir ?",
+        answer: "Oui. Selon disponibilité, AmseelCars organise la prise en charge à l'aéroport Agadir Al Massira (AGA) ou une livraison hôtel / ville."
       },
       {
-        question: "Quels sont les avis sur la Kia Picanto 2025 ?",
-        answer: "La Kia Picanto 2025 est généralement appréciée pour sa fiabilité, sa faible consommation, sa facilité de conduite et son excellent rapport qualité/prix."
+        question: "La Kia Picanto 2025 convient-elle pour Agadir ?",
+        answer: "Oui. Fiable, économique et facile à conduire, c'est une citadine adaptée à Agadir et aux petits trajets autour."
       }
     ]
   },

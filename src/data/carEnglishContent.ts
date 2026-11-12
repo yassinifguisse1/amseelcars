@@ -206,24 +206,24 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       ],
       faqs: [
         {
-          question: 'How much does it cost to rent a Golf 8 R?',
+          question: 'How much does it cost to rent a Golf 8 in Agadir?',
           answer:
-            'In general, expect roughly 800 to 1,500 MAD per day (depending on city, agency, deposit, season and mileage). For a month, that often works out around 18,000 to 30,000 MAD/month depending on terms.',
+            'Daily rates depend on dates, season and rental length. Check live pricing on the booking form or contact AmseelCars with your dates for an exact quote.',
         },
         {
-          question: 'How much is leasing for a Golf 8?',
+          question: 'Is the Golf 8 diesel and automatic?',
           answer:
-            'Most offers in Morocco fall between 3,000 and 6,500 MAD/month (depending on down payment, term, mileage and trim). In Europe you often see roughly €250-450/month with a variable initial payment.',
+            'Yes. The Golf 8 offered by AmseelCars is diesel with a 7-speed DSG automatic gearbox, a comfortable choice for Agadir city driving and trips around the region.',
         },
         {
-          question: 'How much does a Golf 8 cost to buy?',
+          question: 'Can I pick up the Golf 8 at Agadir airport or my hotel?',
           answer:
-            'In Morocco, new prices often start around 329,000 MAD and rise with trim and options. Used prices vary widely by year, mileage and engine.',
+            'Yes. AmseelCars offers flexible delivery: Agadir Al Massira Airport (AGA) pickup or hotel / city delivery subject to availability and your booking details.',
         },
         {
-          question: 'What are common drawbacks of the Golf 8?',
+          question: 'What is included when renting a Golf 8 with AmseelCars?',
           answer:
-            'The most cited issues are: bugs or lag on the infotainment screen (especially on early cars), minor electronic glitches (sensors, assist messages, updates), less practical all-touch ergonomics (touch/haptic controls), and perceived quality that can vary by version/year (possible rattles).',
+            'Standard cover and the booked extras appear in your quote. Full Insurance (zero excess) is available as an option with a 7-day minimum. Ask us about deposit conditions for your profile.',
         },
       ],
     },
@@ -317,9 +317,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Rental price depends on duration, season and availability. Rates usually vary with rental length and options chosen. Contact AmseelCars for an exact quote.',
         },
         {
-          question: 'What does a new Volkswagen T-Roc cost in Morocco?',
+          question: 'Is the T-Roc diesel with DSG automatic?',
           answer:
-            'In Morocco, the price of a new Volkswagen T-Roc depends on trim and options. It generally sits in the mid-to-upper range of the compact SUV segment.',
+            'Yes. AmseelCars rents this T-Roc as a diesel with 7-speed DSG automatic, smooth in Agadir traffic and comfortable on coastal roads.',
         },
         {
           question: 'Is the T-Roc a good car?',
@@ -428,9 +428,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Rental price depends on duration, season and availability. Rates are usually among the most economical. Contact AmseelCars for an exact quote.',
         },
         {
-          question: 'What does a new Renault Clio 5 cost in Morocco?',
+          question: 'Can I pick up a Clio 5 at Agadir airport?',
           answer:
-            'In Morocco, the price of a new Renault Clio 5 depends on trim and options. It is positioned as a modern, accessible car in its segment.',
+            'Yes. AmseelCars can arrange Agadir Al Massira Airport (AGA) pickup or hotel / city delivery subject to availability.',
         },
         {
           question: 'Which Clio 5 version is best to choose?',
@@ -640,9 +640,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Rates depend on model, duration, season and agency. In Agadir prices are generally competitive, with options for different budgets.',
         },
         {
-          question: 'How much does a Citroën C4 cost to buy?',
+          question: 'Can I collect a Citroën C4 at Agadir airport?',
           answer:
-            'New price depends on trim, engine and options. In Morocco it sits in the mid range among modern, comfortable cars.',
+            'Yes. Subject to availability, AmseelCars can arrange Agadir Al Massira Airport (AGA) pickup or hotel / city delivery for your C4 rental.',
         },
         {
           question: 'Is the Citroën C4 a good car?',
@@ -660,7 +660,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-c3-aircross': {
     description:
-      'Comfortable, versatile compact SUV: the Citroën C3 Aircross 1.2 PureTech Hybrid 136 hp (petrol mild-hybrid 48V, e-DCS6 automatic) offers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
+      'Comfortable, versatile compact SUV: the Citroën C3 Aircross diesel with e-DCS6 automatic gearbox offers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
 
     richContent: {
       h1Title: 'C3 Aircross rental Agadir | Comfortable compact SUV | AmseelCars',
@@ -746,9 +746,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Rental price depends on duration, season and availability. Contact AmseelCars for an exact quote.',
         },
         {
-          question: 'How much does a new Citroën C3 Aircross cost in Morocco?',
+          question: 'Is the C3 Aircross diesel and automatic?',
           answer:
-            'New price varies by trim and options and generally sits in the modern compact SUV segment.',
+            'Yes. AmseelCars offers the C3 Aircross as a diesel with e-DCS6 automatic gearbox, practical for Agadir and day trips nearby.',
         },
         {
           question: 'Which cars are cheapest for long-term rental?',
@@ -766,7 +766,7 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
 
   'location-voiture-agadir-c3-aircross-gris': {
     description:
-      'Comfortable, versatile compact SUV: the grey Citroën C3 Aircross 1.2 PureTech Hybrid 136 hp (petrol mild-hybrid 48V, e-DCS6 automatic) delivers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
+      'Comfortable, versatile compact SUV: the grey Citroën C3 Aircross diesel with e-DCS6 automatic gearbox delivers smooth driving, controlled fuel use and modern connectivity (Apple CarPlay / Android Auto depending on trim). Ideal for Agadir and longer trips.',
 
     richContent: {
       h1Title: 'Grey C3 Aircross rental Agadir | Comfortable compact SUV | AmseelCars',
@@ -1088,9 +1088,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'It is mainly built for the city; motorway performance is modest. It makes up for it with comfort, reliability and low fuel use.',
         },
         {
-          question: 'How much is a new Hyundai i10?',
+          question: 'Is the Hyundai i10 a good city rental for Agadir?',
           answer:
-            'New price depends on trim and market. It remains one of the more accessible small automated city cars in its class.',
+            'Yes. It is compact, economical and easy to park, a strong choice for Agadir city driving and short trips nearby.',
         },
       ],
     },
@@ -1201,9 +1201,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       ],
       faqs: [
         {
-          question: 'What is the price of the smallest Kia?',
+          question: 'Is the Kia Picanto one of the cheapest rentals in Agadir?',
           answer:
-            'The Kia Picanto is usually the most affordable model in the Kia range. Purchase price varies by trim and market, but it remains one of the most budget-friendly city cars.',
+            'Yes. Among AmseelCars options, the Picanto is typically one of the most affordable city-car rentals, with rates that depend on dates and season.',
         },
         {
           question: 'How much does it cost to rent a small car in Agadir?',
@@ -1468,9 +1468,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       ],
       faqs: [
         {
-          question: 'What does a Dacia Sandero Stepway cost in Morocco?',
+          question: 'How much does it cost to rent a Dacia Sandero Stepway in Agadir?',
           answer:
-            'Purchase price in Morocco depends on trim, year and options. It remains positioned as an accessible, economical crossover in its segment.',
+            'Rates depend on dates, season and rental length. Contact AmseelCars or use the booking form for an exact quote.',
         },
         {
           question: 'What are the downsides of the Dacia Sandero Stepway?',
@@ -1597,24 +1597,24 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       ],
       faqs: [
         {
-          question: 'What does a new 2025 Volkswagen Touareg cost?',
+          question: 'How much does it cost to rent a Touareg in Agadir?',
           answer:
-            'New Touareg prices depend on engine, trim and options. It sits in the upper tier of the premium SUV segment.',
+            'Premium SUV rates depend on dates, season and rental length. Contact AmseelCars or use the booking form for an exact quote.',
         },
         {
-          question: 'What is the price of a 2025 Volkswagen Touareg in Morocco?',
+          question: 'Is the Touareg suitable for longer trips from Agadir?',
           answer:
-            'In Morocco, Touareg pricing depends on version and equipment. For an exact figure, contact an official Volkswagen dealer.',
+            'Yes. Comfort, power and space make it a strong choice for long-distance and premium travel around Morocco from Agadir.',
         },
         {
-          question: 'Is a new Touareg planned for 2026?',
+          question: 'Can I arrange airport pickup for the Touareg?',
           answer:
-            'Volkswagen updates its range regularly, but no definitive official announcement has yet confirmed a new Touareg specifically for 2026.',
+            'Yes. Subject to availability, AmseelCars offers Agadir Al Massira Airport (AGA) pickup or hotel / city delivery.',
         },
         {
-          question: 'When will the next Touareg be released?',
+          question: 'What fuel and gearbox does the rented Touareg have?',
           answer:
-            'Launch timing for new Touareg generations follows Volkswagen’s official communications. Check the manufacturer’s updates for the latest information.',
+            'AmseelCars offers the Touareg as a diesel automatic premium SUV. Confirm the exact specification on your booking quote.',
         },
       ],
     },
@@ -1859,9 +1859,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Like any SUV it can feel bulkier than a city car downtown, but for most uses it remains manageable and comfortable.',
         },
         {
-          question: 'Is it better to rent or buy a Kia Sportage?',
+          question: 'Is the Kia Sportage a good choice for a family rental in Agadir?',
           answer:
-            'For a stay in Agadir, renting often makes sense: no purchase, maintenance or insurance ownership costs, with a recent, well-equipped car.',
+            'Yes. The Sportage offers space, comfort and a raised driving position that suits couples and families for city trips and day excursions around Agadir.',
         },
         {
           question: 'How much does car rental cost in Morocco?',
@@ -2055,24 +2055,24 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       ],
       faqs: [
         {
-          question: 'What is the price of a 2025 Kia Sportage in Morocco?',
+          question: 'How much does it cost to rent a green Kia Sportage in Agadir?',
           answer:
-            'Price varies by trim and market. For an accurate figure in Morocco, check with a dealer or specialist agency.',
+            'Rates depend on dates, season and rental length. Use the booking form or contact AmseelCars for an exact quote.',
         },
         {
-          question: 'How much does car leasing cost per month?',
+          question: 'Is the green Sportage diesel automatic?',
           answer:
-            'Leasing depends on model, term and down payment. For flexible use in Agadir, short-term rental is often simpler and more practical.',
+            'Yes. This Sportage is offered as a diesel with automatic gearbox, comfortable for Agadir and longer trips in the region.',
         },
         {
-          question: 'How much does a Kia Sportage cost?',
+          question: 'Can I get airport or hotel delivery for the Sportage?',
           answer:
-            'Purchase price depends on year, engine and trim. Renting lets you use the vehicle without purchase commitment.',
+            'Yes. AmseelCars can arrange Agadir airport pickup or hotel / city delivery subject to availability and your booking.',
         },
         {
-          question: 'Which car fits a €200 per month budget?',
+          question: 'Is the Sportage suitable for a family holiday?',
           answer:
-            'With a tight monthly budget, city or compact cars are often a better match. SUVs like the Sportage offer more comfort but typically need a higher budget.',
+            'Yes. Boot space, five seats and a raised driving position make it a strong family rental choice for Agadir and day trips.',
         },
       ],
     },
@@ -2198,19 +2198,19 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Rates depend on city, season, duration and terms (mileage, deposit, insurance). For an exact Agadir quote, contact AmseelCars with your dates.',
         },
         {
-          question: 'Is renting a car worth it?',
+          question: 'Is the grey Clio 5 automatic?',
           answer:
-            'Often yes for a holiday: no purchase, maintenance or insurance ownership costs, and you can match the car to the length and style of your trip.',
+            'Yes. This grey Clio 5 is offered with an automatic gearbox, ideal for relaxed driving in Agadir traffic.',
         },
         {
-          question: 'How much to rent a Renault 5 / similar model?',
+          question: 'Can I pick up the Clio 5 at Agadir airport or my hotel?',
           answer:
-            'Rates vary by agency, period and availability. For an exact offer in Agadir, request a quote from AmseelCars for your dates.',
+            'Yes. AmseelCars can arrange Agadir airport pickup or hotel / city delivery subject to availability.',
         },
         {
-          question: 'Which car for around €150 per month?',
+          question: 'Is the Clio 5 a good budget rental in Agadir?',
           answer:
-            'At that budget, city cars in leasing depend on down payment and terms. Short-term rental prices depend heavily on dates and vehicle category, ask us for a quote.',
+            'Yes. It is compact, economical and practical for city use, with daily rates that usually sit among the more accessible options. Ask us for a quote for your dates.',
         },
       ],
     },
@@ -2329,24 +2329,24 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
       ],
       faqs: [
         {
-          question: 'What does a 2025 Kia Picanto cost in Morocco?',
+          question: 'How much does it cost to rent a 2025 Kia Picanto in Agadir?',
           answer:
-            'Price depends on trim and market. For an accurate new-car price in Morocco, check with a Kia dealer or specialist.',
+            'Rates depend on dates, season and rental length. Contact AmseelCars or use the booking form for an exact quote.',
         },
         {
-          question: 'When is the next Kia Picanto coming?',
+          question: 'Is the 2025 Picanto automatic?',
           answer:
-            'The 2025 Picanto is already available in many markets; exact timing varies by country.',
+            'Yes. AmseelCars offers the 2025 Picanto with an automatic gearbox, practical for Agadir city driving.',
         },
         {
-          question: 'What does a 2025 Kia Seltos cost in Morocco?',
+          question: 'Can I pick up the Picanto at Agadir airport?',
           answer:
-            'Seltos pricing depends on version and options. Contact a local distributor for a precise figure.',
+            'Yes. Subject to availability, AmseelCars arranges Agadir Al Massira Airport (AGA) pickup or hotel / city delivery.',
         },
         {
-          question: 'What do people say about the 2025 Kia Picanto?',
+          question: 'Is the 2025 Kia Picanto a good rental for Agadir?',
           answer:
-            'Owners often praise reliability, low fuel use, easy driving and strong value for money.',
+            'Yes. Reliable, economical and easy to drive, it is a strong city-car choice for Agadir and short trips nearby.',
         },
       ],
     },
@@ -2706,9 +2706,9 @@ export const CAR_ENGLISH_BY_SLUG: Record<string, CarEnglishBundle> = {
             'Rates depend on season, duration, deposit, mileage and options (insurance, delivery). Request a quote for your dates.',
         },
         {
-          question: 'What does a Citroën C3 cost in Morocco?',
+          question: 'Can I pick up a Citroën C3 at Agadir airport?',
           answer:
-            'Purchase price varies by version, year, engine and condition (new/used). Dealers and the used market show wide differences.',
+            'Yes. Subject to availability, AmseelCars arranges Agadir Al Massira Airport (AGA) pickup or hotel / city delivery.',
         },
         {
           question: 'How much does car rental cost in Morocco?',

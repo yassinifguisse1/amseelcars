@@ -35,10 +35,10 @@ export function useGoogleReviews() {
         const data: GoogleReviewsResponse = await response.json();
         const rating =
           Number(data.aggregateRating) > 0 ? Number(data.aggregateRating) : BUSINESS_GOOGLE_RATING;
-        const count =
-          Number(data.totalReviews) > 0
-            ? Math.round(Number(data.totalReviews))
-            : BUSINESS_GOOGLE_REVIEW_COUNT;
+        const liveCount =
+          Number(data.totalReviews) > 0 ? Math.round(Number(data.totalReviews)) : 0;
+        // Prefer configured count when live Places data lags behind Google.
+        const count = Math.max(liveCount, BUSINESS_GOOGLE_REVIEW_COUNT);
 
         setReviews(data.reviews || []);
         setAggregateRating(rating);
