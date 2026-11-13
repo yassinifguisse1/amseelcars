@@ -3799,10 +3799,10 @@ export const cars: Car[] = [
       { src: "/images/dacia-sandero-gris-manuel-2025-interieur-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - intérieur" },
       { src: "/images/dacia-sandero-gris-manuel-2025-places-arriere-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - places arrière" },
     ],
-    pricePerDay: 250,
+    pricePerDay: 214,
     pricing: {
-      shortTerm: 250,
-      longTerm: 250,
+      shortTerm: 214,
+      longTerm: 214,
       hasDiscount: false
     },
     seats: 5,
