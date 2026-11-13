@@ -3783,6 +3783,216 @@ export const cars: Car[] = [
     category: 'suv',
     availability: true,
     location: "Agadir, Maroc"
+  },
+  {
+    id: 26,
+    slug: 'location-voiture-agadir-dacia-sandero-gris-manuel',
+    carName: "Sandero",
+    brand: "Dacia",
+    model: "Sandero Streetway 1.0 TCe 100 BVM5",
+    year: 2025,
+    carImage: "/images/dacia-sandero-gris-manuel-2025-vue-devant-amseel-cars-agadir.webp",
+    images: [
+      { src: "/images/dacia-sandero-gris-manuel-2025-vue-devant-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - vue avant à Agadir", isPrimary: true },
+      { src: "/images/dacia-sandero-gris-manuel-2025-vue-trois-quarts-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - vue trois quarts" },
+      { src: "/images/dacia-sandero-gris-manuel-2025-vue-arriere-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - vue arrière" },
+      { src: "/images/dacia-sandero-gris-manuel-2025-interieur-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - intérieur" },
+      { src: "/images/dacia-sandero-gris-manuel-2025-places-arriere-amseel-cars-agadir.webp", alt: "Dacia Sandero gris manuelle - places arrière" },
+    ],
+    pricePerDay: 250,
+    pricing: {
+      shortTerm: 250,
+      longTerm: 250,
+      hasDiscount: false
+    },
+    seats: 5,
+    fuelType: "Essence",
+    transmission: "Manuelle 5 rapports",
+    rating: 4.7,
+    description: "Citadine essence économique, la Dacia Sandero Streetway 1.0 TCe 100 BVM5 (boîte manuelle 5 rapports) offre 5 places, un coffre de 328 L et une consommation mixte autour de 5,2 l/100 km. Idéale pour Agadir, l'aéroport et les trajets côtiers.",
+    richContent: {
+      h1Title: "Location Dacia Sandero gris manuelle Agadir | Essence TCe 100 | AmseelCars",
+      seoTitle: "Dacia Sandero manuelle en location à Agadir | AmseelCars",
+      seoMetaDescription: "Louez une Dacia Sandero gris manuelle à Agadir : essence 1.0 TCe 100, BVM5, 5 places, coffre 328 L. Réservez chez AmseelCars.",
+      sections: [
+        {
+          h2: "Présentation de la Dacia Sandero manuelle en location à Agadir",
+          paragraphs: [
+            "La Dacia Sandero (Streetway au Maroc) est l'une des citadines les plus demandées pour une location voiture Agadir : simple, spacieuse pour sa catégorie et économique à l'usage.",
+            "Chez AmseelCars, cette Sandero 2025 gris métallisé est proposée en motorisation essence 1.0 TCe 100 ch avec boîte manuelle 5 rapports, un choix courant sur le marché marocain pour la ville et les trajets mixtes."
+          ]
+        },
+        {
+          h2: "Moteur 1.0 TCe 100 et boîte manuelle BVM5",
+          paragraphs: [
+            "Le trois-cylindres turbo essence 1.0 TCe développe 100 ch et environ 160 Nm, avec un 0-100 km/h annoncé autour de 11,5 s et une vitesse max proche de 183 km/h selon fiches Maroc.",
+            "La boîte manuelle 5 rapports donne un bon contrôle en ville comme sur route, et une consommation mixte catalogue autour de 5,2 l/100 km — un atout pour garder le budget carburant maîtrisé pendant votre séjour."
+          ]
+        },
+        {
+          h2: "Espace, coffre et confort au quotidien",
+          paragraphs: [
+            "Avec 5 places et un coffre d'environ 328 litres, la Sandero convient aux couples, petites familles et voyageurs avec bagages pour l'aéroport Al Massira.",
+            "Climatisation, aides à la conduite essentielles et connectivité Apple CarPlay / Android Auto (selon finition) rendent la voiture agréable pour Agadir, Taghazout et les excursions proches."
+          ]
+        },
+        {
+          h2: "Pourquoi louer cette Sandero manuelle à Agadir ?",
+          paragraphs: [
+            "Parce qu'elle combine prix accessible, essence pratique pour les courtes et moyennes distances, et conduite manuelle pour les habitués du levier.",
+            "Un excellent rapport qualité-prix face aux crossovers plus chers, tout en restant confortable pour un séjour à Agadir."
+          ]
+        },
+        {
+          h2: "Réserver la Sandero gris manuelle avec AmseelCars",
+          paragraphs: [
+            "Disponible selon vos dates. Contactez AmseelCars pour confirmer la disponibilité, le retrait (agence ou aéroport) et obtenir un devis clair en MAD ou EUR."
+          ]
+        }
+      ],
+      faqs: [
+        {
+          question: "Quel est le prix de location d'une Dacia Sandero manuelle à Agadir ?",
+          answer: "Le tarif dépend de la saison, de la durée et des options. Contactez AmseelCars avec vos dates pour un devis précis."
+        },
+        {
+          question: "Quelle motorisation équipe la Sandero au Maroc ?",
+          answer: "Cette version essence est un 1.0 TCe 100 ch avec boîte manuelle 5 rapports, motorisation courante sur la Sandero Streetway au Maroc."
+        },
+        {
+          question: "Sandero manuelle ou automatique pour Agadir ?",
+          answer: "La manuelle convient très bien si vous êtes habitué à ce type de conduite ; l'automatique CVT est plus confortable en circulation dense."
+        },
+        {
+          question: "Combien de places et de coffre ?",
+          answer: "5 places et environ 328 litres de coffre, pratique pour l'aéroport et les bagages de séjour."
+        }
+      ]
+    },
+    features: [
+      { icon: "🚗", name: "Sièges", value: "5" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Manuelle 5 rapports" },
+      { icon: "🛡️", name: "Sécurité", value: "ABS, ESP, airbags, aides essentielles (selon finition)" },
+      { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
+      { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
+    ],
+    specs: {
+      engine: "1.0L TCe turbo 3 cylindres essence",
+      horsepower: "100 ch",
+      acceleration: "0-100 km/h en ≈ 11,5 s",
+      topSpeed: "≈ 183 km/h",
+      fuelEfficiency: "≈ 5,2 l/100 km (mixte catalogue MA)",
+      drivetrain: "Traction (roues avant)"
+    },
+    category: 'economy',
+    availability: true,
+    location: "Agadir, Maroc"
+  },
+  {
+    id: 27,
+    slug: 'location-voiture-agadir-dacia-sandero-blanche-automatique',
+    carName: "Sandero",
+    brand: "Dacia",
+    model: "Sandero Streetway 1.0 TCe 100 CVT",
+    year: 2025,
+    carImage: "/images/dacia-sandero-blanche-automatique-2025-vue-devant-amseel-cars-agadir.webp",
+    images: [
+      { src: "/images/dacia-sandero-blanche-automatique-2025-vue-devant-amseel-cars-agadir.webp", alt: "Dacia Sandero blanche automatique - vue avant à Agadir", isPrimary: true },
+      { src: "/images/dacia-sandero-blanche-automatique-2025-vue-devant-bis-amseel-cars-agadir.webp", alt: "Dacia Sandero blanche automatique - vue avant" },
+      { src: "/images/dacia-sandero-blanche-automatique-2025-vue-arriere-amseel-cars-agadir.webp", alt: "Dacia Sandero blanche automatique - vue arrière" },
+      { src: "/images/dacia-sandero-blanche-automatique-2025-interieur-amseel-cars-agadir.webp", alt: "Dacia Sandero blanche automatique - intérieur" },
+      { src: "/images/dacia-sandero-blanche-automatique-2025-places-arriere-amseel-cars-agadir.webp", alt: "Dacia Sandero blanche automatique - places arrière" },
+    ],
+    pricePerDay: 268,
+    pricing: {
+      shortTerm: 268,
+      longTerm: 268,
+      hasDiscount: false
+    },
+    seats: 5,
+    fuelType: "Essence",
+    transmission: "Automatique (CVT)",
+    rating: 4.8,
+    description: "Citadine essence confortable, la Dacia Sandero Streetway 1.0 TCe 100 CVT (boîte automatique) offre une conduite souple en ville, 5 places, coffre 328 L et consommation mixte autour de 5,5 l/100 km. Parfaite pour Agadir et les trajets sans stress.",
+    richContent: {
+      h1Title: "Location Dacia Sandero blanche automatique Agadir | CVT TCe 100 | AmseelCars",
+      seoTitle: "Dacia Sandero automatique en location à Agadir | AmseelCars",
+      seoMetaDescription: "Louez une Dacia Sandero blanche automatique à Agadir : essence 1.0 TCe 100 CVT, 5 places, conduite fluide. Réservez chez AmseelCars.",
+      sections: [
+        {
+          h2: "Présentation de la Dacia Sandero automatique en location à Agadir",
+          paragraphs: [
+            "La Dacia Sandero automatique est un choix très demandé pour une location voiture Agadir sans fatigue : format citadin, 5 places et boîte CVT pour la circulation dense.",
+            "Chez AmseelCars, cette Sandero 2025 blanche est proposée en 1.0 TCe 100 ch avec boîte automatique CVT, configuration essence automatique typique du marché marocain (Streetway)."
+          ]
+        },
+        {
+          h2: "Boîte CVT et moteur 1.0 TCe 100",
+          paragraphs: [
+            "La CVT évite les changements de rapport en embouteillage et sur la corniche : conduite plus fluide, surtout après un vol ou sous la chaleur d'Agadir.",
+            "Le TCe 100 développe 100 ch (couple environ 142 Nm en CVT). Performances catalogue : 0-100 km/h vers 11,8 s, vitesse max autour de 177 km/h, consommation mixte vers 5,5 l/100 km."
+          ]
+        },
+        {
+          h2: "Confort, connectivité et bagages",
+          paragraphs: [
+            "Habitacle 5 places, coffre d'environ 328 L, climatisation et Media Display avec Apple CarPlay / Android Auto selon finition.",
+            "Idéale pour l'aéroport, le centre-ville, Taghazout et les sorties journée autour d'Agadir."
+          ]
+        },
+        {
+          h2: "Pourquoi choisir la Sandero automatique ?",
+          paragraphs: [
+            "Elle offre le confort de l'automatique à un tarif économique, sans passer sur un crossover plus cher.",
+            "Parfaite si plusieurs conducteurs partagent la voiture ou si vous préférez éviter la manuelle en ville."
+          ]
+        },
+        {
+          h2: "Réserver la Sandero blanche automatique avec AmseelCars",
+          paragraphs: [
+            "Vérifiez la disponibilité selon vos dates et réservez auprès d'AmseelCars pour un retrait simple à Agadir ou à l'aéroport."
+          ]
+        }
+      ],
+      faqs: [
+        {
+          question: "Quel est le prix pour louer une Dacia Sandero automatique à Agadir ?",
+          answer: "Le prix varie selon la saison et la durée. Contactez AmseelCars avec vos dates pour un devis adapté."
+        },
+        {
+          question: "La Sandero automatique est-elle une CVT ?",
+          answer: "Oui. Au Maroc, la version essence automatique de la Sandero Streetway utilise une boîte CVT associée au 1.0 TCe 100."
+        },
+        {
+          question: "Automatique ou manuelle pour Agadir ?",
+          answer: "L'automatique est souvent préférée en ville et après un long voyage ; la manuelle reste un bon choix si vous êtes à l'aise avec le levier."
+        },
+        {
+          question: "La Sandero convient-elle à une petite famille ?",
+          answer: "Oui : 5 places et un coffre d'environ 328 L suffisent pour une petite famille ou un couple avec bagages."
+        }
+      ]
+    },
+    features: [
+      { icon: "🚗", name: "Sièges", value: "5" },
+      { icon: "⛽", name: "Carburant", value: "Essence" },
+      { icon: "⚙️", name: "Boîte de vitesses", value: "Automatique (CVT)" },
+      { icon: "🛡️", name: "Sécurité", value: "ABS, ESP, airbags, aides essentielles (selon finition)" },
+      { icon: "❄️", name: "Climatisation", value: "Manuelle ou auto (selon finition)" },
+      { icon: "📱", name: "Connectivité", value: "Apple CarPlay / Android Auto" }
+    ],
+    specs: {
+      engine: "1.0L TCe turbo 3 cylindres essence",
+      horsepower: "100 ch",
+      acceleration: "0-100 km/h en ≈ 11,8 s",
+      topSpeed: "≈ 177 km/h",
+      fuelEfficiency: "≈ 5,5 l/100 km (mixte catalogue MA)",
+      drivetrain: "Traction (roues avant)"
+    },
+    category: 'economy',
+    availability: true,
+    location: "Agadir, Maroc"
   }
   ]
 
