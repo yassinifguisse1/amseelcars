@@ -16,6 +16,7 @@ import {
 import { MIN_RENTAL_DAYS, meetsMinRentalDays, rentalDayCount } from '@/lib/rentalPolicy';
 import { trackEvent } from '@/lib/trackEvent';
 import { cn } from '@/lib/utils';
+import { isBlackFridayPromoLive } from '@/lib/blackFridayPromo';
 
 export function HomeBookingSearchBar({ className }: { className?: string }) {
   const t = useTranslations('homeBookingSearch');
@@ -24,6 +25,7 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const bfLive = isBlackFridayPromoLive();
 
   const locationOptions = useMemo(
     () => [
@@ -130,9 +132,21 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
     >
       <form
         onSubmit={onSearch}
-        className="mx-auto max-w-6xl overflow-hidden rounded-xl bg-[#b11226] text-white shadow-[0_16px_48px_rgba(177,18,38,0.35)] sm:rounded-2xl"
+        className={cn(
+          'mx-auto max-w-6xl overflow-hidden rounded-xl text-white sm:rounded-2xl',
+          bfLive
+            ? 'bg-[linear-gradient(135deg,#050505_0%,#12100e_48%,#2a2414_78%,#b8922e_100%)] shadow-[0_16px_48px_rgba(0,0,0,0.45)] ring-1 ring-[#e8c547]/35'
+            : 'bg-[#b11226] shadow-[0_16px_48px_rgba(177,18,38,0.35)]',
+        )}
       >
-        <div className="flex items-start gap-1.5 border-b border-white/20 bg-[#941020] px-2.5 py-1.5 text-[11px] leading-snug text-white sm:items-center sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm">
+        <div
+          className={cn(
+            'flex items-start gap-1.5 border-b px-2.5 py-1.5 text-[11px] leading-snug text-white sm:items-center sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm',
+            bfLive
+              ? 'border-[#e8c547]/25 bg-[linear-gradient(90deg,#050505,#1a140c)]'
+              : 'border-white/20 bg-[#941020]',
+          )}
+        >
           <Plane className="mt-0.5 h-3 w-3 shrink-0 text-white sm:mt-0 sm:h-4 sm:w-4" aria-hidden />
           <button
             type="button"
@@ -265,7 +279,12 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
 
           <Button
             type="submit"
-            className="mt-0.5 h-10 w-full cursor-pointer bg-white px-4 text-sm font-semibold text-[#b11226] hover:bg-stone-100 sm:mt-0 sm:h-11 sm:px-5 sm:text-sm lg:w-auto"
+            className={cn(
+              'mt-0.5 h-10 w-full cursor-pointer px-4 text-sm font-semibold sm:mt-0 sm:h-11 sm:px-5 sm:text-sm lg:w-auto',
+              bfLive
+                ? 'bg-[#e8c547] text-[#050505] hover:bg-[#f0d56a]'
+                : 'bg-white text-[#b11226] hover:bg-stone-100',
+            )}
           >
             <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             {t('search')}
@@ -273,16 +292,31 @@ export function HomeBookingSearchBar({ className }: { className?: string }) {
         </div>
 
         {dateError ? (
-          <p className="border-t border-white/20 bg-[#941020] px-3 py-2 text-sm text-amber-100 sm:px-5">
+          <p
+            className={cn(
+              'border-t px-3 py-2 text-sm sm:px-5',
+              bfLive
+                ? 'border-[#e8c547]/25 bg-[#050505]/70 text-[#fff6d6]'
+                : 'border-white/20 bg-[#941020] text-amber-100',
+            )}
+          >
             {dateError}
           </p>
         ) : null}
 
-        <div className="flex flex-col gap-1 border-t border-white/20 px-2.5 py-2 text-[11px] text-white/95 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-5 sm:py-3 sm:text-sm">
+        <div
+          className={cn(
+            'flex flex-col gap-1 border-t px-2.5 py-2 text-[11px] text-white/95 sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-5 sm:py-3 sm:text-sm',
+            bfLive ? 'border-[#e8c547]/25' : 'border-white/20',
+          )}
+        >
           <label className="inline-flex cursor-pointer items-start gap-2 sm:items-center">
             <input
               type="checkbox"
-              className="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-white/40 bg-white text-[#b11226] focus:ring-white sm:mt-0 sm:h-4 sm:w-4"
+              className={cn(
+                'mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-white/40 bg-white focus:ring-white sm:mt-0 sm:h-4 sm:w-4',
+                bfLive ? 'text-[#e8c547]' : 'text-[#b11226]',
+              )}
               checked={values.sameReturn}
               onChange={(e) => setField('sameReturn', e.target.checked)}
             />

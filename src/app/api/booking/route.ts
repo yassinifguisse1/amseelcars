@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
       formOpenedAt,
       wheelPrizeId,
       wheelClaimCode,
+      promoCode,
     } = body;
 
     const addonLabels: Record<string, string> = {
@@ -225,6 +226,11 @@ export async function POST(request: NextRequest) {
               ${
                 typeof wheelClaimCode === 'string' && wheelClaimCode.trim()
                   ? `<p style="margin-top: 12px; padding: 12px; background: #fff8e6; border: 1px solid #c9a227; border-radius: 6px;"><strong>🎁 Cadeau roue:</strong> ${escapeHtml(addonLabels[String(wheelPrizeId)] || String(wheelPrizeId || 'option'))}<br/><strong>Code:</strong> <code style="font-size: 16px; letter-spacing: 0.06em;">${escapeHtml(String(wheelClaimCode).trim().slice(0, 24))}</code></p>`
+                  : ''
+              }
+              ${
+                typeof promoCode === 'string' && promoCode.trim()
+                  ? `<p style="margin-top: 12px; padding: 12px; background: #111; color: #f5e6a8; border-radius: 6px;"><strong>Black Friday:</strong> code <code style="font-size: 16px; letter-spacing: 0.06em; color: #fff;">${escapeHtml(String(promoCode).trim().slice(0, 24))}</code> — tarif promo déjà appliqué</p>`
                   : ''
               }
               <p><strong>Total price:</strong> <span style="color: #667eea; font-weight: bold; font-size: 18px;">${safe.totalPrice} ${currencySymbol}</span></p>

@@ -559,6 +559,7 @@
     "waAddonsSuffix": "Dodatki: {addons}.",
     "waWheelSuffix": "Kod z koła: {code} ({prize}) - proszę dodać darmowy dodatek.",
     "waWheelGiftTag": "prezent z koła · 2 dni gratis przy 7+",
+    "waBlackFridaySuffix": "Kod Black Friday: {code} - obniżona stawka już naliczona.",
     "wheelPrizeBanner": "Prezent z koła: {prize} · kod {code}",
     "wheelPrizeBannerHint": "2 dni gratis przy rezerwacji na 7 dni lub dłużej - w sumie poniżej.",
     "addons": {
@@ -1506,5 +1507,50 @@
     "legalHint": "Jeden spin na wizytę. Potwierdzenie przy rezerwacji.",
     "giftBadge": "2d gratis",
     "giftRuleNote": "2 dni gratis na wygrany dodatek przy rezerwacji na 7 dni lub dłużej."
+  },
+  "blackFriday": {
+    "topBarAria": "Oferta Black Friday",
+    "liveLabel": "Oferta live",
+    "photoBadge": "Black Friday",
+    "topMessage": "Black Friday: od <strong>{price}</strong>/dzień · zniżka już naliczona · kod <strong>{code}</strong>",
+    "topMessageShort": "Od <strong>{price}</strong>/dzień · <strong>{code}</strong>",
+    "countdownAria": "Pozostały czas Black Friday",
+    "unitDay": "d",
+    "unitHour": "g",
+    "unitMin": "m",
+    "unitSec": "s",
+    "codeLabel": "Kod {code}",
+    "copied": "Skopiowano",
+    "bookCta": "Rezerwuj",
+    "dismissAria": "Zamknij pasek Black Friday",
+    "bannerKicker": "Agadir · Ograniczony czas",
+    "bannerTitle": "Black Friday",
+    "fromPriceLabel": "Od {price}/dzień",
+    "agencyIntro": "Od {price}/dzień · bez karty · WhatsApp 24/7. Wybierz daty poniżej albo otwórz stronę miasta / lotniska według odbioru.",
+    "bannerSubtitle": "Ceny Black Friday są już obniżone — od <strong>{price}</strong>/dzień, naliczane przy checkout i przy wysyłce formularza lub WhatsApp. Dostawa na lotnisko lub hotel. Kod <strong>{code}</strong>.",
+    "panelBmwPrice": "BMW X3 · {price}/dzień",
+    "panelBmwBook": "Rezerwuj",
+    "whatsappPrefill": "Cześć, chcę zarezerwować auto w Amseel Cars. Kod Black Friday {code} — proszę potwierdzić obniżoną stawkę (od {price}/dzień), już naliczoną.",
+    "bannerPrimaryCta": "Wybierz auto",
+    "bannerCodeCta": "Kopiuj {code}",
+    "panelAria": "Korzyści Black Friday",
+    "panelTitle": "Co zyskujesz",
+    "perks": [
+      "Od 19,90 €/dzień — ceny już obniżone",
+      "Zniżka naliczana przy checkout i WhatsApp",
+      "Darmowa dostawa na lotnisko (AGA) lub do hotelu",
+      "Opcje bez depozytu · WhatsApp 24/7",
+      "Podaj BLACKFRIDAY przy potwierdzeniu"
+    ],
+    "marquee": [
+      "Black Friday Agadir",
+      "Od 19,90 €/dzień",
+      "Zniżka już naliczona",
+      "Lotnisko AGA",
+      "Dostawa hotel",
+      "Nowoczesna flota",
+      "Kod BLACKFRIDAY"
+    ],
+    "panelImageAlt": "BMW X3 Pack M cała bryła — wynajem Black Friday Agadir"
   }
 }

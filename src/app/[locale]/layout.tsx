@@ -12,6 +12,7 @@ import { MobileBottomNav } from "@/components/MobileBottomNav/MobileBottomNav";
 import { SiteTracker } from "@/components/analytics/SiteTracker";
 import { PublicStatsigProvider } from "@/components/analytics/PublicStatsigProvider";
 import { WheelOfChance } from "@/components/WheelOfChance/WheelOfChance";
+import { BlackFridayTopBar } from "@/components/promo/BlackFridayTopBar";
 import { ArticleLocalePathsProvider } from "@/contexts/ArticleLocalePathsContext";
 import { getStatsigClientKey, isStatsigConfigured } from "@/lib/statsig/config";
 import { routing } from "@/i18n/routing";
@@ -44,6 +45,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Suspense fallback={null}>
             <SiteTracker />
           </Suspense>
+          <BlackFridayTopBar />
           <Header />
           <main id="main-content" className="pb-16 md:pb-0">
             {children}

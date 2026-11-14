@@ -36,6 +36,12 @@ import { trackEvent } from '@/lib/trackEvent'
 import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 import Footer from '@/components/Footer/Footer'
+import {
+  getBlackFridayDailyPrice,
+  isBlackFridayPromoLive,
+} from '@/lib/blackFridayPromo'
+import { BlackFridayPricePill } from '@/components/promo/BlackFridayPricePill'
+import bfStyles from '@/components/promo/black-friday.module.css'
 
 interface CarDetailClientProps {
   /** Optional brand hub crumb: Home / Fleet / Brand / Model */
@@ -106,6 +112,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const l: AppLocale = toAppLocale(localeUi)
   const tNav = useTranslations('nav')
   const t = useTranslations('carDetail')
+  const tBf = useTranslations('blackFriday')
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
   const [currency, setCurrency] = useState<DisplayCurrency>('EUR')
   const [isReservationFormInView, setIsReservationFormInView] = useState(true)
@@ -179,6 +186,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const dailyMad = car.pricing?.shortTerm ?? car.pricePerDay
   const dailyDisplay = convertCarPrice(dailyMad, currency)
   const dailyLabel = formatCarPriceLabel(dailyDisplay, currency)
+  const bfLive = isBlackFridayPromoLive()
+  const hasBfPrice = getBlackFridayDailyPrice(car.slug, currency) != null
   const bookingFromUrl = parseBookingSearchParams(searchParams)
   const tripDays = hasActiveBookingSearch(searchParams)
     ? rentalDayCount(bookingFromUrl.pickupDate, bookingFromUrl.returnDate)
@@ -247,21 +256,20 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   }
 
   return (
-    <div className="min-h-screen bg-background  pt-20">
-      {/* Breadcrumb Navigation */}
-      <nav className="bg-muted/30 py-2 md:py-4">
+    <div className={bfLive ? bfStyles.detailPage : 'min-h-screen bg-background pt-20'}>
+      <nav className={bfLive ? `${bfStyles.detailNav} py-2 md:py-4` : 'bg-muted/30 py-2 md:py-4'}>
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-1.5 text-xs md:space-x-2 md:text-sm">
             <Link href="/" className="text-muted-foreground hover:text-foreground">
               {tNav('home')}
             </Link>
-            <span className="text-muted-foreground">/</span>
+            <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>/</span>
             <Link href="/cars" className="text-muted-foreground hover:text-foreground">
               {tNav('cars')}
             </Link>
             {brandHub ? (
               <>
-                <span className="text-muted-foreground">/</span>
+                <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>/</span>
                 <Link
                   href={{
                     pathname: "/cars/brand/[brandSlug]",
@@ -273,17 +281,22 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 </Link>
               </>
             ) : null}
-            <span className="text-muted-foreground">/</span>
-            <span className="text-foreground font-medium">{car.carName}</span>
+            <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>/</span>
+            <span className={bfLive ? bfStyles.detailNavCurrent : 'text-foreground font-medium'}>
+              {car.carName}
+            </span>
           </div>
         </div>
       </nav>
 
-      {/* Back Button */}
       <div className="container mx-auto px-4 py-2.5 md:py-6">
-        <button 
+        <button
           onClick={handleBackToCars}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground md:gap-2 md:border-2 md:p-2 md:text-sm"
+          className={
+            bfLive
+              ? bfStyles.detailBack
+              : 'inline-flex items-center gap-1.5 rounded-lg border border-border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground md:gap-2 md:border-2 md:p-2 md:text-sm'
+          }
         >
           <ArrowLeft className="h-3.5 w-3.5 md:h-4 md:w-4" />
           {tNav('backToCars')}
@@ -299,8 +312,14 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-12">
           {/* Title — first on mobile (above photos), top-right on desktop */}
           <header className="lg:col-start-2 lg:row-start-1">
-            <div className="mb-1.5 flex items-center gap-2 text-sm text-muted-foreground lg:mb-2">
-              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase text-primary md:py-1 md:text-xs">
+            <div className={`mb-1.5 flex items-center gap-2 text-sm lg:mb-2 ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}>
+              <span
+                className={
+                  bfLive
+                    ? bfStyles.detailBadge
+                    : 'rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase text-primary md:py-1 md:text-xs'
+                }
+              >
                 {
                   {
                     luxury: t('categories.luxury'),
@@ -315,35 +334,55 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               </span>
             </div>
 
-            {/* Mobile: stacked. Desktop: title/location | price facts side-by-side. */}
             <div className="lg:flex lg:items-stretch lg:gap-4">
               <div className="min-w-0 lg:max-w-[55%]">
-                <h1 className="mb-1 !font-sans text-2xl font-semibold tracking-normal text-foreground lg:mb-1.5 lg:text-3xl [font-family:ui-sans-serif,system-ui,sans-serif]">
+                <h1
+                  className={
+                    bfLive
+                      ? bfStyles.detailTitle
+                      : 'mb-1 !font-sans text-2xl font-semibold tracking-normal text-foreground lg:mb-1.5 lg:text-3xl [font-family:ui-sans-serif,system-ui,sans-serif]'
+                  }
+                >
                   {car.carName}
                 </h1>
-                <div className="flex items-center gap-1.5 text-sm text-muted-foreground md:text-base">
+                <div
+                  className={`flex items-center gap-1.5 text-sm md:text-base ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                >
                   <MapPin className="h-3.5 w-3.5 shrink-0 md:h-4 md:w-4" />
                   <span>{car.location}</span>
                 </div>
               </div>
 
               <div
-                className="mt-3 space-y-1.5 lg:mt-0 lg:shrink-0 lg:border-l lg:border-border lg:pl-4 lg:text-left"
+                className={
+                  bfLive
+                    ? `${bfStyles.detailPriceCol} space-y-1.5 lg:text-left`
+                    : 'mt-3 space-y-1.5 lg:mt-0 lg:shrink-0 lg:border-l lg:border-border lg:pl-4 lg:text-left'
+                }
                 aria-label={t('fromPrice', { price: dailyLabel })}
               >
-                <p className="text-2xl font-bold tracking-tight text-foreground lg:text-xl">
-                  {t('fromPrice', { price: dailyLabel })}
-                  <span className="ml-1.5 text-sm font-medium text-muted-foreground">
-                    {t('perDay')}
+                <p
+                  className={`flex flex-wrap items-center gap-2 text-2xl font-bold tracking-tight lg:text-xl ${bfLive ? 'text-[#fffaf0]' : 'text-foreground'}`}
+                >
+                  <BlackFridayPricePill slug={car.slug} currency={currency} />
+                  <span className={hasBfPrice ? bfStyles.oldPriceStruck : undefined}>
+                    {t('fromPrice', { price: dailyLabel })}
+                    <span
+                      className={`ml-1.5 text-sm font-medium ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                    >
+                      {t('perDay')}
+                    </span>
                   </span>
                 </p>
-                <p className="text-sm text-muted-foreground">
+                <p className={`text-sm ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}>
                   {t('weekEstimate', {
                     days: showTripEstimate ? tripDays : 7,
                     total: tripLabel,
                   })}
                 </p>
-                <p className="text-sm text-muted-foreground lg:text-xs lg:leading-snug">
+                <p
+                  className={`text-sm lg:text-xs lg:leading-snug ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                >
                   {quickFacts}
                 </p>
               </div>
@@ -357,7 +396,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               <div
                 ref={mobileGalleryRef}
                 onScroll={onMobileGalleryScroll}
-                className="flex aspect-[4/3] w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-2xl bg-muted [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className={`flex aspect-[4/3] w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-2xl [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${bfLive ? bfStyles.detailGallery : 'bg-muted'}`}
                 aria-label={t('galleryAria', { carName: car.carName })}
               >
                 {galleryImages.map((_, index) => (
@@ -377,6 +416,12 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                   </div>
                 ))}
               </div>
+              {bfLive ? (
+                <span className={bfStyles.photoBadge}>
+                  <span className={bfStyles.fleetCardDealDot} aria-hidden />
+                  {tBf('photoBadge')}
+                </span>
+              ) : null}
 
               {galleryImages.length > 1 ? (
                 <>
@@ -419,7 +464,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
 
             {/* Desktop: main image + thumbnail grid */}
             <div className="hidden space-y-4 lg:block">
-              <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
+              <div className={`aspect-[4/3] w-full overflow-hidden rounded-2xl ${bfLive ? bfStyles.detailGallery : 'bg-muted'}`}>
                 <Image
                   src={galleryImages[selectedImageIndex]?.src || car.carImage}
                   alt={carDetailImageAlt(car, selectedImageIndex, l)}
@@ -429,6 +474,12 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                   className="h-full w-full object-cover"
                   priority
                 />
+                {bfLive ? (
+                  <span className={bfStyles.photoBadge}>
+                    <span className={bfStyles.fleetCardDealDot} aria-hidden />
+                    {tBf('photoBadge')}
+                  </span>
+                ) : null}
               </div>
 
               {galleryImages.length > 1 && (
@@ -436,10 +487,16 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                   {galleryImages.map((_, index) => (
                     <div
                       key={index}
-                      className={`aspect-[4/3] cursor-pointer overflow-hidden rounded-lg bg-muted transition-all duration-300 ${
-                        selectedImageIndex === index
-                          ? 'ring-2 ring-primary ring-offset-2'
-                          : 'hover:scale-105'
+                      className={`aspect-[4/3] cursor-pointer overflow-hidden rounded-lg transition-all duration-300 ${
+                        bfLive
+                          ? `${bfStyles.detailThumb}${
+                              selectedImageIndex === index
+                                ? ` ${bfStyles.detailThumbActive}`
+                                : ''
+                            }`
+                          : selectedImageIndex === index
+                            ? 'bg-muted ring-2 ring-primary ring-offset-2'
+                            : 'bg-muted hover:scale-105'
                       }`}
                       onClick={() => setSelectedImageIndex(index)}
                     >
@@ -459,59 +516,58 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
 
             {/* Key specs under photos */}
             <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
-                <Users className="h-5 w-5 shrink-0 text-primary" />
+              <div className={bfLive ? bfStyles.detailSpecTile : 'flex items-center gap-3 rounded-lg bg-muted/30 p-4'}>
+                <Users className={bfLive ? bfStyles.detailSpecIcon : 'h-5 w-5 shrink-0 text-primary'} />
                 <div>
-                  <p className="font-medium">{t('seats', { count: car.seats })}</p>
-                  <p className="text-sm text-muted-foreground">{t('capacity')}</p>
+                  <p className={bfLive ? bfStyles.detailSpecLabel : 'font-medium'}>{t('seats', { count: car.seats })}</p>
+                  <p className={bfLive ? bfStyles.detailSpecHint : 'text-sm text-muted-foreground'}>{t('capacity')}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
-                <Fuel className="h-5 w-5 shrink-0 text-primary" />
+              <div className={bfLive ? bfStyles.detailSpecTile : 'flex items-center gap-3 rounded-lg bg-muted/30 p-4'}>
+                <Fuel className={bfLive ? bfStyles.detailSpecIcon : 'h-5 w-5 shrink-0 text-primary'} />
                 <div>
-                  <p className="font-medium">{car.fuelType}</p>
-                  <p className="text-sm text-muted-foreground">{t('fuelTypeLabel')}</p>
+                  <p className={bfLive ? bfStyles.detailSpecLabel : 'font-medium'}>{car.fuelType}</p>
+                  <p className={bfLive ? bfStyles.detailSpecHint : 'text-sm text-muted-foreground'}>{t('fuelTypeLabel')}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
-                <Settings className="h-5 w-5 shrink-0 text-primary" />
+              <div className={bfLive ? bfStyles.detailSpecTile : 'flex items-center gap-3 rounded-lg bg-muted/30 p-4'}>
+                <Settings className={bfLive ? bfStyles.detailSpecIcon : 'h-5 w-5 shrink-0 text-primary'} />
                 <div>
-                  <p className="font-medium">{car.transmission}</p>
-                  <p className="text-sm text-muted-foreground">{t('transmissionLabel')}</p>
+                  <p className={bfLive ? bfStyles.detailSpecLabel : 'font-medium'}>{car.transmission}</p>
+                  <p className={bfLive ? bfStyles.detailSpecHint : 'text-sm text-muted-foreground'}>{t('transmissionLabel')}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-lg bg-muted/30 p-4">
-                <Calendar className="h-5 w-5 shrink-0 text-primary" />
+              <div className={bfLive ? bfStyles.detailSpecTile : 'flex items-center gap-3 rounded-lg bg-muted/30 p-4'}>
+                <Calendar className={bfLive ? bfStyles.detailSpecIcon : 'h-5 w-5 shrink-0 text-primary'} />
                 <div>
-                  <p className="font-medium">{car.year}</p>
-                  <p className="text-sm text-muted-foreground">{t('modelYear')}</p>
+                  <p className={bfLive ? bfStyles.detailSpecLabel : 'font-medium'}>{car.year}</p>
+                  <p className={bfLive ? bfStyles.detailSpecHint : 'text-sm text-muted-foreground'}>{t('modelYear')}</p>
                 </div>
               </div>
             </div>
 
-            {/* Features under specs — desktop only (fills space beside booking card) */}
             {amenityFeatures.length > 0 ? (
               <div className="mt-6 hidden lg:block">
-                <h2 className="mb-4 text-xl font-bold text-foreground">
+                <h2 className={bfLive ? `${bfStyles.detailHeading} mb-4 text-xl` : 'mb-4 text-xl font-bold text-foreground'}>
                   {t('featuresHeading')}
                 </h2>
                 <div className="grid grid-cols-2 gap-3">
                   {amenityFeatures.map((feature, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-3 rounded-lg bg-muted/30 p-3"
+                      className={bfLive ? bfStyles.detailFeatureTile : 'flex items-center gap-3 rounded-lg bg-muted/30 p-3'}
                     >
                       <span className="text-xl" aria-hidden>
                         {feature.icon}
                       </span>
                       <div className="min-w-0">
-                        <p className="truncate font-medium text-foreground">
+                        <p className={bfLive ? 'truncate font-medium text-[#fffaf0]' : 'truncate font-medium text-foreground'}>
                           {feature.name}
                         </p>
-                        <p className="truncate text-sm text-muted-foreground">
+                        <p className={bfLive ? `truncate text-sm ${bfStyles.detailMuted}` : 'truncate text-sm text-muted-foreground'}>
                           {feature.value}
                         </p>
                       </div>
@@ -564,21 +620,21 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
           {/* Features Grid — mobile / tablet (desktop version sits under specs) */}
           {amenityFeatures.length > 0 ? (
             <div className="lg:hidden">
-              <h2 className="mb-6 text-2xl font-bold text-foreground">
+              <h2 className={bfLive ? bfStyles.detailHeading : 'mb-6 text-2xl font-bold text-foreground'}>
                 {t('featuresHeading')}
               </h2>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                 {amenityFeatures.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 rounded-lg bg-muted/30 p-4"
+                    className={bfLive ? bfStyles.detailFeatureTile : 'flex items-center gap-3 rounded-lg bg-muted/30 p-4'}
                   >
                     <span className="text-2xl" aria-hidden>
                       {feature.icon}
                     </span>
                     <div>
-                      <p className="font-medium text-foreground">{feature.name}</p>
-                      <p className="text-sm text-muted-foreground">{feature.value}</p>
+                      <p className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium text-foreground'}>{feature.name}</p>
+                      <p className={bfLive ? `text-sm ${bfStyles.detailMuted}` : 'text-sm text-muted-foreground'}>{feature.value}</p>
                     </div>
                   </div>
                 ))}
@@ -586,89 +642,91 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
             </div>
           ) : null}
 
-          {/* Specifications */}
           <div>
-            <h2 className="text-2xl font-bold text-foreground mb-6">{t('specsHeading')}</h2>
-            <div className="bg-muted/30 rounded-lg p-6">
+            <h2 className={bfLive ? bfStyles.detailHeading : 'text-2xl font-bold text-foreground mb-6'}>{t('specsHeading')}</h2>
+            <div className={bfLive ? bfStyles.detailPanel : 'bg-muted/30 rounded-lg p-6'}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">{t('specEngine')}</span>
-                    <span className="font-medium">{car.specs.engine}</span>
+                  <div className={`flex justify-between items-center py-2 border-b ${bfLive ? 'border-[rgba(232,197,71,0.18)]' : 'border-border'}`}>
+                    <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>{t('specEngine')}</span>
+                    <span className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium'}>{car.specs.engine}</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">{t('specPower')}</span>
-                    <span className="font-medium">{car.specs.horsepower}</span>
+                  <div className={`flex justify-between items-center py-2 border-b ${bfLive ? 'border-[rgba(232,197,71,0.18)]' : 'border-border'}`}>
+                    <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>{t('specPower')}</span>
+                    <span className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium'}>{car.specs.horsepower}</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">{t('specAcceleration')}</span>
-                    <span className="font-medium">{car.specs.acceleration}</span>
+                  <div className={`flex justify-between items-center py-2 border-b ${bfLive ? 'border-[rgba(232,197,71,0.18)]' : 'border-border'}`}>
+                    <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>{t('specAcceleration')}</span>
+                    <span className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium'}>{car.specs.acceleration}</span>
                   </div>
                 </div>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">{t('specTopSpeed')}</span>
-                    <span className="font-medium">{car.specs.topSpeed}</span>
+                  <div className={`flex justify-between items-center py-2 border-b ${bfLive ? 'border-[rgba(232,197,71,0.18)]' : 'border-border'}`}>
+                    <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>{t('specTopSpeed')}</span>
+                    <span className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium'}>{car.specs.topSpeed}</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">{t('specFuelEfficiency')}</span>
-                    <span className="font-medium">{car.specs.fuelEfficiency}</span>
+                  <div className={`flex justify-between items-center py-2 border-b ${bfLive ? 'border-[rgba(232,197,71,0.18)]' : 'border-border'}`}>
+                    <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>{t('specFuelEfficiency')}</span>
+                    <span className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium'}>{car.specs.fuelEfficiency}</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b border-border">
-                    <span className="text-muted-foreground">{t('specDrivetrain')}</span>
-                    <span className="font-medium">{car.specs.drivetrain}</span>
+                  <div className={`flex justify-between items-center py-2 border-b ${bfLive ? 'border-[rgba(232,197,71,0.18)]' : 'border-border'}`}>
+                    <span className={bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}>{t('specDrivetrain')}</span>
+                    <span className={bfLive ? 'font-medium text-[#fffaf0]' : 'font-medium'}>{car.specs.drivetrain}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Availability Status */}
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+          <div
+            className={
+              bfLive
+                ? 'rounded-lg border border-[rgba(34,197,94,0.35)] bg-[rgba(22,101,52,0.22)] p-6'
+                : 'bg-green-50 border border-green-200 rounded-lg p-6'
+            }
+          >
             <div className="flex items-center gap-3">
-              <Shield className="h-6 w-6 text-green-600" />
+              <Shield className={bfLive ? 'h-6 w-6 text-[#86efac]' : 'h-6 w-6 text-green-600'} />
               <div>
-                <p className="font-medium text-green-900">{t('availabilityTitle')}</p>
-                <p className="text-sm text-green-700">
+                <p className={bfLive ? 'font-medium text-[#bbf7d0]' : 'font-medium text-green-900'}>{t('availabilityTitle')}</p>
+                <p className={bfLive ? 'text-sm text-[#86efac]' : 'text-sm text-green-700'}>
                   {t('availabilityBody')}
                 </p>
               </div>
             </div>
           </div>
-          {/* Rich Content Description */}
+
           <div className="space-y-8">
-            <h1 className="text-3xl font-bold text-foreground mb-6">
+            <h2 className={bfLive ? `${bfStyles.detailHeading} text-3xl` : 'text-3xl font-bold text-foreground mb-6'}>
               {car.richContent?.h1Title || t('defaultAboutTitle')}
-            </h1>
-            
+            </h2>
+
             {car.richContent ? (
               <>
-                {/* Render rich content sections */}
                 {car.richContent.sections.map((section, sectionIndex) => (
                   <div key={sectionIndex} className="space-y-4">
                     {section.h2 && (
-                      <h2 className="text-2xl font-bold text-foreground mt-8 mb-4">{section.h2}</h2>
+                      <h2 className={bfLive ? `${bfStyles.detailHeading} mt-8 text-2xl` : 'text-2xl font-bold text-foreground mt-8 mb-4'}>{section.h2}</h2>
                     )}
                     {section.h3 && (
-                      <h3 className="text-xl font-semibold text-foreground mt-6 mb-3">{section.h3}</h3>
+                      <h3 className={bfLive ? 'mt-6 mb-3 text-xl font-semibold text-[#fff6d6]' : 'text-xl font-semibold text-foreground mt-6 mb-3'}>{section.h3}</h3>
                     )}
                     {section.paragraphs.map((paragraph, paraIndex) => (
-                      <p key={paraIndex} className="text-muted-foreground leading-relaxed">
+                      <p key={paraIndex} className={bfLive ? `${bfStyles.detailMuted} leading-relaxed` : 'text-muted-foreground leading-relaxed'}>
                         {paragraph}
                       </p>
                     ))}
                   </div>
                 ))}
 
-                {/* Render FAQs */}
                 {car.richContent.faqs && car.richContent.faqs.length > 0 && (
                   <div className="mt-12 space-y-6">
-                    <h2 className="text-2xl font-bold text-foreground mb-6">{t('faqHeading')}</h2>
+                    <h2 className={bfLive ? bfStyles.detailHeading : 'text-2xl font-bold text-foreground mb-6'}>{t('faqHeading')}</h2>
                     <div className="space-y-6">
                       {car.richContent.faqs.map((faq, faqIndex) => (
-                        <div key={faqIndex} className="bg-muted/30 rounded-lg p-6 space-y-2">
-                          <h3 className="text-lg font-semibold text-foreground">{faq.question}</h3>
-                          <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                        <div key={faqIndex} className={bfLive ? `${bfStyles.detailPanel} space-y-2` : 'bg-muted/30 rounded-lg p-6 space-y-2'}>
+                          <h3 className={bfLive ? 'text-lg font-semibold text-[#fffaf0]' : 'text-lg font-semibold text-foreground'}>{faq.question}</h3>
+                          <p className={bfLive ? `${bfStyles.detailMuted} leading-relaxed` : 'text-muted-foreground leading-relaxed'}>{faq.answer}</p>
                         </div>
                       ))}
                     </div>
@@ -676,8 +734,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                 )}
               </>
             ) : (
-              /* Fallback to simple description if richContent is not available */
-              <p className="text-muted-foreground leading-relaxed">{car.description}</p>
+              <p className={bfLive ? `${bfStyles.detailMuted} leading-relaxed` : 'text-muted-foreground leading-relaxed'}>{car.description}</p>
             )}
           </div>
         </div>

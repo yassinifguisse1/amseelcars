@@ -14,6 +14,23 @@
 
 }
 
+.carGridSectionBf {
+  background:
+    radial-gradient(90% 50% at 50% 0%, rgba(236, 28, 37, 0.12), transparent 55%),
+    radial-gradient(70% 40% at 80% 20%, rgba(232, 197, 71, 0.08), transparent 50%),
+    linear-gradient(180deg, #0c0b0a 0%, #141210 40%, #0a0908 100%);
+
+  .sectionHeader {
+    background: transparent;
+  }
+
+  .sectionTitle {
+    color: #fff6d6;
+    text-shadow: 0 2px 24px rgba(232, 197, 71, 0.18);
+  }
+}
+
+
 .container {
   width: 100%;
   // max-width: 1400px;

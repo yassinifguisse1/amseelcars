@@ -7,6 +7,8 @@ import { HomeHeroCopyBand, HomeHeroCtaBand } from "@/components/home/HomeHeroCop
 import { HomeAirportFlightBand } from "@/components/home/HomeAirportFlightBand";
 import { HomeBookingSearchBar } from "@/components/home/HomeBookingSearchBar";
 import CarsGridLoadingFallback from "@/components/Cars/CarsGridLoadingFallback";
+import { BlackFridayBanner } from "@/components/promo/BlackFridayBanner";
+import { isBlackFridayPromoLive } from "@/lib/blackFridayPromo";
 
 const CarGridSection = dynamic(
   () => import("@/components/Cars/CarGridSection"),
@@ -49,6 +51,7 @@ import { reviews } from "@/data/reviews";
 
 export function HomeContentLandingPage() {
   const t = useTranslations("home");
+  const bfLive = isBlackFridayPromoLive();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -81,16 +84,27 @@ export function HomeContentLandingPage() {
 
   return (
     <div className="page-content hero">
-      <div className="relative">
-        <HomeHeroCopyBand>
-          <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
-            <HomeBookingSearchBar className="bg-transparent px-2 pb-3 pt-1 sm:px-6 sm:pb-8 sm:pt-2" />
-          </Suspense>
-        </HomeHeroCopyBand>
-        <div className="relative bg-white">
-          <HomeHeroCtaBand />
+      {bfLive ? (
+        <>
+          <BlackFridayBanner asHero />
+          <div className="relative bg-white">
+            <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
+              <HomeBookingSearchBar className="bg-transparent px-2 pb-3 pt-4 sm:px-6 sm:pb-8 sm:pt-6" />
+            </Suspense>
+          </div>
+        </>
+      ) : (
+        <div className="relative">
+          <HomeHeroCopyBand>
+            <Suspense fallback={<div className="mx-auto max-w-6xl px-4 py-8" aria-hidden />}>
+              <HomeBookingSearchBar className="bg-transparent px-2 pb-3 pt-1 sm:px-6 sm:pb-8 sm:pt-2" />
+            </Suspense>
+          </HomeHeroCopyBand>
+          <div className="relative bg-white">
+            <HomeHeroCtaBand />
+          </div>
         </div>
-      </div>
+      )}
       <Suspense fallback={<CarsGridLoadingFallback />}>
         <CarGridSection showTitle />
       </Suspense>

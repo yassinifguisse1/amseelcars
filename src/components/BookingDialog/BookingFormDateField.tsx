@@ -66,11 +66,11 @@ export function BookingFormDateField({
             aria-invalid={error ? true : undefined}
             aria-label={openCalendarAria}
             className={cn(
-              "w-full cursor-pointer justify-start text-left font-normal border-gray-300 rounded-lg",
+              "w-full cursor-pointer justify-start text-left font-normal border-gray-300 rounded-lg bg-white",
               compactMobile
                 ? "h-9 min-h-9 px-2.5 py-1.5 text-xs sm:h-auto sm:min-h-[42px] sm:px-3 sm:py-2 sm:text-sm"
                 : "h-auto min-h-[42px] px-3 py-2",
-              !selected && "text-muted-foreground"
+              selected ? "text-gray-900" : "text-gray-500",
             )}
             onBlur={onBlur}
           >

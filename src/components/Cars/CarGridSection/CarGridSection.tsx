@@ -20,6 +20,12 @@ import {
 import { parseBookingSearchParams, hasActiveBookingSearch } from '@/lib/bookingSearchParams'
 import { rentalDayCount } from '@/lib/rentalPolicy'
 import { trackEvent } from '@/lib/trackEvent'
+import {
+  BLACK_FRIDAY_PROMO,
+  formatBlackFridayPriceLabel,
+  getBlackFridayDailyPrice,
+  isBlackFridayPromoLive,
+} from '@/lib/blackFridayPromo'
 import styles from './CarGridSection.module.scss'
 
 const FLEET_CATEGORIES: Car['category'][] = [
@@ -166,9 +172,10 @@ const CarGridSection = ({
         carName: car.carName,
       })
       const dailyMad = car.pricing?.shortTerm || car.pricePerDay
+      const bfDaily = getBlackFridayDailyPrice(car.slug, currency)
       setSelectedCar({
         name: car.carName,
-        price: convertCarPrice(dailyMad, currency),
+        price: bfDaily ?? convertCarPrice(dailyMad, currency),
         image: car.carImage,
         slug: car.slug,
         brand: car.brand,
@@ -190,15 +197,33 @@ const CarGridSection = ({
         carSlug: car.slug,
         carName: car.carName,
       })
-      const price = car.pricing?.shortTerm || car.pricePerDay
-      const priceInCurrency = convertCarPrice(price, currency)
-      const priceStr = formatCarPriceLabel(priceInCurrency, currency)
-      const message =
+      const catalogDaily = convertCarPrice(
+        car.pricing?.shortTerm || car.pricePerDay,
+        currency,
+      )
+      const bfDaily = getBlackFridayDailyPrice(car.slug, currency)
+      const daily = bfDaily ?? catalogDaily
+      const formatWaAmount = (amount: number) => {
+        if (currency === 'EUR') {
+          const rounded = Math.round(amount * 100) / 100
+          const text = Number.isInteger(rounded)
+            ? String(rounded)
+            : rounded.toFixed(2).replace('.', ',')
+          return `€${text}`
+        }
+        return formatCarPriceLabel(amount, currency)
+      }
+      const priceStr =
+        bfDaily != null
+          ? (formatBlackFridayPriceLabel(car.slug, currency) ??
+            formatWaAmount(daily))
+          : formatCarPriceLabel(daily, currency)
+      let message =
         rentalDays > 0
           ? t('waInquiryPeriod', {
               carName: car.carName,
               days: rentalDays,
-              total: formatCarPriceLabel(priceInCurrency * rentalDays, currency),
+              total: formatWaAmount(daily * rentalDays),
               pickup: `${bookingSearch.pickupDate} ${bookingSearch.pickupTime}`,
               return: `${bookingSearch.returnDate} ${bookingSearch.returnTime}`,
             })
@@ -207,6 +232,11 @@ const CarGridSection = ({
               price: priceStr,
               currency: '',
             })
+      if (isBlackFridayPromoLive()) {
+        message = `${message} ${tBooking('waBlackFridaySuffix', {
+          code: BLACK_FRIDAY_PROMO.code,
+        })}`
+      }
       const encodedMessage = encodeURIComponent(message)
       const whatsappNumber = '212662500181'
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
@@ -251,9 +281,14 @@ const CarGridSection = ({
     setFilters((prev) => ({ ...prev, currency: saved }))
   }, [])
 
+  const bfLive = isBlackFridayPromoLive()
+
   return (
-    <section className={`${styles.carGridSection} ${className}`} id="cars">
-      {/* Section Header — white band; cars stay on black */}
+    <section
+      className={`${styles.carGridSection}${bfLive ? ` ${styles.carGridSectionBf}` : ''} ${className}`}
+      id="cars"
+      data-bf-fleet={bfLive ? '1' : undefined}
+    >
       {showTitle && (
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>{displayTitle}</h2>

@@ -1,5 +1,11 @@
 import { BOOKING_ADDONS, type BookingAddonId } from '@/lib/bookingAddons';
 
+/**
+ * Flip to `true` after Black Friday to show the gift wheel again.
+ * When false: popup hidden AND saved wheel gifts are ignored in booking.
+ */
+export const WHEEL_OF_CHANCE_ENABLED = false;
+
 export const WHEEL_STORAGE_KEY = 'amseel-wheel-of-chance-v1';
 export const WHEEL_PRIZE_STORAGE_KEY = 'amseel-wheel-prize-v1';
 
@@ -82,6 +88,7 @@ export function writeWheelStorage(state: WheelStorageState) {
 }
 
 export function shouldShowWheelOfChance(): boolean {
+  if (!WHEEL_OF_CHANCE_ENABLED) return false;
   const state = readWheelStorage();
   if (!state) return true;
   if (state.spunAt) return false;
@@ -111,6 +118,7 @@ export function persistWheelPrize(prizeId: WheelPrizeId, claimCode?: string): Wh
 
 /** Read a saved wheel gift for booking / WhatsApp (same browser). */
 export function readWheelClaim(): WheelClaim | null {
+  if (!WHEEL_OF_CHANCE_ENABLED) return null;
   const state = readWheelStorage();
   if (!state?.prizeId || !state.spunAt) return null;
   if (!WHEEL_SEGMENTS.includes(state.prizeId)) return null;
