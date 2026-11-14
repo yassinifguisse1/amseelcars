@@ -1513,7 +1513,7 @@
     "liveLabel": "Live deal",
     "photoBadge": "Black Friday",
     "topMessage": "Black Friday: from <strong>{price}</strong>/day · discount already applied · code <strong>{code}</strong>",
-    "topMessageShort": "From <strong>{price}</strong>/day · <strong>{code}</strong>",
+    "topMessageShort": "From <strong>{price}</strong>/day",
     "countdownAria": "Time left for Black Friday",
     "unitDay": "d",
     "unitHour": "h",
