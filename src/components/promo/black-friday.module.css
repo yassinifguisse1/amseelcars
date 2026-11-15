@@ -609,17 +609,30 @@
   background: #0a0a0a;
 }
 
+.panelMediaLink {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+}
+
 .panelImage {
   object-fit: contain;
   object-position: center center;
   background: #0a0a0a;
+  transition: transform 0.35s ease;
+}
+
+.panelMediaLink:hover .panelImage {
+  transform: scale(1.02);
 }
 
 .panelMediaBadge {
   position: absolute;
   left: 0.75rem;
   top: 0.75rem;
-  z-index: 1;
+  z-index: 2;
+  pointer-events: none;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
   border: 1px solid rgba(232, 197, 71, 0.55);
@@ -637,7 +650,7 @@
   right: 0.85rem;
   bottom: 0.85rem;
   left: auto;
-  z-index: 1;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -658,6 +671,7 @@
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.04em;
+  text-decoration: none;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(6px);
 }
@@ -1296,18 +1310,31 @@
 
 .detailTitle {
   margin: 0;
+  max-width: 100%;
+  overflow: hidden;
   color: #fffaf0 !important;
   font-family: ui-sans-serif, system-ui, sans-serif !important;
-  font-size: 1.5rem;
+  font-size: clamp(1.05rem, 4.6vw, 1.35rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 640px) {
+  .detailTitle {
+    font-size: 1.5rem;
+  }
 }
 
 @media (min-width: 1024px) {
   .detailTitle {
     margin-bottom: 0.25rem;
     font-size: 1.875rem;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 }
 

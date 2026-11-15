@@ -338,13 +338,14 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <div className="flex items-baseline justify-between gap-3 lg:items-stretch lg:gap-4">
-                <div className="min-w-0 lg:max-w-[55%]">
+              <div className="flex items-baseline justify-between gap-2 sm:gap-3 lg:items-stretch lg:gap-4">
+                <div className="min-w-0 flex-1 lg:max-w-[55%]">
                   <h1
+                    title={car.carName}
                     className={
                       bfLive
-                        ? `${bfStyles.detailTitle} leading-none`
-                        : 'mb-0 !font-sans text-2xl font-semibold leading-none tracking-normal text-foreground lg:mb-1.5 lg:text-3xl lg:leading-tight [font-family:ui-sans-serif,system-ui,sans-serif]'
+                        ? `${bfStyles.detailTitle} truncate`
+                        : 'mb-0 truncate !font-sans text-xl font-semibold leading-none tracking-normal text-foreground sm:text-2xl lg:mb-1.5 lg:whitespace-normal lg:text-3xl lg:leading-tight [font-family:ui-sans-serif,system-ui,sans-serif]'
                     }
                   >
                     {car.carName}
@@ -368,7 +369,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                   })}
                 >
                   <p
-                    className={`flex flex-wrap items-baseline justify-end gap-1.5 text-lg font-bold leading-none tracking-tight sm:gap-2 sm:text-2xl lg:justify-start lg:text-xl lg:leading-tight ${bfLive ? 'text-[#fffaf0]' : 'text-foreground'}`}
+                    className={`flex flex-nowrap items-baseline justify-end gap-1 text-base font-bold leading-none tracking-tight whitespace-nowrap sm:gap-1.5 sm:text-lg lg:justify-start lg:text-xl lg:leading-tight ${bfLive ? 'text-[#fffaf0]' : 'text-foreground'}`}
                   >
                     <span>
                       {t('fromPrice', {

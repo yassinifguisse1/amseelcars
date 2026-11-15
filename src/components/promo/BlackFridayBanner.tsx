@@ -133,22 +133,55 @@ export function BlackFridayBanner({ asHero = false }: { asHero?: boolean }) {
 
         <aside className={styles.panel} aria-label={t("panelAria")}>
           <div className={styles.panelMedia}>
-            <Image
-              src={BF_CAR_IMAGE}
-              alt={t("panelImageAlt")}
-              fill
-              className={styles.panelImage}
-              sizes="(min-width: 900px) 28vw, 90vw"
-              priority={false}
-            />
+            <Link
+              href={bmwHref}
+              className={styles.panelMediaLink}
+              aria-label={t("panelImageAlt")}
+              onClick={() => {
+                trackEvent({
+                  event: "link-click",
+                  path:
+                    typeof window !== "undefined"
+                      ? window.location.pathname
+                      : "/",
+                  source: "black-friday-banner",
+                  ctaLabel: "bmw-image",
+                  carSlug: BF_BMW_SLUG,
+                });
+              }}
+            >
+              <Image
+                src={BF_CAR_IMAGE}
+                alt={t("panelImageAlt")}
+                fill
+                className={styles.panelImage}
+                sizes="(min-width: 900px) 28vw, 90vw"
+                priority={false}
+              />
+            </Link>
             <span className={styles.panelMediaBadge}>{t("liveLabel")}</span>
             <div className={styles.panelBmwRow}>
-              <span className={styles.panelBmwPrice}>
+              <Link
+                href={bmwHref}
+                className={styles.panelBmwPrice}
+                onClick={() => {
+                  trackEvent({
+                    event: "link-click",
+                    path:
+                      typeof window !== "undefined"
+                        ? window.location.pathname
+                        : "/",
+                    source: "black-friday-banner",
+                    ctaLabel: "bmw-price",
+                    carSlug: BF_BMW_SLUG,
+                  });
+                }}
+              >
                 {t("panelBmwPrice", { price: bmwPrice })}
                 <span className={`${styles.oldPriceStruck} ${styles.panelBmwOld}`}>
                   {bmwOldPrice}
                 </span>
-              </span>
+              </Link>
               <Link
                 href={bmwHref}
                 className={styles.panelBmwBook}
