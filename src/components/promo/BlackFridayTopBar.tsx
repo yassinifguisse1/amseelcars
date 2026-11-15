@@ -69,10 +69,7 @@ export function BlackFridayTopBar() {
   return (
     <div className={styles.topBar} role="region" aria-label={t("topBarAria")}>
       <div className={styles.topBarInner}>
-        <span className={styles.eyebrow}>
-          <span className={styles.pulse} aria-hidden />
-          {t("liveLabel")}
-        </span>
+        <span className={styles.eyebrow}>{t("liveLabel")}</span>
         <p className={styles.topMessage}>
           {t.rich("topMessage", {
             strong: (chunks) => <strong>{chunks}</strong>,

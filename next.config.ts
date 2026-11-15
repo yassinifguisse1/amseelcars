@@ -6,6 +6,8 @@ import { routing } from "./src/i18n/routing";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  // Avoid /en ↔ /en/ fighting next-intl middleware (ERR_TOO_MANY_REDIRECTS in some browsers).
+  skipTrailingSlashRedirect: true,
   poweredByHeader: false,
   compress: true,
   async headers() {

@@ -12,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-/** Small “BF : €xx” pill shown left of the regular car price during BF. */
+/** Small promo price pill shown left of the regular car price during BF. */
 export function BlackFridayPricePill({
   slug,
   currency = "EUR",
@@ -26,7 +26,7 @@ export function BlackFridayPricePill({
       className={[styles.pricePill, className].filter(Boolean).join(" ")}
       title={`Black Friday ${label}/day`}
     >
-      BF&nbsp;:&nbsp;{label}
+      {label}
     </span>
   );
 }

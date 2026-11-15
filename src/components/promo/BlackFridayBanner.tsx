@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { MessageCircle } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -49,11 +49,6 @@ export function BlackFridayBanner({ asHero = false }: { asHero?: boolean }) {
     }),
   )}`;
 
-  const marqueeItems = useMemo(() => {
-    const items = t.raw("marquee") as string[];
-    return [...items, ...items];
-  }, [t]);
-
   if (!live || countdown.expired || !isBlackFridayPromoLive()) return null;
 
   const copyCode = async () => {
@@ -87,12 +82,9 @@ export function BlackFridayBanner({ asHero = false }: { asHero?: boolean }) {
       className={`${styles.banner}${asHero ? ` ${styles.bannerAsHero}` : ""}`}
       aria-labelledby="home-h1"
     >
-      <div className={styles.bannerGlow} aria-hidden />
-      <div className={styles.bannerGrid} aria-hidden />
       <div className={styles.bannerInner}>
         <div className={styles.copyCol}>
           <p className={`${styles.kicker} ${styles.mobileHide}`}>
-            <span className={styles.pulse} aria-hidden />
             {t("bannerKicker")}
           </p>
           <p className={`${styles.brandLine} ${styles.mobileHide}`}>{SITE_NAME}</p>
@@ -257,14 +249,6 @@ export function BlackFridayBanner({ asHero = false }: { asHero?: boolean }) {
           <span aria-hidden>·</span>
           <Link href="/agadir-airport-car-rental">{tHero("airportLink")}</Link>
         </p>
-      </div>
-
-      <div className={`${styles.marqueeWrap} ${styles.mobileHide}`} aria-hidden>
-        <div className={styles.marquee}>
-          {marqueeItems.map((item, i) => (
-            <span key={`${item}-${i}`}>{item}</span>
-          ))}
-        </div>
       </div>
     </section>
   );

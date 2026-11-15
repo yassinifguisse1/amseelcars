@@ -7,17 +7,17 @@ import { Link } from "@/i18n/navigation"
 import { useTranslations } from "next-intl"
 import { CometCard } from "@/components/ui/comet-card"
 import { Button } from "@/components/ui/button"
-import { Car, Users, Fuel, Settings } from "lucide-react"
+import { Car, Users, Fuel, Settings, MessageCircle } from "lucide-react"
 import Image from "next/image"
 import { trackEvent } from "@/lib/trackEvent"
 import { carBrandScopedHref } from "@/lib/carPublicHref"
 import { bookingQueryForLinks } from "@/lib/bookingSearchParams"
 import { formatCarPriceLabel, type DisplayCurrency } from "@/lib/currency"
 import {
+  formatBlackFridayPriceLabel,
   getBlackFridayDailyPrice,
   isBlackFridayPromoLive,
 } from "@/lib/blackFridayPromo"
-import { BlackFridayPricePill } from "@/components/promo/BlackFridayPricePill"
 import bfStyles from "@/components/promo/black-friday.module.css"
 
 interface CarRentalCardProps {
@@ -87,7 +87,9 @@ export function CarRentalCard({
   const showPeriod = typeof rentalDays === "number" && rentalDays > 0
   const displayPrice = showPeriod ? dailyRate * rentalDays : dailyRate
   const bfLive = isBlackFridayPromoLive()
-  const hasBfPrice = getBlackFridayDailyPrice(slug, currency) != null
+  const bfDaily = getBlackFridayDailyPrice(slug, currency)
+  const hasBfPrice = bfDaily != null
+  const bfLabel = formatBlackFridayPriceLabel(slug, currency)
 
   const trackBook = (e: MouseEvent) => {
     e.preventDefault()
@@ -137,31 +139,56 @@ export function CarRentalCard({
           bfLive ? bfStyles.fleetCardPriceRow : "flex items-center justify-end gap-1.5"
         }
       >
-        <BlackFridayPricePill slug={slug} currency={currency} />
-        <p
-          className={
-            hasBfPrice
-              ? bfLive
-                ? bfStyles.fleetCardOldPrice
-                : `text-lg sm:text-xl ${bfStyles.oldPriceStruck}`
-              : bfLive
+        {hasBfPrice && bfLabel ? (
+          <>
+            <p
+              className={
+                bfLive
+                  ? bfStyles.fleetCardPrice
+                  : "text-lg sm:text-xl font-bold text-primary"
+              }
+            >
+              {showPeriod && bfDaily != null
+                ? formatCarPriceLabel(bfDaily * (rentalDays as number), currency)
+                : bfLabel}
+              {showPeriod ? (
+                <span className="ml-1.5 text-sm font-semibold opacity-70 sm:text-base">
+                  {t("periodDays", { days: rentalDays })}
+                </span>
+              ) : null}
+            </p>
+            <p
+              className={
+                bfLive
+                  ? bfStyles.fleetCardOldPrice
+                  : `text-lg sm:text-xl ${bfStyles.oldPriceStruck}`
+              }
+            >
+              {formatCarPriceLabel(displayPrice, currency)}
+            </p>
+          </>
+        ) : (
+          <p
+            className={
+              bfLive
                 ? bfStyles.fleetCardPrice
                 : "text-lg sm:text-xl font-bold text-primary"
-          }
-        >
-          {formatCarPriceLabel(displayPrice, currency)}
-          {showPeriod ? (
-            <span className="ml-1.5 text-sm font-semibold opacity-70 sm:text-base">
-              {t("periodDays", { days: rentalDays })}
-            </span>
-          ) : null}
-        </p>
+            }
+          >
+            {formatCarPriceLabel(displayPrice, currency)}
+            {showPeriod ? (
+              <span className="ml-1.5 text-sm font-semibold opacity-70 sm:text-base">
+                {t("periodDays", { days: rentalDays })}
+              </span>
+            ) : null}
+          </p>
+        )}
       </div>
       {showPeriod ? (
         <p
           className={
             bfLive
-              ? "mt-0.5 text-[0.65rem] leading-tight text-[rgba(247,244,238,0.55)] sm:text-xs"
+              ? "mt-0.5 text-[0.65rem] leading-tight text-black/55 sm:text-xs"
               : "text-[0.65rem] leading-tight text-muted-foreground sm:text-xs"
           }
         >
@@ -220,6 +247,7 @@ export function CarRentalCard({
         {t("bookNow")}
       </button>
       <button type="button" onClick={trackWa} className={bfStyles.fleetCardWa}>
+        <MessageCircle className={bfStyles.fleetCardWaIcon} aria-hidden />
         {t("whatsapp")}
       </button>
     </div>

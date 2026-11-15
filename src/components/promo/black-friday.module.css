@@ -1,9 +1,9 @@
-/* Asphalt & ember — Black Friday for AmseelCars (not purple / not cream). */
+/* Amseel Black Friday — brand red / black / cream, minimal chrome. */
 
 .topBar {
-  --bf-gold: #e8c547;
-  --bf-gold-dim: #b8922e;
-  --bf-red: #ec1c25;
+  --bf-gold: #c4a035;
+  --bf-gold-dim: #9a7a28;
+  --bf-red: #cb1939;
   --bf-ink: #050505;
   position: fixed;
   inset: 0 0 auto;
@@ -14,27 +14,11 @@
   gap: 0.65rem;
   min-height: 2.65rem;
   padding: 0.4rem 2.5rem 0.4rem 0.85rem;
-  background:
-    linear-gradient(90deg, rgba(232, 197, 71, 0.12), transparent 28%, transparent 72%, rgba(236, 28, 37, 0.18)),
-    linear-gradient(180deg, #141414 0%, #070707 100%);
+  background: #0c0c0c;
   color: #f5f5f0;
-  border-bottom: 1px solid rgba(232, 197, 71, 0.28);
+  border-bottom: 1px solid rgba(203, 25, 57, 0.45);
   font-family: var(--font-heading, ui-sans-serif, system-ui, sans-serif);
   overflow: hidden;
-}
-
-.topBar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    -18deg,
-    transparent,
-    transparent 10px,
-    rgba(255, 255, 255, 0.015) 10px,
-    rgba(255, 255, 255, 0.015) 11px
-  );
-  pointer-events: none;
 }
 
 .topBarInner {
@@ -53,36 +37,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.15rem 0.5rem;
-  border: 1px solid rgba(232, 197, 71, 0.45);
-  border-radius: 999px;
-  color: var(--bf-gold);
+  padding: 0.15rem 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.3rem;
+  color: #f7f4ee;
   font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .pulse {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 999px;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
   background: var(--bf-red);
-  box-shadow: 0 0 0 0 rgba(236, 28, 37, 0.7);
-  animation: bfPulse 1.6s ease-out infinite;
-}
-
-@keyframes bfPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(236, 28, 37, 0.65);
-  }
-  70% {
-    box-shadow: 0 0 0 0.45rem rgba(236, 28, 37, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(236, 28, 37, 0);
-  }
 }
 
 .topMessage {
@@ -105,7 +75,7 @@
 
 .topMessage strong,
 .topMessageShort strong {
-  color: var(--bf-gold);
+  color: #fff;
   font-weight: 800;
 }
 
@@ -155,28 +125,29 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.28rem 0.65rem;
-  border-radius: 999px;
-  border: 1px dashed rgba(232, 197, 71, 0.65);
-  background: rgba(232, 197, 71, 0.08);
-  color: var(--bf-gold);
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: transparent;
+  color: #f7f4ee;
   font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .codeBtn:hover,
 .codeBtn:focus-visible {
-  background: rgba(232, 197, 71, 0.18);
-  border-color: var(--bf-gold);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.45);
   outline: none;
 }
 
 .codeBtn[data-copied="true"] {
   border-style: solid;
-  color: #0b0b0b;
-  background: var(--bf-gold);
+  color: #fff;
+  background: var(--bf-red);
+  border-color: var(--bf-red);
 }
 
 .cta {
@@ -186,7 +157,7 @@
   justify-content: center;
   padding: 0.35rem 0.85rem;
   border: 0;
-  border-radius: 999px;
+  border-radius: 0.4rem;
   background: var(--bf-red);
   color: #fff;
   font-size: 0.72rem;
@@ -195,12 +166,11 @@
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition: filter 0.2s ease;
 }
 
 .cta:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
+  filter: brightness(1.06);
 }
 
 .dismiss {
@@ -230,17 +200,16 @@
 /* ——— Homepage banner ——— */
 
 .banner {
-  --bf-gold: #e8c547;
-  --bf-red: #ec1c25;
+  --bf-gold: #c4a035;
+  --bf-red: #cb1939;
   position: relative;
   isolation: isolate;
   overflow: hidden;
   background:
-    radial-gradient(120% 80% at 10% 0%, rgba(236, 28, 37, 0.22), transparent 55%),
-    radial-gradient(90% 70% at 90% 100%, rgba(232, 197, 71, 0.16), transparent 50%),
-    linear-gradient(165deg, #0a0a0a 0%, #121212 45%, #070707 100%);
+    linear-gradient(180deg, rgba(203, 25, 57, 0.14) 0%, transparent 42%),
+    #0a0a0a;
   color: #f7f4ee;
-  border-block: 1px solid rgba(232, 197, 71, 0.22);
+  border-block: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Clears fixed logo / menu when BF replaces the homepage hero */
@@ -248,37 +217,9 @@
   padding-top: calc(var(--bf-topbar-h, 0px) + clamp(5.5rem, 14vw, 7.5rem));
 }
 
-.bannerGlow {
-  position: absolute;
-  inset: -20% auto auto 55%;
-  width: min(42vw, 28rem);
-  height: min(42vw, 28rem);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(232, 197, 71, 0.18), transparent 68%);
-  filter: blur(8px);
-  pointer-events: none;
-  animation: bfFloat 9s ease-in-out infinite alternate;
-}
-
-@keyframes bfFloat {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(-8%, 10%, 0) scale(1.08);
-  }
-}
-
+.bannerGlow,
 .bannerGrid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
-  pointer-events: none;
-  opacity: 0.55;
+  display: none;
 }
 
 .bannerInner {
@@ -334,10 +275,10 @@
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.65rem;
-  color: var(--bf-gold);
+  color: rgba(247, 244, 238, 0.72);
   font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -365,10 +306,7 @@
   line-height: 0.92;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  background: linear-gradient(115deg, #fff6d6 0%, #e8c547 42%, #f0d978 58%, #a67c1f 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #f7f4ee;
   text-wrap: balance;
 }
 
@@ -377,19 +315,14 @@
   display: inline-flex;
   align-items: baseline;
   gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid rgba(232, 197, 71, 0.45);
-  background: linear-gradient(
-    135deg,
-    rgba(232, 197, 71, 0.18),
-    rgba(236, 28, 37, 0.12)
-  );
-  color: #fff6d6;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(203, 25, 57, 0.55);
+  background: rgba(203, 25, 57, 0.16);
+  color: #fff;
   font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   font-weight: 800;
   letter-spacing: 0.02em;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 /* Beats global `a, p { text-decoration: none }` so the old rate is clearly barred */
@@ -407,27 +340,22 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  padding: 0.22rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid rgba(232, 197, 71, 0.55);
-  background: linear-gradient(
-    135deg,
-    rgba(20, 16, 10, 0.92),
-    rgba(40, 28, 12, 0.88)
-  );
-  color: #fff6d6;
-  font-size: 0.68rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  font-size: 0.8rem;
   font-weight: 800;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   line-height: 1.2;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
 @media (min-width: 640px) {
   .pricePill {
-    font-size: 0.75rem;
-    padding: 0.28rem 0.65rem;
+    font-size: 0.88rem;
+    padding: 0.32rem 0.7rem;
   }
 }
 
@@ -467,10 +395,9 @@
 .subtitle {
   margin: 1.15rem 0 0;
   max-width: 36rem;
-  padding: 0.85rem 1rem;
-  border-left: 3px solid var(--bf-gold);
-  border-radius: 0 0.75rem 0.75rem 0;
-  background: rgba(232, 197, 71, 0.08);
+  padding: 0.85rem 0 0.85rem 1rem;
+  border-left: 2px solid var(--bf-red);
+  background: transparent;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
   line-height: 1.5;
   color: rgba(247, 244, 238, 0.9);
@@ -498,20 +425,18 @@
   min-height: 3rem;
   padding: 0.75rem 1.35rem;
   border: 0;
-  border-radius: 999px;
+  border-radius: 0.45rem;
   background: var(--bf-red);
   color: #fff;
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.03em;
   text-decoration: none;
-  box-shadow: 0 10px 30px rgba(236, 28, 37, 0.35);
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition: filter 0.2s ease;
 }
 
 .primaryCta:hover {
   filter: brightness(1.06);
-  transform: translateY(-2px);
 }
 
 .secondaryCta {
@@ -521,8 +446,8 @@
   justify-content: center;
   min-height: 3rem;
   padding: 0.75rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   background: transparent;
   color: #fff;
   font-size: 0.92rem;
@@ -534,9 +459,9 @@
 
 .secondaryCta:hover,
 .secondaryCta[data-copied="true"] {
-  border-color: var(--bf-gold);
-  background: rgba(232, 197, 71, 0.1);
-  color: var(--bf-gold);
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
 }
 
 .whatsappCta {
@@ -547,7 +472,7 @@
   gap: 0.45rem;
   min-height: 3rem;
   padding: 0.75rem 1.2rem;
-  border-radius: 999px;
+  border-radius: 0.45rem;
   border: 1px solid rgba(255, 255, 255, 0.88);
   background: #fff;
   color: #111;
@@ -587,7 +512,7 @@
 }
 
 .pickupLinks a:hover {
-  color: var(--bf-gold);
+  color: #fff;
   text-decoration: underline;
 }
 
@@ -595,11 +520,9 @@
   position: relative;
   overflow: hidden;
   padding: 0;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(232, 197, 71, 0.28);
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(8px);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0a0a0a;
 }
 
 .panelMedia {
@@ -620,16 +543,15 @@
   left: 0.75rem;
   top: 0.75rem;
   z-index: 1;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid rgba(232, 197, 71, 0.55);
-  background: rgba(0, 0, 0, 0.55);
-  color: var(--bf-gold);
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.72);
+  color: #f7f4ee;
   font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  backdrop-filter: blur(6px);
 }
 
 .panelBmwRow {
@@ -650,16 +572,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.55rem 0.95rem;
-  border-radius: 0.45rem;
-  border: 1px solid rgba(232, 197, 71, 0.55);
-  background: linear-gradient(135deg, rgba(20, 14, 8, 0.94), rgba(60, 20, 16, 0.9));
-  color: #fff6d6;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.78);
+  color: #f7f4ee;
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(6px);
 }
 
 .panelBmwOld {
@@ -673,32 +593,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.55rem 0.95rem;
-  border-radius: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0.4rem;
   border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.72);
   font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .panelBmwBookText {
-  background: linear-gradient(115deg, #fff6d6 0%, #e8c547 42%, #f0d978 58%, #a67c1f 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #f7f4ee;
 }
 
 .panelBmwBook:hover {
-  border-color: var(--bf-gold);
-  background: rgba(232, 197, 71, 0.1);
-  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(203, 25, 57, 0.35);
 }
 
 .panelBody {
@@ -711,7 +624,7 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--bf-gold);
+  color: rgba(247, 244, 238, 0.72);
 }
 
 .panelList {
@@ -734,15 +647,15 @@
 
 .panelList li::before {
   content: "";
-  width: 0.55rem;
-  height: 0.55rem;
-  margin-top: 0.4rem;
-  border-radius: 999px;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: 0.45rem;
+  border-radius: 50%;
   background: var(--bf-red);
-  box-shadow: 0 0 0 3px rgba(236, 28, 37, 0.2);
 }
 
 .marqueeWrap {
+  display: none;
   position: relative;
   z-index: 1;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -867,6 +780,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
+    background: linear-gradient(115deg, #fff6d6 0%, #e8c547 42%, #f0d978 58%, #a67c1f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .fromPrice {
@@ -877,7 +794,6 @@
     padding: 0.28rem 0.5rem;
     font-size: 0.68rem;
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   .agencyTitle {
@@ -969,8 +885,8 @@
 /* ——— Fleet car cards (promo window) ——— */
 
 .fleetCard {
-  --bf-gold: #e8c547;
-  --bf-red: #ec1c25;
+  --bf-gold: #c4a035;
+  --bf-red: #cb1939;
   position: relative;
   display: flex;
   cursor: pointer;
@@ -978,16 +894,11 @@
   align-items: stretch;
   overflow: hidden;
   border-radius: 1rem;
-  border: 1px solid rgba(232, 197, 71, 0.32);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.75rem;
-  color: #f7f4ee;
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(236, 28, 37, 0.16), transparent 45%),
-    radial-gradient(90% 70% at 0% 100%, rgba(232, 197, 71, 0.12), transparent 50%),
-    linear-gradient(165deg, #1a1612 0%, #0c0b0a 48%, #12100e 100%);
-  box-shadow:
-    0 18px 42px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 246, 214, 0.06);
+  color: #111;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
   transition:
     transform 0.28s ease,
     border-color 0.28s ease,
@@ -1003,19 +914,13 @@
 
 .fleetCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(232, 197, 71, 0.55);
-  box-shadow:
-    0 22px 48px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(232, 197, 71, 0.12),
-    0 0 36px rgba(236, 28, 37, 0.12);
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
 }
 
 .fleetCardHot {
-  border-color: rgba(232, 197, 71, 0.55);
-  box-shadow:
-    0 18px 42px rgba(0, 0, 0, 0.42),
-    0 0 28px rgba(232, 197, 71, 0.12),
-    inset 0 1px 0 rgba(255, 246, 214, 0.08);
+  border-color: rgba(203, 25, 57, 0.35);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
 }
 
 .fleetCardMedia {
@@ -1077,14 +982,12 @@
   height: 0.4rem;
   border-radius: 50%;
   background: var(--bf-red);
-  box-shadow: 0 0 0 0 rgba(236, 28, 37, 0.55);
-  animation: bfPulse 1.6s ease-out infinite;
 }
 
 .fleetCardCaption {
   margin: 0.55rem 0 0;
   padding: 0 0.15rem;
-  color: rgba(247, 244, 238, 0.62);
+  color: rgba(17, 17, 17, 0.62);
   font-size: 0.72rem;
   line-height: 1.35;
   display: -webkit-box;
@@ -1110,7 +1013,7 @@
 
 .fleetCardTitle {
   margin: 0;
-  color: #fffaf0;
+  color: #111;
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;
@@ -1133,11 +1036,11 @@
 
 .fleetCardOldPrice {
   margin: 0;
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 1.05rem;
   font-weight: 700;
   text-decoration: line-through;
-  text-decoration-color: #ec1c25;
+  text-decoration-color: #cb1939;
   text-decoration-thickness: 2px;
   text-decoration-skip-ink: none;
 }
@@ -1150,7 +1053,7 @@
 
 .fleetCardPrice {
   margin: 0;
-  color: var(--bf-gold);
+  color: #111;
   font-size: 1.15rem;
   font-weight: 800;
 }
@@ -1165,7 +1068,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.45rem 0.65rem;
-  color: rgba(247, 244, 238, 0.68);
+  color: rgba(17, 17, 17, 0.72);
   font-size: 0.75rem;
 }
 
@@ -1187,7 +1090,7 @@
   flex-shrink: 0;
   width: 0.9rem;
   height: 0.9rem;
-  color: var(--bf-gold);
+  color: #cb1939;
   opacity: 0.9;
 }
 
@@ -1215,19 +1118,29 @@
   margin-top: 0.55rem;
   width: 100%;
   min-height: 2.55rem;
-  border-radius: 999px;
-  border: 1px solid rgba(34, 197, 94, 0.45);
-  background: rgba(22, 101, 52, 0.35);
-  color: #bbf7d0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 0.45rem;
+  border: 0;
+  background: #25d366;
+  color: #fff;
   font-size: 0.9rem;
   font-weight: 700;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, filter 0.2s ease;
+}
+
+.fleetCardWaIcon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
 }
 
 .fleetCardWa:hover {
-  background: rgba(22, 163, 74, 0.55);
-  border-color: rgba(74, 222, 128, 0.65);
+  background: #1ebe57;
   color: #fff;
+  filter: brightness(1.02);
 }
 
 /* ——— Car detail page ——— */
@@ -1403,15 +1316,10 @@
 .bookingShell {
   position: relative;
   overflow: hidden;
-  border-radius: 1rem;
-  border: 1px solid rgba(232, 197, 71, 0.4);
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(236, 28, 37, 0.18), transparent 50%),
-    linear-gradient(165deg, #1a1612 0%, #0c0b0a 100%);
-  box-shadow:
-    0 22px 48px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(232, 197, 71, 0.08),
-    inset 0 1px 0 rgba(255, 246, 214, 0.06);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0c0b0a;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
 }
 
 .bookingBadge {
@@ -1420,18 +1328,17 @@
   left: 0;
   right: auto;
   z-index: 10;
-  border-radius: 0 0 0.75rem 0;
-  border-right: 1px solid rgba(232, 197, 71, 0.35);
-  border-bottom: 1px solid rgba(232, 197, 71, 0.35);
+  border-radius: 0 0 0.55rem 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   border-left: 0;
-  background: linear-gradient(135deg, #1a140c, #3a1814);
+  background: #1a1214;
   padding: 0.55rem 1rem;
-  color: #fff6d6;
+  color: #f7f4ee;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
 
@@ -1440,10 +1347,8 @@
   /* Clear absolute Black Friday badge so prices stay fully visible */
   padding: 3.35rem 1.25rem 1.35rem;
   color: #fffaf0;
-  background:
-    linear-gradient(135deg, rgba(236, 28, 37, 0.92) 0%, #8a1016 55%, #1a1008 120%),
-    #ec1c25;
-  border-bottom: 1px solid rgba(232, 197, 71, 0.35);
+  background: linear-gradient(145deg, #cb1939 0%, #8a1026 48%, #0a0a0a 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 @media (min-width: 768px) {
@@ -1459,16 +1364,15 @@
 
 .bookingHeaderPrice {
   margin: 0;
-  color: #fff6d6;
+  color: #fff;
   font-size: 1.85rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
 }
 
 .bookingHeaderMeta {
   margin: 0;
-  color: rgba(255, 246, 214, 0.88);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 0.9rem;
   font-weight: 600;
 }
