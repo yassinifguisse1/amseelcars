@@ -33,7 +33,6 @@ import {
   getBlackFridayDailyPrice,
   isBlackFridayPromoLive,
 } from '@/lib/blackFridayPromo';
-import { BlackFridayPricePill } from '@/components/promo/BlackFridayPricePill';
 import bfStyles from '@/components/promo/black-friday.module.css';
 import { readWheelClaim, type WheelClaim } from '@/lib/wheelOfChance';
 import { BookingAddons } from './BookingAddons';
@@ -1019,17 +1018,9 @@ export default function BookingDialog({
                   </p>
                 </>
               ) : bfLive && hasBfPrice ? (
-                <>
-                  <div className={bfStyles.bookingBfRow}>
-                    <BlackFridayPricePill slug={carSlug} currency={currency} />
-                    <span className={bfStyles.oldPriceStruck}>
-                      {formatCarPriceLabel(catalogPricePerDay, currency)}
-                    </span>
-                  </div>
-                  <p className={bfStyles.bookingHeaderPrice}>
-                    {dailyPriceLabel} / day
-                  </p>
-                </>
+                <p className={bfStyles.bookingHeaderPrice}>
+                  {dailyPriceLabel} / day
+                </p>
               ) : priceLabel ? (
                 <p
                   className={

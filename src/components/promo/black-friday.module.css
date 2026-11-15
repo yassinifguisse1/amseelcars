@@ -1295,16 +1295,18 @@
 }
 
 .detailTitle {
-  margin: 0 0 0.25rem;
+  margin: 0;
   color: #fffaf0 !important;
   font-family: ui-sans-serif, system-ui, sans-serif !important;
   font-size: 1.5rem;
   font-weight: 700;
+  line-height: 1;
   letter-spacing: -0.02em;
 }
 
 @media (min-width: 1024px) {
   .detailTitle {
+    margin-bottom: 0.25rem;
     font-size: 1.875rem;
   }
 }
@@ -1314,12 +1316,11 @@
 }
 
 .detailPriceCol {
-  margin-top: 0.75rem;
+  margin-top: 0;
 }
 
 @media (min-width: 1024px) {
   .detailPriceCol {
-    margin-top: 0;
     border-left: 1px solid rgba(232, 197, 71, 0.28);
     padding-left: 1rem;
   }
@@ -1374,6 +1375,19 @@
   border-radius: 1rem;
   border: 1px solid rgba(232, 197, 71, 0.22);
   background: #050505;
+}
+
+/* Mobile swipe carousel — keep BF chrome without killing overflow-x scroll */
+.detailGallerySwipe {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(232, 197, 71, 0.22);
+  background: #050505;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
 }
 
 .detailThumb {

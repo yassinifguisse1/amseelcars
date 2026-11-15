@@ -14,10 +14,10 @@ import { carBrandScopedHref } from "@/lib/carPublicHref"
 import { bookingQueryForLinks } from "@/lib/bookingSearchParams"
 import { formatCarPriceLabel, type DisplayCurrency } from "@/lib/currency"
 import {
+  formatBlackFridayPriceLabel,
   getBlackFridayDailyPrice,
   isBlackFridayPromoLive,
 } from "@/lib/blackFridayPromo"
-import { BlackFridayPricePill } from "@/components/promo/BlackFridayPricePill"
 import bfStyles from "@/components/promo/black-friday.module.css"
 
 interface CarRentalCardProps {
@@ -87,7 +87,15 @@ export function CarRentalCard({
   const showPeriod = typeof rentalDays === "number" && rentalDays > 0
   const displayPrice = showPeriod ? dailyRate * rentalDays : dailyRate
   const bfLive = isBlackFridayPromoLive()
-  const hasBfPrice = getBlackFridayDailyPrice(slug, currency) != null
+  const bfDaily = getBlackFridayDailyPrice(slug, currency)
+  const hasBfPrice = bfDaily != null
+  const bfLabel = formatBlackFridayPriceLabel(slug, currency)
+  const cardPriceLabel =
+    hasBfPrice && bfDaily != null
+      ? showPeriod
+        ? formatCarPriceLabel(bfDaily * (rentalDays as number), currency)
+        : (bfLabel ?? formatCarPriceLabel(bfDaily, currency))
+      : formatCarPriceLabel(displayPrice, currency)
 
   const trackBook = (e: MouseEvent) => {
     e.preventDefault()
@@ -137,25 +145,31 @@ export function CarRentalCard({
           bfLive ? bfStyles.fleetCardPriceRow : "flex items-center justify-end gap-1.5"
         }
       >
-        <BlackFridayPricePill slug={slug} currency={currency} />
         <p
           className={
-            hasBfPrice
-              ? bfLive
-                ? bfStyles.fleetCardOldPrice
-                : `text-lg sm:text-xl ${bfStyles.oldPriceStruck}`
-              : bfLive
-                ? bfStyles.fleetCardPrice
-                : "text-lg sm:text-xl font-bold text-primary"
+            bfLive
+              ? bfStyles.fleetCardPrice
+              : "text-lg sm:text-xl font-bold text-primary"
           }
         >
-          {formatCarPriceLabel(displayPrice, currency)}
+          {cardPriceLabel}
           {showPeriod ? (
             <span className="ml-1.5 text-sm font-semibold opacity-70 sm:text-base">
               {t("periodDays", { days: rentalDays })}
             </span>
           ) : null}
         </p>
+        {hasBfPrice ? (
+          <p
+            className={
+              bfLive
+                ? bfStyles.fleetCardOldPrice
+                : `text-lg sm:text-xl ${bfStyles.oldPriceStruck}`
+            }
+          >
+            {formatCarPriceLabel(displayPrice, currency)}
+          </p>
+        ) : null}
       </div>
       {showPeriod ? (
         <p
@@ -166,7 +180,10 @@ export function CarRentalCard({
           }
         >
           {t("periodDaily", {
-            daily: formatCarPriceLabel(dailyRate, currency),
+            daily:
+              hasBfPrice && bfDaily != null
+                ? formatCarPriceLabel(bfDaily, currency)
+                : formatCarPriceLabel(dailyRate, currency),
           })}
         </p>
       ) : null}

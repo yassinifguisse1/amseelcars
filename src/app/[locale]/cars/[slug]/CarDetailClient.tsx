@@ -37,10 +37,10 @@ import type { Car } from '@/data/cars'
 import { carDetailImageAlt, carDetailImageTitle } from '@/lib/carImageAlt'
 import Footer from '@/components/Footer/Footer'
 import {
+  formatBlackFridayPriceLabel,
   getBlackFridayDailyPrice,
   isBlackFridayPromoLive,
 } from '@/lib/blackFridayPromo'
-import { BlackFridayPricePill } from '@/components/promo/BlackFridayPricePill'
 import bfStyles from '@/components/promo/black-friday.module.css'
 
 interface CarDetailClientProps {
@@ -187,14 +187,17 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const dailyDisplay = convertCarPrice(dailyMad, currency)
   const dailyLabel = formatCarPriceLabel(dailyDisplay, currency)
   const bfLive = isBlackFridayPromoLive()
-  const hasBfPrice = getBlackFridayDailyPrice(car.slug, currency) != null
+  const bfDaily = getBlackFridayDailyPrice(car.slug, currency)
+  const hasBfPrice = bfDaily != null
+  const bfLabel = formatBlackFridayPriceLabel(car.slug, currency)
   const bookingFromUrl = parseBookingSearchParams(searchParams)
   const tripDays = hasActiveBookingSearch(searchParams)
     ? rentalDayCount(bookingFromUrl.pickupDate, bookingFromUrl.returnDate)
     : 0
   const showTripEstimate = tripDays > 0 && meetsMinRentalDays(tripDays)
+  const pricedDaily = hasBfPrice && bfDaily != null ? bfDaily : dailyDisplay
   const tripLabel = formatCarPriceLabel(
-    dailyDisplay * (showTripEstimate ? tripDays : 7),
+    pricedDaily * (showTripEstimate ? tripDays : 7),
     currency,
   )
   const quickFacts = [car.transmission, car.fuelType, t('seats', { count: car.seats })]
@@ -334,54 +337,78 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               </span>
             </div>
 
-            <div className="lg:flex lg:items-stretch lg:gap-4">
-              <div className="min-w-0 lg:max-w-[55%]">
-                <h1
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-baseline justify-between gap-3 lg:items-stretch lg:gap-4">
+                <div className="min-w-0 lg:max-w-[55%]">
+                  <h1
+                    className={
+                      bfLive
+                        ? `${bfStyles.detailTitle} leading-none`
+                        : 'mb-0 !font-sans text-2xl font-semibold leading-none tracking-normal text-foreground lg:mb-1.5 lg:text-3xl lg:leading-tight [font-family:ui-sans-serif,system-ui,sans-serif]'
+                    }
+                  >
+                    {car.carName}
+                  </h1>
+                  <div
+                    className={`mt-1 hidden items-center gap-1.5 text-sm md:text-base lg:flex ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                  >
+                    <MapPin className="h-3.5 w-3.5 shrink-0 md:h-4 md:w-4" />
+                    <span>{car.location}</span>
+                  </div>
+                </div>
+
+                <div
                   className={
                     bfLive
-                      ? bfStyles.detailTitle
-                      : 'mb-1 !font-sans text-2xl font-semibold tracking-normal text-foreground lg:mb-1.5 lg:text-3xl [font-family:ui-sans-serif,system-ui,sans-serif]'
+                      ? `${bfStyles.detailPriceCol} min-w-0 shrink-0 text-right lg:text-left`
+                      : 'min-w-0 shrink-0 text-right lg:shrink-0 lg:border-l lg:border-border lg:pl-4 lg:text-left'
                   }
+                  aria-label={t('fromPrice', {
+                    price: hasBfPrice && bfLabel ? bfLabel : dailyLabel,
+                  })}
                 >
-                  {car.carName}
-                </h1>
-                <div
-                  className={`flex items-center gap-1.5 text-sm md:text-base ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
-                >
-                  <MapPin className="h-3.5 w-3.5 shrink-0 md:h-4 md:w-4" />
-                  <span>{car.location}</span>
+                  <p
+                    className={`flex flex-wrap items-baseline justify-end gap-1.5 text-lg font-bold leading-none tracking-tight sm:gap-2 sm:text-2xl lg:justify-start lg:text-xl lg:leading-tight ${bfLive ? 'text-[#fffaf0]' : 'text-foreground'}`}
+                  >
+                    <span>
+                      {t('fromPrice', {
+                        price: hasBfPrice && bfLabel ? bfLabel : dailyLabel,
+                      })}
+                      <span
+                        className={`ml-1 text-xs font-medium sm:ml-1.5 sm:text-sm ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                      >
+                        {t('perDay')}
+                      </span>
+                    </span>
+                    {hasBfPrice ? (
+                      <span className={bfStyles.oldPriceStruck}>{dailyLabel}</span>
+                    ) : null}
+                  </p>
+                  <div className="mt-1.5 hidden space-y-1 lg:block">
+                    <p className={`text-sm ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}>
+                      {t('weekEstimate', {
+                        days: showTripEstimate ? tripDays : 7,
+                        total: tripLabel,
+                      })}
+                    </p>
+                    <p
+                      className={`text-sm lg:text-xs lg:leading-snug ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                    >
+                      {quickFacts}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div
-                className={
-                  bfLive
-                    ? `${bfStyles.detailPriceCol} space-y-1.5 lg:text-left`
-                    : 'mt-3 space-y-1.5 lg:mt-0 lg:shrink-0 lg:border-l lg:border-border lg:pl-4 lg:text-left'
-                }
-                aria-label={t('fromPrice', { price: dailyLabel })}
-              >
-                <p
-                  className={`flex flex-wrap items-center gap-2 text-2xl font-bold tracking-tight lg:text-xl ${bfLive ? 'text-[#fffaf0]' : 'text-foreground'}`}
-                >
-                  <BlackFridayPricePill slug={car.slug} currency={currency} />
-                  <span className={hasBfPrice ? bfStyles.oldPriceStruck : undefined}>
-                    {t('fromPrice', { price: dailyLabel })}
-                    <span
-                      className={`ml-1.5 text-sm font-medium ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
-                    >
-                      {t('perDay')}
-                    </span>
-                  </span>
-                </p>
-                <p className={`text-sm ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}>
+              <div className="space-y-0.5 text-left lg:hidden">
+                <p className={`text-xs sm:text-sm ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}>
                   {t('weekEstimate', {
                     days: showTripEstimate ? tripDays : 7,
                     total: tripLabel,
                   })}
                 </p>
                 <p
-                  className={`text-sm lg:text-xs lg:leading-snug ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
+                  className={`text-xs sm:text-sm ${bfLive ? bfStyles.detailMuted : 'text-muted-foreground'}`}
                 >
                   {quickFacts}
                 </p>
@@ -396,7 +423,9 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
               <div
                 ref={mobileGalleryRef}
                 onScroll={onMobileGalleryScroll}
-                className={`flex aspect-[4/3] w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-2xl [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${bfLive ? bfStyles.detailGallery : 'bg-muted'}`}
+                className={`flex aspect-[4/3] w-full touch-pan-x snap-x snap-mandatory overflow-x-auto overscroll-x-contain rounded-2xl [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+                  bfLive ? bfStyles.detailGallerySwipe : 'bg-muted'
+                }`}
                 aria-label={t('galleryAria', { carName: car.carName })}
               >
                 {galleryImages.map((_, index) => (
@@ -410,7 +439,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                       title={carDetailImageTitle(car, index, l)}
                       fill
                       sizes="100vw"
-                      className="object-cover"
+                      draggable={false}
+                      className="pointer-events-none select-none object-cover"
                       priority={index === 0}
                     />
                   </div>
