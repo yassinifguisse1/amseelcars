@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import { MobileBottomNav } from "@/components/MobileBottomNav/MobileBottomNav";
 import { SiteTracker } from "@/components/analytics/SiteTracker";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { PublicStatsigProvider } from "@/components/analytics/PublicStatsigProvider";
 import { WheelOfChance } from "@/components/WheelOfChance/WheelOfChance";
 import { BlackFridayTopBar } from "@/components/promo/BlackFridayTopBar";
@@ -43,6 +44,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <ArticleLocalePathsProvider>
         <PublicStatsigProvider clientKey={statsigClientKey}>
           <Suspense fallback={null}>
+            <GoogleAnalytics />
             <SiteTracker />
           </Suspense>
           <BlackFridayTopBar />

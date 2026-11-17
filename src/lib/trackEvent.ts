@@ -1,5 +1,6 @@
 import type { TrackEventType } from './trackEventTypes';
 import { getVisitorContext } from './visitorContext';
+import { gaEvent } from './ga';
 
 export type { TrackEventType };
 
@@ -57,6 +58,18 @@ export function buildTrackBody(params: TrackEventPayload) {
 /** Fire-and-forget site event tracking (uses sendBeacon when available). */
 export function trackEvent(params: TrackEventPayload) {
   if (typeof window === 'undefined') return;
+
+  // Mirror key actions to GA4 (page-view is handled by GoogleAnalytics).
+  if (params.event !== 'page-view') {
+    gaEvent(params.event, {
+      page_path: params.path,
+      source: params.source,
+      cta_label: params.ctaLabel,
+      car_slug: params.carSlug,
+      car_name: params.carName,
+    });
+  }
+
   const body = buildTrackBody(params);
   const bodyStr = JSON.stringify(body);
   if (navigator.sendBeacon) {
