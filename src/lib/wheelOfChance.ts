@@ -1,10 +1,12 @@
 import { BOOKING_ADDONS, type BookingAddonId } from '@/lib/bookingAddons';
 
 /**
- * Flip to `true` after Black Friday to show the gift wheel again.
+ * Owner request (2026-11-23): keep the gift wheel disabled until the owner
+ * explicitly asks to bring it back. Do not re-enable it after Black Friday,
+ * on a schedule, or as part of a design/promotion change.
  * When false: popup hidden AND saved wheel gifts are ignored in booking.
  */
-export const WHEEL_OF_CHANCE_ENABLED = true;
+export const WHEEL_OF_CHANCE_ENABLED = false;
 
 export const WHEEL_STORAGE_KEY = 'amseel-wheel-of-chance-v1';
 export const WHEEL_PRIZE_STORAGE_KEY = 'amseel-wheel-prize-v1';
