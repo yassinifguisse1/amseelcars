@@ -1328,7 +1328,7 @@
       {
         "label": "Google",
         "value": "5,0",
-        "helper": "626 Bewertungen"
+        "helper": "271 Bewertungen"
       }
     ],
     "aiHighlights": [
@@ -1513,7 +1513,7 @@
     "liveLabel": "Live-Deal",
     "photoBadge": "Black Friday",
     "topMessage": "Black Friday: ab <strong>{price}</strong>/Tag · Rabatt bereits angewendet · Code <strong>{code}</strong>",
-    "topMessageShort": "Ab <strong>{price}</strong>/Tag",
+    "topMessageShort": "Black Friday · <strong>{price}</strong>/Tag",
     "countdownAria": "Verbleibende Black-Friday-Zeit",
     "unitDay": "T",
     "unitHour": "h",

@@ -12,6 +12,7 @@ import {
   SITE_URL,
 } from '@/lib/business'
 import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
+import { getBlackFridayDailyPrice } from '@/lib/blackFridayPromo'
 
 /**
  * Machine-readable site briefing for LLM / agent crawlers (`/llms.txt`).
@@ -27,10 +28,14 @@ export function buildLlmsTxt(): string {
   const fleetLines = [...uniqueByName.values()]
     .sort(
       (a, b) =>
-        convertCarPrice(a.pricePerDay, 'EUR') - convertCarPrice(b.pricePerDay, 'EUR'),
+        (getBlackFridayDailyPrice(a.slug, 'EUR') ?? convertCarPrice(a.pricePerDay, 'EUR')) -
+        (getBlackFridayDailyPrice(b.slug, 'EUR') ?? convertCarPrice(b.pricePerDay, 'EUR')),
     )
     .map((car) => {
-      const eur = formatCarPriceLabel(convertCarPrice(car.pricePerDay, 'EUR'), 'EUR')
+      const eur = formatCarPriceLabel(
+        getBlackFridayDailyPrice(car.slug, 'EUR') ?? convertCarPrice(car.pricePerDay, 'EUR'),
+        'EUR',
+      )
       const path = `/en/cars/brand/${brandToSlug(car.brand)}/${carSlugForLocale(car.slug, 'en')}`
       const brandSlug = brandToSlug(car.brand)
       const label = brandToSlug(car.carName).startsWith(brandSlug)

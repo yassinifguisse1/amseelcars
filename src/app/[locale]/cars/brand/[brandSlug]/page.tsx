@@ -19,6 +19,7 @@ import { buildPageMetadata, SITE_URL } from "@/lib/seo/site-meta";
 import type { AppLocale } from "@/i18n/routing";
 import { localeToLanguageTag, localeToOpenGraphLocale, toAppLocale } from "@/i18n/locale-utils";
 import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
+import { getBlackFridayDailyPrice } from "@/lib/blackFridayPromo";
 import { BUSINESS_GOOGLE_RATING } from "@/lib/business";
 import Footer from "@/components/Footer/Footer";
 
@@ -120,12 +121,12 @@ export default async function CarBrandHubPage({ params }: Props) {
     { name: brand, url: brandPath },
   ]);
 
-  const lowestDailyRateMad = cars.length
-    ? Math.min(...cars.map((car) => car.pricing?.shortTerm ?? car.pricePerDay))
+  const dailyRateEur = (car: (typeof cars)[number]) =>
+    getBlackFridayDailyPrice(car.slug, "EUR") ??
+    convertCarPrice(car.pricing?.shortTerm ?? car.pricePerDay, "EUR");
+  const lowestDailyRate = cars.length
+    ? Math.min(...cars.map(dailyRateEur))
     : 0;
-  const lowestDailyRate = convertCarPrice(lowestDailyRateMad, "EUR");
-  const formatEur = (mad: number) =>
-    formatCarPriceLabel(convertCarPrice(mad, "EUR"), "EUR");
   const newestModelYear = cars.length ? Math.max(...cars.map((car) => car.year)) : 0;
   const fuelMix = Array.from(new Set(cars.map((car) => car.fuelType.toLowerCase())));
   const segments = Array.from(new Set(cars.map((car) => car.category)));
@@ -416,8 +417,9 @@ export default async function CarBrandHubPage({ params }: Props) {
             {cars.map((car) => {
               const display = carForLocale(car, l);
               const slug = carSlugForLocale(car.slug, l);
-              const price = car.pricing?.shortTerm ?? car.pricePerDay;
-              const formattedPrice = formatEur(price);
+              const currentPrice = dailyRateEur(car);
+              const oldPrice = convertCarPrice(car.pricing?.shortTerm ?? car.pricePerDay, "EUR");
+              const formattedPrice = formatCarPriceLabel(currentPrice, "EUR");
               return (
                 <li key={car.slug}>
                   <Link
@@ -469,8 +471,13 @@ export default async function CarBrandHubPage({ params }: Props) {
                         </div>
                       </dl>
                       <div className="mt-5 flex items-center justify-between border-t border-dashed border-neutral-200 pt-4 text-sm text-neutral-700">
-                        <span>
-                          {t("card.fromPrice", { price: formattedPrice })}
+                        <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                          <span>{t("card.fromPrice", { price: formattedPrice })}</span>
+                          {currentPrice < oldPrice ? (
+                            <del className="whitespace-nowrap text-neutral-500 decoration-[#ec1c25] decoration-2">
+                              {formatCarPriceLabel(oldPrice, "EUR")}
+                            </del>
+                          ) : null}
                         </span>
                         <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#b11226]">
                           {t("card.deliveryLabel")}

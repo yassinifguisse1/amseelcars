@@ -2,6 +2,7 @@
 
 import {
   formatBlackFridayPriceLabel,
+  isBlackFridayPromoLive,
 } from "@/lib/blackFridayPromo";
 import type { DisplayCurrency } from "@/lib/currency";
 import styles from "./black-friday.module.css";
@@ -18,6 +19,7 @@ export function BlackFridayPricePill({
   currency = "EUR",
   className,
 }: Props) {
+  if (!isBlackFridayPromoLive()) return null;
   const label = formatBlackFridayPriceLabel(slug, currency);
   if (!label) return null;
 

@@ -27,6 +27,7 @@ import {
   BUSINESS_WHATSAPP_URL,
 } from "./business";
 import { convertCarPrice } from "./currency";
+import { getBlackFridayDailyPrice } from "./blackFridayPromo";
 
 const siteUrl = SITE_URL;
 const siteName = SITE_NAME;
@@ -467,7 +468,7 @@ export function generateCarProductSchema(
     img.src.startsWith('http') ? img.src : `${siteUrl}${img.src}`
   );
 
-  const priceEur = convertCarPrice(car.pricePerDay, 'EUR').toString();
+  const priceEur = (getBlackFridayDailyPrice(car.slug, 'EUR') ?? convertCarPrice(car.pricePerDay, 'EUR')).toString();
 
   return {
     '@context': 'https://schema.org',
@@ -618,7 +619,7 @@ export function generateFleetOfferItemListSchema(
     numberOfItems: cars.length,
     itemListOrder: 'https://schema.org/ItemListUnordered',
     itemListElement: cars.map((car, index) => {
-      const priceEur = convertCarPrice(car.pricePerDay, 'EUR').toString();
+      const priceEur = (getBlackFridayDailyPrice(car.slug, 'EUR') ?? convertCarPrice(car.pricePerDay, 'EUR')).toString();
       const image = car.carImage.startsWith('http')
         ? car.carImage
         : `${siteUrl}${car.carImage}`;

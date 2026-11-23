@@ -89,6 +89,7 @@ export function CarRentalCard({
   const bfLive = isBlackFridayPromoLive()
   const bfDaily = getBlackFridayDailyPrice(slug, currency)
   const hasBfPrice = bfDaily != null
+  const showOldPrice = bfDaily != null && bfDaily < dailyRate
   const bfLabel = formatBlackFridayPriceLabel(slug, currency)
   const cardPriceLabel =
     hasBfPrice && bfDaily != null
@@ -159,16 +160,16 @@ export function CarRentalCard({
             </span>
           ) : null}
         </p>
-        {hasBfPrice ? (
-          <p
+        {showOldPrice ? (
+          <del
             className={
               bfLive
                 ? bfStyles.fleetCardOldPrice
-                : `text-lg sm:text-xl ${bfStyles.oldPriceStruck}`
+                : `whitespace-nowrap text-sm sm:text-base ${bfStyles.oldPriceStruck}`
             }
           >
             {formatCarPriceLabel(displayPrice, currency)}
-          </p>
+          </del>
         ) : null}
       </div>
       {showPeriod ? (

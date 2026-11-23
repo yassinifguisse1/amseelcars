@@ -10,16 +10,21 @@ import { getCarBySlug } from "@/data/cars";
 
 /**
  * Black Friday / Cyber week promo switch.
- * Flip `enabled` to false (or let `endsAt` pass) to hide all BF chrome.
+ * `enabled` controls campaign design, banners and promo-code messaging.
+ * `topBarEnabled` independently controls the announcement bar.
+ * Keep the current fleet rates independently with `keepPricesAfterPromo`.
  */
 export const BLACK_FRIDAY_PROMO = {
-  enabled: true,
+  enabled: false,
+  topBarEnabled: true,
+  /** Retain these daily rates even when the design is off or the campaign ends. */
+  keepPricesAfterPromo: true,
   /** Inclusive end — Morocco local (UTC+1 in Nov). */
   endsAt: "2026-12-01T23:59:59+01:00",
   code: "BLACKFRIDAY",
   /** Display “from” rate during the promo window (already applied). */
   fromPrice: "19,90 €",
-  storageDismissKey: "amseel-bf-topbar-dismissed-2026",
+  storageDismissKey: "amseel-bf-topbar-dismissed-2026-regular-design",
   /** Default fleet discount when no fixed EUR override (1 = full price). */
   defaultDiscountFactor: 0.9,
   /**
@@ -47,13 +52,22 @@ export function isBlackFridayPromoLive(now = new Date()): boolean {
   return now.getTime() <= end.getTime();
 }
 
-/** Black Friday daily price for a car slug, or null if none / promo off. */
+export function isBlackFridayTopBarLive(now = new Date()): boolean {
+  if (!BLACK_FRIDAY_PROMO.topBarEnabled) return false;
+  const end = new Date(BLACK_FRIDAY_PROMO.endsAt).getTime();
+  return Number.isFinite(end) && now.getTime() <= end;
+}
+
+/** Current campaign-derived daily rate; retained after the campaign when configured. */
 export function getBlackFridayDailyPrice(
   slug: string | undefined | null,
   currency: DisplayCurrency = "EUR",
   now = new Date(),
 ): number | null {
-  if (!slug || !isBlackFridayPromoLive(now)) return null;
+  if (!slug) return null;
+  if (!BLACK_FRIDAY_PROMO.keepPricesAfterPromo && !isBlackFridayPromoLive(now)) {
+    return null;
+  }
   // Cards pass locale slugs (e.g. EN `agadir-car-rental-…`); prices are keyed by FR.
   const canonical =
     resolveCanonicalFrenchCarSlug(slug, CAR_CANONICAL_SLUGS) ?? slug;

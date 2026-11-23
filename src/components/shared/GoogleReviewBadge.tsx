@@ -7,9 +7,9 @@ import {
 import { trackEvent } from "@/lib/trackEvent";
 
 type GoogleReviewBadgeProps = {
-  /** Accessible label, e.g. "5.0 · 626 Google reviews" */
+  /** Accessible label, e.g. "5.0 · 271 Google reviews" */
   ariaLabel: string;
-  /** Visible count label, e.g. "626 reviews" */
+  /** Visible count label, e.g. "271 reviews" */
   countLabel: string;
   /** Star rating value (defaults to BUSINESS_GOOGLE_RATING) */
   rating?: number;

@@ -189,6 +189,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
   const bfLive = isBlackFridayPromoLive()
   const bfDaily = getBlackFridayDailyPrice(car.slug, currency)
   const hasBfPrice = bfDaily != null
+  const showOldPrice = bfDaily != null && bfDaily < dailyDisplay
   const bfLabel = formatBlackFridayPriceLabel(car.slug, currency)
   const bookingFromUrl = parseBookingSearchParams(searchParams)
   const tripDays = hasActiveBookingSearch(searchParams)
@@ -381,8 +382,8 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                         {t('perDay')}
                       </span>
                     </span>
-                    {hasBfPrice ? (
-                      <span className={bfStyles.oldPriceStruck}>{dailyLabel}</span>
+                    {showOldPrice ? (
+                      <del className={bfStyles.oldPriceStruck}>{dailyLabel}</del>
                     ) : null}
                   </p>
                   <div className="mt-1.5 hidden space-y-1 lg:block">
@@ -632,10 +633,7 @@ export default function CarDetailClient({ car, brandHub }: CarDetailClientProps)
                   : undefined
               }
               priceLabel={`${formatCarPriceLabel(
-                convertCarPrice(
-                  car.pricing?.shortTerm ?? car.pricePerDay,
-                  currency,
-                ),
+                pricedDaily,
                 currency,
               )} ${t('perDay')}`}
               priceTagline={t('priceTagline')}

@@ -36,7 +36,10 @@ export function convertCarPrice(priceInMAD: number, targetCurrency: CarCurrency)
 
 export function formatCarPrice(price: number, currency: CarCurrency): string {
   if (currency === 'MAD') return price.toFixed(0)
-  if (currency === 'EUR') return String(Math.round(price))
+  if (currency === 'EUR') {
+    const rounded = Math.round(price * 100) / 100
+    return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2).replace('.', ',')
+  }
   return price.toFixed(2)
 }
 

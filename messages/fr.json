@@ -1328,7 +1328,7 @@
       {
         "label": "Avis Google",
         "value": "5,0",
-        "helper": "626 avis"
+        "helper": "271 avis"
       }
     ],
     "aiHighlights": [
@@ -1513,7 +1513,7 @@
     "liveLabel": "Offre live",
     "photoBadge": "Black Friday",
     "topMessage": "Black Friday : dès <strong>{price}</strong>/jour · remise déjà appliquée · code <strong>{code}</strong>",
-    "topMessageShort": "Dès <strong>{price}</strong>/jour",
+    "topMessageShort": "Black Friday · <strong>{price}</strong>/jour",
     "countdownAria": "Temps restant Black Friday",
     "unitDay": "j",
     "unitHour": "h",

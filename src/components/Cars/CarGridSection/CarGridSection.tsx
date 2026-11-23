@@ -141,7 +141,8 @@ const CarGridSection = ({
 
       // Price filter
       const carPrice = car.pricing?.shortTerm || car.pricePerDay
-      const priceInSelectedCurrency = convertCarPrice(carPrice, currency)
+      const priceInSelectedCurrency =
+        getBlackFridayDailyPrice(car.slug, currency) ?? convertCarPrice(carPrice, currency)
 
       if (filters.minPrice) {
         const minPrice = parseFloat(filters.minPrice)

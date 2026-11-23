@@ -838,6 +838,14 @@
     font-size: 0.62rem;
   }
 
+  .topBar .codeBtn {
+    display: none;
+  }
+
+  .topBar .cta {
+    flex-shrink: 0;
+  }
+
   .mobileHide {
     display: none !important;
   }

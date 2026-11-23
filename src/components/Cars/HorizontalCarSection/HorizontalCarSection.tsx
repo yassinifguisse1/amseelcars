@@ -12,6 +12,7 @@ import { carListingImageAlt, carListingImageTitle, carListingCaption } from '@/l
 import { getAllCars } from '@/data/cars'
 import BookingDialog from '@/components/BookingDialog/BookingDialog'
 import { convertCarPrice, formatCarPriceLabel } from '@/lib/currency'
+import { getBlackFridayDailyPrice } from '@/lib/blackFridayPromo'
 import { trackEvent } from '@/lib/trackEvent'
 import styles from './HorizontalCarSection.module.scss'
 
@@ -129,7 +130,7 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
       const dailyMad = car.pricing?.shortTerm || car.pricePerDay
       setSelectedCar({
         name: car.carName,
-        price: convertCarPrice(dailyMad, 'EUR'),
+        price: getBlackFridayDailyPrice(car.slug, 'EUR') ?? convertCarPrice(dailyMad, 'EUR'),
         image: car.carImage,
         slug: car.slug,
         brand: car.brand,
@@ -148,7 +149,8 @@ const HorizontalCarSection = ({ onAnimationComplete }: HorizontalCarSectionProps
         carSlug: car.slug,
         carName: car.carName,
       })
-      const daily = convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')
+      const daily = getBlackFridayDailyPrice(car.slug, 'EUR') ??
+        convertCarPrice(car.pricing?.shortTerm || car.pricePerDay, 'EUR')
       const message = `Bonjour, je souhaite louer la ${car.carName} au tarif de ${formatCarPriceLabel(daily, 'EUR')}/jour (minimum 3 jours). Pourriez-vous me confirmer les disponibilités et m’indiquer la procédure de réservation ? Merci.`;
       
       // Encode the message for URL

@@ -1328,7 +1328,7 @@
       {
         "label": "Google",
         "value": "5,0",
-        "helper": "626 opinie"
+        "helper": "271 opinii"
       }
     ],
     "aiHighlights": [
@@ -1513,7 +1513,7 @@
     "liveLabel": "Oferta live",
     "photoBadge": "Black Friday",
     "topMessage": "Black Friday: od <strong>{price}</strong>/dzień · zniżka już naliczona · kod <strong>{code}</strong>",
-    "topMessageShort": "Od <strong>{price}</strong>/dzień",
+    "topMessageShort": "Black Friday · <strong>{price}</strong>/dzień",
     "countdownAria": "Pozostały czas Black Friday",
     "unitDay": "d",
     "unitHour": "g",

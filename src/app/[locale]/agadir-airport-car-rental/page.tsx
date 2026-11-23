@@ -27,6 +27,7 @@ import {
   SITE_URL,
 } from "@/lib/business";
 import { convertCarPrice, formatCarPriceLabel } from "@/lib/currency";
+import { getBlackFridayDailyPrice } from "@/lib/blackFridayPromo";
 import { reviews } from "@/data/reviews";
 import { blogIndexPath } from "@/lib/seo/blog-paths";
 
@@ -134,7 +135,8 @@ export default async function AgadirAirportCarRentalPage() {
     const c = carForLocale(car, l);
     const localizedSlug = carSlugForLocale(car.slug, l);
     const href = getPathname({ locale: l, href: carBrandScopedHref(car.brand, localizedSlug) });
-    const dailyEur = convertCarPrice(car.pricing?.shortTerm ?? car.pricePerDay, "EUR");
+    const dailyEur = getBlackFridayDailyPrice(car.slug, "EUR") ??
+      convertCarPrice(car.pricing?.shortTerm ?? car.pricePerDay, "EUR");
     return {
       name: c.carName,
       image: c.carImage,
